@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>ESFA.Vacancy.Api.Types</id>
+        <version>0.0.1</version>
+        <authors>sfanuget</authors>
+		<licenseUrl>https://github.com/SkillsFundingAgency/roatp-register/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/SkillsFundingAgency/roatp-register</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>types for the ESFA.vacancy client service</description>
+		<summary>Types used for vacancy API client service</summary>
+        <copyright>Copyright 2017</copyright>
+    </metadata>
+     <files>
+        <file src="\..\src\Esfa.Vacancy.Api.Client\bin\Release\Esfa.Vacancy.Api.Types.dll" target="lib\net45" />
+     </files>
+</package>

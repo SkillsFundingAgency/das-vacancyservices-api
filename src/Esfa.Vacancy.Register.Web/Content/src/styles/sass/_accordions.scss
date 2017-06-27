@@ -1,0 +1,24 @@
+﻿.js-enabled {
+    .accordion-tab {
+        position: relative;
+        color: $link-colour;
+        padding-left: 15px;
+        cursor: pointer;
+        &:before {
+            @include closed-arrow($govuk-blue);
+            left: 0;
+        }
+        &:focus {
+            outline: 3px solid $focus-colour;
+        }
+        &.open {
+            &:before {
+                @include open-arrow($govuk-blue);
+            }
+        }
+    }
+    .accordion-panel {
+        
+    }
+
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>SFA.Roatp.Api.Client</id>
+        <version>0.0.1</version>
+        <authors>sfanuget</authors>
+		<licenseUrl>https://github.com/SkillsFundingAgency/roatp-register/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/SkillsFundingAgency/roatp-register</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>A .Net Client to call the Register of Active Training Providers (RoATP) Rest Api service</description>
+		<summary>SFA RoATP API Client</summary>
+        <copyright>Copyright 2017</copyright>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="9.0.1" />
+            <dependency id="SFA.Roatp.Api.Types" version="@@BuildNumber@@" />
+        </dependencies>
+    </metadata>
+     <files>
+        <file src="\..\src\SFA.Roatp.Api.Client\bin\Release\SFA.Roatp.Api.Client.dll" target="lib\net45" />
+     </files>
+</package>
