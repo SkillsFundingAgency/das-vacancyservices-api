@@ -17,9 +17,11 @@ namespace Esfa.Vacancy.Register.Web.Controllers
             _log = log;
         }
 
+
         /// <summary>
-        /// Check if vacancy exists
+        /// Check if a vacancy exists
         /// </summary>
+        /// <param name="reference"></param>
         [SwaggerOperation("Head")]
         [SwaggerResponse(HttpStatusCode.NoContent)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
@@ -30,10 +32,12 @@ namespace Esfa.Vacancy.Register.Web.Controllers
             Get(reference);
         }
 
+        
         /// <summary>
-        /// Get a vacancy
+        /// Get a vacancy by the public reference
         /// </summary>
-        /// <returns></returns>
+        /// <param name="reference">the public reference identifier</param>
+        /// <returns>A vacancy for an apprenticeship or a traineeship</returns>
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
