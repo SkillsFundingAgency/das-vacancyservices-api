@@ -22,6 +22,8 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("496b0f28-936c-4fbe-bb63-b848b5569f65")]
 
+[assembly: InternalsVisibleTo("Esfa.Vacancy.Register.UnitTests")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
@@ -33,4 +35,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("0.0.0")]
+[assembly: AssemblyInformationalVersion("0.0.0-rc.0")]
