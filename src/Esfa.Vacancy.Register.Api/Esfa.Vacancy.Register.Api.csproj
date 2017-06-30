@@ -47,6 +47,10 @@
     <DocumentationFile>bin\Esfa.Vacancy.Register.Api.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.3.0.1\lib\net45\MediatR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -401,6 +405,10 @@
     <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
       <Project>{3CADF1D0-BD14-4A5C-AFAD-FC78A31C09E7}</Project>
       <Name>Esfa.Vacancy.Api.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj">
+      <Project>{14E462C1-30DD-49FD-A265-2B16542A26CF}</Project>
+      <Name>Esfa.Vacancy.Register.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
       <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>
