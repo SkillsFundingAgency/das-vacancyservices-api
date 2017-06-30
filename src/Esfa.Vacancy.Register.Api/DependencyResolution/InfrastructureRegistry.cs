@@ -1,5 +1,4 @@
-﻿using Esfa.Vacancy.Register.Infrastructure.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+﻿using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +15,6 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                 x.GetInstance<IRequestContext>(),
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => new AppConfigSettingsProvider(new MachineSettings()));
-            For<IVacancyRepository>().Use<VacancyRepository>();
         }
 
         private IDictionary<string, object> GetProperties()

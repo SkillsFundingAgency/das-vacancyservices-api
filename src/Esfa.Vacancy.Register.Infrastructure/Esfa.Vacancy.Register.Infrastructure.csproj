@@ -79,11 +79,14 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
       <Project>{3cadf1d0-bd14-4a5c-afad-fc78a31c09e7}</Project>
       <Name>Esfa.Vacancy.Api.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
+      <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>
+      <Name>Esfa.Vacancy.Register.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,17 +1,23 @@
-﻿using System;
+﻿using Esfa.Vacancy.Register.Infrastructure.Repositories;
 using MediatR;
+using System.Threading.Tasks;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
-    public class GetVacancyQueryHandler : IRequestHandler<GetVacancyRequest, GetVacancyResponse>
+    public class GetVacancyQueryHandler : IAsyncRequestHandler<GetVacancyRequest, GetVacancyResponse>
     {
-        public GetVacancyResponse Handle(GetVacancyRequest message)
+        private readonly IVacancyRepository _vacancyRepository;
+
+        public GetVacancyQueryHandler(IVacancyRepository vacancyRepository)
         {
-            //todo: add call to repo to retrieve from DB
+            _vacancyRepository = vacancyRepository;
+        }
 
-            var vacancy = new Domain.Entities.Vacancy { Reference = message.Reference };
+        public async Task<GetVacancyResponse> Handle(GetVacancyRequest message)
+        {
+            var vacancy = await _vacancyRepository.GetVacancyByReferenceNumberAsync(message.Reference);
 
-            return new GetVacancyResponse {Vacancy = vacancy};
+            return new GetVacancyResponse { Vacancy = vacancy };
         }
     }
 }

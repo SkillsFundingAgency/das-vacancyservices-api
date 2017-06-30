@@ -50,9 +50,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
+      <Project>{3CADF1D0-BD14-4A5C-AFAD-FC78A31C09E7}</Project>
+      <Name>Esfa.Vacancy.Api.Types</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
       <Project>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</Project>
       <Name>Esfa.Vacancy.Register.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
+      <Project>{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}</Project>
+      <Name>Esfa.Vacancy.Register.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

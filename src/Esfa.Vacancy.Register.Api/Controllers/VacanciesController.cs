@@ -1,7 +1,6 @@
 ﻿using Esfa.Vacancy.Register.Api.Attributes;
-using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Api.Orchestrators;
 using MediatR;
-using Esfa.Vacancy.Register.Infrastructure.Repositories;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 using System.Net;
@@ -18,7 +17,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     {
         private readonly ILog _log;
         private readonly IMediator _mediator;
-        private readonly IVacancyRepository _vacancyRepository;
 
         public VacanciesController(ILog log, IMediator mediator)
         {
@@ -48,26 +46,19 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        public async Task<Vacancy.Api.Types.Vacancy> Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            //todo: add mediatr call here, eg: 
-            //var vacancy = _mediator.Send(new GetVacancyRequest {Reference = reference});
+            var vacancyOrchestrator = new VacancyOrchestrator(_mediator);
 
-            var response = new Vacancy.Api.Types.Vacancy {Reference = reference};
+            var vacancy =  await vacancyOrchestrator.GetVacancyDetailsAsync(id);
 
-            if (response == null)
+            if (vacancy == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
             }
 
-            response.Url = Resolve(response.Reference);
-
-            return response;
+            return Ok(vacancy);
         }
 
-        private string Resolve(int reference)
-        {
-            return Url.Link("DefaultApi", new { controller = "Vacancies", id = reference });
-        }
     }
 }
