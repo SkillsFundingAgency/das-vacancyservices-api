@@ -274,6 +274,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Models\VersionInformation.cs" />
