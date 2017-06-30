@@ -1,4 +1,6 @@
-﻿namespace Esfa.Vacancy.Api.Types
+﻿using System;
+
+namespace Esfa.Vacancy.Api.Types
 {
     /// <summary>
     /// A vacancy for either an apprenticeship or a traineeship 
@@ -6,12 +8,13 @@
     public class Vacancy
     {
         /// <summary>
-        /// The public reference for the Vacancy
+        /// The public vacancy reference identifier for the vacancy
         /// </summary>
         public int Reference { get; set; }
+
         /// <summary>
-        /// The Uri find the vacancy on this service
+        /// The Url to find the vacancy on this service
         /// </summary>
-        public string Uri { get; set; }
+        public string Url { get; set; }
     }
 }
