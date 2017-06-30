@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using MediatR;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
 {
@@ -30,6 +31,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                 {
                     scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith(ServiceName));
                     scan.RegisterConcreteTypesAgainstTheFirstInterface();
+                    scan.ConnectImplementationsToTypesClosing(typeof(AbstractValidator<>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
