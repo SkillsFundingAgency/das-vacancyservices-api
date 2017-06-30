@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using Esfa.Vacancy.Register.Api.App_Start;
 using Newtonsoft.Json;
 
 namespace Esfa.Vacancy.Register.Api
@@ -22,6 +24,8 @@ namespace Esfa.Vacancy.Register.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Services.Replace(typeof(IExceptionHandler), new CustomExceptionHandler());
         }
     }
 }
