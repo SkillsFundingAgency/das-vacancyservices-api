@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Web.Mvc;
 using Microsoft.Azure;
 
@@ -6,16 +7,13 @@ namespace Esfa.Vacancy.Register.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
-        {
-        }
+        public HomeController() { }
 
-        // GET: Home
         public ActionResult Index()
         {
             return RedirectToAction("Api", "Home");
         }
-        
+
         public ActionResult Api()
         {
             return View();
@@ -28,7 +26,7 @@ namespace Esfa.Vacancy.Register.Web.Controllers
 
             builder.AppendLine("User-agent: *");
 
-            if (!bool.Parse(CloudConfigurationManager.GetSetting("FeatureToggle.RobotsAllowFeature")??"false"))
+            if (!bool.Parse(CloudConfigurationManager.GetSetting("FeatureToggle.RobotsAllowFeature") ?? "false"))
             {
                 builder.AppendLine("Disallow: /");
             }

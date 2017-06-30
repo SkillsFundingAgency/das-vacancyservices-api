@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using Microsoft.Azure;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Settings
