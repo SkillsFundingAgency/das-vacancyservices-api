@@ -2,6 +2,8 @@
 using System.Net;
 using System.Web.Http;
 using Esfa.Vacancy.Register.Api.Attributes;
+using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using MediatR;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
@@ -11,10 +13,12 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     public class VacanciesController : ApiController
     {
         private readonly ILog _log;
+        private readonly IMediator _mediator;
 
-        public VacanciesController(ILog log)
+        public VacanciesController(ILog log, IMediator mediator)
         {
             _log = log;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -43,6 +47,9 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [ExceptionHandling]
         public Vacancy.Api.Types.Vacancy Get(int reference)
         {
+            //todo: add mediatr call here, eg: 
+            //var vacancy = _mediator.Send(new GetVacancyRequest {Reference = reference});
+
             var response = new Vacancy.Api.Types.Vacancy {Reference = reference};
 
             if (response == null)

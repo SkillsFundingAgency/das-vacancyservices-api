@@ -15,22 +15,23 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using MediatR;
+
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
 {
     public class DefaultRegistry : StructureMap.Registry
     {
-        #region Constructors and Destructors
+        private const string ServiceName = "Esfa.Vacancy.Register";
 
         public DefaultRegistry()
         {
             Scan(
                 scan => {
-                    scan.TheCallingAssembly();
-                    scan.WithDefaultConventions();
+                    scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith(ServiceName));
+                    scan.RegisterConcreteTypesAgainstTheFirstInterface();
+                    scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
+                    scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
                 });
-            //For<IExample>().Use<Example>();
         }
-
-        #endregion
     }
 }
