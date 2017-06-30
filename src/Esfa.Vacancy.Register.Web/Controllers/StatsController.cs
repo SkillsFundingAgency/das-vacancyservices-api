@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -19,7 +15,7 @@ namespace Esfa.Vacancy.Register.Web.Controllers
     public class StatsController : ApiController
     {
         /// <summary>
-        /// 
+        /// The version of the service
         /// </summary>
         /// <returns>Some details about the versions</returns>
         [Route("stats/version")]
@@ -30,13 +26,14 @@ namespace Esfa.Vacancy.Register.Web.Controllers
             var assembly = Assembly.GetExecutingAssembly();
             var version = assembly.GetName().Version.ToString();
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string assemblyInformationalVersion = fileVersionInfo.ProductVersion;
+            var assemblyInformationalVersion = fileVersionInfo.ProductVersion;
+
             return new VersionInformation
             {
                 SemanticVersion = assemblyInformationalVersion,
                 AssemblyVersion = version,
                 PackageVersion = assemblyInformationalVersion?.Split('-').FirstOrDefault()
-        };
+            };
         }
     }
 }

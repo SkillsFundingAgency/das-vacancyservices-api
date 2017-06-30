@@ -34,9 +34,9 @@ namespace Esfa.Vacancy.Register.Web.Controllers
 
         
         /// <summary>
-        /// Get a vacancy by the public reference
+        /// Get a vacancy by the public vacancy reference identifier
         /// </summary>
-        /// <param name="reference">the public reference identifier</param>
+        /// <param name="reference">The public vacancy reference identifier</param>
         /// <returns>A vacancy for an apprenticeship or a traineeship</returns>
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Api.Types.Vacancy))]
@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Register.Web.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            response.Uri = Resolve(response.Reference);
+            response.Url = Resolve(response.Reference);
 
             return response;
         }
