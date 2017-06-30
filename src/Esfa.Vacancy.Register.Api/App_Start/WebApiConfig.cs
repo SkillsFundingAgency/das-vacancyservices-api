@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Esfa.Vacancy.Register.Api.App_Start;
 using Newtonsoft.Json;
 
 namespace Esfa.Vacancy.Register.Api
@@ -8,6 +9,7 @@ namespace Esfa.Vacancy.Register.Api
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StrictEnumConverter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
