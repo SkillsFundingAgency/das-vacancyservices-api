@@ -1,13 +1,70 @@
-﻿using System.Threading.Tasks;
+﻿using Dapper;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
     public class VacancyRepository : IVacancyRepository
     {
-        public async Task<Domain.Entities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
+        private readonly IProvideSettings _provideSettings;
+
+        public VacancyRepository(IProvideSettings provideSettings)
         {
-            await Task.Delay(10);
-            return null;
+            _provideSettings = provideSettings;
         }
+
+        public async Task<DomainEntities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
+        {
+            var connectionString = _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
+
+            DomainEntities.Vacancy vacancy;
+
+            using (var sqlConn = new SqlConnection(connectionString))
+            {
+                var query = $"{GetVacancyDetailsQuery} AND V.VacancyReferenceNumber = {referenceNumber}";
+                await sqlConn.OpenAsync();
+                var results = await sqlConn.QueryAsync<DomainEntities.Vacancy>(query);
+                vacancy = results.FirstOrDefault();
+            }
+
+            return vacancy;
+        }
+
+        const string GetVacancyDetailsQuery = @"
+SELECT  V.VacancyReferenceNumber AS Reference
+,       V.Title
+,       V.ShortDescription
+,       V.[Description]
+,       V.VacancyTypeId
+,       V.WageUnitId
+,       V.WeeklyWage
+,       V.WorkingWeek
+,       V.WageText
+,       V.HoursPerWeek
+,       V.DurationValue AS ExpectedDuration
+,       V.ExpectedStartDate
+,		VH.HistoryDate AS DatePosted
+,       V.ApplicationClosingDate
+,       V.NumberofPositions 
+,       V.EmployerDescription
+,       V.EmployersWebsite
+,       V.TrainingTypeId
+,       RS.LarsCode AS LarsStandardId
+,       CAST(AO.ShortName AS INT) AS SSA1Code
+FROM[dbo].[Vacancy]        V
+WITH(NOLOCK)
+INNER JOIN [dbo].[VacancyHistory] VH
+	ON V.VacancyId = VH.VacancyId and VH.VacancyHistoryEventSubTypeId = 2
+LEFT JOIN   [Reference].[Standard] RS 
+    ON V.StandardId = RS.StandardId
+LEFT JOIN   [Reference].[StandardSector] RSS
+    ON RS.StandardSectorId = RSS.StandardSectorId
+LEFT JOIN    [dbo].[ApprenticeshipOccupation] AO
+    ON RSS.ApprenticeshipOccupationId = AO.ApprenticeshipOccupationId
+WHERE V.VacancyStatusId = 2
+AND V.ApprenticeshipFrameworkId IS NULL";
     }
 }

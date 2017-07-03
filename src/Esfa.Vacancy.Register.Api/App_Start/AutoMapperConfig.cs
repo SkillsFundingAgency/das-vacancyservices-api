@@ -10,7 +10,9 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>();
+                cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
+                .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => (ApiTypes.VacancyType)source.VacancyTypeId))
+                .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => (ApiTypes.WageUnit)source.WageUnitId));
             });
         }
     }
