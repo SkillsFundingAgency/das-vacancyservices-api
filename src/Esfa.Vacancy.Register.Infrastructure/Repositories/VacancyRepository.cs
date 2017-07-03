@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using System.Data.SqlClient;
 using System.Linq;
