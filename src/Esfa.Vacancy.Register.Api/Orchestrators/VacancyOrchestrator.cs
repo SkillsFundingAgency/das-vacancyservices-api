@@ -1,6 +1,7 @@
 ﻿using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using MediatR;
 using System.Threading.Tasks;
+using static AutoMapper.Mapper;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
@@ -17,9 +18,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         {
             var response = await _mediator.Send(new GetVacancyRequest() { Reference = id });
 
-            //TODO convert response here using Automapper
-
-            return new Vacancy.Api.Types.Vacancy();
+            return response == null ? null : Map<Vacancy.Api.Types.Vacancy>(response.Vacancy);
         }
     }
 }

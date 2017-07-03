@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Esfa.Vacancy.Register.Api.App_Start;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Api
@@ -26,6 +27,7 @@ namespace Esfa.Vacancy.Register.Api
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            AutoMapperConfig.Configure();
 
             logger.Info("Web Role started");
         }
