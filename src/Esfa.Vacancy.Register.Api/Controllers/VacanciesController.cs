@@ -1,11 +1,11 @@
-﻿using Esfa.Vacancy.Register.Api.Attributes;
+﻿using System.Net;
+using System.Threading.Tasks;
+using System.Web.Http;
+using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
@@ -50,15 +50,9 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         {
             var vacancyOrchestrator = new VacancyOrchestrator(_mediator);
 
-            var vacancy =  await vacancyOrchestrator.GetVacancyDetailsAsync(id);
-
-            if (vacancy == null)
-            {
-                return NotFound();
-            }
+            var vacancy = await vacancyOrchestrator.GetVacancyDetailsAsync(id);
 
             return Ok(vacancy);
         }
-
     }
 }
