@@ -1,6 +1,7 @@
-﻿using Esfa.Vacancy.Register.Infrastructure.Repositories;
+﻿using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
 using MediatR;
+using SFA.DAS.NLog.Logger;
 using System.Threading.Tasks;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
@@ -9,16 +10,21 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
     {
         private readonly AbstractValidator<GetVacancyRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
+        private readonly ILog _logger;
 
         public GetVacancyQueryHandler(AbstractValidator<GetVacancyRequest> validator,
-            IVacancyRepository vacancyRepository)
+            IVacancyRepository vacancyRepository,
+            ILog logger)
         {
             _validator = validator;
             _vacancyRepository = vacancyRepository;
+            _logger = logger;
         }
 
         public async Task<GetVacancyResponse> Handle(GetVacancyRequest message)
         {
+            _logger.Info($"Getting Vacancy Details, Vacancy: {message.Reference}");
+
             var validationResult = _validator.Validate(message);
 
             if (!validationResult.IsValid)
