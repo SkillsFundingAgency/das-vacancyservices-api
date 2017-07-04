@@ -25,9 +25,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
-                var query = $"{GetVacancyDetailsQuery} AND V.VacancyReferenceNumber = {referenceNumber}";
                 await sqlConn.OpenAsync();
-                var results = await sqlConn.QueryAsync<DomainEntities.Vacancy>(query);
+                var results = await sqlConn.QueryAsync<DomainEntities.Vacancy>(GetVacancyDetailsQuery, new { ReferenceNumber = referenceNumber });
                 vacancy = results.FirstOrDefault();
             }
 
@@ -66,6 +65,7 @@ LEFT JOIN   [Reference].[StandardSector] RSS
 LEFT JOIN    [dbo].[ApprenticeshipOccupation] AO
     ON RSS.ApprenticeshipOccupationId = AO.ApprenticeshipOccupationId
 WHERE V.VacancyStatusId = 2
-AND V.ApprenticeshipFrameworkId IS NULL";
+AND V.ApprenticeshipFrameworkId IS NULL
+AND V.VacancyReferenceNumber = @ReferenceNumber";
     }
 }
