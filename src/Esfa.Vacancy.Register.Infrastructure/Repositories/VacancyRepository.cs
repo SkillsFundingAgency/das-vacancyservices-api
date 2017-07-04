@@ -19,14 +19,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         public async Task<DomainEntities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
         {
-            var connectionString = _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
+            var connectionString =
+                _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
 
             DomainEntities.Vacancy vacancy;
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
                 await sqlConn.OpenAsync();
-                var results = await sqlConn.QueryAsync<DomainEntities.Vacancy>(GetVacancyDetailsQuery, new { ReferenceNumber = referenceNumber });
+                var results =
+                    await sqlConn.QueryAsync<DomainEntities.Vacancy>(
+                        GetVacancyDetailsQuery, new { ReferenceNumber = referenceNumber });
                 vacancy = results.FirstOrDefault();
             }
 
