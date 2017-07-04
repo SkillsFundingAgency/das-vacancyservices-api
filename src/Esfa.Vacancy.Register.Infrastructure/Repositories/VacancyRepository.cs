@@ -1,9 +1,9 @@
-﻿using Dapper;
-using Esfa.Vacancy.Register.Domain.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
@@ -58,7 +58,6 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       RS.LarsCode AS LarsStandardId
 ,       CAST(AO.ShortName AS INT) AS SSA1Code
 FROM[dbo].[Vacancy]        V
-WITH(NOLOCK)
 INNER JOIN [dbo].[VacancyHistory] VH
 	ON V.VacancyId = VH.VacancyId and VH.VacancyHistoryEventSubTypeId = 2
 LEFT JOIN   [Reference].[Standard] RS 
