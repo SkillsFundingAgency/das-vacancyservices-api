@@ -50,6 +50,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\UnauthorisedException.cs" />
+    <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyQueryHandler.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyRequest.cs" />
