@@ -1,8 +1,9 @@
-﻿using Esfa.Vacancy.Register.Domain.Repositories;
+﻿using System.Threading.Tasks;
+using Esfa.Vacancy.Register.Application.Exceptions;
+using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
-using System.Threading.Tasks;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
@@ -31,6 +32,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
                 throw new ValidationException(validationResult.Errors);
 
             var vacancy = await _vacancyRepository.GetVacancyByReferenceNumberAsync(message.Reference);
+
+            if (vacancy == null) throw new ResourceNotFoundException($"Vacancy: {message.Reference}");
 
             return new GetVacancyResponse { Vacancy = vacancy };
         }
