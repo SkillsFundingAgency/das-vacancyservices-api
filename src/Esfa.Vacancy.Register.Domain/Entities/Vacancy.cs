@@ -85,8 +85,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int? LarsStandardId { get; set; }
 
         /// <summary>
-        /// SSA1 Code
+        /// Framework Code
         /// </summary>
-        public int? Ssa1Code { get; set; }
+        public string FrameworkCode { get; set; }
     }
 }

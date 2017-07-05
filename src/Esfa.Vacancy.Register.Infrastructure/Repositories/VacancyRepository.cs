@@ -56,7 +56,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.EmployersWebsite
 ,       V.TrainingTypeId
 ,       RS.LarsCode AS LarsStandardId
-,       CAST(AO.ShortName AS INT) AS SSA1Code
+,       AF.ShortName AS FrameworkCode
 FROM[dbo].[Vacancy]        V
 INNER JOIN [dbo].[VacancyHistory] VH
 	ON V.VacancyId = VH.VacancyId and VH.VacancyHistoryEventSubTypeId = 2
@@ -64,10 +64,11 @@ LEFT JOIN   [Reference].[Standard] RS
     ON V.StandardId = RS.StandardId
 LEFT JOIN   [Reference].[StandardSector] RSS
     ON RS.StandardSectorId = RSS.StandardSectorId
-LEFT JOIN    [dbo].[ApprenticeshipOccupation] AO
+LEFT JOIN   [dbo].[ApprenticeshipOccupation] AO
     ON RSS.ApprenticeshipOccupationId = AO.ApprenticeshipOccupationId
+LEFT JOIN   [dbo].[ApprenticeshipFramework] AF
+    ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
 WHERE V.VacancyStatusId = 2
-AND V.ApprenticeshipFrameworkId IS NULL
 AND V.VacancyReferenceNumber = @ReferenceNumber";
     }
 }
