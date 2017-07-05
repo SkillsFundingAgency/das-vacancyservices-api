@@ -88,8 +88,8 @@ namespace Esfa.Vacancy.Api.Types
         public int? LarsStandardId { get; set; }
 
         /// <summary>
-        /// SSA1 Code
+        /// Framework Code
         /// </summary>
-        public int? Ssa1Code { get; set; }
+        public int? FrameworkCode { get; set; }
     }
 }
