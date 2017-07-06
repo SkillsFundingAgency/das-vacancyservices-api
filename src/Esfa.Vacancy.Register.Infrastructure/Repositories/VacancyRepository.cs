@@ -47,7 +47,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.WorkingWeek
 ,       V.WageText
 ,       V.HoursPerWeek
-,       V.DurationValue AS ExpectedDuration
+,       V.ExpectedDuration 
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
@@ -55,17 +55,18 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.EmployerDescription
 ,       V.EmployersWebsite
 ,       V.TrainingTypeId
-,       RS.LarsCode AS LarsStandardId
+,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
 FROM[dbo].[Vacancy]        V
-INNER JOIN [dbo].[VacancyHistory] VH
-	ON V.VacancyId = VH.VacancyId and VH.VacancyHistoryEventSubTypeId = 2
+INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
+            FROM [dbo].[VacancyHistory]
+            WHERE VacancyHistoryEventTypeId = 1
+            AND VacancyHistoryEventSubTypeId = 2
+            GROUP BY VacancyId
+           ) VH
+	ON V.VacancyId = VH.VacancyId 
 LEFT JOIN   [Reference].[Standard] RS 
     ON V.StandardId = RS.StandardId
-LEFT JOIN   [Reference].[StandardSector] RSS
-    ON RS.StandardSectorId = RSS.StandardSectorId
-LEFT JOIN   [dbo].[ApprenticeshipOccupation] AO
-    ON RSS.ApprenticeshipOccupationId = AO.ApprenticeshipOccupationId
 LEFT JOIN   [dbo].[ApprenticeshipFramework] AF
     ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
 WHERE V.VacancyStatusId = 2

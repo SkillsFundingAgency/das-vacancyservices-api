@@ -26,10 +26,10 @@ namespace Esfa.Vacancy.Register.Api.App_Start
     {
         public int? Convert(string source, int? destination, ResolutionContext context)
         {
-            int i;
-            if ((string.IsNullOrWhiteSpace(source)) || (!int.TryParse(source, out i)))
+            int value;
+            if ((string.IsNullOrWhiteSpace(source)) || (!int.TryParse(source, out value)))
                 return null;
-            return i;
+            return value;
         }
     }
 

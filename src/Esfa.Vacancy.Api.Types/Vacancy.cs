@@ -60,7 +60,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Duration of the vacancy
         /// </summary>
-        public int ExpectedDuration { get; set; }
+        public string ExpectedDuration { get; set; }
 
         /// <summary>
         /// Expected start date
@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// LARS Standard Id
         /// </summary>
-        public int? LarsStandardId { get; set; }
+        public int? StandardCode { get; set; }
 
         /// <summary>
         /// Framework Code
