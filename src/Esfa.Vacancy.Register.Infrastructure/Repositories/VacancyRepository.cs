@@ -58,6 +58,13 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
 ,       E.FullName AS EmployerName
+,       TextFields.[TrainingToBeProvided]
+,       TextFields.[QulificationsRequired]
+,       TextFields.[SkillsRequired]
+,       TextFields.[PersonalQualities]
+,       TextFields.[ImportantInformation]
+,       TextFields.[FutureProspects]
+,       TextFields.[RealityCheck]
 FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
@@ -74,7 +81,23 @@ INNER JOIN VacancyOwnerRelationship AS R
     ON      V.VacancyOwnerRelationshipId = R.VacancyOwnerRelationshipId
 INNER JOIN Employer AS E 
     ON      R.EmployerId = E.EmployerId
+LEFT JOIN (
+            SELECT 
+                 VacancyId
+            ,    MAX(CASE WHEN Field = 1 THEN [Value] END ) AS [TrainingToBeProvided]
+            ,    MAX(CASE WHEN Field = 2 THEN [Value] END ) AS [QulificationsRequired]
+            ,    MAX(CASE WHEN Field = 3 THEN [Value] END ) AS [SkillsRequired]
+            ,    MAX(CASE WHEN Field = 4 THEN [Value] END ) AS [PersonalQualities]
+            ,    MAX(CASE WHEN Field = 5 THEN [Value] END ) AS [ImportantInformation]
+            ,    MAX(CASE WHEN Field = 6 THEN [Value] END ) AS [FutureProspects]
+            ,    MAX(CASE WHEN Field = 7 THEN [Value] END ) AS [RealityCheck]
+            FROM VacancyTextField AS T
+            GROUP BY VacancyId
+          ) AS TextFields
+    ON      TextFields.VacancyId = V.VacancyId
 WHERE V.VacancyStatusId = 2
-AND V.VacancyReferenceNumber = @ReferenceNumber";
+AND V.VacancyReferenceNumber = @ReferenceNumber
+
+";
     }
 }
