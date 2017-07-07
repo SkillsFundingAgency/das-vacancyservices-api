@@ -80,13 +80,18 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int NumberOfPositions { get; set; }
 
         /// <summary>
-        /// LARS Standard Id
+        /// Standard code
         /// </summary>
         public int? StandardCode { get; set; }
 
         /// <summary>
-        /// Framework Code
+        /// Framework code
         /// </summary>
         public string FrameworkCode { get; set; }
+
+        /// <summary>
+        /// Employer name
+        /// </summary>
+        public string EmployerName { get; set; }
     }
 }
