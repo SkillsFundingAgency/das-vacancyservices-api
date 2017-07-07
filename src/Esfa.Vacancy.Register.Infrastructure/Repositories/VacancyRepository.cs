@@ -57,6 +57,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.TrainingTypeId
 ,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
+,       E.FullName AS EmployerName
 FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
@@ -69,6 +70,10 @@ LEFT JOIN   [Reference].[Standard] RS
     ON V.StandardId = RS.StandardId
 LEFT JOIN   [dbo].[ApprenticeshipFramework] AF
     ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
+INNER JOIN VacancyOwnerRelationship AS R 
+    ON      V.VacancyOwnerRelationshipId = R.VacancyOwnerRelationshipId
+INNER JOIN Employer AS E 
+    ON      R.EmployerId = E.EmployerId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber";
     }

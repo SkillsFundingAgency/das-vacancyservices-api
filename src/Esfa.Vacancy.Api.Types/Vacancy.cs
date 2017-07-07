@@ -83,7 +83,7 @@ namespace Esfa.Vacancy.Api.Types
         public int NumberOfPositions { get; set; }
 
         /// <summary>
-        /// LARS Standard Id
+        /// Standard code
         /// </summary>
         public int? StandardCode { get; set; }
 
@@ -91,5 +91,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Framework Code
         /// </summary>
         public int? FrameworkCode { get; set; }
+
+        /// <summary>
+        /// Employer Name
+        /// </summary>
+        public string EmployerName { get; set; }
     }
 }
