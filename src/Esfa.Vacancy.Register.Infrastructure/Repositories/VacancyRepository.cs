@@ -58,6 +58,8 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
 ,       E.FullName AS EmployerName
+,       V.EmployerDescription
+,       V.EmployersWebsite
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired]
 ,       TextFields.[SkillsRequired]
@@ -97,7 +99,6 @@ LEFT JOIN (
     ON      TextFields.VacancyId = V.VacancyId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber
-
 ";
     }
 }

@@ -40,6 +40,10 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string EmployerName { get; set; }
 
+        public string EmployerDescription { get; set; }
+
+        public string EmployersWebsite { get; set; }
+
         public string TrainingToBeProvided { get; set; }
 
         public string QulificatiosRequired { get; set; }

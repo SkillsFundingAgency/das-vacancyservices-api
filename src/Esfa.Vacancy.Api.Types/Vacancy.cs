@@ -152,6 +152,22 @@ namespace Esfa.Vacancy.Api.Types
         public string EmployerName { get; set; }
 
         /// <summary>
+        /// Gets or sets the employer description.
+        /// </summary>
+        /// <value>
+        /// The employer description.
+        /// </value>
+        public string EmployerDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the employers website.
+        /// </summary>
+        /// <value>
+        /// The employers website.
+        /// </value>
+        public string EmployersWebsite { get; set; }
+
+        /// <summary>
         /// Gets or sets the training to be provided.
         /// </summary>
         /// <value>
