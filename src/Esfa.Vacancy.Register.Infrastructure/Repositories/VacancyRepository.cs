@@ -28,15 +28,19 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             {
                 await sqlConn.OpenAsync();
                 var results =
-                    await sqlConn.QueryAsync<DomainEntities.Vacancy>(
-                        GetVacancyDetailsQuery, new { ReferenceNumber = referenceNumber });
+                    await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
+                        VacancyDetailsQuery,
+                        param: new { ReferenceNumber = referenceNumber },
+                        map: (v, a) => { v.EmployersAddress = a; return v; },
+                        splitOn: "AddressLine1");
+
                 vacancy = results.FirstOrDefault();
             }
 
             return vacancy;
         }
 
-        const string GetVacancyDetailsQuery = @"
+        const string VacancyDetailsQuery = @"
 SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.Title
 ,       V.ShortDescription
@@ -47,27 +51,65 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.WorkingWeek
 ,       V.WageText
 ,       V.HoursPerWeek
-,       V.DurationValue AS ExpectedDuration
+,       V.ExpectedDuration 
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
 ,       V.NumberofPositions 
+,       V.TrainingTypeId
+,       RS.LarsCode AS StandardCode
+,       AF.ShortName AS FrameworkCode
+,       E.FullName AS EmployerName
 ,       V.EmployerDescription
 ,       V.EmployersWebsite
-,       V.TrainingTypeId
-,       RS.LarsCode AS LarsStandardId
-,       CAST(AO.ShortName AS INT) AS SSA1Code
+,       TextFields.[TrainingToBeProvided]
+,       TextFields.[QulificationsRequired]
+,       TextFields.[SkillsRequired]
+,       TextFields.[PersonalQualities]
+,       TextFields.[ImportantInformation]
+,       TextFields.[FutureProspects]
+,       TextFields.[RealityCheck]
+,       E.AddressLine1
+,       E.AddressLine2
+,       E.AddressLine3
+,       E.AddressLine4
+,       E.AddressLine5
+,       E.Latitude
+,       E.Longitude
+,       E.PostCode
+,       E.Town
 FROM[dbo].[Vacancy]        V
-INNER JOIN [dbo].[VacancyHistory] VH
-	ON V.VacancyId = VH.VacancyId and VH.VacancyHistoryEventSubTypeId = 2
-LEFT JOIN   [Reference].[Standard] RS 
+INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
+            FROM [dbo].[VacancyHistory]
+            WHERE VacancyHistoryEventTypeId = 1
+            AND VacancyHistoryEventSubTypeId = 2
+            GROUP BY VacancyId
+           ) VH
+	ON V.VacancyId = VH.VacancyId 
+LEFT JOIN   [Reference].[Standard] AS RS 
     ON V.StandardId = RS.StandardId
-LEFT JOIN   [Reference].[StandardSector] RSS
-    ON RS.StandardSectorId = RSS.StandardSectorId
-LEFT JOIN    [dbo].[ApprenticeshipOccupation] AO
-    ON RSS.ApprenticeshipOccupationId = AO.ApprenticeshipOccupationId
+LEFT JOIN   [dbo].[ApprenticeshipFramework] AS AF
+    ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
+INNER JOIN VacancyOwnerRelationship AS R 
+    ON      V.VacancyOwnerRelationshipId = R.VacancyOwnerRelationshipId
+INNER JOIN Employer AS E 
+    ON      R.EmployerId = E.EmployerId
+LEFT JOIN (
+            SELECT 
+                 VacancyId
+            ,    MAX(CASE WHEN Field = 1 THEN [Value] END ) AS [TrainingToBeProvided]
+            ,    MAX(CASE WHEN Field = 2 THEN [Value] END ) AS [QulificationsRequired]
+            ,    MAX(CASE WHEN Field = 3 THEN [Value] END ) AS [SkillsRequired]
+            ,    MAX(CASE WHEN Field = 4 THEN [Value] END ) AS [PersonalQualities]
+            ,    MAX(CASE WHEN Field = 5 THEN [Value] END ) AS [ImportantInformation]
+            ,    MAX(CASE WHEN Field = 6 THEN [Value] END ) AS [FutureProspects]
+            ,    MAX(CASE WHEN Field = 7 THEN [Value] END ) AS [RealityCheck]
+            FROM VacancyTextField AS T
+            GROUP BY VacancyId
+          ) AS TextFields
+    ON      TextFields.VacancyId = V.VacancyId
 WHERE V.VacancyStatusId = 2
-AND V.ApprenticeshipFrameworkId IS NULL
-AND V.VacancyReferenceNumber = @ReferenceNumber";
+AND V.VacancyReferenceNumber = @ReferenceNumber
+";
     }
 }
