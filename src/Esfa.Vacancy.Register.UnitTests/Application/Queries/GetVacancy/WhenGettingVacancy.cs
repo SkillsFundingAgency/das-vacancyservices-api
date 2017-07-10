@@ -44,5 +44,16 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
 
             Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
         }
+
+        [Test]
+        public async Task ThenIfDataFoundReturnVacancy()
+        {
+            _validator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult());
+            var vacancy = new Domain.Entities.Vacancy();
+            _vacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+
+            var response = await _queryHandler.Handle(new GetVacancyRequest());
+            Assert.AreEqual(vacancy, response.Vacancy);
+        }
     }
 }
