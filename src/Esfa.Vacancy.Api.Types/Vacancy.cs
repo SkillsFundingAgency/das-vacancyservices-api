@@ -222,5 +222,7 @@ namespace Esfa.Vacancy.Api.Types
         /// The reality check.
         /// </value>
         public string RealityCheck { get; set; }
+
+        public Address EmployersAddress { get; set; }
     }
 }

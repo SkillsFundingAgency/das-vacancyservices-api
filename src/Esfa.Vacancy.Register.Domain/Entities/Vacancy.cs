@@ -57,5 +57,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string FutureProspects { get; set; }
 
         public string RealityCheck { get; set; }
+
+        public Address EmployersAddress { get; set; }
     }
 }

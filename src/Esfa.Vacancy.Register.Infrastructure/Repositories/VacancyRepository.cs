@@ -28,15 +28,19 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             {
                 await sqlConn.OpenAsync();
                 var results =
-                    await sqlConn.QueryAsync<DomainEntities.Vacancy>(
-                        GetVacancyDetailsQuery, new { ReferenceNumber = referenceNumber });
+                    await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
+                        VacancyDetailsQuery,
+                        param: new { ReferenceNumber = referenceNumber },
+                        map: (v, a) => { v.EmployersAddress = a; return v; },
+                        splitOn: "AddressLine1");
+
                 vacancy = results.FirstOrDefault();
             }
 
             return vacancy;
         }
 
-        const string GetVacancyDetailsQuery = @"
+        const string VacancyDetailsQuery = @"
 SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.Title
 ,       V.ShortDescription
@@ -52,8 +56,6 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
 ,       V.NumberofPositions 
-,       V.EmployerDescription
-,       V.EmployersWebsite
 ,       V.TrainingTypeId
 ,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
@@ -67,6 +69,15 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       TextFields.[ImportantInformation]
 ,       TextFields.[FutureProspects]
 ,       TextFields.[RealityCheck]
+,       E.AddressLine1
+,       E.AddressLine2
+,       E.AddressLine3
+,       E.AddressLine4
+,       E.AddressLine5
+,       E.Latitude
+,       E.Longitude
+,       E.PostCode
+,       E.Town
 FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
@@ -75,9 +86,9 @@ INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             GROUP BY VacancyId
            ) VH
 	ON V.VacancyId = VH.VacancyId 
-LEFT JOIN   [Reference].[Standard] RS 
+LEFT JOIN   [Reference].[Standard] AS RS 
     ON V.StandardId = RS.StandardId
-LEFT JOIN   [dbo].[ApprenticeshipFramework] AF
+LEFT JOIN   [dbo].[ApprenticeshipFramework] AS AF
     ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
 INNER JOIN VacancyOwnerRelationship AS R 
     ON      V.VacancyOwnerRelationshipId = R.VacancyOwnerRelationshipId
