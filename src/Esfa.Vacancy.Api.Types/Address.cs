@@ -43,14 +43,14 @@
         /// <value>
         /// The latitude.
         /// </value>
-        public string Latitude { get; set; }
+        public decimal? Latitude { get; set; }
         /// <summary>
         /// Gets or sets the longitude.
         /// </summary>
         /// <value>
         /// The longitude.
         /// </value>
-        public string Longitude { get; set; }
+        public decimal? Longitude { get; set; }
         /// <summary>
         /// Gets or sets the post code.
         /// </summary>

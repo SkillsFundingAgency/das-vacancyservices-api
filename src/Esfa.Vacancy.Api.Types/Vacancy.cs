@@ -223,6 +223,12 @@ namespace Esfa.Vacancy.Api.Types
         /// </value>
         public string RealityCheck { get; set; }
 
+        /// <summary>
+        /// Gets or sets the employer address.
+        /// </summary>
+        /// <value>
+        /// The employer address.
+        /// </value>
         public Address EmployerAddress { get; set; }
     }
 }
