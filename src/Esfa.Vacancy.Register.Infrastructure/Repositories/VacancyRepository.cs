@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
                         VacancyDetailsQuery,
                         param: new { ReferenceNumber = referenceNumber },
-                        map: (v, a) => { v.EmployersAddress = a; return v; },
+                        map: (v, a) => { v.EmployerAddress = a; return v; },
                         splitOn: "AddressLine1");
 
                 vacancy = results.FirstOrDefault();
@@ -61,7 +61,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       AF.ShortName AS FrameworkCode
 ,       E.FullName AS EmployerName
 ,       V.EmployerDescription
-,       V.EmployersWebsite
+,       V.EmployersWebsite AS EmployerWebsite
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired]
 ,       TextFields.[SkillsRequired]

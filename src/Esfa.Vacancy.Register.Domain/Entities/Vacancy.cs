@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string EmployerDescription { get; set; }
 
-        public string EmployersWebsite { get; set; }
+        public string EmployerWebsite { get; set; }
 
         public string TrainingToBeProvided { get; set; }
 
@@ -58,6 +58,6 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string RealityCheck { get; set; }
 
-        public Address EmployersAddress { get; set; }
+        public Address EmployerAddress { get; set; }
     }
 }

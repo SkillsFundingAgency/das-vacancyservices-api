@@ -165,7 +165,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The employers website.
         /// </value>
-        public string EmployersWebsite { get; set; }
+        public string EmployerWebsite { get; set; }
 
         /// <summary>
         /// Gets or sets the training to be provided.
@@ -223,6 +223,6 @@ namespace Esfa.Vacancy.Api.Types
         /// </value>
         public string RealityCheck { get; set; }
 
-        public Address EmployersAddress { get; set; }
+        public Address EmployerAddress { get; set; }
     }
 }
