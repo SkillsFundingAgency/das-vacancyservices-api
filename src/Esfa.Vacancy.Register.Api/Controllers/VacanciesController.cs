@@ -1,15 +1,18 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Register.Api.Attributes;
-using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Api.Orchestrators;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
-    [RoutePrefix("api")]
+    /// <summary>
+    /// 
+    /// </summary>
+    [RoutePrefix("api/vacancies")]
     public class VacanciesController : ApiController
     {
         private readonly ILog _log;
@@ -24,47 +27,32 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <summary>
         /// Check if a vacancy exists
         /// </summary>
-        /// <param name="reference"></param>
+        /// <param name="id"></param>
         [SwaggerOperation("Head")]
         [SwaggerResponse(HttpStatusCode.NoContent)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("vacancies/{reference}")]
         [ExceptionHandling]
-        public void Head(int reference)
+        public async Task Head(int id)
         {
-            Get(reference);
+            await Get(id);
         }
 
         /// <summary>
         /// Get a vacancy by the public vacancy reference identifier
         /// </summary>
-        /// <param name="reference">The public vacancy reference identifier</param>
+        /// <param name="id">The public vacancy reference identifier</param>
         /// <returns>A vacancy for an apprenticeship or a traineeship</returns>
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("vacancies/{reference}")]
         [ExceptionHandling]
-        public Vacancy.Api.Types.Vacancy Get(int reference)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            //todo: add mediatr call here, eg: 
-            //var vacancy = _mediator.Send(new GetVacancyRequest {Reference = reference});
+            var vacancyOrchestrator = new VacancyOrchestrator(_mediator);
 
-            var response = new Vacancy.Api.Types.Vacancy {Reference = reference};
+            var vacancy = await vacancyOrchestrator.GetVacancyDetailsAsync(id);
 
-            if (response == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-
-            response.Url = Resolve(response.Reference);
-
-            return response;
-        }
-
-        private string Resolve(int reference)
-        {
-            return Url.Link("DefaultApi", new {controller = "Vacancies", id = reference});
+            return Ok(vacancy);
         }
     }
 }

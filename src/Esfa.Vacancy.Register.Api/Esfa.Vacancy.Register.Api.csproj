@@ -47,6 +47,10 @@
     <DocumentationFile>bin\Esfa.Vacancy.Register.Api.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.1.0\lib\net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -278,6 +282,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\CustomExceptionHandler.cs" />
     <Compile Include="App_Start\CustomErrorResult.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
@@ -306,6 +311,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logging\RequestContext.cs" />
+    <Compile Include="Orchestrators\VacancyOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -416,6 +422,10 @@
     <ProjectReference Include="..\Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj">
       <Project>{14E462C1-30DD-49FD-A265-2B16542A26CF}</Project>
       <Name>Esfa.Vacancy.Register.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
+      <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>
+      <Name>Esfa.Vacancy.Register.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
       <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>

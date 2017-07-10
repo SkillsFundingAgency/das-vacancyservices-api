@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Esfa.Vacancy.Register.Infrastructure.Settings;
+using SFA.DAS.NLog.Logger;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
-using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
 {
