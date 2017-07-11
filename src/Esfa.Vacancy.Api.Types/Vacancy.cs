@@ -144,12 +144,28 @@ namespace Esfa.Vacancy.Api.Types
         public int? StandardCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the standard title.
+        /// </summary>
+        /// <value>
+        /// The standard title.
+        /// </value>
+        public string StandardTitle { get; set; }
+
+        /// <summary>
         /// Gets or sets the framework code.
         /// </summary>
         /// <value>
         /// The framework code.
         /// </value>
         public int? FrameworkCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the framework title.
+        /// </summary>
+        /// <value>
+        /// The framework title.
+        /// </value>
+        public string FrameworkTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the employer.

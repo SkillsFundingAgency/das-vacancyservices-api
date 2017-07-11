@@ -38,7 +38,11 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public int? StandardCode { get; set; }
 
-        public string FrameworkCode { get; set; }
+        public string StandardTitle { get; set; }
+
+        public int? FrameworkCode { get; set; }
+
+        public string FrameworkTitle { get; set; }
 
         public string EmployerName { get; set; }
 

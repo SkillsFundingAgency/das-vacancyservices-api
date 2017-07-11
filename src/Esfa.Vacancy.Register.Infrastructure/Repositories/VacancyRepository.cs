@@ -60,7 +60,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.TrainingTypeId
 ,       V.VacancyLocationTypeId
 ,       RS.LarsCode AS StandardCode
-,       AF.ShortName AS FrameworkCode
+,       CAST(AF.CodeName AS INT) AS FrameworkCode
 ,       E.FullName AS EmployerName
 ,       V.EmployerDescription
 ,       V.EmployersWebsite AS EmployerWebsite

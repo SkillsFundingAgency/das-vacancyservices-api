@@ -15,8 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using MediatR;
 using FluentValidation;
+using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
 {
@@ -36,7 +36,6 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                     scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
-
                 });
         }
     }

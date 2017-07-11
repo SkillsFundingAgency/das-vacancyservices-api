@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Domain.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
 using FluentValidation.Results;
@@ -18,12 +21,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         private readonly Mock<ILog> _logger = new Mock<ILog>();
         private readonly Mock<IVacancyRepository> _vacancyRepository = new Mock<IVacancyRepository>();
         private readonly Mock<AbstractValidator<GetVacancyRequest>> _validator = new Mock<AbstractValidator<GetVacancyRequest>>();
+        private readonly Mock<ITrainingDetailService> _mockTrainingDetailService = new Mock<ITrainingDetailService>();
         private GetVacancyQueryHandler _queryHandler;
 
         [SetUp]
         public void Setup()
         {
-            _queryHandler = new GetVacancyQueryHandler(_validator.Object, _vacancyRepository.Object, _logger.Object);
+            _queryHandler = new GetVacancyQueryHandler(_validator.Object, _vacancyRepository.Object, _logger.Object, _mockTrainingDetailService.Object);
         }
 
         [Test]
@@ -46,14 +50,58 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         }
 
         [Test]
-        public async Task ThenIfDataFoundReturnVacancy()
+        public async Task ThenIfVacancyHasFrameworkIdGetFrameworkTitle()
         {
-            _validator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult());
-            var vacancy = new Domain.Entities.Vacancy();
+            _validator
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Returns(new ValidationResult());
+            _mockTrainingDetailService
+                .Setup(s => s.GetFrameworkDetails(It.IsAny<int>()))
+                .ReturnsAsync(new Framework() { Title = "framework" });
+
+            var vacancy = new Domain.Entities.Vacancy() { FrameworkCode = 123 };
             _vacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetVacancyRequest());
+            _mockTrainingDetailService.Verify(s => s.GetStandardDetails(It.IsAny<int>()), Times.Never);
+            _mockTrainingDetailService.Verify(s => s.GetFrameworkDetails(It.IsAny<int>()));
             Assert.AreEqual(vacancy, response.Vacancy);
+            Assert.IsNotEmpty(vacancy.FrameworkTitle);
+        }
+
+        [Test]
+        public async Task ThenIfVacancyHasStandardCodeGetStandardTitle()
+        {
+            _validator
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Returns(new ValidationResult());
+            _mockTrainingDetailService
+                .Setup(s => s.GetStandardDetails(It.IsAny<int>()))
+                .ReturnsAsync(new Standard() { Title = "standard" });
+
+            var vacancy = new Domain.Entities.Vacancy() { StandardCode = 123 };
+            _vacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+
+            var response = await _queryHandler.Handle(new GetVacancyRequest());
+
+            _mockTrainingDetailService.Verify(s => s.GetStandardDetails(It.IsAny<int>()));
+            _mockTrainingDetailService.Verify(s => s.GetFrameworkDetails(It.IsAny<int>()), Times.Never);
+
+            Assert.AreEqual(vacancy, response.Vacancy);
+            Assert.IsNotEmpty(vacancy.StandardTitle);
+        }
+
+        [Test]
+        public void ThenIfVacancyHasNoTrainingTypeDefined()
+        {
+            _validator
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Returns(new ValidationResult());
+
+            var vacancy = new Domain.Entities.Vacancy();
+            _vacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+
+            Assert.ThrowsAsync<Exception>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
         }
     }
 }
