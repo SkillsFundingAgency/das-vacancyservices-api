@@ -55,8 +55,10 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
+,       V.InterviewsFromDate AS InterviewFromDate
 ,       V.NumberofPositions 
 ,       V.TrainingTypeId
+,       V.VacancyLocationTypeId
 ,       RS.LarsCode AS StandardCode
 ,       AF.ShortName AS FrameworkCode
 ,       E.FullName AS EmployerName

@@ -101,7 +101,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The expected start date.
         /// </value>
-        public DateTime ExpectedStartDate { get; set; }
+        public DateTime? ExpectedStartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date posted.
@@ -109,7 +109,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The date posted.
         /// </value>
-        public DateTime DatePosted { get; set; }
+        public DateTime? DatePosted { get; set; }
 
         /// <summary>
         /// Gets or sets the application closing date.
@@ -117,7 +117,15 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The application closing date.
         /// </value>
-        public DateTime ApplicationClosingDate { get; set; }
+        public DateTime? ApplicationClosingDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the interview from date.
+        /// </summary>
+        /// <value>
+        /// The interview from date.
+        /// </value>
+        public DateTime? InterviewFromDate { get; set; }
 
         /// <summary>
         /// Gets or sets the number of positions.
@@ -222,6 +230,14 @@ namespace Esfa.Vacancy.Api.Types
         /// The reality check.
         /// </value>
         public string RealityCheck { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the vacancy location.
+        /// </summary>
+        /// <value>
+        /// The type of the vacancy location.
+        /// </value>
+        public VacancyLocationType VacancyLocationType { get; set; }
 
         /// <summary>
         /// Gets or sets the employer address.

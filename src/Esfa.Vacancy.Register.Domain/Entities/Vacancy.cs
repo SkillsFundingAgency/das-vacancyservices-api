@@ -26,11 +26,13 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string ExpectedDuration { get; set; }
 
-        public DateTime ExpectedStartDate { get; set; }
+        public DateTime? ExpectedStartDate { get; set; }
 
-        public DateTime DatePosted { get; set; }
+        public DateTime? DatePosted { get; set; }
 
-        public DateTime ApplicationClosingDate { get; set; }
+        public DateTime? ApplicationClosingDate { get; set; }
+
+        public DateTime? InterviewFromDate { get; set; }
 
         public int NumberOfPositions { get; set; }
 
@@ -57,6 +59,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string FutureProspects { get; set; }
 
         public string RealityCheck { get; set; }
+
+        public int VacancyLocationTypeId { get; set; }
 
         public Address EmployerAddress { get; set; }
     }
