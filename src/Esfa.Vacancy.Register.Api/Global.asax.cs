@@ -36,13 +36,5 @@ namespace Esfa.Vacancy.Register.Api
             var application = sender as HttpApplication;
             application?.Context?.Response.Headers.Remove("Server");
         }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            var ex = Server.GetLastError().GetBaseException();
-
-            _logger.Error(ex, "App_Error");
-        }
-
     }
 }
