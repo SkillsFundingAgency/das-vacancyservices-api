@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             using (var client = new FrameworkCodeClient())
             {
                 var framework = await client.GetAsync(code);
-                if (framework == null) throw new TrainingResourceNotFoundException($"Framework: {code}");
+                if (framework == null) throw new Exception($"Framework: {code}");
                 return new Framework() { Title = framework.Title };
             }
         }
@@ -23,23 +23,9 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             using (var client = new StandardApiClient())
             {
                 var standard = await client.GetAsync(code);
-                if (standard == null) throw new TrainingResourceNotFoundException($"Standard: {code}");
+                if (standard == null) throw new Exception($"Standard: {code}");
                 return new Standard() { Title = standard.Title };
             }
-        }
-    }
-
-    public class TrainingResourceNotFoundException : Exception
-    {
-        public TrainingResourceNotFoundException()
-        {
-
-        }
-
-        public TrainingResourceNotFoundException(string message)
-            : base(message)
-        {
-
         }
     }
 }
