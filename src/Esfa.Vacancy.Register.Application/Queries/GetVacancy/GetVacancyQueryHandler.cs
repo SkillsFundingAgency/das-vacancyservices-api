@@ -42,12 +42,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 
             if (vacancy.FrameworkCode.HasValue)
             {
-                var framework = await _trainingDetailService.GetFrameworkDetails(vacancy.FrameworkCode.Value);
+                var framework = await _trainingDetailService.GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value);
                 vacancy.FrameworkTitle = framework.Title;
             }
             else if (vacancy.StandardCode.HasValue)
             {
-                var standard = await _trainingDetailService.GetStandardDetails(vacancy.StandardCode.Value);
+                var standard = await _trainingDetailService.GetStandardDetailsAsync(vacancy.StandardCode.Value);
                 vacancy.StandardTitle = standard.Title;
             }
             else

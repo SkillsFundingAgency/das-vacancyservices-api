@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Esfa.Vacancy.Register.Infrastructure.Settings
+﻿namespace Esfa.Vacancy.Register.Infrastructure.Settings
 {
     public sealed class ApplicationSettings
     {
