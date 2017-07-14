@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         }
 
         [Test]
-        public async Task ThenIfInvalidRequest()
+        public void ThenIfInvalidRequest()
         {
             var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, string.Empty) };
             _validator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult(failures));
@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         }
 
         [Test]
-        public async Task ThenIfNoDataFound()
+        public void ThenIfNoDataFound()
         {
             _validator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult());
             Domain.Entities.Vacancy vacancy = null;
@@ -92,7 +92,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         }
 
         [Test]
-        public async Task ThenRaiseExceptionIfVacancyHasNoTrainingTypeDefined()
+        public void ThenRaiseExceptionIfVacancyHasNoTrainingTypeDefined()
         {
             _validator
                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
