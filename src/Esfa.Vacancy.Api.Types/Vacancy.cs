@@ -255,6 +255,10 @@ namespace Esfa.Vacancy.Api.Types
         /// </value>
         public VacancyLocationType VacancyLocationType { get; set; }
 
+        public string SupplementaryQuestion1 { get; set; }
+
+        public string SupplementaryQuestion2 { get; set; }
+
         /// <summary>
         /// Gets or sets the employer address.
         /// </summary>

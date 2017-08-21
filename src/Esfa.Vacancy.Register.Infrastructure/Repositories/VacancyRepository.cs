@@ -71,6 +71,8 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       TextFields.[ImportantInformation]
 ,       TextFields.[FutureProspects]
 ,       TextFields.[RealityCheck]
+,       AdditionalQuestions.SupplementaryQuestion1
+,       AdditionalQuestions.SupplementaryQuestion2
 ,       E.AddressLine1
 ,       E.AddressLine2
 ,       E.AddressLine3
@@ -110,6 +112,15 @@ LEFT JOIN (
             GROUP BY VacancyId
           ) AS TextFields
     ON      TextFields.VacancyId = V.VacancyId
+LEFT JOIN (
+            SELECT 
+                 VacancyId
+            ,    MAX(CASE WHEN QuestionId = 1 THEN [Question] END ) AS [SupplementaryQuestion1]
+            ,    MAX(CASE WHEN QuestionId = 2 THEN [Question] END ) AS [SupplementaryQuestion2]
+            FROM AdditionalQuestion AS T
+            GROUP BY VacancyId
+          ) AS AdditionalQuestions
+    ON      AdditionalQuestions.VacancyId = V.VacancyId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber
 ";
