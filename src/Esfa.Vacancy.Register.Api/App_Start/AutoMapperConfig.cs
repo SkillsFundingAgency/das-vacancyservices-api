@@ -15,12 +15,42 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 cfg.CreateMap<int, ApiTypes.VacancyType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyType>());
                 cfg.CreateMap<int, ApiTypes.WageUnit>().ConvertUsing(new IntToEnumConverter<ApiTypes.WageUnit>());
                 cfg.CreateMap<int, ApiTypes.VacancyLocationType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyLocationType>());
-                cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
-                    .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
-                    .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
-                    .ForMember(apiType => apiType.VacancyLocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId));
+
+                CreateVacancyDetailsMapping(cfg);
+
                 cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
             });
+        }
+
+        private static void CreateVacancyDetailsMapping(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
+                .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
+                .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
+                .ForMember(apiType => apiType.VacancyLocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId))
+                .AfterMap((src, dest) =>
+                {
+                    if (src.IsAnonymousEmployer && (DomainTypes.VacancyStatus)src.VacancyStatusId == DomainTypes.VacancyStatus.Live)
+                    {
+                        ApplyAnonymisationToVacancy(src, dest);
+                    }
+                });
+        }
+
+        private static void ApplyAnonymisationToVacancy(DomainTypes.Vacancy src, ApiTypes.Vacancy dest)
+        {
+            dest.EmployerName = src.AnonymousEmployerName;
+            dest.EmployerDescription = src.AnonymousEmployerDescription;
+            dest.EmployerWebsite = null;
+
+            dest.EmployerAddress.AddressLine1 = null;
+            dest.EmployerAddress.AddressLine2 = null;
+            dest.EmployerAddress.AddressLine3 = null;
+            dest.EmployerAddress.AddressLine4 = null;
+            dest.EmployerAddress.AddressLine5 = null;
+            dest.EmployerAddress.PostCode = null;
+            dest.EmployerAddress.Longitude = null;
+            dest.EmployerAddress.Latitude = null;
         }
     }
 

@@ -51,7 +51,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.WorkingWeek
 ,       V.WageText
 ,       V.HoursPerWeek
-,       V.ExpectedDuration 
+,       V.ExpectedDuration
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
@@ -62,8 +62,11 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       RS.LarsCode AS StandardCode
 ,       CAST(AF.CodeName AS INT) AS FrameworkCode
 ,       E.FullName AS EmployerName
-,       V.EmployerDescription
-,       V.EmployersWebsite AS EmployerWebsite
+,       V.EmployerDescription AS EmployerDescription
+,       V.EmployerAnonymousName AS AnonymousEmployerName
+,       V.AnonymousAboutTheEmployer AS AnonymousEmployerDescription
+,       V.EmployerAnonymousReason AS AnonymousEmployerReason
+,       V.EmployersWebsite
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired] AS QualificationsRequired
 ,       TextFields.[SkillsRequired]
@@ -82,6 +85,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       E.Longitude
 ,       E.PostCode
 ,       E.Town
+,       V.VacancyStatusId
 FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]

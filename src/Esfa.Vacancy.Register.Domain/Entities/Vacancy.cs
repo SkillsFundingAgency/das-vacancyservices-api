@@ -48,6 +48,12 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string EmployerDescription { get; set; }
 
+        public string AnonymousEmployerName { get; set; }
+
+        public string AnonymousEmployerDescription { get; set; }
+
+        public string AnonymousEmployerReason { get; set; }
+
         public string EmployerWebsite { get; set; }
 
         public string TrainingToBeProvided { get; set; }
@@ -71,5 +77,9 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string SupplementaryQuestion2 { get; set; }
 
         public Address EmployerAddress { get; set; }
+
+        public int VacancyStatusId { get; set; }
+
+        public bool IsAnonymousEmployer => string.IsNullOrEmpty(AnonymousEmployerName) == false;
     }
 }
