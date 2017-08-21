@@ -240,12 +240,12 @@ namespace Esfa.Vacancy.Api.Types
         public string FutureProspects { get; set; }
 
         /// <summary>
-        /// Gets or sets the reality check.
+        /// Gets or sets the things to consider.
         /// </summary>
         /// <value>
-        /// The reality check.
+        /// The things to consider.
         /// </value>
-        public string RealityCheck { get; set; }
+        public string ThingsToConsider { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the vacancy location.

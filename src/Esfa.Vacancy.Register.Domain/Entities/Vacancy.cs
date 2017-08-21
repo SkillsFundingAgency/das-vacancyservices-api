@@ -62,7 +62,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string FutureProspects { get; set; }
 
-        public string RealityCheck { get; set; }
+        public string ThingsToConsider { get; set; }
 
         public int VacancyLocationTypeId { get; set; }
 

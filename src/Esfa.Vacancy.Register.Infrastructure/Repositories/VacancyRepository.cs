@@ -70,7 +70,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       TextFields.[PersonalQualities]
 ,       TextFields.[ImportantInformation]
 ,       TextFields.[FutureProspects]
-,       TextFields.[RealityCheck]
+,       TextFields.[ThingsToConsider]
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       E.AddressLine1
@@ -107,7 +107,7 @@ LEFT JOIN (
             ,    MAX(CASE WHEN Field = 4 THEN [Value] END ) AS [PersonalQualities]
             ,    MAX(CASE WHEN Field = 5 THEN [Value] END ) AS [ImportantInformation]
             ,    MAX(CASE WHEN Field = 6 THEN [Value] END ) AS [FutureProspects]
-            ,    MAX(CASE WHEN Field = 7 THEN [Value] END ) AS [RealityCheck]
+            ,    MAX(CASE WHEN Field = 7 THEN [Value] END ) AS [ThingsToConsider]
             FROM VacancyTextField AS T
             GROUP BY VacancyId
           ) AS TextFields
