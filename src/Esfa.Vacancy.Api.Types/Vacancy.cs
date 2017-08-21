@@ -205,7 +205,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The qulificatios required.
         /// </value>
-        public string QulificatiosRequired { get; set; }
+        public string QualificationsRequired { get; set; }
 
         /// <summary>
         /// Gets or sets the skills required.

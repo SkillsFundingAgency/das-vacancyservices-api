@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string TrainingToBeProvided { get; set; }
 
-        public string QulificatiosRequired { get; set; }
+        public string QualificationsRequired { get; set; }
 
         public string SkillsRequired { get; set; }
 

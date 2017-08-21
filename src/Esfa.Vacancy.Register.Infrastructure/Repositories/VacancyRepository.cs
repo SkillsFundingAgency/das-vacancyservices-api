@@ -65,7 +65,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.EmployerDescription
 ,       V.EmployersWebsite AS EmployerWebsite
 ,       TextFields.[TrainingToBeProvided]
-,       TextFields.[QulificationsRequired]
+,       TextFields.[QulificationsRequired] AS QualificationsRequired
 ,       TextFields.[SkillsRequired]
 ,       TextFields.[PersonalQualities]
 ,       TextFields.[ImportantInformation]
