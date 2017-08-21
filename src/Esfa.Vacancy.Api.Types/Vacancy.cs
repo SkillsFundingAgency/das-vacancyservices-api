@@ -255,8 +255,20 @@ namespace Esfa.Vacancy.Api.Types
         /// </value>
         public VacancyLocationType VacancyLocationType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the supplementary question1.
+        /// </summary>
+        /// <value>
+        /// The supplementary question1.
+        /// </value>
         public string SupplementaryQuestion1 { get; set; }
 
+        /// <summary>
+        /// Gets or sets the supplementary question2.
+        /// </summary>
+        /// <value>
+        /// The supplementary question2.
+        /// </value>
         public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
