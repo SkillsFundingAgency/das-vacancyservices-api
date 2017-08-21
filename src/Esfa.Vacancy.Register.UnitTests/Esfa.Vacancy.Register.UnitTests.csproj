@@ -81,6 +81,10 @@
       <Project>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</Project>
       <Name>Esfa.Vacancy.Register.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
+      <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>
+      <Name>Esfa.Vacancy.Register.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

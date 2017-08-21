@@ -55,10 +55,12 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
+,       V.InterviewsFromDate AS InterviewFromDate
 ,       V.NumberofPositions 
 ,       V.TrainingTypeId
+,       V.VacancyLocationTypeId
 ,       RS.LarsCode AS StandardCode
-,       AF.ShortName AS FrameworkCode
+,       CAST(AF.CodeName AS INT) AS FrameworkCode
 ,       E.FullName AS EmployerName
 ,       V.EmployerDescription
 ,       V.EmployersWebsite AS EmployerWebsite
@@ -69,6 +71,8 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       TextFields.[ImportantInformation]
 ,       TextFields.[FutureProspects]
 ,       TextFields.[RealityCheck]
+,       AdditionalQuestions.SupplementaryQuestion1
+,       AdditionalQuestions.SupplementaryQuestion2
 ,       E.AddressLine1
 ,       E.AddressLine2
 ,       E.AddressLine3
@@ -108,6 +112,15 @@ LEFT JOIN (
             GROUP BY VacancyId
           ) AS TextFields
     ON      TextFields.VacancyId = V.VacancyId
+LEFT JOIN (
+            SELECT 
+                 VacancyId
+            ,    MAX(CASE WHEN QuestionId = 1 THEN [Question] END ) AS [SupplementaryQuestion1]
+            ,    MAX(CASE WHEN QuestionId = 2 THEN [Question] END ) AS [SupplementaryQuestion2]
+            FROM AdditionalQuestion AS T
+            GROUP BY VacancyId
+          ) AS AdditionalQuestions
+    ON      AdditionalQuestions.VacancyId = V.VacancyId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber
 ";

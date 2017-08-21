@@ -101,7 +101,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The expected start date.
         /// </value>
-        public DateTime ExpectedStartDate { get; set; }
+        public DateTime? ExpectedStartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the date posted.
@@ -109,7 +109,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The date posted.
         /// </value>
-        public DateTime DatePosted { get; set; }
+        public DateTime? DatePosted { get; set; }
 
         /// <summary>
         /// Gets or sets the application closing date.
@@ -117,7 +117,15 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The application closing date.
         /// </value>
-        public DateTime ApplicationClosingDate { get; set; }
+        public DateTime? ApplicationClosingDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the interview from date.
+        /// </summary>
+        /// <value>
+        /// The interview from date.
+        /// </value>
+        public DateTime? InterviewFromDate { get; set; }
 
         /// <summary>
         /// Gets or sets the number of positions.
@@ -136,12 +144,28 @@ namespace Esfa.Vacancy.Api.Types
         public int? StandardCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the standard title.
+        /// </summary>
+        /// <value>
+        /// The standard title.
+        /// </value>
+        public string StandardTitle { get; set; }
+
+        /// <summary>
         /// Gets or sets the framework code.
         /// </summary>
         /// <value>
         /// The framework code.
         /// </value>
         public int? FrameworkCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the framework title.
+        /// </summary>
+        /// <value>
+        /// The framework title.
+        /// </value>
+        public string FrameworkTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the employer.
@@ -222,6 +246,30 @@ namespace Esfa.Vacancy.Api.Types
         /// The reality check.
         /// </value>
         public string RealityCheck { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the vacancy location.
+        /// </summary>
+        /// <value>
+        /// The type of the vacancy location.
+        /// </value>
+        public VacancyLocationType VacancyLocationType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the supplementary question1.
+        /// </summary>
+        /// <value>
+        /// The supplementary question1.
+        /// </value>
+        public string SupplementaryQuestion1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the supplementary question2.
+        /// </summary>
+        /// <value>
+        /// The supplementary question2.
+        /// </value>
+        public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
         /// Gets or sets the employer address.
