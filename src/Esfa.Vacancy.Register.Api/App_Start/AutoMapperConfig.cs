@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using AutoMapper;
+using Esfa.Vacancy.Register.Api.Mappings;
 using ApiTypes = Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Api.App_Start
 {
@@ -9,49 +12,27 @@ namespace Esfa.Vacancy.Register.Api.App_Start
     {
         public static void Configure()
         {
+            var assignableMatchingTypes = 
+                Assembly.GetExecutingAssembly().GetAssignableTypes(typeof(IObjectMappings)).ToList();
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<string, int?>().ConvertUsing(new StringToNullIntConverter());
                 cfg.CreateMap<int, ApiTypes.VacancyType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyType>());
                 cfg.CreateMap<int, ApiTypes.WageUnit>().ConvertUsing(new IntToEnumConverter<ApiTypes.WageUnit>());
                 cfg.CreateMap<int, ApiTypes.VacancyLocationType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyLocationType>());
-                cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
-                    .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
-                    .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
-                    .ForMember(apiType => apiType.VacancyLocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId));
-                cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
+
+                assignableMatchingTypes.ForEach(a =>
+                {
+                    var m = (IObjectMappings)Activator.CreateInstance(a);
+                    m.SetMappings(cfg);
+                });
             });
         }
-    }
 
-    public class StringToNullIntConverter : ITypeConverter<string, int?>
-    {
-        public int? Convert(string source, int? destination, ResolutionContext context)
+        private static IEnumerable<Type> GetAssignableTypes(this Assembly assembly, Type type)
         {
-            int value;
-            if ((string.IsNullOrWhiteSpace(source)) || (!int.TryParse(source, out value)))
-                return null;
-            return value;
-        }
-    }
-
-    public class IntToEnumConverter<T> : ITypeConverter<int, T>
-    {
-        public T Convert(int source, T destination, ResolutionContext context)
-        {
-            if (!typeof(T).IsEnum) throw new Exception("Only Enum types are allowed.");
-            if (source != null)
-            {
-                var name = Enum.GetName(typeof(T), source);
-                if (name != null)
-                {
-                    return (T)Enum.Parse(typeof(T), name);
-                }
-            }
-
-            var en = Enum.GetValues(typeof(T)).GetEnumerator();
-            en.MoveNext();
-            return (T)en.Current;
+            return assembly.ExportedTypes
+                .Where(t => !t.IsAbstract && !t.IsInterface && type.IsAssignableFrom(t));
         }
     }
 }
