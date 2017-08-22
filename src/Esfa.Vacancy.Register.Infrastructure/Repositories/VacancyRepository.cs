@@ -77,6 +77,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       2 AS VacancyStatusId
+,       O.FullName AS ContractOwnerName
 ,       E.AddressLine1
 ,       E.AddressLine2
 ,       E.AddressLine3
@@ -125,6 +126,8 @@ LEFT JOIN (
             GROUP BY VacancyId
           ) AS AdditionalQuestions
     ON      AdditionalQuestions.VacancyId = V.VacancyId
+LEFT JOIN [Provider] AS O
+	ON V.ContractOwnerId = O.ProviderId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber
 ";

@@ -278,5 +278,13 @@ namespace Esfa.Vacancy.Api.Types
         /// The employer address.
         /// </value>
         public Address EmployerAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contract owner's name.
+        /// </summary>
+        /// <value>
+        /// The contract owner's name.
+        /// </value>
+        public string ContractOwnerName { get; set; }
     }
 }
