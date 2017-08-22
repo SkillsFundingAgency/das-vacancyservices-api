@@ -77,7 +77,12 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       2 AS VacancyStatusId
-,       O.FullName AS ContractOwnerName
+,       O.TradingName AS ContractOwner
+,       'Delivered by ' +  VO.FullName + '.' AS LearningProviderName
+,       VO.CandidateDescription AS LearningProviderDescription
+,       DO.FullName AS DeliveryOrganisation
+,       VM.TradingName AS VacancyManager
+,       VO.TradingName AS VacancyOwner
 ,       E.AddressLine1
 ,       E.AddressLine2
 ,       E.AddressLine3
@@ -128,6 +133,14 @@ LEFT JOIN (
     ON      AdditionalQuestions.VacancyId = V.VacancyId
 LEFT JOIN [Provider] AS O
 	ON V.ContractOwnerId = O.ProviderId
+LEFT JOIN VacancyOwnerRelationship VOR 
+    ON VOR.VacancyOwnerRelationshipId = V.VacancyOwnerRelationshipId
+        LEFT JOIN ProviderSite VO 
+            ON VO.ProviderSiteId = VOR.ProviderSiteId
+LEFT JOIN ProviderSite VM 
+    ON V.VacancyManagerId = VM.ProviderSiteId
+LEFT JOIN ProviderSite DO
+	ON V.DeliveryOrganisationId = DO.ProviderSiteId
 WHERE V.VacancyStatusId = 2
 AND V.VacancyReferenceNumber = @ReferenceNumber
 ";

@@ -82,6 +82,16 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public bool IsAnonymousEmployer => string.IsNullOrEmpty(AnonymousEmployerName) == false;
 
-        public string ContractOwnerName { get; set; }
+        public string ContractOwner { get; set; }
+
+        public string LearningProviderName { get; set; }
+
+        public string LearningProviderDescription { get; set; }
+
+        public string DeliveryOrganisation { get; set; }
+
+        public string VacancyManager { get; set; }
+
+        public string VacancyOwner { get; set; }
     }
 }
