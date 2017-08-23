@@ -44,14 +44,14 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             dest.EmployerDescription = src.AnonymousEmployerDescription;
             dest.EmployerWebsite = null;
 
-            dest.EmployerAddress.AddressLine1 = null;
-            dest.EmployerAddress.AddressLine2 = null;
-            dest.EmployerAddress.AddressLine3 = null;
-            dest.EmployerAddress.AddressLine4 = null;
-            dest.EmployerAddress.AddressLine5 = null;
-            dest.EmployerAddress.PostCode = null;
-            dest.EmployerAddress.Longitude = null;
-            dest.EmployerAddress.Latitude = null;
+            dest.VacancyLocation.AddressLine1 = null;
+            dest.VacancyLocation.AddressLine2 = null;
+            dest.VacancyLocation.AddressLine3 = null;
+            dest.VacancyLocation.AddressLine4 = null;
+            dest.VacancyLocation.AddressLine5 = null;
+            dest.VacancyLocation.PostCode = null;
+            dest.VacancyLocation.Longitude = null;
+            dest.VacancyLocation.Latitude = null;
         }
     }
 

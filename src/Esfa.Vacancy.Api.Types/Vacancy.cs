@@ -285,6 +285,6 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The employer address.
         /// </value>
-        public Address EmployerAddress { get; set; }
+        public Address VacancyLocation { get; set; }
     }
 }

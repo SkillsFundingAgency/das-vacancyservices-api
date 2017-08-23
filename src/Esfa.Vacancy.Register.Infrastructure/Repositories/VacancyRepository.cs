@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
                         VacancyDetailsQuery,
                         param: new { ReferenceNumber = referenceNumber },
-                        map: (v, a) => { v.EmployerAddress = a; return v; },
+                        map: (v, a) => { v.VacancyLocation = a; return v; },
                         splitOn: "AddressLine1");
 
                 vacancy = results.FirstOrDefault();
@@ -77,16 +77,16 @@ SELECT  V.VacancyReferenceNumber
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       2 AS VacancyStatusId
-,       E.AddressLine1
-,       E.AddressLine2
-,       E.AddressLine3
-,       E.AddressLine4
-,       E.AddressLine5
-,       E.Latitude
-,       E.Longitude
-,       E.PostCode
-,       E.Town
-FROM[dbo].[Vacancy]        V
+,       V.AddressLine1
+,       V.AddressLine2
+,       V.AddressLine3
+,       V.AddressLine4
+,       V.AddressLine5
+,       V.Latitude
+,       V.Longitude
+,       V.PostCode
+,       V.Town
+FROM    [dbo].[Vacancy] V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
             WHERE VacancyHistoryEventTypeId = 1

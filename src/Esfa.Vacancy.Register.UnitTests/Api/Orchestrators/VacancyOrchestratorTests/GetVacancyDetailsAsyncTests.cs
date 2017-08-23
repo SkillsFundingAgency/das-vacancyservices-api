@@ -59,14 +59,16 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
-            result.EmployerAddress.Should().NotBe(null);
-            result.EmployerAddress.AddressLine1.Should().NotBe(null);
-            result.EmployerAddress.AddressLine2.Should().NotBe(null);
-            result.EmployerAddress.AddressLine3.Should().NotBe(null);
-            result.EmployerAddress.Town.Should().NotBe(null);
-            result.EmployerAddress.PostCode.Should().NotBe(null);
-            result.EmployerAddress.Longitude.Should().NotBe(null);
-            result.EmployerAddress.Latitude.Should().NotBe(null);
+            result.VacancyLocation.Should().NotBe(null);
+            result.VacancyLocation.AddressLine1.Should().NotBe(null);
+            result.VacancyLocation.AddressLine2.Should().NotBe(null);
+            result.VacancyLocation.AddressLine3.Should().NotBe(null);
+            result.VacancyLocation.AddressLine4.Should().NotBe(null);
+            result.VacancyLocation.AddressLine5.Should().NotBe(null);
+            result.VacancyLocation.Town.Should().NotBe(null);
+            result.VacancyLocation.PostCode.Should().NotBe(null);
+            result.VacancyLocation.Longitude.Should().NotBe(null);
+            result.VacancyLocation.Latitude.Should().NotBe(null);
         }
 
         [Test]
@@ -92,15 +94,15 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().BeNullOrEmpty();
-            result.EmployerAddress.AddressLine1.Should().BeNull();
-            result.EmployerAddress.AddressLine2.Should().BeNull();
-            result.EmployerAddress.AddressLine3.Should().BeNull();
-            result.EmployerAddress.AddressLine4.Should().BeNull();
-            result.EmployerAddress.AddressLine5.Should().BeNull();
-            result.EmployerAddress.PostCode.Should().BeNull();
-            result.EmployerAddress.Latitude.Should().BeNull();
-            result.EmployerAddress.Longitude.Should().BeNull();
-            result.EmployerAddress.Town.Should().NotBeNullOrWhiteSpace();
+            result.VacancyLocation.AddressLine1.Should().BeNull();
+            result.VacancyLocation.AddressLine2.Should().BeNull();
+            result.VacancyLocation.AddressLine3.Should().BeNull();
+            result.VacancyLocation.AddressLine4.Should().BeNull();
+            result.VacancyLocation.AddressLine5.Should().BeNull();
+            result.VacancyLocation.PostCode.Should().BeNull();
+            result.VacancyLocation.Latitude.Should().BeNull();
+            result.VacancyLocation.Longitude.Should().BeNull();
+            result.VacancyLocation.Town.Should().NotBeNullOrWhiteSpace();
         }
     }
 }
