@@ -78,7 +78,7 @@
   <ItemGroup>
     <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
-    <Compile Include="Orchestrators\GetVacancyOrchestratorTests.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,11 +9,11 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Orchestrators
+namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
-    public class GetVacancyOrchestratorTests
+    public class GetVacancyDetailsAsyncTests
     {
         private const int VacancyReference = 1234;
         private Mock<IMediator> _mockMediator;
