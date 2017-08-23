@@ -304,6 +304,14 @@ namespace Esfa.Vacancy.Api.Types
         public string LearningProviderDescription { get; set; }
 
         /// <summary>
+        /// Gets or sets the learning provider sector pass rate
+        /// </summary>
+        /// <value>
+        /// The learning 
+        /// </value>
+        public int LearningProviderSectorPassRate { get; set; }
+
+        /// <summary>
         /// Gets or sets the delivery organisation
         /// </summary>
         /// <value>

@@ -88,10 +88,13 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string LearningProviderDescription { get; set; }
 
+        public int LearningProviderSectorPassRate { get; set; }
+
         public string DeliveryOrganisation { get; set; }
 
         public string VacancyManager { get; set; }
 
         public string VacancyOwner { get; set; }
+        
     }
 }
