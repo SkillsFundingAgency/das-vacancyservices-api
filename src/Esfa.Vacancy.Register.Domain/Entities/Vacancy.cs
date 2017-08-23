@@ -4,7 +4,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 {
     public sealed class Vacancy
     {
-        public int Reference { get; set; }
+        public int VacancyReferenceNumber { get; set; }
 
         public string Title { get; set; }
 

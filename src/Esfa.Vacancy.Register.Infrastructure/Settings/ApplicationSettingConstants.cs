@@ -4,5 +4,6 @@
     {
         public const string AvmsPlusDatabaseConnectionStringKey = "AvmsPlusDatabaseConnectionString";
         public const string DasApprenticeshipInfoApiBaseUrl = "ApprenticeshipInfoApiBaseUrl";
+        public const string LiveVacancyBaseUrl = "LiveVacancyBaseUrl";
     }
 }

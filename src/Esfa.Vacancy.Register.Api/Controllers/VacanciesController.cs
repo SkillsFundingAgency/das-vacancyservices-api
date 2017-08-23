@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using MediatR;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
@@ -16,12 +15,12 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     public class VacanciesController : ApiController
     {
         private readonly ILog _log;
-        private readonly IMediator _mediator;
+        private readonly IVacancyOrchestrator _vacancyOrchestrator;
 
-        public VacanciesController(ILog log, IMediator mediator)
+        public VacanciesController(ILog log, IVacancyOrchestrator vacancyOrchestrator)
         {
             _log = log;
-            _mediator = mediator;
+            _vacancyOrchestrator = vacancyOrchestrator;
         }
 
         /// <summary>
@@ -48,9 +47,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [ExceptionHandling]
         public async Task<IHttpActionResult> Get(int id)
         {
-            var vacancyOrchestrator = new VacancyOrchestrator(_mediator);
-
-            var vacancy = await vacancyOrchestrator.GetVacancyDetailsAsync(id);
+            var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(id);
 
             return Ok(vacancy);
         }

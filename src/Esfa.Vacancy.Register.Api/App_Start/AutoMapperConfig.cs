@@ -27,14 +27,15 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
                 .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
                 .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
+                .ForMember(apiType => apiType.VacancyReference, opt => opt.MapFrom(source => source.VacancyReferenceNumber))
                 .ForMember(apiType => apiType.VacancyLocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId))
                 .AfterMap((src, dest) =>
-                {
-                    if (src.IsAnonymousEmployer && (DomainTypes.VacancyStatus)src.VacancyStatusId == DomainTypes.VacancyStatus.Live)
                     {
-                        ApplyAnonymisationToVacancy(src, dest);
-                    }
-                });
+                        if (src.IsAnonymousEmployer && (DomainTypes.VacancyStatus)src.VacancyStatusId == DomainTypes.VacancyStatus.Live)
+                        {
+                            ApplyAnonymisationToVacancy(src, dest);
+                        }
+                    });
         }
 
         private static void ApplyAnonymisationToVacancy(DomainTypes.Vacancy src, ApiTypes.Vacancy dest)

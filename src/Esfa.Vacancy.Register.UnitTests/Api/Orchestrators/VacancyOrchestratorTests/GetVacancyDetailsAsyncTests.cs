@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using MediatR;
 using Moq;
@@ -17,6 +18,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     {
         private const int VacancyReference = 1234;
         private Mock<IMediator> _mockMediator;
+        private Mock<IProvideSettings> _provideSettings;
         private VacancyOrchestrator _sut;
 
         [OneTimeSetUp]
@@ -29,7 +31,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
-            _sut = new VacancyOrchestrator(_mockMediator.Object);
+            _provideSettings = new Mock<IProvideSettings>();
+            _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
         }
 
         [Test]
@@ -39,7 +42,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.Reference, VacancyReference)
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, 2)
                                             .With(v => v.EmployerName, "ABC Ltd")
                                             .With(v => v.EmployerDescription, "A plain company")
@@ -52,7 +55,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
 
-            result.Reference.Should().Be(VacancyReference);
+            result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
@@ -73,7 +76,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.Reference, VacancyReference)
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, 2)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
                                             .With(v => v.EmployerDescription, "A private description")
@@ -85,7 +88,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
 
-            result.Reference.Should().Be(VacancyReference);
+            result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().BeNullOrEmpty();
