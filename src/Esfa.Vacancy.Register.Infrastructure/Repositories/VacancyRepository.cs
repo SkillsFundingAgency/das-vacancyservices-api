@@ -51,7 +51,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.WorkingWeek
 ,       V.WageText
 ,       V.HoursPerWeek
-,       V.ExpectedDuration 
+,       V.ExpectedDuration
 ,       V.ExpectedStartDate
 ,		VH.HistoryDate AS DatePosted
 ,       V.ApplicationClosingDate
@@ -62,8 +62,11 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       RS.LarsCode AS StandardCode
 ,       CAST(AF.CodeName AS INT) AS FrameworkCode
 ,       E.FullName AS EmployerName
-,       V.EmployerDescription
-,       V.EmployersWebsite AS EmployerWebsite
+,       V.EmployerDescription AS EmployerDescription
+,       V.EmployerAnonymousName AS AnonymousEmployerName
+,       V.AnonymousAboutTheEmployer AS AnonymousEmployerDescription
+,       V.EmployerAnonymousReason AS AnonymousEmployerReason
+,       V.EmployersWebsite
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired] AS QualificationsRequired
 ,       TextFields.[SkillsRequired]
@@ -73,6 +76,7 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       TextFields.[ThingsToConsider]
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
+,       2 AS VacancyStatusId
 ,       E.AddressLine1
 ,       E.AddressLine2
 ,       E.AddressLine3
