@@ -80,7 +80,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Orchestrators
                                             .With(v => v.AnonymousEmployerName, "ABC Ltd")
                                             .With(v => v.AnonymousEmployerDescription, "A plain company")
                                             .With(v => v.AnonymousEmployerReason, "Because I want to test")
-                                            //.With(v => v.EmployerAddress.Town, "Coventry")
                                             .Create()
                 });
 
