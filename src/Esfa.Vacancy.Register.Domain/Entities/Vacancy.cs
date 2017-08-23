@@ -95,6 +95,9 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string VacancyManager { get; set; }
 
         public string VacancyOwner { get; set; }
+
+        public bool IsSmallEmployerWageIncentive { get; set; }
         
+        public bool IsDisplayRecruitmentAgency { get; set; }
     }
 }

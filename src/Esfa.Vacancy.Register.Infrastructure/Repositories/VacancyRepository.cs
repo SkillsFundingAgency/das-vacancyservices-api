@@ -67,6 +67,8 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       V.AnonymousAboutTheEmployer AS AnonymousEmployerDescription
 ,       V.EmployerAnonymousReason AS AnonymousEmployerReason
 ,       V.EmployersWebsite
+,       V.SmallEmployerWageIncentive AS IsSmallEmployerWageIncentive
+,       V.VacancyManagerAnonymous AS IsDisplayRecruitmentAgency
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired] AS QualificationsRequired
 ,       TextFields.[SkillsRequired]

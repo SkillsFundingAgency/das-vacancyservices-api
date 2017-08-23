@@ -334,5 +334,21 @@ namespace Esfa.Vacancy.Api.Types
         /// The vacancy manager
         /// </value>
         public string VacancyOwner { get; set; }
+
+        /// <summary>
+        /// Gets or sets the small employer wage incentive
+        /// </summary>
+        /// <value>
+        /// Small employer wage incentive
+        /// </value>
+        public bool IsSmallEmployerWageIncentive { get; set; }
+
+        /// <summary>
+        /// When a Recruitment Agency is the Vacancy Manager, specifies whether the Recruitment Agency details are shown on the vacancy.
+        /// </summary>
+        /// <value>
+        /// Display recruitment agency
+        /// </value>
+        public bool IsDisplayRecruitmentAgency { get; set; }
     }
 }
