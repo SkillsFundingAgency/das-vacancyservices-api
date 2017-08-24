@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         }
 
         const string VacancyDetailsQuery = @"
-SELECT  V.VacancyReferenceNumber AS Reference
+SELECT  V.VacancyReferenceNumber 
 ,       V.Title
 ,       V.ShortDescription
 ,       V.[Description]

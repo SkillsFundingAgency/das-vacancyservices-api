@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using MediatR;
 using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
@@ -12,16 +11,15 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/vacancies")]
     public class VacanciesController : ApiController
     {
         private readonly ILog _log;
-        private readonly IMediator _mediator;
+        private readonly IVacancyOrchestrator _vacancyOrchestrator;
 
-        public VacanciesController(ILog log, IMediator mediator)
+        public VacanciesController(ILog log, IVacancyOrchestrator vacancyOrchestrator)
         {
             _log = log;
-            _mediator = mediator;
+            _vacancyOrchestrator = vacancyOrchestrator;
         }
 
         /// <summary>
@@ -46,11 +44,10 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        public async Task<IHttpActionResult> Get(int id)
+        [Route("api/vacancies/{vacancyReference}")]
+        public async Task<IHttpActionResult> Get(int vacancyReference)
         {
-            var vacancyOrchestrator = new VacancyOrchestrator(_mediator);
-
-            var vacancy = await vacancyOrchestrator.GetVacancyDetailsAsync(id);
+            var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
         }

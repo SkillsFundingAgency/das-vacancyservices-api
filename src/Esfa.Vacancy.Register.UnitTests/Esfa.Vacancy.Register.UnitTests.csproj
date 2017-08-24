@@ -76,6 +76,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
@@ -91,7 +92,7 @@
       <Name>Esfa.Vacancy.Api.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Api\Esfa.Vacancy.Register.Api.csproj">
-      <Project>{496b0f28-936c-4fbe-bb63-b848b5569f65}</Project>
+      <Project>{496B0F28-936C-4FBE-BB63-B848B5569F65}</Project>
       <Name>Esfa.Vacancy.Register.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj">
