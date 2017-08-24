@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public async Task WhenBaseUrlIsDefined_ShouldPopulateVacancyUrl()
         {
             //Arrange
-            var baseUrl = "https//findapprentice.com/apprenticeship/reference";
+            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
             var vacancyReferenceNumber = 123456;
             var provideSettingsMock = new Mock<IProvideSettings>();
             provideSettingsMock.Setup(p => p.GetSetting(It.IsAny<string>())).Returns(baseUrl);
@@ -43,31 +43,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{vacancyReferenceNumber}", vacancy.VacancyUrl);
-        }
-
-        [Test]
-        public async Task WhenBaseUrlIsNotDefined_ShouldNotPopulateVacancyUrl()
-        {
-            //Arrange
-            var vacancyReferenceNumber = 123456;
-            var provideSettingsMock = new Mock<IProvideSettings>();
-            provideSettingsMock.Setup(p => p.GetSetting(It.IsAny<string>())).Returns(string.Empty);
-
-            var mediatorMock = new Mock<IMediator>();
-            var response = new GetVacancyResponse()
-            {
-                Vacancy = new Domain.Entities.Vacancy() { VacancyReferenceNumber = vacancyReferenceNumber }
-            };
-            mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
-            //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
-
-            //Assert
-            Assert.IsNull(vacancy.VacancyUrl);
         }
     }
 }
