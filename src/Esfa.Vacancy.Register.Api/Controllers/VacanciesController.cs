@@ -16,6 +16,11 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         private readonly ILog _log;
         private readonly IVacancyOrchestrator _vacancyOrchestrator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VacanciesController"/> class.
+        /// </summary>
+        /// <param name="log">The log.</param>
+        /// <param name="vacancyOrchestrator">The vacancy orchestrator.</param>
         public VacanciesController(ILog log, IVacancyOrchestrator vacancyOrchestrator)
         {
             _log = log;
@@ -25,21 +30,25 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <summary>
         /// Check if a vacancy exists
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="vacancyReference">The vacancy reference.</param>
+        /// <returns></returns>
         [SwaggerOperation("Head")]
         [SwaggerResponse(HttpStatusCode.NoContent)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        public async Task Head(int id)
+        [Route("api/vacancies/{vacancyReference}")]
+        public async Task Head(int vacancyReference)
         {
-            await Get(id);
+            await Get(vacancyReference);
         }
 
         /// <summary>
         /// Get a vacancy by the public vacancy reference identifier
         /// </summary>
-        /// <param name="id">The public vacancy reference identifier</param>
-        /// <returns>A vacancy for an apprenticeship or a traineeship</returns>
+        /// <param name="vacancyReference">The vacancy reference number.</param>
+        /// <returns>
+        /// A vacancy for an apprenticeship or a traineeship
+        /// </returns>
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
