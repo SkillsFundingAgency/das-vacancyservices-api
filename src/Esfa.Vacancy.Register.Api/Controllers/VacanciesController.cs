@@ -11,7 +11,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [RoutePrefix("api/vacancies")]
     public class VacanciesController : ApiController
     {
         private readonly ILog _log;
@@ -45,9 +44,10 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        public async Task<IHttpActionResult> Get(int id)
+        [Route("api/vacancies/{vacancyReference}")]
+        public async Task<IHttpActionResult> Get(int vacancyReference)
         {
-            var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(id);
+            var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
         }
