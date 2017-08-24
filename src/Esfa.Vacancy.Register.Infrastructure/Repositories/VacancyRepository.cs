@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
                         VacancyDetailsQuery,
                         param: new { ReferenceNumber = referenceNumber },
-                        map: (v, a) => { v.EmployerAddress = a; return v; },
+                        map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1");
 
                 vacancy = results.FirstOrDefault();
@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         }
 
         const string VacancyDetailsQuery = @"
-SELECT  V.VacancyReferenceNumber AS Reference
+SELECT  V.VacancyReferenceNumber 
 ,       V.Title
 ,       V.ShortDescription
 ,       V.[Description]
@@ -86,15 +86,15 @@ SELECT  V.VacancyReferenceNumber AS Reference
 ,       VM.TradingName AS VacancyManager
 ,       VO.TradingName AS VacancyOwner
 ,		CASE WHEN SSR.New = 1 THEN NULL ELSE SSR.PassRate END AS LearningProviderSectorPassRate
-,       E.AddressLine1
-,       E.AddressLine2
-,       E.AddressLine3
-,       E.AddressLine4
-,       E.AddressLine5
-,       E.Latitude
-,       E.Longitude
-,       E.PostCode
-,       E.Town
+,       V.AddressLine1
+,       V.AddressLine2
+,       V.AddressLine3
+,       V.AddressLine4
+,       V.AddressLine5
+,       V.Latitude
+,       V.Longitude
+,       V.PostCode
+,       V.Town
 FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]

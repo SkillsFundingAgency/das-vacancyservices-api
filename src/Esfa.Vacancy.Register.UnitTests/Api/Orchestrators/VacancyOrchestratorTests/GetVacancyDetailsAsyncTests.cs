@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using MediatR;
 using Moq;
@@ -16,7 +17,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     public class GetVacancyDetailsAsyncTests
     {
         private const int VacancyReference = 1234;
+        private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
+        private Mock<IProvideSettings> _provideSettings;
         private VacancyOrchestrator _sut;
 
         [OneTimeSetUp]
@@ -29,7 +32,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
-            _sut = new VacancyOrchestrator(_mockMediator.Object);
+            _provideSettings = new Mock<IProvideSettings>();
+            _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
         }
 
         [Test]
@@ -39,8 +43,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.Reference, VacancyReference)
-                                            .With(v => v.VacancyStatusId, 2)
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
                                             .With(v => v.EmployerDescription, "A plain company")
                                             .With(v => v.EmployerWebsite, "http://www.google.co.uk")
@@ -52,18 +56,20 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
 
-            result.Reference.Should().Be(VacancyReference);
+            result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
-            result.EmployerAddress.Should().NotBe(null);
-            result.EmployerAddress.AddressLine1.Should().NotBe(null);
-            result.EmployerAddress.AddressLine2.Should().NotBe(null);
-            result.EmployerAddress.AddressLine3.Should().NotBe(null);
-            result.EmployerAddress.Town.Should().NotBe(null);
-            result.EmployerAddress.PostCode.Should().NotBe(null);
-            result.EmployerAddress.Longitude.Should().NotBe(null);
-            result.EmployerAddress.Latitude.Should().NotBe(null);
+            result.Location.Should().NotBe(null);
+            result.Location.AddressLine1.Should().NotBe(null);
+            result.Location.AddressLine2.Should().NotBe(null);
+            result.Location.AddressLine3.Should().NotBe(null);
+            result.Location.AddressLine4.Should().NotBe(null);
+            result.Location.AddressLine5.Should().NotBe(null);
+            result.Location.Town.Should().NotBe(null);
+            result.Location.PostCode.Should().NotBe(null);
+            result.Location.Longitude.Should().NotBe(null);
+            result.Location.Latitude.Should().NotBe(null);
         }
 
         [Test]
@@ -73,8 +79,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.Reference, VacancyReference)
-                                            .With(v => v.VacancyStatusId, 2)
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
                                             .With(v => v.EmployerDescription, "A private description")
                                             .With(v => v.AnonymousEmployerName, "ABC Ltd")
@@ -85,19 +91,19 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
 
-            result.Reference.Should().Be(VacancyReference);
+            result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().BeNullOrEmpty();
-            result.EmployerAddress.AddressLine1.Should().BeNull();
-            result.EmployerAddress.AddressLine2.Should().BeNull();
-            result.EmployerAddress.AddressLine3.Should().BeNull();
-            result.EmployerAddress.AddressLine4.Should().BeNull();
-            result.EmployerAddress.AddressLine5.Should().BeNull();
-            result.EmployerAddress.PostCode.Should().BeNull();
-            result.EmployerAddress.Latitude.Should().BeNull();
-            result.EmployerAddress.Longitude.Should().BeNull();
-            result.EmployerAddress.Town.Should().NotBeNullOrWhiteSpace();
+            result.Location.AddressLine1.Should().BeNull();
+            result.Location.AddressLine2.Should().BeNull();
+            result.Location.AddressLine3.Should().BeNull();
+            result.Location.AddressLine4.Should().BeNull();
+            result.Location.AddressLine5.Should().BeNull();
+            result.Location.PostCode.Should().BeNull();
+            result.Location.Latitude.Should().BeNull();
+            result.Location.Longitude.Should().BeNull();
+            result.Location.Town.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

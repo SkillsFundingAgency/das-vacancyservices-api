@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The reference.
         /// </value>
-        public int Reference { get; set; }
+        public int VacancyReference { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
@@ -253,7 +253,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The type of the vacancy location.
         /// </value>
-        public VacancyLocationType VacancyLocationType { get; set; }
+        public VacancyLocationType LocationType { get; set; }
 
         /// <summary>
         /// Gets or sets the supplementary question1.
@@ -272,13 +272,21 @@ namespace Esfa.Vacancy.Api.Types
         public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
-        /// Gets or sets the employer address.
+        /// Gets or sets the vacancy URL.
         /// </summary>
         /// <value>
-        /// The employer address.
+        /// The vacancy URL.
         /// </value>
-        public Address EmployerAddress { get; set; }
+        public string VacancyUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets the vacancy location.
+        /// </summary>
+        /// <value>
+        /// The vacancy location.
+        /// </value>
+        public Address Location { get; set; }
+        
         /// <summary>
         /// Gets or sets the contract owner's name.
         /// </summary>

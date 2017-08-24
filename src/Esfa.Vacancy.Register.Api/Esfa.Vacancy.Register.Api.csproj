@@ -279,7 +279,7 @@
     <Content Include="Content\src\styles\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
     <Content Include="Content\src\styles\govuk_template\views\layouts\govuk_template.html" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
@@ -311,6 +311,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logging\RequestContext.cs" />
+    <Compile Include="Orchestrators\IVacancyOrchestrator.cs" />
     <Compile Include="Orchestrators\VacancyOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />

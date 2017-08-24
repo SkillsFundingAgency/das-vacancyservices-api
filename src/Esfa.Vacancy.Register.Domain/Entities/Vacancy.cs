@@ -4,7 +4,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 {
     public sealed class Vacancy
     {
-        public int Reference { get; set; }
+        public int VacancyReferenceNumber { get; set; }
 
         public string Title { get; set; }
 
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string SupplementaryQuestion2 { get; set; }
 
-        public Address EmployerAddress { get; set; }
+        public Address Location { get; set; }
 
         public int VacancyStatusId { get; set; }
 
