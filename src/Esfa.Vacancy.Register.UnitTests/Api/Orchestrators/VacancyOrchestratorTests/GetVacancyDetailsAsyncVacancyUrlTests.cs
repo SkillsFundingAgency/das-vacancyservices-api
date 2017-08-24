@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         }
 
         [Test]
-        public async Task WhenBaseUrlIsNotDefined_ShouldPopulateVacancyUrl()
+        public async Task WhenBaseUrlIsNotDefined_ShouldNotPopulateVacancyUrl()
         {
             //Arrange
             var vacancyReferenceNumber = 123456;
