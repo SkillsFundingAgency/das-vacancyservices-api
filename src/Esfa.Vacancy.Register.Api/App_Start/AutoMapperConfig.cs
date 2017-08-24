@@ -25,6 +25,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         private static void CreateVacancyDetailsMapping(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
+                .ForMember(apiType => apiType.VacancyUrl, opt => opt.Ignore())
                 .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
                 .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
                 .ForMember(apiType => apiType.VacancyReference, opt => opt.MapFrom(source => source.VacancyReferenceNumber))
