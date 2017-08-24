@@ -25,7 +25,6 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -280,9 +279,7 @@
     <Content Include="Content\src\styles\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
     <Content Include="Content\src\styles\govuk_template\views\layouts\govuk_template.html" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
