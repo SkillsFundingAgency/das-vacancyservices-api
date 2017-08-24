@@ -25,10 +25,11 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         private static void CreateVacancyDetailsMapping(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<DomainTypes.Vacancy, ApiTypes.Vacancy>()
+                .ForMember(apiType => apiType.VacancyUrl, opt => opt.Ignore())
                 .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
                 .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
                 .ForMember(apiType => apiType.VacancyReference, opt => opt.MapFrom(source => source.VacancyReferenceNumber))
-                .ForMember(apiType => apiType.VacancyLocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId))
+                .ForMember(apiType => apiType.LocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId))
                 .AfterMap((src, dest) =>
                     {
                         if (src.IsAnonymousEmployer && (DomainTypes.VacancyStatus)src.VacancyStatusId == DomainTypes.VacancyStatus.Live)
@@ -44,14 +45,8 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             dest.EmployerDescription = src.AnonymousEmployerDescription;
             dest.EmployerWebsite = null;
 
-            dest.EmployerAddress.AddressLine1 = null;
-            dest.EmployerAddress.AddressLine2 = null;
-            dest.EmployerAddress.AddressLine3 = null;
-            dest.EmployerAddress.AddressLine4 = null;
-            dest.EmployerAddress.AddressLine5 = null;
-            dest.EmployerAddress.PostCode = null;
-            dest.EmployerAddress.Longitude = null;
-            dest.EmployerAddress.Latitude = null;
+            dest.Location = new ApiTypes.Address();
+            dest.Location.Town = src.Location.Town;
         }
     }
 
