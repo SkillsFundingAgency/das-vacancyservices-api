@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string SupplementaryQuestion2 { get; set; }
 
-        public Address VacancyLocation { get; set; }
+        public Address Location { get; set; }
 
         public int VacancyStatusId { get; set; }
 

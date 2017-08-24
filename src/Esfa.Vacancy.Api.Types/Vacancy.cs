@@ -253,7 +253,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The type of the vacancy location.
         /// </value>
-        public VacancyLocationType VacancyLocationType { get; set; }
+        public VacancyLocationType LocationType { get; set; }
 
         /// <summary>
         /// Gets or sets the supplementary question1.
@@ -280,11 +280,11 @@ namespace Esfa.Vacancy.Api.Types
         public string VacancyUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the employer address.
+        /// Gets or sets the vacancy location.
         /// </summary>
         /// <value>
-        /// The employer address.
+        /// The vacancy location.
         /// </value>
-        public Address VacancyLocation { get; set; }
+        public Address Location { get; set; }
     }
 }

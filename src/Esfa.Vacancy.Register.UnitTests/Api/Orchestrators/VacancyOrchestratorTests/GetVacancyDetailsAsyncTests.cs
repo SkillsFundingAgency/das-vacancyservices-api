@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     public class GetVacancyDetailsAsyncTests
     {
         private const int VacancyReference = 1234;
+        private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
         private VacancyOrchestrator _sut;
@@ -43,7 +44,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, 2)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
                                             .With(v => v.EmployerDescription, "A plain company")
                                             .With(v => v.EmployerWebsite, "http://www.google.co.uk")
@@ -59,16 +60,16 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
-            result.VacancyLocation.Should().NotBe(null);
-            result.VacancyLocation.AddressLine1.Should().NotBe(null);
-            result.VacancyLocation.AddressLine2.Should().NotBe(null);
-            result.VacancyLocation.AddressLine3.Should().NotBe(null);
-            result.VacancyLocation.AddressLine4.Should().NotBe(null);
-            result.VacancyLocation.AddressLine5.Should().NotBe(null);
-            result.VacancyLocation.Town.Should().NotBe(null);
-            result.VacancyLocation.PostCode.Should().NotBe(null);
-            result.VacancyLocation.Longitude.Should().NotBe(null);
-            result.VacancyLocation.Latitude.Should().NotBe(null);
+            result.Location.Should().NotBe(null);
+            result.Location.AddressLine1.Should().NotBe(null);
+            result.Location.AddressLine2.Should().NotBe(null);
+            result.Location.AddressLine3.Should().NotBe(null);
+            result.Location.AddressLine4.Should().NotBe(null);
+            result.Location.AddressLine5.Should().NotBe(null);
+            result.Location.Town.Should().NotBe(null);
+            result.Location.PostCode.Should().NotBe(null);
+            result.Location.Longitude.Should().NotBe(null);
+            result.Location.Latitude.Should().NotBe(null);
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, 2)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
                                             .With(v => v.EmployerDescription, "A private description")
                                             .With(v => v.AnonymousEmployerName, "ABC Ltd")
@@ -94,15 +95,15 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().BeNullOrEmpty();
-            result.VacancyLocation.AddressLine1.Should().BeNull();
-            result.VacancyLocation.AddressLine2.Should().BeNull();
-            result.VacancyLocation.AddressLine3.Should().BeNull();
-            result.VacancyLocation.AddressLine4.Should().BeNull();
-            result.VacancyLocation.AddressLine5.Should().BeNull();
-            result.VacancyLocation.PostCode.Should().BeNull();
-            result.VacancyLocation.Latitude.Should().BeNull();
-            result.VacancyLocation.Longitude.Should().BeNull();
-            result.VacancyLocation.Town.Should().NotBeNullOrWhiteSpace();
+            result.Location.AddressLine1.Should().BeNull();
+            result.Location.AddressLine2.Should().BeNull();
+            result.Location.AddressLine3.Should().BeNull();
+            result.Location.AddressLine4.Should().BeNull();
+            result.Location.AddressLine5.Should().BeNull();
+            result.Location.PostCode.Should().BeNull();
+            result.Location.Latitude.Should().BeNull();
+            result.Location.Longitude.Should().BeNull();
+            result.Location.Town.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

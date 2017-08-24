@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
                         VacancyDetailsQuery,
                         param: new { ReferenceNumber = referenceNumber },
-                        map: (v, a) => { v.VacancyLocation = a; return v; },
+                        map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1");
 
                 vacancy = results.FirstOrDefault();
