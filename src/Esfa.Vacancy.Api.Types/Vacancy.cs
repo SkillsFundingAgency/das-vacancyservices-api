@@ -53,16 +53,8 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The wage unit.
         /// </value>
-        public WageUnit WageUnit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the weekly wage.
-        /// </summary>
-        /// <value>
-        /// The weekly wage.
-        /// </value>
-        public decimal? WeeklyWage { get; set; }
-
+        public WageUnit? WageUnit { get; set; }
+        
         /// <summary>
         /// Gets or sets the working week.
         /// </summary>
