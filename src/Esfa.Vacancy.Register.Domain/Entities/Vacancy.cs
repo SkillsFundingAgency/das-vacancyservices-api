@@ -22,6 +22,12 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public string WageText { get; set; }
 
+        public decimal? WageUpperBound { get; set; }
+
+        public decimal? WageLowerBound { get; set; }
+
+        public int WageType { get; set; }
+
         public decimal? HoursPerWeek { get; set; }
 
         public string ExpectedDuration { get; set; }

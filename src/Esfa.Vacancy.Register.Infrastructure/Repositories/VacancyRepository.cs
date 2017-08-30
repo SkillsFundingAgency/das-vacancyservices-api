@@ -50,6 +50,9 @@ SELECT  V.VacancyReferenceNumber
 ,       V.WeeklyWage
 ,       V.WorkingWeek
 ,       V.WageText
+,       V.WageUpperBound
+,       V.WageLowerBound
+,       V.WageType
 ,       V.HoursPerWeek
 ,       V.ExpectedDuration
 ,       V.ExpectedStartDate
