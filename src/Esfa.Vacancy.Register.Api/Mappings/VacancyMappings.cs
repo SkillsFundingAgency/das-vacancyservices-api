@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
@@ -18,9 +20,55 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     {
                         ApplyAnonymisationToVacancy(src, dest);
                     }
+
+                    if (dest.VacancyType == VacancyType.Traineeship)
+                    {
+                        ResetWageFieldsForTraineeship(dest);
+                    }
+                    else
+                    {
+                        AdjustWageUnitBasedOnWageType(src, dest);
+
+                        if (src.WeeklyWage.HasValue && src.WeeklyWage.Value > 0)
+                        {
+                            dest.WageText = src.WeeklyWage.Value.ToString("C0");
+                        }
+                        else
+                        {
+                            dest.WageText = "Unknown";
+                        }
+                    }
                 });
         }
-        private static void ApplyAnonymisationToVacancy(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
+
+        private void AdjustWageUnitBasedOnWageType(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
+        {
+            switch (src.WageType)
+            {
+                case (int) WageType.Custom:
+                    break;
+                case (int) WageType.CustomRange:
+                    dest.WageUnit = src.WageUnitId.HasValue && (WageUnit) src.WageUnitId.Value == WageUnit.NotApplicable
+                        ? WageUnit.Weekly
+                        : dest.WageUnit;
+                    break;
+                case (int) WageType.LegacyWeekly:
+                    dest.WageUnit = WageUnit.Weekly;
+                    break;
+                default:
+                    dest.WageUnit = null;
+                    break;
+            }
+        }
+
+        private void ResetWageFieldsForTraineeship(Vacancy.Api.Types.Vacancy dest)
+        {
+            dest.WageText = null;
+            dest.WageUnit = null;
+            dest.HoursPerWeek = null;
+        }
+
+        private void ApplyAnonymisationToVacancy(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
         {
             dest.EmployerName = src.AnonymousEmployerName;
             dest.EmployerDescription = src.AnonymousEmployerDescription;
