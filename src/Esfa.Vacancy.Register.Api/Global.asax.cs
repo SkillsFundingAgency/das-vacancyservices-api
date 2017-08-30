@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -14,7 +15,15 @@ namespace Esfa.Vacancy.Register.Api
 
         public Global()
         {
+            SetApplicationCulture();
+
             _logger = DependencyResolver.Current.GetService<ILog>();
+        }
+
+        private static void SetApplicationCulture()
+        {
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-GB");
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-GB");
         }
 
         void Application_Start(object sender, EventArgs e)

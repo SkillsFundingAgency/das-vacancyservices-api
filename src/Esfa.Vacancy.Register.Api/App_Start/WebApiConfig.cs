@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.Register.Api
             };
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StrictEnumConverter());
-
+            
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
