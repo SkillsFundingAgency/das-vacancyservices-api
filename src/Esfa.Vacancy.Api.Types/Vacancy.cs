@@ -69,7 +69,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The wage text.
         /// </value>
-        public string WageText { get; set; }
+        public string Wage { get; set; }
 
         /// <summary>
         /// Gets or sets the hours per week.

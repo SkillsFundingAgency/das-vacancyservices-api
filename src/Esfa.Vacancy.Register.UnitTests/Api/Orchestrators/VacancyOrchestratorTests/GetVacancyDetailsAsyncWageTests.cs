@@ -14,10 +14,9 @@ using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
 {
-    [TestFixture()]
+    [TestFixture]
     public class GetVacancyDetailsAsyncWageTests
     {
-
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
@@ -45,20 +44,22 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         [TestCase(null, null)]
         public async Task MappingWageUnitTests(int? wageUnitId, WageUnit? wageUnitType)
         {
-            var provideSettingsMock = new Mock<IProvideSettings>();
-            var mediatorMock = new Mock<IMediator>();
-            var response = new GetVacancyResponse()
+            //Arrange
+            var response = new GetVacancyResponse
             {
-                Vacancy = new Domain.Entities.Vacancy() { WageType = (int)WageType.Custom, WageUnitId = wageUnitId }
+                Vacancy = new Domain.Entities.Vacancy
+                {
+                    WageType = (int)WageType.Custom,
+                    WageUnitId = wageUnitId
+                }
             };
 
-            mediatorMock
+            _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
-
-            var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await _sut.GetVacancyDetailsAsync(12345);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
@@ -80,7 +81,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Traineeship);
-            result.WageText.Should().BeNullOrEmpty();
+            result.Wage.Should().BeNullOrEmpty();
             result.WageUnit.Should().BeNull();
             result.WorkingWeek.Should().NotBeNullOrEmpty();
             result.HoursPerWeek.Should().BeNull();
@@ -92,10 +93,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         [TestCase(WageType.NationalMinimum)]
         [TestCase(WageType.ToBeAgreedUponAppointment)]
         [TestCase(WageType.Unwaged)]
-        public async Task ShouldHaveWageFieldsSetForApprenticeshipsWithNonCustomOrLegacyWeeklyWageType(WageType nonCustomWageType)
+        public async Task ShouldHaveNullWageUnitForVacanciesWithNonCustomOrLegacyWeeklyWageType(WageType nonCustomWageType)
         {
-            const int weeklyWage = 2550;
-
             _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetVacancyResponse
                 {
@@ -103,9 +102,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
-                                            .With(v => v.WeeklyWage, weeklyWage)
                                             .With(v => v.WageType, (int)nonCustomWageType)
-                                            .With(v => v.WageUnitId, 0)
                                             .Create()
                 });
 
@@ -113,8 +110,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Apprenticeship);
-
-            result.WageText.Should().Be("£2,550");
             result.WageUnit.Should().BeNull();
         }
 
@@ -129,7 +124,78 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         [TestCase(WageType.LegacyWeekly, WageUnit.Monthly, WageUnit.Weekly)]
         [TestCase(WageType.LegacyWeekly, WageUnit.Annually, WageUnit.Weekly)]
         [TestCase(WageType.LegacyWeekly, WageUnit.NotApplicable, WageUnit.Weekly)]
-        public async Task ShouldHaveWageFieldsSetForApprenticeshipsWithCustomOrCustomRangeOrLegacyWeeklyWageType(WageType nonCustomWageType, WageUnit wageUnit, WageUnit expectedWageUnit)
+        public async Task ShouldHaveCorrectWageUnitSetForVacanciesWithCustomOrCustomRangeOrLegacyWeeklyWageType(WageType nonCustomWageType, WageUnit wageUnit, WageUnit expectedWageUnit)
+        {
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)nonCustomWageType)
+                                            .With(v => v.WageUnitId, (int)wageUnit)
+                                            .Without(v => v.WageText)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().NotBeNull();
+            result.WageUnit.Should().Be(expectedWageUnit);
+        }
+        
+        [Test]
+        public async Task ShouldHaveUnknownWageForVacanciesWithLegacyTextWageType()
+        {
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)WageType.LegacyText)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().BeNull();
+            result.Wage.Should().Be("Unknown");
+        }
+
+        [TestCase(WageType.Unwaged, "Unwaged")]
+        [TestCase(WageType.ToBeAgreedUponAppointment, "To be agreed upon appointment")]
+        [TestCase(WageType.CompetitiveSalary, "Competitive salary")]
+        public async Task ShouldHaveAppropriateWageDescriptionForVacanciesWithNoWageAmount(WageType wageType, string expectedWageText)
+        {
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)wageType)
+                                            .Without(v => v.WeeklyWage)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().BeNull();
+            result.Wage.Should().Be(expectedWageText);
+        }
+
+        [Test]
+        public async Task LiveVacanciesWithLegacyWeeklyWageTypeShouldHaveWageSetFromWeeklyWage()
         {
             const int weeklyWage = 2550;
 
@@ -140,9 +206,10 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)WageType.LegacyWeekly)
                                             .With(v => v.WeeklyWage, weeklyWage)
-                                            .With(v => v.WageType, (int)nonCustomWageType)
-                                            .With(v => v.WageUnitId)
+                                            .Without(v => v.WageText)
+                                            .With(v => v.WageUnitId, (int)WageUnit.Weekly)
                                             .Create()
                 });
 
@@ -150,15 +217,18 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Apprenticeship);
-
-            result.WageText.Should().Be("£2,550");
-            result.WageUnit.Should().NotBeNull();
+            result.WageUnit.Should().Be(WageUnit.Weekly);
+            result.Wage.Should().Be("£2,550");
         }
-        
-        [TestCase(0)]
-        [TestCase(null)]
-        public async Task ShouldHaveWageFieldsSetAsUnknownForApprenticeshipWithNoWage(int wage)
+
+        [TestCase(WageUnit.Weekly)]
+        [TestCase(WageUnit.Monthly)]
+        [TestCase(WageUnit.Annually)]
+        [TestCase(WageUnit.NotApplicable)]
+        public async Task ShouldHaveWageSetForVacanciesWithCustomWageType(WageUnit wageUnit)
         {
+            const int weeklyWage = 2550;
+
             _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetVacancyResponse
                 {
@@ -166,9 +236,10 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
-                                            .With(v => v.WeeklyWage, wage)
                                             .With(v => v.WageType, (int)WageType.Custom)
-                                            .Without(v => v.WageUnitId)
+                                            .With(v => v.WeeklyWage, weeklyWage)
+                                            .Without(v => v.WageText)
+                                            .With(v => v.WageUnitId, (int)wageUnit)
                                             .Create()
                 });
 
@@ -176,8 +247,45 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().Be(wageUnit);
+            result.Wage.Should().Be("£2,550");
+        }
 
-            result.WageText.Should().Be("Unknown");
+        [TestCase(WageUnit.Weekly, 14000, 16000, "£14,000 - £16,000")]
+        [TestCase(WageUnit.Weekly, null, 16000, "Unknown - £16,000")]
+        [TestCase(WageUnit.Weekly, 14000, null, "£14,000 - Unknown")]
+        [TestCase(WageUnit.Monthly, 14000, 16000, "£14,000 - £16,000")]
+        [TestCase(WageUnit.Monthly, null, 16000, "Unknown - £16,000")]
+        [TestCase(WageUnit.Monthly, 14000, null, "£14,000 - Unknown")]
+        [TestCase(WageUnit.Annually, 14000, 16000, "£14,000 - £16,000")]
+        [TestCase(WageUnit.Annually, null, 16000, "Unknown - £16,000")]
+        [TestCase(WageUnit.Annually, 14000, null, "£14,000 - Unknown")]
+        public async Task ShouldHaveWageSetForVacanciesWithCustomRangeWageType(WageUnit wageUnit, decimal? lowerBound, decimal? upperBound, string expectedWageText)
+        {
+            const int weeklyWage = 2550;
+
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageLowerBound, lowerBound)
+                                            .With(v => v.WageUpperBound, upperBound)
+                                            .With(v => v.WageType, (int)WageType.CustomRange)
+                                            .With(v => v.WeeklyWage, weeklyWage)
+                                            .Without(v => v.WageText)
+                                            .With(v => v.WageUnitId, (int)wageUnit)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().Be(wageUnit);
+            result.Wage.Should().Be(expectedWageText);
         }
     }
 }
