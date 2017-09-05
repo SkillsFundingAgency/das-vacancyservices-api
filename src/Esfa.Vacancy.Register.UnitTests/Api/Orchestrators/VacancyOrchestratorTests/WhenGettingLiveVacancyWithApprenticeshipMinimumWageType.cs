@@ -1,0 +1,94 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api.Orchestrators;
+using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
+using FluentAssertions;
+using MediatR;
+using Moq;
+using NUnit.Framework;
+using Ploeh.AutoFixture;
+
+namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
+{
+    [TestFixture]
+    public class WhenGettingLiveVacancyWithApprenticeshipMinimumWageType
+    {
+        private const int VacancyReference = 1234;
+        private const int LiveVacancyStatusId = 2;
+        private const string UnknownwWageText = "Unknown";
+        private Mock<IMediator> _mockMediator;
+        private Mock<IProvideSettings> _provideSettings;
+        private VacancyOrchestrator _sut;
+
+        [OneTimeSetUp]
+        public void FixtureSetUp()
+        {
+            AutoMapperConfig.Configure();
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mockMediator = new Mock<IMediator>();
+            _provideSettings = new Mock<IProvideSettings>();
+            _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+        }
+
+        [Test]
+        public async Task ShouldHaveWageSetForVacancy()
+        {
+            const decimal minApprenticeshipWageRate = 4.05m;
+            const decimal hoursPerWeek = 30;
+
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
+                                            .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
+                                            .With(v => v.HoursPerWeek, hoursPerWeek)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().BeNull();
+            result.Wage.Should().Be("£121.50");
+        }
+
+        [Test]
+        public async Task ShouldHaveUnknownWageForVacancyWithUndefinedHoursPerWeek()
+        {
+            const decimal minApprenticeshipWageRate = 4.05m;
+
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
+                                            .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
+                                            .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
+                                            .Without(v => v.HoursPerWeek)
+                                            .Create()
+                });
+
+            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+
+            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyType.Should().Be(VacancyType.Apprenticeship);
+            result.WageUnit.Should().BeNull();
+            result.Wage.Should().Be(UnknownwWageText);
+        }
+    }
+}

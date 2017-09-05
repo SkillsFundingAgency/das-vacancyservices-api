@@ -83,7 +83,14 @@
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
     <Compile Include="Api\AutoMapperConfigTest.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncWageTests.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWage.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithAmbiguousWage.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithLegacyTextWageType.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithLegacyWeeklyWageType.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithCustomWageType.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
+    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
