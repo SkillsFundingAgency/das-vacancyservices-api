@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -10,7 +11,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
     public class VacancyRepository : IVacancyRepository
     {
-        private const string GetLiveVacancyByReferenceNumberSqlQuery = "EXEC [VACANCY_API].[GetLiveVacancy] @ReferenceNumber";
+        private const string GetLiveVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveVacancy]";
         private readonly IProvideSettings _provideSettings;
 
         public VacancyRepository(IProvideSettings provideSettings)
@@ -27,13 +28,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
+                var parameters = new DynamicParameters();
+                parameters.Add("@ReferenceNumber", referenceNumber, DbType.Int32);
+
                 await sqlConn.OpenAsync();
                 var results =
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
-                        GetLiveVacancyByReferenceNumberSqlQuery,
-                        param: new { ReferenceNumber = referenceNumber },
+                        GetLiveVacancyByReferenceNumberSqlSproc,
+                        param: parameters,
                         map: (v, a) => { v.Location = a; return v; },
-                        splitOn: "AddressLine1");
+                        splitOn: "AddressLine1",
+                        commandType: CommandType.StoredProcedure);
 
                 vacancy = results.FirstOrDefault();
             }
