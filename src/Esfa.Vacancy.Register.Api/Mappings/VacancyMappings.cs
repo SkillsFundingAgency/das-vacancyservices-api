@@ -31,8 +31,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     }
                     else
                     {
-                        AdjustWageUnitBasedOnWageType(src, dest);
-
                         MapWageFields(src, dest);
                     }
                 });
@@ -104,25 +102,25 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
 
-        private void AdjustWageUnitBasedOnWageType(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
-        {
-            switch (src.WageType)
-            {
-                case (int) WageType.Custom:
-                    break;
-                case (int) WageType.CustomRange:
-                    dest.WageUnit = src.WageUnitId.HasValue && (WageUnit) src.WageUnitId.Value == WageUnit.NotApplicable
-                        ? WageUnit.Weekly
-                        : dest.WageUnit;
-                    break;
-                case (int) WageType.LegacyWeekly:
-                    dest.WageUnit = WageUnit.Weekly;
-                    break;
-                default:
-                    dest.WageUnit = null;
-                    break;
-            }
-        }
+        //private void AdjustWageUnitBasedOnWageType(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
+        //{
+        //    switch (src.WageType)
+        //    {
+        //        case (int) WageType.Custom:
+        //            break;
+        //        case (int) WageType.CustomRange:
+        //            dest.WageUnit = src.WageUnitId.HasValue && (WageUnit) src.WageUnitId.Value == WageUnit.NotApplicable
+        //                ? WageUnit.Weekly
+        //                : dest.WageUnit;
+        //            break;
+        //        case (int) WageType.LegacyWeekly:
+        //            dest.WageUnit = WageUnit.Weekly;
+        //            break;
+        //        default:
+        //            dest.WageUnit = null;
+        //            break;
+        //    }
+        //}
 
         private void ResetWageFieldsForTraineeship(Vacancy.Api.Types.Vacancy dest)
         {

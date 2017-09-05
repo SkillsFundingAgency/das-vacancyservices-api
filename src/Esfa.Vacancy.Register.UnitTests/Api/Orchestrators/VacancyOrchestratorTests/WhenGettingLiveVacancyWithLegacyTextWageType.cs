@@ -49,6 +49,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
                                             .With(v => v.WageType, (int)WageType.LegacyText)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 

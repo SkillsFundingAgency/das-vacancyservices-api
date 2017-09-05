@@ -59,6 +59,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                                             .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                                             .With(v => v.HoursPerWeek, hoursPerWeek)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 
@@ -90,6 +91,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                                             .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                                             .Without(v => v.HoursPerWeek)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 
@@ -121,6 +123,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                                             .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                                             .With(v => v.HoursPerWeek, 0)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 

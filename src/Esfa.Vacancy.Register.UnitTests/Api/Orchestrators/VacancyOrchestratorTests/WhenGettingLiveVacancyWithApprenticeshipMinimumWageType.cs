@@ -54,6 +54,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
                                             .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
                                             .With(v => v.HoursPerWeek, hoursPerWeek)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 
@@ -80,6 +81,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
                                             .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
                                             .Without(v => v.HoursPerWeek)
+                                            .Without(v => v.WageUnitId)
                                             .Create()
                 });
 
