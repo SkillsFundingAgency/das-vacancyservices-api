@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
     public class VacancyMappings : Profile
     {
         private const string UnknownText = "Unknown";
+        private const string CurrencyStringFormat = "C";
 
         public VacancyMappings()
         {
@@ -46,16 +47,18 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     break;
                 case (int) WageType.LegacyWeekly:
                 case (int)WageType.Custom:
-                    dest.Wage = src.WeeklyWage?.ToString("C0") ?? UnknownText;
+                    dest.Wage = src.WeeklyWage?.ToString(CurrencyStringFormat) ?? UnknownText;
                     break;
                 case (int) WageType.ApprenticeshipMinimum:
-
+                    dest.Wage = src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue 
+                                ? (src.MinimumWageRate.Value * src.HoursPerWeek.Value).ToString(CurrencyStringFormat) 
+                                : UnknownText;
                     break;
                 case (int) WageType.NationalMinimum:
-
+                    dest.Wage = GetNationalMinimumWageRangeText(src);
                     break;
                 case (int) WageType.CustomRange:
-                    dest.Wage = $"{src.WageLowerBound?.ToString("C0") ?? UnknownText} - {src.WageUpperBound?.ToString("C0") ?? UnknownText}";
+                    dest.Wage = GetWageRangeText(src);
                     break;
                 case (int) WageType.CompetitiveSalary:
                     dest.Wage = "Competitive salary";
@@ -67,6 +70,32 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     dest.Wage = "Unwaged";
                     break;
             }
+        }
+
+        private string GetWageRangeText(Domain.Entities.Vacancy src)
+        {
+            return $"{src.WageLowerBound?.ToString(CurrencyStringFormat) ?? UnknownText} - {src.WageUpperBound?.ToString(CurrencyStringFormat) ?? UnknownText}";
+        }
+
+        private string GetNationalMinimumWageRangeText(Domain.Entities.Vacancy src)
+        {
+            if (!src.HoursPerWeek.HasValue || src.HoursPerWeek <= 0)
+            {
+                return UnknownText;
+            }
+
+            if (!src.MinimumWageLowerBound.HasValue && !src.MinimumWageUpperBound.HasValue)
+            {
+                return UnknownText;
+            }
+
+            var lowerMinimumLimit = src.MinimumWageLowerBound * src.HoursPerWeek;
+            var upperMinimumLimit = src.MinimumWageUpperBound * src.HoursPerWeek;
+            
+            var minLowerBoundSection = lowerMinimumLimit?.ToString(CurrencyStringFormat) ?? UnknownText;
+            var minUpperBoundSection = upperMinimumLimit?.ToString(CurrencyStringFormat) ?? UnknownText;
+
+            return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
 
         private void AdjustWageUnitBasedOnWageType(Domain.Entities.Vacancy src, Vacancy.Api.Types.Vacancy dest)
