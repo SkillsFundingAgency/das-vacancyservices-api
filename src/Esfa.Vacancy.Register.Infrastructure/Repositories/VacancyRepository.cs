@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
     public class VacancyRepository : IVacancyRepository
     {
-        private const string GetLiveVacancyByReferenceNumberSqlQuery = "SELECT * FROM [VACANCY_API].[VW_LiveVacancies] LV WHERE LV.VacancyReferenceNumber = @ReferenceNumber";
+        private const string GetLiveVacancyByReferenceNumberSqlQuery = "EXEC [VACANCY_API].[GetLiveVacancy] @ReferenceNumber";
         private readonly IProvideSettings _provideSettings;
 
         public VacancyRepository(IProvideSettings provideSettings)
