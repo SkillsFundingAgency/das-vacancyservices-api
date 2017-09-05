@@ -15,15 +15,7 @@ namespace Esfa.Vacancy.Register.Api
 
         public Global()
         {
-            SetApplicationCulture();
-
             _logger = DependencyResolver.Current.GetService<ILog>();
-        }
-
-        private static void SetApplicationCulture()
-        {
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-GB");
-            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-GB");
         }
 
         void Application_Start(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Domain.Entities;
 
@@ -7,7 +8,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
     public class VacancyMappings : Profile
     {
         private const string UnknownText = "Unknown";
-        private const string CurrencyStringFormat = "C";
 
         public VacancyMappings()
         {
@@ -47,11 +47,11 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     break;
                 case (int) WageType.LegacyWeekly:
                 case (int)WageType.Custom:
-                    dest.Wage = src.WeeklyWage?.ToString(CurrencyStringFormat) ?? UnknownText;
+                    dest.Wage = GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
                     break;
                 case (int) WageType.ApprenticeshipMinimum:
                     dest.Wage = src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue 
-                                ? (src.MinimumWageRate.Value * src.HoursPerWeek.Value).ToString(CurrencyStringFormat) 
+                                ? GetFormattedCurrencyString(src.MinimumWageRate.Value * src.HoursPerWeek.Value)
                                 : UnknownText;
                     break;
                 case (int) WageType.NationalMinimum:
@@ -74,7 +74,13 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         private string GetWageRangeText(Domain.Entities.Vacancy src)
         {
-            return $"{src.WageLowerBound?.ToString(CurrencyStringFormat) ?? UnknownText} - {src.WageUpperBound?.ToString(CurrencyStringFormat) ?? UnknownText}";
+            return $"{GetFormattedCurrencyString(src.WageLowerBound) ?? UnknownText} - {GetFormattedCurrencyString(src.WageUpperBound) ?? UnknownText}";
+        }
+
+        private string GetFormattedCurrencyString(decimal? src)
+        {
+            const string currencyStringFormat = "C";
+            return src?.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
         }
 
         private string GetNationalMinimumWageRangeText(Domain.Entities.Vacancy src)
@@ -92,8 +98,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             var lowerMinimumLimit = src.MinimumWageLowerBound * src.HoursPerWeek;
             var upperMinimumLimit = src.MinimumWageUpperBound * src.HoursPerWeek;
             
-            var minLowerBoundSection = lowerMinimumLimit?.ToString(CurrencyStringFormat) ?? UnknownText;
-            var minUpperBoundSection = upperMinimumLimit?.ToString(CurrencyStringFormat) ?? UnknownText;
+            var minLowerBoundSection = GetFormattedCurrencyString(lowerMinimumLimit) ?? UnknownText;
+            var minUpperBoundSection = GetFormattedCurrencyString(upperMinimumLimit) ?? UnknownText;
 
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
