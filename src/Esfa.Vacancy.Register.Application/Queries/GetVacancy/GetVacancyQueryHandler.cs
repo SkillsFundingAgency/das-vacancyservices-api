@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Domain.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
@@ -43,16 +42,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
             if (vacancy.FrameworkCode.HasValue)
             {
                 var framework = await _trainingDetailService.GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value);
-                vacancy.FrameworkTitle = framework.Title;
+                vacancy.Framework = framework;
             }
             else if (vacancy.StandardCode.HasValue)
             {
                 var standard = await _trainingDetailService.GetStandardDetailsAsync(vacancy.StandardCode.Value);
-                vacancy.StandardTitle = standard.Title;
-            }
-            else
-            {
-                throw new Exception($"Invalid training type on Vacancy {message.Reference}");
+                vacancy.Standard = standard;
             }
 
             return new GetVacancyResponse { Vacancy = vacancy };
