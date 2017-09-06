@@ -136,51 +136,33 @@ namespace Esfa.Vacancy.Api.Types
         public int NumberOfPositions { get; set; }
 
         /// <summary>
-        /// Gets or sets the standard code.
+        /// Training Type
         /// </summary>
-        /// <value>
-        /// The standard code.
-        /// </value>
-        public int? StandardCode { get; set; }
+        public TrainingType TrainingType { get; set; }
 
         /// <summary>
-        /// Gets or sets the standard title.
+        /// Training title.
         /// </summary>
-        /// <value>
-        /// The standard title.
-        /// </value>
-        public string StandardTitle { get; set; }
+        public string TrainingTitle { get; set; }
 
         /// <summary>
-        /// Gets or sets the framework code.
+        /// Training identifier
         /// </summary>
-        /// <value>
-        /// The framework code.
-        /// </value>
-        public int? FrameworkCode { get; set; }
+        public string TrainingCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the framework title.
+        /// URL to get Training details
         /// </summary>
-        /// <value>
-        /// The framework title.
-        /// </value>
-        public string FrameworkTitle { get; set; }
+        public string TrainingUri { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the employer.
+        /// Employer'e name.
         /// </summary>
-        /// <value>
-        /// The name of the employer.
-        /// </value>
         public string EmployerName { get; set; }
 
         /// <summary>
-        /// Gets or sets the employer description.
+        /// Employer's description.
         /// </summary>
-        /// <value>
-        /// The employer description.
-        /// </value>
         public string EmployerDescription { get; set; }
 
         /// <summary>
