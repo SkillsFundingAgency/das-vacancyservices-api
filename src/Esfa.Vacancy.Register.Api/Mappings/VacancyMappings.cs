@@ -48,9 +48,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     dest.Wage = GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
                     break;
                 case (int) WageType.ApprenticeshipMinimum:
-                    dest.Wage = src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue 
-                                ? GetFormattedCurrencyString(src.MinimumWageRate.Value * src.HoursPerWeek.Value)
-                                : UnknownText;
+                    dest.Wage = GetMinimumApprenticeWage(src);
                     break;
                 case (int) WageType.NationalMinimum:
                     dest.Wage = GetNationalMinimumWageRangeText(src);
@@ -68,6 +66,13 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     dest.Wage = "Unwaged";
                     break;
             }
+        }
+
+        private string GetMinimumApprenticeWage(Domain.Entities.Vacancy src)
+        {
+            return src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue 
+                ? GetFormattedCurrencyString(src.MinimumWageRate.Value * src.HoursPerWeek.Value)
+                : UnknownText;
         }
 
         private string GetWageRangeText(Domain.Entities.Vacancy src)
