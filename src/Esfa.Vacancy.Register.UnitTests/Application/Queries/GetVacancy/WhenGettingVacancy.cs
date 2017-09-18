@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
@@ -22,14 +23,43 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         private Mock<AbstractValidator<GetVacancyRequest>> _mockValidator;
         private Mock<ITrainingDetailService> _mockTrainingDetailService;
         private GetVacancyQueryHandler _queryHandler;
+        private int _refNumberForFramework;
+        private int _refNumberForStandard;
+        private Domain.Entities.Vacancy _vacancyWithFrameworkCode;
+        private Domain.Entities.Vacancy _vacancyWithStandardCode;
+
 
         [SetUp]
         public void Setup()
         {
+            _refNumberForFramework = 98098;
+            _refNumberForStandard = 932478;
+            _vacancyWithFrameworkCode = new Domain.Entities.Vacancy() { FrameworkCode = 435645 };
+            _vacancyWithStandardCode = new Domain.Entities.Vacancy() { StandardCode = 435645 };
+
             _mockLogger = new Mock<ILog>();
+
             _mockVacancyRepository = new Mock<IVacancyRepository>();
+            _mockVacancyRepository
+                .Setup(r => r.GetVacancyByReferenceNumberAsync(_refNumberForFramework))
+                .ReturnsAsync(_vacancyWithFrameworkCode);
+            _mockVacancyRepository
+                .Setup(r => r.GetVacancyByReferenceNumberAsync(_refNumberForStandard))
+                .ReturnsAsync(_vacancyWithStandardCode);
+
             _mockValidator = new Mock<AbstractValidator<GetVacancyRequest>>();
+            _mockValidator
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Returns(new ValidationResult());
+
             _mockTrainingDetailService = new Mock<ITrainingDetailService>();
+            _mockTrainingDetailService
+                .Setup(s => s.GetFrameworkDetailsAsync(_vacancyWithFrameworkCode.FrameworkCode.Value))
+                .ReturnsAsync(new Framework() { Title = "framework" });
+            _mockTrainingDetailService
+                .Setup(s => s.GetStandardDetailsAsync(_vacancyWithStandardCode.StandardCode.Value))
+                .ReturnsAsync(new Standard() { Title = "standard" });
+
             _queryHandler = new GetVacancyQueryHandler(_mockValidator.Object,
                 _mockVacancyRepository.Object, _mockLogger.Object, _mockTrainingDetailService.Object);
         }
@@ -38,7 +68,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         public void ThenIfInvalidRequest()
         {
             var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, string.Empty) };
-            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult(failures));
+            _mockValidator
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Returns(new ValidationResult(failures));
 
             Assert.ThrowsAsync<ValidationException>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
         }
@@ -46,9 +78,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         [Test]
         public void ThenIfNoDataFound()
         {
-            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult());
-            Domain.Entities.Vacancy vacancy = null;
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockVacancyRepository
+                .Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>()))
+                .ReturnsAsync((Domain.Entities.Vacancy)null);
 
             Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
         }
@@ -56,43 +88,25 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         [Test]
         public async Task ThenIfVacancyHasFrameworkIdGetFrameworkTitle()
         {
-            _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
-                .Returns(new ValidationResult());
-            _mockTrainingDetailService
-                .Setup(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Framework() { Title = "framework" });
+            var response = await _queryHandler.Handle(new GetVacancyRequest{Reference = _refNumberForFramework});
 
-            var vacancy = new Domain.Entities.Vacancy() { FrameworkCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
-
-            var response = await _queryHandler.Handle(new GetVacancyRequest());
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()));
-            Assert.AreEqual(vacancy, response.Vacancy);
-            Assert.IsNotNull(vacancy.Framework);
+
+            Assert.AreEqual(_vacancyWithFrameworkCode, response.Vacancy);
+            Assert.IsNotNull(_vacancyWithFrameworkCode.Framework);
         }
 
         [Test]
         public async Task ThenIfVacancyHasStandardCodeGetStandardTitle()
         {
-            _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
-                .Returns(new ValidationResult());
-            _mockTrainingDetailService
-                .Setup(s => s.GetStandardDetailsAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Standard() { Title = "standard" });
-
-            var vacancy = new Domain.Entities.Vacancy() { StandardCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
-
-            var response = await _queryHandler.Handle(new GetVacancyRequest());
+            var response = await _queryHandler.Handle(new GetVacancyRequest{Reference = _refNumberForStandard});
 
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()), Times.Never);
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()));
 
-            Assert.AreEqual(vacancy, response.Vacancy);
-            Assert.IsNotNull(vacancy.Standard);
+            Assert.AreEqual(_vacancyWithStandardCode, response.Vacancy);
+            Assert.IsNotNull(_vacancyWithStandardCode.Standard);
         }
     }
 }
