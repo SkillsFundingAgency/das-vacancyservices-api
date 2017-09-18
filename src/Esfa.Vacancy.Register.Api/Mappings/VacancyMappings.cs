@@ -13,14 +13,11 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         {
             CreateMap<Domain.Entities.Vacancy, Vacancy.Api.Types.Vacancy>()
                 .ForMember(apiType => apiType.VacancyUrl, opt => opt.Ignore())
-
                 .ForMember(apiType => apiType.Wage, opt => opt.Ignore())
-
                 .ForMember(apiType => apiType.TrainingType, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingCode, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingTitle, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingUri, opt => opt.Ignore())
-
                 .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
                 .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
                 .ForMember(apiType => apiType.VacancyReference, opt => opt.MapFrom(source => source.VacancyReferenceNumber))
@@ -148,7 +145,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             dest.EmployerName = src.AnonymousEmployerName;
             dest.EmployerDescription = src.AnonymousEmployerDescription;
             dest.EmployerWebsite = null;
-
             dest.Location = new Vacancy.Api.Types.Address { Town = src.Location.Town };
         }
     }
