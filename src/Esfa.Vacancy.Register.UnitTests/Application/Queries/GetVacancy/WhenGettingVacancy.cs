@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
@@ -71,7 +70,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()));
             Assert.AreEqual(vacancy, response.Vacancy);
-            Assert.IsNotEmpty(vacancy.FrameworkTitle);
+            Assert.IsNotNull(vacancy.Framework);
         }
 
         [Test]
@@ -93,23 +92,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()));
 
             Assert.AreEqual(vacancy, response.Vacancy);
-            Assert.IsNotEmpty(vacancy.StandardTitle);
-        }
-
-        [Test]
-        public void ThenRaiseExceptionIfVacancyHasNoTrainingTypeDefined()
-        {
-            _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
-                .Returns(new ValidationResult());
-
-            var vacancy = new Domain.Entities.Vacancy();
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
-
-            Assert.ThrowsAsync<Exception>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
-            _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
-            _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()), Times.Never);
-
+            Assert.IsNotNull(vacancy.Standard);
         }
     }
 }
