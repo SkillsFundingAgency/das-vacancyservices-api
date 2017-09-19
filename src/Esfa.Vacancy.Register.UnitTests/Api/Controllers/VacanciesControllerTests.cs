@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Controllers
 
             var controller = new VacanciesController(mockLog.Object, mockOrchestrator.Object);
 
-            var vacancy = await controller.Get(3) as OkNegotiatedContentResult<Vacancy.Api.Types.Vacancy>;
+            var vacancy = await controller.Get("2345") as OkNegotiatedContentResult<Vacancy.Api.Types.Vacancy>;
 
             Assert.That(vacancy?.Content, Is.SameAs(expectedVacancy));
         }
