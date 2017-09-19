@@ -21,14 +21,14 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Controllers
 
             var mockOrchestrator = new Mock<IVacancyOrchestrator>();            
             mockOrchestrator
-                .Setup(orchestrator => orchestrator.GetVacancyDetailsAsync(It.IsAny<int>()))
+                .Setup(orchestrator => orchestrator.GetVacancyDetailsAsync(It.IsAny<string>()))
                 .ReturnsAsync(expectedVacancy);
 
             var controller = new VacanciesController(mockLog.Object, mockOrchestrator.Object);
 
-            var vacancy = await controller.Get("2345") as OkNegotiatedContentResult<Vacancy.Api.Types.Vacancy>;
+            var result = await controller.Get("2345") as OkNegotiatedContentResult<Vacancy.Api.Types.Vacancy>;
 
-            Assert.That(vacancy?.Content, Is.SameAs(expectedVacancy));
+            Assert.That(result?.Content, Is.SameAs(expectedVacancy));
         }
     }
 }

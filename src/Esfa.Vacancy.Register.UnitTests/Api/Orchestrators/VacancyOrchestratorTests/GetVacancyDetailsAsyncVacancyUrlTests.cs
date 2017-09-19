@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetVacancyDetailsAsync("56756");
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{vacancyReferenceNumber}", vacancy.VacancyUrl);
@@ -64,7 +64,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetVacancyDetailsAsync("4556");
             //Assert
             vacancy.VacancyType.ShouldBeEquivalentTo(vacancyType);
         }
@@ -88,7 +88,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetVacancyDetailsAsync("88897");
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }

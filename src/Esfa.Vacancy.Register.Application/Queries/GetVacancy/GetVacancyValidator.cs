@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
@@ -8,7 +7,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
     {
         public GetVacancyValidator()
         {
-            RuleFor(request => request.Reference).GreaterThan(0);
+            //RuleFor(request => request.Reference).GreaterThan(0);
         }
     }
 }

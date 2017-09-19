@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancy = await _vacancyRepository.GetVacancyByReferenceNumberAsync(message.Reference);
+            var vacancy = await _vacancyRepository.GetVacancyByReferenceNumberAsync(int.Parse(message.Reference));
 
             if (vacancy == null) throw new ResourceNotFoundException($"Vacancy: {message.Reference}");
 
