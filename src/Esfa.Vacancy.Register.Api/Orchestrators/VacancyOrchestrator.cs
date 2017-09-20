@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
+using FluentValidation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -28,8 +30,10 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         private static int ParseVacancyReferenceNumber(string rawId)
         {
-            var trimmedString = rawId.StartsWith("VAC") ? rawId.Remove(0, 3) : rawId;
-            return int.Parse(trimmedString);
+            var trimmedString = rawId.Replace("VAC", string.Empty);
+            if (!int.TryParse(trimmedString, out var parsedId))
+                throw new ValidationException("Vacancy Reference Number blah blah..");
+            return parsedId;
         }
     }
 }

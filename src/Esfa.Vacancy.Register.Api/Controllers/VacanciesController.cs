@@ -52,6 +52,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         [ExceptionHandling]
         [Route("api/vacancies/{vacancyReference}")]
         public async Task<IHttpActionResult> Get(string vacancyReference)

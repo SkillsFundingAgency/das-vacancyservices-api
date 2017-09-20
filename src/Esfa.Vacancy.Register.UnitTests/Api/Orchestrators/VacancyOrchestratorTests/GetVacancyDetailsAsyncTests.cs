@@ -6,6 +6,7 @@ using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
+using FluentValidation;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -138,6 +139,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             var result = await _sut.GetVacancyDetailsAsync($"VAC00{_vacancyReferenceParameter}");
 
             Assert.That(result.VacancyReference, Is.EqualTo(_vacancyReferenceNumber));
+        }
+
+        [Test]
+        public void WhenCallingGetVacancyDetailsAsync_AndReferenceContainsOtherString_ThenThrowsValidationException()
+        {
+            Assert.ThrowsAsync<ValidationException>(() => _sut.GetVacancyDetailsAsync($"ABC00{_vacancyReferenceParameter}"));
         }
     }
 }
