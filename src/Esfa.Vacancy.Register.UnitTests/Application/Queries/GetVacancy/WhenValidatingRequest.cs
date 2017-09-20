@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
 {
-    [TestFixture, Ignore("temporary")]
+    [TestFixture]
     public class WhenValidatingRequest
     {
         private GetVacancyValidator _validator;
@@ -16,9 +16,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
             _validator = new GetVacancyValidator();
         }
 
-        [TestCase("0")]
-        [TestCase("-1")]
-        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(string testVacancyReference)
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference)
         {
             _validator.ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference);
         }
@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         [TestCase(99999)]
         public void ThenIfTheVacancyReferenceIsGreaterThanZeroIsValid(int testVacancyReference)
         {
-            _validator.ShouldNotHaveValidationErrorFor(request => int.Parse(request.Reference), testVacancyReference);
+            _validator.ShouldNotHaveValidationErrorFor(request => request.Reference, testVacancyReference);
         }
     }
 }

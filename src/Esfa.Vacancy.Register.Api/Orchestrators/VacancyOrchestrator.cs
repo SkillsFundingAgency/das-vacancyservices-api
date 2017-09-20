@@ -19,7 +19,8 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         public async Task<Vacancy.Api.Types.Vacancy> GetVacancyDetailsAsync(string id)
         {
-            var response = await _mediator.Send(new GetVacancyRequest() { Reference = id });
+            var parsedReference = int.Parse(id);
+            var response = await _mediator.Send(new GetVacancyRequest() { Reference = parsedReference });
             var vacancy = Mapper.Map<Vacancy.Api.Types.Vacancy>(response.Vacancy);
             vacancy.VacancyUrl = $"{_liveVacancyBaseUrl}/{vacancy.VacancyReference}";
             return vacancy;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
@@ -23,8 +22,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         private Mock<AbstractValidator<GetVacancyRequest>> _mockValidator;
         private Mock<ITrainingDetailService> _mockTrainingDetailService;
         private GetVacancyQueryHandler _queryHandler;
-        private string _refNumberForFramework;
-        private string _refNumberForStandard;
+        private int _refNumberForFramework;
+        private int _refNumberForStandard;
         private Domain.Entities.Vacancy _vacancyWithFrameworkCode;
         private Domain.Entities.Vacancy _vacancyWithStandardCode;
 
@@ -32,8 +31,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         [SetUp]
         public void Setup()
         {
-            _refNumberForFramework = "450698";
-            _refNumberForStandard = "932478";
+            _refNumberForFramework = 450698;
+            _refNumberForStandard = 932478;
             _vacancyWithFrameworkCode = new Domain.Entities.Vacancy() { FrameworkCode = 435645 };
             _vacancyWithStandardCode = new Domain.Entities.Vacancy() { StandardCode = 435645 };
 
@@ -41,10 +40,10 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
 
             _mockVacancyRepository = new Mock<IVacancyRepository>();
             _mockVacancyRepository
-                .Setup(r => r.GetVacancyByReferenceNumberAsync(int.Parse(_refNumberForFramework)))
+                .Setup(r => r.GetVacancyByReferenceNumberAsync(_refNumberForFramework))
                 .ReturnsAsync(_vacancyWithFrameworkCode);
             _mockVacancyRepository
-                .Setup(r => r.GetVacancyByReferenceNumberAsync(int.Parse(_refNumberForStandard)))
+                .Setup(r => r.GetVacancyByReferenceNumberAsync(_refNumberForStandard))
                 .ReturnsAsync(_vacancyWithStandardCode);
 
             _mockValidator = new Mock<AbstractValidator<GetVacancyRequest>>();
@@ -72,7 +71,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
                 .Returns(new ValidationResult(failures));
 
-            Assert.ThrowsAsync<ValidationException>(async () => await _queryHandler.Handle(new GetVacancyRequest{Reference = "4325"}));
+            Assert.ThrowsAsync<ValidationException>(async () => await _queryHandler.Handle(new GetVacancyRequest{Reference = 4325}));
         }
 
         [Test]
@@ -82,7 +81,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
                 .Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>()))
                 .ReturnsAsync((Domain.Entities.Vacancy)null);
 
-            Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetVacancyRequest{Reference = "345"}));
+            Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetVacancyRequest{Reference = 345}));
         }
 
         [Test]

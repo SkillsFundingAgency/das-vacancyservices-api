@@ -7,7 +7,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
     {
         public GetVacancyValidator()
         {
-            //RuleFor(request => request.Reference).GreaterThan(0);
+            RuleFor(request => request.Reference).GreaterThan(0);
         }
     }
 }
