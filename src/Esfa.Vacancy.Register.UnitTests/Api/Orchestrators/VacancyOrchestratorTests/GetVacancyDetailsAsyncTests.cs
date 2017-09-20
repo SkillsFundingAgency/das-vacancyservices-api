@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
@@ -16,11 +17,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     [Parallelizable(ParallelScope.Fixtures)]
     public class GetVacancyDetailsAsyncTests
     {
-        private const string VacancyReference = "324087";
+        private string _vacancyReferenceParameter;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
         private VacancyOrchestrator _sut;
+        private int _vacancyReferenceNumber;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -29,21 +31,37 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         }
 
         [SetUp]
-        public void SetUp()
+        public void GivenAVacancyOrchestrator()
         {
+            _vacancyReferenceNumber = new Random().Next();
+            _vacancyReferenceParameter = _vacancyReferenceNumber.ToString();
+
             _mockMediator = new Mock<IMediator>();
+            _mockMediator
+                .Setup(m => m.Send(
+                    It.Is<GetVacancyRequest>(request => request.Reference == _vacancyReferenceNumber), 
+                    CancellationToken.None))
+                .ReturnsAsync(new GetVacancyResponse
+                {
+                    Vacancy = new Domain.Entities.Vacancy
+                    {
+                        VacancyReferenceNumber = _vacancyReferenceNumber
+                    }
+                });
+
             _provideSettings = new Mock<IProvideSettings>();
+
             _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
         }
 
         [Test]
-        public async Task GetLiveNonAnonymousEmployerVacancy_ShouldNotReplaceEmployerNameAndDescription()
+        public async Task WhenGettingLiveNonAnonymousEmployerVacancy_ShouldNotReplaceEmployerNameAndDescription()
         {
             _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.VacancyReferenceNumber, int.Parse(VacancyReference))
+                                            .With(v => v.VacancyReferenceNumber, _vacancyReferenceNumber)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
                                             .With(v => v.EmployerDescription, "A plain company")
@@ -54,9 +72,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter);
 
-            result.VacancyReference.Should().Be(int.Parse(VacancyReference));
+            result.VacancyReference.Should().Be(_vacancyReferenceNumber);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
@@ -73,13 +91,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         }
 
         [Test]
-        public async Task GetLiveAnonymousEmployerVacancy_ShouldReplaceEmployerNameAndDescription()
+        public async Task WhenGettingLiveAnonymousEmployerVacancy_ShouldReplaceEmployerNameAndDescription()
         {
             _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.VacancyReferenceNumber, int.Parse(VacancyReference))
+                                            .With(v => v.VacancyReferenceNumber, _vacancyReferenceNumber)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
                                             .With(v => v.EmployerDescription, "A private description")
@@ -89,9 +107,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter);
 
-            result.VacancyReference.Should().Be(int.Parse(VacancyReference));
+            result.VacancyReference.Should().Be(_vacancyReferenceNumber);
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().BeNullOrEmpty();
@@ -104,6 +122,22 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.Location.Latitude.Should().BeNull();
             result.Location.Longitude.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
+        }
+
+        [Test]
+        public async Task WhenCallingGetVacancyDetailsAsync_AndReferenceIsParsableAsInt_ThenParsesInt()
+        {
+            var result = await _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter);
+
+            Assert.That(result.VacancyReference, Is.EqualTo(_vacancyReferenceNumber));
+        }
+
+        [Test]
+        public async Task WhenCallingGetVacancyDetailsAsync_AndReferenceContainsVAC_ThenParsesInt()
+        {
+            var result = await _sut.GetVacancyDetailsAsync($"VAC00{_vacancyReferenceParameter}");
+
+            Assert.That(result.VacancyReference, Is.EqualTo(_vacancyReferenceNumber));
         }
     }
 }
