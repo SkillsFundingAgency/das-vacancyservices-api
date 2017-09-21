@@ -53,7 +53,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The wage unit.
         /// </value>
-        public WageUnit WageUnit { get; set; }
+        public WageUnit? WageUnit { get; set; }
 
         /// <summary>
         /// Gets or sets the weekly wage.
@@ -138,7 +138,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Training Type
         /// </summary>
-        public TrainingType TrainingType { get; set; }
+        public TrainingType? TrainingType { get; set; }
 
         /// <summary>
         /// Training title.
