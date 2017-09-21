@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         [SetUp]
         public void GivenAVacancyOrchestrator()
         {
-            _vacancyReferenceNumber = new Random().Next();
+            _vacancyReferenceNumber = new Random().Next(1, 999999);
             _vacancyReferenceParameter = _vacancyReferenceNumber.ToString();
 
             _mockMediator = new Mock<IMediator>();
@@ -129,26 +129,32 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public void WhenCallingGetVacancyDetailsAsync_AndReferenceIsParsableAsInt_ThenParsesInt()
         {
             _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter)
-                .Result
-                .VacancyReference
-                .Should()
-                .Be(_vacancyReferenceNumber);
+                .Result.VacancyReference
+                .Should().Be(_vacancyReferenceNumber);
         }
 
         [Test]
         public void WhenCallingGetVacancyDetailsAsync_AndReferenceContainsVAC_ThenParsesInt()
         {
             _sut.GetVacancyDetailsAsync($"VAC00{_vacancyReferenceParameter}")
-                .Result
-                .VacancyReference
-                .Should()
-                .Be(_vacancyReferenceNumber);
+                .Result.VacancyReference
+                .Should().Be(_vacancyReferenceNumber);
+        }
+
+        [Test]
+        public void WhenCallingGetVacancyDetailsAsync_AndReferenceContainsVacLowerCase_ThenParsesInt()
+        {
+            _sut.GetVacancyDetailsAsync($"vAc00{_vacancyReferenceParameter}")
+                .Result.VacancyReference
+                .Should().Be(_vacancyReferenceNumber);
         }
 
         [Test]
         public void WhenCallingGetVacancyDetailsAsync_AndReferenceContainsOtherString_ThenThrowsValidationException()
         {
-            Assert.ThrowsAsync<ValidationException>(() => _sut.GetVacancyDetailsAsync($"ABC00{_vacancyReferenceParameter}"));
+            Assert.That(() => _sut.GetVacancyDetailsAsync($"ABC00{_vacancyReferenceParameter}"),
+                Throws.TypeOf<ValidationException>()
+                .With.Message.EqualTo("TODO: get correct wording from product team"));
         }
     }
 }

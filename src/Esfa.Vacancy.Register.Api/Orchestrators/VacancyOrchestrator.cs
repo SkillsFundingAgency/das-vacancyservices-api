@@ -12,6 +12,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     {
         private readonly IMediator _mediator;
         private readonly string _liveVacancyBaseUrl;
+        private const string VacPrefix = "VAC";
 
         public VacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
@@ -30,11 +31,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         private static int ParseVacancyReferenceNumber(string rawId)
         {
-            // https://github.com/SkillsFundingAgency/FindApprenticeship/blob/fc646890519de367f6b53ceda91ad1cf8ca173d2/src/SFA.Apprenticeships.Domain.Entities/Vacancies/VacancyHelper.cs
-
-            var trimmedString = rawId.Replace("VAC", string.Empty);
+            var trimmedString = rawId.ToUpper().Replace(VacPrefix.ToUpper(), string.Empty);
             if (!int.TryParse(trimmedString, out var parsedId))
-                throw new ValidationException("Vacancy Reference Number blah blah..");
+                throw new ValidationException("TODO: get correct wording from product team");
             return parsedId;
         }
     }
