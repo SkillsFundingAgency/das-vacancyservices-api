@@ -34,6 +34,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <returns>
         /// A vacancy for an apprenticeship or a traineeship
         /// </returns>
+        [AllowAnonymous]
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
