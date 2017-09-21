@@ -28,21 +28,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         }
 
         /// <summary>
-        /// Check if a vacancy exists
-        /// </summary>
-        /// <param name="vacancyReference">The vacancy reference.</param>
-        /// <returns></returns>
-        [SwaggerOperation("Head")]
-        [SwaggerResponse(HttpStatusCode.NoContent)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        [ExceptionHandling]
-        [Route("api/vacancies/{vacancyReference}")]
-        public async Task Head(int vacancyReference)
-        {
-            await Get(vacancyReference);
-        }
-
-        /// <summary>
         /// Get a vacancy by the public vacancy reference identifier
         /// </summary>
         /// <param name="vacancyReference">The vacancy reference number.</param>
