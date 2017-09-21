@@ -126,19 +126,23 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         }
 
         [Test]
-        public async Task WhenCallingGetVacancyDetailsAsync_AndReferenceIsParsableAsInt_ThenParsesInt()
+        public void WhenCallingGetVacancyDetailsAsync_AndReferenceIsParsableAsInt_ThenParsesInt()
         {
-            var result = await _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter);
-
-            Assert.That(result.VacancyReference, Is.EqualTo(_vacancyReferenceNumber));
+            _sut.GetVacancyDetailsAsync(_vacancyReferenceParameter)
+                .Result
+                .VacancyReference
+                .Should()
+                .Be(_vacancyReferenceNumber);
         }
 
         [Test]
-        public async Task WhenCallingGetVacancyDetailsAsync_AndReferenceContainsVAC_ThenParsesInt()
+        public void WhenCallingGetVacancyDetailsAsync_AndReferenceContainsVAC_ThenParsesInt()
         {
-            var result = await _sut.GetVacancyDetailsAsync($"VAC00{_vacancyReferenceParameter}");
-
-            Assert.That(result.VacancyReference, Is.EqualTo(_vacancyReferenceNumber));
+            _sut.GetVacancyDetailsAsync($"VAC00{_vacancyReferenceParameter}")
+                .Result
+                .VacancyReference
+                .Should()
+                .Be(_vacancyReferenceNumber);
         }
 
         [Test]

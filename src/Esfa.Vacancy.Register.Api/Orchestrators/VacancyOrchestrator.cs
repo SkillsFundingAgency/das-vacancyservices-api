@@ -30,6 +30,8 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         private static int ParseVacancyReferenceNumber(string rawId)
         {
+            // https://github.com/SkillsFundingAgency/FindApprenticeship/blob/fc646890519de367f6b53ceda91ad1cf8ca173d2/src/SFA.Apprenticeships.Domain.Entities/Vacancies/VacancyHelper.cs
+
             var trimmedString = rawId.Replace("VAC", string.Empty);
             if (!int.TryParse(trimmedString, out var parsedId))
                 throw new ValidationException("Vacancy Reference Number blah blah..");
