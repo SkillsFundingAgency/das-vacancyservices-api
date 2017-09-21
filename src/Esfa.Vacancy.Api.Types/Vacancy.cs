@@ -109,7 +109,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The date posted.
         /// </value>
-        public DateTime? DatePosted { get; set; }
+        public DateTime DatePosted { get; set; }
 
         /// <summary>
         /// Gets or sets the application closing date.
