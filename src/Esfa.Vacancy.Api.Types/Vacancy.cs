@@ -8,82 +8,82 @@ namespace Esfa.Vacancy.Api.Types
     public class Vacancy
     {
         /// <summary>
-        /// Gets or sets the reference.
+        /// Reference number.
         /// </summary>
         public int VacancyReference { get; set; }
 
         /// <summary>
-        /// Gets or sets the title.
+        /// Vacancy Title.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the short description.
+        /// Short description.
         /// </summary>
         public string ShortDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Description.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the vacancy.
+        /// Type of the vacancy.
         /// </summary>
         public VacancyType VacancyType { get; set; }
 
         /// <summary>
-        /// Gets or sets the wage unit.
+        /// Wage unit.
         /// </summary>
         public WageUnit? WageUnit { get; set; }
 
         /// <summary>
-        /// Gets or sets the weekly wage.
+        /// Weekly wage.
         /// </summary>
         public decimal? WeeklyWage { get; set; }
 
         /// <summary>
-        /// Gets or sets the working week.
+        /// Working week.
         /// </summary>
         public string WorkingWeek { get; set; }
 
         /// <summary>
-        /// Gets or sets the wage text.
+        /// Wage text.
         /// </summary>
         public string WageText { get; set; }
 
         /// <summary>
-        /// Gets or sets the hours per week.
+        /// Hours per week.
         /// </summary>
         public decimal? HoursPerWeek { get; set; }
 
         /// <summary>
-        /// Gets or sets the expected duration.
+        /// Expected duration.
         /// </summary>
         public string ExpectedDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the expected start date.
+        /// Expected start date.
         /// </summary>
         public DateTime? ExpectedStartDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the date posted.
+        /// Date posted.
         /// </summary>
         public DateTime DatePosted { get; set; }
 
         /// <summary>
-        /// Gets or sets the application closing date.
+        /// Application closing date.
         /// </summary>
         public DateTime? ApplicationClosingDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the interview from date.
+        /// Interview from date.
         /// </summary>
         public DateTime? InterviewFromDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of positions.
+        /// Number of positions.
         /// </summary>
         public int NumberOfPositions { get; set; }
 
@@ -118,62 +118,62 @@ namespace Esfa.Vacancy.Api.Types
         public string EmployerDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the employers website.
+        /// Employers website.
         /// </summary>
         public string EmployerWebsite { get; set; }
 
         /// <summary>
-        /// Gets or sets the training to be provided.
+        /// Training to be provided.
         /// </summary>
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
-        /// Gets or sets the qulificatios required.
+        /// Qualificatios required.
         /// </summary>
         public string QualificationsRequired { get; set; }
 
         /// <summary>
-        /// Gets or sets the skills required.
+        /// Skills required.
         /// </summary>
         public string SkillsRequired { get; set; }
 
         /// <summary>
-        /// Gets or sets the personal qualities.
+        /// Personal qualities.
         /// </summary>
         public string PersonalQualities { get; set; }
 
         /// <summary>
-        /// Gets or sets the important information.
+        /// Important information.
         /// </summary>
         public string ImportantInformation { get; set; }
 
         /// <summary>
-        /// Gets or sets the future prospects.
+        /// Future prospects.
         /// </summary>
         public string FutureProspects { get; set; }
 
         /// <summary>
-        /// Gets or sets the things to consider.
+        /// Things to consider.
         /// </summary>
         public string ThingsToConsider { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the vacancy location.
+        /// Type of the vacancy location.
         /// </summary>
         public VacancyLocationType LocationType { get; set; }
 
         /// <summary>
-        /// Gets or sets the supplementary question1.
+        /// Supplementary question1.
         /// </summary>
         public string SupplementaryQuestion1 { get; set; }
 
         /// <summary>
-        /// Gets or sets the supplementary question2.
+        /// Supplementary question2.
         /// </summary>
         public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
-        /// Gets or sets the vacancy URL.
+        /// Vacancy URL.
         /// </summary>
         public string VacancyUrl { get; set; }
 

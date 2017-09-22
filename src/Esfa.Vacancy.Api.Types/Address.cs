@@ -3,39 +3,39 @@
     public class Address
     {
         /// <summary>
-        /// The address line1.
+        /// Address line1.
         /// </summary>
         public string AddressLine1 { get; set; }
         /// <summary>
-        /// Gets or sets the address line2.
+        /// Address line2.
         /// </summary>
         public string AddressLine2 { get; set; }
         /// <summary>
-        /// Gets or sets the address line3.
+        /// Address line3.
         /// </summary>
         public string AddressLine3 { get; set; }
         /// <summary>
-        /// Gets or sets the address line4.
+        /// Address line4.
         /// </summary>
         public string AddressLine4 { get; set; }
         /// <summary>
-        /// Gets or sets the address line5.
+        /// Address line5.
         /// </summary>
         public string AddressLine5 { get; set; }
         /// <summary>
-        /// Gets or sets the latitude.
+        /// Latitude.
         /// </summary>
         public decimal? Latitude { get; set; }
         /// <summary>
-        /// Gets or sets the longitude.
+        /// Longitude.
         /// </summary>
         public decimal? Longitude { get; set; }
         /// <summary>
-        /// Gets or sets the post code.
+        /// Post code.
         /// </summary>
         public string PostCode { get; set; }
         /// <summary>
-        /// Gets or sets the town.
+        /// Town.
         /// </summary>
         public string Town { get; set; }
     }
