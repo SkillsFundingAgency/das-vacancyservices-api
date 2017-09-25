@@ -90,7 +90,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Training Type
         /// </summary>
-        public TrainingType? TrainingType { get; set; }
+        public TrainingType TrainingType { get; set; }
 
         /// <summary>
         /// Training title.
