@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Api
                 DateTimeZoneHandling = DateTimeZoneHandling.Local
             };
 
-            new ApiFilterConfig().RegisterFilters(config.Filters);
+            ApiFilterConfig.RegisterFilters(config.Filters);
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StrictEnumConverter());
 
