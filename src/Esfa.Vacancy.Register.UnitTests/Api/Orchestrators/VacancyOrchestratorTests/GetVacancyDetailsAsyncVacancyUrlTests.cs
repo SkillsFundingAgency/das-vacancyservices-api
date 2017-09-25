@@ -91,7 +91,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
             //Assert
-            Console.WriteLine($"actual:{vacancy.WageUnit}, expected:{wageUnitType}");
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
     }
