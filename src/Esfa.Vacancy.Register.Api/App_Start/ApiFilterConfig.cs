@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Register.Api
 {
     public class ApiFilterConfig
     {
-        public void RegisterFilters(HttpFilterCollection filters)
+        public static void RegisterFilters(HttpFilterCollection filters)
         {
             filters.Add(new AuthorizeAttribute());
         }

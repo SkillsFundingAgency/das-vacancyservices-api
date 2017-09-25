@@ -16,7 +16,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         {
             _httpFilterCollection = new HttpFilterCollection();
 
-            new ApiFilterConfig().RegisterFilters(_httpFilterCollection);
+            ApiFilterConfig.RegisterFilters(_httpFilterCollection);
         }
 
         [Test]
