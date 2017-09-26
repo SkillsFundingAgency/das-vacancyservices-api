@@ -2,8 +2,8 @@
 {
     public enum TrainingType
     {
-        Unavailable,
-        Framework,
-        Standard
+        Unavailable = 0,
+        Framework = 1,
+        Standard = 2
     }
 }

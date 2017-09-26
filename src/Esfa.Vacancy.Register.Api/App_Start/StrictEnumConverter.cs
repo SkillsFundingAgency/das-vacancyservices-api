@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType.BaseType == typeof(Enum));
+            return objectType.IsEnum;
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
