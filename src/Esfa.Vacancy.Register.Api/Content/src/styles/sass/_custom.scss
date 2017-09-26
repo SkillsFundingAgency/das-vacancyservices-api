@@ -72,3 +72,29 @@ h3.heading-small {
 h3.heading-small + p {
     margin-top: 0;
 }
+
+//These rules normalise CSS clashes between gov_uk styles and swagger-ui styles that are used in this project
+.swagger-section {
+    font-size:0.85em;
+}
+
+.swagger-section #api_info {
+    display: none;
+}
+
+.swagger-section .code {
+    background-color: transparent;
+    border: none;
+}
+
+.swagger-section p {
+    margin:0;
+}
+
+.swagger-section strong span p {
+    font-weight:bold;
+}
+
+.swagger-section table {
+    margin:0;
+}
