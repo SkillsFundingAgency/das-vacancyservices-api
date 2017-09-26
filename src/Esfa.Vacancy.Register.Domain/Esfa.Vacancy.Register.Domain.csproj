@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\ApprenticeshipSummary.cs" />
     <Compile Include="Entities\Framework.cs" />
     <Compile Include="Entities\Standard.cs" />
     <Compile Include="Entities\Vacancy.cs" />
