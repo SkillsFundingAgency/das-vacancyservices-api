@@ -106,6 +106,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj">
+      <Project>{14E462C1-30DD-49FD-A265-2B16542A26CF}</Project>
+      <Name>Esfa.Vacancy.Register.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
       <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>
       <Name>Esfa.Vacancy.Register.Domain</Name>

@@ -52,11 +52,15 @@
   <ItemGroup>
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
+    <Compile Include="Interfaces\IVacancySearchService.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyQueryHandler.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyResponse.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesQueryHandler.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequest.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
