@@ -181,5 +181,20 @@ namespace Esfa.Vacancy.Api.Types
         /// Contains the address of the Vacancy
         /// </summary>
         public Address Location { get; set; }
+
+        /// <summary>
+        /// Name of the contact person
+        /// </summary>
+        public string ContactName { get; set; }
+
+        /// <summary>
+        /// Email of the contact person
+        /// </summary>
+        public string ContactEmail { get; set; }
+
+        /// <summary>
+        /// Phone number of the contact person
+        /// </summary>
+        public string ContactNumber { get; set; }
     }
 }

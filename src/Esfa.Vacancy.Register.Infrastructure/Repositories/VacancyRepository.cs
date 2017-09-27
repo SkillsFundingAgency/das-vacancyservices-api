@@ -77,6 +77,9 @@ SELECT  V.VacancyReferenceNumber
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       2 AS VacancyStatusId
+,       V.ContactName
+,       V.ContactEmail
+,       V.ContactNumber
 ,       V.AddressLine1
 ,       V.AddressLine2
 ,       V.AddressLine3
