@@ -291,6 +291,7 @@
     <Compile Include="Controllers\ApprenticeshipController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
+    <Compile Include="Mappings\SearchApprenticeshipVacanciesRequestMapper.cs" />
     <Compile Include="Mappings\VacancyMappings.cs" />
     <Compile Include="Models\VersionInformation.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
