@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -14,6 +14,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
+        private const string GenericErrorMessage = "There was an error querying the database, please try again or contact support.";
 
         public VacancySearchService(IProvideSettings provideSettings, ILog logger)
         {
@@ -21,19 +22,50 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task<List<ApprenticeshipSummary>> SearchApprenticeshipVacancies(
+        public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacancies(
             SearchApprenticeshipVacanciesRequest request)
         {
-            return new List<ApprenticeshipSummary>() {new ApprenticeshipSummary() {Title = "Hello World!"}};
+            var indexName = _provideSettings.GetSetting(ApplicationSettingConstants.ApprenticeshipIndexAlias);
+            var client = GetElasticSearchClient();
+            ISearchResponse<ApprenticeshipSummary> esReponse = null;
+            try
+            {
+                esReponse = await client.SearchAsync<ApprenticeshipSummary>(s => s
+                    .Index(indexName)
+                    .Type("apprenticeship")
+                    .From(0)
+                    .Size(5)
+                    .Query(q => q.Filtered(
+                            sl => sl.Filter(
+                                fs => fs.Terms(
+                                    f => f.SubCategoryCode, request.StandardCodes)))));
+            }
+            catch (WebException e)
+            {
+                _logger.Error(e, "Error connecting Elastic Search");
+                throw new Exception(GenericErrorMessage);
+            }
+
+            if (!esReponse.ConnectionStatus.Success)
+            {
+                _logger.Error(esReponse.ConnectionStatus.OriginalException, "Error querying ElasticSearch");
+                throw new Exception(GenericErrorMessage);
+            }
+            var searchResponse = new SearchApprenticeshipVacanciesResponse()
+            {
+                TotalMatched = esReponse.Total,
+                TotalReturned = esReponse.HitsMetaData.Total,
+                ApprenticeshipSummaries = esReponse.Documents
+            };
+
+            return searchResponse;
         }
 
-        private ElasticClient GetElasticSearchClient(string indexName)
+        private ElasticClient GetElasticSearchClient()
         {
             var baseUri = _provideSettings.GetSetting(ApplicationSettingConstants.VacancySearchUrl);
 
-            var searchUri = new Uri($"{baseUri}/{indexName}/_search");
-
-            var node = searchUri;
+            var node = new Uri(baseUri);
 
             var settings = new ConnectionSettings(node);
 

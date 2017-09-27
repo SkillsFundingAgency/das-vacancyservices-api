@@ -12,10 +12,11 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         {
             _vacancySearchService = vacancySearchService;
         }
+
         public async Task<SearchApprenticeshipVacanciesResponse> Handle(SearchApprenticeshipVacanciesRequest request)
         {
             var result = await _vacancySearchService.SearchApprenticeshipVacancies(request);
-            return new SearchApprenticeshipVacanciesResponse() {ApprenticeshipSummaries = result};
+            return result;
         }
     }
 }

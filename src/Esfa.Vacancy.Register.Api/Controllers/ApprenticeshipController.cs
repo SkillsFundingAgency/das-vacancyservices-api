@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <param name="searchApprenticeshipParameters">The search apprenticeship parameters.</param>
         /// <returns></returns>
         [SwaggerOperation("Get")]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [Route("api/v1/apprenticeship/search")]
         [HttpGet]
