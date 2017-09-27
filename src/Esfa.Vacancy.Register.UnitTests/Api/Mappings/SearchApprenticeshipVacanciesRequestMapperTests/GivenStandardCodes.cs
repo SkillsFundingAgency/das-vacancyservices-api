@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.SearchApprenticeshipVacan
             var target = SearchApprenticeshipVacanciesRequestMapper.Convert(source);
 
             target.StandardCodes.Should().Contain(expectedOutput);
-            target.StandardCodes.Count().ShouldBeEquivalentTo(3);
+            target.StandardCodes.Count().Should().Be(3);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.SearchApprenticeshipVacan
             var target = SearchApprenticeshipVacanciesRequestMapper.Convert(source);
 
             target.StandardCodes.Should().Contain(expectedOutput);
-            target.StandardCodes.Count().ShouldBeEquivalentTo(1);
+            target.StandardCodes.Count().Should().Be(1);
 
         }
     }

@@ -5,6 +5,10 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class SearchApprenticeshipVacanciesResponse
     {
-        public List<ApprenticeshipSummary> ApprenticeshipSummaries { get; set; }
+        public long TotalMatched { get; set; }
+
+        public long TotalReturned { get; set; }
+
+        public IEnumerable<ApprenticeshipSummary> ApprenticeshipSummaries { get; set; }
     }
 }
