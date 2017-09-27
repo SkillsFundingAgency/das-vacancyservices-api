@@ -86,6 +86,9 @@ SELECT  V.VacancyReferenceNumber
 ,       V.Longitude
 ,       V.PostCode
 ,       V.Town
+,       V.ContactName
+,       V.ContactEmail
+,       V.ContactNumber
 FROM    [dbo].[Vacancy] V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
