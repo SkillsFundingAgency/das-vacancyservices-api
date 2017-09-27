@@ -181,5 +181,77 @@ namespace Esfa.Vacancy.Api.Types
         /// Contains the address of the Vacancy
         /// </summary>
         public Address Location { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the contract owner's name.
+        /// </summary>
+        /// <value>
+        /// The contract owner's name.
+        /// </value>
+        public string ContractOwner { get; set; }
+
+        /// <summary>
+        /// Gets or sets the learning provider's name
+        /// </summary>
+        /// <value>
+        /// The learning provider's name
+        /// </value>
+        public string LearningProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the learning provider's description
+        /// </summary>
+        /// <value>
+        /// The learning provider's description
+        /// </value>
+        public string LearningProviderDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the learning provider sector pass rate
+        /// </summary>
+        /// <value>
+        /// The learning 
+        /// </value>
+        public int LearningProviderSectorPassRate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delivery organisation
+        /// </summary>
+        /// <value>
+        /// The delivery organisation
+        /// </value>
+        public string DeliveryOrganisation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vacancy manager
+        /// </summary>
+        /// <value>
+        /// The vacancy manager
+        /// </value>
+        public string VacancyManager { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vacancy owner
+        /// </summary>
+        /// <value>
+        /// The vacancy manager
+        /// </value>
+        public string VacancyOwner { get; set; }
+
+        /// <summary>
+        /// Gets or sets the small employer wage incentive
+        /// </summary>
+        /// <value>
+        /// Small employer wage incentive
+        /// </value>
+        public bool IsSmallEmployerWageIncentive { get; set; }
+
+        /// <summary>
+        /// When a Recruitment Agency is the Vacancy Manager, specifies whether the Recruitment Agency details are shown on the vacancy.
+        /// </summary>
+        /// <value>
+        /// Display recruitment agency
+        /// </value>
+        public bool IsDisplayRecruitmentAgency { get; set; }
     }
 }

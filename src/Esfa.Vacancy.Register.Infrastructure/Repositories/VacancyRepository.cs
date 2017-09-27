@@ -67,6 +67,8 @@ SELECT  V.VacancyReferenceNumber
 ,       V.AnonymousAboutTheEmployer AS AnonymousEmployerDescription
 ,       V.EmployerAnonymousReason AS AnonymousEmployerReason
 ,       V.EmployersWebsite
+,       V.SmallEmployerWageIncentive AS IsSmallEmployerWageIncentive
+,       V.VacancyManagerAnonymous AS IsDisplayRecruitmentAgency
 ,       TextFields.[TrainingToBeProvided]
 ,       TextFields.[QulificationsRequired] AS QualificationsRequired
 ,       TextFields.[SkillsRequired]
@@ -77,6 +79,13 @@ SELECT  V.VacancyReferenceNumber
 ,       AdditionalQuestions.SupplementaryQuestion1
 ,       AdditionalQuestions.SupplementaryQuestion2
 ,       2 AS VacancyStatusId
+,       O.TradingName AS ContractOwner
+,       'Delivered by ' +  VO.FullName + '.' AS LearningProviderName
+,       VO.CandidateDescription AS LearningProviderDescription
+,       DO.FullName AS DeliveryOrganisation
+,       VM.TradingName AS VacancyManager
+,       VO.TradingName AS VacancyOwner
+,		CASE WHEN SSR.New = 1 THEN NULL ELSE SSR.PassRate END AS LearningProviderSectorPassRate
 ,       V.AddressLine1
 ,       V.AddressLine2
 ,       V.AddressLine3
@@ -86,7 +95,7 @@ SELECT  V.VacancyReferenceNumber
 ,       V.Longitude
 ,       V.PostCode
 ,       V.Town
-FROM    [dbo].[Vacancy] V
+FROM[dbo].[Vacancy]        V
 INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             FROM [dbo].[VacancyHistory]
             WHERE VacancyHistoryEventTypeId = 1
@@ -94,14 +103,27 @@ INNER JOIN (SELECT VacancyId, Min(HistoryDate) HistoryDate
             GROUP BY VacancyId
            ) VH
 	ON V.VacancyId = VH.VacancyId 
+INNER JOIN VacancyOwnerRelationship AS VOR 
+    ON      V.VacancyOwnerRelationshipId = VOR.VacancyOwnerRelationshipId
+INNER JOIN Employer AS E 
+    ON      VOR.EmployerId = E.EmployerId
+INNER JOIN ProviderSite VO 
+    ON		VO.ProviderSiteId = VOR.ProviderSiteId
+INNER JOIN [Provider] AS O
+	ON		V.ContractOwnerId = O.ProviderId
+INNER JOIN ProviderSite VM 
+    ON		V.VacancyManagerId = VM.ProviderSiteId
+INNER JOIN ProviderSite DO
+	ON		V.DeliveryOrganisationId = DO.ProviderSiteId
 LEFT JOIN   [Reference].[Standard] AS RS 
     ON V.StandardId = RS.StandardId
 LEFT JOIN   [dbo].[ApprenticeshipFramework] AS AF
     ON      V.ApprenticeshipFrameworkId = AF.ApprenticeshipFrameworkId
-INNER JOIN VacancyOwnerRelationship AS R 
-    ON      V.VacancyOwnerRelationshipId = R.VacancyOwnerRelationshipId
-INNER JOIN Employer AS E 
-    ON      R.EmployerId = E.EmployerId
+LEFT JOIN ApprenticeshipOccupation OCC 
+	ON      AF.ApprenticeshipOccupationId = OCC.ApprenticeshipOccupationId
+LEFT JOIN SectorSuccessRates AS SSR 
+	ON      O.ProviderID = SSR.ProviderID 
+	AND     OCC.ApprenticeshipOccupationId = SSR.SectorID
 LEFT JOIN (
             SELECT 
                  VacancyId
