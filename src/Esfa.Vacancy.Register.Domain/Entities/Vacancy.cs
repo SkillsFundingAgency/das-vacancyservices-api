@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public DateTime? ExpectedStartDate { get; set; }
 
-        public DateTime DatePosted { get; set; }
+        public DateTime PostedDate { get; set; }
 
         public DateTime? ApplicationClosingDate { get; set; }
 

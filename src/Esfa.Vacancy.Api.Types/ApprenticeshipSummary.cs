@@ -14,17 +14,60 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string Title { get; set; }
 
-        public DateTime StartDate { get; set; }
+        /// <summary>
+        /// The description.
+        /// </summary>
+        public string Description { get; set; }
 
-        public DateTime ClosingDate { get; set; }
+        /// <summary>
+        /// Wage unit.
+        /// </summary>
+        public WageUnit? WageUnit { get; set; }
 
+        /// <summary>
+        /// Working week.
+        /// </summary>
+        public string WorkingWeek { get; set; }
+
+        /// <summary>
+        /// Wage text.
+        /// </summary>
+        public string WageText { get; set; }
+
+        /// <summary>
+        /// Hours per week.
+        /// </summary>
+        public decimal? HoursPerWeek { get; set; }
+
+        /// <summary>
+        /// The type of the wage.
+        /// </summary>
+        public int WageType { get; set; }
+
+        /// <summary>
+        /// The wage amount.
+        /// </summary>
+        public decimal? WageAmount { get; set; }
+
+        /// <summary>
+        /// Expected start date.
+        /// </summary>
+        public DateTime ExpectedStartDate { get; set; }
+
+        /// <summary>
+        /// Date Posted.
+        /// </summary>
         public DateTime PostedDate { get; set; }
+
+        /// <summary>
+        /// Application closing date.
+        /// </summary>
+        public DateTime ApplicationClosingDate { get; set; }
 
         public string EmployerName { get; set; }
 
         public string ProviderName { get; set; }
 
-        public string Description { get; set; }
 
         public int NumberOfPositions { get; set; }
 
@@ -50,20 +93,6 @@ namespace Esfa.Vacancy.Api.Types
 
         public string SubCategoryCode { get; set; }
 
-        public string WorkingWeek { get; set; }
 
-        public int WageType { get; set; }
-
-        public decimal? WageAmount { get; set; }
-
-        public decimal? WageAmountLowerBound { get; set; }
-
-        public decimal? WageAmountUpperBound { get; set; }
-
-        public string WageText { get; set; }
-
-        public int WageUnit { get; set; }
-
-        public decimal? HoursPerWeek { get; set; }
     }
 }

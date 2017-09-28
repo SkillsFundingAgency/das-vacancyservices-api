@@ -53,7 +53,7 @@ SELECT  V.VacancyReferenceNumber
 ,       V.HoursPerWeek
 ,       V.ExpectedDuration
 ,       V.ExpectedStartDate
-,		VH.HistoryDate AS DatePosted
+,		VH.HistoryDate AS PostedDate
 ,       V.ApplicationClosingDate
 ,       V.InterviewsFromDate AS InterviewFromDate
 ,       V.NumberofPositions 
