@@ -84,21 +84,28 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string TrainingCode { get; set; }
 
+        /// <summary>
+        /// The name of the employer.
+        /// </summary>
         public string EmployerName { get; set; }
 
+        /// <summary>
+        /// The name of the provider.
+        /// </summary>
+        /// <value>
+        /// The name of the provider.
+        /// </value>
         public string ProviderName { get; set; }
 
-        public bool IsPositiveAboutDisability { get; set; }
-
-        public bool IsEmployerAnonymous { get; set; }
-
-        public string AnonymousEmployerName { get; set; }
-
+        /// <summary>
+        /// The type of the vacancy location.
+        /// </summary>
         public string VacancyLocationType { get; set; }
 
-        public double? Longitude { get; set; }
-
-        public double? Latitude { get; set; }
+        /// <summary>
+        /// The location.
+        /// </summary>
+        public GeoPoint Location { get; set; }
 
         public string ApprenticeshipLevel { get; set; }
 
@@ -110,6 +117,9 @@ namespace Esfa.Vacancy.Api.Types
 
         public string SubCategoryCode { get; set; }
 
-
+        public ApprenticeshipSummary()
+        {
+            Location = new GeoPoint();
+        }
     }
 }

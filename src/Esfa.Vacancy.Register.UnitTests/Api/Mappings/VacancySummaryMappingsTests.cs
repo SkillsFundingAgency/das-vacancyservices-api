@@ -30,5 +30,20 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings
             result.TrainingType.Should().Be(expectedTrainingType);
             result.TrainingCode.Should().Be(code);
         }
+
+        [Test]
+        public void LocationMappingTest()
+        {
+            var domainType = new DomainTypes.ApprenticeshipSummary
+            {
+                Location = new DomainTypes.GeoPoint() { Lat = 12.1213, Lon = 34.2343424 }
+            };
+
+            var result = Mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.Location.Latitude.Should().Be(12.1213);
+            result.Location.Longitude.Should().Be(34.2343424);
+
+        }
     }
 }
