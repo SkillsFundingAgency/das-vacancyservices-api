@@ -7,7 +7,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Vacancy reference number
         /// </summary>
-        public int Id { get; set; }
+        public int VacancyReference { get; set; }
 
         /// <summary>
         /// Vacancy title.
@@ -41,8 +41,6 @@ namespace Esfa.Vacancy.Api.Types
         public double? Latitude { get; set; }
 
         public string ApprenticeshipLevel { get; set; }
-
-        public string VacancyReference { get; set; }
 
         public string Category { get; set; }
 
