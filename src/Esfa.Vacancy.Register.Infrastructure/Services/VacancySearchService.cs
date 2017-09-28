@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using Nest;
 using SFA.DAS.NLog.Logger;
@@ -14,7 +15,6 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
-        private const string GenericErrorMessage = "There was an error querying the database, please try again or contact support.";
 
         public VacancySearchService(IProvideSettings provideSettings, ILog logger)
         {
@@ -26,8 +26,11 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             SearchApprenticeshipVacanciesRequest request)
         {
             var indexName = _provideSettings.GetSetting(ApplicationSettingConstants.ApprenticeshipIndexAlias);
+
             var client = GetElasticSearchClient();
-            ISearchResponse<ApprenticeshipSummary> esReponse = null;
+
+            ISearchResponse<ApprenticeshipSummary> esReponse;
+
             try
             {
                 esReponse = await client.SearchAsync<ApprenticeshipSummary>(s => s
@@ -42,15 +45,15 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             }
             catch (WebException e)
             {
-                _logger.Error(e, "Error connecting Elastic Search");
-                throw new Exception(GenericErrorMessage);
+                throw new InfrastructureException(e);
             }
 
             if (!esReponse.ConnectionStatus.Success)
             {
-                _logger.Error(esReponse.ConnectionStatus.OriginalException, "Error querying ElasticSearch");
-                throw new Exception(GenericErrorMessage);
+                var ex = new Exception("Unexpected response received from Elastic Search");
+                throw new InfrastructureException(ex);
             }
+
             var searchResponse = new SearchApprenticeshipVacanciesResponse()
             {
                 TotalMatched = esReponse.Total,
