@@ -108,7 +108,7 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingUri { get; set; }
 
         /// <summary>
-        /// Employer'e name.
+        /// The name of the employer.
         /// </summary>
         public string EmployerName { get; set; }
 

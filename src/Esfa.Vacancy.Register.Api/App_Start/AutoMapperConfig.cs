@@ -20,6 +20,9 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                     .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
+                cfg.CreateMap<DomainTypes.GeoPoint, ApiTypes.GeoPoint>()
+                    .ForMember(target => target.Latitude, c => c.MapFrom(source => source.Lat))
+                    .ForMember(target => target.Longitude, c => c.MapFrom(source => source.Lon));
                 cfg.AddProfiles(Assembly.GetExecutingAssembly());
             });
         }
