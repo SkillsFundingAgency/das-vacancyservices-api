@@ -41,7 +41,6 @@
     <Compile Include="Entities\Standard.cs" />
     <Compile Include="Entities\Vacancy.cs" />
     <Compile Include="Entities\VacancyStatus.cs" />
-    <Compile Include="Interfaces\ITrainingDetailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IVacancyRepository.cs" />
   </ItemGroup>
