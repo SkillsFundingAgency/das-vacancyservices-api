@@ -18,12 +18,6 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 cfg.CreateMap<int?, ApiTypes.VacancyLocationType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyLocationType>());
                 cfg.CreateMap<int?, ApiTypes.TrainingType>().ConvertUsing(new IntToEnumConverter<ApiTypes.TrainingType>());
                 cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
-                cfg.CreateMap<DomainTypes.ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
-                    .ForMember(target => target.VacancyReference, c => c.MapFrom(source => int.Parse(source.VacancyReference)))
-                    .ForMember(target => target.ExpectedStartDate, c => c.MapFrom(source => source.StartDate))
-                    .ForMember(target => target.ApplicationClosingDate, c => c.MapFrom(source => source.ClosingDate))
-                    .ForMember(target => target.Longitude, c => c.MapFrom(source => source.Location == null ? (double?)null : source.Location.lon))
-                    .ForMember(target => target.Latitude, c => c.MapFrom(source => source.Location == null ? (double?)null : source.Location.lat));
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                     .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
                 cfg.AddProfiles(Assembly.GetExecutingAssembly());
