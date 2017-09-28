@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             var i = 0;
             return codes.Split(',')
                 .Where(code => !string.IsNullOrWhiteSpace(code) && int.TryParse(code, out i))
-                .Select(code => $"STDSEC.{code.Trim()}");
+                .Select(code => $"{ApiConstants.Training.StandardSectorPrefix}.{code.Trim()}");
         }
     }
 }

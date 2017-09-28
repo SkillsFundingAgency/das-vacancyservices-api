@@ -282,6 +282,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiConstants.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\CustomExceptionHandler.cs" />
     <Compile Include="App_Start\CustomErrorResult.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Mappings\IntToEnumConverter.cs" />
     <Compile Include="Mappings\SearchApprenticeshipVacanciesRequestMapper.cs" />
     <Compile Include="Mappings\VacancyMappings.cs" />
+    <Compile Include="Mappings\VacancySummaryMappings.cs" />
     <Compile Include="Models\VersionInformation.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\InfrastructureRegistry.cs" />
@@ -421,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">

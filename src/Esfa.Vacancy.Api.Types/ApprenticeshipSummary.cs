@@ -64,12 +64,29 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }
 
+        /// <summary>
+        /// Number of positions.
+        /// </summary>
+        public int NumberOfPositions { get; set; }
+
+        /// <summary>
+        /// Training Type
+        /// </summary>
+        public TrainingType TrainingType { get; set; }
+
+        /// <summary>
+        /// Training title.
+        /// </summary>
+        public string TrainingTitle { get; set; }
+
+        /// <summary>
+        /// Training identifier
+        /// </summary>
+        public string TrainingCode { get; set; }
+
         public string EmployerName { get; set; }
 
         public string ProviderName { get; set; }
-
-
-        public int NumberOfPositions { get; set; }
 
         public bool IsPositiveAboutDisability { get; set; }
 
