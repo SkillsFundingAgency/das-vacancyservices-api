@@ -107,15 +107,10 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public GeoPoint Location { get; set; }
 
+        /// <summary>
+        /// The apprenticeship level.
+        /// </summary>
         public string ApprenticeshipLevel { get; set; }
-
-        public string Category { get; set; }
-
-        public string CategoryCode { get; set; }
-
-        public string SubCategory { get; set; }
-
-        public string SubCategoryCode { get; set; }
 
         public ApprenticeshipSummary()
         {
