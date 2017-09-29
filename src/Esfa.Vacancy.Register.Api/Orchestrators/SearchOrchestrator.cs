@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.Mappings;
+using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -19,12 +18,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
             SearchApprenticeshipParameters apprenticeSearchParameters)
         {
-            if (apprenticeSearchParameters == null) throw new ArgumentNullException(nameof(apprenticeSearchParameters), "At least one search parameter is required.");
-
-            var request = SearchApprenticeshipVacanciesRequestMapper.Convert(apprenticeSearchParameters);
+            var request = Mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
             var response = await _mediator.Send(request);
             var results = Mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
-
             return results;
         }
     }

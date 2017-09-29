@@ -93,7 +93,6 @@
   <ItemGroup>
     <Compile Include="Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
-    <Compile Include="Api\Mappings\SearchApprenticeshipVacanciesRequestMapperTests\GivenStandardCodes.cs" />
     <Compile Include="Api\Mappings\VacancyMappingsTest.cs" />
     <Compile Include="Api\Mappings\VacancySummaryMappingsTests.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
+    <Compile Include="Application\Queries\SearchApprenticeshipVacancies\WhenValidatingStandardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

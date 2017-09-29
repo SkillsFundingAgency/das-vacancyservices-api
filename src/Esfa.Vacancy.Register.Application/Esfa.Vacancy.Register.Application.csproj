@@ -62,6 +62,7 @@
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesQueryHandler.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequest.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesResponse.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
