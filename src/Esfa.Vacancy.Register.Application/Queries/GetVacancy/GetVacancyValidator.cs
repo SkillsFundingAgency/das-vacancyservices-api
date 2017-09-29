@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
