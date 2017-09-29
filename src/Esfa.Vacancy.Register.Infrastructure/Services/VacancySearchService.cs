@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacancies(
-            SearchApprenticeshipVacanciesRequest request)
+            VacancySearchParameters request)
         {
             var indexName = _provideSettings.GetSetting(ApplicationSettingConstants.ApprenticeshipIndexAlias);
 
@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                     .Query(q => q.Filtered(
                             sl => sl.Filter(
                                 fs => fs.Terms(
-                                    f => f.SubCategoryCode, request.StandardCodes)))));
+                                    f => f.SubCategoryCode, request.StandardSectorCodes)))));
             }
             catch (WebException e)
             {

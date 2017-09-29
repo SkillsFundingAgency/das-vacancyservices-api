@@ -2,6 +2,7 @@
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using FluentValidation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -18,6 +19,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
             SearchApprenticeshipParameters apprenticeSearchParameters)
         {
+            if (apprenticeSearchParameters == null) throw new ValidationException("At least one search parameter is required.");
             var request = Mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
             var response = await _mediator.Send(request);
             var results = Mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
