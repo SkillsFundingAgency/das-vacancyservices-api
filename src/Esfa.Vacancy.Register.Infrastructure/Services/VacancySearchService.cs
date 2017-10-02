@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
@@ -36,8 +37,6 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                 esReponse = await client.SearchAsync<ApprenticeshipSummary>(s => s
                     .Index(indexName)
                     .Type("apprenticeship")
-                    .From(0)
-                    .Size(5)
                     .Query(q => q.Filtered(
                             sl => sl.Filter(
                                 fs => fs.Terms(
@@ -57,7 +56,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             var searchResponse = new SearchApprenticeshipVacanciesResponse()
             {
                 TotalMatched = esReponse.Total,
-                TotalReturned = esReponse.HitsMetaData.Total,
+                TotalReturned = esReponse.Documents.Count(),
                 ApprenticeshipSummaries = esReponse.Documents
             };
 
