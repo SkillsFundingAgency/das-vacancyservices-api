@@ -9,12 +9,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class SearchApprenticeshipVacanciesQueryHandler : IAsyncRequestHandler<SearchApprenticeshipVacanciesRequest, SearchApprenticeshipVacanciesResponse>
     {
-        private readonly AbstractValidator<SearchApprenticeshipVacanciesRequest> _validator;
+        private readonly IValidator<SearchApprenticeshipVacanciesRequest> _validator;
         private readonly IVacancySearchService _vacancySearchService;
         private readonly IStandardSectorCodeResolver _standardSectorCodeResolver;
 
         public SearchApprenticeshipVacanciesQueryHandler(
-            AbstractValidator<SearchApprenticeshipVacanciesRequest> validator,
+            IValidator<SearchApprenticeshipVacanciesRequest> validator,
             IVacancySearchService vacancySearchService,
             IStandardSectorCodeResolver standardSectorCodeResolver)
         {
@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             searchParameters.StandardSectorCodes = await _standardSectorCodeResolver.ResolveAsync(standardIds);
 
-            var result = await _vacancySearchService.SearchApprenticeshipVacancies(searchParameters);
+            var result = await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
             return result;
         }
     }

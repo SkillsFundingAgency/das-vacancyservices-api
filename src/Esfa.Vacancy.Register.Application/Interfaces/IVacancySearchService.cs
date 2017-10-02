@@ -6,7 +6,7 @@ namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface IVacancySearchService
     {
-        Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacancies(
+        Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters request);
     }
 }
