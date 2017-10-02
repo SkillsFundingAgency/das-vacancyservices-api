@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
+    <Compile Include="Api\Mappings\SearchApprenticeshipVacanciesRequestMappingTest.cs" />
     <Compile Include="Api\Mappings\VacancyMappingsTest.cs" />
     <Compile Include="Api\Mappings\VacancySummaryMappingsTests.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
