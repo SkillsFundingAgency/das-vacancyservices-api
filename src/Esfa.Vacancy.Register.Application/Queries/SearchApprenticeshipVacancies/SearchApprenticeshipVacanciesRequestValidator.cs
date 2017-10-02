@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(r => r.StandardCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number");
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
         }
 
         private bool BeValidNumber(string value)

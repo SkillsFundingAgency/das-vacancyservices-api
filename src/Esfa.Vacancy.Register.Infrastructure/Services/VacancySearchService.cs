@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacancies(
+        public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters request)
         {
             var indexName = _provideSettings.GetSetting(ApplicationSettingConstants.ApprenticeshipIndexAlias);
