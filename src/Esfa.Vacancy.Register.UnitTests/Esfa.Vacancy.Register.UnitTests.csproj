@@ -102,7 +102,6 @@
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="Application\Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesQueryHandlerTests.cs" />
-    <Compile Include="Application\Queries\SearchApprenticeshipVacancies\StandardSectorCodeResolverTests.cs" />
     <Compile Include="Application\Queries\SearchApprenticeshipVacancies\WhenValidatingStandardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

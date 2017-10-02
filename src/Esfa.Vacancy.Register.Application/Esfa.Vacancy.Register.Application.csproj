@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
-    <Compile Include="Interfaces\IStandardSectorCodeResolver.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
     <Compile Include="Interfaces\IVacancySearchService.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequest.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesResponse.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequestValidator.cs" />
-    <Compile Include="Queries\SearchApprenticeshipVacancies\StandardSectorCodeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

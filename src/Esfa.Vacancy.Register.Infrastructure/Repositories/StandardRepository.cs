@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 
@@ -16,15 +17,14 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _provideSettings = provideSettings;
         }
 
-        private const string GetDistinctStandardSectorIdsQuery = @"
-            SELECT DISTINCT    
+        private const string GetStandardAndSectorIdsQuery = @"
+            SELECT 
+                LarsCode,
                 StandardSectorId 
             FROM 
-                Reference.Standard
-            WHERE
-                LarsCode IN @StandardIds";
+                Reference.Standard";
 
-        public async Task<IEnumerable<int>> GetDistinctStandardSectorIdsAsync(IEnumerable<int> standardIds)
+        public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
@@ -34,9 +34,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<int>(
-                        GetDistinctStandardSectorIdsQuery,
-                        new { StandardIds = standardIds });
+                    await sqlConn.QueryAsync<StandardSector>(GetStandardAndSectorIdsQuery);
 
                 return results;
             }
