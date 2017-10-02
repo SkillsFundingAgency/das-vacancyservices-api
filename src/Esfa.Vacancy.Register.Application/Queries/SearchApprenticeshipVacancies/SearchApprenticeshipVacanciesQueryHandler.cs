@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -11,16 +14,16 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     {
         private readonly IValidator<SearchApprenticeshipVacanciesRequest> _validator;
         private readonly IVacancySearchService _vacancySearchService;
-        private readonly IStandardSectorCodeResolver _standardSectorCodeResolver;
+        private readonly IStandardRepository _standardRepository;
 
         public SearchApprenticeshipVacanciesQueryHandler(
             IValidator<SearchApprenticeshipVacanciesRequest> validator,
             IVacancySearchService vacancySearchService,
-            IStandardSectorCodeResolver standardSectorCodeResolver)
+            IStandardRepository standardRepository)
         {
             _validator = validator;
             _vacancySearchService = vacancySearchService;
-            _standardSectorCodeResolver = standardSectorCodeResolver;
+            _standardRepository = standardRepository;
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> Handle(SearchApprenticeshipVacanciesRequest request)
@@ -30,14 +33,39 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var standardIds = request.StandardCodes.Select(int.Parse);
-
-            var searchParameters = new VacancySearchParameters();
-
-            searchParameters.StandardSectorCodes = await _standardSectorCodeResolver.ResolveAsync(standardIds);
+            var searchParameters = new VacancySearchParameters
+            {
+                StandardSectorCodes = await ValidateStandardCodes(request.StandardCodes.Select(int.Parse))
+            };
 
             var result = await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
             return result;
+        }
+
+        private async Task<List<string>> ValidateStandardCodes(IEnumerable<int> standardCodes)
+        {
+            var standardSectorIds = await _standardRepository.GetStandardsAndRespectiveSectorIdsAsync();
+
+            var errors = new List<ValidationFailure>();
+            var sectorCodes = new List<string>();
+
+            standardCodes.ToList().ForEach(standardCode =>
+            {
+                var standardSector = standardSectorIds.FirstOrDefault(ss => ss.LarsCode == standardCode);
+                if (standardSector == null)
+                {
+                    errors.Add(new ValidationFailure("StandardCode", $"StandardCode {standardCode} is invalid"));
+                }
+                else
+                {
+                    sectorCodes.Add($"{StandardSector.StandardSectorPrefix}.{standardSector.StandardSectorId}");
+                }
+            });
+
+            if (errors.Any())
+                throw new ValidationException(errors);
+
+            return sectorCodes;
         }
     }
 }

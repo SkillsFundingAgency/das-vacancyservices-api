@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
@@ -17,7 +16,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target =>
                     target.TrainingType, c =>
                     c.MapFrom(source =>
-                        source.SubCategoryCode.Contains(StandardSectorCodeResolver.StandardSectorPrefix)
+                        source.SubCategoryCode.Contains(DomainTypes.StandardSector.StandardSectorPrefix)
                             ? ApiTypes.TrainingType.Standard
                             : ApiTypes.TrainingType.Framework))
                 .ForMember(target => target.TrainingTitle, c => c.MapFrom(source => source.SubCategory))
