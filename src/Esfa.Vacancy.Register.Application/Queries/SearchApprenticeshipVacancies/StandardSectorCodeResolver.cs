@@ -16,7 +16,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _standardRepository = standardRepository;
         }
 
-        public async Task<List<string>> Resolve(IEnumerable<int> standardIds)
+        public async Task<List<string>> ResolveAsync(IEnumerable<int> standardIds)
         {
             var standardSectorIds =
                 await _standardRepository.GetDistinctStandardSectorIdsAsync(standardIds);
