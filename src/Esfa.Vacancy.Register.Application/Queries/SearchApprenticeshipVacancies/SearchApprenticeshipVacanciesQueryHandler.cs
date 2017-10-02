@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             var searchParameters = new VacancySearchParameters();
 
-            searchParameters.StandardSectorCodes = await _standardSectorCodeResolver.Resolve(standardIds);
+            searchParameters.StandardSectorCodes = await _standardSectorCodeResolver.ResolveAsync(standardIds);
 
             var result = await _vacancySearchService.SearchApprenticeshipVacancies(searchParameters);
             return result;
