@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         public async Task<DomainEntities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var connectionString =
-                _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
+                _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
             DomainEntities.Vacancy vacancy;
 
@@ -53,7 +53,7 @@ SELECT  V.VacancyReferenceNumber
 ,       V.HoursPerWeek
 ,       V.ExpectedDuration
 ,       V.ExpectedStartDate
-,		VH.HistoryDate AS DatePosted
+,		VH.HistoryDate AS PostedDate
 ,       V.ApplicationClosingDate
 ,       V.InterviewsFromDate AS InterviewFromDate
 ,       V.NumberofPositions 
