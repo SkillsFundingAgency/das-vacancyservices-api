@@ -288,7 +288,7 @@
     <Compile Include="App_Start\ApiFilterConfig.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
-    <Compile Include="Controllers\ApprenticeshipController.cs" />
+    <Compile Include="Controllers\ApprenticeshipSearchController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
     <Compile Include="Mappings\VacancyMappings.cs" />
@@ -318,7 +318,7 @@
     <Compile Include="Logging\RequestContext.cs" />
     <Compile Include="Orchestrators\ISearchOrchestrator.cs" />
     <Compile Include="Orchestrators\IVacancyOrchestrator.cs" />
-    <Compile Include="Orchestrators\SearchOrchestrator.cs" />
+    <Compile Include="Orchestrators\ApprenticeshipSearchOrchestrator.cs" />
     <Compile Include="Orchestrators\VacancyOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />

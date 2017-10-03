@@ -9,11 +9,11 @@ using Swashbuckle.Swagger.Annotations;
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
     [ExceptionHandling]
-    public class ApprenticeshipController : ApiController
+    public class ApprenticeshipSearchController : ApiController
     {
         private readonly ISearchOrchestrator _searchOrchestrator;
 
-        public ApprenticeshipController(ISearchOrchestrator searchOrchestrator)
+        public ApprenticeshipSearchController(ISearchOrchestrator searchOrchestrator)
         {
             _searchOrchestrator = searchOrchestrator;
         }
