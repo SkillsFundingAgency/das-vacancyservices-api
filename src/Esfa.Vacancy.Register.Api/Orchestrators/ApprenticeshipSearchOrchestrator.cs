@@ -7,11 +7,11 @@ using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
-    public class SearchOrchestrator : ISearchOrchestrator
+    public class ApprenticeshipSearchOrchestrator : ISearchOrchestrator
     {
         private readonly IMediator _mediator;
 
-        public SearchOrchestrator(IMediator mediator)
+        public ApprenticeshipSearchOrchestrator(IMediator mediator)
         {
             _mediator = mediator;
         }

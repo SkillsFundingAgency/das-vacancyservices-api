@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -9,12 +10,11 @@ using FluentValidation;
 using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
-namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenQueryHandler
 {
     [TestFixture]
-    public class SearchApprenticeshipVacanciesQueryHandlerTests
+    public class WhenSearchingByStandardCodes
     {
         private SearchApprenticeshipVacanciesQueryHandler _handler;
         private readonly Mock<IValidator<SearchApprenticeshipVacanciesRequest>> _mockValidator = new Mock<IValidator<SearchApprenticeshipVacanciesRequest>>();
@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticesh
         }
 
         [Test]
-        public async Task GivenStandardCodesResolveSectorCodesInSearchParameters()
+        public async Task AndStandardCodesAreValid_ThenPerformSearch()
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             { StandardCodes = new List<string>() { "100", "200" } };
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticesh
         }
 
         [Test]
-        public void GivenAnyInvalidStandardCodesThrowValidationException()
+        public void AndAnyStandardCodeIsInvalid_ThenThrowValidationException()
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             { StandardCodes = new List<string>() { "100", "222" } };
@@ -66,7 +66,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticesh
             _mockSearchService.Setup(s => s.SearchApprenticeshipVacanciesAsync(It.IsAny<VacancySearchParameters>()))
                 .ReturnsAsync(expectedResponse);
 
-            Assert.ThrowsAsync<ValidationException>(async () => await _handler.Handle(request));
+            var exception = Assert.ThrowsAsync<ValidationException>(async () => await _handler.Handle(request));
+
+            Assert.IsTrue(exception.Errors.Any(ex => ex.ErrorMessage == "StandardCode 222 is invalid"));
         }
     }
 }

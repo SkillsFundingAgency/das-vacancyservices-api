@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
 {
     [TestFixture]
     public class WhenValidatingStandardCodes
@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticesh
         [TestCase("10 , 20", true, 0, "Leading and preceeding spaces are allowed with numbers")]
         [TestCase("10 , 2 0, 1e", false, 2, "Spaces with in value and alphabets are not accepted")]
         [TestCase(" 10 ", true, 0, "One number is valid")]
-        public void SuccessOnlyIfAllElementsValidate(string input, bool expectedOutput, int expectedNumberOfErrors, string message)
+        public void ThenValidate(string input, bool expectedOutput, int expectedNumberOfErrors, string message)
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             {
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.SearchApprenticesh
         }
 
         [Test]
-        public void GivenNullStandardCodesThenFailValidation()
+        public void AndNullStandardCodes_ThenFailValidation()
         {
             var request = new SearchApprenticeshipVacanciesRequest();
             request.StandardCodes = null;
