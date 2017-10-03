@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         {
             _logger = logger;
             _dasApiBaseUrl =
-                provideSettings.GetSetting(ApplicationSettingConstants.DasApprenticeshipInfoApiBaseUrl);
+                provideSettings.GetSetting(ApplicationSettingKeyConstants.DasApprenticeshipInfoApiBaseUrlKey);
         }
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)

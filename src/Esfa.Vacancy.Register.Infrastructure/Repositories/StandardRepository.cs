@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
         {
             var connectionString =
-                _provideSettings.GetSetting(ApplicationSettingConstants.AvmsPlusDatabaseConnectionStringKey);
+                _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
             using (var sqlConn = new SqlConnection(connectionString))
             {

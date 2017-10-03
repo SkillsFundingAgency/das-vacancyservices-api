@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters request)
         {
-            var indexName = _provideSettings.GetSetting(ApplicationSettingConstants.ApprenticeshipIndexAlias);
+            var indexName = _provideSettings.GetSetting(ApplicationSettingKeyConstants.ApprenticeshipIndexAliasKey);
 
             var client = GetElasticSearchClient();
 
@@ -65,7 +65,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
         private ElasticClient GetElasticSearchClient()
         {
-            var baseUri = _provideSettings.GetSetting(ApplicationSettingConstants.VacancySearchUrl);
+            var baseUri = _provideSettings.GetSetting(ApplicationSettingKeyConstants.VacancySearchUrlKey);
 
             var node = new Uri(baseUri);
 
