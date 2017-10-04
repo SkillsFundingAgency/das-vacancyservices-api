@@ -29,11 +29,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData("1")
-            .Returns(new[]{"1"})
-            .SetName("One or more delimeted values are acceptable"),
+                .Returns(new[]{"1"})
+                .SetName("One or more delimeted values are acceptable"),
             new TestCaseData("1,2, 23lkk")
-            .Returns(new[]{"1","2", " 23lkk"})
-            .SetName("Each value should be delimeted by comma")
+                .Returns(new[]{"1","2", " 23lkk"})
+                .SetName("Each value should be delimeted by comma"),
+            new TestCaseData(" ")
+                .Returns(null)
+                .SetName("Empty string returns null"),
+            new TestCaseData(null)
+                .Returns(null)
+                .SetName("Null returns null")
         };
     }
 }
