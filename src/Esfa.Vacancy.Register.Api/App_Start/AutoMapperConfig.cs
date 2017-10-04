@@ -22,7 +22,11 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                     .ForMember(target =>
                         target.StandardCodes, c
                             => c.MapFrom(source =>
-                                string.IsNullOrWhiteSpace(source.StandardCodes) ? null : source.StandardCodes.Split(',')));
+                                string.IsNullOrWhiteSpace(source.StandardCodes) ? null : source.StandardCodes.Split(',')))
+                    .ForMember(target =>
+                        target.FrameworkCodes, c
+                        => c.MapFrom(source =>
+                            /*string.IsNullOrWhiteSpace(source.StandardCodes) ? null : */source.FrameworkCodes.Split(',')));
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                     .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
                 cfg.CreateMap<DomainTypes.GeoPoint, ApiTypes.GeoPoint>()
