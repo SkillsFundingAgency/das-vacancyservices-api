@@ -6,5 +6,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class SearchApprenticeshipVacanciesRequest : IRequest<SearchApprenticeshipVacanciesResponse>
     {
         public IEnumerable<string> StandardCodes { get; set; }
+        public int PageSize { get; set; } = 100;
+        public int PageNumber { get; set; } = 1;
     }
 }
