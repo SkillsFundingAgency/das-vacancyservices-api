@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchApprenticeshipParameters
 {
     [TestFixture]
-    public class AndFrameworkCodes
+    public class WhenMappingFrameworkCodes
     {
         [SetUp]
         public void Setup()
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public IEnumerable<string> WhenValidInput_ThenReturnMappedRequest(string frameworkCodes)
+        public IEnumerable<string> AndMapExecutes(string frameworkCodes)
         {
             var parameters = new SearchApprenticeshipParameters {FrameworkCodes = frameworkCodes};
 
@@ -30,16 +30,16 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         {
             new TestCaseData("1")
                 .Returns(new[]{"1"})
-                .SetName("One or more delimeted values are acceptable"),
+                .SetName("Then a single value is acceptable"),
             new TestCaseData("1,2, 23lkk")
                 .Returns(new[]{"1","2", " 23lkk"})
-                .SetName("Each value should be delimeted by comma"),
+                .SetName("Then a comma delimited array is split on comma"),
             new TestCaseData(" ")
                 .Returns(null)
-                .SetName("Empty string returns null"),
+                .SetName("Then an empty string returns null"),
             new TestCaseData(null)
                 .Returns(null)
-                .SetName("Null returns null")
+                .SetName("Then null returns null")
         };
     }
 }
