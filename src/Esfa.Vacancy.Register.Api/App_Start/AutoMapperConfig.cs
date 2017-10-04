@@ -5,7 +5,7 @@ using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
-namespace Esfa.Vacancy.Register.Api.App_Start
+namespace Esfa.Vacancy.Register.Api
 {
     public static class AutoMapperConfig
     {

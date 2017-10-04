@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using FluentAssertions;
 using NUnit.Framework;
 using ApiTypes = Esfa.Vacancy.Api.Types;

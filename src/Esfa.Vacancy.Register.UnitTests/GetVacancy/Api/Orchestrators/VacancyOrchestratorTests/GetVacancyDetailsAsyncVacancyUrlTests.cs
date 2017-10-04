@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;

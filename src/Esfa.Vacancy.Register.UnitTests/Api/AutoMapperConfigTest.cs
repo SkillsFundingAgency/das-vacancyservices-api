@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.App_Start;
 using NUnit.Framework;
 
