@@ -9,11 +9,11 @@ using Swashbuckle.Swagger.Annotations;
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
     [ExceptionHandling]
-    public class ApprenticeshipSearchController : ApiController
+    public class ApprenticeshipsSearchController : ApiController
     {
         private readonly ISearchOrchestrator _searchOrchestrator;
 
-        public ApprenticeshipSearchController(ISearchOrchestrator searchOrchestrator)
+        public ApprenticeshipsSearchController(ISearchOrchestrator searchOrchestrator)
         {
             _searchOrchestrator = searchOrchestrator;
         }
@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("api/v1/apprenticeship/search")]
+        [Route("api/v1/apprenticeships/search")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IHttpActionResult> Search([FromUri]SearchApprenticeshipParameters searchApprenticeshipParameters)
