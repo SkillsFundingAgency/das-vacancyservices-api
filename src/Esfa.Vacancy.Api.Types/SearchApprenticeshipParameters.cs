@@ -13,6 +13,10 @@
         public string FrameworkCodes { get; set; }
 
         /// <summary>
+        /// Comma delimited framework codes
+        /// </summary>
+        public string FrameworkCodes { get; set; }
+
         /// Number of records you want to retrieve in a page. 
         /// Page size must be between 1 and 250 (inclusive).
         /// Page size is optional and defaults to 100 if not specified.

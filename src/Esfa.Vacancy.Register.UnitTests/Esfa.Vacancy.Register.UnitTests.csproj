@@ -98,6 +98,7 @@
     <Compile Include="Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
+    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
