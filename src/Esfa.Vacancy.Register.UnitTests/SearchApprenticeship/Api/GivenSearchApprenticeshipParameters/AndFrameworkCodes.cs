@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using FluentAssertions;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchApprenticeshipParameters
@@ -34,9 +31,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
             new TestCaseData("1")
             .Returns(new[]{"1"})
             .SetName("One or more delimeted values are acceptable"),
-            new TestCaseData("1,2")
-            .Returns(new[]{"1","2"})
-            .SetName("Each number should be delimeted by comma")
+            new TestCaseData("1,2, 23lkk")
+            .Returns(new[]{"1","2", " 23lkk"})
+            .SetName("Each value should be delimeted by comma")
         };
     }
 }
