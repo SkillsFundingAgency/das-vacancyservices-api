@@ -10,5 +10,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         public long TotalReturned { get; set; }
 
         public IEnumerable<ApprenticeshipSummary> ApprenticeshipSummaries { get; set; }
+        public int CurrentPage { get; set; }
+        public double TotalPages { get; set; }
     }
 }
