@@ -9,11 +9,15 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         private const int MaximumPageSize = 250;
         public SearchApprenticeshipVacanciesRequestValidator()
         {
-            RuleFor(r => r.StandardCodes)
+            RuleFor(request => request.StandardCodes)
                 .NotNull()
                 .WithMessage("At least one search parameter is required.");
 
-            RuleForEach(r => r.StandardCodes)
+            RuleForEach(request => request.StandardCodes)
+                .Must(BeValidNumber)
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
+
+            RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
                 .WithMessage((c, t) => $"{t} is invalid, expected a number.");
 
@@ -27,8 +31,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         private bool BeValidNumber(string value)
         {
-            int i;
-            return int.TryParse(value, out i);
+            return int.TryParse(value, out _);
         }
     }
 }
