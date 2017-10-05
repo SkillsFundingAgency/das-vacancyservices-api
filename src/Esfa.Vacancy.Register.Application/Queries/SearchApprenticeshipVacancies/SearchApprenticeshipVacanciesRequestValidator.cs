@@ -4,14 +4,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
+        private const string MinimumFieldsErrorMessage = "At least one of StandardCodes or FrameworkCodes is required.";
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
+
         public SearchApprenticeshipVacanciesRequestValidator()
         {
             RuleFor(request => request.StandardCodes)
                 .NotNull()
-                .WithMessage("At least one search parameter is required.");
+                .When(request => request.FrameworkCodes == null)
+                .WithMessage(MinimumFieldsErrorMessage);
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)

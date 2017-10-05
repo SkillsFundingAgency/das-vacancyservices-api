@@ -120,6 +120,7 @@
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenAnApprenticeshipSearchOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsStandardCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenAnApprenticeshipSearchOrchestrator.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingFrameworkCodes.cs" />
