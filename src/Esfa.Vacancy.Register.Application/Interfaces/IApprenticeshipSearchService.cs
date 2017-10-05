@@ -4,7 +4,7 @@ using Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Application.Interfaces
 {
-    public interface IVacancySearchService
+    public interface IApprenticeshipSearchService
     {
         Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters request);

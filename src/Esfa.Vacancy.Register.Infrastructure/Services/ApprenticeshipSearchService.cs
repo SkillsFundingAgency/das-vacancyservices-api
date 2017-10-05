@@ -12,19 +12,19 @@ using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Services
 {
-    public class VacancySearchService : IVacancySearchService
+    public class ApprenticeshipSearchService : IApprenticeshipSearchService
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
 
-        public VacancySearchService(IProvideSettings provideSettings, ILog logger)
+        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger)
         {
             _provideSettings = provideSettings;
             _logger = logger;
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
-            VacancySearchParameters request)
+            VacancySearchParameters parameters)
         {
             var indexName = _provideSettings.GetSetting(ApplicationSettingKeyConstants.ApprenticeshipIndexAliasKey);
 
@@ -37,10 +37,12 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                 esReponse = await client.SearchAsync<ApprenticeshipSummary>(s => s
                     .Index(indexName)
                     .Type("apprenticeship")
+                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize)
                     .Query(q => q.Filtered(
                             sl => sl.Filter(
                                 fs => fs.Terms(
-                                    f => f.SubCategoryCode, request.StandardSectorCodes)))));
+                                    f => f.SubCategoryCode, parameters.StandardSectorCodes)))));
             }
             catch (WebException e)
             {
@@ -57,6 +59,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             {
                 TotalMatched = esReponse.Total,
                 TotalReturned = esReponse.Documents.Count(),
+                CurrentPage = parameters.PageNumber,
+                TotalPages = Math.Ceiling((double)esReponse.Total / parameters.PageSize),
                 ApprenticeshipSummaries = esReponse.Documents
             };
 

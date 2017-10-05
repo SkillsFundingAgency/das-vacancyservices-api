@@ -15,8 +15,19 @@ namespace Esfa.Vacancy.Api.Types
         public long TotalReturned { get; set; }
 
         /// <summary>
+        /// The current page.
+        /// </summary>
+        public int CurrentPage { get; set; }
+
+        /// <summary>
+        /// The total number of pages.
+        /// </summary>
+        public double TotalPages { get; set; }
+
+        /// <summary>
         /// Search results
         /// </summary>
         public IEnumerable<T> Results { get; set; }
+
     }
 }
