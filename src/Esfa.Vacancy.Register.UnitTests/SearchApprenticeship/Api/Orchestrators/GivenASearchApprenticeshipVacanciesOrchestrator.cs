@@ -15,7 +15,7 @@ using Ploeh.AutoFixture;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
 {
     [TestFixture]
-    public class GivenAnApprenticeshipSearchOrchestrator
+    public class GivenASearchApprenticeshipVacanciesOrchestrator
     {
         private SearchApprenticeshipVacanciesOrchestrator _orchestrator;
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
