@@ -4,6 +4,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
+        private const int MinimumPageSize = 1;
+        private const int MinimumPageNumber = 1;
+        private const int MaximumPageSize = 250;
         public SearchApprenticeshipVacanciesRequestValidator()
         {
             RuleFor(r => r.StandardCodes)
@@ -15,13 +18,13 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .WithMessage((c, t) => $"{t} is invalid, expected a number.");
 
             RuleFor(r => r.PageSize)
-                .GreaterThanOrEqualTo(1)
+                .GreaterThanOrEqualTo(MinimumPageSize)
                 .WithMessage("Page size should be greater than or equal to 1")
-                .LessThanOrEqualTo(250)
+                .LessThanOrEqualTo(MaximumPageSize)
                 .WithMessage("Page size should be less than or equal to 250");
 
             RuleFor(r => r.PageNumber)
-                .GreaterThanOrEqualTo(1);
+                .GreaterThanOrEqualTo(MinimumPageNumber);
         }
 
         private bool BeValidNumber(string value)
