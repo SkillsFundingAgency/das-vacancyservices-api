@@ -32,9 +32,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .GreaterThanOrEqualTo(MinimumPageNumber);
         }
 
-        private bool BeValidNumber(string value)
+        private static bool BeValidNumber(string value)
         {
-            return int.TryParse(value, out _);
+            return int.TryParse(value, out var result);
         }
     }
 }
