@@ -10,10 +10,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
     [TestFixture]
     public class WhenMappingFrameworkCodes
     {
+        private IMapper _mapper;
+
         [SetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [TestCaseSource(nameof(TestCases))]
@@ -21,7 +24,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         {
             var parameters = new SearchApprenticeshipParameters {FrameworkCodes = frameworkCodes};
 
-            return Mapper
+            return _mapper
                 .Map<SearchApprenticeshipVacanciesRequest>(parameters)
                 .FrameworkCodes;
         }

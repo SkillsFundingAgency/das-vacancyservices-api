@@ -10,10 +10,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
     [TestFixture]
     public class AndPageNumber
     {
+        private IMapper _mapper;
+
         [SetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [Test]
@@ -21,7 +24,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         {
             var expectedPageNumber = 2;
             var parameters = new SearchApprenticeshipParameters() { PageNumber = expectedPageNumber };
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.PageNumber.Should().Be(expectedPageNumber);
         }
 
@@ -29,7 +32,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         public void WhenNotProvided_ThenPoplateRequestWithTheDefaultValue()
         {
             var parameters = new SearchApprenticeshipParameters();
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.PageNumber.Should().Be(1);
         }
     }

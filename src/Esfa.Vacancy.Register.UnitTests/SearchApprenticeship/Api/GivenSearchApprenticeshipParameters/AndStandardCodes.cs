@@ -11,10 +11,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
     [TestFixture]
     public class AndStandardCodes
     {
+        private IMapper _mapper;
+
         [SetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [TestCase("1", 1, "One or more delimeted values are acceptable")]
@@ -23,7 +26,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         public void WhenValidInput_ThenReturnMappedRequestObject(string standardCodes, int count, string reason)
         {
             var parameters = new SearchApprenticeshipParameters() { StandardCodes = standardCodes };
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.StandardCodes.Count().Should().Be(count, reason);
         }
 
@@ -32,7 +35,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         public void WhenNullOrEmpty_ThenReturnNull(string standardCodes, string reason)
         {
             var parameters = new SearchApprenticeshipParameters() { StandardCodes = standardCodes };
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.StandardCodes.Should().BeNull(reason);
         }
 

@@ -9,10 +9,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
     [TestFixture]
     public class VacancyMappingsTest
     {
+        private IMapper _mapper;
+
         [OneTimeSetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [Test]
@@ -30,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
             };
 
 
-            var result = Mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
 
             Assert.AreEqual(TrainingType.Framework, result.TrainingType);
         }
@@ -49,7 +52,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
                 }
             };
 
-            var result = Mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
 
             Assert.AreEqual(TrainingType.Standard, result.TrainingType);
         }
@@ -63,7 +66,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
                 Framework = null
             };
 
-            var result = Mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
 
             Assert.AreEqual(TrainingType.Unavailable, result.TrainingType);
         }

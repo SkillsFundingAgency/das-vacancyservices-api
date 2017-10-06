@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Esfa.Vacancy.Register.Api;
-using Esfa.Vacancy.Register.Api.App_Start;
+﻿using Esfa.Vacancy.Register.Api;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.Api
@@ -11,9 +9,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api
         [Test]
         public void ShouldHaveValidAutoMapperConfig()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
 
-            Mapper.Configuration.AssertConfigurationIsValid();
+            config.AssertConfigurationIsValid();
         }
         
     }

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.Orchestrators;
@@ -15,10 +16,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
     [TestFixture]
     public class GetVacancyDetailsAsyncVacancyUrlTests
     {
+        private IMapper _mapper;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [Test]
@@ -39,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
 
@@ -62,7 +66,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
             //Assert
@@ -86,7 +90,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
             //Assert
