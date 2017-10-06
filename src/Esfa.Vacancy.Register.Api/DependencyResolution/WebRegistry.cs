@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using AutoMapper;
 using Esfa.Vacancy.Register.Api.Logging;
 using MediatR;
 using SFA.DAS.NLog.Logger;
@@ -14,6 +15,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
             // mediatr
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+            For<IMapper>().Use<Mapper>();
             For<IMediator>().Use<Mediator>();
         }
     }

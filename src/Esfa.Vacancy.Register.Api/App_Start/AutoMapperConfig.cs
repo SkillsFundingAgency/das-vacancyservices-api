@@ -9,9 +9,9 @@ namespace Esfa.Vacancy.Register.Api
 {
     public static class AutoMapperConfig
     {
-        public static void Configure()
+        public static MapperConfiguration Configure()
         {
-            Mapper.Initialize(cfg =>
+            return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<int?, ApiTypes.VacancyType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyType>());
                 cfg.CreateMap<int?, ApiTypes.WageUnit>().ConvertUsing(new IntToEnumConverter<ApiTypes.WageUnit>());
@@ -21,8 +21,8 @@ namespace Esfa.Vacancy.Register.Api
                 cfg.CreateMap<ApiTypes.SearchApprenticeshipParameters, SearchApprenticeshipVacanciesRequest>()
                     .ForMember(target =>
                         target.StandardCodes, c
-                            => c.MapFrom(source =>
-                                string.IsNullOrWhiteSpace(source.StandardCodes) ? null : source.StandardCodes.Split(',')))
+                        => c.MapFrom(source =>
+                            string.IsNullOrWhiteSpace(source.StandardCodes) ? null : source.StandardCodes.Split(',')))
                     .ForMember(target =>
                         target.FrameworkCodes, c
                         => c.MapFrom(source =>
