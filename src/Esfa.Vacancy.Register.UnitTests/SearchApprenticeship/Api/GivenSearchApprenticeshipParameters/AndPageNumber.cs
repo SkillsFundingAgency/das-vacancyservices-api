@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;

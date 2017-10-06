@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
     [TestFixture]
     public class GivenAnApprenticeshipSearchOrchestrator
     {
-        private ApprenticeshipSearchOrchestrator _orchestrator;
+        private SearchApprenticeshipVacanciesOrchestrator _orchestrator;
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
         private SearchResponse<ApprenticeshipSummary> _searchResponse;
 
@@ -45,7 +45,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
                 .Setup(mediator => mediator.Send(searchApprenticeshipVacanciesRequest, CancellationToken.None))
                 .ReturnsAsync(searchApprenticeshipVacanciesResponse);
 
-            _orchestrator = new ApprenticeshipSearchOrchestrator(mockMediator.Object, mockMapper.Object);
+            _orchestrator = new SearchApprenticeshipVacanciesOrchestrator(mockMediator.Object, mockMapper.Object);
         }
 
         [Test]
