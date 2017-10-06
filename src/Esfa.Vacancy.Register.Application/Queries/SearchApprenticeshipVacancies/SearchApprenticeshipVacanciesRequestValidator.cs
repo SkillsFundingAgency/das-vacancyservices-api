@@ -34,7 +34,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         private static bool BeValidNumber(string value)
         {
-            return int.TryParse(value, out var result);
+            int result;
+            return int.TryParse(value, out result);
         }
     }
 }
