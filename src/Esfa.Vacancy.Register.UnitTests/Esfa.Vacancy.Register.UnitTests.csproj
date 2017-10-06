@@ -96,13 +96,13 @@
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
-    <Compile Include="Api\Mappings\VacancyMappingsTest.cs" />
-    <Compile Include="Api\Mappings\VacancySummaryMappingsTests.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
+    <Compile Include="GetVacancy\Api\Mappings\VacancyMappingsTest.cs" />
+    <Compile Include="GetVacancy\Api\Mappings\VacancySummaryMappingsTests.cs" />
+    <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncVacancyUrlTests.cs" />
     <Compile Include="Api\AutoMapperConfigTest.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
+    <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsStandardCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />

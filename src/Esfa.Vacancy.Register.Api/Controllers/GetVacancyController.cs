@@ -11,17 +11,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class VacanciesController : ApiController
+    public class GetVacancyController : ApiController
     {
         private readonly ILog _log;
-        private readonly IVacancyOrchestrator _vacancyOrchestrator;
+        private readonly GetVacancyOrchestrator _vacancyOrchestrator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VacanciesController"/> class.
+        /// Initializes a new instance of the <see cref="GetVacancyController"/> class.
         /// </summary>
         /// <param name="log">The log.</param>
         /// <param name="vacancyOrchestrator">The vacancy orchestrator.</param>
-        public VacanciesController(ILog log, IVacancyOrchestrator vacancyOrchestrator)
+        public GetVacancyController(ILog log, GetVacancyOrchestrator vacancyOrchestrator)
         {
             _log = log;
             _vacancyOrchestrator = vacancyOrchestrator;

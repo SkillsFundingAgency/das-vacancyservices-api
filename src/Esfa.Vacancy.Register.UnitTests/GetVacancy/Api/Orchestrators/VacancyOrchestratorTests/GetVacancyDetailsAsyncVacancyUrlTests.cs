@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
@@ -11,7 +10,7 @@ using MediatR;
 using Moq;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOrchestratorTests
 {
     [TestFixture]
     public class GetVacancyDetailsAsyncVacancyUrlTests
@@ -40,7 +39,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
 
@@ -63,7 +62,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
             //Assert
@@ -87,7 +86,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                 .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new VacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
             //Act
             var vacancy = await sut.GetVacancyDetailsAsync(12345);
             //Assert
