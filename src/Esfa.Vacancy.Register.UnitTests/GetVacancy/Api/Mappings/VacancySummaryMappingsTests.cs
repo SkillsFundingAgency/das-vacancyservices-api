@@ -6,7 +6,7 @@ using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 {
     public class VacancySummaryMappingsTests
     {

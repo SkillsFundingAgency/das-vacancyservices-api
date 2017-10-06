@@ -6,12 +6,12 @@ using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
-    public class VacancyOrchestrator : IVacancyOrchestrator
+    public class GetVacancyOrchestrator
     {
         private readonly IMediator _mediator;
         private readonly IProvideSettings _provideSettings;
 
-        public VacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
+        public GetVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
             _mediator = mediator;
             _provideSettings = provideSettings;
