@@ -16,11 +16,13 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
+        private readonly IElasticClient _elasticClient;
 
-        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger)
+        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient)
         {
             _provideSettings = provideSettings;
             _logger = logger;
+            _elasticClient = elasticClient;
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
@@ -39,13 +41,11 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         {
             var indexName = _provideSettings.GetSetting(ApplicationSettingKeyConstants.ApprenticeshipIndexAliasKey);
 
-            var client = GetElasticSearchClient();
-
             ISearchResponse<ApprenticeshipSummary> esReponse;
 
             try
             {
-                esReponse = await client.SearchAsync<ApprenticeshipSummary>(s => s
+                esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(s => s
                     .Index(indexName)
                     .Type("apprenticeship")
                     .Skip((parameters.PageNumber - 1) * parameters.PageSize)
@@ -77,17 +77,5 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
             return searchResponse;
         }
-
-        private ElasticClient GetElasticSearchClient()
-        {
-            var baseUri = _provideSettings.GetSetting(ApplicationSettingKeyConstants.VacancySearchUrlKey);
-
-            var node = new Uri(baseUri);
-
-            var settings = new ConnectionSettings(node);
-
-            return new ElasticClient(settings);
-        }
-
     }
 }
