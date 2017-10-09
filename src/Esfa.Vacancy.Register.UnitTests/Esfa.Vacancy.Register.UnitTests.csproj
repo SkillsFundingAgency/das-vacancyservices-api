@@ -118,6 +118,7 @@
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsStandardCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenAnApprenticeshipSearchOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />

@@ -19,13 +19,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         public async Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request)
         {
-            var sectorCodes = await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse));
-
             return new VacancySearchParameters
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                StandardSectorCodes = sectorCodes
+                StandardSectorCodes = await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)),
+                FrameworkCodes = ConvertFrameworkCodesToSearchableFrameworkCodes(request.FrameworkCodes)
             };
         }
 
@@ -53,6 +52,11 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 throw new ValidationException(errors);
 
             return sectorCodes.ToList();
+        }
+
+        private static List<string> ConvertFrameworkCodesToSearchableFrameworkCodes(IEnumerable<string> frameworkCodes)
+        {
+            return frameworkCodes.Select(frameworkCode => $"FW.{frameworkCode.Trim()}").ToList();
         }
     }
 }

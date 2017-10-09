@@ -57,5 +57,15 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             Assert.IsTrue(exception.Errors.Any(ex => ex.ErrorMessage == "StandardCode 222 is invalid"));
         }
+
+        [Test]
+        public async Task AndStandardCodesIsEmpty_ThenReturnsEmpty()
+        {
+            var request = new SearchApprenticeshipVacanciesRequest();
+
+            var result =  await _converter.ConvertFrom(request);
+
+            result.StandardSectorCodes.Should().BeEmpty();
+        }
     }
 }
