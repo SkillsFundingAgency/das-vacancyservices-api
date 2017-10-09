@@ -6,22 +6,23 @@ using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
-    public class VacancyOrchestrator : IVacancyOrchestrator
+    public class GetVacancyOrchestrator
     {
         private readonly IMediator _mediator;
-        private readonly string _liveVacancyBaseUrl;
+        private readonly IProvideSettings _provideSettings;
 
-        public VacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
+        public GetVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
             _mediator = mediator;
-            _liveVacancyBaseUrl = provideSettings.GetSetting(ApplicationSettingConstants.LiveVacancyBaseUrl);
+            _provideSettings = provideSettings;
         }
 
         public async Task<Vacancy.Api.Types.Vacancy> GetVacancyDetailsAsync(int id)
         {
+            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveVacancyBaseUrlKey);
             var response = await _mediator.Send(new GetVacancyRequest() { Reference = id });
             var vacancy = Mapper.Map<Vacancy.Api.Types.Vacancy>(response.Vacancy);
-            vacancy.VacancyUrl = $"{_liveVacancyBaseUrl}/{vacancy.VacancyReference}";
+            vacancy.VacancyUrl = $"{liveVacancyBaseUrl}/{vacancy.VacancyReference}";
             return vacancy;
         }
     }

@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public DateTime? ExpectedStartDate { get; set; }
 
-        public DateTime? DatePosted { get; set; }
+        public DateTime PostedDate { get; set; }
 
         public DateTime? ApplicationClosingDate { get; set; }
 
@@ -93,5 +93,11 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int VacancyStatusId { get; set; }
 
         public bool IsAnonymousEmployer => string.IsNullOrEmpty(AnonymousEmployerName) == false;
+
+        public string ContactName { get; set; }
+
+        public string ContactEmail { get; set; }
+
+        public string ContactNumber { get; set; }
     }
 }

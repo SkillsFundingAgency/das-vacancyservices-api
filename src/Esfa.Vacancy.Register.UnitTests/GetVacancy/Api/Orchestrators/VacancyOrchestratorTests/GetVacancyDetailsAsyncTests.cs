@@ -10,7 +10,7 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOrchestratorTests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
-        private VacancyOrchestrator _sut;
+        private GetVacancyOrchestrator _sut;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         {
             _mockMediator = new Mock<IMediator>();
             _provideSettings = new Mock<IProvideSettings>();
-            _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
         }
 
         [Test]

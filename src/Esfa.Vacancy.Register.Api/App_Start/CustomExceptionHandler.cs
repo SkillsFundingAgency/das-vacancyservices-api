@@ -1,15 +1,17 @@
-﻿using Esfa.Vacancy.Register.Application.Exceptions;
-using FluentValidation;
-using SFA.DAS.NLog.Logger;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Mvc;
+using Esfa.Vacancy.Register.Application.Exceptions;
+using Esfa.Vacancy.Register.Infrastructure.Exceptions;
+using FluentValidation;
+using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Api.App_Start
 {
     public class CustomExceptionHandler : ExceptionHandler
     {
+        private const string GenericErrorMessage = "An internal error occurred, please try again.";
         private static readonly ILog Logger = DependencyResolver.Current.GetService<ILog>();
 
         public override void Handle(ExceptionHandlerContext context)
@@ -46,6 +48,17 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 context.Result = new CustomErrorResult(context.Request, response);
 
                 Logger.Warn(context.Exception, "Unable to locate resource error");
+
+                return;
+            }
+
+            if (context.Exception is InfrastructureException)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                response.Content = new StringContent(GenericErrorMessage);
+                context.Result = new CustomErrorResult(context.Request, response);
+
+                Logger.Error(context.Exception.InnerException, "Unexpected infrastructure error");
 
                 return;
             }

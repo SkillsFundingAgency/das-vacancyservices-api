@@ -8,123 +8,83 @@ namespace Esfa.Vacancy.Api.Types
     public class Vacancy
     {
         /// <summary>
-        /// Gets or sets the reference.
+        /// Reference number.
         /// </summary>
-        /// <value>
-        /// The reference.
-        /// </value>
         public int VacancyReference { get; set; }
 
         /// <summary>
-        /// Gets or sets the title.
+        /// Vacancy Title.
         /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the short description.
+        /// Short description.
         /// </summary>
-        /// <value>
-        /// The short description.
-        /// </value>
         public string ShortDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Description.
         /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the vacancy.
+        /// Type of the vacancy.
         /// </summary>
-        /// <value>
-        /// The type of the vacancy.
-        /// </value>
         public VacancyType VacancyType { get; set; }
 
         /// <summary>
-        /// Gets or sets the wage unit.
+        /// Wage unit.
         /// </summary>
-        /// <value>
-        /// The wage unit.
-        /// </value>
         public WageUnit? WageUnit { get; set; }
-        
+
         /// <summary>
-        /// Gets or sets the working week.
+        /// Weekly wage.
         /// </summary>
-        /// <value>
-        /// The working week.
-        /// </value>
+        public decimal? WeeklyWage { get; set; }
+
+        /// <summary>
+        /// Working week.
+        /// </summary>
         public string WorkingWeek { get; set; }
 
         /// <summary>
-        /// Gets or sets the wage text.
+        /// Wage text.
         /// </summary>
-        /// <value>
-        /// The wage text.
-        /// </value>
         public string Wage { get; set; }
 
         /// <summary>
-        /// Gets or sets the hours per week.
+        /// Hours per week.
         /// </summary>
-        /// <value>
-        /// The hours per week.
-        /// </value>
         public decimal? HoursPerWeek { get; set; }
 
         /// <summary>
-        /// Gets or sets the expected duration.
+        /// Expected duration.
         /// </summary>
-        /// <value>
-        /// The expected duration.
-        /// </value>
         public string ExpectedDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the expected start date.
+        /// Expected start date.
         /// </summary>
-        /// <value>
-        /// The expected start date.
-        /// </value>
         public DateTime? ExpectedStartDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the date posted.
+        /// Date posted.
         /// </summary>
-        /// <value>
-        /// The date posted.
-        /// </value>
-        public DateTime? DatePosted { get; set; }
+        public DateTime PostedDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the application closing date.
+        /// Application closing date.
         /// </summary>
-        /// <value>
-        /// The application closing date.
-        /// </value>
         public DateTime? ApplicationClosingDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the interview from date.
+        /// Interview from date.
         /// </summary>
-        /// <value>
-        /// The interview from date.
-        /// </value>
         public DateTime? InterviewFromDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of positions.
+        /// Number of positions.
         /// </summary>
-        /// <value>
-        /// The number of positions.
-        /// </value>
         public int NumberOfPositions { get; set; }
 
         /// <summary>
@@ -148,7 +108,7 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingUri { get; set; }
 
         /// <summary>
-        /// Employer'e name.
+        /// The name of the employer.
         /// </summary>
         public string EmployerName { get; set; }
 
@@ -158,107 +118,83 @@ namespace Esfa.Vacancy.Api.Types
         public string EmployerDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the employers website.
+        /// Employers website.
         /// </summary>
-        /// <value>
-        /// The employers website.
-        /// </value>
         public string EmployerWebsite { get; set; }
 
         /// <summary>
-        /// Gets or sets the training to be provided.
+        /// Training to be provided.
         /// </summary>
-        /// <value>
-        /// The training to be provided.
-        /// </value>
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
-        /// Gets or sets the qulificatios required.
+        /// Qualificatios required.
         /// </summary>
-        /// <value>
-        /// The qulificatios required.
-        /// </value>
         public string QualificationsRequired { get; set; }
 
         /// <summary>
-        /// Gets or sets the skills required.
+        /// Skills required.
         /// </summary>
-        /// <value>
-        /// The skills required.
-        /// </value>
         public string SkillsRequired { get; set; }
 
         /// <summary>
-        /// Gets or sets the personal qualities.
+        /// Personal qualities.
         /// </summary>
-        /// <value>
-        /// The personal qualities.
-        /// </value>
         public string PersonalQualities { get; set; }
 
         /// <summary>
-        /// Gets or sets the important information.
+        /// Important information.
         /// </summary>
-        /// <value>
-        /// The important information.
-        /// </value>
         public string ImportantInformation { get; set; }
 
         /// <summary>
-        /// Gets or sets the future prospects.
+        /// Future prospects.
         /// </summary>
-        /// <value>
-        /// The future prospects.
-        /// </value>
         public string FutureProspects { get; set; }
 
         /// <summary>
-        /// Gets or sets the things to consider.
+        /// Things to consider.
         /// </summary>
-        /// <value>
-        /// The things to consider.
-        /// </value>
         public string ThingsToConsider { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the vacancy location.
+        /// Type of the vacancy location.
         /// </summary>
-        /// <value>
-        /// The type of the vacancy location.
-        /// </value>
         public VacancyLocationType LocationType { get; set; }
 
         /// <summary>
-        /// Gets or sets the supplementary question1.
+        /// Supplementary question1.
         /// </summary>
-        /// <value>
-        /// The supplementary question1.
-        /// </value>
         public string SupplementaryQuestion1 { get; set; }
 
         /// <summary>
-        /// Gets or sets the supplementary question2.
+        /// Supplementary question2.
         /// </summary>
-        /// <value>
-        /// The supplementary question2.
-        /// </value>
         public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
-        /// Gets or sets the vacancy URL.
+        /// Vacancy URL.
         /// </summary>
-        /// <value>
-        /// The vacancy URL.
-        /// </value>
         public string VacancyUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the vacancy location.
+        /// Contains the address of the Vacancy
         /// </summary>
-        /// <value>
-        /// The vacancy location.
-        /// </value>
         public Address Location { get; set; }
+
+        /// <summary>
+        /// Name of the contact person
+        /// </summary>
+        public string ContactName { get; set; }
+
+        /// <summary>
+        /// Email of the contact person
+        /// </summary>
+        public string ContactEmail { get; set; }
+
+        /// <summary>
+        /// Phone number of the contact person
+        /// </summary>
+        public string ContactNumber { get; set; }
     }
 }

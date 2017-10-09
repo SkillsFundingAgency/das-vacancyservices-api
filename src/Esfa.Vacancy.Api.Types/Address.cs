@@ -3,67 +3,40 @@
     public class Address
     {
         /// <summary>
-        /// Gets or sets the address line1.
+        /// Address line1.
         /// </summary>
-        /// <value>
-        /// The address line1.
-        /// </value>
         public string AddressLine1 { get; set; }
         /// <summary>
-        /// Gets or sets the address line2.
+        /// Address line2.
         /// </summary>
-        /// <value>
-        /// The address line2.
-        /// </value>
         public string AddressLine2 { get; set; }
         /// <summary>
-        /// Gets or sets the address line3.
+        /// Address line3.
         /// </summary>
-        /// <value>
-        /// The address line3.
-        /// </value>
         public string AddressLine3 { get; set; }
         /// <summary>
-        /// Gets or sets the address line4.
+        /// Address line4.
         /// </summary>
-        /// <value>
-        /// The address line4.
-        /// </value>
         public string AddressLine4 { get; set; }
         /// <summary>
-        /// Gets or sets the address line5.
+        /// Address line5.
         /// </summary>
-        /// <value>
-        /// The address line5.
-        /// </value>
         public string AddressLine5 { get; set; }
         /// <summary>
-        /// Gets or sets the latitude.
+        /// Latitude.
         /// </summary>
-        /// <value>
-        /// The latitude.
-        /// </value>
         public decimal? Latitude { get; set; }
         /// <summary>
-        /// Gets or sets the longitude.
+        /// Longitude.
         /// </summary>
-        /// <value>
-        /// The longitude.
-        /// </value>
         public decimal? Longitude { get; set; }
         /// <summary>
-        /// Gets or sets the post code.
+        /// Post code.
         /// </summary>
-        /// <value>
-        /// The post code.
-        /// </value>
         public string PostCode { get; set; }
         /// <summary>
-        /// Gets or sets the town.
+        /// Town.
         /// </summary>
-        /// <value>
-        /// The town.
-        /// </value>
         public string Town { get; set; }
     }
 }

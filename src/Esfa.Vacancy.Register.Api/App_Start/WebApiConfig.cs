@@ -18,6 +18,8 @@ namespace Esfa.Vacancy.Register.Api
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc
             };
 
+            ApiFilterConfig.RegisterFilters(config.Filters);
+
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StrictEnumConverter());
             
             // Web API routes

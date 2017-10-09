@@ -4,7 +4,7 @@ using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Domain.Entities;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 {
     [TestFixture]
     public class VacancyMappingsTest
