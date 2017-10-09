@@ -15,13 +15,13 @@ namespace Esfa.Vacancy.Register.Api
             config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings {
                 NullValueHandling = NullValueHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                DateTimeZoneHandling = DateTimeZoneHandling.Local
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc
             };
 
             ApiFilterConfig.RegisterFilters(config.Filters);
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StrictEnumConverter());
-
+            
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
