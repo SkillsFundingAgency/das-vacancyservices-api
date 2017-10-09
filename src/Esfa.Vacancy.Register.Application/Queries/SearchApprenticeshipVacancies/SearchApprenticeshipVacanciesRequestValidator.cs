@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
@@ -12,8 +13,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         public SearchApprenticeshipVacanciesRequestValidator()
         {
             RuleFor(request => request.StandardCodes)
-                .NotNull()
-                .When(request => request.FrameworkCodes == null)
+                .NotEmpty()
+                .When(request => !request.FrameworkCodes.Any())
                 .WithMessage(MinimumFieldsErrorMessage);
 
             RuleForEach(request => request.StandardCodes)
