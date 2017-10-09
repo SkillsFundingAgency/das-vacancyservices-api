@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using AutoMapper;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -19,10 +20,11 @@ namespace Esfa.Vacancy.Register.Api
                 cfg.CreateMap<int?, ApiTypes.TrainingType>().ConvertUsing(new IntToEnumConverter<ApiTypes.TrainingType>());
                 cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
                 cfg.CreateMap<ApiTypes.SearchApprenticeshipParameters, SearchApprenticeshipVacanciesRequest>()
-                    .ForMember(target =>
-                        target.StandardCodes, c
-                        => c.MapFrom(source =>
-                            string.IsNullOrWhiteSpace(source.StandardCodes) ? null : source.StandardCodes.Split(',')))
+                    .ForMember(target => target.StandardCodes, c =>
+                    {
+                        c.Condition(source => !string.IsNullOrWhiteSpace(source.StandardCodes));
+                        c.MapFrom(source => source.StandardCodes.Split(','));
+                    })
                     .ForMember(target =>
                         target.FrameworkCodes, c
                         => c.MapFrom(source =>

@@ -32,11 +32,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
 
         [TestCase("", "Empty string will be ignored")]
         [TestCase(null, "Null will be ignored")]
-        public void WhenNullOrEmpty_ThenReturnNull(string standardCodes, string reason)
+        public void WhenNullOrEmpty_ThenReturnEmptyList(string standardCodes, string reason)
         {
             var parameters = new SearchApprenticeshipParameters() { StandardCodes = standardCodes };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.StandardCodes.Should().BeNull(reason);
+            result.StandardCodes.Should().BeEmpty(reason);
         }
 
     }
