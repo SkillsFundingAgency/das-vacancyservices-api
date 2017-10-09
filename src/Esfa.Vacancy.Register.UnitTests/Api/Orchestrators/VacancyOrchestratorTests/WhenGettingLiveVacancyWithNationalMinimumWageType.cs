@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         private const string UnknownwWageText = "Unknown";
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
-        private VacancyOrchestrator _sut;
+        private GetVacancyOrchestrator _sut;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         {
             _mockMediator = new Mock<IMediator>();
             _provideSettings = new Mock<IProvideSettings>();
-            _sut = new VacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
         }
 
         [TestCase(null, 7.05, "Unknown - £211.50")]
