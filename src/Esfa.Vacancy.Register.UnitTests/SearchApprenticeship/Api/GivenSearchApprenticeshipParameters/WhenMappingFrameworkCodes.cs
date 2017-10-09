@@ -38,11 +38,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
                 .Returns(new[]{"1","2", " 23lkk"})
                 .SetName("Then a comma delimited array is split on comma"),
             new TestCaseData(" ")
-                .Returns(null)
-                .SetName("Then an empty string returns null"),
+                .Returns(new List<string>())
+                .SetName("Then an empty string returns empty list"),
             new TestCaseData(null)
-                .Returns(null)
-                .SetName("Then null returns null")
+                .Returns(new List<string>())
+                .SetName("Then null returns empty list")
         };
     }
 }

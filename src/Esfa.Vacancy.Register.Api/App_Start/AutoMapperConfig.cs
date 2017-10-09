@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using AutoMapper;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -20,15 +19,16 @@ namespace Esfa.Vacancy.Register.Api
                 cfg.CreateMap<int?, ApiTypes.TrainingType>().ConvertUsing(new IntToEnumConverter<ApiTypes.TrainingType>());
                 cfg.CreateMap<DomainTypes.Address, ApiTypes.Address>();
                 cfg.CreateMap<ApiTypes.SearchApprenticeshipParameters, SearchApprenticeshipVacanciesRequest>()
-                    .ForMember(target => target.StandardCodes, c =>
+                    .ForMember(target => target.StandardCodes, config =>
                     {
-                        c.Condition(source => !string.IsNullOrWhiteSpace(source.StandardCodes));
-                        c.MapFrom(source => source.StandardCodes.Split(','));
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardCodes));
+                        config.MapFrom(source => source.StandardCodes.Split(','));
                     })
-                    .ForMember(target =>
-                        target.FrameworkCodes, c
-                        => c.MapFrom(source =>
-                            string.IsNullOrWhiteSpace(source.FrameworkCodes) ? null : source.FrameworkCodes.Split(',')));
+                    .ForMember(target => target.FrameworkCodes, config =>
+                    {
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkCodes));
+                        config.MapFrom(source => source.FrameworkCodes.Split(','));
+                    });
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                     .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
                 cfg.CreateMap<DomainTypes.GeoPoint, ApiTypes.GeoPoint>()
