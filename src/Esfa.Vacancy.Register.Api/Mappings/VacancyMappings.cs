@@ -13,7 +13,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         {
             CreateMap<Domain.Entities.Vacancy, Vacancy.Api.Types.Vacancy>()
                 .ForMember(apiType => apiType.VacancyUrl, opt => opt.Ignore())
-                .ForMember(apiType => apiType.Wage, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingType, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingCode, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingTitle, opt => opt.Ignore())
@@ -47,29 +46,29 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             switch (src.WageType)
             {
                 case (int) WageType.LegacyText:
-                    dest.Wage = UnknownText;
+                    dest.WageText = UnknownText;
                     break;
                 case (int) WageType.LegacyWeekly:
                 case (int)WageType.Custom:
-                    dest.Wage = GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
+                    dest.WageText = GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
                     break;
                 case (int) WageType.ApprenticeshipMinimum:
-                    dest.Wage = GetMinimumApprenticeWage(src);
+                    dest.WageText = GetMinimumApprenticeWage(src);
                     break;
                 case (int) WageType.NationalMinimum:
-                    dest.Wage = GetNationalMinimumWageRangeText(src);
+                    dest.WageText = GetNationalMinimumWageRangeText(src);
                     break;
                 case (int) WageType.CustomRange:
-                    dest.Wage = GetWageRangeText(src);
+                    dest.WageText = GetWageRangeText(src);
                     break;
                 case (int) WageType.CompetitiveSalary:
-                    dest.Wage = "Competitive salary";
+                    dest.WageText = "Competitive salary";
                     break;
                 case (int) WageType.ToBeAgreedUponAppointment:
-                    dest.Wage = "To be agreed upon appointment";
+                    dest.WageText = "To be agreed upon appointment";
                     break;
                 case (int) WageType.Unwaged:
-                    dest.Wage = "Unwaged";
+                    dest.WageText = "Unwaged";
                     break;
             }
         }
@@ -115,7 +114,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         private void ResetWageFieldsForTraineeship(Vacancy.Api.Types.Vacancy dest)
         {
-            dest.Wage = null;
+            dest.WageText = null;
             dest.WageUnit = null;
             dest.HoursPerWeek = null;
         }

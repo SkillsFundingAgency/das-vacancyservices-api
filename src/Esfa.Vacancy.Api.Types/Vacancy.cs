@@ -36,12 +36,7 @@ namespace Esfa.Vacancy.Api.Types
         /// Wage unit.
         /// </summary>
         public WageUnit? WageUnit { get; set; }
-
-        /// <summary>
-        /// Weekly wage.
-        /// </summary>
-        public decimal? WeeklyWage { get; set; }
-
+        
         /// <summary>
         /// Working week.
         /// </summary>
@@ -50,7 +45,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Wage text.
         /// </summary>
-        public string Wage { get; set; }
+        public string WageText { get; set; }
 
         /// <summary>
         /// Hours per week.

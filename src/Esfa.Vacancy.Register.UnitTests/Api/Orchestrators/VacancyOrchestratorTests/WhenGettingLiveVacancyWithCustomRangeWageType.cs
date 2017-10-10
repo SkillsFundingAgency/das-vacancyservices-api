@@ -71,7 +71,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Apprenticeship);
             result.WageUnit.Should().Be(wageUnit);
-            result.Wage.Should().Be(expectedWageText);
+            result.WageText.Should().Be(expectedWageText);
         }
     }
 }

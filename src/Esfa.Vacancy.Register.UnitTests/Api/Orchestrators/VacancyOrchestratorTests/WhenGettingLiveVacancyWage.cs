@@ -81,7 +81,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.VacancyType.Should().Be(VacancyType.Traineeship);
-            result.Wage.Should().BeNullOrEmpty();
+            result.WageText.Should().BeNullOrEmpty();
             result.WageUnit.Should().BeNull();
             result.WorkingWeek.Should().NotBeNullOrEmpty();
             result.HoursPerWeek.Should().BeNull();
