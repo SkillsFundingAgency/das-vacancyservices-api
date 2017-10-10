@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -24,6 +23,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
         private SearchApprenticeshipVacanciesResponse _actualResponse;
         private Mock<IElasticClient> _mockElasticClient;
         private ApprenticeshipSearchService _apprenticeshipSearchService;
+        private Mock<IElasticsearchResponse> _connectionStatus;
 
         [SetUp]
         public async Task Setup()
@@ -35,8 +35,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
                 new ApprenticeshipSummary {Id = 9089853}
             };
 
-            var connectionStatus = new Mock<IElasticsearchResponse>();
-            connectionStatus
+            _connectionStatus = new Mock<IElasticsearchResponse>();
+            _connectionStatus
                 .Setup(response => response.Success)
                 .Returns(true);
 
@@ -49,11 +49,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
                 .Returns(_apprenticeshipSummaries);
             searchResponse
                 .Setup(response => response.ConnectionStatus)
-                .Returns(connectionStatus.Object);
+                .Returns(_connectionStatus.Object);
 
             _mockElasticClient = new Mock<IElasticClient>();
             _mockElasticClient
-                .Setup(client => client.SearchAsync<ApprenticeshipSummary>(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
+                .Setup(client => client.SearchAsync(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
                 .ReturnsAsync(searchResponse.Object);
 
             _apprenticeshipSearchService = new ApprenticeshipSearchService(new Mock<IProvideSettings>().Object, new Mock<ILog>().Object, _mockElasticClient.Object);
@@ -78,7 +78,14 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
             Assert.That(ex.InnerException, Is.TypeOf<WebException>());
         }
 
-        // AndConnectionStatusNotSuccess_ThenThrowsInfrastructureException
-        // AndConnectionStatusSuccess_ThenReturnsResult
+        [Test]
+        public void AndConnectionStatusNotSuccess_ThenThrowsInfrastructureException()
+        {
+            _connectionStatus
+                .Setup(response => response.Success)
+                .Returns(false);
+
+            Assert.ThrowsAsync<InfrastructureException>(() => _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters()));
+        }
     }
 }
