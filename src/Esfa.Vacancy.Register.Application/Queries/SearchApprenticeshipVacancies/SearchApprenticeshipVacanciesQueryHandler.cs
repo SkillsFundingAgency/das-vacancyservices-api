@@ -9,12 +9,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     {
         private readonly IValidator<SearchApprenticeshipVacanciesRequest> _validator;
         private readonly IApprenticeshipSearchService _vacancySearchService;
-        private readonly VacancySearchParametersConverter _vacancySearchParametersConverter;
+        private readonly IVacancySearchParametersConverter _vacancySearchParametersConverter;
 
         public SearchApprenticeshipVacanciesQueryHandler(
             IValidator<SearchApprenticeshipVacanciesRequest> validator,
             IApprenticeshipSearchService vacancySearchService,
-            VacancySearchParametersConverter vacancySearchParametersConverter)
+            IVacancySearchParametersConverter vacancySearchParametersConverter)
         {
             _validator = validator;
             _vacancySearchService = vacancySearchService;
@@ -30,8 +30,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             var searchParameters = await _vacancySearchParametersConverter.ConvertFrom(request);
 
-            var result = await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
-            return result;
+            return await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
         }
     }
 }

@@ -8,7 +8,12 @@ using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
-    public class VacancySearchParametersConverter
+    public interface IVacancySearchParametersConverter
+    {
+        Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request);
+    }
+
+    public class VacancySearchParametersConverter : IVacancySearchParametersConverter
     {
         private readonly IStandardRepository _standardRepository;
 
