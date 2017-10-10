@@ -19,12 +19,15 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         public async Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request)
         {
+            var combinedSubCategoryCodes = new List<string>();
+            combinedSubCategoryCodes.AddRange(await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)));
+            combinedSubCategoryCodes.AddRange(ConvertFrameworkCodesToSearchableFrameworkCodes(request.FrameworkCodes));
+
             return new VacancySearchParameters
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                SubCategoryCodes = await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)),
-                FrameworkCodes = ConvertFrameworkCodesToSearchableFrameworkCodes(request.FrameworkCodes)
+                SubCategoryCodes = combinedSubCategoryCodes
             };
         }
 
@@ -54,7 +57,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             return sectorCodes.ToList();
         }
 
-        private static List<string> ConvertFrameworkCodesToSearchableFrameworkCodes(IEnumerable<string> frameworkCodes)
+        private static IEnumerable<string> ConvertFrameworkCodesToSearchableFrameworkCodes(IEnumerable<string> frameworkCodes)
         {
             return frameworkCodes.Select(frameworkCode => $"FW.{frameworkCode.Trim()}").ToList();
         }

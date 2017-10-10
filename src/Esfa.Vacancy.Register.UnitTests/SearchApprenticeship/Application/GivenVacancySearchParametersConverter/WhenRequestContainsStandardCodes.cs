@@ -42,9 +42,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             var response = await _converter.ConvertFrom(request);
 
-            response.StandardSectorCodes.Count().Should().Be(2);
-            response.StandardSectorCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");
-            response.StandardSectorCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{2}");
+            response.SubCategoryCodes.Count().Should().Be(2);
+            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");
+            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{2}");
         }
 
         [Test]
@@ -65,7 +65,25 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             var result =  await _converter.ConvertFrom(request);
 
-            result.StandardSectorCodes.Should().BeEmpty();
+            result.SubCategoryCodes.Should().BeEmpty();
+        }
+
+        [Test]
+        public async Task AndFrameworkCodesAsWellAsStandardCodes_ThenBothAreReturned()
+        {
+            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest
+            {
+                FrameworkCodes = new[] { "567", "234" },
+                StandardCodes = new[] { "210", "310" }
+            });
+
+            result.SubCategoryCodes.ShouldAllBeEquivalentTo(new[]
+            {
+                $"{StandardSector.StandardSectorPrefix}.2",
+                $"{StandardSector.StandardSectorPrefix}.3",
+                "FW.567",
+                "FW.234"
+            });
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 FrameworkCodes = new[] {"345", "3490"}
             });
 
-            result.FrameworkCodes.ShouldAllBeEquivalentTo(new[]{"FW.345", "FW.3490"});
+            result.SubCategoryCodes.ShouldAllBeEquivalentTo(new[]{"FW.345", "FW.3490"});
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 FrameworkCodes = new[] { "43508 ", " 567 ", " 450" }
             });
 
-            result.FrameworkCodes.ShouldAllBeEquivalentTo(new[] { "FW.43508", "FW.567", "FW.450" });
+            result.SubCategoryCodes.ShouldAllBeEquivalentTo(new[] { "FW.43508", "FW.567", "FW.450" });
         }
 
         [Test]
@@ -52,18 +52,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
-            result.FrameworkCodes.Should().BeEmpty();
-        }
-
-        [Test]
-        public async Task AndFrameworkCodesAsWellAsStandardCodes_ThenBothAreReturned()
-        {
-            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest
-            {
-                FrameworkCodes = new[] { "43508 ", " 567 ", " 450" }
-            });
-
-            result.FrameworkCodes.ShouldAllBeEquivalentTo(new[] { "FW.43508", "FW.567", "FW.450" });
+            result.SubCategoryCodes.Should().BeEmpty();
         }
     }
 }
