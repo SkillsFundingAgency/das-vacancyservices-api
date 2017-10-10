@@ -24,10 +24,23 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
         private Mock<IElasticClient> _mockElasticClient;
         private ApprenticeshipSearchService _apprenticeshipSearchService;
         private Mock<IElasticsearchResponse> _connectionStatus;
+        private int _expectedTotal;
+        private int _expectedCurrentPage;
+        private double _expectedTotalPages;
 
         [SetUp]
         public async Task Setup()
         {
+            var pageSize = 68;
+            _expectedTotal = 3245458;
+            _expectedCurrentPage = 37987;
+            var vacancySearchParameters = new VacancySearchParameters
+            {
+                PageSize = 68,
+                PageNumber = _expectedCurrentPage
+            };
+            _expectedTotalPages = Math.Ceiling((double) _expectedTotal / pageSize);
+
             _apprenticeshipSummaries = new List<ApprenticeshipSummary>
             {
                 new ApprenticeshipSummary {Id = 234243},
@@ -43,7 +56,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
             var searchResponse = new Mock<ISearchResponse<ApprenticeshipSummary>>();
             searchResponse
                 .Setup(response => response.Total)
-                .Returns(3);
+                .Returns(_expectedTotal);
             searchResponse
                 .Setup(response => response.Documents)
                 .Returns(_apprenticeshipSummaries);
@@ -57,8 +70,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
                 .ReturnsAsync(searchResponse.Object);
 
             _apprenticeshipSearchService = new ApprenticeshipSearchService(new Mock<IProvideSettings>().Object, new Mock<ILog>().Object, _mockElasticClient.Object);
-            
-            _actualResponse = await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters());
+
+            _actualResponse = await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(vacancySearchParameters);
         }
 
         [Test]
@@ -86,6 +99,36 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Infrastructure.Gi
                 .Returns(false);
 
             Assert.ThrowsAsync<InfrastructureException>(() => _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters()));
+        }
+
+        [Test]
+        public void ThenTotalMatchedIsCorrect()
+        {
+            _actualResponse.TotalMatched.Should().Be(_expectedTotal);
+        }
+
+        [Test]
+        public void ThenTotalReturnedIsCorrect()
+        {
+            _actualResponse.TotalReturned.Should().Be(_apprenticeshipSummaries.Count);
+        }
+
+        [Test]
+        public void ThenCurrentPageIsCorrect()
+        {
+            _actualResponse.CurrentPage.Should().Be(_expectedCurrentPage);
+        }
+
+        [Test]
+        public void ThenTotalPagesIsCorrect()
+        {
+            _actualResponse.TotalPages.Should().Be(_expectedTotalPages);
+        }
+
+        [Test]
+        public void ThenApprenticeshipSummariesIsCorrect()
+        {
+            _actualResponse.ApprenticeshipSummaries.ShouldAllBeEquivalentTo(_apprenticeshipSummaries);
         }
     }
 }
