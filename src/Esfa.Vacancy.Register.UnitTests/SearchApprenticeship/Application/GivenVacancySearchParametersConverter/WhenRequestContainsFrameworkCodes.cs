@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
-using FluentValidation;
 using Moq;
 using NUnit.Framework;
 
@@ -55,6 +53,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
             result.FrameworkCodes.Should().BeEmpty();
+        }
+
+        [Test]
+        public async Task AndFrameworkCodesAsWellAsStandardCodes_ThenBothAreReturned()
+        {
+            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest
+            {
+                FrameworkCodes = new[] { "43508 ", " 567 ", " 450" }
+            });
+
+            result.FrameworkCodes.ShouldAllBeEquivalentTo(new[] { "FW.43508", "FW.567", "FW.450" });
         }
     }
 }

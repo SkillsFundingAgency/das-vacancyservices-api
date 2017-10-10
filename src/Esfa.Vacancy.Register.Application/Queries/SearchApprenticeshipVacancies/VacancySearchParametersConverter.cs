@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                StandardSectorCodes = await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)),
+                SubCategoryCodes = await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)),
                 FrameworkCodes = ConvertFrameworkCodesToSearchableFrameworkCodes(request.FrameworkCodes)
             };
         }

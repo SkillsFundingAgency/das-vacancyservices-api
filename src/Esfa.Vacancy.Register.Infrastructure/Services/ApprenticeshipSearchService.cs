@@ -53,7 +53,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                     .Query(q => q.Filtered(
                             sl => sl.Filter(
                                 fs => fs.Terms(
-                                    f => f.SubCategoryCode, parameters.StandardSectorCodes)))));
+                                    f => f.SubCategoryCode, parameters.SubCategoryCodes)))));
             }
             catch (WebException e)
             {
