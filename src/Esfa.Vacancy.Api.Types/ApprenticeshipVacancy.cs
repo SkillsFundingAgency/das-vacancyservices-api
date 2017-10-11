@@ -118,7 +118,7 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
-        /// Qualificatios required.
+        /// Qualifications required.
         /// </summary>
         public string QualificationsRequired { get; set; }
 
