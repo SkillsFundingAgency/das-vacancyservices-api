@@ -7,11 +7,11 @@ using Esfa.Vacancy.Register.Infrastructure.Settings;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
-    public class FrameworkRepository : IFrameworkRepository
+    public class FrameworkCodeRepository : IFrameworkCodeRepository
     {
         private readonly IProvideSettings _settings;
 
-        private const string GetFrameworksQuery = @"
+        private const string GetFrameworkCodesQuery = @"
             SELECT 
                 CodeName
             FROM 
@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             WHERE 
                 ApprenticeshipFrameworkStatusTypeId = 1";
 
-        public FrameworkRepository(IProvideSettings settings)
+        public FrameworkCodeRepository(IProvideSettings settings)
         {
             _settings = settings;
         }
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<string>(GetFrameworksQuery);
+                    await sqlConn.QueryAsync<string>(GetFrameworkCodesQuery);
 
                 return results;
             }

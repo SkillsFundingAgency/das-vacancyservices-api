@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Esfa.Vacancy.Register.Domain.Repositories
 {
-    public interface IFrameworkRepository
+    public interface IFrameworkCodeRepository
     {
         Task<IEnumerable<string>> GetFrameworksAsync();
     }

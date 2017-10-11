@@ -11,17 +11,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class FrameworkCodeConverter : IFrameworkCodeConverter
     {
-        private readonly IFrameworkRepository _frameworkRepository;
+        private readonly IFrameworkCodeRepository _frameworkCodeRepository;
         private const string FrameworkPrefix = "FW.";
 
-        public FrameworkCodeConverter(IFrameworkRepository frameworkRepository)
+        public FrameworkCodeConverter(IFrameworkCodeRepository frameworkCodeRepository)
         {
-            _frameworkRepository = frameworkRepository;
+            _frameworkCodeRepository = frameworkCodeRepository;
         }
 
         public async Task<List<string>> Convert(IEnumerable<string> frameworksToConvert)
         {
-            var validFrameworks = await _frameworkRepository.GetFrameworksAsync();
+            var validFrameworks = await _frameworkCodeRepository.GetFrameworksAsync();
 
             var convertedFrameworks = new List<string>();
             var validationFailures = new List<ValidationFailure>();

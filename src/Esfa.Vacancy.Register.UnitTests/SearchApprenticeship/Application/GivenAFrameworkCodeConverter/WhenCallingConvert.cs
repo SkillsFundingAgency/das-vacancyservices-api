@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             _frameworks = new List<string> {"3454", "3876", "6854"};
 
-            var mockFrameworkRepository = new Mock<IFrameworkRepository>();
+            var mockFrameworkRepository = new Mock<IFrameworkCodeRepository>();
             mockFrameworkRepository
                 .Setup(repository => repository.GetFrameworksAsync())
                 .ReturnsAsync(_frameworks);
