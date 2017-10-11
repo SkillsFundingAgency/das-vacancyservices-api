@@ -15,18 +15,19 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     {
         private FrameworkCodeConverter _frameworkCodeConverter;
         private List<string> _frameworks;
+        private Mock<IFrameworkCodeRepository> _mockFrameworkRepository;
 
         [SetUp]
         public void Setup()
         {
             _frameworks = new List<string> {"3454", "3876", "6854"};
 
-            var mockFrameworkRepository = new Mock<IFrameworkCodeRepository>();
-            mockFrameworkRepository
+            _mockFrameworkRepository = new Mock<IFrameworkCodeRepository>();
+            _mockFrameworkRepository
                 .Setup(repository => repository.GetAsync())
                 .ReturnsAsync(_frameworks);
 
-            _frameworkCodeConverter = new FrameworkCodeConverter(mockFrameworkRepository.Object);
+            _frameworkCodeConverter = new FrameworkCodeConverter(_mockFrameworkRepository.Object);
         }
 
         [Test]
@@ -69,6 +70,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = await _frameworkCodeConverter.Convert(new List<string>());
 
             result.Should().BeEmpty();
+        }
+
+        [Test]
+        public async Task AndNoFrameworks_ThenDoesNotCallRepository()
+        {
+            await _frameworkCodeConverter.Convert(new List<string>());
+            _mockFrameworkRepository.Verify(repository => repository.GetAsync(), Times.Never);
         }
     }
 }
