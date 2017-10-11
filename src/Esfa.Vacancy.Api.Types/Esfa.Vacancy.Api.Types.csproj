@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="TraineeshipVacancy.cs" />
     <Compile Include="GeoPoint.cs" />
     <Compile Include="SearchApprenticeshipParameters.cs" />
     <Compile Include="ApprenticeshipSummary.cs" />
