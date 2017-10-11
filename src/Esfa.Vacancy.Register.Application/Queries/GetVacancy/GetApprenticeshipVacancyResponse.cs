@@ -1,5 +1,4 @@
-﻿using System;
-using Entities = Esfa.Vacancy.Register.Domain.Entities;
+﻿using Entities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
