@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         }
 
         /// <summary>
-        /// Get a vacancy by the public vacancy reference identifier
+        /// Get a traineeship vacancy by the public vacancy reference identifier
         /// </summary>
         /// <param name="vacancyReference">The vacancy reference number.</param>
         /// <returns>
