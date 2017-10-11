@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Api.Types
     /// <summary>
     /// A vacancy for either an apprenticeship or a traineeship 
     /// </summary>
-    public class Vacancy
+    public class ApprenticeshipVacancy
     {
         /// <summary>
         /// Reference number.

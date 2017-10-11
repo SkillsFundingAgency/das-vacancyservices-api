@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </returns>
         [AllowAnonymous]
         [SwaggerOperation("Get")]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.Vacancy))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
         [Route("api/v1/vacancies/{vacancyReference}")]

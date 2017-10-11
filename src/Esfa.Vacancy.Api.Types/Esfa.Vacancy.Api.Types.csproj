@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchResponse.cs" />
     <Compile Include="TrainingType.cs" />
-    <Compile Include="Vacancy.cs" />
+    <Compile Include="ApprenticeshipVacancy.cs" />
     <Compile Include="VacancyLocationType.cs" />
     <Compile Include="VacancyType.cs" />
     <Compile Include="WageUnit.cs" />
