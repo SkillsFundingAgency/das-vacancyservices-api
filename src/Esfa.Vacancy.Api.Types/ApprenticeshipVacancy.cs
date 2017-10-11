@@ -26,12 +26,7 @@ namespace Esfa.Vacancy.Api.Types
         /// Description.
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Type of the vacancy.
-        /// </summary>
-        public VacancyType VacancyType { get; set; }
-
+        
         /// <summary>
         /// Wage unit.
         /// </summary>

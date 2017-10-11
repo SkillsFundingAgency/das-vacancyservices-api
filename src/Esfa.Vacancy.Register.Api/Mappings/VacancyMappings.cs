@@ -17,7 +17,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(apiType => apiType.TrainingCode, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingTitle, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingUri, opt => opt.Ignore())
-                .ForMember(apiType => apiType.VacancyType, opt => opt.MapFrom(source => source.VacancyTypeId))
                 .ForMember(apiType => apiType.WageUnit, opt => opt.MapFrom(source => source.WageUnitId))
                 .ForMember(apiType => apiType.VacancyReference, opt => opt.MapFrom(source => source.VacancyReferenceNumber))
                 .ForMember(apiType => apiType.LocationType, opt => opt.MapFrom(source => source.VacancyLocationTypeId))
@@ -30,7 +29,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                         ApplyAnonymisationToVacancy(src, dest);
                     }
 
-                    if (dest.VacancyType == VacancyType.Traineeship)
+                    if (src.VacancyTypeId == (int)VacancyType.Traineeship)
                     {
                         ResetWageFieldsForTraineeship(dest);
                     }

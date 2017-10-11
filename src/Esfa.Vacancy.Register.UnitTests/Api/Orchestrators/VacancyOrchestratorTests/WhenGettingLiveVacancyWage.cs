@@ -75,7 +75,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
-            result.VacancyType.Should().Be(VacancyType.Traineeship);
             result.WageText.Should().BeNullOrEmpty();
             result.WageUnit.Should().BeNull();
             result.WorkingWeek.Should().NotBeNullOrEmpty();

@@ -50,29 +50,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
             //Assert
             Assert.AreEqual($"{baseUrl}/{vacancyReferenceNumber}", vacancy.VacancyUrl);
         }
-
-        [TestCase(1, VacancyType.Apprenticeship)]
-        [TestCase(2, VacancyType.Traineeship)]
-        [TestCase(null, VacancyType.Apprenticeship)]
-        public async Task MappingVacancyTypeTests(int? vacancyTypeId, VacancyType vacancyType)
-        {
-            var provideSettingsMock = new Mock<IProvideSettings>();
-            var mediatorMock = new Mock<IMediator>();
-            var response = new GetVacancyResponse()
-            {
-                Vacancy = new Domain.Entities.Vacancy() { VacancyTypeId = vacancyTypeId }
-            };
-            mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
-            //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
-            //Assert
-            vacancy.VacancyType.ShouldBeEquivalentTo(vacancyType);
-        }
-
+        
         [TestCase(1, WageUnit.NotApplicable)]
         [TestCase(2, WageUnit.Weekly)]
         [TestCase(3, WageUnit.Monthly)]
