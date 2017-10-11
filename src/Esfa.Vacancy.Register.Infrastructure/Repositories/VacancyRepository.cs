@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
+using SFA.DAS.NLog.Logger;
 using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
@@ -13,13 +14,25 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
     {
         private const string GetLiveVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveVacancy]";
         private readonly IProvideSettings _provideSettings;
+        private readonly ILog _logger;
 
-        public VacancyRepository(IProvideSettings provideSettings)
+        public VacancyRepository(IProvideSettings provideSettings, ILog logger)
         {
             _provideSettings = provideSettings;
+            _logger = logger;
         }
 
         public async Task<DomainEntities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
+        {
+            var retry = VacancyRegisterRetryPolicy.GetFixedInterval((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving vacancy from VacancyRepository: ({exception.Message}). Retrying...attempt {retryCount})");
+            });
+            
+            return await retry.ExecuteAsync(() => InternalGetVacancyByReferenceNumberAsync(referenceNumber));
+        }
+
+        private async Task<DomainEntities.Vacancy> InternalGetVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
