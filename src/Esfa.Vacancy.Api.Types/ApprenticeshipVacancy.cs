@@ -3,7 +3,7 @@
 namespace Esfa.Vacancy.Api.Types
 {
     /// <summary>
-    /// A vacancy for either an apprenticeship or a traineeship 
+    /// An apprenticeship vacancy
     /// </summary>
     public class ApprenticeshipVacancy
     {
