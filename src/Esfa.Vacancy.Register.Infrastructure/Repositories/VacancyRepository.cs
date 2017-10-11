@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
     public class VacancyRepository : IVacancyRepository
     {
-        private const string GetLiveVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveVacancy]";
+        private const string GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveApprenticeshipVacancy]";
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
 
@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
                 var results =
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
-                        GetLiveVacancyByReferenceNumberSqlSproc,
+                        GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc,
                         param: parameters,
                         map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1",
