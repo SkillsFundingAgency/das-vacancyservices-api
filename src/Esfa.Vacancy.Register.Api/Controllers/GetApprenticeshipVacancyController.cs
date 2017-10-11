@@ -11,17 +11,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class GetVacancyController : ApiController
+    public class GetApprenticeshipVacancyController : ApiController
     {
         private readonly ILog _log;
         private readonly GetVacancyOrchestrator _vacancyOrchestrator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetVacancyController"/> class.
+        /// Initializes a new instance of the <see cref="GetApprenticeshipVacancyController"/> class.
         /// </summary>
         /// <param name="log">The log.</param>
         /// <param name="vacancyOrchestrator">The vacancy orchestrator.</param>
-        public GetVacancyController(ILog log, GetVacancyOrchestrator vacancyOrchestrator)
+        public GetApprenticeshipVacancyController(ILog log, GetVacancyOrchestrator vacancyOrchestrator)
         {
             _log = log;
             _vacancyOrchestrator = vacancyOrchestrator;
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        [Route("api/v1/vacancies/{vacancyReference}")]
+        [Route("api/v1/apprenticeships/{vacancyReference}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
             var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(vacancyReference);
