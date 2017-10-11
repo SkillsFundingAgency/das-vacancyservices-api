@@ -37,8 +37,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         {
             const int weeklyWage = 2550;
 
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.WageUnit.Should().Be(WageUnit.Weekly);

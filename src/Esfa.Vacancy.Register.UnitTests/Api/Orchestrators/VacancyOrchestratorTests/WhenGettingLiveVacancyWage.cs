@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public async Task ShouldMapWageUnitEnum(int? wageUnitId, WageUnit? wageUnitType)
         {
             //Arrange
-            var response = new GetVacancyResponse
+            var response = new GetApprenticeshipVacancyResponse
             {
                 Vacancy = new Domain.Entities.Vacancy
                 {
@@ -50,11 +50,11 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             };
 
             _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             
             //Act
-            var vacancy = await _sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await _sut.GetApprenticeshipVacancyDetailsAsync(12345);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
@@ -62,8 +62,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         [Test]
         public async Task ShouldNotHaveWageFieldsSetForTraineeships()
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
@@ -72,7 +72,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.WageText.Should().BeNullOrEmpty();

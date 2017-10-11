@@ -19,10 +19,11 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             _mapper = mapper;
         }
 
-        public async Task<Vacancy.Api.Types.ApprenticeshipVacancy> GetVacancyDetailsAsync(int id)
+        public async Task<Vacancy.Api.Types.ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(int id)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveVacancyBaseUrlKey);
-            var response = await _mediator.Send(new GetVacancyRequest() { Reference = id });
+
+            var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = id });
 
             var vacancy = Mapper.Map<Vacancy.Api.Types.ApprenticeshipVacancy>(response.Vacancy);
 

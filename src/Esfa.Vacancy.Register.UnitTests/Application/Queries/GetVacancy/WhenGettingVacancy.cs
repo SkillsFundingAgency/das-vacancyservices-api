@@ -19,18 +19,18 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
     {
         private Mock<ILog> _mockLogger;
         private Mock<IVacancyRepository> _mockVacancyRepository;
-        private Mock<AbstractValidator<GetVacancyRequest>> _mockValidator;
+        private Mock<AbstractValidator<GetApprenticeshipVacancyRequest>> _mockValidator;
         private Mock<ITrainingDetailService> _mockTrainingDetailService;
-        private GetVacancyQueryHandler _queryHandler;
+        private GetApprenticeshipVacancyQueryHandler _queryHandler;
 
         [SetUp]
         public void Setup()
         {
             _mockLogger = new Mock<ILog>();
             _mockVacancyRepository = new Mock<IVacancyRepository>();
-            _mockValidator = new Mock<AbstractValidator<GetVacancyRequest>>();
+            _mockValidator = new Mock<AbstractValidator<GetApprenticeshipVacancyRequest>>();
             _mockTrainingDetailService = new Mock<ITrainingDetailService>();
-            _queryHandler = new GetVacancyQueryHandler(_mockValidator.Object,
+            _queryHandler = new GetApprenticeshipVacancyQueryHandler(_mockValidator.Object,
                 _mockVacancyRepository.Object, _mockLogger.Object, _mockTrainingDetailService.Object);
         }
 
@@ -38,35 +38,35 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         public void ThenIfInvalidRequest()
         {
             var failures = new List<ValidationFailure> { new ValidationFailure(string.Empty, string.Empty) };
-            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult(failures));
+            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>())).Returns(new ValidationResult(failures));
 
-            Assert.ThrowsAsync<ValidationException>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
+            Assert.ThrowsAsync<ValidationException>(async () => await _queryHandler.Handle(new GetApprenticeshipVacancyRequest()));
         }
 
         [Test]
         public void ThenIfNoDataFound()
         {
-            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>())).Returns(new ValidationResult());
+            _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>())).Returns(new ValidationResult());
             Domain.Entities.Vacancy vacancy = null;
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
-            Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetVacancyRequest()));
+            Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetApprenticeshipVacancyRequest()));
         }
 
         [Test]
         public async Task ThenIfVacancyHasFrameworkIdGetFrameworkTitle()
         {
             _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
                 .Setup(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Framework() { Title = "framework" });
 
             var vacancy = new Domain.Entities.Vacancy() { FrameworkCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
-            var response = await _queryHandler.Handle(new GetVacancyRequest());
+            var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()));
             Assert.AreEqual(vacancy, response.Vacancy);
@@ -77,16 +77,16 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
         public async Task ThenIfVacancyHasStandardCodeGetStandardTitle()
         {
             _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetVacancyRequest>>()))
+                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
                 .Setup(s => s.GetStandardDetailsAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Standard() { Title = "standard" });
 
             var vacancy = new Domain.Entities.Vacancy() { StandardCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
-            var response = await _queryHandler.Handle(new GetVacancyRequest());
+            var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
 
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()), Times.Never);
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()));

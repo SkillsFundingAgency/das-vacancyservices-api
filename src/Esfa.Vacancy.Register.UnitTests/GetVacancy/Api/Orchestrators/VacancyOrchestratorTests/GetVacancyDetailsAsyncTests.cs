@@ -43,8 +43,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
         [Test]
         public async Task GetLiveNonAnonymousEmployerVacancy_ShouldNotReplaceEmployerNameAndDescription()
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -79,8 +79,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
         [Test]
         public async Task GetLiveAnonymousEmployerVacancy_ShouldReplaceEmployerNameAndDescription()
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
@@ -93,7 +93,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
                                             .Create()
                 });
 
-            var result = await _sut.GetVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");

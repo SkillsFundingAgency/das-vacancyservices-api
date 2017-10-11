@@ -4,6 +4,6 @@ namespace Esfa.Vacancy.Register.Domain.Repositories
 {
     public interface IVacancyRepository
     {
-        Task<Entities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber);
+        Task<Entities.Vacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber);
     }
 }

@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [Route("api/v1/apprenticeships/{vacancyReference}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
-            var vacancy = await _vacancyOrchestrator.GetVacancyDetailsAsync(vacancyReference);
+            var vacancy = await _vacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
         }

@@ -35,17 +35,17 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
             provideSettingsMock.Setup(p => p.GetSetting(It.IsAny<string>())).Returns(baseUrl);
 
             var mediatorMock = new Mock<IMediator>();
-            var response = new GetVacancyResponse()
+            var response = new GetApprenticeshipVacancyResponse()
             {
                 Vacancy = new Domain.Entities.Vacancy() { VacancyReferenceNumber = vacancyReferenceNumber }
             };
             mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
             var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{vacancyReferenceNumber}", vacancy.VacancyUrl);
@@ -60,17 +60,17 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
         {
             var provideSettingsMock = new Mock<IProvideSettings>();
             var mediatorMock = new Mock<IMediator>();
-            var response = new GetVacancyResponse()
+            var response = new GetApprenticeshipVacancyResponse()
             {
                 Vacancy = new Domain.Entities.Vacancy() { WageUnitId = wageUnitId }
             };
             mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
             var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object, _mapper);
             //Act
-            var vacancy = await sut.GetVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }

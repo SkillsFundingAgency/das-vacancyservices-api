@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task<DomainEntities.Vacancy> GetVacancyByReferenceNumberAsync(int referenceNumber)
+        public async Task<DomainEntities.Vacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
