@@ -14,10 +14,12 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         private const string GetFrameworksQuery = @"
             SELECT 
-                CodeName as Code,
+                CAST(CodeName AS int) as Code,
                 FullName as Title
             FROM 
-                dbo.ApprenticeshipFramework";
+                dbo.ApprenticeshipFramework
+            WHERE 
+                ApprenticeshipFrameworkStatusTypeId = 1";
 
         public FrameworkRepository(IProvideSettings settings)
         {
