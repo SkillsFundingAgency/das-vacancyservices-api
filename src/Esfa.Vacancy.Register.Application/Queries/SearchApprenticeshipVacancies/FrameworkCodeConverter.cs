@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         public async Task<List<string>> Convert(IEnumerable<string> frameworksToConvert)
         {
-            var validFrameworks = await _frameworkCodeRepository.GetFrameworksAsync();
+            var validFrameworks = await _frameworkCodeRepository.GetAsync();
 
             var convertedFrameworks = new List<string>();
             var validationFailures = new List<ValidationFailure>();

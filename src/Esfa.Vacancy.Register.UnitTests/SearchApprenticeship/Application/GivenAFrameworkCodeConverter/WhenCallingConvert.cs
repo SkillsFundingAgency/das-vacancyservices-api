@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             var mockFrameworkRepository = new Mock<IFrameworkCodeRepository>();
             mockFrameworkRepository
-                .Setup(repository => repository.GetFrameworksAsync())
+                .Setup(repository => repository.GetAsync())
                 .ReturnsAsync(_frameworks);
 
             _frameworkCodeConverter = new FrameworkCodeConverter(mockFrameworkRepository.Object);

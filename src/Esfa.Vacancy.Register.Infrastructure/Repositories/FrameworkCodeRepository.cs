@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _settings = settings;
         }
 
-        public async Task<IEnumerable<string>> GetFrameworksAsync()
+        public async Task<IEnumerable<string>> GetAsync()
         {
             var connectionString =
                 _settings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
