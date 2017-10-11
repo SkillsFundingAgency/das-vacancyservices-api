@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 
@@ -14,8 +13,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         private const string GetFrameworksQuery = @"
             SELECT 
-                CAST(CodeName AS int) as Code,
-                FullName as Title
+                CodeName
             FROM 
                 dbo.ApprenticeshipFramework
             WHERE 
@@ -26,7 +24,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _settings = settings;
         }
 
-        public async Task<IEnumerable<Framework>> GetFrameworksAsync()
+        public async Task<IEnumerable<string>> GetFrameworksAsync()
         {
             var connectionString =
                 _settings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
@@ -36,7 +34,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<Framework>(GetFrameworksQuery);
+                    await sqlConn.QueryAsync<string>(GetFrameworksQuery);
 
                 return results;
             }

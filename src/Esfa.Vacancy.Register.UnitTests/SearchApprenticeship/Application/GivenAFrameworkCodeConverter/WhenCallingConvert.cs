@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
 using FluentValidation;
@@ -15,17 +14,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     public class WhenCallingConvert
     {
         private FrameworkCodeConverter _frameworkCodeConverter;
-        private List<Framework> _frameworks;
+        private List<string> _frameworks;
 
         [SetUp]
         public void Setup()
         {
-            _frameworks = new List<Framework>
-            {
-                new Framework {Code = 3454, Title = Guid.NewGuid().ToString(), Uri = Guid.NewGuid().ToString()},
-                new Framework {Code = 3876, Title = Guid.NewGuid().ToString(), Uri = Guid.NewGuid().ToString()},
-                new Framework {Code = 6854, Title = Guid.NewGuid().ToString(), Uri = Guid.NewGuid().ToString()}
-            };
+            _frameworks = new List<string> {"3454", "3876", "6854"};
 
             var mockFrameworkRepository = new Mock<IFrameworkRepository>();
             mockFrameworkRepository
@@ -56,17 +50,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndFrameworkCodeIsFound_ThenReturnsFramework()
         {
-            var result = await _frameworkCodeConverter.Convert(new List<string> {_frameworks[0].Code.ToString()});
+            var result = await _frameworkCodeConverter.Convert(new List<string> {_frameworks[0]});
 
-            result.Should().BeEquivalentTo(new List<string> {$"FW.{_frameworks[0].Code}"});
+            result.Should().BeEquivalentTo(new List<string> {$"FW.{_frameworks[0]}"});
         }
 
         [Test]
         public async Task AndFrameworkCodeHasSpace_ThenReturnsCorrectFormat()
         {
-            var result = await _frameworkCodeConverter.Convert(new List<string> { $" {_frameworks[1].Code} " });
+            var result = await _frameworkCodeConverter.Convert(new List<string> { $" {_frameworks[1]} " });
 
-            result.Should().BeEquivalentTo(new List<string> { $"FW.{_frameworks[1].Code}" });
+            result.Should().BeEquivalentTo(new List<string> { $"FW.{_frameworks[1]}" });
         }
 
         [Test]

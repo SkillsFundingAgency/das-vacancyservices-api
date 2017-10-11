@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
@@ -11,6 +12,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class FrameworkCodeConverter : IFrameworkCodeConverter
     {
         private readonly IFrameworkRepository _frameworkRepository;
+        private const string FrameworkPrefix = "FW.";
 
         public FrameworkCodeConverter(IFrameworkRepository frameworkRepository)
         {
@@ -26,14 +28,18 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             frameworksToConvert.ToList().ForEach(frameworkToConvert =>
             {
-                var validFramework = validFrameworks.FirstOrDefault(framework => framework.Code == int.Parse(frameworkToConvert));
+                var trimmedFrameworkToConvert = frameworkToConvert.Trim();
+
+                var validFramework = validFrameworks.FirstOrDefault(framework => 
+                    framework.Equals(trimmedFrameworkToConvert, StringComparison.InvariantCultureIgnoreCase));
+
                 if (validFramework == null)
                 {
-                    validationFailures.Add(new ValidationFailure("FrameworkCode", $"FrameworkCode {frameworkToConvert} is invalid"));
+                    validationFailures.Add(new ValidationFailure("FrameworkCode", $"FrameworkCode {trimmedFrameworkToConvert} is invalid"));
                 }
                 else
                 {
-                    convertedFrameworks.Add($"FW.{frameworkToConvert.Trim()}");
+                    convertedFrameworks.Add($"{FrameworkPrefix}{trimmedFrameworkToConvert}");
                 }
             });
 
