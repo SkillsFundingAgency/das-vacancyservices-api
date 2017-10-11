@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
@@ -11,19 +10,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class GetApprenticeshipVacancyController : ApiController
+    [RoutePrefix("api/v1/traineeships")]
+    public class GetTraineeshipVacancyController : ApiController
     {
-        private readonly ILog _log;
-        private readonly GetVacancyOrchestrator _vacancyOrchestrator;
+        private readonly GetTraineeshipVacancyOrchestrator _vacancyOrchestrator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetApprenticeshipVacancyController"/> class.
+        /// Initializes a new instance of the <see cref="GetTraineeshipVacancyController"/> class.
         /// </summary>
-        /// <param name="log">The log.</param>
-        /// <param name="vacancyOrchestrator">The vacancy orchestrator.</param>
-        public GetApprenticeshipVacancyController(ILog log, GetVacancyOrchestrator vacancyOrchestrator)
+        /// <param name="vacancyOrchestrator">The traineeship vacancy orchestrator.</param>
+        public GetTraineeshipVacancyController(GetTraineeshipVacancyOrchestrator vacancyOrchestrator)
         {
-            _log = log;
             _vacancyOrchestrator = vacancyOrchestrator;
         }
 
@@ -32,17 +29,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </summary>
         /// <param name="vacancyReference">The vacancy reference number.</param>
         /// <returns>
-        /// A vacancy for an apprenticeship
+        /// A vacancy for a traineeship
         /// </returns>
         [AllowAnonymous]
         [SwaggerOperation("Get")]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.TraineeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
-        [Route("api/v1/apprenticeships/{vacancyReference}")]
+        [Route("{vacancyReference}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
-            var vacancy = await _vacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
+            var vacancy = await _vacancyOrchestrator.GetTraineeshipVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
         }

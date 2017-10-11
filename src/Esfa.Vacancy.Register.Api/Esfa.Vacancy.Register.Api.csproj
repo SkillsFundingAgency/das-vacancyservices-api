@@ -288,6 +288,7 @@
     <Compile Include="App_Start\ApiFilterConfig.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
+    <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
