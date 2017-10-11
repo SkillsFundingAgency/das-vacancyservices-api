@@ -13,6 +13,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
     public class VacancyRepository : IVacancyRepository
     {
         private const string GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveApprenticeshipVacancy]";
+        private const string GetLiveTraineeshipVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveTraineeshipVacancy]";
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
 
@@ -48,6 +49,32 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 var results =
                     await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
                         GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc,
+                        param: parameters,
+                        map: (v, a) => { v.Location = a; return v; },
+                        splitOn: "AddressLine1",
+                        commandType: CommandType.StoredProcedure);
+
+                vacancy = results.FirstOrDefault();
+            }
+
+            return vacancy;
+        }
+        public async Task<DomainEntities.Vacancy> GetTraineeshipVacancyByReferenceNumberAsync(int referenceNumber)
+        {
+            var connectionString =
+                _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
+
+            DomainEntities.Vacancy vacancy;
+
+            using (var sqlConn = new SqlConnection(connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@ReferenceNumber", referenceNumber, DbType.Int32);
+
+                await sqlConn.OpenAsync();
+                var results =
+                    await sqlConn.QueryAsync<DomainEntities.Vacancy, DomainEntities.Address, DomainEntities.Vacancy>(
+                        GetLiveTraineeshipVacancyByReferenceNumberSqlSproc,
                         param: parameters,
                         map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1",
