@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
@@ -8,25 +9,22 @@ using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
-    public interface IVacancySearchParametersConverter
-    {
-        Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request);
-    }
-
     public class VacancySearchParametersConverter : IVacancySearchParametersConverter
     {
         private readonly IStandardRepository _standardRepository;
+        private readonly IFrameworkCodeConverter _frameworkCodeConverter;
 
-        public VacancySearchParametersConverter(IStandardRepository standardRepository)
+        public VacancySearchParametersConverter(IStandardRepository standardRepository, IFrameworkCodeConverter frameworkCodeConverter)
         {
             _standardRepository = standardRepository;
+            _frameworkCodeConverter = frameworkCodeConverter;
         }
 
         public async Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request)
         {
             var combinedSubCategoryCodes = new List<string>();
             combinedSubCategoryCodes.AddRange(await ConvertStandardCodesToSearchableSectorCodes(request.StandardCodes.Select(int.Parse)));
-            combinedSubCategoryCodes.AddRange(ConvertFrameworkCodesToSearchableFrameworkCodes(request.FrameworkCodes));
+            combinedSubCategoryCodes.AddRange(await _frameworkCodeConverter.Convert(request.FrameworkCodes));
 
             return new VacancySearchParameters
             {
@@ -60,11 +58,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 throw new ValidationException(errors);
 
             return sectorCodes.ToList();
-        }
-
-        private static IEnumerable<string> ConvertFrameworkCodesToSearchableFrameworkCodes(IEnumerable<string> frameworkCodes)
-        {
-            return frameworkCodes.Select(frameworkCode => $"FW.{frameworkCode.Trim()}").ToList();
         }
     }
 }
