@@ -28,25 +28,10 @@ namespace Esfa.Vacancy.Api.Types
         public string Description { get; set; }
         
         /// <summary>
-        /// Wage unit.
-        /// </summary>
-        public WageUnit? WageUnit { get; set; }
-        
-        /// <summary>
         /// Working week.
         /// </summary>
         public string WorkingWeek { get; set; }
-
-        /// <summary>
-        /// Wage text.
-        /// </summary>
-        public string WageText { get; set; }
-
-        /// <summary>
-        /// Hours per week.
-        /// </summary>
-        public decimal? HoursPerWeek { get; set; }
-
+        
         /// <summary>
         /// Expected duration.
         /// </summary>
@@ -76,27 +61,7 @@ namespace Esfa.Vacancy.Api.Types
         /// Number of positions.
         /// </summary>
         public int NumberOfPositions { get; set; }
-
-        /// <summary>
-        /// Training Type
-        /// </summary>
-        public TrainingType TrainingType { get; set; }
-
-        /// <summary>
-        /// Training title.
-        /// </summary>
-        public string TrainingTitle { get; set; }
-
-        /// <summary>
-        /// Training identifier
-        /// </summary>
-        public string TrainingCode { get; set; }
-
-        /// <summary>
-        /// URL to get Training details
-        /// </summary>
-        public string TrainingUri { get; set; }
-
+        
         /// <summary>
         /// The name of the employer.
         /// </summary>
