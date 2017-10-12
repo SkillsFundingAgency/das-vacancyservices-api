@@ -5,11 +5,14 @@ namespace Esfa.Vacancy.Register.Infrastructure
 {
     public static class VacancyRegisterRetryPolicy
     {
+        private const int RetryCount = 3;
+        private const int SleepDurationMilliseconds = 500;
+
         public static Policy GetFixedIntervalPolicy(Action<Exception, TimeSpan, int, Context> onRetry)
         {
             return Policy
                 .Handle<Exception>()
-                .WaitAndRetryAsync(3, (attempt) => TimeSpan.FromMilliseconds(500),
+                .WaitAndRetryAsync(RetryCount, (attempt) => TimeSpan.FromMilliseconds(SleepDurationMilliseconds),
                 onRetry);
         }
     }

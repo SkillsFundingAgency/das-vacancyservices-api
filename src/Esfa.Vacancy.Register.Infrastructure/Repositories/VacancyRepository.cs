@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
-                _logger.Warn($"Error retrieving vacancy from VacancyRepository: ({exception.Message}). Retrying...attempt {retryCount})");
+                _logger.Warn($"Error retrieving vacancy from database: ({exception.Message}). Retrying...attempt {retryCount})");
             });
             
             return await retry.ExecuteAsync(() => InternalGetVacancyByReferenceNumberAsync(referenceNumber));
