@@ -9,15 +9,12 @@ using FluentAssertions;
 using MediatR;
 using Moq;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
 {
     [TestFixture]
     public class WhenGettingLiveVacancyWage
     {
-        private const int VacancyReference = 1234;
-        private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
         private GetApprenticeshipVacancyOrchestrator _sut;
@@ -56,28 +53,6 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             var vacancy = await _sut.GetApprenticeshipVacancyDetailsAsync(12345);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
-        }
-
-        [Test]
-        public async Task ShouldNotHaveWageFieldsSetForTraineeships()
-        {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetApprenticeshipVacancyResponse
-                {
-                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                                            .With(v => v.VacancyTypeId, (int)VacancyType.Traineeship)
-                                            .Create()
-                });
-
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
-
-            result.VacancyReference.Should().Be(VacancyReference);
-            result.WageText.Should().BeNullOrEmpty();
-            result.WageUnit.Should().BeNull();
-            result.WorkingWeek.Should().NotBeNullOrEmpty();
-            result.HoursPerWeek.Should().BeNull();
         }
     }
 }

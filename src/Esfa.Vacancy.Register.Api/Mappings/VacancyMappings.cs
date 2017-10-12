@@ -28,15 +28,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     {
                         ApplyAnonymisationToVacancy(src, dest);
                     }
-
-                    if (src.VacancyTypeId == (int)VacancyType.Traineeship)
-                    {
-                        ResetWageFieldsForTraineeship(dest);
-                    }
-                    else
-                    {
-                        MapWageFields(src, dest);
-                    }
+                    
+                    MapWageFields(src, dest);
                 });
         }
 
@@ -48,7 +41,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     dest.WageText = UnknownText;
                     break;
                 case (int) WageType.LegacyWeekly:
-                case (int)WageType.Custom:
+                case (int) WageType.Custom:
                     dest.WageText = GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
                     break;
                 case (int) WageType.ApprenticeshipMinimum:
@@ -109,13 +102,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             var minUpperBoundSection = GetFormattedCurrencyString(upperMinimumLimit) ?? UnknownText;
 
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
-        }
-
-        private void ResetWageFieldsForTraineeship(ApprenticeshipVacancy dest)
-        {
-            dest.WageText = null;
-            dest.WageUnit = null;
-            dest.HoursPerWeek = null;
         }
         
         private void MapTraining(Domain.Entities.Vacancy src, ApprenticeshipVacancy dest)
