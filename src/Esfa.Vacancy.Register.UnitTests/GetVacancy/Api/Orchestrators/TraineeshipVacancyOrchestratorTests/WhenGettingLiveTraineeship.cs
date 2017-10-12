@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
@@ -19,21 +18,15 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _provideSettings;
+        private Mock<IProvideSettings> _mockProvideSettings;
         private GetTraineeshipVacancyOrchestrator _sut;
-
-        [OneTimeSetUp]
-        public void FixtureSetUp()
-        {
-            AutoMapperConfig.Configure();
-        }
-
+        
         [SetUp]
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
-            _provideSettings = new Mock<IProvideSettings>();
-            _sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _mockProvideSettings = new Mock<IProvideSettings>();
+            _sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _mockProvideSettings.Object);
         }
 
         [Test]
@@ -104,6 +97,33 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
             result.Location.Latitude.Should().BeNull();
             result.Location.Longitude.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
+        }
+
+        [Test]
+        public async Task ShouldPopulateTraineeshipVacancyUrl()
+        {
+            //Arrange
+            var baseUrl = "https://findapprentice.com/traineeship/reference";
+            
+            _mockProvideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
+                                .Returns(baseUrl);
+            
+            var response = new GetTraineeshipVacancyResponse
+            {
+                Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                            .Create()
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(response);
+            
+            //Act
+            var vacancy = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
+
+            //Assert
+            Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
         }
     }
 }

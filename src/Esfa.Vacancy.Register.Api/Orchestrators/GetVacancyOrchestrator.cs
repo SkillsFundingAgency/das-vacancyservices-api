@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
@@ -21,8 +21,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         public async Task<Vacancy.Api.Types.ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(int id)
         {
-            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveVacancyBaseUrlKey);
-
+            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
             var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = id });
 
             var vacancy = Mapper.Map<Vacancy.Api.Types.ApprenticeshipVacancy>(response.Vacancy);
