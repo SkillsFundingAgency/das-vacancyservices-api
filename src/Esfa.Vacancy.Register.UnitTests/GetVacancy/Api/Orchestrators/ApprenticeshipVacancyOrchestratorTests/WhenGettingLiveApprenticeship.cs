@@ -1,7 +1,6 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Esfa.Vacancy.Register.Api;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
@@ -12,11 +11,11 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.ApprenticeshipVacancyOrchestratorTests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
-    public class GetVacancyDetailsAsyncTests
+    public class WhenGettingLiveApprenticeship
     {
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
@@ -108,6 +107,56 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
             result.Location.Latitude.Should().BeNull();
             result.Location.Longitude.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
+        }
+
+        [Test]
+        public async Task WhenBaseUrlIsDefined_ShouldPopulateVacancyUrl()
+        {
+            //Arrange
+            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
+            var vacancyReferenceNumber = 123456;
+            var provideSettingsMock = new Mock<IProvideSettings>();
+            provideSettingsMock.Setup(p => p.GetSetting(It.IsAny<string>())).Returns(baseUrl);
+
+            var mediatorMock = new Mock<IMediator>();
+            var response = new GetApprenticeshipVacancyResponse()
+            {
+                Vacancy = new Domain.Entities.Vacancy() { VacancyReferenceNumber = vacancyReferenceNumber }
+            };
+            mediatorMock
+                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(response);
+
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            //Act
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
+
+            //Assert
+            Assert.AreEqual($"{baseUrl}/{vacancyReferenceNumber}", vacancy.VacancyUrl);
+        }
+
+        [TestCase(1, WageUnit.NotApplicable)]
+        [TestCase(2, WageUnit.Weekly)]
+        [TestCase(3, WageUnit.Monthly)]
+        [TestCase(4, WageUnit.Annually)]
+        [TestCase(null, null)]
+        public async Task MappingWageUnitTests(int? wageUnitId, WageUnit? wageUnitType)
+        {
+            var provideSettingsMock = new Mock<IProvideSettings>();
+            var mediatorMock = new Mock<IMediator>();
+            var response = new GetApprenticeshipVacancyResponse()
+            {
+                Vacancy = new Domain.Entities.Vacancy() { WageUnitId = wageUnitId }
+            };
+            mediatorMock
+                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(response);
+
+            var sut = new GetVacancyOrchestrator(mediatorMock.Object, provideSettingsMock.Object);
+            //Act
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
+            //Assert
+            vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
     }
 }
