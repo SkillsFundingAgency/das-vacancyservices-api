@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
@@ -22,6 +24,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             var convertedStandards = await _standardCodeConverter.ConvertAsync(request.StandardCodes);
             var convertedFrameworks = await _frameworkCodeConverter.ConvertAsync(request.FrameworkCodes);
+
+            if (convertedStandards.ValidationFailures.Any())
+                throw new ValidationException(convertedStandards.ValidationFailures);
 
             combinedSubCategoryCodes.AddRange(convertedStandards.SubCategoryCodes);
             combinedSubCategoryCodes.AddRange(convertedFrameworks.SubCategoryCodes);

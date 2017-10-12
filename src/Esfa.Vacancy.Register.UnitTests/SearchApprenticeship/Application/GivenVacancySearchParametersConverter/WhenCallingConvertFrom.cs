@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Register.Domain.Entities;
 using FluentAssertions;
+using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 
@@ -17,7 +20,6 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         private Mock<IStandardCodeConverter> _mockStandardCodeConverter;
         private List<string> _expectedStandards;
         private List<string> _expectedFrameworks;
-            
 
         [SetUp]
         public void Setup()
@@ -48,6 +50,24 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedStandards);
+        }
+
+        [Test]
+        public void AndStandardCodeValidationsAreReturned_ThenThrowsValidationException()
+        {
+            var validationFailures = new List<ValidationFailure>
+            {
+                new ValidationFailure("StandardCode", Guid.NewGuid().ToString())
+            };
+
+            _mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new SubCategoryConversionResult { ValidationFailures = validationFailures });
+
+            var action = new Func<Task<VacancySearchParameters>>(() => _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: \r\n -- {validationFailures[0].ErrorMessage}");
         }
 
         [Test]
