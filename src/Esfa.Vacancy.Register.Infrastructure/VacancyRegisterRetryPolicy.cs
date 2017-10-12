@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Register.Infrastructure
 {
     public static class VacancyRegisterRetryPolicy
     {
-        public static Policy GetFixedInterval(Action<Exception, TimeSpan, int, Context> onRetry)
+        public static Policy GetFixedIntervalPolicy(Action<Exception, TimeSpan, int, Context> onRetry)
         {
             return Policy
                 .Handle<Exception>()
