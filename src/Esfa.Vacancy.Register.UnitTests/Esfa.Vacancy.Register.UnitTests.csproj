@@ -74,6 +74,10 @@
       <HintPath>..\packages\AutoFixture.3.50.6\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Polly, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.5.3.1\lib\net45\Polly.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
       <Private>True</Private>
@@ -93,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
+    <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />

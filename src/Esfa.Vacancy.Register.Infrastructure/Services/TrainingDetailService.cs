@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
@@ -22,6 +23,16 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)
         {
+            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying...attempt {retryCount})");
+            });
+
+            return await retry.ExecuteAsync(() => InternalGetFrameworkDetailsAsync(code));
+        }
+
+        private async Task<Framework> InternalGetFrameworkDetailsAsync(int code)
+        {
             using (var client = new FrameworkCodeClient(_dasApiBaseUrl))
             {
                 try
@@ -38,6 +49,16 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         }
 
         public async Task<Standard> GetStandardDetailsAsync(int code)
+        {
+            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving standard details from TrainingDetailService: ({exception.Message}). Retrying...attempt {retryCount})");
+            });
+
+            return await retry.ExecuteAsync(() => InternalGetStandardDetailsAsync(code));
+        }
+
+        private async Task<Standard> InternalGetStandardDetailsAsync(int code)
         {
             using (var client = new StandardApiClient(_dasApiBaseUrl))
             {

@@ -26,6 +26,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters parameters)
         {
+            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error searching for vacancies in search index: ({exception.Message}). Retrying...attempt {retryCount})");
+            });
+
+            return await retry.ExecuteAsync(() => InternalSearchApprenticeshipVacanciesAsync(parameters));
+        }
+
+        private async Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
+            VacancySearchParameters parameters)
+        {
             var indexName = _provideSettings.GetSetting(ApplicationSettingKeyConstants.ApprenticeshipIndexAliasKey);
 
             var client = GetElasticSearchClient();
