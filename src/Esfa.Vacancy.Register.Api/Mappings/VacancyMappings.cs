@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         public VacancyMappings()
         {
-            CreateMap<Domain.Entities.Vacancy, Vacancy.Api.Types.ApprenticeshipVacancy>()
+            CreateMap<Domain.Entities.Vacancy, ApprenticeshipVacancy>()
                 .ForMember(apiType => apiType.VacancyUrl, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingType, opt => opt.Ignore())
                 .ForMember(apiType => apiType.TrainingCode, opt => opt.Ignore())
@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 {
                     MapTraining(src, dest);
 
-                    if (src.IsAnonymousEmployer && (Domain.Entities.VacancyStatus)src.VacancyStatusId == Domain.Entities.VacancyStatus.Live)
+                    if (src.IsAnonymousEmployer && (VacancyStatus)src.VacancyStatusId == VacancyStatus.Live)
                     {
                         ApplyAnonymisationToVacancy(src, dest);
                     }
@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 });
         }
 
-        private void MapWageFields(Domain.Entities.Vacancy src, Vacancy.Api.Types.ApprenticeshipVacancy dest)
+        private void MapWageFields(Domain.Entities.Vacancy src, ApprenticeshipVacancy dest)
         {
             switch (src.WageType)
             {
@@ -111,14 +111,14 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
 
-        private void ResetWageFieldsForTraineeship(Vacancy.Api.Types.ApprenticeshipVacancy dest)
+        private void ResetWageFieldsForTraineeship(ApprenticeshipVacancy dest)
         {
             dest.WageText = null;
             dest.WageUnit = null;
             dest.HoursPerWeek = null;
         }
         
-        private void MapTraining(Domain.Entities.Vacancy src, Vacancy.Api.Types.ApprenticeshipVacancy dest)
+        private void MapTraining(Domain.Entities.Vacancy src, ApprenticeshipVacancy dest)
         {
             if (src.Framework != null)
             {
@@ -138,7 +138,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             }
         }
 
-        private void ApplyAnonymisationToVacancy(Domain.Entities.Vacancy src, Vacancy.Api.Types.ApprenticeshipVacancy dest)
+        private void ApplyAnonymisationToVacancy(Domain.Entities.Vacancy src, ApprenticeshipVacancy dest)
         {
             dest.EmployerName = src.AnonymousEmployerName;
             dest.EmployerDescription = src.AnonymousEmployerDescription;

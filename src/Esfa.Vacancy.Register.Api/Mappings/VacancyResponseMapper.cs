@@ -19,9 +19,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ApplicationClosingDate = vacancy.ApplicationClosingDate,
                 InterviewFromDate = vacancy.InterviewFromDate,
                 NumberOfPositions = vacancy.NumberOfPositions,
-                EmployerName = vacancy.EmployerName,
-                EmployerDescription = vacancy.EmployerDescription,
-                EmployerWebsite = vacancy.EmployerWebsite,
+                EmployerName = vacancy.IsAnonymousEmployer ? vacancy.AnonymousEmployerName : vacancy.EmployerName,
+                EmployerDescription = vacancy.IsAnonymousEmployer ? vacancy.AnonymousEmployerDescription : vacancy.EmployerDescription,
+                EmployerWebsite = vacancy.IsAnonymousEmployer ? null : vacancy.EmployerWebsite,
                 TrainingToBeProvided = vacancy.TrainingToBeProvided,
                 QualificationsRequired = vacancy.QualificationsRequired,
                 SkillsRequired = vacancy.SkillsRequired,
@@ -32,15 +32,23 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 LocationType = (VacancyLocationType)vacancy.VacancyLocationTypeId,
                 SupplementaryQuestion1 = vacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = vacancy.SupplementaryQuestion2,
-                Location = MapToLocation(vacancy.Location),
+                Location = MapToLocation(vacancy.Location, showAnonymousEmployerDetails: vacancy.IsAnonymousEmployer),
                 ContactName = vacancy.ContactName,
                 ContactEmail = vacancy.ContactEmail,
                 ContactNumber = vacancy.ContactNumber
             };
         }
 
-        private Address MapToLocation(Domain.Entities.Address location)
+        private Address MapToLocation(Domain.Entities.Address location, bool showAnonymousEmployerDetails)
         {
+            if (showAnonymousEmployerDetails)
+            {
+                return new Address
+                {
+                    Town = location.Town
+                };
+            }
+
             return new Address
             {
                 AddressLine1 = location.AddressLine1,
