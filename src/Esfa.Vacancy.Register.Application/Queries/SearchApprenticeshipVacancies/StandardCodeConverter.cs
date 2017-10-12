@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
-using FluentValidation;
 using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -45,8 +44,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 }
             });
 
-            if (errors.Any())
-                throw new ValidationException(errors);
+            result.SubCategoryCodes.AddRange(convertedStandardCodes);
+            result.ValidationFailures.AddRange(errors);
 
             return result;
         }

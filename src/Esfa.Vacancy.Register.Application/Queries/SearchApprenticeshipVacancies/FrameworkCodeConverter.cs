@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
-using FluentValidation;
 using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -22,15 +21,11 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         public async Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> frameworksToConvert)
         {
             var result = new SubCategoryConversionResult();
-            
 
             if (!frameworksToConvert.Any())
                 return result;
 
             var validFrameworks = await _frameworkCodeRepository.GetAsync();
-
-            
-            var validationFailures = new List<ValidationFailure>();
 
             frameworksToConvert.ToList().ForEach(frameworkToConvert =>
             {
@@ -41,17 +36,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
                 if (validFramework == null)
                 {
-                    validationFailures.Add(new ValidationFailure("FrameworkCode", $"FrameworkCode {trimmedFrameworkToConvert} is invalid"));
+                    result.ValidationFailures.Add(new ValidationFailure("FrameworkCode", $"FrameworkCode {trimmedFrameworkToConvert} is invalid"));
                 }
                 else
                 {
                     result.SubCategoryCodes.Add($"{FrameworkPrefix}.{trimmedFrameworkToConvert}");
                 }
             });
-
-            if (validationFailures.Any())
-                throw new ValidationException(validationFailures);
-
+            
             return result;
         }
     }

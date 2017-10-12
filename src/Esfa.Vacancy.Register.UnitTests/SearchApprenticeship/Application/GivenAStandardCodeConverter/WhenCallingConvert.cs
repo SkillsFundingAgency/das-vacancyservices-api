@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
-using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 
@@ -40,21 +39,26 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         }
 
         [Test]
-        public void AndNoStandardSectorIsFoundForOneToConvert_ThenThrowsValidationException()
+        public async Task AndNoStandardSectorIsFoundForOneToConvert_ThenThrowsValidationException()
         {
-            var action = new Func<Task<SubCategoryConversionResult>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "99999" }));
+            var result = await _standardCodeConverter.ConvertAsync(new List<string> { "99999" });
 
-            action.ShouldThrow<ValidationException>()
-                .WithMessage($"Validation failed: \r\n -- StandardCode 99999 is invalid");
+            result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
+            {
+                new ValidationFailure("StandardCode", "StandardCode 99999 is invalid")
+            });
         }
 
         [Test]
-        public void AndNoStandardSectorIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
+        public async Task AndNoStandardSectorIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
         {
-            var action = new Func<Task<SubCategoryConversionResult>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "77777", "88888" }));
+            var result = await _standardCodeConverter.ConvertAsync(new List<string> { "77777", "88888" });
 
-            action.ShouldThrow<ValidationException>()
-                .WithMessage($"Validation failed: \r\n -- StandardCode 77777 is invalid\r\n -- StandardCode 88888 is invalid");
+            result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
+            {
+                new ValidationFailure("StandardCode", "StandardCode 77777 is invalid"),
+                new ValidationFailure("StandardCode", "StandardCode 88888 is invalid")
+            });
         }
 
         [Test]

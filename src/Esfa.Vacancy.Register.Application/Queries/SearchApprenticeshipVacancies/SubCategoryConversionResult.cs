@@ -6,6 +6,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class SubCategoryConversionResult
     {
         public List<string> SubCategoryCodes { get; set; } = new List<string>();
-        public List<ValidationResult> ValidationResults { get; set; } = new List<ValidationResult>();
+        public List<ValidationFailure> ValidationFailures { get; set; } = new List<ValidationFailure>();
     }
 }

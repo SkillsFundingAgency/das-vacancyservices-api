@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
-using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 
@@ -31,23 +30,26 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         }
 
         [Test]
-        public void AndNoFrameworkIsFoundForOneToConvert_ThenThrowsValidationException()
+        public async Task AndNoFrameworkIsFoundForOneToConvert_ThenThrowsValidationException()
         {
-            var action = new Func<Task<SubCategoryConversionResult>>(() => _frameworkCodeConverter.ConvertAsync(new List<string> { "99999" }));
+            var result = await _frameworkCodeConverter.ConvertAsync(new List<string> { "99999" });
 
-            //var result = await action.Invoke();
-
-            action.ShouldThrow<ValidationException>()
-                .WithMessage($"Validation failed: \r\n -- FrameworkCode 99999 is invalid");
+            result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
+            {
+                new ValidationFailure("FrameworkCode", "FrameworkCode 99999 is invalid")
+            });
         }
 
         [Test]
-        public void AndNoFrameworkIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
+        public async Task AndNoFrameworkIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
         {
-            var action = new Func<Task<SubCategoryConversionResult>>(() => _frameworkCodeConverter.ConvertAsync(new List<string> { "77777", "88888" }));
+            var result = await _frameworkCodeConverter.ConvertAsync(new List<string> { "77777", "88888" });
 
-            action.ShouldThrow<ValidationException>()
-                .WithMessage($"Validation failed: \r\n -- FrameworkCode 77777 is invalid\r\n -- FrameworkCode 88888 is invalid");
+            result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
+            {
+                new ValidationFailure("FrameworkCode", "FrameworkCode 77777 is invalid"),
+                new ValidationFailure("FrameworkCode", "FrameworkCode 88888 is invalid")
+            });
         }
 
         [Test]
