@@ -126,6 +126,7 @@
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvert.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvert.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsStandardCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenAnApprenticeshipSearchOrchestrator.cs" />
