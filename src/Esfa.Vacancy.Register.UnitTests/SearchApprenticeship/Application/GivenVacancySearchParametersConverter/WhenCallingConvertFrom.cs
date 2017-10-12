@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenVacancySearchParametersConverter
 {
     [TestFixture]
-    public class WhenSearchingByStandardCodes
+    public class WhenCallingConvertFrom
     {
         private VacancySearchParametersConverter _converter;
         private Mock<IFrameworkCodeConverter> _mockFrameworkConverter;
