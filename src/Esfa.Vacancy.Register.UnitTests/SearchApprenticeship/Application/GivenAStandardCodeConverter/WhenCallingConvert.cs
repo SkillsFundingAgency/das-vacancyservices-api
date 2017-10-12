@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNoStandardSectorIsFoundForOneToConvert_ThenThrowsValidationException()
         {
-            var action = new Func<Task<List<string>>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "99999" }));
+            var action = new Func<Task<SubCategoryConversionResult>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "99999" }));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- StandardCode 99999 is invalid");
@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNoStandardSectorIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
         {
-            var action = new Func<Task<List<string>>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "77777", "88888" }));
+            var action = new Func<Task<SubCategoryConversionResult>>(() => _standardCodeConverter.ConvertAsync(new List<string> { "77777", "88888" }));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- StandardCode 77777 is invalid\r\n -- StandardCode 88888 is invalid");
@@ -62,7 +62,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var result = await _standardCodeConverter.ConvertAsync(new List<string> { _standardSectors[0].LarsCode.ToString() });
 
-            result.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[0].StandardSectorId}" });
+            result.SubCategoryCodes.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[0].StandardSectorId}" });
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var result = await _standardCodeConverter.ConvertAsync(new List<string> { $" {_standardSectors[1].LarsCode} " });
 
-            result.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[1].StandardSectorId}" });
+            result.SubCategoryCodes.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[1].StandardSectorId}" });
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var result = await _standardCodeConverter.ConvertAsync(new List<string>());
 
-            result.Should().BeEmpty();
+            result.SubCategoryCodes.Should().BeEmpty();
         }
 
         [Test]
@@ -93,9 +93,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var response = await _standardCodeConverter.ConvertAsync(new List<string>() { "100", "110", "200", "210" });
 
-            response.Count.Should().Be(2);
-            response.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");
-            response.Should().Contain($"{StandardSector.StandardSectorPrefix}.{2}");
+            response.SubCategoryCodes.Count.Should().Be(2);
+            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");
+            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{2}");
         }
     }
 }

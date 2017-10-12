@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 
 namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface IStandardCodeConverter
     {
-        Task<List<string>> ConvertAsync(IEnumerable<string> standardsToConvert);
+        Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> standardsToConvert);
     }
 }

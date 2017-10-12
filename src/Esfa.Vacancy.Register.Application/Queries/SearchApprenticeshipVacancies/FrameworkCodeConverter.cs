@@ -19,12 +19,13 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
         }
 
-        public async Task<List<string>> ConvertAsync(IEnumerable<string> frameworksToConvert)
+        public async Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> frameworksToConvert)
         {
-            var convertedFrameworks = new List<string>();
+            var result = new SubCategoryConversionResult();
+            
 
             if (!frameworksToConvert.Any())
-                return convertedFrameworks;
+                return result;
 
             var validFrameworks = await _frameworkCodeRepository.GetAsync();
 
@@ -44,14 +45,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 }
                 else
                 {
-                    convertedFrameworks.Add($"{FrameworkPrefix}.{trimmedFrameworkToConvert}");
+                    result.SubCategoryCodes.Add($"{FrameworkPrefix}.{trimmedFrameworkToConvert}");
                 }
             });
 
             if (validationFailures.Any())
                 throw new ValidationException(validationFailures);
 
-            return convertedFrameworks;
+            return result;
         }
     }
 }

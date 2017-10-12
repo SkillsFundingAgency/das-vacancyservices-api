@@ -18,16 +18,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _standardRepository = standardRepository;
         }
 
-        public async Task<List<string>> ConvertAsync(IEnumerable<string> standardsToConvert)
+        public async Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> standardsToConvert)
         {
-            var convertedStandardCodes = new HashSet<string>();
+            var result = new SubCategoryConversionResult();
 
             if (!standardsToConvert.Any())
-                return convertedStandardCodes.ToList();
+                return result;
 
             var standardSectorIds = await _standardRepository.GetStandardsAndRespectiveSectorIdsAsync();
 
             var errors = new List<ValidationFailure>();
+            var convertedStandardCodes = new HashSet<string>();
 
             standardsToConvert.ToList().ForEach(standardToConvert =>
             {
@@ -47,7 +48,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             if (errors.Any())
                 throw new ValidationException(errors);
 
-            return convertedStandardCodes.ToList();
+            return result;
         }
     }
 }

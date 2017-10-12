@@ -19,8 +19,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         public async Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request)
         {
             var combinedSubCategoryCodes = new List<string>();
-            combinedSubCategoryCodes.AddRange(await _standardCodeConverter.ConvertAsync(request.StandardCodes));
-            combinedSubCategoryCodes.AddRange(await _frameworkCodeConverter.ConvertAsync(request.FrameworkCodes));
+
+            var convertedStandards = await _standardCodeConverter.ConvertAsync(request.StandardCodes);
+            var convertedFrameworks = await _frameworkCodeConverter.ConvertAsync(request.FrameworkCodes);
+
+            combinedSubCategoryCodes.AddRange(convertedStandards.SubCategoryCodes);
+            combinedSubCategoryCodes.AddRange(convertedFrameworks.SubCategoryCodes);
 
             return new VacancySearchParameters
             {

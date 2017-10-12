@@ -28,12 +28,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             _mockFrameworkConverter = new Mock<IFrameworkCodeConverter>();
             _mockFrameworkConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(new List<string>());
+                .ReturnsAsync(new SubCategoryConversionResult());
 
             _mockStandardCodeConverter = new Mock<IStandardCodeConverter>();
             _mockStandardCodeConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(new List<string>());
+                .ReturnsAsync(new SubCategoryConversionResult());
 
             _converter = new VacancySearchParametersConverter(_mockStandardCodeConverter.Object, _mockFrameworkConverter.Object);
         }
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             _mockStandardCodeConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(_expectedStandards);
+                .ReturnsAsync(new SubCategoryConversionResult{SubCategoryCodes = _expectedStandards});
 
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
@@ -55,7 +55,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             _mockFrameworkConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(_expectedFrameworks);
+                .ReturnsAsync(new SubCategoryConversionResult { SubCategoryCodes = _expectedFrameworks });
 
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
@@ -67,11 +67,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             _mockStandardCodeConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(_expectedStandards);
+                .ReturnsAsync(new SubCategoryConversionResult { SubCategoryCodes = _expectedStandards });
 
             _mockFrameworkConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(_expectedFrameworks);
+                .ReturnsAsync(new SubCategoryConversionResult{SubCategoryCodes = _expectedFrameworks});
 
             var expectedSubCategoryCodes = new List<string>();
             expectedSubCategoryCodes.AddRange(_expectedStandards);
