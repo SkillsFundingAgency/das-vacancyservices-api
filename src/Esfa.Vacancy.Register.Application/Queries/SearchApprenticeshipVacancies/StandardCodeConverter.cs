@@ -20,10 +20,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         public async Task<List<string>> Convert(IEnumerable<string> standardsToConvert)
         {
+            var convertedStandardCodes = new HashSet<string>();
+
+            if (!standardsToConvert.Any())
+                return convertedStandardCodes.ToList();
+
             var standardSectorIds = await _standardRepository.GetStandardsAndRespectiveSectorIdsAsync();
 
             var errors = new List<ValidationFailure>();
-            var sectorCodes = new HashSet<string>();
 
             standardsToConvert.ToList().ForEach(standardToConvert =>
             {
@@ -36,14 +40,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 }
                 else
                 {
-                    sectorCodes.Add($"{StandardSector.StandardSectorPrefix}.{standardSector.StandardSectorId}");
+                    convertedStandardCodes.Add($"{StandardSector.StandardSectorPrefix}.{standardSector.StandardSectorId}");
                 }
             });
 
             if (errors.Any())
                 throw new ValidationException(errors);
 
-            return sectorCodes.ToList();
+            return convertedStandardCodes.ToList();
         }
     }
 }

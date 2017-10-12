@@ -81,7 +81,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             result.Should().BeEmpty();
         }
 
-        [Test, Ignore("include this once everything else is passing")]
+        [Test]
         public async Task AndNoStandards_ThenDoesNotCallRepository()
         {
             await _standardCodeConverter.Convert(new List<string>());

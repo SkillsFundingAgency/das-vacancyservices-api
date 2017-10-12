@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class FrameworkCodeConverter : IFrameworkCodeConverter
     {
         private readonly IFrameworkCodeRepository _frameworkCodeRepository;
-        private const string FrameworkPrefix = "FW.";
+        private const string FrameworkPrefix = "FW";
 
         public FrameworkCodeConverter(IFrameworkCodeRepository frameworkCodeRepository)
         {
@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 }
                 else
                 {
-                    convertedFrameworks.Add($"{FrameworkPrefix}{trimmedFrameworkToConvert}");
+                    convertedFrameworks.Add($"{FrameworkPrefix}.{trimmedFrameworkToConvert}");
                 }
             });
 
