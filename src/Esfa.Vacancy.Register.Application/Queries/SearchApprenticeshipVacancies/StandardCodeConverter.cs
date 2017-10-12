@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _standardRepository = standardRepository;
         }
 
-        public async Task<List<string>> Convert(IEnumerable<string> standardsToConvert)
+        public async Task<List<string>> ConvertAsync(IEnumerable<string> standardsToConvert)
         {
             var convertedStandardCodes = new HashSet<string>();
 

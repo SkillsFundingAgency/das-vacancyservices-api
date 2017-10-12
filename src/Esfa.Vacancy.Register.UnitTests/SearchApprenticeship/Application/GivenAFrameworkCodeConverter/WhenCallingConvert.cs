@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNoFrameworkIsFoundForOneToConvert_ThenThrowsValidationException()
         {
-            var action = new Func<Task<List<string>>>(() => _frameworkCodeConverter.Convert(new List<string> { "99999" }));
+            var action = new Func<Task<List<string>>>(() => _frameworkCodeConverter.ConvertAsync(new List<string> { "99999" }));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- FrameworkCode 99999 is invalid");
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNoFrameworkIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
         {
-            var action = new Func<Task<List<string>>>(() => _frameworkCodeConverter.Convert(new List<string> { "77777", "88888" }));
+            var action = new Func<Task<List<string>>>(() => _frameworkCodeConverter.ConvertAsync(new List<string> { "77777", "88888" }));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- FrameworkCode 77777 is invalid\r\n -- FrameworkCode 88888 is invalid");
@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndFrameworkCodeIsFound_ThenReturnsFramework()
         {
-            var result = await _frameworkCodeConverter.Convert(new List<string> {_frameworks[0]});
+            var result = await _frameworkCodeConverter.ConvertAsync(new List<string> {_frameworks[0]});
 
             result.Should().BeEquivalentTo(new List<string> {$"FW.{_frameworks[0]}"});
         }
@@ -59,7 +59,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndFrameworkCodeHasSpace_ThenReturnsCorrectFormat()
         {
-            var result = await _frameworkCodeConverter.Convert(new List<string> { $" {_frameworks[1]} " });
+            var result = await _frameworkCodeConverter.ConvertAsync(new List<string> { $" {_frameworks[1]} " });
 
             result.Should().BeEquivalentTo(new List<string> { $"FW.{_frameworks[1]}" });
         }
@@ -67,7 +67,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoFrameworks_ThenReturnsEmptyList()
         {
-            var result = await _frameworkCodeConverter.Convert(new List<string>());
+            var result = await _frameworkCodeConverter.ConvertAsync(new List<string>());
 
             result.Should().BeEmpty();
         }
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoFrameworks_ThenDoesNotCallRepository()
         {
-            await _frameworkCodeConverter.Convert(new List<string>());
+            await _frameworkCodeConverter.ConvertAsync(new List<string>());
             _mockFrameworkRepository.Verify(repository => repository.GetAsync(), Times.Never);
         }
     }

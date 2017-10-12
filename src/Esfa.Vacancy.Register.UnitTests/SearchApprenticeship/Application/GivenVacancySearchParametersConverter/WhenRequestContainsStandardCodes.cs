@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
-using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
-using FluentValidation;
 using Moq;
 using NUnit.Framework;
 
@@ -16,94 +13,73 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     public class WhenSearchingByStandardCodes
     {
         private VacancySearchParametersConverter _converter;
-        private readonly Mock<IStandardRepository> _mockRepository = new Mock<IStandardRepository>();
         private Mock<IFrameworkCodeConverter> _mockFrameworkConverter;
+        private Mock<IStandardCodeConverter> _mockStandardCodeConverter;
+        private List<string> _expectedStandards;
+        private List<string> _expectedFrameworks;
+            
 
         [SetUp]
         public void Setup()
         {
-            var standardSectors = new List<StandardSector>()
-            {
-                new StandardSector() {LarsCode = 100, StandardSectorId = 1},
-                new StandardSector() {LarsCode = 110, StandardSectorId = 1},
-                new StandardSector() {LarsCode = 200, StandardSectorId = 2},
-                new StandardSector() {LarsCode = 210, StandardSectorId = 2},
-                new StandardSector() {LarsCode = 300, StandardSectorId = 3},
-                new StandardSector() {LarsCode = 310, StandardSectorId = 3}
-            };
-
-            _mockRepository
-                .Setup(r => r.GetStandardsAndRespectiveSectorIdsAsync())
-                .ReturnsAsync(standardSectors);
+            _expectedStandards = new List<string> {"STDSEC.9", "STDSEC.3", "STDSEC.8"};
+            _expectedFrameworks = new List<string> {"FW.343455", "FW.3434490"};
 
             _mockFrameworkConverter = new Mock<IFrameworkCodeConverter>();
             _mockFrameworkConverter
-                .Setup(converter => converter.Convert(It.IsAny<IEnumerable<string>>()))
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
                 .ReturnsAsync(new List<string>());
 
-            _converter = new VacancySearchParametersConverter(_mockRepository.Object, _mockFrameworkConverter.Object);
+            _mockStandardCodeConverter = new Mock<IStandardCodeConverter>();
+            _mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new List<string>());
+
+            _converter = new VacancySearchParametersConverter(_mockStandardCodeConverter.Object, _mockFrameworkConverter.Object);
         }
 
         [Test]
-        public async Task ThenConvertToDistinctSectorCodes()
+        public async Task ThenTheStandardCodesAreReturned()
         {
-            var request = new SearchApprenticeshipVacanciesRequest()
-            { StandardCodes = new List<string>() { "100", "110", "200", "210" } };
+            _mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(_expectedStandards);
 
-            var response = await _converter.ConvertFrom(request);
+            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
-            response.SubCategoryCodes.Count().Should().Be(2);
-            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");
-            response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{2}");
+            result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedStandards);
         }
 
         [Test]
-        public void AndAnyStandardCodeIsInvalid_ThenThrowValidationException()
+        public async Task ThenTheFrameworkCodesAreReturned()
         {
-            var request = new SearchApprenticeshipVacanciesRequest()
-            { StandardCodes = new List<string>() { "100", "222" } };
+            _mockFrameworkConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(_expectedFrameworks);
 
-            var exception = Assert.ThrowsAsync<ValidationException>(async () => await _converter.ConvertFrom(request));
+            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
-            Assert.IsTrue(exception.Errors.Any(ex => ex.ErrorMessage == "StandardCode 222 is invalid"));
-        }
-
-        [Test]
-        public async Task AndStandardCodesIsEmpty_ThenReturnsEmpty()
-        {
-            var request = new SearchApprenticeshipVacanciesRequest();
-
-            var result =  await _converter.ConvertFrom(request);
-
-            result.SubCategoryCodes.Should().BeEmpty();
+            result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedFrameworks);
         }
 
         [Test]
         public async Task AndFrameworkCodesAsWellAsStandardCodes_ThenBothAreReturned()
         {
-            var expectedStandards = new List<string>
-            {
-                $"{StandardSector.StandardSectorPrefix}.2",
-                $"{StandardSector.StandardSectorPrefix}.3" 
-            };
-            var expectedFrameworks = new List<string>
-            {
-                "FW.343455", "FW.3434490"
-            };
-
-            var expectedSubCategoryCodes = new List<string>();
-            expectedSubCategoryCodes.AddRange(expectedStandards);
-            expectedSubCategoryCodes.AddRange(expectedFrameworks);
+            _mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(_expectedStandards);
 
             _mockFrameworkConverter
-                .Setup(converter => converter.Convert(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(expectedFrameworks);
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(_expectedFrameworks);
 
-            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest
-            {
-                FrameworkCodes = new[] { "567", "234" },
-                StandardCodes = new[] { "210", "310" }
-            });
+            var expectedSubCategoryCodes = new List<string>();
+            expectedSubCategoryCodes.AddRange(_expectedStandards);
+            expectedSubCategoryCodes.AddRange(_expectedFrameworks);
+
+            var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
+
+            result.SubCategoryCodes.ForEach(Console.WriteLine);
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(expectedSubCategoryCodes);
         }

@@ -5,6 +5,6 @@ namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface IFrameworkCodeConverter
     {
-        Task<List<string>> Convert(IEnumerable<string> frameworksToConvert);
+        Task<List<string>> ConvertAsync(IEnumerable<string> frameworksToConvert);
     }
 }

@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
-using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -21,17 +19,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             _expectedFrameworks = new List<string> { "FW.343455", "FW.3434490" };
 
-            var mockRepository = new Mock<IStandardRepository>();
-            mockRepository
-                .Setup(r => r.GetStandardsAndRespectiveSectorIdsAsync())
-                .ReturnsAsync(new List<StandardSector>());
+            var mockStandardCodeConverter = new Mock<IStandardCodeConverter>();
+            mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new List<string>());
 
             var mockFrameworkConverter = new Mock<IFrameworkCodeConverter>();
             mockFrameworkConverter
-                .Setup(converter => converter.Convert(It.IsAny<IEnumerable<string>>()))
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
                 .ReturnsAsync(_expectedFrameworks);
 
-            _converter = new VacancySearchParametersConverter(mockRepository.Object, mockFrameworkConverter.Object);
+            _converter = new VacancySearchParametersConverter(mockStandardCodeConverter.Object, mockFrameworkConverter.Object);
         }
 
         [Test]

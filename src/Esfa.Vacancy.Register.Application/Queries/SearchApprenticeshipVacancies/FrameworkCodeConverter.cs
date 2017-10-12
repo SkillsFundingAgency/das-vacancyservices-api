@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
         }
 
-        public async Task<List<string>> Convert(IEnumerable<string> frameworksToConvert)
+        public async Task<List<string>> ConvertAsync(IEnumerable<string> frameworksToConvert)
         {
             var convertedFrameworks = new List<string>();
 
