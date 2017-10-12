@@ -1,11 +1,21 @@
 ﻿using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public sealed class VacancyResponseMapper
+    public sealed class VacancyMapper
     {
+        private readonly IProvideSettings _provideSettings;
+
+        public VacancyMapper(IProvideSettings provideSettings)
+        {
+            _provideSettings = provideSettings;
+        }
+
         public TraineeshipVacancy MapToTraineeshipVacancy(Domain.Entities.Vacancy vacancy)
         {
+            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey);
+
             return new TraineeshipVacancy
             {
                 VacancyReference = vacancy.VacancyReferenceNumber,
@@ -32,6 +42,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 LocationType = (VacancyLocationType)vacancy.VacancyLocationTypeId,
                 SupplementaryQuestion1 = vacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = vacancy.SupplementaryQuestion2,
+                VacancyUrl = $"{liveVacancyBaseUrl}/{vacancy.VacancyReferenceNumber}",
                 Location = MapToLocation(vacancy.Location, showAnonymousEmployerDetails: vacancy.IsAnonymousEmployer),
                 ContactName = vacancy.ContactName,
                 ContactEmail = vacancy.ContactEmail,

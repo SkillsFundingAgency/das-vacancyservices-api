@@ -10,21 +10,18 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     public class GetTraineeshipVacancyOrchestrator
     {
         private readonly IMediator _mediator;
-        private readonly IProvideSettings _provideSettings;
-        private readonly VacancyResponseMapper _mapper = new VacancyResponseMapper();
+        private readonly VacancyMapper _mapper;
 
         public GetTraineeshipVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
             _mediator = mediator;
-            _provideSettings = provideSettings;
+            _mapper = new VacancyMapper(provideSettings);
         }
 
         public async Task<TraineeshipVacancy> GetTraineeshipVacancyDetailsAsync(int id)
         {
-            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey);
             var response = await _mediator.Send(new GetTraineeshipVacancyRequest() { Reference = id });
             var vacancy = _mapper.MapToTraineeshipVacancy(response.Vacancy);
-            vacancy.VacancyUrl = $"{liveVacancyBaseUrl}/{vacancy.VacancyReference}";
             return vacancy;
         }
     }
