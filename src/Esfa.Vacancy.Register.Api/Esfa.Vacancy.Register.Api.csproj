@@ -319,7 +319,7 @@
     <Compile Include="Logging\RequestContext.cs" />
     <Compile Include="Orchestrators\GetTraineeshipVacancyOrchestrator.cs" />
     <Compile Include="Orchestrators\SearchApprenticeshipVacanciesOrchestrator.cs" />
-    <Compile Include="Orchestrators\GetVacancyOrchestrator.cs" />
+    <Compile Include="Orchestrators\GetApprenticeshipVacancyOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

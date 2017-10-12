@@ -6,17 +6,15 @@ using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
-    public class GetVacancyOrchestrator
+    public class GetApprenticeshipVacancyOrchestrator
     {
         private readonly IMediator _mediator;
         private readonly IProvideSettings _provideSettings;
-        private readonly IMapper _mapper;
-
-        public GetVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings, IMapper mapper)
+        
+        public GetApprenticeshipVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
             _mediator = mediator;
             _provideSettings = provideSettings;
-            _mapper = mapper;
         }
 
         public async Task<Vacancy.Api.Types.ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(int id)

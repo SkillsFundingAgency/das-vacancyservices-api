@@ -14,17 +14,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     public class GetApprenticeshipVacancyController : ApiController
     {
         private readonly ILog _log;
-        private readonly GetVacancyOrchestrator _vacancyOrchestrator;
+        private readonly GetApprenticeshipVacancyOrchestrator _apprenticeshipVacancyOrchestrator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetApprenticeshipVacancyController"/> class.
         /// </summary>
         /// <param name="log">The log.</param>
-        /// <param name="vacancyOrchestrator">The vacancy orchestrator.</param>
-        public GetApprenticeshipVacancyController(ILog log, GetVacancyOrchestrator vacancyOrchestrator)
+        /// <param name="apprenticeshipVacancyOrchestrator">The vacancy orchestrator.</param>
+        public GetApprenticeshipVacancyController(ILog log, GetApprenticeshipVacancyOrchestrator apprenticeshipVacancyOrchestrator)
         {
             _log = log;
-            _vacancyOrchestrator = vacancyOrchestrator;
+            _apprenticeshipVacancyOrchestrator = apprenticeshipVacancyOrchestrator;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [Route("api/v1/apprenticeships/{vacancyReference}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
-            var vacancy = await _vacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
+            var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
         }
