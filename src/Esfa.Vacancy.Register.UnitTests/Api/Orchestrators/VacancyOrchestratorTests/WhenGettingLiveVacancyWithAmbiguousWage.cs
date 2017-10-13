@@ -16,32 +16,24 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     [TestFixture]
     public class WhenGettingLiveVacancyWithAmbiguousWage
     {
-        private const int VacancyReference = 1234;
-        private const int LiveVacancyStatusId = 2;
-        private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _provideSettings;
-        private GetApprenticeshipVacancyOrchestrator _sut;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _mockMediator = new Mock<IMediator>();
-            _provideSettings = new Mock<IProvideSettings>();
-
-            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-        }
-
         [TestCase(WageType.Unwaged, "Unwaged")]
         [TestCase(WageType.ToBeAgreedUponAppointment, "To be agreed upon appointment")]
         [TestCase(WageType.CompetitiveSalary, "Competitive salary")]
         public async Task ShouldHaveAppropriateWageDescription(WageType wageType, string expectedWageText)
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+            const int vacancyReference = 1234;
+            const int liveVacancyStatusId = 2;
+
+            var mockMediator = new Mock<IMediator>();
+            var provideSettings = new Mock<IProvideSettings>();
+            var sut = new GetApprenticeshipVacancyOrchestrator(mockMediator.Object, provideSettings.Object);
+
+            mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
+                                            .With(v => v.VacancyReferenceNumber, vacancyReference)
+                                            .With(v => v.VacancyStatusId, liveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
                                             .With(v => v.WageType, (int)wageType)
                                             .Without(v => v.WeeklyWage)
@@ -49,9 +41,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await sut.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
 
-            result.VacancyReference.Should().Be(VacancyReference);
+            result.VacancyReference.Should().Be(vacancyReference);
             result.WageUnit.Should().BeNull();
             result.WageText.Should().Be(expectedWageText);
         }

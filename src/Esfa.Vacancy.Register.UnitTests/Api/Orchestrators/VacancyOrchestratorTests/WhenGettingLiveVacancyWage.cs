@@ -9,25 +9,13 @@ using FluentAssertions;
 using MediatR;
 using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
 {
     [TestFixture]
     public class WhenGettingLiveVacancyWage
     {
-        private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _provideSettings;
-        private GetApprenticeshipVacancyOrchestrator _sut;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _mockMediator = new Mock<IMediator>();
-            _provideSettings = new Mock<IProvideSettings>();
-
-            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-        }
-
         [TestCase(1, WageUnit.NotApplicable)]
         [TestCase(2, WageUnit.Weekly)]
         [TestCase(3, WageUnit.Monthly)]
@@ -36,21 +24,24 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         public async Task ShouldMapWageUnitEnum(int? wageUnitId, WageUnit? wageUnitType)
         {
             //Arrange
+            var mockMediator = new Mock<IMediator>();
+            var provideSettings = new Mock<IProvideSettings>();
+            var sut = new GetApprenticeshipVacancyOrchestrator(mockMediator.Object, provideSettings.Object);
+
             var response = new GetApprenticeshipVacancyResponse
             {
-                Vacancy = new Domain.Entities.Vacancy
-                {
-                    WageType = (int)WageType.Custom,
-                    WageUnitId = wageUnitId
-                }
+                Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                        .With(v => v.WageType, (int) WageType.Custom)
+                                        .With(v => v.WageUnitId, wageUnitId)
+                                        .Create()
             };
 
-            _mockMediator
+            mockMediator
                 .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             
             //Act
-            var vacancy = await _sut.GetApprenticeshipVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }

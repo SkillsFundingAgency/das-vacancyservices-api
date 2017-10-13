@@ -21,7 +21,6 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
         private GetApprenticeshipVacancyOrchestrator _sut;
-        
 
         [SetUp]
         public void SetUp()
@@ -139,7 +138,9 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
             //Arrange
             var response = new GetApprenticeshipVacancyResponse()
             {
-                Vacancy = new Domain.Entities.Vacancy() { WageUnitId = wageUnitId }
+                Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                                        .With(v => v.WageUnitId, wageUnitId)
+                                        .Create()
             };
 
             _mockMediator

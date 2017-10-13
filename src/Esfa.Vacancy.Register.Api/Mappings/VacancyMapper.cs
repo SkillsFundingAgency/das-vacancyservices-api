@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 Title = vacancy.Title,
                 ShortDescription = vacancy.ShortDescription,
                 Description = vacancy.Description,
-                WageUnit = (WageUnit)vacancy.WageUnitId,
+                WageUnit = (WageUnit?)vacancy.WageUnitId,
                 WorkingWeek = vacancy.WorkingWeek,
                 WageText = MapWage(vacancy),
                 HoursPerWeek = vacancy.HoursPerWeek,

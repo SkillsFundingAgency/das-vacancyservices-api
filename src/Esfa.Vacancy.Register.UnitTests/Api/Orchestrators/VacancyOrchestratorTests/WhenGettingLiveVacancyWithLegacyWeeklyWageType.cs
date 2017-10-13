@@ -16,27 +16,18 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
     [TestFixture]
     public class WhenGettingLiveVacancyWithLegacyWeeklyWageType
     {
-        private const int VacancyReference = 1234;
-        private const int LiveVacancyStatusId = 2;
-        private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _provideSettings;
-        private GetApprenticeshipVacancyOrchestrator _sut;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _mockMediator = new Mock<IMediator>();
-            _provideSettings = new Mock<IProvideSettings>();
-
-            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-        }
-
         [Test]
         public async Task LiveVacanciesWithLegacyWeeklyWageTypeShouldHaveWageSetFromWeeklyWage()
         {
             const int weeklyWage = 2550;
+            const int VacancyReference = 1234;
+            const int LiveVacancyStatusId = 2;
 
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
+            var mockMediator = new Mock<IMediator>();
+            var provideSettings = new Mock<IProvideSettings>();
+            var sut = new GetApprenticeshipVacancyOrchestrator(mockMediator.Object, provideSettings.Object);
+
+            mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
@@ -50,7 +41,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.WageUnit.Should().Be(WageUnit.Weekly);
