@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -128,6 +130,42 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             result.SubCategoryCodes.ForEach(Console.WriteLine);
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(expectedSubCategoryCodes);
+        }
+
+        [Test]
+        public void AndFrameworkCodesAsWellAsStandardCodesValidationFailures_ThenBothAreInException()
+        {
+            var validationFailures = new List<ValidationFailure>
+            {
+                new ValidationFailure("StandardCode", Guid.NewGuid().ToString()),
+                new ValidationFailure("StandardCode", Guid.NewGuid().ToString()),
+                new ValidationFailure("FrameworkCode", Guid.NewGuid().ToString()),
+                new ValidationFailure("FrameworkCode", Guid.NewGuid().ToString())
+            };
+
+            var combinedErrorMessage = new StringBuilder();
+            validationFailures.ForEach(failure => combinedErrorMessage.Append($"\r\n -- {failure.ErrorMessage}"));
+
+            _mockStandardCodeConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new SubCategoryConversionResult
+                {
+                    SubCategoryCodes = _expectedStandards,
+                    ValidationFailures = validationFailures.Where(failure => failure.PropertyName == "StandardCode").ToList()
+                });
+
+            _mockFrameworkConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new SubCategoryConversionResult
+                {
+                    SubCategoryCodes = _expectedFrameworks,
+                    ValidationFailures = validationFailures.Where(failure => failure.PropertyName == "FrameworkCode").ToList()
+                });
+
+            var action = new Func<Task<VacancySearchParameters>>(() => _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: {combinedErrorMessage}");
         }
     }
 }
