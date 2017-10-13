@@ -128,7 +128,6 @@
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvert.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenCallingConvertFrom.cs" />
-    <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenAnApprenticeshipSearchOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />

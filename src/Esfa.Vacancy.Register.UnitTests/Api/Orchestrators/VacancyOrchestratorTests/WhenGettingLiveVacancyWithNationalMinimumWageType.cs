@@ -1,7 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
 using Esfa.Vacancy.Register.Domain.Entities;
@@ -24,18 +25,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
         private Mock<IProvideSettings> _provideSettings;
         private GetVacancyOrchestrator _sut;
 
-        [OneTimeSetUp]
-        public void FixtureSetUp()
-        {
-            AutoMapperConfig.Configure();
-        }
-
         [SetUp]
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
             _provideSettings = new Mock<IProvideSettings>();
-            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object, new Mapper(AutoMapperConfig.Configure()));
         }
 
         [TestCase(null, 7.05, "Unknown - £211.50")]
