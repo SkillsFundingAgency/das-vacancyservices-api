@@ -6,6 +6,6 @@ namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface IFrameworkCodeConverter
     {
-        Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> frameworksToConvert);
+        Task<SubCategoryConversionResult> ConvertAsync(List<string> frameworksToConvert);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+﻿using System.Linq;
+using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -24,7 +25,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             {
-                StandardCodes = input.Split(',')
+                StandardCodes = input.Split(',').ToList()
             };
 
             var result = _validator.Validate(request);

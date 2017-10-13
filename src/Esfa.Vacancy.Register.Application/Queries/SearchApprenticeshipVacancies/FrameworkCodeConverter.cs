@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
         }
 
-        public async Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> frameworksToConvert)
+        public async Task<SubCategoryConversionResult> ConvertAsync(List<string> frameworksToConvert)
         {
             var result = new SubCategoryConversionResult();
 
@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             var validFrameworks = await _frameworkCodeRepository.GetAsync();
 
-            frameworksToConvert.ToList().ForEach(frameworkToConvert =>
+            frameworksToConvert.ForEach(frameworkToConvert =>
             {
                 var trimmedFrameworkToConvert = frameworkToConvert.Trim();
 

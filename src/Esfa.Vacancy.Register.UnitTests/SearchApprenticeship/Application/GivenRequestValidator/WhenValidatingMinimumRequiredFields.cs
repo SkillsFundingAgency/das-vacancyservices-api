@@ -34,18 +34,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new []{"2345"}
+                    FrameworkCodes = new List<string> {"2345"}
                 }, new ValidationResult())
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new []{"2345"}
+                    StandardCodes = new List<string> {"2345"}
                 }, new ValidationResult())
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new []{"34"},
-                    StandardCodes = new []{"768657"}
+                    FrameworkCodes = new List<string> {"34"},
+                    StandardCodes = new List<string> {"768657"}
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult

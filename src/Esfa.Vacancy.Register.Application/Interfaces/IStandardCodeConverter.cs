@@ -6,6 +6,6 @@ namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface IStandardCodeConverter
     {
-        Task<SubCategoryConversionResult> ConvertAsync(IEnumerable<string> standardsToConvert);
+        Task<SubCategoryConversionResult> ConvertAsync(List<string> standardsToConvert);
     }
 }
