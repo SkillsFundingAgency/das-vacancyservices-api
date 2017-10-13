@@ -62,7 +62,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             _mockStandardCodeConverter
                 .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(new SubCategoryConversionResult { ValidationFailures = validationFailures });
+                .ReturnsAsync(new SubCategoryConversionResult
+                {
+                    SubCategoryCodes = new List<string> { "3498" },
+                    ValidationFailures = validationFailures
+                });
 
             var action = new Func<Task<VacancySearchParameters>>(() => _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
 
@@ -80,6 +84,28 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedFrameworks);
+        }
+
+        [Test]
+        public void AndFrameworkCodeValidationsAreReturned_ThenThrowsValidationException()
+        {
+            var validationFailures = new List<ValidationFailure>
+            {
+                new ValidationFailure("Framework", Guid.NewGuid().ToString())
+            };
+
+            _mockFrameworkConverter
+                .Setup(converter => converter.ConvertAsync(It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new SubCategoryConversionResult
+                {
+                    SubCategoryCodes = new List<string> { "3498" },
+                    ValidationFailures = validationFailures
+                });
+
+            var action = new Func<Task<VacancySearchParameters>>(() => _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: \r\n -- {validationFailures[0].ErrorMessage}");
         }
 
         [Test]

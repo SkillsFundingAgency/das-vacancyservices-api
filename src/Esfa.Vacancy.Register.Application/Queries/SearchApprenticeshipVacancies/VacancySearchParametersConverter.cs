@@ -28,6 +28,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             if (convertedStandards.ValidationFailures.Any())
                 throw new ValidationException(convertedStandards.ValidationFailures);
 
+            if (convertedFrameworks.ValidationFailures.Any())
+                throw new ValidationException(convertedFrameworks.ValidationFailures);
+
             combinedSubCategoryCodes.AddRange(convertedStandards.SubCategoryCodes);
             combinedSubCategoryCodes.AddRange(convertedFrameworks.SubCategoryCodes);
 
