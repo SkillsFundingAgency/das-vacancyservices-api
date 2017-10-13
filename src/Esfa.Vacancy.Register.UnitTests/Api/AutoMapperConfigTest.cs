@@ -13,6 +13,5 @@ namespace Esfa.Vacancy.Register.UnitTests.Api
 
             config.AssertConfigurationIsValid();
         }
-        
     }
 }

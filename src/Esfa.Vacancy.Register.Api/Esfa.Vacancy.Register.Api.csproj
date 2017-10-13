@@ -292,7 +292,6 @@
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
-    <Compile Include="Mappings\VacancyMappings.cs" />
     <Compile Include="Mappings\VacancyMapper.cs" />
     <Compile Include="Mappings\VacancySummaryMappings.cs" />
     <Compile Include="Models\VersionInformation.cs" />
