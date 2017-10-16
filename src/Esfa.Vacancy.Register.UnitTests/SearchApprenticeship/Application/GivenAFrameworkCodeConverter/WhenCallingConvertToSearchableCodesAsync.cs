@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAFrameworkCodeConverter
 {
     [TestFixture]
-    public class WhenCallingConvert
+    public class WhenCallingConvertToSearchableCodesAsync
     {
         private FrameworkCodeConverter _frameworkCodeConverter;
         private List<string> _frameworks;

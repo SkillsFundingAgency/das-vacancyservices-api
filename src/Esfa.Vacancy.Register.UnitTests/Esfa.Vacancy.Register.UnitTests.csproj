@@ -124,9 +124,9 @@
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvert.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvert.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenCallingConvertFrom.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />

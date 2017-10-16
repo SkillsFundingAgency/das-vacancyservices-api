@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAStandardCodeConverter
 {
     [TestFixture]
-    public class WhenCallingConvert
+    public class WhenCallingConvertToSearchableCodesAsync
     {
         private StandardCodeConverter _standardCodeConverter;
         private List<StandardSector> _standardSectors;
