@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using FluentValidation;
 using FluentValidation.Results;

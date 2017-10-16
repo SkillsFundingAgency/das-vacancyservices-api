@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation.Results;
 
@@ -18,16 +17,16 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
         }
 
-        public async Task<SubCategoryConversionResult> ConvertAsync(List<string> frameworks)
+        public async Task<SubCategoryConversionResult> ConvertAsync(IList<string> frameworks)
         {
             var result = new SubCategoryConversionResult();
 
             if (!frameworks.Any())
                 return result;
 
-            var validFrameworks = await _frameworkCodeRepository.GetAsync();
+            var validFrameworks = (await _frameworkCodeRepository.GetAsync()).ToList();
 
-            frameworks.ForEach(frameworkToConvert =>
+            foreach (var frameworkToConvert in frameworks)
             {
                 var trimmedFrameworkToConvert = frameworkToConvert.Trim();
 
@@ -42,8 +41,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 {
                     result.SubCategoryCodes.Add($"{FrameworkPrefix}.{trimmedFrameworkToConvert}");
                 }
-            });
-            
+            }
+
             return result;
         }
     }

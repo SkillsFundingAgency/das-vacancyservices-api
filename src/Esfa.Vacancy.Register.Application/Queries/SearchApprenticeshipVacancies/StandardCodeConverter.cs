@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation.Results;
@@ -17,35 +16,33 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _standardRepository = standardRepository;
         }
 
-        public async Task<SubCategoryConversionResult> ConvertAsync(List<string> standards)
+        public async Task<SubCategoryConversionResult> ConvertAsync(IList<string> standards)
         {
             var result = new SubCategoryConversionResult();
 
             if (!standards.Any())
                 return result;
 
-            var standardSectorIds = await _standardRepository.GetStandardsAndRespectiveSectorIdsAsync();
+            var standardSectorIds = (await _standardRepository.GetStandardsAndRespectiveSectorIdsAsync()).ToList();
 
-            var errors = new List<ValidationFailure>();
             var convertedStandardCodes = new HashSet<string>();
 
-            standards.ForEach(standardToConvert =>
+            foreach (var standardToConvert in standards)
             {
                 var parsedStandardToConvert = int.Parse(standardToConvert);
 
                 var standardSector = standardSectorIds.FirstOrDefault(ss => ss.LarsCode == parsedStandardToConvert);
                 if (standardSector == null)
                 {
-                    errors.Add(new ValidationFailure("StandardCode", $"StandardCode {standardToConvert} is invalid"));
+                    result.ValidationFailures.Add(new ValidationFailure("StandardCode", $"StandardCode {standardToConvert} is invalid"));
                 }
                 else
                 {
                     convertedStandardCodes.Add($"{StandardSector.StandardSectorPrefix}.{standardSector.StandardSectorId}");
                 }
-            });
+            }
 
             result.SubCategoryCodes.AddRange(convertedStandardCodes);
-            result.ValidationFailures.AddRange(errors);
 
             return result;
         }

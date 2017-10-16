@@ -5,6 +5,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public interface IStandardCodeConverter
     {
-        Task<SubCategoryConversionResult> ConvertAsync(List<string> standards);
+        Task<SubCategoryConversionResult> ConvertAsync(IList<string> standards);
     }
 }
