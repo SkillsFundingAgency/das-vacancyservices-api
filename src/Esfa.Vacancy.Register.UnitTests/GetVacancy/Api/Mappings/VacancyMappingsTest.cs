@@ -1,38 +1,32 @@
-﻿using AutoMapper;
-using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api;
+﻿using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 {
     [TestFixture]
     public class VacancyMappingsTest
     {
-        private IMapper _mapper;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            var config = AutoMapperConfig.Configure();
-            _mapper = config.CreateMapper();
-        }
-
         [Test]
         public void GivenFrameworkThenLoadFrameworkDetails()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Standard = null,
-                Framework = new Framework()
+            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                .Without(v => v.Standard)
+                .With(v => v.Framework, new Framework
                 {
                     Title = "Title",
                     Code = 13,
                     Uri = "sdfe"
-                }
-            };
+                })
+                .Create();
 
-            var result = Mapper.Map<Vacancy.Api.Types.ApprenticeshipVacancy>(vacancy);
+            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Framework, result.TrainingType);
         }
@@ -40,18 +34,20 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void GivenStandardThenLoadStandardDetails()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Framework = null,
-                Standard = new Standard()
+            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                .Without(v => v.Framework)
+                .With(v => v.Standard, new Standard
                 {
                     Title = "Title",
                     Code = 13,
                     Uri = "sdfe"
-                }
-            };
-            
-            var result = Mapper.Map<Vacancy.Api.Types.ApprenticeshipVacancy>(vacancy);
+
+                })
+                .Create();
+
+            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Standard, result.TrainingType);
         }
@@ -59,13 +55,14 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Standard = null,
-                Framework = null
-            };
-            
-            var result = Mapper.Map<Vacancy.Api.Types.ApprenticeshipVacancy>(vacancy);
+            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                .Without(v => v.Framework)
+                .Without(v => v.Standard)
+                .Create();
+
+            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Unavailable, result.TrainingType);
         }

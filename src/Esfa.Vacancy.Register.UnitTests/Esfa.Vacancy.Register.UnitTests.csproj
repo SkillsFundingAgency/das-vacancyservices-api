@@ -120,7 +120,7 @@
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
-    <Compile Include="Application\Queries\GetVacancy\WhenGettingVacancy.cs" />
+    <Compile Include="Application\Queries\GetVacancy\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />

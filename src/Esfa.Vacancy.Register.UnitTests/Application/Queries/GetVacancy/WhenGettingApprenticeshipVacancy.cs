@@ -11,11 +11,10 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 
-
 namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
 {
     [TestFixture]
-    public class WhenGettingVacancy
+    public class WhenGettingApprenticeshipVacancy
     {
         private Mock<ILog> _mockLogger;
         private Mock<IVacancyRepository> _mockVacancyRepository;
