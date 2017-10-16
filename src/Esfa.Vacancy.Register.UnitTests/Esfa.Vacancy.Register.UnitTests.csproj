@@ -127,7 +127,7 @@
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenCallingConvertFrom.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\WhenCallingBuildAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />

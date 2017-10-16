@@ -11,10 +11,10 @@ using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenVacancySearchParametersConverter
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersBuilder
 {
     [TestFixture]
-    public class WhenCallingConvertFrom
+    public class WhenCallingBuildAsync
     {
         private VacancySearchParametersBuilder _builder;
         private Mock<IFrameworkCodeConverter> _mockFrameworkConverter;
