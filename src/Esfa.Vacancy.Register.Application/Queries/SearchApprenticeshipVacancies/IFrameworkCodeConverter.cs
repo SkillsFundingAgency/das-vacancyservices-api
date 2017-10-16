@@ -5,6 +5,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public interface IFrameworkCodeConverter
     {
-        Task<SubCategoryConversionResult> ConvertAsync(IList<string> frameworks);
+        Task<SubCategoryConversionResult> ConvertToSearchableCodesAsync(IList<string> frameworks);
     }
 }

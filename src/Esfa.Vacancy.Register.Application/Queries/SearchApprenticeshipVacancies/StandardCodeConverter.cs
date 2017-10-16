@@ -16,7 +16,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _standardRepository = standardRepository;
         }
 
-        public async Task<SubCategoryConversionResult> ConvertAsync(IList<string> standards)
+        public async Task<SubCategoryConversionResult> ConvertToSearchableCodesAsync(IList<string> standards)
         {
             var result = new SubCategoryConversionResult();
 

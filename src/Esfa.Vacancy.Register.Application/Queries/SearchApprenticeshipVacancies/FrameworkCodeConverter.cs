@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
         }
 
-        public async Task<SubCategoryConversionResult> ConvertAsync(IList<string> frameworks)
+        public async Task<SubCategoryConversionResult> ConvertToSearchableCodesAsync(IList<string> frameworks)
         {
             var result = new SubCategoryConversionResult();
 

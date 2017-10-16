@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoStandardSectorIsFoundForOneToConvert_ThenThrowsValidationException()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string> { "99999" });
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string> { "99999" });
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoStandardSectorIsFoundForSeveralToConvert_ThenExceptionIncludesAllValidationFailures()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string> { "77777", "88888" });
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string> { "77777", "88888" });
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
@@ -64,7 +64,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndSpaceInSectorCode_ThenExceptionMessageHasNoExtraSpace()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string> { " 99999" });
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string> { " 99999" });
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndStandardSectorIsFound_ThenReturnsStandard()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string> { _standardSectors[0].LarsCode.ToString() });
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string> { _standardSectors[0].LarsCode.ToString() });
 
             result.SubCategoryCodes.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[0].StandardSectorId}" });
         }
@@ -83,7 +83,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndStandardCodeHasSpace_ThenReturnsCorrectFormat()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string> { $" {_standardSectors[1].LarsCode} " });
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string> { $" {_standardSectors[1].LarsCode} " });
 
             result.SubCategoryCodes.Should().BeEquivalentTo(new List<string> { $"{StandardSector.StandardSectorPrefix}.{_standardSectors[1].StandardSectorId}" });
         }
@@ -91,7 +91,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoStandards_ThenReturnsEmptyList()
         {
-            var result = await _standardCodeConverter.ConvertAsync(new List<string>());
+            var result = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string>());
 
             result.SubCategoryCodes.Should().BeEmpty();
         }
@@ -99,14 +99,14 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public async Task AndNoStandards_ThenDoesNotCallRepository()
         {
-            await _standardCodeConverter.ConvertAsync(new List<string>());
+            await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string>());
             _mockStandardRepository.Verify(repository => repository.GetStandardsAndRespectiveSectorIdsAsync(), Times.Never);
         }
 
         [Test]
         public async Task ThenConvertToDistinctSectorCodes()
         {
-            var response = await _standardCodeConverter.ConvertAsync(new List<string>() { "100", "110", "200", "210" });
+            var response = await _standardCodeConverter.ConvertToSearchableCodesAsync(new List<string>() { "100", "110", "200", "210" });
 
             response.SubCategoryCodes.Count.Should().Be(2);
             response.SubCategoryCodes.Should().Contain($"{StandardSector.StandardSectorPrefix}.{1}");

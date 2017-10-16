@@ -31,12 +31,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             _mockFrameworkConverter = new Mock<IFrameworkCodeConverter>();
             _mockFrameworkConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult());
 
             _mockStandardCodeConverter = new Mock<IStandardCodeConverter>();
             _mockStandardCodeConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult());
 
             _converter = new VacancySearchParametersConverter(_mockStandardCodeConverter.Object, _mockFrameworkConverter.Object);
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         public async Task ThenTheStandardCodesAreReturned()
         {
             _mockStandardCodeConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult{SubCategoryCodes = _expectedStandards});
 
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             };
 
             _mockStandardCodeConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult
                 {
                     SubCategoryCodes = new List<string> { "3498" },
@@ -80,7 +80,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         public async Task ThenTheFrameworkCodesAreReturned()
         {
             _mockFrameworkConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult { SubCategoryCodes = _expectedFrameworks });
 
             var result = await _converter.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
@@ -97,7 +97,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             };
 
             _mockFrameworkConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult
                 {
                     SubCategoryCodes = new List<string> { "3498" },
@@ -114,11 +114,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         public async Task AndFrameworkCodesAsWellAsStandardCodes_ThenBothAreReturned()
         {
             _mockStandardCodeConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult { SubCategoryCodes = _expectedStandards });
 
             _mockFrameworkConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult{SubCategoryCodes = _expectedFrameworks});
 
             var expectedSubCategoryCodes = new List<string>();
@@ -147,7 +147,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             validationFailures.ForEach(failure => combinedErrorMessage.Append($"\r\n -- {failure.ErrorMessage}"));
 
             _mockStandardCodeConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult
                 {
                     SubCategoryCodes = _expectedStandards,
@@ -155,7 +155,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 });
 
             _mockFrameworkConverter
-                .Setup(converter => converter.ConvertAsync(It.IsAny<List<string>>()))
+                .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult
                 {
                     SubCategoryCodes = _expectedFrameworks,

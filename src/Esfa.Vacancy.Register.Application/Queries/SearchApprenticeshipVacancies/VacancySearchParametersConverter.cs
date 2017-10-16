@@ -23,8 +23,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             var combinedSubCategoryCodes = new List<string>();
             var combinedValidationFailures = new List<ValidationFailure>();
 
-            var convertedStandards = await _standardCodeConverter.ConvertAsync(request.StandardCodes);
-            var convertedFrameworks = await _frameworkCodeConverter.ConvertAsync(request.FrameworkCodes);
+            var convertedStandards = await _standardCodeConverter.ConvertToSearchableCodesAsync(request.StandardCodes);
+            var convertedFrameworks = await _frameworkCodeConverter.ConvertToSearchableCodesAsync(request.FrameworkCodes);
 
             combinedSubCategoryCodes.AddRange(convertedStandards.SubCategoryCodes);
             combinedSubCategoryCodes.AddRange(convertedFrameworks.SubCategoryCodes);
