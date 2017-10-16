@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 var standardSector = standardSectorIds.FirstOrDefault(ss => ss.LarsCode == parsedStandardToConvert);
                 if (standardSector == null)
                 {
-                    result.ValidationFailures.Add(new ValidationFailure("StandardCode", $"StandardCode {standardToConvert} is invalid"));
+                    result.ValidationFailures.Add(new ValidationFailure("StandardCode", $"StandardCode {parsedStandardToConvert} is invalid"));
                 }
                 else
                 {

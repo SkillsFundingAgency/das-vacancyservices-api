@@ -62,6 +62,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         }
 
         [Test]
+        public async Task AndSpaceInSectorCode_ThenExceptionMessageHasNoExtraSpace()
+        {
+            var result = await _standardCodeConverter.ConvertAsync(new List<string> { " 99999" });
+
+            result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
+            {
+                new ValidationFailure("StandardCode", "StandardCode 99999 is invalid")
+            });
+        }
+
+        [Test]
         public async Task AndStandardSectorIsFound_ThenReturnsStandard()
         {
             var result = await _standardCodeConverter.ConvertAsync(new List<string> { _standardSectors[0].LarsCode.ToString() });
