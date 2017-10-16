@@ -67,7 +67,7 @@
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
     <Compile Include="Interfaces\IApprenticeshipSearchService.cs" />
-    <Compile Include="Queries\SearchApprenticeshipVacancies\IVacancySearchParametersConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\IVacancySearchParametersBuilder.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyQueryHandler.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyRequest.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequestValidator.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\StandardCodeConverter.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SubCategoryConversionResult.cs" />
-    <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />

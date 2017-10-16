@@ -7,12 +7,12 @@ using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
-    public class VacancySearchParametersConverter : IVacancySearchParametersConverter
+    public class VacancySearchParametersBuilder : IVacancySearchParametersBuilder
     {
         private readonly IStandardCodeConverter _standardCodeConverter;
         private readonly IFrameworkCodeConverter _frameworkCodeConverter;
 
-        public VacancySearchParametersConverter(IStandardCodeConverter standardCodeConverter, IFrameworkCodeConverter frameworkCodeConverter)
+        public VacancySearchParametersBuilder(IStandardCodeConverter standardCodeConverter, IFrameworkCodeConverter frameworkCodeConverter)
         {
             _standardCodeConverter = standardCodeConverter;
             _frameworkCodeConverter = frameworkCodeConverter;

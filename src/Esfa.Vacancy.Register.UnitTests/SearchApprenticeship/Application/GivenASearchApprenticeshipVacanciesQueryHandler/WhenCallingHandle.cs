@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     new ValidationFailure("stuff", _errorMessage)
                 }));
 
-            var mockConverter = new Mock<IVacancySearchParametersConverter>();
+            var mockConverter = new Mock<IVacancySearchParametersBuilder>();
             mockConverter
                 .Setup(converter => converter.ConvertFrom(_validRequest))
                 .ReturnsAsync(searchParams);

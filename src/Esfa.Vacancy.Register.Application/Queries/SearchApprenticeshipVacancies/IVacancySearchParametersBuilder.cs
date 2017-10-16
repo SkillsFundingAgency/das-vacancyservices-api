@@ -3,7 +3,7 @@ using Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
-    public interface IVacancySearchParametersConverter
+    public interface IVacancySearchParametersBuilder
     {
         Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request);
     }
