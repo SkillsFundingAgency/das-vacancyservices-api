@@ -5,6 +5,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public interface IVacancySearchParametersBuilder
     {
-        Task<VacancySearchParameters> ConvertFrom(SearchApprenticeshipVacanciesRequest request);
+        Task<VacancySearchParameters> BuildAsync(SearchApprenticeshipVacanciesRequest request);
     }
 }

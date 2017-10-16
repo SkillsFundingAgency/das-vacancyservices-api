@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult{SubCategoryCodes = _expectedStandards});
 
-            var result = await _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
+            var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest());
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedStandards);
         }
@@ -69,7 +69,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     ValidationFailures = validationFailures
                 });
 
-            var action = new Func<Task<VacancySearchParameters>>(() => _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+            var action = new Func<Task<VacancySearchParameters>>(() => _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- {validationFailures[0].ErrorMessage}");
@@ -82,7 +82,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .Setup(converter => converter.ConvertToSearchableCodesAsync(It.IsAny<List<string>>()))
                 .ReturnsAsync(new SubCategoryConversionResult { SubCategoryCodes = _expectedFrameworks });
 
-            var result = await _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
+            var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest());
 
             result.SubCategoryCodes.ShouldAllBeEquivalentTo(_expectedFrameworks);
         }
@@ -103,7 +103,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     ValidationFailures = validationFailures
                 });
 
-            var action = new Func<Task<VacancySearchParameters>>(() => _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+            var action = new Func<Task<VacancySearchParameters>>(() => _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- {validationFailures[0].ErrorMessage}");
@@ -124,7 +124,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             expectedSubCategoryCodes.AddRange(_expectedStandards);
             expectedSubCategoryCodes.AddRange(_expectedFrameworks);
 
-            var result = await _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest());
+            var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest());
 
             result.SubCategoryCodes.ForEach(Console.WriteLine);
 
@@ -161,7 +161,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     ValidationFailures = validationFailures.Where(failure => failure.PropertyName == "FrameworkCode").ToList()
                 });
 
-            var action = new Func<Task<VacancySearchParameters>>(() => _builder.ConvertFrom(new SearchApprenticeshipVacanciesRequest()));
+            var action = new Func<Task<VacancySearchParameters>>(() => _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: {combinedErrorMessage}");

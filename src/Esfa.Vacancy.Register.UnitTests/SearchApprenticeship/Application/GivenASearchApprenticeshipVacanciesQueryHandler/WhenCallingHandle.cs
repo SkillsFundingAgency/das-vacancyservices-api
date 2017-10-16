@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             var mockConverter = new Mock<IVacancySearchParametersBuilder>();
             mockConverter
-                .Setup(converter => converter.ConvertFrom(_validRequest))
+                .Setup(converter => converter.BuildAsync(_validRequest))
                 .ReturnsAsync(searchParams);
 
             var mockSearchService = new Mock<IApprenticeshipSearchService>();

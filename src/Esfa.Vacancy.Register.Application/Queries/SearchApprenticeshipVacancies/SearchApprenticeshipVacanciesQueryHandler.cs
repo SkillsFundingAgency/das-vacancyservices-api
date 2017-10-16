@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var searchParameters = await _vacancySearchParametersBuilder.ConvertFrom(request);
+            var searchParameters = await _vacancySearchParametersBuilder.BuildAsync(request);
 
             return await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
         }
