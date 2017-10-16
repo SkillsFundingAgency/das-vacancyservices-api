@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using Esfa.Vacancy.Register.Infrastructure;
 using StructureMap;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution

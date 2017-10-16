@@ -1,7 +1,7 @@
-﻿using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+﻿using System.Collections.Generic;
+using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
 {
@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCase(251, false, "Anything more than 250 is invalid")]
         public void ThenValidate(int pageSize, bool isValid, string reason)
         {
-            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new[] { "1" }, PageSize = pageSize };
+            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new List<string> { "1" }, PageSize = pageSize };
 
             var result = _validator.Validate(request);
 

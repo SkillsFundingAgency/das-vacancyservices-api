@@ -1,19 +1,27 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
+        private const string MinimumFieldsErrorMessage = "At least one of StandardCodes or FrameworkCodes is required.";
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
+
         public SearchApprenticeshipVacanciesRequestValidator()
         {
-            RuleFor(r => r.StandardCodes)
-                .NotNull()
-                .WithMessage("At least one search parameter is required.");
+            RuleFor(request => request.StandardCodes)
+                .NotEmpty()
+                .When(request => !request.FrameworkCodes.Any())
+                .WithMessage(MinimumFieldsErrorMessage);
 
-            RuleForEach(r => r.StandardCodes)
+            RuleForEach(request => request.StandardCodes)
+                .Must(BeValidNumber)
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
+
+            RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
                 .WithMessage((c, t) => $"{t} is invalid, expected a number.");
 
@@ -25,10 +33,10 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .GreaterThanOrEqualTo(MinimumPageNumber);
         }
 
-        private bool BeValidNumber(string value)
+        private static bool BeValidNumber(string value)
         {
-            int i;
-            return int.TryParse(value, out i);
+            int result;
+            return int.TryParse(value, out result);
         }
     }
 }

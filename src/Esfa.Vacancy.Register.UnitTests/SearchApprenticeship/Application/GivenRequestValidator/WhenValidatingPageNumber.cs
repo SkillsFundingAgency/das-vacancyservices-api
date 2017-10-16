@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
@@ -24,7 +20,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCase(22, true, "Anything more than one is valid")]
         public void ThenValidate(int pageNumber, bool isValid, string reason)
         {
-            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new[] { "1" }, PageNumber = pageNumber };
+            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new List<string> { "1" }, PageNumber = pageNumber };
 
             var result = _validator.Validate(request);
 

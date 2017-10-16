@@ -1,10 +1,12 @@
-﻿using Esfa.Vacancy.Register.Infrastructure.Settings;
-using SFA.DAS.NLog.Logger;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Esfa.Vacancy.Register.Infrastructure.Factories;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Nest;
+using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Api.DependencyResolution
+namespace Esfa.Vacancy.Register.Infrastructure
 {
     public sealed class InfrastructureRegistry : StructureMap.Registry
     {
@@ -15,6 +17,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                 x.GetInstance<IRequestContext>(),
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => new AppConfigSettingsProvider(new MachineSettings()));
+            For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
         }
 
         private IDictionary<string, object> GetProperties()

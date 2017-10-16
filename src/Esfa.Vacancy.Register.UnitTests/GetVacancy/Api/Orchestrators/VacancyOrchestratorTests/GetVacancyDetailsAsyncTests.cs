@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
@@ -21,11 +23,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
         private GetVacancyOrchestrator _sut;
+        private IMapper _mapper;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [SetUp]
@@ -33,7 +37,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.VacancyOr
         {
             _mockMediator = new Mock<IMediator>();
             _provideSettings = new Mock<IProvideSettings>();
-            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _sut = new GetVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object, _mapper);
         }
 
         [Test]

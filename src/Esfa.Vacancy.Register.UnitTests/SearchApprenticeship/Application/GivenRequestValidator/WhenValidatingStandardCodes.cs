@@ -37,8 +37,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNullStandardCodes_ThenFailValidation()
         {
-            var request = new SearchApprenticeshipVacanciesRequest();
-            request.StandardCodes = null;
+            var request = new SearchApprenticeshipVacanciesRequest {StandardCodes = null};
             var result = _validator.Validate(request);
             result.IsValid.Should().BeFalse();
         }

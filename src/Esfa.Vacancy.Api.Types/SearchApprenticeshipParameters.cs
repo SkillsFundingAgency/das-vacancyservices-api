@@ -5,10 +5,12 @@
         /// <summary>
         /// Comma delimited standard codes
         /// </summary>
-        /// <value>
-        /// Comma delimited standard codes
-        /// </value>
         public string StandardCodes { get; set; }
+
+        /// <summary>
+        /// Comma delimited framework codes
+        /// </summary>
+        public string FrameworkCodes { get; set; }
 
         /// <summary>
         /// Number of records you want to retrieve in a page. 

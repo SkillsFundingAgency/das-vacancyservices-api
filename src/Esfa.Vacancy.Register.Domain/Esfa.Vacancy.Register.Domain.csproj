@@ -45,6 +45,7 @@
     <Compile Include="Entities\VacancyStatus.cs" />
     <Compile Include="Entities\WageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IFrameworkCodeRepository.cs" />
     <Compile Include="Repositories\IStandardRepository.cs" />
     <Compile Include="Repositories\IVacancyRepository.cs" />
   </ItemGroup>

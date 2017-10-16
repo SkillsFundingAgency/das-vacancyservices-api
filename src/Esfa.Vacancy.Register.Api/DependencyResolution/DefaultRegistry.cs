@@ -15,6 +15,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 
@@ -37,6 +38,12 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
                 });
+
+            var config = AutoMapperConfig.Configure();
+            var mapper = config.CreateMapper();
+
+            For<IConfigurationProvider>().Use(config);
+            For<IMapper>().Use(mapper);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using FluentAssertions;
 using NUnit.Framework;
 using ApiTypes = Esfa.Vacancy.Api.Types;
@@ -10,10 +10,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 {
     public class VacancySummaryMappingsTests
     {
+        private IMapper _mapper;
+
         [OneTimeSetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [TestCase("STDSEC.10", ApiTypes.TrainingType.Standard, "10")]
@@ -25,7 +28,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
                 SubCategoryCode = subCategoryCode
             };
 
-            var result = Mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
             result.TrainingType.Should().Be(expectedTrainingType);
             result.TrainingCode.Should().Be(code);
@@ -39,7 +42,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
                 Location = new DomainTypes.GeoPoint() { Lat = 12.1213, Lon = 34.2343424 }
             };
 
-            var result = Mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
             result.Location.Latitude.Should().Be(12.1213);
             result.Location.Longitude.Should().Be(34.2343424);

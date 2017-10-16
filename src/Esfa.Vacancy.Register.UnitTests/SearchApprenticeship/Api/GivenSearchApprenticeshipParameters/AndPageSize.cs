@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
@@ -10,10 +10,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
     [TestFixture]
     public class AndPageSize
     {
+        private IMapper _mapper;
+
         [SetUp]
         public void Setup()
         {
-            AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [Test]
@@ -21,7 +24,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         {
             var expectedPageSize = 2;
             var parameters = new SearchApprenticeshipParameters() { PageSize = expectedPageSize };
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.PageSize.Should().Be(expectedPageSize);
         }
 
@@ -29,7 +32,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         public void WhenNotProvided_ThenPoplateRequestWithTheDefaultValue()
         {
             var parameters = new SearchApprenticeshipParameters();
-            var result = Mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             result.PageSize.Should().Be(100);
         }
     }

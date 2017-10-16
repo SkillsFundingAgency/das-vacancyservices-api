@@ -67,16 +67,22 @@
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
     <Compile Include="Interfaces\IApprenticeshipSearchService.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\IVacancySearchParametersBuilder.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyQueryHandler.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetVacancy\GetVacancyResponse.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\FrameworkCodeConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\IFrameworkCodeConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\IStandardCodeConverter.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesQueryHandler.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequest.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesResponse.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequestValidator.cs" />
-    <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\StandardCodeConverter.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SubCategoryConversionResult.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
