@@ -125,7 +125,7 @@
     <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInDays.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInLastNumberOfDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPostedInDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />

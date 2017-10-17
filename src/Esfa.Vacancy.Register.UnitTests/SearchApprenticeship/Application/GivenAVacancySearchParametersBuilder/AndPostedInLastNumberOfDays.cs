@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersBuilder
 {
     [TestFixture]
-    public class AndPostedInDays
+    public class AndPostedInLastNumberOfDays
     {
         private VacancySearchParametersBuilder _builder;
         private Mock<IFrameworkCodeConverter> _mockFrameworkConverter;
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()
             { PostedInLastNumberOfDays = 2, StandardCodes = _expectedStandards });
 
-            result.FromDate.Should().Be(DateTime.Today.AddDays(-2), "From date is these many days ahead from today");
+            result.FromDate.Should().Be(DateTime.Today.AddDays(-2), "From date is that many days ahead from today");
         }
 
         [Test]
