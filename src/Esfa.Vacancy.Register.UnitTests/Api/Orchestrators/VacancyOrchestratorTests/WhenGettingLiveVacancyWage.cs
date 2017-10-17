@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
 
             var response = new GetApprenticeshipVacancyResponse
             {
-                Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                                         .With(v => v.WageType, (int) WageType.Custom)
                                         .With(v => v.WageUnitId, wageUnitId)
                                         .Create()

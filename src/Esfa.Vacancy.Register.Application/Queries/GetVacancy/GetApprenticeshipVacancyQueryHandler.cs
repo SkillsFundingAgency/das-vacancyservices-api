@@ -50,7 +50,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
                 vacancy.Standard = standard;
             }
 
-            return new GetApprenticeshipVacancyResponse { Vacancy = vacancy };
+            return new GetApprenticeshipVacancyResponse { ApprenticeshipVacancy = vacancy };
         }
     }
 }

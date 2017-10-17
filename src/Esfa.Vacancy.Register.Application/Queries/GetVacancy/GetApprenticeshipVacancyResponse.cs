@@ -4,6 +4,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
     public sealed class GetApprenticeshipVacancyResponse
     {
-        public Entities.Vacancy Vacancy { get; set; }
+        public Entities.ApprenticeshipVacancy ApprenticeshipVacancy { get; set; }
     }
 }

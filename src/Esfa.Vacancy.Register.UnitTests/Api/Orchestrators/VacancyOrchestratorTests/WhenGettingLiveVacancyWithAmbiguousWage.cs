@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
             mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
-                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                    ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                                             .With(v => v.VacancyReferenceNumber, vacancyReference)
                                             .With(v => v.VacancyStatusId, liveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)

@@ -2,6 +2,6 @@
 {
     public sealed class GetTraineeshipVacancyResponse
     {
-        public Domain.Entities.Vacancy Vacancy { get; set; }
+        public Domain.Entities.TraineeshipVacancy TraineeshipVacancy { get; set; }
     }
 }

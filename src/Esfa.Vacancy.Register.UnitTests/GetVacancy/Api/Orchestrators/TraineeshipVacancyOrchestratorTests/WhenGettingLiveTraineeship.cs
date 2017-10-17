@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
             _mockMediator.Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetTraineeshipVacancyResponse
                 {
-                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                    TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
@@ -71,7 +71,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
             _mockMediator.Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), CancellationToken.None))
                 .ReturnsAsync(new GetTraineeshipVacancyResponse
                 {
-                    Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+                    TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
@@ -110,9 +110,9 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
 
             var response = new GetTraineeshipVacancyResponse
             {
-                Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .Create()
+                TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
+                                                    .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                                    .Create()
             };
 
             _mockMediator

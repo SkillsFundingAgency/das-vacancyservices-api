@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void GivenFrameworkThenLoadFrameworkDetails()
         {
-            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                 .Without(v => v.Standard)
                 .With(v => v.Framework, new Framework
                 {
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void GivenStandardThenLoadStandardDetails()
         {
-            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                 .Without(v => v.Framework)
                 .With(v => v.Standard, new Standard
                 {
@@ -55,7 +55,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
-            var vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                 .Without(v => v.Framework)
                 .Without(v => v.Standard)
                 .Create();

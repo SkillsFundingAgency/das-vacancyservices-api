@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 
             if (vacancy == null) throw new ResourceNotFoundException($"Vacancy: {message.Reference}");
 
-            return new GetTraineeshipVacancyResponse { Vacancy = vacancy };
+            return new GetTraineeshipVacancyResponse { TraineeshipVacancy = vacancy };
         }
     }
 }

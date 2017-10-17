@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         public async Task<TraineeshipVacancy> GetTraineeshipVacancyDetailsAsync(int id)
         {
             var response = await _mediator.Send(new GetTraineeshipVacancyRequest() { Reference = id });
-            var vacancy = _mapper.MapToTraineeshipVacancy(response.Vacancy);
+            var vacancy = _mapper.MapToTraineeshipVacancy(response.TraineeshipVacancy);
             return vacancy;
         }
     }
