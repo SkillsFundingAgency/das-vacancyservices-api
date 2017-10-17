@@ -8,8 +8,6 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public List<string> SubCategoryCodes { get; set; } = new List<string>();
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
-        public int PostedInDays { get; set; }
-
-        public DateTime? FromDate => PostedInDays > 0 ? DateTime.Today.AddDays(-PostedInDays) : (DateTime?)null;
+        public DateTime? FromDate { get; set; }
     }
 }
