@@ -31,6 +31,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleFor(r => r.PageNumber)
                 .GreaterThanOrEqualTo(MinimumPageNumber);
+
+            RuleFor(r => r.PostedInDays)
+                .GreaterThanOrEqualTo(0);
         }
 
         private static bool BeValidNumber(string value)

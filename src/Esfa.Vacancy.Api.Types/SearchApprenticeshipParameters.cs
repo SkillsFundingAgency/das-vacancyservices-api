@@ -24,5 +24,10 @@
         /// Page number is optional and if not specified, by default the first page is served.
         /// </summary>
         public int PageNumber { get; set; } = 1;
+
+        /// <summary>
+        /// Vacancies posted in last number of days from today.
+        /// </summary>
+        public int PostedInDays { get; set; }
     }
 }
