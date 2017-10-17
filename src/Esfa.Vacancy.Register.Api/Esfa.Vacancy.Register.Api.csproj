@@ -291,8 +291,10 @@
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
+    <Compile Include="Mappings\AddressMapper.cs" />
+    <Compile Include="Mappings\ApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
-    <Compile Include="Mappings\VacancyMapper.cs" />
+    <Compile Include="Mappings\TraineeshipMapper.cs" />
     <Compile Include="Mappings\VacancySummaryMappings.cs" />
     <Compile Include="Models\VersionInformation.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />

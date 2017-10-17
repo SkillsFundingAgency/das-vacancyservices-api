@@ -10,12 +10,12 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     public class GetTraineeshipVacancyOrchestrator
     {
         private readonly IMediator _mediator;
-        private readonly VacancyMapper _mapper;
+        private readonly TraineeshipMapper _mapper;
 
         public GetTraineeshipVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
         {
             _mediator = mediator;
-            _mapper = new VacancyMapper(provideSettings);
+            _mapper = new TraineeshipMapper(provideSettings);
         }
 
         public async Task<TraineeshipVacancy> GetTraineeshipVacancyDetailsAsync(int id)

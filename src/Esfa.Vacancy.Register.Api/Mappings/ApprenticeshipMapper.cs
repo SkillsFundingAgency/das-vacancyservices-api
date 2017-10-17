@@ -2,18 +2,17 @@
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
-using Address = Esfa.Vacancy.Api.Types.Address;
 using ApprenticeshipVacancy = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
-using TraineeshipVacancy = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public sealed class VacancyMapper
+    public sealed class ApprenticeshipMapper
     {
         private readonly IProvideSettings _provideSettings;
+        private readonly AddressMapper _addressMapper = new AddressMapper();
         private const string UnknownText = "Unknown";
 
-        public VacancyMapper(IProvideSettings provideSettings)
+        public ApprenticeshipMapper(IProvideSettings provideSettings)
         {
             _provideSettings = provideSettings;
         }
@@ -52,7 +51,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 SupplementaryQuestion1 = apprenticeshipVacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = apprenticeshipVacancy.SupplementaryQuestion2,
                 VacancyUrl = $"{liveVacancyBaseUrl}/{apprenticeshipVacancy.VacancyReferenceNumber}",
-                Location = MapToLocation(apprenticeshipVacancy.Location, showAnonymousEmployerDetails: apprenticeshipVacancy.IsAnonymousEmployer),
+                Location = _addressMapper.MapToLocation(apprenticeshipVacancy.Location, showAnonymousEmployerDetails: apprenticeshipVacancy.IsAnonymousEmployer),
                 ContactName = apprenticeshipVacancy.ContactName,
                 ContactEmail = apprenticeshipVacancy.ContactEmail,
                 ContactNumber = apprenticeshipVacancy.ContactNumber
@@ -61,69 +60,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             MapTrainingDetails(apprenticeshipVacancy, apprenticeship);
 
             return apprenticeship;
-        }
-
-        public TraineeshipVacancy MapToTraineeshipVacancy(Domain.Entities.TraineeshipVacancy traineeshipVacancy)
-        {
-            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey);
-
-            return new TraineeshipVacancy
-            {
-                VacancyReference = traineeshipVacancy.VacancyReferenceNumber,
-                Title = traineeshipVacancy.Title,
-                ShortDescription = traineeshipVacancy.ShortDescription,
-                Description = traineeshipVacancy.Description,
-                WorkingWeek = traineeshipVacancy.WorkingWeek,
-                ExpectedDuration = traineeshipVacancy.ExpectedDuration,
-                ExpectedStartDate = traineeshipVacancy.ExpectedStartDate,
-                PostedDate = traineeshipVacancy.PostedDate,
-                ApplicationClosingDate = traineeshipVacancy.ApplicationClosingDate,
-                InterviewFromDate = traineeshipVacancy.InterviewFromDate,
-                NumberOfPositions = traineeshipVacancy.NumberOfPositions,
-                TraineeshipSector = traineeshipVacancy.TraineeshipSector,
-                EmployerName = traineeshipVacancy.IsAnonymousEmployer ? traineeshipVacancy.AnonymousEmployerName : traineeshipVacancy.EmployerName,
-                EmployerDescription = traineeshipVacancy.IsAnonymousEmployer ? traineeshipVacancy.AnonymousEmployerDescription : traineeshipVacancy.EmployerDescription,
-                EmployerWebsite = traineeshipVacancy.IsAnonymousEmployer ? null : traineeshipVacancy.EmployerWebsite,
-                TrainingToBeProvided = traineeshipVacancy.TrainingToBeProvided,
-                QualificationsRequired = traineeshipVacancy.QualificationsRequired,
-                SkillsRequired = traineeshipVacancy.SkillsRequired,
-                PersonalQualities = traineeshipVacancy.PersonalQualities,
-                ImportantInformation = traineeshipVacancy.ImportantInformation,
-                FutureProspects = traineeshipVacancy.FutureProspects,
-                ThingsToConsider = traineeshipVacancy.ThingsToConsider,
-                LocationType = (VacancyLocationType)traineeshipVacancy.VacancyLocationTypeId,
-                SupplementaryQuestion1 = traineeshipVacancy.SupplementaryQuestion1,
-                SupplementaryQuestion2 = traineeshipVacancy.SupplementaryQuestion2,
-                VacancyUrl = $"{liveVacancyBaseUrl}/{traineeshipVacancy.VacancyReferenceNumber}",
-                Location = MapToLocation(traineeshipVacancy.Location, showAnonymousEmployerDetails: traineeshipVacancy.IsAnonymousEmployer),
-                ContactName = traineeshipVacancy.ContactName,
-                ContactEmail = traineeshipVacancy.ContactEmail,
-                ContactNumber = traineeshipVacancy.ContactNumber
-            };
-        }
-
-        private Address MapToLocation(Domain.Entities.Address location, bool showAnonymousEmployerDetails)
-        {
-            if (showAnonymousEmployerDetails)
-            {
-                return new Address
-                {
-                    Town = location.Town
-                };
-            }
-
-            return new Address
-            {
-                AddressLine1 = location.AddressLine1,
-                AddressLine2 = location.AddressLine2,
-                AddressLine3 = location.AddressLine3,
-                AddressLine4 = location.AddressLine4,
-                AddressLine5 = location.AddressLine5,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude,
-                PostCode = location.PostCode,
-                Town = location.Town
-            };
         }
 
         private string MapWage(Domain.Entities.ApprenticeshipVacancy src)
