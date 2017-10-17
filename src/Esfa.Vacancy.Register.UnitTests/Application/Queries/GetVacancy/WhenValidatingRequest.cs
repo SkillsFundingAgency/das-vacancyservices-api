@@ -8,12 +8,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
     [TestFixture]
     public class WhenValidatingRequest
     {
-        private GetVacancyValidator _validator;
+        private GetApprenticeshipVacancyValidator _validator;
 
         [SetUp]
         public void Setup()
         {
-            _validator = new GetVacancyValidator();
+            _validator = new GetApprenticeshipVacancyValidator();
         }
 
         [TestCase(0)]

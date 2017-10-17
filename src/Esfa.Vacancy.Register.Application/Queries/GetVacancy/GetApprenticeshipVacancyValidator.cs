@@ -2,10 +2,10 @@
 
 namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
 {
-    public sealed class GetVacancyValidator : AbstractValidator<GetApprenticeshipVacancyRequest>
+    public sealed class GetApprenticeshipVacancyValidator : AbstractValidator<GetApprenticeshipVacancyRequest>
 
     {
-        public GetVacancyValidator()
+        public GetApprenticeshipVacancyValidator()
         {
             RuleFor(request => request.Reference).GreaterThan(0);
         }

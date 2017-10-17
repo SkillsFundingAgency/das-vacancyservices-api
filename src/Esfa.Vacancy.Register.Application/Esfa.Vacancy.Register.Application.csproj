@@ -72,7 +72,7 @@
     <Compile Include="Queries\GetVacancy\GetTraineeshipVacancyRequest.cs" />
     <Compile Include="Queries\GetVacancy\GetTraineeshipVacancyResponse.cs" />
     <Compile Include="Queries\GetVacancy\GetTraineeshipVacancyValidator.cs" />
-    <Compile Include="Queries\GetVacancy\GetVacancyValidator.cs" />
+    <Compile Include="Queries\GetVacancy\GetApprenticeshipVacancyValidator.cs" />
     <Compile Include="Queries\GetVacancy\GetApprenticeshipVacancyQueryHandler.cs" />
     <Compile Include="Queries\GetVacancy\GetApprenticeshipVacancyRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
