@@ -39,7 +39,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                SubCategoryCodes = combinedSubCategoryCodes
+                SubCategoryCodes = combinedSubCategoryCodes,
+                PostedInDays = request.PostedInDays
             };
         }
     }

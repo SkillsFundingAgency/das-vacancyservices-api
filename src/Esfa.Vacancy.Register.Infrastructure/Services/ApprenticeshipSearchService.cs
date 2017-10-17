@@ -50,10 +50,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                     .Type("apprenticeship")
                     .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                     .Take(parameters.PageSize)
-                    .Query(q => q.Filtered(
-                            sl => sl.Filter(
-                                fs => fs.Terms(
-                                    f => f.SubCategoryCode, parameters.SubCategoryCodes)))));
+                    .Query(query =>
+                        query.Terms(f => f.SubCategoryCode, parameters.SubCategoryCodes)
+                        && query.Range(p => p.OnField(r => r.PostedDate).GreaterOrEquals(parameters.FromDate))
+                    ));
             }
             catch (WebException e)
             {
