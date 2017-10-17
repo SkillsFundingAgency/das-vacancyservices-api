@@ -15,16 +15,16 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         public void GivenFrameworkThenLoadFrameworkDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                .Without(v => v.Standard)
-                .With(v => v.Framework, new Framework
-                {
-                    Title = "Title",
-                    Code = 13,
-                    Uri = "sdfe"
-                })
-                .Create();
+                                        .Without(v => v.Standard)
+                                        .With(v => v.Framework, new Framework
+                                        {
+                                            Title = "Title",
+                                            Code = 13,
+                                            Uri = "sdfe"
+                                        })
+                                        .Create();
 
-            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
 
             var result = sut.MapToApprenticeshipVacancy(vacancy);
 
@@ -35,17 +35,17 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         public void GivenStandardThenLoadStandardDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                .Without(v => v.Framework)
-                .With(v => v.Standard, new Standard
-                {
-                    Title = "Title",
-                    Code = 13,
-                    Uri = "sdfe"
+                                        .Without(v => v.Framework)
+                                        .With(v => v.Standard, new Standard
+                                        {
+                                            Title = "Title",
+                                            Code = 13,
+                                            Uri = "sdfe"
 
-                })
-                .Create();
+                                        })
+                                        .Create();
 
-            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
 
             var result = sut.MapToApprenticeshipVacancy(vacancy);
 
@@ -56,11 +56,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                .Without(v => v.Framework)
-                .Without(v => v.Standard)
-                .Create();
+                                        .Without(v => v.Framework)
+                                        .Without(v => v.Standard)
+                                        .Create();
 
-            var sut = new VacancyMapper(Mock.Of<IProvideSettings>());
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
 
             var result = sut.MapToApprenticeshipVacancy(vacancy);
 

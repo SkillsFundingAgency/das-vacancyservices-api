@@ -1,5 +1,4 @@
-﻿using System;
-using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
+﻿using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
