@@ -112,14 +112,14 @@
     <Compile Include="GetVacancy\Api\Mappings\VacancyMappingsTest.cs" />
     <Compile Include="GetVacancy\Api\Mappings\VacancySummaryMappingsTests.cs" />
     <Compile Include="Api\AutoMapperConfigTest.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWage.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithAmbiguousWage.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithLegacyTextWageType.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithLegacyWeeklyWageType.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithCustomWageType.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
-    <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWage.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithAmbiguousWage.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyTextWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyWeeklyWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithCustomWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
+    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
@@ -167,7 +167,9 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Api\Orchestrators\VacancyOrchestratorTests\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,21 +11,13 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
 {
     [TestFixture]
-    public class WhenGettingLiveVacancyWithCustomRangeWageType
+    public class WhenGettingLiveVacancyWithLegacyWeeklyWageType
     {
-        [TestCase(WageUnit.Weekly, 14000, 16000, "£14,000.00 - £16,000.00")]
-        [TestCase(WageUnit.Weekly, null, 16000, "Unknown - £16,000.00")]
-        [TestCase(WageUnit.Weekly, 14000, null, "£14,000.00 - Unknown")]
-        [TestCase(WageUnit.Monthly, 14000, 16000, "£14,000.00 - £16,000.00")]
-        [TestCase(WageUnit.Monthly, null, 16000, "Unknown - £16,000.00")]
-        [TestCase(WageUnit.Monthly, 14000, null, "£14,000.00 - Unknown")]
-        [TestCase(WageUnit.Annually, 14000, 16000, "£14,000.00 - £16,000.00")]
-        [TestCase(WageUnit.Annually, null, 16000, "Unknown - £16,000.00")]
-        [TestCase(WageUnit.Annually, 14000, null, "£14,000.00 - Unknown")]
-        public async Task ShouldHaveWageSetForVacanciesWithCustomRangeWageType(WageUnit wageUnit, decimal? lowerBound, decimal? upperBound, string expectedWageText)
+        [Test]
+        public async Task LiveVacanciesWithLegacyWeeklyWageTypeShouldHaveWageSetFromWeeklyWage()
         {
             const int weeklyWage = 2550;
             const int VacancyReference = 1234;
@@ -42,20 +34,18 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorT
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.VacancyTypeId, (int)VacancyType.Apprenticeship)
-                                            .With(v => v.WageLowerBound, lowerBound)
-                                            .With(v => v.WageUpperBound, upperBound)
-                                            .With(v => v.WageType, (int)WageType.CustomRange)
+                                            .With(v => v.WageType, (int)WageType.LegacyWeekly)
                                             .With(v => v.WeeklyWage, weeklyWage)
                                             .Without(v => v.WageText)
-                                            .With(v => v.WageUnitId, (int)wageUnit)
+                                            .With(v => v.WageUnitId, (int)WageUnit.Weekly)
                                             .Create()
                 });
 
             var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
-            result.WageUnit.Should().Be(wageUnit);
-            result.WageText.Should().Be(expectedWageText);
+            result.WageUnit.Should().Be(WageUnit.Weekly);
+            result.WageText.Should().Be("£2,550.00");
         }
     }
 }

@@ -11,7 +11,7 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.VacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
 {
     [TestFixture]
     public class WhenGettingLiveVacancyWithApprenticeshipMinimumWageType
