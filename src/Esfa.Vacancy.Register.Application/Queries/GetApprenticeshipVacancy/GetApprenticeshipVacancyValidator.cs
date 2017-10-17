@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 {
     public sealed class GetApprenticeshipVacancyValidator : AbstractValidator<GetApprenticeshipVacancyRequest>
 

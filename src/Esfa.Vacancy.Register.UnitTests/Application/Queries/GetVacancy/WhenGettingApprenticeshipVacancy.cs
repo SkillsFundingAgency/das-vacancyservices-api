@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Application.Interfaces;
-using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;

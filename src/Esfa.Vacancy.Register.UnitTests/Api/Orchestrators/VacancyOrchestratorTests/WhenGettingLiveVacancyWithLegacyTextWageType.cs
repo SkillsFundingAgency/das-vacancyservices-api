@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;

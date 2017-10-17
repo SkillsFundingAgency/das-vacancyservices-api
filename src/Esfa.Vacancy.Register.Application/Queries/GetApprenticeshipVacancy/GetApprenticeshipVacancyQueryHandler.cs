@@ -6,7 +6,7 @@ using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 {
     public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {

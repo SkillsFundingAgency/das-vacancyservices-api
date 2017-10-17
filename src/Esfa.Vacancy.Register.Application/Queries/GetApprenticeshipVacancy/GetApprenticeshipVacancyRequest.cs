@@ -1,7 +1,6 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 {
     public sealed class GetApprenticeshipVacancyRequest : IRequest<GetApprenticeshipVacancyResponse>
     {

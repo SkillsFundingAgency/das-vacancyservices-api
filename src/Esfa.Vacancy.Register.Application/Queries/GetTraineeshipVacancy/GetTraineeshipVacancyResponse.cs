@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
+﻿namespace Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy
 {
     public sealed class GetTraineeshipVacancyResponse
     {
