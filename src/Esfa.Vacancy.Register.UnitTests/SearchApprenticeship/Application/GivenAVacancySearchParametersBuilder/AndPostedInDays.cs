@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         public async Task ThenReturnFromDateAccordingly()
         {
             var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()
-            { PostedInDays = 2, StandardCodes = _expectedStandards });
+            { PostedInLastNumberOfDays = 2, StandardCodes = _expectedStandards });
 
             result.FromDate.Should().Be(DateTime.Today.AddDays(-2), "From date is these many days ahead from today");
         }
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         public async Task ThenReturnNullFromDate()
         {
             var result = await _builder.BuildAsync(new SearchApprenticeshipVacanciesRequest()
-            { PostedInDays = 0, StandardCodes = _expectedStandards });
+            { PostedInLastNumberOfDays = 0, StandardCodes = _expectedStandards });
 
             result.FromDate.Should().BeNull("Value should be greater than zero");
         }

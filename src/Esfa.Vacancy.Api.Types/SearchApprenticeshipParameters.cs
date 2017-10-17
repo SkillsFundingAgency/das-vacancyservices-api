@@ -28,6 +28,6 @@
         /// <summary>
         /// Vacancies posted in last number of days from today.
         /// </summary>
-        public int PostedInDays { get; set; }
+        public int PostedInLastNumberOfDays { get; set; }
     }
 }

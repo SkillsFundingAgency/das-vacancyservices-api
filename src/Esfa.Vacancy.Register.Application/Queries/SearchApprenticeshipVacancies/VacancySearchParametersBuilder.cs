@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Domain.Entities;
@@ -40,7 +41,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
                 SubCategoryCodes = combinedSubCategoryCodes,
-                PostedInDays = request.PostedInDays
+                FromDate = request.PostedInLastNumberOfDays > 0
+                    ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays)
+                    : (DateTime?)null
             };
         }
     }

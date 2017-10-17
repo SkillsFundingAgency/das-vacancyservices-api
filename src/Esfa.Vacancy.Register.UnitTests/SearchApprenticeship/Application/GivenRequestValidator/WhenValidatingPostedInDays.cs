@@ -16,7 +16,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var request = new SearchApprenticeshipVacanciesRequest()
             {
                 FrameworkCodes = new[] { "1" },
-                PostedInDays = postedInDays
+                PostedInLastNumberOfDays = postedInDays
             };
 
             var validator = new SearchApprenticeshipVacanciesRequestValidator();

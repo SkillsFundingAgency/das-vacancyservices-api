@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(r => r.PageNumber)
                 .GreaterThanOrEqualTo(MinimumPageNumber);
 
-            RuleFor(r => r.PostedInDays)
+            RuleFor(r => r.PostedInLastNumberOfDays)
                 .GreaterThanOrEqualTo(0);
         }
 
