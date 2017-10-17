@@ -83,6 +83,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ApplicationClosingDate = vacancy.ApplicationClosingDate,
                 InterviewFromDate = vacancy.InterviewFromDate,
                 NumberOfPositions = vacancy.NumberOfPositions,
+
+                TraineeshipSector = vacancy.TraineeshipSector,
+
                 EmployerName = vacancy.IsAnonymousEmployer ? vacancy.AnonymousEmployerName : vacancy.EmployerName,
                 EmployerDescription = vacancy.IsAnonymousEmployer ? vacancy.AnonymousEmployerDescription : vacancy.EmployerDescription,
                 EmployerWebsite = vacancy.IsAnonymousEmployer ? null : vacancy.EmployerWebsite,

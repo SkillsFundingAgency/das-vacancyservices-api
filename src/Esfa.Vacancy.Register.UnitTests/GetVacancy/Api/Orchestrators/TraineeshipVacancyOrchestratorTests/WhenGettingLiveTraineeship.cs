@@ -104,10 +104,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
         {
             //Arrange
             var baseUrl = "https://findapprentice.com/traineeship/reference";
-            
+
             _mockProvideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
                                 .Returns(baseUrl);
-            
+
             var response = new GetTraineeshipVacancyResponse
             {
                 Vacancy = new Fixture().Build<Domain.Entities.Vacancy>()
@@ -118,7 +118,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Traineesh
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
-            
+
             //Act
             var vacancy = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
 

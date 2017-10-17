@@ -56,6 +56,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public Framework Framework { get; set; }
 
+        public string TraineeshipSector { get; set; }
+
         public string EmployerName { get; set; }
 
         public string EmployerDescription { get; set; }

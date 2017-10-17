@@ -61,7 +61,12 @@ namespace Esfa.Vacancy.Api.Types
         /// Number of positions.
         /// </summary>
         public int NumberOfPositions { get; set; }
-        
+
+        /// <summary>
+        /// Sector category of traineeship.
+        /// </summary>
+        public string TraineeshipSector { get; set; }
+
         /// <summary>
         /// The name of the employer.
         /// </summary>
