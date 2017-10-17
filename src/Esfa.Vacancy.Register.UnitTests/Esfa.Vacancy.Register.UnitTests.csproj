@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -122,7 +122,6 @@
     <Compile Include="Api\Orchestrators\VacancyOrchestratorTests\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
-    <Compile Include="GetVacancy\Api\Orchestrators\VacancyOrchestratorTests\GetVacancyDetailsAsyncTests.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
@@ -130,7 +129,6 @@
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\WhenCallingBuildAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="GetVacancy\Api\Orchestrators\ApprenticeshipVacancyOrchestratorTests\WhenGettingLiveApprenticeship.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersConverter\WhenRequestContainsStandardCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingFrameworkCodes.cs" />
