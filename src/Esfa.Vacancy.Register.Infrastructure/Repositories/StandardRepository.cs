@@ -5,16 +5,19 @@ using Dapper;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
+using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
     public class StandardRepository : IStandardRepository
     {
         private readonly IProvideSettings _provideSettings;
+        private readonly ILog _logger;
 
-        public StandardRepository(IProvideSettings provideSettings)
+        public StandardRepository(IProvideSettings provideSettings, ILog logger)
         {
             _provideSettings = provideSettings;
+            _logger = logger;
         }
 
         private const string GetStandardAndSectorIdsQuery = @"
@@ -25,6 +28,16 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 Reference.Standard";
 
         public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
+        {
+            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving vacancy from database: ({exception.Message}). Retrying...attempt {retryCount})");
+            });
+
+            return await retry.ExecuteAsync(InternalGetStandardsAndRespectiveSectorIdsAsync);
+        }
+
+        private async Task<IEnumerable<StandardSector>> InternalGetStandardsAndRespectiveSectorIdsAsync()
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
