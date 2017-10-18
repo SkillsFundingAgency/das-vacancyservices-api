@@ -36,11 +36,12 @@
   <ItemGroup>
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\ApprenticeshipSummary.cs" />
+    <Compile Include="Entities\TraineeshipVacancy.cs" />
     <Compile Include="Entities\Framework.cs" />
     <Compile Include="Entities\GeoPoint.cs" />
     <Compile Include="Entities\Standard.cs" />
     <Compile Include="Entities\StandardSector.cs" />
-    <Compile Include="Entities\Vacancy.cs" />
+    <Compile Include="Entities\ApprenticeshipVacancy.cs" />
     <Compile Include="Entities\VacancySearchParameters.cs" />
     <Compile Include="Entities\VacancyStatus.cs" />
     <Compile Include="Entities\WageType.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using Esfa.Vacancy.Register.Application.Queries.GetVacancy;
+﻿using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
@@ -8,12 +7,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
     [TestFixture]
     public class WhenValidatingRequest
     {
-        private GetVacancyValidator _validator;
+        private GetApprenticeshipVacancyValidator _validator;
 
         [SetUp]
         public void Setup()
         {
-            _validator = new GetVacancyValidator();
+            _validator = new GetApprenticeshipVacancyValidator();
         }
 
         [TestCase(0)]

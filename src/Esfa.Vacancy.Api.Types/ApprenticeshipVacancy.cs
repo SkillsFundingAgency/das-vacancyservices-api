@@ -3,9 +3,9 @@
 namespace Esfa.Vacancy.Api.Types
 {
     /// <summary>
-    /// A vacancy for either an apprenticeship or a traineeship 
+    /// An apprenticeship vacancy
     /// </summary>
-    public class Vacancy
+    public class ApprenticeshipVacancy
     {
         /// <summary>
         /// Reference number.
@@ -26,12 +26,7 @@ namespace Esfa.Vacancy.Api.Types
         /// Description.
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Type of the vacancy.
-        /// </summary>
-        public VacancyType VacancyType { get; set; }
-
+        
         /// <summary>
         /// Wage unit.
         /// </summary>
@@ -123,7 +118,7 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
-        /// Qualificatios required.
+        /// Qualifications required.
         /// </summary>
         public string QualificationsRequired { get; set; }
 

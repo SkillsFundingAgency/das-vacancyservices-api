@@ -2,7 +2,7 @@
 
 namespace Esfa.Vacancy.Register.Domain.Entities
 {
-    public sealed class Vacancy
+    public sealed class TraineeshipVacancy
     {
         public int VacancyReferenceNumber { get; set; }
 
@@ -14,27 +14,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public int? VacancyTypeId { get; set; }
 
-        public int? WageUnitId { get; set; }
-
-        public decimal? WeeklyWage { get; set; }
-
         public string WorkingWeek { get; set; }
-
-        public string WageText { get; set; }
-
-        public decimal? WageUpperBound { get; set; }
-
-        public decimal? WageLowerBound { get; set; }
-
-        public decimal? MinimumWageRate { get; set; }
-
-        public decimal? MinimumWageLowerBound { get; set; }
-
-        public decimal? MinimumWageUpperBound { get; set; }
-
-        public int WageType { get; set; }
-
-        public decimal? HoursPerWeek { get; set; }
 
         public string ExpectedDuration { get; set; }
 
@@ -48,13 +28,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public int NumberOfPositions { get; set; }
 
-        public int? StandardCode { get; set; }
-
-        public int? FrameworkCode { get; set; }
-
-        public Standard Standard { get; set; }
-
-        public Framework Framework { get; set; }
+        public string TraineeshipSector { get; set; }
 
         public string EmployerName { get; set; }
 

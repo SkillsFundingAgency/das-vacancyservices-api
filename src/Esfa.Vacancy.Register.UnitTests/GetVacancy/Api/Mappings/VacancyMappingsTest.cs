@@ -1,39 +1,32 @@
-﻿using AutoMapper;
-using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api;
+﻿using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 {
     [TestFixture]
     public class VacancyMappingsTest
     {
-        private IMapper _mapper;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            var config = AutoMapperConfig.Configure();
-            _mapper = config.CreateMapper();
-        }
-
         [Test]
         public void GivenFrameworkThenLoadFrameworkDetails()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Standard = null,
-                Framework = new Framework()
-                {
-                    Title = "Title",
-                    Code = 13,
-                    Uri = "sdfe"
-                }
-            };
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .Without(v => v.Standard)
+                                        .With(v => v.Framework, new Framework
+                                        {
+                                            Title = "Title",
+                                            Code = 13,
+                                            Uri = "sdfe"
+                                        })
+                                        .Create();
 
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
 
-            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Framework, result.TrainingType);
         }
@@ -41,18 +34,20 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void GivenStandardThenLoadStandardDetails()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Framework = null,
-                Standard = new Standard()
-                {
-                    Title = "Title",
-                    Code = 13,
-                    Uri = "sdfe"
-                }
-            };
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .Without(v => v.Framework)
+                                        .With(v => v.Standard, new Standard
+                                        {
+                                            Title = "Title",
+                                            Code = 13,
+                                            Uri = "sdfe"
 
-            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+                                        })
+                                        .Create();
+
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
+
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Standard, result.TrainingType);
         }
@@ -60,13 +55,14 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         [Test]
         public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
-            var vacancy = new Domain.Entities.Vacancy
-            {
-                Standard = null,
-                Framework = null
-            };
+            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .Without(v => v.Framework)
+                                        .Without(v => v.Standard)
+                                        .Create();
 
-            var result = _mapper.Map<Vacancy.Api.Types.Vacancy>(vacancy);
+            var sut = new ApprenticeshipMapper(Mock.Of<IProvideSettings>());
+
+            var result = sut.MapToApprenticeshipVacancy(vacancy);
 
             Assert.AreEqual(TrainingType.Unavailable, result.TrainingType);
         }

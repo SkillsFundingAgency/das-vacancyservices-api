@@ -6,16 +6,16 @@ using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 {
-    public class GetVacancyQueryHandler : IAsyncRequestHandler<GetVacancyRequest, GetVacancyResponse>
+    public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {
-        private readonly AbstractValidator<GetVacancyRequest> _validator;
+        private readonly AbstractValidator<GetApprenticeshipVacancyRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
         private readonly ILog _logger;
         private readonly ITrainingDetailService _trainingDetailService;
 
-        public GetVacancyQueryHandler(AbstractValidator<GetVacancyRequest> validator,
+        public GetApprenticeshipVacancyQueryHandler(AbstractValidator<GetApprenticeshipVacancyRequest> validator,
             IVacancyRepository vacancyRepository,
             ILog logger,
             ITrainingDetailService trainingDetailService)
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
             _trainingDetailService = trainingDetailService;
         }
 
-        public async Task<GetVacancyResponse> Handle(GetVacancyRequest message)
+        public async Task<GetApprenticeshipVacancyResponse> Handle(GetApprenticeshipVacancyRequest message)
         {
             _logger.Info($"Getting Vacancy Details, Vacancy: {message.Reference}");
 
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancy = await _vacancyRepository.GetVacancyByReferenceNumberAsync(message.Reference);
+            var vacancy = await _vacancyRepository.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference);
 
             if (vacancy == null) throw new ResourceNotFoundException($"Vacancy: {message.Reference}");
 
@@ -50,7 +50,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetVacancy
                 vacancy.Standard = standard;
             }
 
-            return new GetVacancyResponse { Vacancy = vacancy };
+            return new GetApprenticeshipVacancyResponse { ApprenticeshipVacancy = vacancy };
         }
     }
 }
