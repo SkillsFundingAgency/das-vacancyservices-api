@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// A vacancy for a traineeship
         /// </returns>
         [AllowAnonymous]
-        [SwaggerOperation("Get", Tags = new [] {"Traineeships"})]
+        [SwaggerOperation("GetTraineeshipVacancy", Tags = new[] { "Traineeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.TraineeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [ExceptionHandling]
