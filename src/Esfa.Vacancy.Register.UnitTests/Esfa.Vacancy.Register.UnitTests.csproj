@@ -105,7 +105,7 @@
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
+    <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
@@ -120,8 +120,8 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithCustomRangeWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithApprenticeshipMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithNationalMinimumWageType.cs" />
-    <Compile Include="Application\Queries\GetVacancy\WhenGettingApprenticeshipVacancy.cs" />
-    <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenGettingApprenticeshipVacancy.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInLastNumberOfDays.cs" />

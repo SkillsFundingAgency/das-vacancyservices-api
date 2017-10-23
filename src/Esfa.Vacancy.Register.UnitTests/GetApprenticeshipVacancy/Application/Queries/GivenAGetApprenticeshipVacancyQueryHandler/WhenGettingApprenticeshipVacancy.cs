@@ -11,7 +11,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Queries.GivenAGetApprenticeshipVacancyQueryHandler
 {
     [TestFixture]
     public class WhenGettingApprenticeshipVacancy

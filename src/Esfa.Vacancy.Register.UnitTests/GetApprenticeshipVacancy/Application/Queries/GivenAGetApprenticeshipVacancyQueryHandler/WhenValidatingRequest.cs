@@ -2,7 +2,7 @@
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Application.Queries.GetVacancy
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Queries.GivenAGetApprenticeshipVacancyQueryHandler
 {
     [TestFixture]
     public class WhenValidatingRequest
