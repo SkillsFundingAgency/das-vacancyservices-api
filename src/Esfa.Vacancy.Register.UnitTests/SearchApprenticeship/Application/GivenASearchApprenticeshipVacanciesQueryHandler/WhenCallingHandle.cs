@@ -59,17 +59,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         }
 
         [Test]
-        public async Task AndRequestNotValid_ThenThrowsValidationException()
+        public void AndRequestNotValid_ThenThrowsValidationException()
         {
-            var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(async () =>
-            await _handler.Handle(_invalidRequest));
+            var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(() =>
+            _handler.Handle(_invalidRequest));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- {_errorMessage}");
         }
 
         [Test]
-        public async Task AndRequestValid_ThenReturnsResultFromSearchService()
+        public void AndRequestValid_ThenReturnsResultFromSearchService()
         {
             _handler.Handle(_validRequest).Result
                 .Should().BeSameAs(_expectedResponse);
