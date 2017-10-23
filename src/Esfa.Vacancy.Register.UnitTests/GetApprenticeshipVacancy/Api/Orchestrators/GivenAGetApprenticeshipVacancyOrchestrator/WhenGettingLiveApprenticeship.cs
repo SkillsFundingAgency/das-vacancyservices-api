@@ -130,30 +130,5 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
         }
-        
-        [TestCase(2, WageUnit.Weekly)]
-        [TestCase(3, WageUnit.Monthly)]
-        [TestCase(4, WageUnit.Annually)]
-        [TestCase(null, WageUnit.Unspecified)]
-        public async Task ShouldMapWageUnitCorrectly(int? wageUnitId, WageUnit? wageUnitType)
-        {
-            //Arrange
-            var response = new GetApprenticeshipVacancyResponse()
-            {
-                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                        .With(v => v.WageUnitId, wageUnitId)
-                                        .Create()
-            };
-
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-            //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
-            //Assert
-            vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
-        }
     }
 }
