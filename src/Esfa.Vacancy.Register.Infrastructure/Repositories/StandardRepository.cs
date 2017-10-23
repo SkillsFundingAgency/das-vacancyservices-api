@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
@@ -20,18 +21,13 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _logger = logger;
         }
 
-        private const string GetStandardAndSectorIdsQuery = @"
-            SELECT 
-                LarsCode,
-                StandardSectorId 
-            FROM 
-                Reference.Standard";
+        private const string GetStandardAndSectorIdsQuery = "[VACANCY_API].[GetActiveStandardCodes]";
 
         public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
-                _logger.Warn($"Error retrieving vacancy from database: ({exception.Message}). Retrying...attempt {retryCount})");
+                _logger.Warn($"Error retrieving standard codes from database: ({exception.Message}). Retrying...attempt {retryCount}");
             });
 
             return await retry.ExecuteAsync(InternalGetStandardsAndRespectiveSectorIdsAsync);
@@ -47,7 +43,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<StandardSector>(GetStandardAndSectorIdsQuery);
+                    await sqlConn.QueryAsync<StandardSector>(GetStandardAndSectorIdsQuery, 
+                    commandType:CommandType.StoredProcedure);
 
                 return results;
             }

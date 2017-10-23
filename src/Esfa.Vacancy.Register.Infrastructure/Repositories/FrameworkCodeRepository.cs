@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
@@ -13,13 +14,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         private readonly IProvideSettings _settings;
         private readonly ILog _logger;
 
-        private const string GetFrameworkCodesQuery = @"
-            SELECT 
-                CodeName
-            FROM 
-                dbo.ApprenticeshipFramework
-            WHERE 
-                ApprenticeshipFrameworkStatusTypeId = 1";
+        private const string GetFrameworkCodesQuery = "[VACANCY_API].[GetActiveFrameworkCodes]";
 
         public FrameworkCodeRepository(IProvideSettings settings, ILog logger)
         {
@@ -47,7 +42,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<string>(GetFrameworkCodesQuery);
+                    await sqlConn.QueryAsync<string>(GetFrameworkCodesQuery, commandType:CommandType.StoredProcedure);
 
                 return results;
             }
