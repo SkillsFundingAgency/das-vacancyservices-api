@@ -54,14 +54,22 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then inner spaces are not allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"  5345   "}
+                    FrameworkCodes = new [] {"  1   "}
                 }, new ValidationResult())
                 .SetName("Then outer spaces are allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"123424"}
+                    FrameworkCodes = ValidFrameworkCodes
                 }, new ValidationResult())
-                .SetName("Then ints are allowed")
+                .SetName("Then ints are allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    FrameworkCodes = new [] {"123"}
+                }, new ValidationResult()
+                {
+                    Errors = { new ValidationFailure("FrameworkCodes[0]", "Framework code 123 is invalid.") }
+                })
+                .SetName("Then code should be valid FrameworkCode")
         };
     }
 }
