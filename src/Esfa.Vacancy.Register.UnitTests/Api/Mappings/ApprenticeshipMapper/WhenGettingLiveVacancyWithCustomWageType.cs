@@ -11,11 +11,11 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
     [TestFixture]
     public class WhenGettingLiveVacancyWithCustomWageType
     {
-        [TestCase(WageUnit.Weekly)]
-        [TestCase(WageUnit.Monthly)]
-        [TestCase(WageUnit.Annually)]
-        [TestCase(WageUnit.NotApplicable)]
-        public void ShouldHaveWageSetForVacanciesWithCustomWageType(WageUnit wageUnit)
+        [TestCase(2, WageUnit.Weekly)]
+        [TestCase(3, WageUnit.Monthly)]
+        [TestCase(4, WageUnit.Annually)]
+        [TestCase(null, WageUnit.Unspecified)]
+        public void ShouldHaveWageSetForVacanciesWithCustomWageType(int wageUnitId, WageUnit expectedWageUnit)
         {
             const int weeklyWage = 2550;
             const int vacancyReference = 1234;
@@ -31,13 +31,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
                 .With(v => v.WageType, (int) WageType.Custom)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
-                .With(v => v.WageUnitId, (int) wageUnit)
+                .With(v => v.WageUnitId, wageUnitId)
                 .Create();
 
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(vacancyReference);
-            vacancy.WageUnit.Should().Be(wageUnit);
+            vacancy.WageUnit.Should().Be(expectedWageUnit);
             vacancy.WageText.Should().Be("£2,550.00");
         }
     }

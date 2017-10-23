@@ -11,12 +11,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
     [TestFixture]
     public class WhenGettingLiveVacancyWage
     {
-        [TestCase(1, WageUnit.NotApplicable)]
-        [TestCase(2, WageUnit.Weekly)]
-        [TestCase(3, WageUnit.Monthly)]
-        [TestCase(4, WageUnit.Annually)]
-        [TestCase(null, null)]
-        public void ShouldMapWageUnitEnum(int? wageUnitId, WageUnit? wageUnitType)
+        [TestCase(1, WageUnit.Unspecified, 0)]
+        [TestCase(2, WageUnit.Weekly, 1)]
+        [TestCase(3, WageUnit.Monthly, 2)]
+        [TestCase(4, WageUnit.Annually, 3)]
+        [TestCase(null, WageUnit.Unspecified, 0)]
+        public void ShouldMapWageUnitEnum(int? wageUnitId, WageUnit? wageUnitType, int expectedWageUnitUnderlyingValue)
         {
             //Arrange
             var provideSettings = new Mock<IProvideSettings>();
@@ -31,6 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
             //Assert
             vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
+            vacancy.WageUnit.ShouldBeEquivalentTo(expectedWageUnitUnderlyingValue);
         }
     }
 }

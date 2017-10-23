@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(expectedWageText);
         }
 
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
 
@@ -102,7 +102,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
     }

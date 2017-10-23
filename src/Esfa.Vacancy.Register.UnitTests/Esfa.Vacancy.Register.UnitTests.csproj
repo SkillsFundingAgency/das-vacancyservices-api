@@ -105,7 +105,7 @@
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
-    <Compile Include="GetVacancy\Api\Orchestrators\TraineeshipVacancyOrchestratorTests\WhenGettingLiveTraineeship.cs" />
+    <Compile Include="Api\Orchestrators\TraineeshipVacancyOrchestratorTests\WhenGettingLiveTraineeship.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
@@ -130,7 +130,7 @@
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\WhenCallingBuildAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
-    <Compile Include="GetVacancy\Api\Orchestrators\ApprenticeshipVacancyOrchestratorTests\WhenGettingLiveApprenticeship.cs" />
+    <Compile Include="Api\Orchestrators\ApprenticeshipVacancyOrchestratorTests\WhenGettingLiveApprenticeship.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingFrameworkCodes.cs" />
@@ -170,7 +170,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\Orchestrators\VacancyOrchestratorTests\" />
+    <Folder Include="GetVacancy\Api\Orchestrators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(vacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(unknownwWageText);
         }
     }

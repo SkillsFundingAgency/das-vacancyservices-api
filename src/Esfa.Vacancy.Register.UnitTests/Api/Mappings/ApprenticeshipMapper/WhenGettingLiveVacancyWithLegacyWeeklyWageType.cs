@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
                 .With(v => v.WageType, (int) WageType.LegacyWeekly)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
-                .With(v => v.WageUnitId, (int) WageUnit.Weekly)
+                .With(v => v.WageUnitId, 2)
                 .Create();
 
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
