@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 Title = apprenticeshipVacancy.Title,
                 ShortDescription = apprenticeshipVacancy.ShortDescription,
                 Description = apprenticeshipVacancy.Description,
-                WageUnit = (WageUnit?)apprenticeshipVacancy.WageUnitId,
+                WageUnit = MapWageUnit(apprenticeshipVacancy.WageUnitId),
                 WorkingWeek = apprenticeshipVacancy.WorkingWeek,
                 WageText = MapWage(apprenticeshipVacancy),
                 HoursPerWeek = apprenticeshipVacancy.HoursPerWeek,
@@ -60,6 +60,26 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             MapTrainingDetails(apprenticeshipVacancy, apprenticeship);
 
             return apprenticeship;
+        }
+
+        private WageUnit MapWageUnit(int? wageUnitId)
+        {
+            if (wageUnitId.HasValue == false)
+            {
+                return WageUnit.Unspecified;
+            }
+
+            switch (wageUnitId.Value)
+            {
+                case 2:
+                    return WageUnit.Weekly;
+                case 3:
+                    return WageUnit.Monthly;
+                case 4:
+                    return WageUnit.Annually;
+                default:
+                    return WageUnit.Unspecified;
+            }
         }
 
         private string MapWage(Domain.Entities.ApprenticeshipVacancy src)
