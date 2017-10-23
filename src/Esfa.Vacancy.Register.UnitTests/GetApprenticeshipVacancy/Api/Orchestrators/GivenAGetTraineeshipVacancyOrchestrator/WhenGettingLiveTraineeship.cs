@@ -1,8 +1,7 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
+using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using MediatR;
@@ -10,34 +9,33 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.ApprenticeshipVacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.GivenAGetTraineeshipVacancyOrchestrator
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
-    public class WhenGettingLiveApprenticeship
+    public class WhenGettingLiveTraineeship
     {
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _provideSettings;
-        private GetApprenticeshipVacancyOrchestrator _sut;
-
+        private Mock<IProvideSettings> _mockProvideSettings;
+        private GetTraineeshipVacancyOrchestrator _sut;
+        
         [SetUp]
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
-            _provideSettings = new Mock<IProvideSettings>();
-
-            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _mockProvideSettings = new Mock<IProvideSettings>();
+            _sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _mockProvideSettings.Object);
         }
 
         [Test]
-        public async Task GetLiveNonAnonymousEmployerVacancy_ShouldNotReplaceEmployerNameAndDescription()
+        public async Task WithNonAnonymousEmployer_ShouldNotReplaceEmployerNameAndDescription()
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetApprenticeshipVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetTraineeshipVacancyResponse
                 {
-                    ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                    TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
@@ -49,7 +47,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.ApprenticeshipVacanc
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -68,12 +66,12 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.ApprenticeshipVacanc
         }
 
         [Test]
-        public async Task GetLiveAnonymousEmployerVacancy_ShouldReplaceEmployerNameAndDescription()
+        public async Task WithAnonymousEmployer_ShouldReplaceEmployerNameAndDescription()
         {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetApprenticeshipVacancyResponse
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetTraineeshipVacancyResponse
                 {
-                    ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                    TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
@@ -84,7 +82,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.ApprenticeshipVacanc
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -102,56 +100,30 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Orchestrators.ApprenticeshipVacanc
         }
 
         [Test]
-        public async Task ShouldPopulateVacancyUrl()
+        public async Task ShouldPopulateTraineeshipVacancyUrl()
         {
             //Arrange
-            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
+            var baseUrl = "https://findapprentice.com/traineeship/reference";
 
-            _provideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey)).Returns(baseUrl);
-            
-            var response = new GetApprenticeshipVacancyResponse()
+            _mockProvideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
+                                .Returns(baseUrl);
+
+            var response = new GetTraineeshipVacancyResponse
             {
-                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .Create()
+                TraineeshipVacancy = new Fixture().Build<Domain.Entities.TraineeshipVacancy>()
+                                                    .With(v => v.VacancyReferenceNumber, VacancyReference)
+                                                    .Create()
             };
 
             _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
             //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
+            var vacancy = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
-        }
-
-        [TestCase(1, WageUnit.Unspecified)]
-        [TestCase(2, WageUnit.Weekly)]
-        [TestCase(3, WageUnit.Monthly)]
-        [TestCase(4, WageUnit.Annually)]
-        [TestCase(null, WageUnit.Unspecified)]
-        public async Task ShouldMapWageUnitCorrectly(int? wageUnitId, WageUnit? wageUnitType)
-        {
-            //Arrange
-            var response = new GetApprenticeshipVacancyResponse()
-            {
-                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                        .With(v => v.WageUnitId, wageUnitId)
-                                        .Create()
-            };
-
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-            //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
-            //Assert
-            vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
     }
 }
