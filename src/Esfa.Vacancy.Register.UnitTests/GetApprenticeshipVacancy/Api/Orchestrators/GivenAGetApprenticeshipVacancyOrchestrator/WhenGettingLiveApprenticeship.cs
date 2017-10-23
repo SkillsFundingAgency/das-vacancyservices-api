@@ -38,6 +38,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
@@ -74,6 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
@@ -112,6 +114,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
             var response = new GetApprenticeshipVacancyResponse()
             {
                 ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .Create()
             };
@@ -127,8 +130,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
         }
-
-        [TestCase(1, WageUnit.Unspecified)]
+        
         [TestCase(2, WageUnit.Weekly)]
         [TestCase(3, WageUnit.Monthly)]
         [TestCase(4, WageUnit.Annually)]

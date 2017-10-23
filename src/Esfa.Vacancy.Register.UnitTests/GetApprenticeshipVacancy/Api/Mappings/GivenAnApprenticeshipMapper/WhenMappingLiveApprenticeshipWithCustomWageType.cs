@@ -15,7 +15,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
         [TestCase(3, WageUnit.Monthly)]
         [TestCase(4, WageUnit.Annually)]
         [TestCase(null, WageUnit.Unspecified)]
-        public void ShouldHaveWageSetForVacanciesWithCustomWageType(int wageUnitId, WageUnit expectedWageUnit)
+        public void ShouldHaveWageSetForVacanciesWithCustomWageType(int? wageUnitId, WageUnit expectedWageUnit)
         {
             const int weeklyWage = 2550;
             const int vacancyReference = 1234;

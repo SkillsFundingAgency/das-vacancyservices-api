@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel;
+using System.Globalization;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
@@ -78,7 +79,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 case 4:
                     return WageUnit.Annually;
                 default:
-                    return WageUnit.Unspecified;
+                    throw new InvalidEnumArgumentException($"Invalid wage unit for a live apprenticeship: {wageUnitId}");
             }
         }
 
