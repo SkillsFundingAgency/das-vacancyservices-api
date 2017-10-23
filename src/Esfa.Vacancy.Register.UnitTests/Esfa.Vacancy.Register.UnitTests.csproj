@@ -109,17 +109,17 @@
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
-    <Compile Include="GetVacancy\Api\Mappings\VacancyMappingsTest.cs" />
-    <Compile Include="GetVacancy\Api\Mappings\VacancySummaryMappingsTests.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\VacancyMappingsTest.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\VacancySummaryMappingsTests.cs" />
     <Compile Include="Api\AutoMapperConfigTest.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWage.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithAmbiguousWage.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyTextWageType.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyWeeklyWageType.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithCustomWageType.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
-    <Compile Include="Api\Mappings\ApprenticeshipMapper\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWage.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithAmbiguousWage.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyTextWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithLegacyWeeklyWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithCustomWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithCustomRangeWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithApprenticeshipMinimumWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWithNationalMinimumWageType.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="Application\Queries\GetVacancy\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
@@ -170,7 +170,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GetVacancy\Api\Orchestrators\" />
+    <Folder Include="GetApprenticeshipVacancy\Api\Orchestrators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
