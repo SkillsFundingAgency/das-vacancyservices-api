@@ -109,7 +109,7 @@
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\VacancyMappingsTest.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyTrainingDetails.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\VacancySummaryMappingsTests.cs" />
     <Compile Include="Api\AutoMapperConfigTest.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenGettingLiveVacancyWage.cs" />

@@ -6,10 +6,10 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class VacancyMappingsTest
+    public class WhenGettingLiveVacancyTrainingDetails
     {
         [Test]
         public void GivenFrameworkThenLoadFrameworkDetails()
