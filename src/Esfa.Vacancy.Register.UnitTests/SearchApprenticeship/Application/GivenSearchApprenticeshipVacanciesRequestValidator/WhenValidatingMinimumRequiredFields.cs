@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"2345"}
+                    FrameworkCodes = ValidFrameworkCodes
                 }, new ValidationResult())
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"34"},
+                    FrameworkCodes = ValidFrameworkCodes,
                     StandardCodes = new List<string> {"768657"}
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
