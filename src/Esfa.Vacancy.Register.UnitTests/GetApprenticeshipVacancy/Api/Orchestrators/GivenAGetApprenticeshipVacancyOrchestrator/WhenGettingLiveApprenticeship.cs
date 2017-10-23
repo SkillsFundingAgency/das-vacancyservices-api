@@ -10,7 +10,7 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.ApprenticeshipVacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.GivenAGetApprenticeshipVacancyOrchestrator
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
@@ -38,6 +38,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "ABC Ltd")
@@ -74,6 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
                 .ReturnsAsync(new GetApprenticeshipVacancyResponse
                 {
                     ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                                             .With(v => v.EmployerName, "Her Majesties Secret Service")
@@ -112,6 +114,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
             var response = new GetApprenticeshipVacancyResponse()
             {
                 ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                            .With(v => v.WageUnitId, null)
                                             .With(v => v.VacancyReferenceNumber, VacancyReference)
                                             .Create()
             };
@@ -126,32 +129,6 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.Apprentic
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
-        }
-
-        [TestCase(1, WageUnit.NotApplicable)]
-        [TestCase(2, WageUnit.Weekly)]
-        [TestCase(3, WageUnit.Monthly)]
-        [TestCase(4, WageUnit.Annually)]
-        [TestCase(null, null)]
-        public async Task ShouldMapWageUnitCorrectly(int? wageUnitId, WageUnit? wageUnitType)
-        {
-            //Arrange
-            var response = new GetApprenticeshipVacancyResponse()
-            {
-                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                        .With(v => v.WageUnitId, wageUnitId)
-                                        .Create()
-            };
-
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
-            //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
-            //Assert
-            vacancy.WageUnit.ShouldBeEquivalentTo(wageUnitType);
         }
     }
 }

@@ -6,15 +6,16 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class VacancyMappingsTest
+    public class WhenMappingLiveApprenticeshipTrainingDetails
     {
         [Test]
-        public void GivenFrameworkThenLoadFrameworkDetails()
+        public void WithFrameworkThenLoadFrameworkDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .With(v => v.WageUnitId, null)
                                         .Without(v => v.Standard)
                                         .With(v => v.Framework, new Framework
                                         {
@@ -32,9 +33,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         }
 
         [Test]
-        public void GivenStandardThenLoadStandardDetails()
+        public void WithStandardThenLoadStandardDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .With(v => v.WageUnitId, null)
                                         .Without(v => v.Framework)
                                         .With(v => v.Standard, new Standard
                                         {
@@ -53,9 +55,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         }
 
         [Test]
-        public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
+        public void WithFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                                        .With(v => v.WageUnitId, null)
                                         .Without(v => v.Framework)
                                         .Without(v => v.Standard)
                                         .Create();

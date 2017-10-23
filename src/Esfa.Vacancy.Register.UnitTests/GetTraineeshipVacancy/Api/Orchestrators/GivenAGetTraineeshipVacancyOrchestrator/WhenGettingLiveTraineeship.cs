@@ -9,7 +9,7 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Orchestrators.TraineeshipVacancyOrchestratorTests
+namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrators.GivenAGetTraineeshipVacancyOrchestrator
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]

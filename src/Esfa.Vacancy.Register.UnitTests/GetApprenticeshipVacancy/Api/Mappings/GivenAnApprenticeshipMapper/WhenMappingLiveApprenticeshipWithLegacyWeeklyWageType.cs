@@ -6,16 +6,13 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class WhenGettingLiveVacancyWithCustomWageType
+    public class WhenMappingLiveApprenticeshipWithLegacyWeeklyWageType
     {
-        [TestCase(WageUnit.Weekly)]
-        [TestCase(WageUnit.Monthly)]
-        [TestCase(WageUnit.Annually)]
-        [TestCase(WageUnit.NotApplicable)]
-        public void ShouldHaveWageSetForVacanciesWithCustomWageType(WageUnit wageUnit)
+        [Test]
+        public void LiveVacanciesWithLegacyWeeklyWageTypeShouldHaveWageSetFromWeeklyWage()
         {
             const int weeklyWage = 2550;
             const int vacancyReference = 1234;
@@ -28,16 +25,16 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
                 .With(v => v.VacancyTypeId, (int) VacancyType.Apprenticeship)
-                .With(v => v.WageType, (int) WageType.Custom)
+                .With(v => v.WageType, (int) WageType.LegacyWeekly)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
-                .With(v => v.WageUnitId, (int) wageUnit)
+                .With(v => v.WageUnitId, 2)
                 .Create();
 
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(vacancyReference);
-            vacancy.WageUnit.Should().Be(wageUnit);
+            vacancy.WageUnit.Should().Be(WageUnit.Weekly);
             vacancy.WageText.Should().Be("£2,550.00");
         }
     }

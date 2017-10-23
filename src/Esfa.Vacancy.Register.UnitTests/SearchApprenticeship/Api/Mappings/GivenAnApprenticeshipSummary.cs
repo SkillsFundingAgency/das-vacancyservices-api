@@ -6,9 +6,9 @@ using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 
-namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 {
-    public class VacancySummaryMappingsTests
+    public class GivenAnApprenticeshipSummary
     {
         private IMapper _mapper;
 
@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
 
         [TestCase("STDSEC.10", ApiTypes.TrainingType.Standard, "10")]
         [TestCase("FW.10", ApiTypes.TrainingType.Framework, "10")]
-        public void LoadCorrectTraingingDetails(string subCategoryCode, ApiTypes.TrainingType expectedTrainingType, string code)
+        public void ThenLoadCorrectTraingingDetails(string subCategoryCode, ApiTypes.TrainingType expectedTrainingType, string code)
         {
             var domainType = new DomainTypes.ApprenticeshipSummary()
             {
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetVacancy.Api.Mappings
         }
 
         [Test]
-        public void LocationMappingTest()
+        public void ThenLoadCorrectLocationGeoCoordinates()
         {
             var domainType = new DomainTypes.ApprenticeshipSummary
             {

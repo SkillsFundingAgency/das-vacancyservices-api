@@ -6,11 +6,11 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
-    public class WhenGettingLiveVacancyWithNationalMinimumWageType
+    public class WhenMappingLiveApprenticeshipWithNationalMinimumWageType
     {
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(expectedWageText);
         }
 
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
 
@@ -102,7 +102,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings.ApprenticeshipMapper
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().BeNull();
+            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
     }
