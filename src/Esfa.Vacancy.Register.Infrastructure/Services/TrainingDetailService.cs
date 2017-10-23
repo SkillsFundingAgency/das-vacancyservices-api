@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
-                _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying...attempt {retryCount})");
+                _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
             return await retry.ExecuteAsync(() => InternalGetFrameworkDetailsAsync(code));

@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
-                _logger.Warn($"Error searching for vacancies in search index: ({exception.Message}). Retrying...attempt {retryCount})");
+                _logger.Warn($"Error searching for apprenticeships in search index: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
             return await retry.ExecuteAsync(() => InternalSearchApprenticeshipVacanciesAsync(parameters));
