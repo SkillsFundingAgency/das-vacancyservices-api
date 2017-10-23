@@ -9,13 +9,12 @@ using Ploeh.AutoFixture;
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class WhenGettingLiveVacancyWithAmbiguousWage
+    public class WhenMappingLiveApprenticeshipWithLegacyWeeklyWageType
     {
-        [TestCase(WageType.Unwaged, "Unwaged")]
-        [TestCase(WageType.ToBeAgreedUponAppointment, "To be agreed upon appointment")]
-        [TestCase(WageType.CompetitiveSalary, "Competitive salary")]
-        public void ShouldHaveAppropriateWageDescription(WageType wageType, string expectedWageText)
+        [Test]
+        public void LiveVacanciesWithLegacyWeeklyWageTypeShouldHaveWageSetFromWeeklyWage()
         {
+            const int weeklyWage = 2550;
             const int vacancyReference = 1234;
             const int liveVacancyStatusId = 2;
 
@@ -26,16 +25,17 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
                 .With(v => v.VacancyTypeId, (int) VacancyType.Apprenticeship)
-                .With(v => v.WageType, (int) wageType)
-                .Without(v => v.WeeklyWage)
-                .Without(v => v.WageUnitId)
+                .With(v => v.WageType, (int) WageType.LegacyWeekly)
+                .With(v => v.WeeklyWage, weeklyWage)
+                .Without(v => v.WageText)
+                .With(v => v.WageUnitId, 2)
                 .Create();
 
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(vacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
-            vacancy.WageText.Should().Be(expectedWageText);
+            vacancy.WageUnit.Should().Be(WageUnit.Weekly);
+            vacancy.WageText.Should().Be("£2,550.00");
         }
     }
 }

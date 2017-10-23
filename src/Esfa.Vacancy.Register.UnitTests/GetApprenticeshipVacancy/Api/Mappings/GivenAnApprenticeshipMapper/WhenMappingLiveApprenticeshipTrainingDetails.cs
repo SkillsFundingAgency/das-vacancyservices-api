@@ -9,10 +9,10 @@ using Ploeh.AutoFixture;
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class WhenGettingLiveVacancyTrainingDetails
+    public class WhenMappingLiveApprenticeshipTrainingDetails
     {
         [Test]
-        public void GivenFrameworkThenLoadFrameworkDetails()
+        public void WithFrameworkThenLoadFrameworkDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                                         .Without(v => v.Standard)
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
         }
 
         [Test]
-        public void GivenStandardThenLoadStandardDetails()
+        public void WithStandardThenLoadStandardDetails()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                                         .Without(v => v.Framework)
@@ -53,7 +53,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
         }
 
         [Test]
-        public void WhenFrameworkOrStandardIsMissingThenReturnUnavailable()
+        public void WithFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                                         .Without(v => v.Framework)

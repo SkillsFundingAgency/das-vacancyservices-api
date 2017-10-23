@@ -9,7 +9,7 @@ using Ploeh.AutoFixture;
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
     [TestFixture]
-    public class WhenGettingLiveVacancyWage
+    public class WhenMappingLiveApprenticeshipWageUnit
     {
         [TestCase(2, WageUnit.Weekly, 1)]
         [TestCase(3, WageUnit.Monthly, 2)]

@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
-    public class WhenGettingLiveVacancyWithNationalMinimumWageType
+    public class WhenMappingLiveApprenticeshipWithNationalMinimumWageType
     {
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
