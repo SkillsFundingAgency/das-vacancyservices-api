@@ -1,12 +1,11 @@
 ﻿using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenSearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingPostedInDays
+    public class WhenValidatingPostedInDays : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
         [TestCase(-1, false, "Posted in days should be 0 or more")]
         [TestCase(0, true, "Posted in days should be 0 or more")]
@@ -19,9 +18,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 PostedInLastNumberOfDays = postedInDays
             };
 
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var result = validator.Validate(request);
+            var result = Validator.Validate(request);
 
             result.IsValid.Should().Be(isValid, reason);
         }

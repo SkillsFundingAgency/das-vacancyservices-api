@@ -4,17 +4,15 @@ using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenSearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingFrameworkCodes
+    public class WhenValidatingFrameworkCodes : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var actualResult = validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
@@ -22,9 +20,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var actualResult = validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorMessage));

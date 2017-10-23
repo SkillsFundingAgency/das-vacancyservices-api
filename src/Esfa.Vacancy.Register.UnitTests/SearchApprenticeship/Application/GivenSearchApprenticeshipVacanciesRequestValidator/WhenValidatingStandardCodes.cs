@@ -2,19 +2,11 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenSearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingStandardCodes
+    public class WhenValidatingStandardCodes : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
-
-        [SetUp]
-        public void Setup()
-        {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
         [TestCase("", false, 1, "Empty strings are expected to be handled by consumer")]
         [TestCase("10,20", true, 0, "Any number is valid")]
         [TestCase("10 , 20", true, 0, "Leading and preceeding spaces are allowed with numbers")]
@@ -27,7 +19,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 StandardCodes = input.Split(',')
             };
 
-            var result = _validator.Validate(request);
+            var result = Validator.Validate(request);
 
             result.IsValid.Should().Be(expectedOutput);
 
@@ -37,8 +29,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [Test]
         public void AndNullStandardCodes_ThenFailValidation()
         {
-            var request = new SearchApprenticeshipVacanciesRequest {StandardCodes = null};
-            var result = _validator.Validate(request);
+            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = null };
+            var result = Validator.Validate(request);
             result.IsValid.Should().BeFalse();
         }
 

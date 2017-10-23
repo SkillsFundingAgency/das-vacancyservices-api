@@ -3,19 +3,11 @@ using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenSearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingPageSize
+    public class WhenValidatingPageSize : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
-
-        [SetUp]
-        public void Setup()
-        {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
         [TestCase(0, false, "Anything less than one is invalid")]
         [TestCase(1, true, "Minimum of one")]
         [TestCase(22, true, "It should be between 1 and 250")]
@@ -25,7 +17,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new List<string> { "1" }, PageSize = pageSize };
 
-            var result = _validator.Validate(request);
+            var result = Validator.Validate(request);
 
             result.IsValid.Should().Be(isValid, reason);
         }
