@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Wage unit.
         /// </summary>
-        public WageUnit? WageUnit { get; set; }
+        public WageUnit WageUnit { get; set; }
         
         /// <summary>
         /// Working week.
