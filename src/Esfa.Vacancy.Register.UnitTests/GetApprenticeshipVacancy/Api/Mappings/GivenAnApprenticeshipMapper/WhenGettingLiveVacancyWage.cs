@@ -11,12 +11,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
     [TestFixture]
     public class WhenGettingLiveVacancyWage
     {
-        [TestCase(1, WageUnit.Unspecified, 0)]
         [TestCase(2, WageUnit.Weekly, 1)]
         [TestCase(3, WageUnit.Monthly, 2)]
         [TestCase(4, WageUnit.Annually, 3)]
         [TestCase(null, WageUnit.Unspecified, 0)]
-        public void ShouldMapWageUnitEnum(int? wageUnitId, WageUnit? wageUnitType, int expectedWageUnitUnderlyingValue)
+        public void ShouldMapWageUnitIdToWageUnitEnum(int? wageUnitId, WageUnit wageUnitType, int expectedWageUnitUnderlyingValue)
         {
             //Arrange
             var provideSettings = new Mock<IProvideSettings>();
