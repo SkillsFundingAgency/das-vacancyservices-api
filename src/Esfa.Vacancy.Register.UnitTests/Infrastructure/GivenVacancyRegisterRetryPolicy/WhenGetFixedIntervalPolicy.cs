@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
-using FluentAssertions.Specialized;
 
 namespace Esfa.Vacancy.Register.UnitTests.Infrastructure
 {
     [TestFixture]
     [Parallelizable]
-    public class WhenVacancyRegisterRetryPolicy
+    public class WhenGetFixedIntervalPolicy
     {
         [Test]
-        public void ThenShouldReturnGetFixedInterval()
+        public void ThenReturnFixedIntervalPolicy()
         {
             var message = "error";
             var retries = new List<Tuple<string, TimeSpan, int>>();
