@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -32,11 +33,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             var mockValidator = new Mock<IValidator<SearchApprenticeshipVacanciesRequest>>();
             mockValidator
-                .Setup(validator => validator.Validate(_validRequest))
-                .Returns(new ValidationResult());
+                .Setup(validator => validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
             mockValidator
-                .Setup(validator => validator.Validate(_invalidRequest))
-                .Returns(new ValidationResult(new List<ValidationFailure>
+                .Setup(validator => validator.ValidateAsync(_invalidRequest, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult(new List<ValidationFailure>
                 {
                     new ValidationFailure("stuff", _errorMessage)
                 }));
@@ -58,17 +59,17 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         }
 
         [Test]
-        public void AndRequestNotValid_ThenThrowsValidationException()
+        public async Task AndRequestNotValid_ThenThrowsValidationException()
         {
-            var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(() => 
-            _handler.Handle(_invalidRequest));
+            var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(async () =>
+            await _handler.Handle(_invalidRequest));
 
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- {_errorMessage}");
         }
 
         [Test]
-        public void AndRequestValid_ThenReturnsResultFromSearchService()
+        public async Task AndRequestValid_ThenReturnsResultFromSearchService()
         {
             _handler.Handle(_validRequest).Result
                 .Should().BeSameAs(_expectedResponse);
