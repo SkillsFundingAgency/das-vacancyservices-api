@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _logger = logger;
         }
 
-        private const string GetStandardAndSectorIdsQuery = "[VACANCY_API].[GetActiveStandardCodes]";
+        private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
 
         public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
         {
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<StandardSector>(GetStandardAndSectorIdsQuery, 
+                    await sqlConn.QueryAsync<StandardSector>(GetActiveStandardCodesSqlSproc, 
                     commandType:CommandType.StoredProcedure);
 
                 return results;

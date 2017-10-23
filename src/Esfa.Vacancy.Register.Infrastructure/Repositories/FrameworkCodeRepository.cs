@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         private readonly IProvideSettings _settings;
         private readonly ILog _logger;
 
-        private const string GetFrameworkCodesQuery = "[VACANCY_API].[GetActiveFrameworkCodes]";
+        private const string GetActiveFrameworkCodesSqlSproc = "[VACANCY_API].[GetActiveFrameworkCodes]";
 
         public FrameworkCodeRepository(IProvideSettings settings, ILog logger)
         {
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<string>(GetFrameworkCodesQuery, commandType:CommandType.StoredProcedure);
+                    await sqlConn.QueryAsync<string>(GetActiveFrameworkCodesSqlSproc, commandType:CommandType.StoredProcedure);
 
                 return results;
             }
