@@ -1,23 +1,23 @@
-﻿using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
+﻿using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Register.Domain;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Queries.GivenAGetApprenticeshipVacancyQueryHandler
+namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Application.Queries.GivenAGetTraineeshipVacancyValidator
 {
     [TestFixture]
     public class WhenValidatingRequest
     {
-        private GetApprenticeshipVacancyValidator _validator;
+        private GetTraineeshipVacancyValidator _validator;
 
         [SetUp]
         public void Setup()
         {
-            _validator = new GetApprenticeshipVacancyValidator();
+            _validator = new GetTraineeshipVacancyValidator();
         }
 
-        [TestCase(0, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
-        [TestCase(-1, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
+        [TestCase(0, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
+        [TestCase(-1, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
         public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, int errorCode)
         {
             _validator

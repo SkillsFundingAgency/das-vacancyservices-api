@@ -109,7 +109,7 @@
     <Compile Include="Api\App_Start\GivenVacancyApiExceptionHandler.cs" />
     <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenGettingATraineeshipVacancy.cs" />
-    <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenValidatingRequest.cs" />
+    <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithApprenticeshipMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithNationalMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenGettingApprenticeshipVacancy.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenValidatingRequest.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInLastNumberOfDays.cs" />
