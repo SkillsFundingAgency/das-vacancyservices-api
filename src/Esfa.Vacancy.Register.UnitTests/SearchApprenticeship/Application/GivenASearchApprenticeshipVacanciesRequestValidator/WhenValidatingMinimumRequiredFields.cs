@@ -70,7 +70,21 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         }
                     }
                 })
-                .SetName("No Frameworks or Standards present is not allowed")
+                .SetName("No Frameworks or Standards present is not allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    FrameworkCodes = null
+                }, new ValidationResult
+                {
+                    Errors =
+                    {
+                        new ValidationFailure("", "At least one of StandardCodes or FrameworkCodes is required.")
+                        {
+                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided.ToString()
+                        }
+                    }
+                })
+                .SetName("Frameworks is null is not allowed")
         };
     }
 }
