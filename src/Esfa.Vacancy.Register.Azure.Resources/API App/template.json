@@ -1,0 +1,124 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    },
+    "hostingPlanName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "hostingEnvironment": {
+      "type": "string"
+    },
+    "serverFarmResourceGroup": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "LoggingRedisConnectionString": {
+      "type": "string"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "LoggingRedisKey": {
+      "type": "string"
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "type": "string"
+    },
+    "LiveVacancyBaseUrl": {
+      "type": "string"
+    },
+    "VacancySearchUrl": {
+      "type": "string"
+    },
+    "ApprenticeshipIndexAlias": {
+      "type": "string"
+    }
+  },
+    "resources": [
+      {
+        "type": "Microsoft.Web/sites",
+        "kind": "api",
+        "name": "[parameters('appName')]",
+        "apiVersion": "2016-03-01",
+        "location": "[parameters('location')]",
+        "tags": {
+          "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+        },
+        "properties": {
+          "siteConfig": {
+            "appSettings": [
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('microsoft.insights/components/', parameters('appName')), '2015-05-01').InstrumentationKey]"
+              },
+              {
+                "name": "LoggingRedisConnectionString",
+                "value": "[parameters('LoggingRedisConnectionString')]"
+              },
+              {
+                "name": "AvmsPlusDatabaseConnectionString",
+                "value": "[parameters('AvmsPlusDatabaseConnectionString')]"
+              },
+              {
+                "name": "EnvironmentName",
+                "value": "[parameters('EnvironmentName')]"
+              },
+              {
+                "name": "LoggingRedisKey",
+                "value": "[parameters('LoggingRedisKey')]"
+              },
+              {
+                "name": "ApprenticeshipInfoApiBaseUrl",
+                "value": "[parameters('ApprenticeshipInfoApiBaseUrl')]"
+              },
+              {
+                "name": "LiveVacancyBaseUrl",
+                "value": "[parameters('LiveVacancyBaseUrl')]"
+              },
+              {
+                "name": "VacancySearchUrl",
+                "value": "[parameters('VacancySearchUrl')]"
+              },
+              {
+                "name": "ApprenticeshipIndexAlias",
+                "value": "[parameters('ApprenticeshipIndexAlias')]"
+              }
+            ],
+            "alwaysOn": true,
+            "phpVersion": ""
+
+          },
+          "name": "[parameters('appName')]",
+          "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+          "hostingEnvironment": "[parameters('hostingEnvironment')]"
+        },
+        "dependsOn": [
+          "[resourceId('microsoft.insights/components/', parameters('appName'))]"
+        ]
+      },
+      {
+        "type": "microsoft.insights/components",
+        "name": "[parameters('appName')]",
+        "apiVersion": "2015-05-01",
+        "location": "North Europe",
+        "tags": {
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('appName'))]": "Resource"
+        },
+        "properties": {
+          "ApplicationId": "[parameters('appName')]",
+          "Request_Source": "IbizaWebAppExtensionCreate"
+        }
+      }
+    ]
+}

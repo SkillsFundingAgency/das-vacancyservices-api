@@ -1,0 +1,53 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    },
+    "trafficManagerName": {
+      "type": "string"
+    }
+  },
+    "resources": [
+      {
+        "type": "Microsoft.Network/trafficManagerProfiles",
+        "name": "[parameters('trafficManagerName')]",
+        "apiVersion": "2017-05-01",
+        "location": "global",
+        "tags": {},
+        "scale": null,
+        "properties": {
+          "profileStatus": "Enabled",
+          "trafficRoutingMethod": "Priority",
+          "dnsConfig": {
+            "relativeName": "[parameters('trafficManagerName')]",
+            "fqdn": "[concat(parameters('trafficManagerName'),'.trafficmanager.net')]",
+            "ttl": 300
+          },
+          "monitorConfig": {
+            "protocol": "HTTPS",
+            "port": 443,
+            "path": "/api",
+            "intervalInSeconds": 30,
+            "toleratedNumberOfFailures": 3,
+            "timeoutInSeconds": 10
+          },
+          "endpoints": [
+            {
+              "name": "[parameters('trafficManagerName')]",
+              "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+              "properties": {
+                "endpointStatus": "Enabled",
+                "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('appName'))]",
+                "target": "[concat(parameters('trafficManagerName'),'.esfa-das-test-ase-02.p.azurewebsites.net')]",
+                "weight": 1,
+                "priority": 1,
+                "endpointLocation": "North Europe"
+              }
+            }
+          ]
+        }
+      }
+    ]
+}

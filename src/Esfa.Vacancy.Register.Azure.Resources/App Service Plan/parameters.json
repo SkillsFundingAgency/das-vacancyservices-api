@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "aspName": {
+      "value": "__aspName__"
+    },
+    "location": {
+      "value": "__location__"
+    },
+    "sku": {
+      "value": "__sku__"
+    },
+    "skucode": {
+      "value": "__skucode__"
+    },
+    "workerSize": {
+      "value": "1"
+    },
+    "workerSizeId": {
+      "value": "1"
+    },
+    "numberOfWorkers": {
+      "value": "1"
+    },
+    "hostingEnvironment": {
+      "value": "__hostingEnvironment__"
+    }
+  }
+}
