@@ -10,12 +10,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     [TestFixture]
     public class WhenValidatingFrameworkCodes
     {
+        private SearchApprenticeshipVacanciesRequestValidator _validator;
+
+        [SetUp]
+        public void Setup()
+        {
+            _validator = new SearchApprenticeshipVacanciesRequestValidator();
+        }
+
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var actualResult = validator.Validate(searchRequest);
+            var actualResult = _validator.Validate(searchRequest);
 
             actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
@@ -23,9 +29,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var actualResult = validator.Validate(searchRequest);
+            var actualResult = _validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorMessage));
@@ -34,9 +38,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var validator = new SearchApprenticeshipVacanciesRequestValidator();
-
-            var actualResult = validator.Validate(searchRequest);
+            var actualResult = _validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorCode));
