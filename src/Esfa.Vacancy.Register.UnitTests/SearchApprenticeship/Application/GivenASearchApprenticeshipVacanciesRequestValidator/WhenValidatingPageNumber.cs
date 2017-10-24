@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 {
                     StandardCodes = new List<string> {"2345"}
                 }, new ValidationResult())
-                .SetName("Then default is 1"),
+                .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     StandardCodes = new List<string> {"2345"},

@@ -31,7 +31,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleFor(r => r.PageSize)
                 .GreaterThanOrEqualTo(MinimumPageSize)
-                .LessThanOrEqualTo(MaximumPageSize);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageSizeLessThan1)
+                .LessThanOrEqualTo(MaximumPageSize)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageSizeGreaterThan250);
 
             RuleFor(r => r.PageNumber)
                 .GreaterThanOrEqualTo(MinimumPageNumber)

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Register.Domain;
 using FluentAssertions;
+using FluentValidation.Results;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
@@ -16,18 +19,81 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             _validator = new SearchApprenticeshipVacanciesRequestValidator();
         }
 
-        [TestCase(0, false, "Anything less than one is invalid")]
-        [TestCase(1, true, "Minimum of one")]
-        [TestCase(22, true, "It should be between 1 and 250")]
-        [TestCase(250, true, "Maximum allowed is 250")]
-        [TestCase(251, false, "Anything more than 250 is invalid")]
-        public void ThenValidate(int pageSize, bool isValid, string reason)
+        [TestCaseSource(nameof(TestCases))]
+        public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var request = new SearchApprenticeshipVacanciesRequest { StandardCodes = new List<string> { "1" }, PageSize = pageSize };
+            var actualResult = _validator.Validate(searchRequest);
 
-            var result = _validator.Validate(request);
-
-            result.IsValid.Should().Be(isValid, reason);
+            actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
+
+        [TestCaseSource(nameof(TestCases))]
+        public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
+        {
+            var actualResult = _validator.Validate(searchRequest);
+
+            actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
+                options => options.Including(failure => failure.ErrorMessage));
+        }
+
+        [TestCaseSource(nameof(TestCases))]
+        public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
+        {
+            var actualResult = _validator.Validate(searchRequest);
+
+            actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
+                options => options.Including(failure => failure.ErrorCode));
+        }
+
+        private static List<TestCaseData> TestCases => new List<TestCaseData>
+        {
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"}
+                }, new ValidationResult())
+                .SetName("Then default is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"},
+                    PageSize = 0
+                }, new ValidationResult
+                {
+                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be greater than or equal to '1'.")
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeLessThan1
+                    }}
+                })
+                .SetName("Then less than 1 is invalid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"},
+                    PageSize = 1
+                }, new ValidationResult())
+                .SetName("Then 1 is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"},
+                    PageSize = new Random().Next(1, 250)
+                }, new ValidationResult())
+                .SetName("Then between 1 and 250 is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"},
+                    PageSize = 250
+                }, new ValidationResult())
+                .SetName("Then 250 is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardCodes = new List<string> {"2345"},
+                    PageSize = 251
+                }, new ValidationResult
+                {
+                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be less than or equal to '250'.")
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeGreaterThan250
+                    }}
+                })
+                .SetName("Then greater than 250 is invalid")
+        };
     }
 }
