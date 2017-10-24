@@ -40,7 +40,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.PageNumberLessThan1);
 
             RuleFor(r => r.PostedInLastNumberOfDays)
-                .GreaterThanOrEqualTo(0);
+                .GreaterThanOrEqualTo(0)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDaysLessThan0);
         }
 
         private static bool BeValidNumber(string value)
