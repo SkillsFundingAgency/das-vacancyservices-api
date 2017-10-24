@@ -53,7 +53,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         {
             Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null); };
 
-            action.ShouldThrow<ValidationException>().WithMessage("At least one search parameter is required.");
+            action.ShouldThrow<ValidationException>().WithMessage("Validation failed: \r\n -- At least one search parameter is required.");
         }
 
         [Test]
