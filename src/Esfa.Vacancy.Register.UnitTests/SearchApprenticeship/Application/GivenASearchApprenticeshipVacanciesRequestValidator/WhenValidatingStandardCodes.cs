@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 {
                     Errors = { new ValidationFailure("StandardCodes[0]", "e is invalid, expected a number.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32.ToString()
+                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
                     } }
                 })
                 .SetName("Then chars are not allowed"),
@@ -62,7 +62,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 {
                     Errors = { new ValidationFailure("StandardCodes[0]", "1.1 is invalid, expected a number.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32.ToString()
+                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
                     } }
                 })
                 .SetName("Then floats are not allowed"),
@@ -73,7 +73,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 {
                     Errors = { new ValidationFailure("StandardCodes[0]", "6 2 is invalid, expected a number.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32.ToString()
+                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
                     } }
                 })
                 .SetName("Then inner spaces are not allowed"),

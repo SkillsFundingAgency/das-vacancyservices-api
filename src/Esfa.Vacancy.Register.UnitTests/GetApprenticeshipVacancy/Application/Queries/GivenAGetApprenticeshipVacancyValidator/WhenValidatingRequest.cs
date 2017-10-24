@@ -18,11 +18,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Q
 
         [TestCase(0, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
         [TestCase(-1, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
-        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, int errorCode)
+        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, string errorCode)
         {
             _validator
                 .ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
-                .WithErrorCode(errorCode.ToString());
+                .WithErrorCode(errorCode);
         }
 
         [TestCase(1)]

@@ -17,17 +17,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .NotEmpty()
                 .When(request => request.FrameworkCodes == null || !request.FrameworkCodes.Any())
                 .WithMessage(MinimumFieldsErrorMessage)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided.ToString());
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
                 .WithMessage((c, t) => $"{t} is invalid, expected a number.")
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32.ToString());
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32);
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
                 .WithMessage((c, t) => $"{t} is invalid, expected a number.")
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32.ToString());
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32);
 
             RuleFor(r => r.PageSize)
                 .GreaterThanOrEqualTo(MinimumPageSize)
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleFor(r => r.PageNumber)
                 .GreaterThanOrEqualTo(MinimumPageNumber)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageNumberLessThan1.ToString());
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageNumberLessThan1);
 
             RuleFor(r => r.PostedInLastNumberOfDays)
                 .GreaterThanOrEqualTo(0);

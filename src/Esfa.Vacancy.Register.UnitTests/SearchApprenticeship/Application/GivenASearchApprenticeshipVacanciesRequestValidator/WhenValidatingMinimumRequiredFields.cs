@@ -66,7 +66,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     {
                         new ValidationFailure("", "At least one of StandardCodes or FrameworkCodes is required.")
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided.ToString()
+                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided
                         }
                     }
                 })
@@ -80,7 +80,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     {
                         new ValidationFailure("", "At least one of StandardCodes or FrameworkCodes is required.")
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided.ToString()
+                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided
                         }
                     }
                 })

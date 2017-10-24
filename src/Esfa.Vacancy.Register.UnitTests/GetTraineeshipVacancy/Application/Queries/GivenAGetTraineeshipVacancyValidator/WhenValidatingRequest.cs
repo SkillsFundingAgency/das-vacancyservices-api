@@ -18,11 +18,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Application.Quer
 
         [TestCase(0, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
         [TestCase(-1, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
-        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, int errorCode)
+        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, string errorCode)
         {
             _validator
                 .ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
-                .WithErrorCode(errorCode.ToString());
+                .WithErrorCode(errorCode);
         }
 
         [TestCase(1)]

@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
         {
             RuleFor(request => request.Reference)
                 .GreaterThan(0)
-                .WithErrorCode(ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0.ToString());
+                .WithErrorCode(ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0);
         }
     }
 }
