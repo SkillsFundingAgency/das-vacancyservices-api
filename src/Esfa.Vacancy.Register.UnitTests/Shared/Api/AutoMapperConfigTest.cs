@@ -1,7 +1,7 @@
 ﻿using Esfa.Vacancy.Register.Api;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Api
 {
     [TestFixture]
     public class AutoMapperConfigTest

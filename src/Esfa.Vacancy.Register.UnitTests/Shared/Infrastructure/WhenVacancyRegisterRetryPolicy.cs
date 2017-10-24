@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
-using FluentAssertions.Specialized;
 
-namespace Esfa.Vacancy.Register.UnitTests.Infrastructure
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Infrastructure
 {
     [TestFixture]
     [Parallelizable]

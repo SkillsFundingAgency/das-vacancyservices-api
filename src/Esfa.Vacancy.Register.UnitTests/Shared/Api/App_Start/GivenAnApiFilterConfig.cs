@@ -4,7 +4,7 @@ using Esfa.Vacancy.Register.Api;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 {
     [TestFixture]
     public class GivenAnApiFilterConfig

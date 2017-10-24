@@ -3,7 +3,7 @@ using AutoMapper;
 using Esfa.Vacancy.Register.Api.Mappings;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.Mappings
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.Mappings
 {
     [TestFixture]
     public class IntToEnumConverterTests
