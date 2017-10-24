@@ -16,7 +16,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(request => request.StandardCodes)
                 .NotEmpty()
                 .When(request => !request.FrameworkCodes.Any())
-                .WithMessage(MinimumFieldsErrorMessage);
+                .WithMessage(MinimumFieldsErrorMessage)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided.ToString());
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
