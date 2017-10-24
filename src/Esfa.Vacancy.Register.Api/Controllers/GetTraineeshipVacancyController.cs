@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Swashbuckle.Swagger.Annotations;
 
@@ -35,7 +34,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerOperation("GetTraineeshipVacancy", Tags = new[] { "Traineeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.TraineeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [ExceptionHandling]
         [Route("{vacancyReference}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {

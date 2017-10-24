@@ -2,13 +2,11 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.Attributes;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
-    [ExceptionHandling]
     public class SearchApprenticeshipVacanciesController : ApiController
     {
         private readonly SearchApprenticeshipVacanciesOrchestrator _searchOrchestrator;

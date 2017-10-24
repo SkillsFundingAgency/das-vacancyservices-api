@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Esfa.Vacancy.Register.Api.App_Start
 {
-    public class CustomExceptionHandler : ExceptionHandler
+    public class VacancyApiExceptionHandler : ExceptionHandler
     {
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
         
