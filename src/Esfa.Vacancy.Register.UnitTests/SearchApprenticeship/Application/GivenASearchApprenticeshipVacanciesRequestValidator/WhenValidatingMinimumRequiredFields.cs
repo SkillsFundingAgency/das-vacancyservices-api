@@ -4,10 +4,10 @@ using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenRequestValidator
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingFrameworkCodes
+    public class WhenValidatingMinimumRequiredFields
     {
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
@@ -34,38 +34,28 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"e"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("FrameworkCodes[0]", "e is invalid, expected a number.") }
-                })
-                .SetName("Then chars are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    FrameworkCodes = new [] {"1.1"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("FrameworkCodes[0]", "1.1 is invalid, expected a number.") }
-                })
-                .SetName("Then floats are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    FrameworkCodes = new [] {"6 2"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("FrameworkCodes[0]", "6 2 is invalid, expected a number.") }
-                })
-                .SetName("Then inner spaces are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    FrameworkCodes = new [] {"  5345   "}
+                    FrameworkCodes = new List<string> {"2345"}
                 }, new ValidationResult())
-                .SetName("Then outer spaces are allowed"),
+                .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"123424"}
+                    StandardCodes = new List<string> {"2345"}
                 }, new ValidationResult())
-                .SetName("Then ints are allowed")
+                .SetName("Standards present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    FrameworkCodes = new List<string> {"34"},
+                    StandardCodes = new List<string> {"768657"}
+                }, new ValidationResult())
+                .SetName("Frameworks and Standards present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult
+                {
+                    Errors =
+                    {
+                        new ValidationFailure("", "At least one of StandardCodes or FrameworkCodes is required.")
+                    }
+                })
+                .SetName("No Frameworks or Standards present is not allowed")
         };
     }
 }

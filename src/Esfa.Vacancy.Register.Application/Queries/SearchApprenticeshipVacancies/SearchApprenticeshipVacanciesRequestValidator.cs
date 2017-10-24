@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Esfa.Vacancy.Register.Domain;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -23,7 +24,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.")
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32.ToString());
 
             RuleFor(r => r.PageSize)
                 .GreaterThanOrEqualTo(MinimumPageSize)
