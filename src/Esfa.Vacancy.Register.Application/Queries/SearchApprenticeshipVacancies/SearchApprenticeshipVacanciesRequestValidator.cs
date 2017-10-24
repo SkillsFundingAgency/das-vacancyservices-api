@@ -20,7 +20,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.")
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32.ToString());
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
