@@ -59,5 +59,9 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int WageUnit { get; set; }
 
         public decimal? HoursPerWeek { get; set; }
+
+        public string FrameworkCode { get; set; }
+
+        public int? StandardId { get; set; }
     }
 }

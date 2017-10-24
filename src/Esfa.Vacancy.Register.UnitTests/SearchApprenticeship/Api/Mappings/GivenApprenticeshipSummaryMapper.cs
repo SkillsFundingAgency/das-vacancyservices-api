@@ -8,7 +8,7 @@ using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 {
-    public class GivenAnApprenticeshipSummary
+    public class GivenApprenticeshipSummaryMapper
     {
         private IMapper _mapper;
 
@@ -19,19 +19,21 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
             _mapper = config.CreateMapper();
         }
 
-        [TestCase("STDSEC.10", ApiTypes.TrainingType.Standard, "10")]
-        [TestCase("FW.10", ApiTypes.TrainingType.Framework, "10")]
-        public void ThenLoadCorrectTraingingDetails(string subCategoryCode, ApiTypes.TrainingType expectedTrainingType, string code)
+        [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
+        [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
+        public void ThenLoadCorrectTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
+            var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new DomainTypes.ApprenticeshipSummary()
             {
-                SubCategoryCode = subCategoryCode
+                FrameworkCode = frameworkCode,
+                StandardId = standardId
             };
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
             result.TrainingType.Should().Be(expectedTrainingType);
-            result.TrainingCode.Should().Be(code);
+            result.TrainingCode.Should().Be(expectedTrainingCode);
         }
 
         [Test]
