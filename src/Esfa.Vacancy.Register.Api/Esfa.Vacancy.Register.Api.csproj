@@ -295,7 +295,7 @@
     <Compile Include="Mappings\ApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
     <Compile Include="Mappings\TraineeshipMapper.cs" />
-    <Compile Include="Mappings\VacancySummaryMappings.cs" />
+    <Compile Include="Mappings\ApprenticeshipSummaryMapper.cs" />
     <Compile Include="Models\VersionInformation.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
