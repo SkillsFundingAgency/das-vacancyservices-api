@@ -20,7 +20,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Q
         [TestCase(-1, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
         public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, int errorCode)
         {
-            _validator.ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
+            _validator
+                .ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
                 .WithErrorCode(errorCode.ToString());
         }
 

@@ -1,4 +1,5 @@
 ﻿using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
+using Esfa.Vacancy.Register.Domain;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
@@ -15,11 +16,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Application.Quer
             _validator = new GetTraineeshipVacancyValidator();
         }
 
-        [TestCase(0)]
-        [TestCase(-1)]
-        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference)
+        [TestCase(0, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
+        [TestCase(-1, ErrorCodes.GetTraineeship.VacancyReferenceNumberLessThan0)]
+        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, int errorCode)
         {
-            _validator.ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference);
+            _validator
+                .ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
+                .WithErrorCode(errorCode.ToString());
         }
 
         [TestCase(1)]
