@@ -1,71 +1,69 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http.ExceptionHandling;
-using System.Web.Mvc;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentValidation;
 using SFA.DAS.NLog.Logger;
+using System.Web.Http;
 
 namespace Esfa.Vacancy.Register.Api.App_Start
 {
     public class CustomExceptionHandler : ExceptionHandler
     {
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
-        private static readonly ILog Logger = DependencyResolver.Current.GetService<ILog>();
-
+        
         public override void Handle(ExceptionHandlerContext context)
         {
+
+            var logger = (ILog)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILog));
+
             if (context.Exception is ValidationException)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
-                var message = ((ValidationException)context.Exception).Message;
-                response.Content = new StringContent(message);
-                context.Result = new CustomErrorResult(context.Request, response);
-
-                Logger.Warn(context.Exception, "Validation error");
-
+                logger.Warn(context.Exception, GetLogMessage("Validation error", context));
+                context.Result = CreateResult(HttpStatusCode.BadRequest, ((ValidationException) context.Exception).Message, context.Request);
                 return;
             }
 
             if (context.Exception is UnauthorisedException)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                var message = ((UnauthorisedException)context.Exception).Message;
-                response.Content = new StringContent(message);
-                context.Result = new CustomErrorResult(context.Request, response);
-
-                Logger.Warn(context.Exception, "Authorisation error");
-
+                logger.Warn(context.Exception, GetLogMessage("Authorisation error", context));
+                context.Result = CreateResult(HttpStatusCode.Unauthorized, ((UnauthorisedException) context.Exception).Message, context.Request);
                 return;
             }
 
             if (context.Exception is ResourceNotFoundException)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.NotFound);
-                var message = ((ResourceNotFoundException)context.Exception).Message;
-                response.Content = new StringContent(message);
-                context.Result = new CustomErrorResult(context.Request, response);
-
-                Logger.Warn(context.Exception, "Unable to locate resource error");
-
+                logger.Warn(context.Exception, GetLogMessage("Unable to locate resource error", context));
+                context.Result = CreateResult(HttpStatusCode.NotFound, ((ResourceNotFoundException) context.Exception).Message, context.Request);
                 return;
             }
 
             if (context.Exception is InfrastructureException)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-                response.Content = new StringContent(GenericErrorMessage);
-                context.Result = new CustomErrorResult(context.Request, response);
-
-                Logger.Error(context.Exception.InnerException, "Unexpected infrastructure error");
-
+                logger.Error(context.Exception.InnerException, GetLogMessage("Unexpected infrastructure error", context));
+                context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
                 return;
             }
 
-            Logger.Error(context.Exception, "Unhandled exception");
+            logger.Error(context.Exception, GetLogMessage("Unexpected error", context));
+            context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
+            
+        }
 
-            base.Handle(context);
+        private IHttpActionResult CreateResult(HttpStatusCode statusCode, string content, HttpRequestMessage request)
+        {
+            var generalResponse = new HttpResponseMessage(statusCode);
+            generalResponse.Content = new StringContent(content);
+            var result = new CustomErrorResult(request, generalResponse);
+            return result;
+        }
+
+        private string GetLogMessage(string message, ExceptionHandlerContext context)
+        {
+            var requestUri = context.Request?.RequestUri?.ToString();
+            
+            return !string.IsNullOrEmpty(requestUri) ? $"{message} {requestUri}" : message;
         }
     }
 }
