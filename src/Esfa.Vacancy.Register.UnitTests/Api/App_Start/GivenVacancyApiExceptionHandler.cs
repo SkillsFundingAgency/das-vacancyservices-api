@@ -23,6 +23,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         private Mock<ILog> _logger;
         private VacancyApiExceptionHandler _handler;
 
+        private const string GenericErrorMessage = "An internal error occurred, please try again.";
+        private const string ExceptionInExceptionHandlerErrorMessage = "A critical error occurred, please try again.";
+
         [SetUp]
         public void WhenCallingHandle()
         {
@@ -51,7 +54,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
             var message = await context.Result.ExecuteAsync(CancellationToken.None);
 
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be("A critical error occurred, please try again.");
+            message.Content.ReadAsStringAsync().Result.Should().Be(ExceptionInExceptionHandlerErrorMessage);
         }
 
         [Test]
@@ -72,7 +75,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         }
 
         [Test]
-        public async Task AndUnauthorisedExceptionIsThrownThenReturnBadRequest()
+        public async Task AndUnauthorisedExceptionIsThrownThenReturnUnauthorized()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new UnauthorisedException("no access"),
@@ -89,7 +92,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         }
 
         [Test]
-        public async Task AndResourceNotFoundExceptionIsThrownThenReturnBadRequest()
+        public async Task AndResourceNotFoundExceptionIsThrownThenReturnNotFound()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new ResourceNotFoundException("no resource"), 
@@ -106,7 +109,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         }
 
         [Test]
-        public async Task AndInfrastructureExceptionIsThrownThenReturnBadRequest()
+        public async Task AndInfrastructureExceptionIsThrownThenReturnInternalServerError()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new InfrastructureException(new Exception("an infrastructure error")), 
@@ -119,11 +122,11 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be("An internal error occurred, please try again.");
+            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
         }
 
         [Test]
-        public async Task AndExceptionIsThrownThenReturnBadRequest()
+        public async Task AndExceptionIsThrownThenReturnInternalServerError()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new Exception("an infrastructure error"), 
@@ -137,7 +140,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be("An internal error occurred, please try again.");
+            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
         }
 
         [Test]
