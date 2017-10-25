@@ -6,7 +6,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
-        private const string MinimumFieldsErrorMessage = "At least one of StandardCodes or FrameworkCodes is required.";
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
@@ -16,17 +15,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(request => request.StandardCodes)
                 .NotEmpty()
                 .When(request => request.FrameworkCodes == null || !request.FrameworkCodes.Any())
-                .WithMessage(MinimumFieldsErrorMessage)
+                .WithMessage(ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number.")
+                .WithMessage((c, t) => string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotInt32, t))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32);
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number.")
+                .WithMessage((c, t) => string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotInt32, t))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32);
 
             RuleFor(r => r.PageSize)

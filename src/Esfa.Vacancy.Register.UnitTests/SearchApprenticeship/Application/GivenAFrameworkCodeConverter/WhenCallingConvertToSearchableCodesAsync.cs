@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentAssertions;
@@ -38,7 +37,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
-                new ValidationFailure("FrameworkCode", "FrameworkCode 99999 is invalid")
+                new ValidationFailure("FrameworkCode", string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotFound, "99999"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound }
             });
         }
@@ -50,9 +49,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
-                new ValidationFailure("FrameworkCode", "FrameworkCode 77777 is invalid")
+                new ValidationFailure("FrameworkCode", string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotFound, "77777"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound },
-                new ValidationFailure("FrameworkCode", "FrameworkCode 88888 is invalid")
+                new ValidationFailure("FrameworkCode", string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotFound, "88888"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound }
             });
         }

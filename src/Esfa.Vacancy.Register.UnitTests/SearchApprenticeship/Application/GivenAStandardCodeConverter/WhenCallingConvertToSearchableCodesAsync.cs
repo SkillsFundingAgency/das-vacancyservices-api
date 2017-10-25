@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
@@ -47,7 +46,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
-                new ValidationFailure("StandardCode", "StandardCode 99999 is invalid")
+                new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, "99999"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound }
             });
         }
@@ -59,9 +58,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
-                new ValidationFailure("StandardCode", "StandardCode 77777 is invalid")
+                new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, "77777"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound },
-                new ValidationFailure("StandardCode", "StandardCode 88888 is invalid")
+                new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, "88888"))
                 { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound }
             });
         }
@@ -73,7 +72,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.ValidationFailures.ShouldBeEquivalentTo(new List<ValidationFailure>
             {
-                new ValidationFailure("StandardCode", "StandardCode 99999 is invalid")
+                new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, "99999"))
                     { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound }
             });
         }

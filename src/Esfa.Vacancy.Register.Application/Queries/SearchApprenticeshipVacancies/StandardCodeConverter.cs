@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Domain;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
@@ -37,7 +36,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 if (standardSector == null)
                 {
                     result.ValidationFailures
-                        .Add(new ValidationFailure("StandardCode", $"StandardCode {parsedStandardToConvert} is invalid")
+                        .Add(new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, parsedStandardToConvert))
                         { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound });
                 }
                 else

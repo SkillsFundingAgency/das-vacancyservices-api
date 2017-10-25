@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Domain;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation.Results;
@@ -38,7 +37,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 if (validFramework == null)
                 {
                     result.ValidationFailures
-                        .Add(new ValidationFailure("FrameworkCode", $"FrameworkCode {trimmedFrameworkToConvert} is invalid")
+                        .Add(new ValidationFailure("FrameworkCode", string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotFound, trimmedFrameworkToConvert))
                         { ErrorCode = ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound });
                 }
                 else
