@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Domain;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies

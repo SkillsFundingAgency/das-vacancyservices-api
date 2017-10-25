@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain;
+using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         {
             if (apprenticeSearchParameters == null) throw new ValidationException(new List<ValidationFailure>
             {
-                new ValidationFailure("apprenticeSearchParameters", "At least one search parameter is required.")
+                new ValidationFailure("apprenticeSearchParameters", ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull)
                 { ErrorCode = ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull}
             });
 

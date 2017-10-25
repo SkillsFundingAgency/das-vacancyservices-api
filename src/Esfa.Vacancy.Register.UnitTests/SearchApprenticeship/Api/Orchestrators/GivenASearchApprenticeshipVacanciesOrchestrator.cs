@@ -5,6 +5,7 @@ using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Register.Domain.Validation;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
@@ -53,7 +54,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         {
             Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null); };
 
-            action.ShouldThrow<ValidationException>().WithMessage("Validation failed: \r\n -- At least one search parameter is required.");
+            action.ShouldThrow<ValidationException>().WithMessage($"Validation failed: \r\n -- {ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull}");
         }
 
         [Test]
