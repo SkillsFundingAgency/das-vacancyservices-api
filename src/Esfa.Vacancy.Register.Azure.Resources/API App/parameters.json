@@ -5,11 +5,11 @@
     "appName": {
       "value": "__appName__"
     },
-    "hostingPlanName": {
-      "value": "__hostingPlanName__"
+    "appHostingPlanName": {
+      "value": "__appHostingPlanName__"
     },
-    "location": {
-      "value": "__location__"
+    "appLocation": {
+      "value": "__appLocation__"
     },
     "hostingEnvironment": {
       "value": "__hostingEnvironment__"

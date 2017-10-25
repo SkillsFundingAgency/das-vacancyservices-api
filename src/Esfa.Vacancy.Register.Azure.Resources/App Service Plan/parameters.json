@@ -5,8 +5,8 @@
     "aspName": {
       "value": "__aspName__"
     },
-    "location": {
-      "value": "__location__"
+    "aspLocation": {
+      "value": "__aspLocation__"
     },
     "sku": {
       "value": "__sku__"

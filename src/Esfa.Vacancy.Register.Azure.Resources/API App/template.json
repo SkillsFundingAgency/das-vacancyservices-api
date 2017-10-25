@@ -5,10 +5,10 @@
     "appName": {
       "type": "string"
     },
-    "hostingPlanName": {
+    "appHostingPlanName": {
       "type": "string"
     },
-    "location": {
+    "appLocation": {
       "type": "string"
     },
     "hostingEnvironment": {
@@ -51,9 +51,9 @@
         "kind": "api",
         "name": "[parameters('appName')]",
         "apiVersion": "2016-03-01",
-        "location": "[parameters('location')]",
+        "location": "[parameters('appLocation')]",
         "tags": {
-          "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+          "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]": "empty"
         },
         "properties": {
           "siteConfig": {
@@ -100,7 +100,7 @@
 
           },
           "name": "[parameters('appName')]",
-          "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+          "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
           "hostingEnvironment": "[parameters('hostingEnvironment')]"
         },
         "dependsOn": [

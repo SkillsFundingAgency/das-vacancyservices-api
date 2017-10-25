@@ -5,7 +5,7 @@
     "aspName": {
       "type": "String"
     },
-    "location": {
+    "aspLocation": {
       "type": "String"
     },
     "sku": {
@@ -37,7 +37,7 @@
       "kind": "",
       "name": "[parameters('aspName')]",
       "apiVersion": "2016-03-01",
-      "location": "[parameters('location')]",
+      "location": "[parameters('aspLocation')]",
       "properties": {
         "name": "[parameters('aspName')]",
         "workerSize": "[parameters('workerSize')]",
