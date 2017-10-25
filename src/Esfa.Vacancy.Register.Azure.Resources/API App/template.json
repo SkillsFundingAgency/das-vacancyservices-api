@@ -11,13 +11,13 @@
     "appLocation": {
       "type": "string"
     },
-    "hostingEnvironment": {
+    "appHostingEnvironment": {
       "type": "string"
     },
-    "serverFarmResourceGroup": {
+    "appServerFarmResourceGroup": {
       "type": "string"
     },
-    "subscriptionId": {
+    "appSubscriptionId": {
       "type": "string"
     },
     "LoggingRedisConnectionString": {
@@ -53,7 +53,7 @@
         "apiVersion": "2016-03-01",
         "location": "[parameters('appLocation')]",
         "tags": {
-          "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]": "empty"
+          "[concat('hidden-related:', '/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]": "empty"
         },
         "properties": {
           "siteConfig": {
@@ -100,8 +100,8 @@
 
           },
           "name": "[parameters('appName')]",
-          "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
-          "hostingEnvironment": "[parameters('hostingEnvironment')]"
+          "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
+          "hostingEnvironment": "[parameters('appHostingEnvironment')]"
         },
         "dependsOn": [
           "[resourceId('microsoft.insights/components/', parameters('appName'))]"

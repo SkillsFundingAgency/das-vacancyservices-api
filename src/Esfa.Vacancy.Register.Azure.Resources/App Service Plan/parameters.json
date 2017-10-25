@@ -8,11 +8,11 @@
     "aspLocation": {
       "value": "__aspLocation__"
     },
-    "sku": {
-      "value": "__sku__"
+    "aspSku": {
+      "value": "__aspSku__"
     },
-    "skucode": {
-      "value": "__skucode__"
+    "aspSkuCode": {
+      "value": "__aspSkuCode__"
     },
     "workerSize": {
       "value": "1"
@@ -23,8 +23,8 @@
     "numberOfWorkers": {
       "value": "1"
     },
-    "hostingEnvironment": {
-      "value": "__hostingEnvironment__"
+    "aspHostingEnvironment": {
+      "value": "__aspHostingEnvironment__"
     }
   }
 }

@@ -8,10 +8,10 @@
     "aspLocation": {
       "type": "String"
     },
-    "sku": {
+    "aspSku": {
       "type": "String"
     },
-    "skucode": {
+    "aspSkuCode": {
       "type": "String"
     },
     "workerSize": {
@@ -31,8 +31,8 @@
     {
       "type": "Microsoft.Web/serverfarms",
       "sku": {
-        "Tier": "[parameters('sku')]",
-        "Name": "[parameters('skuCode')]"
+        "Tier": "[parameters('aspSku')]",
+        "Name": "[parameters('aspSkuCode')]"
       },
       "kind": "",
       "name": "[parameters('aspName')]",

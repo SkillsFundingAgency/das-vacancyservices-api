@@ -11,38 +11,38 @@
     "appLocation": {
       "value": "__appLocation__"
     },
-    "hostingEnvironment": {
-      "value": "__hostingEnvironment__"
+    "appHostingEnvironment": {
+      "value": "__appHostingEnvironment__"
     },
-    "serverFarmResourceGroup": {
-      "value": "__serverFarmResourceGroup__"
+    "appServerFarmResourceGroup": {
+      "value": "__appServerFarmResourceGroup__"
     },
-    "subscriptionId": {
-      "value": "__subscriptionId__"
+    "appSubscriptionId": {
+      "value": "__appSubscriptionId__"
     },
     "LoggingRedisConnectionString": {
-      "value": "__LoggingRedisConnectionString__"
+      "value": "__appSettingLoggingRedisConnectionString__"
     },
     "AvmsPlusDatabaseConnectionString": {
-      "value": "__AvmsPlusDatabaseConnectionString__"
+      "value": "__appSettingAvmsPlusDatabaseConnectionString__"
     },
     "EnvironmentName": {
-      "value": "__EnvironmentName__"
+      "value": "__appSettingEnvironmentName__"
     },
     "LoggingRedisKey": {
-      "value": "__LoggingRedisKey__"
+      "value": "__appSettingLoggingRedisKey__"
     },
     "ApprenticeshipInfoApiBaseUrl": {
-      "value": "__ApprenticeshipInfoApiBaseUrl__"
+      "value": "__appSettingApprenticeshipInfoApiBaseUrl__"
     },
     "LiveVacancyBaseUrl": {
-      "value": "__LiveVacancyBaseUrl__"
+      "value": "__appSettingLiveVacancyBaseUrl__"
     },
     "VacancySearchUrl": {
-      "value": "__VacancySearchUrl__"
+      "value": "__appSettingVacancySearchUrl__"
     },
     "ApprenticeshipIndexAlias": {
-      "value": "__ApprenticeshipIndexAlias__"
+      "value": "__appSettingApprenticeshipIndexAlias__"
     }
   }
 }

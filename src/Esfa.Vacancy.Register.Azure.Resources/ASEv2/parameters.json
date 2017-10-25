@@ -8,11 +8,11 @@
     "aseLocation": {
       "value": "__aseLocation__"
     },
-    "existingVnetResourceId": {
-      "value": "__existingVnetResourceId__"
+    "aseExistingVnetResourceId": {
+      "value": "__aseExistingVnetResourceId__"
     },
-    "subnetName": {
-      "value": "__subnetName__"
+    "aseSubnetName": {
+      "value": "__aseSubnetName__"
     }
   }
 }

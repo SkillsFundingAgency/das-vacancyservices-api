@@ -2,13 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "networkSecurityGroupName": {
+    "nsgName": {
       "type": "string"
     },
-    "location": {
+    "nsgLocation": {
       "type": "string"
     },
-    "subnetAddressPrefix": {
+    "nsgSubnetAddressPrefix": {
       "type": "string"
     },
     "securityRules_Inbound_Remote_Debugging_name": {
@@ -80,13 +80,13 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[parameters('networkSecurityGroupName')]",
-      "location": "[parameters('location')]",
+      "name": "[parameters('nsgName')]",
+      "location": "[parameters('nsgLocation')]",
       "properties": {}
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_management_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_management_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -103,12 +103,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_ASE_internal_inbound_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_ASE_internal_inbound_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -116,7 +116,7 @@
         "protocol": "TCP",
         "sourcePortRange": "*",
         "destinationPortRange": "*",
-        "sourceAddressPrefix": "[parameters('subnetAddressPrefix')]",
+        "sourceAddressPrefix": "[parameters('nsgSubnetAddressPrefix')]",
         "destinationAddressPrefix": "*",
         "access": "Allow",
         "priority": 110,
@@ -125,12 +125,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_HTTP_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_HTTP_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -147,12 +147,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_HTTPS_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_HTTPS_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -169,12 +169,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_FTP_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTP_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -191,12 +191,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_FTPS_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTPS_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -213,12 +213,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_FTP_Data_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTP_Data_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -235,13 +235,13 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "comments": "Generalized from resource: '/subscriptions/931bc9f6-359c-4f65-a753-1ee191a1fd6c/resourceGroups/SFAPreProdNetworkRG/providers/Microsoft.Network/networkSecurityGroups/ASE-PP-01-NSG/securityRules/Inbound-Remote-Debugging'.",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Inbound_Remote_Debugging_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_Remote_Debugging_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -258,12 +258,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_HTTPS_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_HTTPS_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -280,12 +280,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_SMB_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SMB_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -302,13 +302,13 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "comments": "Generalized from resource: '/subscriptions/931bc9f6-359c-4f65-a753-1ee191a1fd6c/resourceGroups/SFAPreProdNetworkRG/providers/Microsoft.Network/networkSecurityGroups/ASE-PP-01-NSG/securityRules/Outbound-SQL'.",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_SQL_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -325,12 +325,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_SQL2_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL2_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -347,12 +347,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_SQL3_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL3_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -369,12 +369,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_DNS_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_DNS_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -391,12 +391,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_ASE_Internal_Outbound_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_ASE_Internal_Outbound_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -405,7 +405,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "*",
         "sourceAddressPrefix": "*",
-        "destinationAddressPrefix": "[parameters('subnetAddressPrefix')]",
+        "destinationAddressPrefix": "[parameters('nsgSubnetAddressPrefix')]",
         "access": "Allow",
         "priority": 160,
         "direction": "Outbound",
@@ -413,12 +413,12 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-      "name": "[concat(parameters('networkSecurityGroupName'), '/', parameters('securityRules_Outbound_HTTP_name'))]",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_HTTP_name'))]",
       "apiVersion": "2017-06-01",
       "scale": null,
       "properties": {
@@ -435,7 +435,7 @@
         "destinationAddressPrefixes": []
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
       ]
     }
   ]
