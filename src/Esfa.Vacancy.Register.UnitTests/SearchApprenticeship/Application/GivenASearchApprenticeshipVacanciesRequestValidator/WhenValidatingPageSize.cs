@@ -58,9 +58,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     PageSize = 0
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be greater than or equal to '1'.")
+                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be between 1 and 250. You entered 0.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeLessThan1
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeOutsideRange
                     }}
                 })
                 .SetName("Then less than 1 is invalid"),
@@ -88,9 +88,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     PageSize = 251
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be less than or equal to '250'.")
+                    Errors = { new ValidationFailure("PageSize", "'Page Size' must be between 1 and 250. You entered 251.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeGreaterThan250
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeOutsideRange
                     }}
                 })
                 .SetName("Then greater than 250 is invalid")

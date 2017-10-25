@@ -10,13 +10,12 @@
             public const string StandardAndFrameworkCodeNotProvided     = "30101";
             public const string StandardCodeNotInt32                    = "30102";
             public const string FrameworkCodeNotInt32                   = "30103";
-            public const string PageSizeLessThan1                       = "30104";
-            public const string PageSizeGreaterThan250                  = "30105";
-            public const string PageNumberLessThan1                     = "30106";
-            public const string PostedInLastNumberOfDaysLessThan0       = "30107";
+            public const string PageSizeOutsideRange                    = "30104";
+            public const string PageNumberLessThan1                     = "30105";
+            public const string PostedInLastNumberOfDaysLessThan0       = "30106";
 
-            public const string FrameworkCodeNotFound                   = "30108";
-            public const string StandardCodeNotFound                    = "30109";
+            public const string FrameworkCodeNotFound                   = "30107";
+            public const string StandardCodeNotFound                    = "30108";
         }
 
         public static class GetApprenticeship
