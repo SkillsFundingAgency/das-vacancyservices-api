@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         {
             RuleFor(request => request.StandardCodes)
                 .NotEmpty()
-                .When(request => request.FrameworkCodes == null || !request.FrameworkCodes.Any())
+                .When(request => !request.FrameworkCodes.Any())
                 .WithMessage(ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
 
