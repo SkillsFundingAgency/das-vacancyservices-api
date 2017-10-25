@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -21,7 +20,7 @@ using SFA.DAS.NLog.Logger;
 namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 {
     [TestFixture]
-    public class GivenVacancyApiExceptionHandler
+    public class GivenAVacancyApiExceptionHandler
     {
         private Mock<ILog> _logger;
         private VacancyApiExceptionHandler _handler;
