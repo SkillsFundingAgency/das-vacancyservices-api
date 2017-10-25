@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
-    <Compile Include="Api\App_Start\GivenVacancyApiExceptionHandler.cs" />
+    <Compile Include="Shared\Api\App_Start\GivenVacancyApiExceptionHandler.cs" />
     <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenGettingATraineeshipVacancy.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyValidator\WhenValidatingRequest.cs" />

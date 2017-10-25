@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -6,16 +7,18 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Dependencies;
 using System.Web.Http.ExceptionHandling;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentAssertions;
 using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 {
     [TestFixture]
     public class GivenVacancyApiExceptionHandler
@@ -60,8 +63,10 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         [Test]
         public async Task AndValidationExceptionIsThrownThenReturnBadRequest()
         {
+            var expectedErrorMessage = Guid.NewGuid().ToString();
+            var expectedErrorCode = Guid.NewGuid().ToString();
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ValidationException("validation message"), 
+                new ValidationException(new[] { new ValidationFailure("", expectedErrorMessage) {ErrorCode = expectedErrorCode} }), 
                 new ExceptionContextCatchBlock("name", true, true), 
                 new HttpRequestMessage() ));
 
@@ -71,7 +76,11 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            message.Content.ReadAsStringAsync().Result.Should().Be("validation message");
+            message.Content.ReadAsAsync<BadRequestResponse>().Result.RequestErrors
+                .ShouldAllBeEquivalentTo(new[]
+                {
+                    new BadRequestError{ErrorCode = expectedErrorCode, ErrorMessage = expectedErrorMessage}
+                });
         }
 
         [Test]
