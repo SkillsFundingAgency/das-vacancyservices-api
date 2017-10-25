@@ -24,16 +24,24 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
             SearchApprenticeshipParameters apprenticeSearchParameters)
         {
-            if (apprenticeSearchParameters == null) throw new ValidationException(new List<ValidationFailure>
-            {
-                new ValidationFailure("apprenticeSearchParameters", ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull)
-                { ErrorCode = ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull}
-            });
+            if (apprenticeSearchParameters == null) ThrowValidationException();
 
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
             var response = await _mediator.Send(request);
             var results = _mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
             return results;
+        }
+
+        private static void ThrowValidationException()
+        {
+            throw new ValidationException(
+                new List<ValidationFailure>
+                {
+                    new ValidationFailure("apprenticeSearchParameters", ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull)
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull
+                    }
+                });
         }
     }
 }
