@@ -18,7 +18,6 @@ namespace Esfa.Vacancy.Register.Infrastructure.Factories
             var baseUri = _provideSettings.GetSetting(ApplicationSettingKeyConstants.VacancySearchUrlKey);
             var node = new Uri(baseUri);
             var settings = new ConnectionSettings(node);
-            //settings.SetConnectTimeout(5000);
             settings.SetTimeout(5000);
 
             return new ElasticClient(settings);
