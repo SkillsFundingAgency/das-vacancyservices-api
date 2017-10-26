@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -13,11 +14,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
+        private readonly ICacheService _cache;
 
-        public StandardRepository(IProvideSettings provideSettings, ILog logger)
+        private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
+        private const string StandardCodesCacheKey = "VacancyApi.StandardCodes";
+        private const double CacheExpirationHours = 1;
+
+        public StandardRepository(IProvideSettings provideSettings, ILog logger, ICacheService cache)
         {
             _provideSettings = provideSettings;
             _logger = logger;
+            _cache = cache;
         }
 
         private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
@@ -29,7 +36,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 _logger.Warn($"Error retrieving standard codes from database: ({exception.Message}). Retrying...attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(InternalGetStandardIdsAsync);
+            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
+                StandardCodesCacheKey, 
+                InternalGetStandardsAndRespectiveSectorIdsAsync, 
+                TimeSpan.FromHours(CacheExpirationHours)));
         }
 
         private async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
