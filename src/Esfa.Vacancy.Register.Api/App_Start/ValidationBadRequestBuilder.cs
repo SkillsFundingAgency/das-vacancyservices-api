@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
     {
         public IHttpActionResult CreateBadRequestResult(ValidationException validationException, HttpRequestMessage request)
         {
-            var badrequestResponse = new BadRequestResponse
+            var badRequestContent = new BadRequestContent
             {
                 RequestErrors = validationException.Errors
                     .Select(validationFailure => new BadRequestError
@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                     })
             };
 
-            var response = request.CreateResponse(HttpStatusCode.BadRequest, badrequestResponse);
+            var response = request.CreateResponse(HttpStatusCode.BadRequest, badRequestContent);
 
             return new CustomErrorResult(request, response);
         }

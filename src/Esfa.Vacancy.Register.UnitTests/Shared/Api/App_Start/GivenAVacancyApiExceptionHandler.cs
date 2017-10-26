@@ -72,7 +72,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             var validationException = new ValidationException(new[] { new ValidationFailure("", expectedErrorMessage) { ErrorCode = expectedErrorCode } });
 
-            var badrequestContent = new BadRequestResponse
+            var badrequestContent = new BadRequestContent
             {
                 RequestErrors = validationException.Errors
                     .Select(validationFailure => new BadRequestError
@@ -84,7 +84,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             var badrequestResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
             {
-                Content = new ObjectContent<BadRequestResponse>(badrequestContent, new JsonMediaTypeFormatter())
+                Content = new ObjectContent<BadRequestContent>(badrequestContent, new JsonMediaTypeFormatter())
             };
 
             _mockValidationBadRequestBuilder
@@ -103,7 +103,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            message.Content.ReadAsAsync<BadRequestResponse>().Result.RequestErrors
+            message.Content.ReadAsAsync<BadRequestContent>().Result.RequestErrors
                 .ShouldAllBeEquivalentTo(new[]
                 {
                     new BadRequestError{ErrorCode = expectedErrorCode, ErrorMessage = expectedErrorMessage}

@@ -3,9 +3,9 @@
 namespace Esfa.Vacancy.Api.Types
 {
     /// <summary>
-    /// Error response resulting from a bad request (HTTP STATUS 400)
+    /// Error response content resulting from a bad request (HTTP STATUS 400)
     /// </summary>
-    public class BadRequestResponse
+    public class BadRequestContent
     {
         /// <summary>
         /// Collection of errors from the bad request

@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="BadRequestError.cs" />
-    <Compile Include="BadRequestResponse.cs" />
+    <Compile Include="BadRequestContent.cs" />
     <Compile Include="TraineeshipVacancy.cs" />
     <Compile Include="GeoPoint.cs" />
     <Compile Include="SearchApprenticeshipParameters.cs" />
