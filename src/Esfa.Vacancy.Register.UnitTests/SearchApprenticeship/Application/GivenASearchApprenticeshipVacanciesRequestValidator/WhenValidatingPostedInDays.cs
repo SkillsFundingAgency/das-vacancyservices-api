@@ -9,20 +9,12 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingPostedInDays
+    public class WhenValidatingPostedInDays : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
-
-        [SetUp]
-        public void Setup()
-        {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
@@ -30,7 +22,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorMessage));
@@ -39,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorCode));
@@ -49,12 +41,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"}
+                    StandardCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = -1
                 }, new ValidationResult
                 {
@@ -66,13 +58,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then less than 0 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = 0
                 }, new ValidationResult())
                 .SetName("Then 0 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = new Random().Next()
                 }, new ValidationResult())
                 .SetName("Then greater than 0 is valid")

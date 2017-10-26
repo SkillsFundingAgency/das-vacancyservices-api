@@ -1,10 +1,10 @@
 ﻿using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Mappings;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
@@ -14,10 +14,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
         [Test]
         public void WithFrameworkThenLoadFrameworkDetails()
         {
-            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var vacancy = new Fixture().Build<DomainEntities.ApprenticeshipVacancy>()
                                         .With(v => v.WageUnitId, null)
                                         .Without(v => v.Standard)
-                                        .With(v => v.Framework, new Framework
+                                        .With(v => v.Framework, new DomainEntities.Framework
                                         {
                                             Title = "Title",
                                             Code = 13,
@@ -35,10 +35,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
         [Test]
         public void WithStandardThenLoadStandardDetails()
         {
-            var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var vacancy = new Fixture().Build<DomainEntities.ApprenticeshipVacancy>()
                                         .With(v => v.WageUnitId, null)
                                         .Without(v => v.Framework)
-                                        .With(v => v.Standard, new Standard
+                                        .With(v => v.Standard, new DomainEntities.Standard
                                         {
                                             Title = "Title",
                                             Code = 13,

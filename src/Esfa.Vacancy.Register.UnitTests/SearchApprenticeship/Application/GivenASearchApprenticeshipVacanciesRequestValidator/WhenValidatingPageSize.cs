@@ -9,20 +9,12 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingPageSize
+    public class WhenValidatingPageSize : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
-
-        [SetUp]
-        public void Setup()
-        {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
@@ -30,7 +22,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorMessage));
@@ -39,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorCode));
@@ -49,12 +41,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"}
+                    StandardCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PageSize = 0
                 }, new ValidationResult
                 {
@@ -66,25 +58,25 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then less than 1 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PageSize = 1
                 }, new ValidationResult())
                 .SetName("Then 1 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PageSize = new Random().Next(1, 250)
                 }, new ValidationResult())
                 .SetName("Then between 1 and 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PageSize = 250
                 }, new ValidationResult())
                 .SetName("Then 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"},
+                    StandardCodes = ValidStandardCodes,
                     PageSize = 251
                 }, new ValidationResult
                 {

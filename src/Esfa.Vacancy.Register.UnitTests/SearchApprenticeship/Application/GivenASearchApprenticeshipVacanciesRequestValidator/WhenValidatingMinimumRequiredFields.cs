@@ -8,20 +8,12 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingMinimumRequiredFields
+    public class WhenValidatingMinimumRequiredFields : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
-
-        [SetUp]
-        public void Setup()
-        {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.IsValid.Should().Be(expectedResult.IsValid);
         }
@@ -29,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorMessage));
@@ -38,7 +30,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
         {
-            var actualResult = _validator.Validate(searchRequest);
+            var actualResult = Validator.Validate(searchRequest);
 
             actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
                 options => options.Including(failure => failure.ErrorCode));
@@ -48,25 +40,25 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"2345"}
+                    FrameworkCodes = ValidFrameworkCodes
                 }, new ValidationResult())
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"}
+                    StandardCodes = ValidFrameworkCodes
                 }, new ValidationResult())
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new List<string> {"34"},
-                    StandardCodes = new List<string> {"768657"}
+                    FrameworkCodes = ValidFrameworkCodes,
+                    StandardCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult
                 {
                     Errors =
                     {
-                        new ValidationFailure("", "At least one of StandardCodes or FrameworkCodes is required.")
+                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
                         {
                             ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided
                         }
