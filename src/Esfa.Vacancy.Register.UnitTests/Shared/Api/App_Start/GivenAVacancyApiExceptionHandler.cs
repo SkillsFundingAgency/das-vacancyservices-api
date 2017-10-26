@@ -183,7 +183,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         public async Task AndRequestUriIsSpecifiedThenAlsoLogRequestUri()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ValidationException("validation message"), 
+                new InfrastructureException(new Exception("an infrastructure error")),
                 new ExceptionContextCatchBlock("name", true, true), 
                 new HttpRequestMessage(HttpMethod.Get, "http://resource/that/errored"))
                 );
@@ -192,7 +192,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             await context.Result.ExecuteAsync(CancellationToken.None);
 
-            _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error url:http://resource/that/errored"), Times.Once);
+            _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error url:http://resource/that/errored"), Times.Once);
         }
 
     }
