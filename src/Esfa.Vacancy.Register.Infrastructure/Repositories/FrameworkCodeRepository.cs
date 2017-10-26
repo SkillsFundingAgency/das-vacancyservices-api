@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Register.Infrastructure.Caching;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 
@@ -13,13 +16,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
     {
         private readonly IProvideSettings _settings;
         private readonly ILog _logger;
+        private readonly ICacheService _cache;
 
         private const string GetActiveFrameworkCodesSqlSproc = "[VACANCY_API].[GetActiveFrameworkCodes]";
+        private const string FrameworkCodesCacheKey = "VacancyApi.FrameworkCodes";
+        private const double CacheExpirationHours = 1;
 
-        public FrameworkCodeRepository(IProvideSettings settings, ILog logger)
+        public FrameworkCodeRepository(IProvideSettings settings, ILog logger, ICacheService cache)
         {
             _settings = settings;
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task<IEnumerable<string>> GetAsync()
@@ -29,7 +36,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 _logger.Warn($"Error retrieving framework codes from database: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(InternalGetAsync);
+            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(FrameworkCodesCacheKey, InternalGetAsync, TimeSpan.FromHours(CacheExpirationHours)));
         }
 
         private async Task<IEnumerable<string>> InternalGetAsync()
