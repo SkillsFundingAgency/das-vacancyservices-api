@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"e"}
+                    FrameworkCodes = new List<string> {"e"}
                 }, new ValidationResult
                 {
                     Errors = { new ValidationFailure("FrameworkCodes[0]", "e is invalid, expected a number.") }
@@ -38,7 +38,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then chars are not allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"1.1"}
+                    FrameworkCodes = new List<string> {"1.1"}
                 }, new ValidationResult
                 {
                     Errors = { new ValidationFailure("FrameworkCodes[0]", "1.1 is invalid, expected a number.") }
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then floats are not allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"6 2"}
+                    FrameworkCodes = new List<string> {"6 2"}
                 }, new ValidationResult
                 {
                     Errors = { new ValidationFailure("FrameworkCodes[0]", "6 2 is invalid, expected a number.") }
@@ -54,7 +54,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then inner spaces are not allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"  1   "}
+                    FrameworkCodes = new List<string> {"  1   "}
                 }, new ValidationResult())
                 .SetName("Then outer spaces are allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -64,7 +64,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then ints are allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkCodes = new [] {"123"}
+                    FrameworkCodes = new List<string> {"123"}
                 }, new ValidationResult()
                 {
                     Errors = { new ValidationFailure("FrameworkCodes[0]", "Framework code 123 is invalid.") }

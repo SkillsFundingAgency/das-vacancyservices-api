@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+﻿using System.Collections.Generic;
+using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -14,7 +15,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             {
-                FrameworkCodes = new[] { "1" },
+                FrameworkCodes = new List<string> { "1" },
                 PostedInLastNumberOfDays = postedInDays
             };
 

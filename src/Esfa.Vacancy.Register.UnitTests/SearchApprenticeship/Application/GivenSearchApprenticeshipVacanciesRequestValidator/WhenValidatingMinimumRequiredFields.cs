@@ -35,13 +35,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = new List<string> {"2345"}
+                    StandardCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     FrameworkCodes = ValidFrameworkCodes,
-                    StandardCodes = new List<string> {"768657"}
+                    StandardCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult

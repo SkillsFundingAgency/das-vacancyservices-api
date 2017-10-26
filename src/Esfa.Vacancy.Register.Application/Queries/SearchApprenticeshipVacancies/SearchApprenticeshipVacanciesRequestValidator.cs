@@ -10,15 +10,18 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
         private readonly IFrameworkCodeRepository _frameworkCodeRepository;
+        private readonly IStandardRepository _standardRepository;
         private const string MinimumFieldsErrorMessage = "At least one of StandardCodes or FrameworkCodes is required.";
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
 
         public SearchApprenticeshipVacanciesRequestValidator(
-            IFrameworkCodeRepository frameworkCodeRepository)
+            IFrameworkCodeRepository frameworkCodeRepository,
+            IStandardRepository standardRepository)
         {
             _frameworkCodeRepository = frameworkCodeRepository;
+            _standardRepository = standardRepository;
 
             RuleFor(request => request.StandardCodes)
                 .NotEmpty()
@@ -27,7 +30,10 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => $"{t} is invalid, expected a number.");
+                .WithMessage((c, t) => $"{t} is invalid, expected a number.")
+                .DependentRules(d => d.RuleForEach(request => request.StandardCodes)
+                    .MustAsync(BeAValidStandardCode)
+                    .WithMessage((c, value) => $"Standard code {value} is invalid."));
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
@@ -59,6 +65,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             return validFrameworks.Any(larsCode =>
                 larsCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
+        {
+            var validStandards = (await _standardRepository.GetStandardIdsAsync()).ToList();
+
+            return validStandards.Any(larsCode =>
+                larsCode.Equals(int.Parse(standardCode)));
         }
     }
 }
