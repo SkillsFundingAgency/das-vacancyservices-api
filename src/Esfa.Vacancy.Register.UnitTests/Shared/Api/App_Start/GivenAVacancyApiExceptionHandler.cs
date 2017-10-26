@@ -1,27 +1,32 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Dependencies;
 using System.Web.Http.ExceptionHandling;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentAssertions;
 using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 {
     [TestFixture]
-    public class GivenVacancyApiExceptionHandler
+    public class GivenAVacancyApiExceptionHandler
     {
         private Mock<ILog> _logger;
         private VacancyApiExceptionHandler _handler;
+        private Mock<IValidationBadRequestBuilder> _mockValidationBadRequestBuilder;
 
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
         private const string ExceptionInExceptionHandlerErrorMessage = "A critical error occurred, please try again.";
@@ -36,7 +41,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver.Object;
 
-            _handler = new VacancyApiExceptionHandler();
+            _mockValidationBadRequestBuilder = new Mock<IValidationBadRequestBuilder>();
+
+            _handler = new VacancyApiExceptionHandler(_mockValidationBadRequestBuilder.Object);
         }
 
         [Test]
@@ -60,9 +67,34 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         [Test]
         public async Task AndValidationExceptionIsThrownThenReturnBadRequest()
         {
+            var expectedErrorMessage = Guid.NewGuid().ToString();
+            var expectedErrorCode = Guid.NewGuid().ToString();
+
+            var validationException = new ValidationException(new[] { new ValidationFailure("", expectedErrorMessage) { ErrorCode = expectedErrorCode } });
+
+            var badrequestContent = new BadRequestContent
+            {
+                RequestErrors = validationException.Errors
+                    .Select(validationFailure => new BadRequestError
+                    {
+                        ErrorCode = validationFailure.ErrorCode,
+                        ErrorMessage = validationFailure.ErrorMessage
+                    })
+            };
+
+            var badrequestResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new ObjectContent<BadRequestContent>(badrequestContent, new JsonMediaTypeFormatter())
+            };
+
+            _mockValidationBadRequestBuilder
+                .Setup(builder => builder.CreateBadRequestResult(It.IsAny<ValidationException>(), It.IsAny<HttpRequestMessage>()))
+                .Returns(new CustomErrorResult(new HttpRequestMessage(), badrequestResponse));
+
+            
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ValidationException("validation message"), 
-                new ExceptionContextCatchBlock("name", true, true), 
+                validationException, 
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage() ));
 
             _handler.Handle(context);
@@ -71,7 +103,11 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            message.Content.ReadAsStringAsync().Result.Should().Be("validation message");
+            message.Content.ReadAsAsync<BadRequestContent>().Result.RequestErrors
+                .ShouldAllBeEquivalentTo(new[]
+                {
+                    new BadRequestError{ErrorCode = expectedErrorCode, ErrorMessage = expectedErrorMessage}
+                });
         }
 
         [Test]
@@ -147,7 +183,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
         public async Task AndRequestUriIsSpecifiedThenAlsoLogRequestUri()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ValidationException("validation message"), 
+                new InfrastructureException(new Exception("an infrastructure error")),
                 new ExceptionContextCatchBlock("name", true, true), 
                 new HttpRequestMessage(HttpMethod.Get, "http://resource/that/errored"))
                 );
@@ -156,7 +192,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Api.App_Start
 
             await context.Result.ExecuteAsync(CancellationToken.None);
 
-            _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error url:http://resource/that/errored"), Times.Once);
+            _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error url:http://resource/that/errored"), Times.Once);
         }
 
     }

@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Factories
     public class ElasticClientFactory
     {
         private readonly IProvideSettings _provideSettings;
+        private const int ElasticClientTimeoutMilliseconds = 5000;
 
         public ElasticClientFactory(IProvideSettings provideSettings)
         {
@@ -18,7 +19,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Factories
             var baseUri = _provideSettings.GetSetting(ApplicationSettingKeyConstants.VacancySearchUrlKey);
             var node = new Uri(baseUri);
             var settings = new ConnectionSettings(node);
-            settings.SetConnectTimeout(5000);
+            
+            settings.SetTimeout(ElasticClientTimeoutMilliseconds);
 
             return new ElasticClient(settings);
         }

@@ -1,8 +1,9 @@
 ﻿using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
+using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Queries.GivenAGetApprenticeshipVacancyQueryHandler
+namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Queries.GivenAGetApprenticeshipVacancyValidator
 {
     [TestFixture]
     public class WhenValidatingRequest
@@ -15,11 +16,13 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Application.Q
             _validator = new GetApprenticeshipVacancyValidator();
         }
 
-        [TestCase(0)]
-        [TestCase(-1)]
-        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference)
+        [TestCase(0, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
+        [TestCase(-1, ErrorCodes.GetApprenticeship.VacancyReferenceNumberLessThan0)]
+        public void ThenIfTheVacancyReferenceIsZeroOrLessIsNotValid(int testVacancyReference, string errorCode)
         {
-            _validator.ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference);
+            _validator
+                .ShouldHaveValidationErrorFor(request => request.Reference, testVacancyReference)
+                .WithErrorCode(errorCode);
         }
 
         [TestCase(1)]

@@ -11,6 +11,13 @@ namespace Esfa.Vacancy.Register.Api.App_Start
 {
     public class VacancyApiExceptionHandler : ExceptionHandler
     {
+        private readonly IValidationBadRequestBuilder _validationBadRequestBuilder;
+
+        public VacancyApiExceptionHandler(IValidationBadRequestBuilder validationBadRequestBuilder)
+        {
+            _validationBadRequestBuilder = validationBadRequestBuilder;
+        }
+
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
         private const string ExceptionInExceptionHandlerErrorMessage = "A critical error occurred, please try again.";
 
@@ -22,43 +29,43 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 
                 if (context.Exception is ValidationException)
                 {
-                    logger.Warn(context.Exception, GetLogMessage("Validation error", context));
-                    context.Result = CreateResult(HttpStatusCode.BadRequest, ((ValidationException) context.Exception).Message, context.Request);
+                    logger.Warn(context.Exception, FormatLogMessage("Validation error", context));
+                    context.Result = _validationBadRequestBuilder.CreateBadRequestResult((ValidationException) context.Exception, context.Request);
                     return;
                 }
 
                 if (context.Exception is UnauthorisedException)
                 {
-                    logger.Warn(context.Exception, GetLogMessage("Authorisation error", context));
-                    context.Result = CreateResult(HttpStatusCode.Unauthorized, ((UnauthorisedException) context.Exception).Message, context.Request);
+                    logger.Warn(context.Exception, FormatLogMessage("Authorisation error", context));
+                    context.Result = CreateStringResult(HttpStatusCode.Unauthorized, ((UnauthorisedException) context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is ResourceNotFoundException)
                 {
-                    logger.Warn(context.Exception, GetLogMessage("Unable to locate resource error", context));
-                    context.Result = CreateResult(HttpStatusCode.NotFound, ((ResourceNotFoundException) context.Exception).Message, context.Request);
+                    logger.Warn(context.Exception, FormatLogMessage("Unable to locate resource error", context));
+                    context.Result = CreateStringResult(HttpStatusCode.NotFound, ((ResourceNotFoundException) context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is InfrastructureException)
                 {
-                    logger.Error(context.Exception.InnerException, GetLogMessage("Unexpected infrastructure error", context));
-                    context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
+                    logger.Error(context.Exception.InnerException, FormatLogMessage("Unexpected infrastructure error", context));
+                    context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
                     return;
                 }
 
-                logger.Error(context.Exception, GetLogMessage("Unexpected error", context));
-                context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
+                logger.Error(context.Exception, FormatLogMessage("Unexpected error", context));
+                context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
             }
             catch
             {
                 //whatever happens don't leak the stack trace
-                context.Result = CreateResult(HttpStatusCode.InternalServerError, ExceptionInExceptionHandlerErrorMessage, context.Request);
+                context.Result = CreateStringResult(HttpStatusCode.InternalServerError, ExceptionInExceptionHandlerErrorMessage, context.Request);
             }
         }
 
-        private IHttpActionResult CreateResult(HttpStatusCode statusCode, string content, HttpRequestMessage request)
+        private IHttpActionResult CreateStringResult(HttpStatusCode statusCode, string content, HttpRequestMessage request)
         {
             var response = new HttpResponseMessage(statusCode);
             response.Content = new StringContent(content);
@@ -66,7 +73,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             return result;
         }
 
-        private string GetLogMessage(string message, ExceptionHandlerContext context)
+        private string FormatLogMessage(string message, ExceptionHandlerContext context)
         {
             var requestUri = context.Request?.RequestUri?.ToString();
             

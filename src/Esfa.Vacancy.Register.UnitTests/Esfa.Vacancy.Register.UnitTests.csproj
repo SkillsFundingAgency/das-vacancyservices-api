@@ -105,12 +105,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\App_Start\GivenAnApiFilterConfig.cs" />
-    <Compile Include="Api\App_Start\GivenVacancyApiExceptionHandler.cs" />
-    <Compile Include="Api\Mappings\IntToEnumConverterTests.cs" />
+    <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
+    <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
+    <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenGettingATraineeshipVacancy.cs" />
-    <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenValidatingRequest.cs" />
-    <Compile Include="Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
+    <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyValidator\WhenValidatingRequest.cs" />
+    <Compile Include="Shared\Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenAnApprenticeshipSummary.cs" />
-    <Compile Include="Api\AutoMapperConfigTest.cs" />
+    <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithAmbiguousWage.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithLegacyTextWageType.cs" />
@@ -128,20 +128,20 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithApprenticeshipMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithNationalMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenGettingApprenticeshipVacancy.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenValidatingRequest.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInLastNumberOfDays.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPostedInDays.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPostedInDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\WhenCallingBuildAsync.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenGettingLiveApprenticeship.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageNumber.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingPageSize.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingFrameworkCodes.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenRequestValidator\WhenValidatingStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageNumber.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageSize.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingStandardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchApprenticeship\Infrastructure\GivenAnApprenticeshipSearchService\WhenSearchingByStandardCodes.cs" />
   </ItemGroup>

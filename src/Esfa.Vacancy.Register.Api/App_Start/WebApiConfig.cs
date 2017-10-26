@@ -30,7 +30,8 @@ namespace Esfa.Vacancy.Register.Api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Services.Replace(typeof(IExceptionHandler), new VacancyApiExceptionHandler());
+            var validationBadRequestBuilder = (IValidationBadRequestBuilder)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IValidationBadRequestBuilder));
+            config.Services.Replace(typeof(IExceptionHandler), new VacancyApiExceptionHandler(validationBadRequestBuilder));
         }
     }
 }

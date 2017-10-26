@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation.Results;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -34,7 +35,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 var standardSector = standardSectorIds.FirstOrDefault(ss => ss.LarsCode == parsedStandardToConvert);
                 if (standardSector == null)
                 {
-                    result.ValidationFailures.Add(new ValidationFailure("StandardCode", $"StandardCode {parsedStandardToConvert} is invalid"));
+                    result.ValidationFailures
+                        .Add(new ValidationFailure("StandardCode", string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotFound, parsedStandardToConvert))
+                        { ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotFound });
                 }
                 else
                 {
