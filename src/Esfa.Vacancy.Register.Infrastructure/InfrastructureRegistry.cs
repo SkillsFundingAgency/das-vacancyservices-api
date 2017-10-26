@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Esfa.Vacancy.Register.Application.Interfaces;
+using Esfa.Vacancy.Register.Infrastructure.Caching;
 using Esfa.Vacancy.Register.Infrastructure.Factories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using Nest;
@@ -18,6 +20,7 @@ namespace Esfa.Vacancy.Register.Infrastructure
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => new AppConfigSettingsProvider(new MachineSettings()));
             For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
+            For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
         }
 
         private IDictionary<string, object> GetProperties()

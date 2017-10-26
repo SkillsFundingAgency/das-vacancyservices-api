@@ -111,6 +111,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\AzureRedisCacheService.cs" />
     <Compile Include="Exceptions\InfrastructureException.cs" />
     <Compile Include="Factories\ElasticClientFactory.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
