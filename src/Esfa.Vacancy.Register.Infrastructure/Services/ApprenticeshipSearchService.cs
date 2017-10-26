@@ -51,7 +51,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                     .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                     .Take(parameters.PageSize)
                     .Query(query =>
-                        query.Terms(f => f.SubCategoryCode, parameters.SubCategoryCodes)
+                        (query.Terms(f => f.FrameworkCode, parameters.FrameworkCodes)
+                         || query.Terms(f => f.StandardId, parameters.StandardIds))
                         && query.Range(p => p.OnField(r => r.PostedDate).GreaterOrEquals(parameters.FromDate))
                     ));
             }

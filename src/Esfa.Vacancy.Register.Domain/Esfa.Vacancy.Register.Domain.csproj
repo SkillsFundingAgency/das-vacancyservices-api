@@ -40,8 +40,8 @@
     <Compile Include="Entities\Framework.cs" />
     <Compile Include="Entities\GeoPoint.cs" />
     <Compile Include="Entities\Standard.cs" />
-    <Compile Include="Entities\StandardSector.cs" />
     <Compile Include="Entities\ApprenticeshipVacancy.cs" />
+    <Compile Include="Entities\TrainingType.cs" />
     <Compile Include="Entities\VacancySearchParameters.cs" />
     <Compile Include="Entities\VacancyStatus.cs" />
     <Compile Include="Entities\WageType.cs" />

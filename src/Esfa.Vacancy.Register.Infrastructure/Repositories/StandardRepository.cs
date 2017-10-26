@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
@@ -23,17 +22,17 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
 
-        public async Task<IEnumerable<StandardSector>> GetStandardsAndRespectiveSectorIdsAsync()
+        public async Task<IEnumerable<int>> GetStandardIdsAsync()
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving standard codes from database: ({exception.Message}). Retrying...attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(InternalGetStandardsAndRespectiveSectorIdsAsync);
+            return await retry.ExecuteAsync(InternalGetStandardIdsAsync);
         }
 
-        private async Task<IEnumerable<StandardSector>> InternalGetStandardsAndRespectiveSectorIdsAsync()
+        private async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
@@ -43,8 +42,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
 
                 var results =
-                    await sqlConn.QueryAsync<StandardSector>(GetActiveStandardCodesSqlSproc, 
-                    commandType:CommandType.StoredProcedure);
+                    await sqlConn.QueryAsync<int>(GetActiveStandardCodesSqlSproc,
+                        commandType: CommandType.StoredProcedure);
 
                 return results;
             }

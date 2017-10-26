@@ -17,62 +17,58 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     public class WhenCallingHandle
     {
         private SearchApprenticeshipVacanciesQueryHandler _handler;
-        private SearchApprenticeshipVacanciesRequest _invalidRequest;
-        private SearchApprenticeshipVacanciesRequest _validRequest;
-        private string _errorMessage;
         private SearchApprenticeshipVacanciesResponse _expectedResponse;
+        private Mock<IValidator<SearchApprenticeshipVacanciesRequest>> _validatorMock;
 
         [SetUp]
         public void Setup()
         {
-            _invalidRequest = new SearchApprenticeshipVacanciesRequest();
-            _validRequest = new SearchApprenticeshipVacanciesRequest();
-            _errorMessage = Guid.NewGuid().ToString();
-            var searchParams = new VacancySearchParameters();
             _expectedResponse = new SearchApprenticeshipVacanciesResponse();
 
-            var mockValidator = new Mock<IValidator<SearchApprenticeshipVacanciesRequest>>();
-            mockValidator
-                .Setup(validator => validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ValidationResult());
-            mockValidator
-                .Setup(validator => validator.ValidateAsync(_invalidRequest, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ValidationResult(new List<ValidationFailure>
-                {
-                    new ValidationFailure("stuff", _errorMessage)
-                }));
-
-            var mockConverter = new Mock<IVacancySearchParametersBuilder>();
-            mockConverter
-                .Setup(converter => converter.BuildAsync(_validRequest))
-                .ReturnsAsync(searchParams);
+            _validatorMock = new Mock<IValidator<SearchApprenticeshipVacanciesRequest>>();
 
             var mockSearchService = new Mock<IApprenticeshipSearchService>();
             mockSearchService
-                .Setup(service => service.SearchApprenticeshipVacanciesAsync(searchParams))
+                .Setup(service => service.SearchApprenticeshipVacanciesAsync(It.IsAny<VacancySearchParameters>()))
                 .ReturnsAsync(_expectedResponse);
 
             _handler = new SearchApprenticeshipVacanciesQueryHandler(
-                mockValidator.Object,
-                mockSearchService.Object,
-                mockConverter.Object);
+                _validatorMock.Object,
+                mockSearchService.Object);
         }
 
         [Test]
         public void AndRequestNotValid_ThenThrowsValidationException()
         {
+            var errorMessage = Guid.NewGuid().ToString();
+            var invalidRequest = new SearchApprenticeshipVacanciesRequest();
+
+            _validatorMock
+                .Setup(validator => validator.ValidateAsync(invalidRequest, It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(new ValidationResult(new List<ValidationFailure>
+                    {
+                                new ValidationFailure("stuff", errorMessage)
+                    }));
+
             var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(() =>
-            _handler.Handle(_invalidRequest));
+                _handler.Handle(invalidRequest));
 
             action.ShouldThrow<ValidationException>()
-                .WithMessage($"Validation failed: \r\n -- {_errorMessage}");
+                .WithMessage($"Validation failed: \r\n -- {errorMessage}");
         }
 
         [Test]
-        public void AndRequestValid_ThenReturnsResultFromSearchService()
+        public async Task AndRequestValid_ThenReturnsResultFromSearchService()
         {
-            _handler.Handle(_validRequest).Result
-                .Should().BeSameAs(_expectedResponse);
+            var validRequest = new SearchApprenticeshipVacanciesRequest();
+
+            _validatorMock
+                .Setup(validator => validator.ValidateAsync(validRequest, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
+
+            var response = await _handler.Handle(validRequest);
+
+            response.Should().BeSameAs(_expectedResponse);
         }
     }
 }

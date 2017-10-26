@@ -1,94 +1,73 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingStandardCodes
+    public class WhenValidatingStandardCodes : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private SearchApprenticeshipVacanciesRequestValidator _validator;
 
-        [SetUp]
-        public void Setup()
+        public static List<TestCaseData> SuccessTestCases => new List<TestCaseData>
         {
-            _validator = new SearchApprenticeshipVacanciesRequestValidator();
-        }
-
-        [TestCaseSource(nameof(TestCases))]
-        public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
-        {
-            var actualResult = _validator.Validate(searchRequest);
-
-            actualResult.IsValid.Should().Be(expectedResult.IsValid);
-        }
-
-        [TestCaseSource(nameof(TestCases))]
-        public void AndCheckingErrorMessages(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
-        {
-            var actualResult = _validator.Validate(searchRequest);
-
-            actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
-                options => options.Including(failure => failure.ErrorMessage));
-        }
-
-        [TestCaseSource(nameof(TestCases))]
-        public void AndCheckingErrorCodes(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)
-        {
-            var actualResult = _validator.Validate(searchRequest);
-
-            actualResult.Errors.ShouldAllBeEquivalentTo(expectedResult.Errors,
-                options => options.Including(failure => failure.ErrorCode));
-        }
-
-        private static List<TestCaseData> TestCases => new List<TestCaseData>
-        {
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    StandardCodes = new [] {"e"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("StandardCodes[0]", "e is invalid, expected a number.")
-                    {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
-                    } }
-                })
-                .SetName("Then chars are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    StandardCodes = new [] {"1.1"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("StandardCodes[0]", "1.1 is invalid, expected a number.")
-                    {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
-                    } }
-                })
-                .SetName("Then floats are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    StandardCodes = new [] {"6 2"}
-                }, new ValidationResult
-                {
-                    Errors = { new ValidationFailure("StandardCodes[0]", "6 2 is invalid, expected a number.")
-                    {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.StandardCodeNotInt32
-                    } }
-                })
-                .SetName("Then inner spaces are not allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    StandardCodes = new [] {"  5345   "}
-                }, new ValidationResult())
-                .SetName("Then outer spaces are allowed"),
-            new TestCaseData(new SearchApprenticeshipVacanciesRequest
-                {
-                    StandardCodes = new List<string> {"123424"}
-                }, new ValidationResult())
-                .SetName("Then ints are allowed")
+            new TestCaseData(ValidStandardCodes)
+                .SetName("Then any number is valid"),
+            new TestCaseData(" 1 ".Split(',').ToList())
+                .SetName("hen outer spaces are allowed"),
         };
+
+        [TestCaseSource(nameof(SuccessTestCases))]
+        public void ThenPassValidation(List<string> input)
+        {
+            var request = new SearchApprenticeshipVacanciesRequest()
+            {
+                StandardCodes = input,
+                FrameworkCodes = new List<string>()
+            };
+
+            var result = Validator.Validate(request);
+
+            result.IsValid.Should().BeTrue();
+        }
+
+        public static List<TestCaseData> FailingTestCases => new List<TestCaseData>
+        {
+            new TestCaseData("e",
+                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "e"),
+                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
+                .SetName("Then characters are not allowed"),
+            new TestCaseData("1.1",
+                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "1.1"),
+                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
+                .SetName("Then decimals are not allowed"),
+            new TestCaseData("2 0",
+                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "2 0"),
+                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
+                .SetName("Then inner spaces are not allowed"),
+            new TestCaseData("2",
+                ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Standard,"2"),
+                ErrorCodes.SearchApprenticeships.StandardCodeNotFound)
+                .SetName("Then it should be a valid standard code")
+        };
+
+        [TestCaseSource(nameof(FailingTestCases))]
+        public void ThenFailValidation(string input, string expectedErrorMessage, string expectedErrorCode)
+        {
+            var request = new SearchApprenticeshipVacanciesRequest()
+            {
+                StandardCodes = input.Split(',').ToList()
+            };
+
+            var result = Validator.Validate(request);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.Count.Should().Be(1);
+            result.Errors.First().ErrorMessage.Should().Be(expectedErrorMessage);
+            result.Errors.First().ErrorCode.Should().Be(expectedErrorCode);
+        }
     }
 }

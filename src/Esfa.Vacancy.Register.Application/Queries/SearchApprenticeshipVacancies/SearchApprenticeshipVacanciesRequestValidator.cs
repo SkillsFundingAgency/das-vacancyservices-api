@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation;
@@ -11,14 +12,17 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
         private readonly IFrameworkCodeRepository _frameworkCodeRepository;
+        private readonly IStandardRepository _standardRepository;
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
 
         public SearchApprenticeshipVacanciesRequestValidator(
-            IFrameworkCodeRepository frameworkCodeRepository)
+            IFrameworkCodeRepository frameworkCodeRepository,
+            IStandardRepository standardRepository)
         {
             _frameworkCodeRepository = frameworkCodeRepository;
+            _standardRepository = standardRepository;
 
             RuleFor(request => request.StandardCodes)
                 .NotEmpty()
@@ -28,16 +32,25 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(request => request.StandardCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => string.Format(ErrorMessages.SearchApprenticeships.StandardCodeNotInt32, t))
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32);
+                .WithMessage((request, value) =>
+                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, value))
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
+                .DependentRules(d => d.RuleForEach(request => request.StandardCodes)
+                    .MustAsync(BeAValidStandardCode)
+                    .WithMessage((c, value) =>
+                        ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Standard, value))
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotFound));
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
-                .WithMessage((c, t) => string.Format(ErrorMessages.SearchApprenticeships.FrameworkCodeNotInt32, t))
+                .WithMessage((request, value) =>
+                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, value))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
                 .DependentRules(d => d.RuleForEach(request => request.FrameworkCodes)
                     .MustAsync(BeAValidFrameworkCode)
-                    .WithMessage((c, value) => $"Framework code {value} is invalid."));
+                    .WithMessage((c, value) =>
+                        ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Framework, value))
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound));
 
             RuleFor(r => r.PageSize)
                 .InclusiveBetween(MinimumPageSize, MaximumPageSize)
@@ -64,6 +77,14 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             return validFrameworks.Any(larsCode =>
                 larsCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
+        {
+            var validStandards = (await _standardRepository.GetStandardIdsAsync()).ToList();
+
+            return validStandards.Any(larsCode =>
+                larsCode.Equals(int.Parse(standardCode)));
         }
     }
 }
