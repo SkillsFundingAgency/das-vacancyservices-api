@@ -133,15 +133,22 @@
     <Compile Include="SearchApprenticeship\Application\GivenAFrameworkCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\AndPostedInLastNumberOfDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPostedInDays.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\GivenSearchApprenticeshipVacanciesRequestValidatorBase.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingPostedInDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAStandardCodeConverter\WhenCallingConvertToSearchableCodesAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersBuilder\WhenCallingBuildAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingMinimumRequiredFields.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenGettingLiveApprenticeship.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageNumber.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingPageSize.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenSearchApprenticeshipVacanciesRequestValidator\WhenValidatingStandardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchApprenticeship\Infrastructure\GivenAnApprenticeshipSearchService\WhenSearchingByStandardCodes.cs" />
   </ItemGroup>
