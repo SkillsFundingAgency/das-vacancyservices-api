@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -24,6 +26,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
     {
         private Mock<ILog> _logger;
         private VacancyApiExceptionHandler _handler;
+        private Mock<IValidationBadRequestBuilder> _mockValidationBadRequestBuilder;
 
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
         private const string ExceptionInExceptionHandlerErrorMessage = "A critical error occurred, please try again.";
@@ -38,7 +41,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver.Object;
 
-            _handler = new VacancyApiExceptionHandler();
+            _mockValidationBadRequestBuilder = new Mock<IValidationBadRequestBuilder>();
+
+            _handler = new VacancyApiExceptionHandler(_mockValidationBadRequestBuilder.Object);
         }
 
         [Test]
@@ -64,9 +69,32 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         {
             var expectedErrorMessage = Guid.NewGuid().ToString();
             var expectedErrorCode = Guid.NewGuid().ToString();
+
+            var validationException = new ValidationException(new[] { new ValidationFailure("", expectedErrorMessage) { ErrorCode = expectedErrorCode } });
+
+            var badrequestContent = new BadRequestResponse
+            {
+                RequestErrors = validationException.Errors
+                    .Select(validationFailure => new BadRequestError
+                    {
+                        ErrorCode = validationFailure.ErrorCode,
+                        ErrorMessage = validationFailure.ErrorMessage
+                    })
+            };
+
+            var badrequestResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new ObjectContent<BadRequestResponse>(badrequestContent, new JsonMediaTypeFormatter())
+            };
+
+            _mockValidationBadRequestBuilder
+                .Setup(builder => builder.CreateBadRequestResult(It.IsAny<ValidationException>(), It.IsAny<HttpRequestMessage>()))
+                .Returns(new CustomErrorResult(new HttpRequestMessage(), badrequestResponse));
+
+            
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ValidationException(new[] { new ValidationFailure("", expectedErrorMessage) {ErrorCode = expectedErrorCode} }), 
-                new ExceptionContextCatchBlock("name", true, true), 
+                validationException, 
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage() ));
 
             _handler.Handle(context);

@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -283,11 +284,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\IValidationBadRequestBuilder.cs" />
     <Compile Include="App_Start\VacancyApiExceptionHandler.cs" />
     <Compile Include="App_Start\CustomErrorResult.cs" />
     <Compile Include="App_Start\ApiFilterConfig.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
+    <Compile Include="App_Start\ValidationBadRequestBuilder.cs" />
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
