@@ -36,7 +36,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 _logger.Warn($"Error retrieving framework codes from database: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(FrameworkCodesCacheKey, InternalGetAsync, TimeSpan.FromHours(CacheExpirationHours)));
+            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
+                FrameworkCodesCacheKey, 
+                InternalGetAsync, 
+                TimeSpan.FromHours(CacheExpirationHours)));
         }
 
         private async Task<IEnumerable<string>> InternalGetAsync()

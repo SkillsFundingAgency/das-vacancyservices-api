@@ -37,13 +37,14 @@ namespace Esfa.Vacancy.Register.Infrastructure.Caching
             if (cachedValue.HasValue)
             {
                 result = JsonConvert.DeserializeObject<T>(cachedValue);
+                _logger.Info($"Redis read key={key}");
             }
             else
             {
                 result = await action();
                 var jsonToCache = JsonConvert.SerializeObject(result);
                 await cache.StringSetAsync(key, jsonToCache, timeSpan);
-                _logger.Info("$Redis cached key={key}");
+                _logger.Info($"Redis cached key={key}");
             }
 
             return result;
