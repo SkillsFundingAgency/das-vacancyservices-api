@@ -43,8 +43,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleForEach(request => request.FrameworkCodes)
                 .Must(BeValidNumber)
-                .WithMessage((request, value) =>
-                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, value))
+                .WithMessage((request, value) => ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, value))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
                 .DependentRules(d => d.RuleForEach(request => request.FrameworkCodes)
                     .MustAsync(BeAValidFrameworkCode)
@@ -73,7 +72,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         private async Task<bool> BeAValidFrameworkCode(string frameworkCode, CancellationToken token)
         {
-            var validFrameworks = (await _frameworkCodeRepository.GetAsync()).ToList();
+            var validFrameworks = await _frameworkCodeRepository.GetAsync();
 
             return validFrameworks.Any(larsCode =>
                 larsCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
@@ -81,7 +80,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
         private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
         {
-            var validStandards = (await _standardRepository.GetStandardIdsAsync()).ToList();
+            var validStandards = await _standardRepository.GetStandardIdsAsync();
 
             return validStandards.Any(larsCode =>
                 larsCode.Equals(int.Parse(standardCode)));
