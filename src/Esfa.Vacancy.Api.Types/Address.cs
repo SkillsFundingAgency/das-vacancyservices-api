@@ -23,13 +23,9 @@
         /// </summary>
         public string AddressLine5 { get; set; }
         /// <summary>
-        /// Latitude.
+        /// Geo location.
         /// </summary>
-        public decimal? Latitude { get; set; }
-        /// <summary>
-        /// Longitude.
-        /// </summary>
-        public decimal? Longitude { get; set; }
+        public GeoPoint GeoPoint { get; set; }
         /// <summary>
         /// Post code.
         /// </summary>

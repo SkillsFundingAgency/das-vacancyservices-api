@@ -21,8 +21,11 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 AddressLine3 = location.AddressLine3,
                 AddressLine4 = location.AddressLine4,
                 AddressLine5 = location.AddressLine5,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude,
+                GeoPoint = new GeoPoint()
+                {
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                },
                 PostCode = location.PostCode,
                 Town = location.Town
             };
