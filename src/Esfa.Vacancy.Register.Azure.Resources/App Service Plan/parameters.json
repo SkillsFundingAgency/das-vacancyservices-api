@@ -20,8 +20,8 @@
     "workerSizeId": {
       "value": "1"
     },
-    "numberOfWorkers": {
-      "value": "1"
+    "aspNumberOfWorkers": {
+      "value": "__aseNumberOfWorkers__"
     },
     "aspHostingEnvironment": {
       "value": "__aspHostingEnvironment__"

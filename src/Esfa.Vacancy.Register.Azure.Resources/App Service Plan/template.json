@@ -20,10 +20,10 @@
     "workerSizeId": {
       "type": "String"
     },
-    "numberOfWorkers": {
+    "aspNumberOfWorkers": {
       "type": "String"
     },
-    "hostingEnvironment": {
+    "aspHostingEnvironment": {
       "type": "String"
     }
   },
@@ -42,9 +42,9 @@
         "name": "[parameters('aspName')]",
         "workerSize": "[parameters('workerSize')]",
         "workerSizeId": "[parameters('workerSizeId')]",
-        "numberOfWorkers": "[parameters('numberOfWorkers')]",
+        "numberOfWorkers": "[parameters('aspNumberOfWorkers')]",
         "reserved": false,
-        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+        "hostingEnvironment": "[parameters('aspHostingEnvironment')]"
       }
     }
   ]
