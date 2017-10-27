@@ -1,0 +1,56 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "tmAppName": {
+      "type": "string"
+    },
+    "tmName": {
+      "type": "string"
+    },
+    "tmHostingEnvironmentName": {
+      "type": "string"
+    }
+  },
+    "resources": [
+      {
+        "type": "Microsoft.Network/trafficManagerProfiles",
+        "name": "[parameters('tmName')]",
+        "apiVersion": "2017-05-01",
+        "location": "global",
+        "tags": {},
+        "scale": null,
+        "properties": {
+          "profileStatus": "Enabled",
+          "trafficRoutingMethod": "Priority",
+          "dnsConfig": {
+            "relativeName": "[parameters('tmName')]",
+            "fqdn": "[concat(parameters('tmName'),'.trafficmanager.net')]",
+            "ttl": 300
+          },
+          "monitorConfig": {
+            "protocol": "HTTPS",
+            "port": 443,
+            "path": "/api",
+            "intervalInSeconds": 30,
+            "toleratedNumberOfFailures": 3,
+            "timeoutInSeconds": 10
+          },
+          "endpoints": [
+            {
+              "name": "[parameters('tmName')]",
+              "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+              "properties": {
+                "endpointStatus": "Enabled",
+                "targetResourceId": "[resourceId('Microsoft.Web/sites', parameters('tmAppName'))]",
+                "target": "[concat(parameters('tmName'),'.',parameters('tmHostingEnvironmentName'),'.p.azurewebsites.net')]",
+                "weight": 1,
+                "priority": 1,
+                "endpointLocation": "North Europe"
+              }
+            }
+          ]
+        }
+      }
+    ]
+}

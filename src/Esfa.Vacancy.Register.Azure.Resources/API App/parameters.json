@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "value": "__appName__"
+    },
+    "appHostingPlanName": {
+      "value": "__appHostingPlanName__"
+    },
+    "appLocation": {
+      "value": "__appLocation__"
+    },
+    "appHostingEnvironment": {
+      "value": "__appHostingEnvironment__"
+    },
+    "appServerFarmResourceGroup": {
+      "value": "__appServerFarmResourceGroup__"
+    },
+    "appSubscriptionId": {
+      "value": "__appSubscriptionId__"
+    },
+    "LoggingRedisConnectionString": {
+      "value": "__appSettingLoggingRedisConnectionString__"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "value": "__appSettingAvmsPlusDatabaseConnectionString__"
+    },
+    "EnvironmentName": {
+      "value": "__appSettingEnvironmentName__"
+    },
+    "LoggingRedisKey": {
+      "value": "__appSettingLoggingRedisKey__"
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "value": "__appSettingApprenticeshipInfoApiBaseUrl__"
+    },
+    "LiveApprenticeshipVacancyBaseUrl": {
+      "value": "__appSettingLiveApprenticeshipVacancyBaseUrl__"
+    },
+    "VacancySearchUrl": {
+      "value": "__appSettingVacancySearchUrl__"
+    },
+    "ApprenticeshipIndexAlias": {
+      "value": "__appSettingApprenticeshipIndexAlias__"
+    },
+    "LiveTraineeshipVacancyBaseUrl": {
+      "value": "__appSettingLiveTraineeshipVacancyBaseUrl__"
+    }
+  }
+}
