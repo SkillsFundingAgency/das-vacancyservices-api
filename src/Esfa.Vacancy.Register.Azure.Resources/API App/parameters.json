@@ -35,14 +35,17 @@
     "ApprenticeshipInfoApiBaseUrl": {
       "value": "__appSettingApprenticeshipInfoApiBaseUrl__"
     },
-    "LiveVacancyBaseUrl": {
-      "value": "__appSettingLiveVacancyBaseUrl__"
+    "LiveApprenticeshipVacancyBaseUrl": {
+      "value": "__appSettingLiveApprenticeshipVacancyBaseUrl__"
     },
     "VacancySearchUrl": {
       "value": "__appSettingVacancySearchUrl__"
     },
     "ApprenticeshipIndexAlias": {
       "value": "__appSettingApprenticeshipIndexAlias__"
+    },
+    "LiveTraineeshipVacancyBaseUrl": {
+      "value": "__appSettingLiveTraineeshipVacancyBaseUrl__"
     }
   }
 }
