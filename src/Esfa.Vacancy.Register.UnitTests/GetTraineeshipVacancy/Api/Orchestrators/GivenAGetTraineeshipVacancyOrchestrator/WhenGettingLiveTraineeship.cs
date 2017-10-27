@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _mockProvideSettings;
         private GetTraineeshipVacancyOrchestrator _sut;
-        
+
         [SetUp]
         public void SetUp()
         {
@@ -53,16 +53,17 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
             result.EmployerName.Should().Be("ABC Ltd");
             result.EmployerDescription.Should().Be("A plain company");
             result.EmployerWebsite.Should().Be("http://www.google.co.uk");
-            result.Location.Should().NotBe(null);
-            result.Location.AddressLine1.Should().NotBe(null);
-            result.Location.AddressLine2.Should().NotBe(null);
-            result.Location.AddressLine3.Should().NotBe(null);
-            result.Location.AddressLine4.Should().NotBe(null);
-            result.Location.AddressLine5.Should().NotBe(null);
-            result.Location.Town.Should().NotBe(null);
-            result.Location.PostCode.Should().NotBe(null);
-            result.Location.Longitude.Should().NotBe(null);
-            result.Location.Latitude.Should().NotBe(null);
+            result.Location.Should().NotBeNull();
+            result.Location.AddressLine1.Should().NotBeNull();
+            result.Location.AddressLine2.Should().NotBeNull();
+            result.Location.AddressLine3.Should().NotBeNull();
+            result.Location.AddressLine4.Should().NotBeNull();
+            result.Location.AddressLine5.Should().NotBeNull();
+            result.Location.Town.Should().NotBeNull();
+            result.Location.PostCode.Should().NotBeNull();
+            result.Location.GeoPoint.Should().NotBeNull();
+            result.Location.GeoPoint.Longitude.Should().NotBeNull();
+            result.Location.GeoPoint.Latitude.Should().NotBeNull();
         }
 
         [Test]
@@ -94,8 +95,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
             result.Location.AddressLine4.Should().BeNull();
             result.Location.AddressLine5.Should().BeNull();
             result.Location.PostCode.Should().BeNull();
-            result.Location.Latitude.Should().BeNull();
-            result.Location.Longitude.Should().BeNull();
+            result.Location.GeoPoint.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
         }
 
