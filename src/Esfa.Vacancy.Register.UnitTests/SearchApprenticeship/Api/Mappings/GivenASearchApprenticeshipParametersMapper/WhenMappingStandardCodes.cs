@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
-    public class AndStandardCodes
+    public class WhenMappingStandardCodes
     {
         private IMapper _mapper;
 
