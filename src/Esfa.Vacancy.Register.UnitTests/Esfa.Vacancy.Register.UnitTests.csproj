@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\WhenMappingNationwideOnly.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
@@ -114,11 +115,11 @@
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="Shared\Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
     <Compile Include="Infrastructure\GivenVacancyRegisterRetryPolicy\WhenGetFixedIntervalPolicy.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingFrameworkCodes.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndPageNumber.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndPageSize.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenApprenticeshipSummaryMapper.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndPostedInLastNumberOfDays.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\WhenMappingPostedInLastNumberOfDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPostedInDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\GivenSearchApprenticeshipVacanciesRequestValidatorBase.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />

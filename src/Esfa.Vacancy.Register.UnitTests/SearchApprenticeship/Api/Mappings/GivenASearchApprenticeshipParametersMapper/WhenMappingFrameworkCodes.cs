@@ -5,7 +5,7 @@ using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchApprenticeshipParameters
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
     public class WhenMappingFrameworkCodes

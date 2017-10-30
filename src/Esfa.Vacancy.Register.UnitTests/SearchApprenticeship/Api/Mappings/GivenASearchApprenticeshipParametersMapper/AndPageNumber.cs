@@ -5,10 +5,10 @@ using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchApprenticeshipParameters
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
-    public class AndPageSize
+    public class AndPageNumber
     {
         private IMapper _mapper;
 
@@ -22,18 +22,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         [Test]
         public void WhenProvided_ThenPopulateRequestWithTheGivenValue()
         {
-            var expectedPageSize = 2;
-            var parameters = new SearchApprenticeshipParameters() { PageSize = expectedPageSize };
+            var expectedPageNumber = 2;
+            var parameters = new SearchApprenticeshipParameters() { PageNumber = expectedPageNumber };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.PageSize.Should().Be(expectedPageSize);
+            result.PageNumber.Should().Be(expectedPageNumber);
         }
 
         [Test]
-        public void WhenNotProvided_ThenPoplateRequestWithTheDefaultValue()
+        public void WhenNotProvided_ThenPopulateRequestWithTheDefaultValue()
         {
             var parameters = new SearchApprenticeshipParameters();
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.PageSize.Should().Be(100);
+            result.PageNumber.Should().Be(1);
         }
     }
 }
