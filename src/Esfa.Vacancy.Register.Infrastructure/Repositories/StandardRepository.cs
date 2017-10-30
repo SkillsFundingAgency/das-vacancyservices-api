@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
@@ -27,8 +28,6 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _cache = cache;
         }
 
-        private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
-
         public async Task<IEnumerable<int>> GetStandardIdsAsync()
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
@@ -37,12 +36,12 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             });
 
             return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
-                StandardCodesCacheKey, 
-                InternalGetStandardsAndRespectiveSectorIdsAsync, 
+                StandardCodesCacheKey,
+                InternalGetStandardIdsAsync, 
                 TimeSpan.FromHours(CacheExpirationHours)));
         }
 
-        private async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
+        protected virtual async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);

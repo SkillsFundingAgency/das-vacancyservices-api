@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Infrastructure.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
-using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;

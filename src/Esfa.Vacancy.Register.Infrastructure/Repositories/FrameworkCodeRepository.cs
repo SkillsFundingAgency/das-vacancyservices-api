@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Caching;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 
@@ -41,6 +40,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 InternalGetAsync, 
                 TimeSpan.FromHours(CacheExpirationHours)));
         }
+
         protected virtual async Task<IEnumerable<string>> InternalGetAsync()
         {
             var connectionString =
