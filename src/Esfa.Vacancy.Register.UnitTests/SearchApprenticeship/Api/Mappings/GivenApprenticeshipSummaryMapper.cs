@@ -41,13 +41,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         {
             var domainType = new DomainTypes.ApprenticeshipSummary
             {
-                Location = new DomainTypes.GeoPoint() { Lat = 12.1213, Lon = 34.2343424 }
+                Location = new DomainTypes.GeoPoint() { Lat = 51.3288148990, Lon = 0.4452948632 }
             };
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
-            result.Location.Latitude.Should().Be(12.1213);
-            result.Location.Longitude.Should().Be(34.2343424);
+            result.Location.Latitude.Should().Be(51.3288148990m);
+            result.Location.Longitude.Should().Be(0.4452948632m);
 
         }
     }
