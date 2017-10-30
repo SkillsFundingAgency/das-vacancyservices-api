@@ -34,11 +34,13 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <returns>
         /// A vacancy for an apprenticeship
         /// </returns>
+        [HttpGet]
         [AllowAnonymous]
+        [Route("{vacancyReference:int}")]
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("{vacancyReference:int}")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
             var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
