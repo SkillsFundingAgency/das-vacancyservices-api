@@ -18,9 +18,73 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         }
 
         /// <summary>
-        /// The Vacancy Summary service provides system integrators with the ability to download open apprenticeships 
-        /// from the Recruit an apprentice system. This service allows various parameters to allow the system 
-        /// integrators to select the most relevant apprenticeships and/or request up-to date details after a given date.
+        /// The apprenticeship search operation retrieves live apprenticeship vacancies based on search criteria specified 
+        /// in the request parameters. 
+        /// 
+        /// Search criteria can be used to:
+        /// 
+        /// - Search by framework code(s)
+        /// - Search by standard code(s)
+        /// - Search by framework or standard code(s)
+        /// - Search for recently posted vacancies
+        /// 
+        /// #### Data paging ####
+        /// 
+        /// Search results are returned in pages of data. 
+        /// If not specified then the default page size is 100 vacancies. 
+        /// If the search yields more data than can be included in a single page then additional pages can be requested by 
+        /// specifying a specific page number in the request. eg. pageNumber=2
+        /// 
+        /// #### Examples ####
+        /// 
+        /// To search for vacancies with standard code 94:
+        /// 
+        /// ```
+        /// /search?standardCodes=94
+        /// ```
+        /// 
+        /// Multiple standard codes can be specified by using a comma delimited of standard codes. 
+        /// To search for vacancies with either standard code 94 or 95:
+        /// 
+        /// ```
+        /// /search?standardCodes=94,95
+        /// ```
+        /// 
+        /// To search for vacancies that went live today since 2 days ago:
+        /// 
+        /// ```
+        /// /search?postedInLastNumberOfDays=2
+        /// ```
+        /// 
+        /// To search for vacancies that went live today (0 days ago):
+        /// 
+        /// ```
+        /// /search?postedInLastNumberOfDays=0
+        /// ```
+        /// 
+        /// #### Combining parameters ####
+        /// 
+        /// Multiple parameters can be added to the query string to refine the search. 
+        /// Note that when specifying both framework and standard codes, the results will include vacancies with matching 
+        /// framework or standard codes.
+        /// 
+        /// #### Error codes ####
+        /// 
+        /// The following error codes may be returned when calling this operation if any of the search criteria values 
+        /// specified fail validation:
+        /// 
+        /// | Error code  | Explanation                                                    |
+        /// | ----------- | -------------------------------------------------------------- |
+        /// | 30100       | Search parameters were specified                               |
+        /// | 30101       | At least 1 standard *or* framework code must be specified      |
+        /// | 30102       | Standard code must be a number                                 |
+        /// | 30103       | Framework code must be a number                                |
+        /// | 30104       | Page size must be between 1 and 250 (inclusive)                |
+        /// | 30105       | Page number must be greater than 0                             |
+        /// | 30106       | Number of days since posted must be greater than or equal to 0 |
+        /// | 30107       | Framework code not recognised                                  |
+        /// | 30108       | Standard code not recognised                                   |
+        /// 
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
