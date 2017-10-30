@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingNationwideOnly.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\WhenMappingNationwideOnly.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
@@ -117,9 +118,9 @@
     <Compile Include="Infrastructure\GivenVacancyRegisterRetryPolicy\WhenGetFixedIntervalPolicy.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingFrameworkCodes.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndPageNumber.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndPageSize.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\AndStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageNumber.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageSize.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenApprenticeshipSummaryMapper.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
