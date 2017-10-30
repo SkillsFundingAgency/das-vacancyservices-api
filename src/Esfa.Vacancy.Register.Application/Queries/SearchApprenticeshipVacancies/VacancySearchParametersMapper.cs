@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
@@ -12,8 +11,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                FromDate = request.PostedInLastNumberOfDays > 0
-                    ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays)
+                FromDate = request.PostedInLastNumberOfDays.HasValue
+                    ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
                 FrameworkCodes = request.FrameworkCodes,
                 StandardIds = request.StandardCodes
