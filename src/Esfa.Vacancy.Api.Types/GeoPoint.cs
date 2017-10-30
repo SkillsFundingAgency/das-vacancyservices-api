@@ -5,11 +5,11 @@
         /// <summary>
         /// The longitude.
         /// </summary>
-        public decimal? Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         /// <summary>
         /// The latitude.
         /// </summary>
-        public decimal? Latitude { get; set; }
+        public double? Latitude { get; set; }
     }
 }
