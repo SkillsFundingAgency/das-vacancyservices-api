@@ -10,23 +10,21 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     [TestFixture]
     public class AndPostedInLastNumberOfDays
     {
-        private List<string> _expectedStandards = new List<string> { "STDSEC.9", "STDSEC.3", "STDSEC.8" };
-        [Test]
-        public async Task ThenReturnFromDateAccordingly()
+        private readonly List<string> _standardCodes = new List<string> { "9" };
+
+        [TestCase(2, TestName = "Then from date should be two days ago")]
+        [TestCase(null, TestName = "Then from date should be null")]
+        [TestCase(0, TestName = "Then from date should be today")]
+        public async Task ThenPopulateFromDateAccordingly(int? sinceDays)
         {
+            var expectedFromDate = sinceDays.HasValue
+                ? DateTime.Today.AddDays(-sinceDays.Value)
+                : (DateTime?)null;
+
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-            { PostedInLastNumberOfDays = 2, StandardCodes = _expectedStandards });
+            { PostedInLastNumberOfDays = sinceDays, StandardCodes = _standardCodes });
 
-            result.FromDate.Should().Be(DateTime.Today.AddDays(-2), "From date is that many days ahead from today");
-        }
-
-        [Test]
-        public async Task ThenReturnNullFromDate()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-            { PostedInLastNumberOfDays = 0, StandardCodes = _expectedStandards });
-
-            result.FromDate.Should().BeNull("Value should be greater than zero");
+            result.FromDate.Should().Be(expectedFromDate);
         }
     }
 }
