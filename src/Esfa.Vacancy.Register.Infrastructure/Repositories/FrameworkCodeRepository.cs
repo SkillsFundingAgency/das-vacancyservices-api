@@ -41,8 +41,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 InternalGetAsync, 
                 TimeSpan.FromHours(CacheExpirationHours)));
         }
-
-        private async Task<IEnumerable<string>> InternalGetAsync()
+        protected virtual async Task<IEnumerable<string>> InternalGetAsync()
         {
             var connectionString =
                 _settings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
