@@ -40,26 +40,26 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// To search for vacancies with standard code 94:
         /// 
         /// ```
-        /// /search?standardCodes=94
+        /// /apprenticeship/search?standardCodes=94
         /// ```
         /// 
         /// Multiple standard codes can be specified by using a comma delimited of standard codes. 
         /// To search for vacancies with either standard code 94 or 95:
         /// 
         /// ```
-        /// /search?standardCodes=94,95
+        /// /apprenticeship/search?standardCodes=94,95
         /// ```
         /// 
         /// To search for vacancies that went live today since 2 days ago:
         /// 
         /// ```
-        /// /search?postedInLastNumberOfDays=2
+        /// /apprenticeship/search?postedInLastNumberOfDays=2
         /// ```
         /// 
         /// To search for vacancies that went live today (0 days ago):
         /// 
         /// ```
-        /// /search?postedInLastNumberOfDays=0
+        /// /apprenticeship/search?postedInLastNumberOfDays=0
         /// ```
         /// 
         /// #### Combining parameters ####
