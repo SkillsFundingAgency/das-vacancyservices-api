@@ -7,6 +7,7 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
+    [RoutePrefix("api/v1/apprenticeships")]
     public class SearchApprenticeshipVacanciesController : ApiController
     {
         private readonly SearchApprenticeshipVacanciesOrchestrator _searchOrchestrator;
@@ -21,14 +22,12 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// from the Recruit an apprentice system. This service allows various parameters to allow the system 
         /// integrators to select the most relevant apprenticeships and/or request up-to date details after a given date.
         /// </summary>
-        /// <param name="searchApprenticeshipParameters">The search apprenticeship parameters.</param>
-        /// <returns></returns>
-        [SwaggerOperation("SearchApprenticeshipVacancies", Tags = new[] { "Apprenticeships" })]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("api/v1/apprenticeships/search")]
         [HttpGet]
         [AllowAnonymous]
+        [Route("search")]
+        [SwaggerOperation("SearchApprenticeshipVacancies", Tags = new[] { "Apprenticeships" })]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestError))]
         public async Task<IHttpActionResult> Search([FromUri]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
             var results = await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters);
