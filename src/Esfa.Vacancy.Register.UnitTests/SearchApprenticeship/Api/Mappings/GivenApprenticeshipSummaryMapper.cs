@@ -46,8 +46,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
-            result.Location.Latitude.Should().Be(12.1213m);
-            result.Location.Longitude.Should().Be(34.2343424m);
+            result.Location.Latitude.Should().Be(12.1213);
+            result.Location.Longitude.Should().Be(34.2343424);
 
         }
     }
