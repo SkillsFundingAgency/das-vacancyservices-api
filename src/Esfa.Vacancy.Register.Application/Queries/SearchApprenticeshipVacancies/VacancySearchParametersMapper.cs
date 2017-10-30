@@ -4,11 +4,11 @@ using Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
 {
-    public class VacancySearchParametersMapper
+    public static class VacancySearchParametersMapper
     {
         public static VacancySearchParameters Convert(SearchApprenticeshipVacanciesRequest request)
         {
-            return new VacancySearchParameters()
+            return new VacancySearchParameters
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
@@ -16,7 +16,10 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                     ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
                 FrameworkCodes = request.FrameworkCodes.Select(x => x.Trim()).ToList(),
-                StandardIds = request.StandardCodes.Select(x => x.Trim()).ToList()
+                StandardIds = request.StandardCodes.Select(x => x.Trim()).ToList(),
+                LocationType = request.NationwideOnly 
+                    ? "Nationwide"
+                    : null
             };
         }
     }

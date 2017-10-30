@@ -45,16 +45,19 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
             try
             {
-                esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(s => s
-                    .Index(indexName)
-                    .Type("apprenticeship")
-                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-                    .Take(parameters.PageSize)
-                    .Query(query =>
-                        (query.Terms(f => f.FrameworkCode, parameters.FrameworkCodes)
-                         || query.Terms(f => f.StandardId, parameters.StandardIds))
-                        && query.Range(p => p.OnField(r => r.PostedDate).GreaterOrEquals(parameters.FromDate))
-                    ));
+                esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(search =>
+                    search.Index(indexName)
+                        .Type("apprenticeship")
+                        .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                        .Take(parameters.PageSize)
+                        .Query(query =>
+                            (query.Terms(apprenticeship => apprenticeship.FrameworkCode, parameters.FrameworkCodes)
+                             || query.Terms(apprenticeship => apprenticeship.StandardId, parameters.StandardIds))
+                            && query.Term(apprenticeship => apprenticeship.VacancyLocationType, parameters.LocationType)
+                            && query.Range(range =>
+                                range.OnField(apprenticeship => apprenticeship.PostedDate)
+                                    .GreaterOrEquals(parameters.FromDate))
+                        ));
             }
             catch (WebException e)
             {
