@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture]
-    public class AndPostedInLastNumberOfDays
+    public class WhenMappingPostedInLastNumberOfDays
     {
         private readonly List<string> _standardCodes = new List<string> { "9" };
 
