@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.GivenSearchAp
         }
 
         [Test]
-        public void WhenNotProvided_ThenPoplateRequestWithTheDefaultValue()
+        public void WhenNotProvided_ThenPopulateRequestWithTheDefaultValue()
         {
             var parameters = new SearchApprenticeshipParameters();
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
