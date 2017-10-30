@@ -6,6 +6,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public static class VacancySearchParametersMapper
     {
+        private const string NationwideLocationType = "Nationwide";
+
         public static VacancySearchParameters Convert(SearchApprenticeshipVacanciesRequest request)
         {
             return new VacancySearchParameters
@@ -18,7 +20,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 FrameworkCodes = request.FrameworkCodes.Select(x => x.Trim()).ToList(),
                 StandardIds = request.StandardCodes.Select(x => x.Trim()).ToList(),
                 LocationType = request.NationwideOnly 
-                    ? "Nationwide"
+                    ? NationwideLocationType
                     : null
             };
         }
