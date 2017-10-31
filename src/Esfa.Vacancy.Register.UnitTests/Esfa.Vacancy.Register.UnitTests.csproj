@@ -105,6 +105,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersMapper\AndStandardCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
     <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
