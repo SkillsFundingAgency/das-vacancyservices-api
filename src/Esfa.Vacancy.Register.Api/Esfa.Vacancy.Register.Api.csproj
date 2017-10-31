@@ -292,7 +292,7 @@
     <Compile Include="App_Start\ValidationBadRequestBuilder.cs" />
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
-    <Compile Include="Controllers\StatsController.cs" />
+    <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Mappings\AddressMapper.cs" />
     <Compile Include="Mappings\ApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
