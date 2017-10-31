@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Caching
 
         private ConnectionMultiplexer Connection => _lazyConnection.Value;
 
-        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> action, TimeSpan timeSpan)
+        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan timeSpan)
         {
             var cache = Connection.GetDatabase();
 
@@ -38,7 +38,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Caching
             }
             else
             {
-                result = await action();
+                result = await actionAsync();
                 var jsonToCache = JsonConvert.SerializeObject(result);
                 await cache.StringSetAsync(key, jsonToCache, timeSpan);
                 _logger.Info($"Redis cached key={key}");

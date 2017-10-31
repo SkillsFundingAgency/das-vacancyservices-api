@@ -8,6 +8,6 @@ namespace Esfa.Vacancy.Register.Application.Interfaces
 {
     public interface ICacheService
     {
-        Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> action, TimeSpan timeSpan);
+        Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan timeSpan);
     }
 }
