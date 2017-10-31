@@ -10,5 +10,6 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int PageSize { get; set; }
         public int PageNumber { get; set; }
         public DateTime? FromDate { get; set; }
+        public string LocationType { get; set; }
     }
 }

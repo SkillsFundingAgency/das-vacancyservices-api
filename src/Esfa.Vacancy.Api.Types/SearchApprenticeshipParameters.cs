@@ -29,5 +29,11 @@
         /// Vacancies posted in last number of days from today.
         /// </summary>
         public int? PostedInLastNumberOfDays { get; set; }
+
+        /// <summary>
+        /// Nationwide vacancies only.
+        /// Nationwide only is optional and defaults to false.
+        /// </summary>
+        public bool NationwideOnly { get; set; }
     }
 }

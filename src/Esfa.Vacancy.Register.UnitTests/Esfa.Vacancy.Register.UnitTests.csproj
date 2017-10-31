@@ -106,19 +106,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingNationwideOnly.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndNationwideOnly.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
     <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyQueryHandler\WhenGettingATraineeshipVacancy.cs" />
     <Compile Include="GetTraineeshipVacancy\Application\Queries\GivenAGetTraineeshipVacancyValidator\WhenValidatingRequest.cs" />
-    <Compile Include="Shared\Infrastructure\WhenVacancyRegisterRetryPolicy.cs" />
-    <Compile Include="Infrastructure\GivenVacancyRegisterRetryPolicy\WhenGetFixedIntervalPolicy.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\WhenMappingFrameworkCodes.cs" />
+    <Compile Include="Shared\Infrastructure\GivenAVacancyRegisterRetryPolicy\WhenGetFixedIntervalPolicy.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingFrameworkCodes.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Orchestrators\GivenAGetTraineeshipVacancyOrchestrator\WhenGettingLiveTraineeship.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageNumber.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndPageSize.cs" />
-    <Compile Include="SearchApprenticeship\Api\GivenSearchApprenticeshipParameters\AndStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageNumber.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageSize.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenApprenticeshipSummaryMapper.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
