@@ -9,7 +9,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.UnitTests.Infrastructure
+namespace Esfa.Vacancy.Register.UnitTests.Shared.Infrastructure.GivenACachedStandardRepository
 {
     [TestFixture]
     public class WhenCallingGetStandardIdsAsync
