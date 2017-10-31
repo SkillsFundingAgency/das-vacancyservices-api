@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
@@ -12,10 +11,10 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     {
         private readonly List<string> _standardCodes = new List<string> { "9" };
 
-        [TestCase(2, TestName = "Then from date should be two days ago")]
-        [TestCase(null, TestName = "Then from date should be null")]
-        [TestCase(0, TestName = "Then from date should be today")]
-        public async Task ThenPopulateFromDateAccordingly(int? sinceDays)
+        [TestCase(2, TestName = "And PostedInLastNumberOfDays is 2 Then FromDate should be 2 days ago")]
+        [TestCase(null, TestName = "And PostedInLastNumberOfDays is null Then FromDate should be null")]
+        [TestCase(0, TestName = "And PostedInLastNumberOfDays is 0 Then FromDate should be today")]
+        public void WhenPopulatingFromDate(int? sinceDays)
         {
             var expectedFromDate = sinceDays.HasValue
                 ? DateTime.Today.AddDays(-sinceDays.Value)
