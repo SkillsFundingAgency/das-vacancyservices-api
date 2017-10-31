@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
+using Esfa.Vacancy.Register.Domain.Interfaces;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using Newtonsoft.Json;
 using SFA.DAS.NLog.Logger;

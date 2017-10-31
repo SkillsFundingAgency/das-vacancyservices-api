@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
-    <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
     <Compile Include="Interfaces\IApprenticeshipSearchService.cs" />
     <Compile Include="Queries\GetTraineeshipVacancy\GetTraineeshipVacancyQueryHandler.cs" />

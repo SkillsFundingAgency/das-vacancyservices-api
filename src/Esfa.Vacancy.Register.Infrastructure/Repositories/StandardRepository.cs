@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
@@ -15,17 +13,13 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
-        private readonly ICacheService _cache;
 
         private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
-        private const string StandardCodesCacheKey = "VacancyApi.StandardCodes";
-        private const double CacheExpirationHours = 1;
 
-        public StandardRepository(IProvideSettings provideSettings, ILog logger, ICacheService cache)
+        public StandardRepository(IProvideSettings provideSettings, ILog logger)
         {
             _provideSettings = provideSettings;
             _logger = logger;
-            _cache = cache;
         }
 
         public async Task<IEnumerable<int>> GetStandardIdsAsync()
@@ -35,13 +29,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 _logger.Warn($"Error retrieving standard codes from database: ({exception.Message}). Retrying...attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
-                StandardCodesCacheKey,
-                InternalGetStandardIdsAsync, 
-                TimeSpan.FromHours(CacheExpirationHours)));
+            return await retry.ExecuteAsync(InternalGetStandardIdsAsync);
         }
 
-        protected virtual async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
+        private async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);

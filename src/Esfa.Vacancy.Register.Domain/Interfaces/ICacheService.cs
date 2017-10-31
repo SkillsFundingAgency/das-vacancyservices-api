@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Esfa.Vacancy.Register.Application.Interfaces
+namespace Esfa.Vacancy.Register.Domain.Interfaces
 {
     public interface ICacheService
     {
