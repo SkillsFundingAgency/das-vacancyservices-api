@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture]
-    public class WhenMappingPostedInLastNumberOfDays
+    public class AndPostedInLastNumberOfDays
     {
         private readonly List<string> _standardCodes = new List<string> { "9" };
 
@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 : (DateTime?)null;
 
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-            { PostedInLastNumberOfDays = sinceDays, StandardCodes = _standardCodes });
+                { PostedInLastNumberOfDays = sinceDays, StandardCodes = _standardCodes });
 
             result.FromDate.Should().Be(expectedFromDate);
         }

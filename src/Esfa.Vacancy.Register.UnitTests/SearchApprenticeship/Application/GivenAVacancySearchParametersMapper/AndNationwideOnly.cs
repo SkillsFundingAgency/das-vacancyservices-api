@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
-    public class WhenMappingNationwideOnly
+    public class AndNationwideOnly
     {
         [Test]
         public void AndIsTrue_ThenMapsToNationwide()
