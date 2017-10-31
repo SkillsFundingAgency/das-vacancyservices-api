@@ -12,11 +12,11 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                FromDate = request.PostedInLastNumberOfDays > 0
-                    ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays)
+                FromDate = request.PostedInLastNumberOfDays.HasValue
+                    ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
-                FrameworkCodes = request.FrameworkCodes,
-                StandardIds = request.StandardCodes
+                FrameworkCodes = request.FrameworkCodes.Select(x => x.Trim()).ToList(),
+                StandardIds = request.StandardCodes.Select(x => x.Trim()).ToList()
             };
         }
     }
