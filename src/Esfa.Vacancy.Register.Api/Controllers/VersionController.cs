@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;
@@ -12,16 +11,16 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     /// Operational information about the service
     /// </summary>
     [RoutePrefix("api")]
-    public class StatsController : ApiController
+    public class VersionController : ApiController
     {
         /// <summary>
         /// The version of the service
         /// </summary>
         /// <returns>Some details about the versions</returns>
-        [Route("stats/version")]
+        [Route("version")]
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
-        public VersionInformation Version()
+        public VersionInformation Index()
         {
             var assembly = Assembly.GetExecutingAssembly();
             var version = assembly.GetName().Version.ToString();
