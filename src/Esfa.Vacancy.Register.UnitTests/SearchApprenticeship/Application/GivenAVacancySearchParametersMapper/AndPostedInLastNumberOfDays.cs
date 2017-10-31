@@ -4,7 +4,7 @@ using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenVacancySearchParametersMapper
+namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture]
     public class AndPostedInLastNumberOfDays

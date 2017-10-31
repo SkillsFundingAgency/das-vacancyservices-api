@@ -105,8 +105,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersMapper\AndFrameworkCodes.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersMapper\AndStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
     <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
@@ -133,7 +133,7 @@
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenVacancySearchParametersMapper\AndPostedInLastNumberOfDays.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndPostedInLastNumberOfDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingPostedInDays.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\GivenSearchApprenticeshipVacanciesRequestValidatorBase.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesQueryHandler\WhenCallingHandle.cs" />
