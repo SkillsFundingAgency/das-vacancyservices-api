@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// /apprenticeships/search?standardCodes=94
         /// ```
         /// 
-        /// Multiple standard codes can be specified by using a comma delimited of standard codes. 
+        /// Multiple standard codes can be specified by using a comma delimited list of standard codes. 
         /// To search for vacancies with either standard code 94 or 95:
         /// 
         /// ```
