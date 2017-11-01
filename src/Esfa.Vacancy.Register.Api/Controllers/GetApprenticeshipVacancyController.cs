@@ -26,14 +26,14 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// Note that:
         /// 
         /// - the vacancy reference number should be specified as a number (ie. excluding any prefix)
-        /// - only live vacancies can be retieved using this operation
+        /// - only live vacancies can be retrieved using this operation
         /// 
         /// #### Example ####
         /// 
         /// To retrieve VAC001234567:
         /// 
         /// ```
-        /// /apprenticeship/1234567
+        /// /apprenticeships/1234567
         /// ```
         /// 
         /// #### Error codes ####
