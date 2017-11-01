@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// 
         /// | Error code  | Explanation                                                    |
         /// | ----------- | -------------------------------------------------------------- |
-        /// | 30100       | Search parameters were not specified                               |
+        /// | 30100       | Search parameters were not specified                           |
         /// | 30101       | At least 1 standard *or* framework code must be specified      |
         /// | 30102       | Standard code must be a number                                 |
         /// | 30103       | Framework code must be a number                                |
@@ -91,8 +91,8 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [Route("search")]
         [SwaggerOperation("SearchApprenticeshipVacancies", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestError))]
-        public async Task<IHttpActionResult> Search([FromUri]SearchApprenticeshipParameters searchApprenticeshipParameters)
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
+        public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
             var results = await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters);
             return Ok(results);
