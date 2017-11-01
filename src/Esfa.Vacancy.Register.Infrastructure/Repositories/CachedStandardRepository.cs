@@ -25,15 +25,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         public async Task<IEnumerable<int>> GetStandardIdsAsync()
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
-            {
-                _logger.Warn($"Error caching standard codes: ({exception.Message}). Retrying...attempt {retryCount}");
-            });
-
-            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
+            return await _cache.CacheAsideAsync(
                 StandardCodesCacheKey,
                 _standardRepository.GetStandardIdsAsync, 
-                TimeSpan.FromHours(CacheExpirationHours)));
+                TimeSpan.FromHours(CacheExpirationHours));
         }
         
     }

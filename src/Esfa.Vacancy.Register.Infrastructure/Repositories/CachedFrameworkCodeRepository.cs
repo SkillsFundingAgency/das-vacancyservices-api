@@ -25,15 +25,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         public async Task<IEnumerable<string>> GetAsync()
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
-            {
-                _logger.Warn($"Error caching framework codes: ({exception.Message}). Retrying... attempt {retryCount}");
-            });
-            
-            return await retry.ExecuteAsync(() => _cache.CacheAsideAsync(
+            return await _cache.CacheAsideAsync(
                 FrameworkCodesCacheKey,
                 _frameworkCodeRepository.GetAsync,
-                TimeSpan.FromHours(CacheExpirationHours)));
+                TimeSpan.FromHours(CacheExpirationHours));
         }
         
     }
