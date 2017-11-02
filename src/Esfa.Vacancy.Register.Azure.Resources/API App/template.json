@@ -46,6 +46,9 @@
     },
     "LiveTraineeshipVacancyBaseUrl": {
       "type": "string"
+    },
+    "CacheConnectionString": {
+      "type": "string"
     }
   },
     "resources": [
@@ -100,6 +103,10 @@
               {
                 "name": "LiveTraineeshipVacancyBaseUrl",
                 "value": "[parameters('LiveTraineeshipVacancyBaseUrl')]"
+              },
+              {
+                "name": "CacheConnectionString",
+                "value": "[parameters('CacheConnectionString')]"
               }
             ],
             "alwaysOn": true,
