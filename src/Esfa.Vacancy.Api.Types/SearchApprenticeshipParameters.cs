@@ -35,5 +35,11 @@
         /// Nationwide only is optional and defaults to false.
         /// </summary>
         public bool NationwideOnly { get; set; }
+
+        /// <summary>
+        /// The location to search near
+        /// Location is optional.
+        /// </summary>
+        public double? Latitude { get; set; }
     }
 }
