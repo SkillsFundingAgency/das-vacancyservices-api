@@ -17,8 +17,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Caching
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
             _logger = logger;
-            var cacheConnection = settings.GetSetting(ApplicationSettingKeyConstants.CacheConnection);
-            _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(cacheConnection));
+            var cacheConnectionString = settings.GetSetting(ApplicationSettingKeyConstants.CacheConnectionString);
+            _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(cacheConnectionString));
         }
 
         private ConnectionMultiplexer Connection => _lazyConnection.Value;
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Caching
             if (cachedValue.HasValue)
             {
                 result = JsonConvert.DeserializeObject<T>(cachedValue);
-                _logger.Info($"Redis read key={key}");
+                _logger.Debug($"Redis read key={key}");
             }
             else
             {

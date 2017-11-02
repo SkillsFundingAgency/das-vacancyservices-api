@@ -8,6 +8,6 @@
         public const string LiveTraineeshipVacancyBaseUrlKey = "LiveTraineeshipVacancyBaseUrl";
         public const string VacancySearchUrlKey = "VacancySearchUrl";
         public const string ApprenticeshipIndexAliasKey = "ApprenticeshipIndexAlias";
-        public const string CacheConnection = "CacheConnection";
+        public const string CacheConnectionString = "CacheConnectionString";
     }
 }
