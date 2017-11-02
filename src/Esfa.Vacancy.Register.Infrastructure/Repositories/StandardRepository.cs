@@ -14,13 +14,13 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
 
+        private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
+
         public StandardRepository(IProvideSettings provideSettings, ILog logger)
         {
             _provideSettings = provideSettings;
             _logger = logger;
         }
-
-        private const string GetActiveStandardCodesSqlSproc = "[VACANCY_API].[GetActiveStandardCodes]";
 
         public async Task<IEnumerable<int>> GetStandardIdsAsync()
         {

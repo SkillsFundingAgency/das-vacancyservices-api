@@ -15,7 +15,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
         private readonly ILog _logger;
 
         private const string GetActiveFrameworkCodesSqlSproc = "[VACANCY_API].[GetActiveFrameworkCodes]";
-
+        
         public FrameworkCodeRepository(IProvideSettings settings, ILog logger)
         {
             _settings = settings;
