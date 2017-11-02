@@ -47,8 +47,8 @@
     "LiveTraineeshipVacancyBaseUrl": {
       "value": "__appSettingLiveTraineeshipVacancyBaseUrl__"
     },
-    "CacheConnection": {
-      "value": "__appSettingCacheConnection__"
+    "CacheConnectionString": {
+      "value": "__appSettingCacheConnectionString__"
     }
   }
 }
