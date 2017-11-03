@@ -37,9 +37,15 @@
         public bool NationwideOnly { get; set; }
 
         /// <summary>
-        /// The location to search near
-        /// Location is optional.
+        /// The latitude to search near
+        /// Latitude is optional.
         /// </summary>
         public double? Latitude { get; set; }
+
+        /// <summary>
+        /// The longitude to search near
+        /// Longitude is optional.
+        /// </summary>
+        public double? Longitude { get; set; }
     }
 }

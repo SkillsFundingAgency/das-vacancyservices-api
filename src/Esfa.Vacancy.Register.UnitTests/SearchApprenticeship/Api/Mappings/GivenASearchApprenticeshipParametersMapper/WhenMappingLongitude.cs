@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
-    public class WhenMappingLatitude
+    public class WhenMappingLongitude
     {
         private IMapper _mapper;
 
@@ -20,12 +20,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         }
 
         [Test]
-        public void AndValueIsSet_ThenMapsToLatitude()
+        public void AndValueIsSet_ThenMapsToLongitude()
         {
-            var expectedLatitude = 52.787815;
-            var parameters = new SearchApprenticeshipParameters { Latitude = expectedLatitude };
+            var expectedLongitude = 52.787815;
+            var parameters = new SearchApprenticeshipParameters { Longitude = expectedLongitude };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.Latitude.Should().Be(expectedLatitude);
+            result.Longitude.Should().Be(expectedLongitude);
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         {
             var parameters = new SearchApprenticeshipParameters();
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.Latitude.Should().BeNull();
+            result.Longitude.Should().BeNull();
         }
     }
 }
