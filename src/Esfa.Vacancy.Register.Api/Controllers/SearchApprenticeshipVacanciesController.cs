@@ -23,9 +23,9 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// 
         /// Search criteria can be used to:
         /// 
-        /// - Search by framework Lars code(s)
-        /// - Search by standard Lars code(s)
-        /// - Search by framework or standard Lars code(s)
+        /// - Search by framework LARS code(s)
+        /// - Search by standard LARS code(s)
+        /// - Search by framework or standard LARS code(s)
         /// - Search for recently posted vacancies
         /// 
         /// #### Data paging ####
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// /apprenticeships/search?standardLarsCodes=94
         /// ```
         /// 
-        /// Multiple standard codes can be specified by using a comma delimited list of standard lars codes. 
+        /// Multiple standard codes can be specified by using a comma delimited list of standard codes. 
         /// To search for vacancies with either standard code 94 or 95:
         /// 
         /// ```
