@@ -14,5 +14,6 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         public bool NationwideOnly { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
+        public int? DistanceInMiles { get; set; }
     }
 }
