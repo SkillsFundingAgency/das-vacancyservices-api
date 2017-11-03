@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture]
-    public class AndFrameworkCodes
+    public class AndStandardLarsCodes
     {
         public static List<TestCaseData> TestCases => new List<TestCaseData>()
         {
@@ -17,13 +17,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
 
         [TestCaseSource(nameof(TestCases))]
-        public void WhenPopulatingFrameworkCodes(string frameworkCodes)
+        public void WhenPopulatingStandardCodes(string standardCodes)
         {
-            var expectedResult = frameworkCodes.Split(',').Select(x => x.Trim());
+            var expectedResult = standardCodes.Split(',').Select(x => x.Trim());
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-            { FrameworkLarsCodes = frameworkCodes.Split(',').ToList() });
+            { StandardLarsCodes = standardCodes.Split(',').ToList() });
 
-            result.FrameworkLarsCodes.ShouldAllBeEquivalentTo(expectedResult);
+            result.StandardLarsCodes.ShouldAllBeEquivalentTo(expectedResult);
         }
     }
 }
