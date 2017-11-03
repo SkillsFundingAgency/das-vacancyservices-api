@@ -26,8 +26,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
             var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new DomainTypes.ApprenticeshipSummary()
             {
-                FrameworkCode = frameworkCode,
-                StandardId = standardId
+                FrameworkLarsCode = frameworkCode,
+                StandardLarsCode = standardId
             };
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);

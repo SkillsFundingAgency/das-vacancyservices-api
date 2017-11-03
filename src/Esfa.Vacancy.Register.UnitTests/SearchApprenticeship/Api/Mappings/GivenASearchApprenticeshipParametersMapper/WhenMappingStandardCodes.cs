@@ -25,18 +25,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         [TestCase("134, eaf, ef 3,234 2,  ,244, 2 ", 7, "Anything will be converted in to enumerable")]
         public void WhenValidInput_ThenReturnMappedRequestObject(string standardCodes, int count, string reason)
         {
-            var parameters = new SearchApprenticeshipParameters() { StandardCodes = standardCodes };
+            var parameters = new SearchApprenticeshipParameters() { StandardLarsCodes = standardCodes };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.StandardCodes.Count().Should().Be(count, reason);
+            result.StandardLarsCodes.Count().Should().Be(count, reason);
         }
 
         [TestCase("", "Empty string will be ignored")]
         [TestCase(null, "Null will be ignored")]
         public void WhenNullOrEmpty_ThenReturnEmptyList(string standardCodes, string reason)
         {
-            var parameters = new SearchApprenticeshipParameters() { StandardCodes = standardCodes };
+            var parameters = new SearchApprenticeshipParameters() { StandardLarsCodes = standardCodes };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.StandardCodes.Should().BeEmpty(reason);
+            result.StandardLarsCodes.Should().BeEmpty(reason);
         }
 
     }

@@ -24,8 +24,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             {
-                FrameworkCodes = input,
-                StandardCodes = new List<string>()
+                FrameworkLarsCodes = input,
+                StandardLarsCodes = new List<string>()
             };
 
             var result = Validator.Validate(request);
@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var request = new SearchApprenticeshipVacanciesRequest()
             {
-                FrameworkCodes = input.Split(',').ToList()
+                FrameworkLarsCodes = input.Split(',').ToList()
             };
 
             var result = Validator.Validate(request);

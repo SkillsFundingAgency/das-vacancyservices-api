@@ -24,28 +24,28 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             _frameworkCodeRepository = frameworkCodeRepository;
             _standardRepository = standardRepository;
 
-            RuleFor(request => request.StandardCodes)
+            RuleFor(request => request.StandardLarsCodes)
                 .NotEmpty()
-                .When(request => !request.FrameworkCodes.Any())
+                .When(request => !request.FrameworkLarsCodes.Any())
                 .WithMessage(ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
 
-            RuleForEach(request => request.StandardCodes)
+            RuleForEach(request => request.StandardLarsCodes)
                 .Must(BeValidNumber)
                 .WithMessage((request, value) =>
                     ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, value))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
-                .DependentRules(d => d.RuleForEach(request => request.StandardCodes)
+                .DependentRules(d => d.RuleForEach(request => request.StandardLarsCodes)
                     .MustAsync(BeAValidStandardCode)
                     .WithMessage((c, value) =>
                         ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Standard, value))
                     .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotFound));
 
-            RuleForEach(request => request.FrameworkCodes)
+            RuleForEach(request => request.FrameworkLarsCodes)
                 .Must(BeValidNumber)
                 .WithMessage((request, value) => ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, value))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
-                .DependentRules(d => d.RuleForEach(request => request.FrameworkCodes)
+                .DependentRules(d => d.RuleForEach(request => request.FrameworkLarsCodes)
                     .MustAsync(BeAValidFrameworkCode)
                     .WithMessage((c, value) =>
                         ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Framework, value))

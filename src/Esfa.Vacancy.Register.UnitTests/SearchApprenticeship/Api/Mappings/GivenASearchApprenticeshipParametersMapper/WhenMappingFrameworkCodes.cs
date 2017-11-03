@@ -22,11 +22,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         [TestCaseSource(nameof(TestCases))]
         public IEnumerable<string> AndMapExecutes(string frameworkCodes)
         {
-            var parameters = new SearchApprenticeshipParameters {FrameworkCodes = frameworkCodes};
+            var parameters = new SearchApprenticeshipParameters {FrameworkLarsCodes = frameworkCodes};
 
             return _mapper
                 .Map<SearchApprenticeshipVacanciesRequest>(parameters)
-                .FrameworkCodes;
+                .FrameworkLarsCodes;
         }
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
