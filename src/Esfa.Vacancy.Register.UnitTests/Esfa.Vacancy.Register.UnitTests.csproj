@@ -107,10 +107,10 @@
   <ItemGroup>
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkLarsCodes.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingNationwideOnly.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndNationwideOnly.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndStandardLarsCodes.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAnApiFilterConfig.cs" />
     <Compile Include="Shared\Api\App_Start\GivenAVacancyApiExceptionHandler.cs" />
     <Compile Include="Shared\Api\Mappings\IntToEnumConverterTests.cs" />
