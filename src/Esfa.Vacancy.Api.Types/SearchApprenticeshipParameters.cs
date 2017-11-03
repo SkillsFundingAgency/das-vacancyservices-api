@@ -5,12 +5,12 @@
         /// <summary>
         /// Comma delimited standard codes
         /// </summary>
-        public string StandardCodes { get; set; }
+        public string StandardLarsCodes { get; set; }
 
         /// <summary>
         /// Comma delimited framework codes
         /// </summary>
-        public string FrameworkCodes { get; set; }
+        public string FrameworkLarsCodes { get; set; }
 
         /// <summary>
         /// Number of records you want to retrieve in a page. 

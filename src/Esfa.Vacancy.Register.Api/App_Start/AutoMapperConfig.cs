@@ -18,15 +18,15 @@ namespace Esfa.Vacancy.Register.Api
                 cfg.CreateMap<int?, ApiTypes.VacancyLocationType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyLocationType>());
                 cfg.CreateMap<int?, ApiTypes.TrainingType>().ConvertUsing(new IntToEnumConverter<ApiTypes.TrainingType>());
                 cfg.CreateMap<ApiTypes.SearchApprenticeshipParameters, SearchApprenticeshipVacanciesRequest>()
-                    .ForMember(target => target.StandardCodes, config =>
+                    .ForMember(target => target.StandardLarsCodes, config =>
                     {
-                        config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardCodes));
-                        config.MapFrom(source => source.StandardCodes.Split(','));
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardLarsCodes));
+                        config.MapFrom(source => source.StandardLarsCodes.Split(','));
                     })
-                    .ForMember(target => target.FrameworkCodes, config =>
+                    .ForMember(target => target.FrameworkLarsCodes, config =>
                     {
-                        config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkCodes));
-                        config.MapFrom(source => source.FrameworkCodes.Split(','));
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkLarsCodes));
+                        config.MapFrom(source => source.FrameworkLarsCodes.Split(','));
                     });
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                     .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));

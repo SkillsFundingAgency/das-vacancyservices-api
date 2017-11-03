@@ -60,8 +60,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
 
         public decimal? HoursPerWeek { get; set; }
 
-        public string FrameworkCode { get; set; }
+        public string FrameworkLarsCode { get; set; }
 
-        public int? StandardId { get; set; }
+        public int? StandardLarsCode { get; set; }
     }
 }

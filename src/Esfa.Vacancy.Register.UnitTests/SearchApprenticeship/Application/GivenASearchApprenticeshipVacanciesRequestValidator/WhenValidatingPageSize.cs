@@ -41,12 +41,12 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes
+                    StandardLarsCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes,
+                    StandardLarsCodes = ValidStandardCodes,
                     PageSize = 0
                 }, new ValidationResult
                 {
@@ -58,25 +58,25 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("Then less than 1 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes,
+                    StandardLarsCodes = ValidStandardCodes,
                     PageSize = 1
                 }, new ValidationResult())
                 .SetName("Then 1 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes,
+                    StandardLarsCodes = ValidStandardCodes,
                     PageSize = new Random().Next(1, 250)
                 }, new ValidationResult())
                 .SetName("Then between 1 and 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes,
+                    StandardLarsCodes = ValidStandardCodes,
                     PageSize = 250
                 }, new ValidationResult())
                 .SetName("Then 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardCodes = ValidStandardCodes,
+                    StandardLarsCodes = ValidStandardCodes,
                     PageSize = 251
                 }, new ValidationResult
                 {

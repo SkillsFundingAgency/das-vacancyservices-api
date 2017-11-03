@@ -14,10 +14,10 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target => target.ExpectedStartDate, c => c.MapFrom(source => source.StartDate))
                 .ForMember(target => target.ApplicationClosingDate, c => c.MapFrom(source => source.ClosingDate))
                 .ForMember(target => target.TrainingType, c => c.MapFrom(source =>
-                    source.StandardId.HasValue ? ApiTypes.TrainingType.Standard : ApiTypes.TrainingType.Framework))
+                    source.StandardLarsCode.HasValue ? ApiTypes.TrainingType.Standard : ApiTypes.TrainingType.Framework))
                 .ForMember(target => target.TrainingTitle, c => c.MapFrom(source => source.SubCategory))
                 .ForMember(target => target.TrainingCode, c => c.MapFrom(source =>
-                    source.StandardId.HasValue ? source.StandardId.ToString() : source.FrameworkCode));
+                    source.StandardLarsCode.HasValue ? source.StandardLarsCode.ToString() : source.FrameworkLarsCode));
         }
     }
 }

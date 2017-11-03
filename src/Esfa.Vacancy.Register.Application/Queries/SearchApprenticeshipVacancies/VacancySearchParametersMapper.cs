@@ -17,9 +17,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 FromDate = request.PostedInLastNumberOfDays.HasValue
                     ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
-                FrameworkCodes = request.FrameworkCodes.Select(x => x.Trim()).ToList(),
-                StandardIds = request.StandardCodes.Select(x => x.Trim()).ToList(),
-                LocationType = request.NationwideOnly 
+                FrameworkLarsCodes = request.FrameworkLarsCodes.Select(x => x.Trim()).ToList(),
+                StandardLarsCodes = request.StandardLarsCodes.Select(x => x.Trim()).ToList(),
+                LocationType = request.NationwideOnly
                     ? NationwideLocationType
                     : null
             };

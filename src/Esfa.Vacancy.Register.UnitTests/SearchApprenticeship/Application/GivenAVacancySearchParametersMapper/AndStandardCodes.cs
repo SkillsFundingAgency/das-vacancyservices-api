@@ -21,9 +21,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var expectedResult = standardCodes.Split(',').Select(x => x.Trim());
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-            { StandardCodes = standardCodes.Split(',').ToList() });
+            { StandardLarsCodes = standardCodes.Split(',').ToList() });
 
-            result.StandardIds.ShouldAllBeEquivalentTo(expectedResult);
+            result.StandardLarsCodes.ShouldAllBeEquivalentTo(expectedResult);
         }
     }
 }

@@ -51,8 +51,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                         .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                         .Take(parameters.PageSize)
                         .Query(query =>
-                            (query.Terms(apprenticeship => apprenticeship.FrameworkCode, parameters.FrameworkCodes)
-                             || query.Terms(apprenticeship => apprenticeship.StandardId, parameters.StandardIds))
+                            (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
+                             || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
                             && query.Term(apprenticeship => apprenticeship.VacancyLocationType, parameters.LocationType)
                             && query.Range(range =>
                                 range.OnField(apprenticeship => apprenticeship.PostedDate)

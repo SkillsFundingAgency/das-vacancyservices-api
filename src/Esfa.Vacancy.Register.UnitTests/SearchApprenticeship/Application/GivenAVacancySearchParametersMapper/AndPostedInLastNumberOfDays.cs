@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 : (DateTime?)null;
 
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest()
-                { PostedInLastNumberOfDays = sinceDays, StandardCodes = _standardCodes });
+                { PostedInLastNumberOfDays = sinceDays, StandardLarsCodes = _standardCodes });
 
             result.FromDate.Should().Be(expectedFromDate);
         }
