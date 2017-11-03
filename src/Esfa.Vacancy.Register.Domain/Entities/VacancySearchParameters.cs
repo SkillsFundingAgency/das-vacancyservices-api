@@ -13,6 +13,9 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int PageNumber { get; set; }
         public DateTime? FromDate { get; set; }
         public string LocationType { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public int? DistanceInMiles { get; set; }
 
         public override string ToString()
         {

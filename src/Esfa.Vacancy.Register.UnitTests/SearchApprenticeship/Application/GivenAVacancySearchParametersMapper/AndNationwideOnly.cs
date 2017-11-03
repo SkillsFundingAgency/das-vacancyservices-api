@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
+    [TestFixture]
     public class AndNationwideOnly
     {
         [Test]
