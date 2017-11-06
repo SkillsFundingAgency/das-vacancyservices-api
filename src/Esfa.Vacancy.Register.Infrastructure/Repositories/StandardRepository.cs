@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Register.Domain.Repositories;
@@ -34,6 +35,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
         private async Task<IEnumerable<int>> InternalGetStandardIdsAsync()
         {
+            _logger.Info("Querying AVMS database for Standard Codes");
+
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
@@ -44,6 +47,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 var results =
                     await sqlConn.QueryAsync<int>(GetActiveStandardCodesSqlSproc,
                         commandType: CommandType.StoredProcedure);
+
+                _logger.Info($"Retrieved {results.Count()} Framework Codes from AVMS database.");
 
                 return results;
             }
