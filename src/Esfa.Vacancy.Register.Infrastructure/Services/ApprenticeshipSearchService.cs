@@ -43,6 +43,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
             ISearchResponse<ApprenticeshipSummary> esReponse;
 
+            _logger.Info($"Querying Elastic Index with following parameters: {parameters}");
+
             try
             {
                 esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(search =>
@@ -58,6 +60,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                                 range.OnField(apprenticeship => apprenticeship.PostedDate)
                                     .GreaterOrEquals(parameters.FromDate))
                         ));
+
+                _logger.Info($"Retrieved {esReponse.Total} vacancies from Elastic search with parameters {parameters}");
             }
             catch (WebException e)
             {
