@@ -62,6 +62,18 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(r => r.PostedInLastNumberOfDays)
                 .GreaterThanOrEqualTo(0)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDaysLessThan0);
+
+            RuleFor(request => request.Latitude)
+                .NotEmpty()
+                .When(request => request.Longitude.HasValue && request.DistanceInMiles.HasValue);
+
+            RuleFor(request => request.Longitude)
+                .NotEmpty()
+                .When(request => request.Latitude.HasValue && request.DistanceInMiles.HasValue);
+
+            RuleFor(request => request.DistanceInMiles)
+                .NotEmpty()
+                .When(request => request.Latitude.HasValue && request.Longitude.HasValue);
         }
 
         private static bool BeValidNumber(string value)
