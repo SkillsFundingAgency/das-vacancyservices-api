@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentValidation;
 using SFA.DAS.NLog.Logger;
-using System.Web.Http;
 
 namespace Esfa.Vacancy.Register.Api.App_Start
 {
@@ -25,26 +25,26 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         {
             try
             {
-                var logger = (ILog) GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILog));
-                
+                var logger = (ILog)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILog));
+
                 if (context.Exception is ValidationException)
                 {
-                    logger.Warn(context.Exception, FormatLogMessage("Validation error", context));
-                    context.Result = _validationBadRequestBuilder.CreateBadRequestResult((ValidationException) context.Exception, context.Request);
+                    logger.Info(FormatLogMessage("Validation error", context));
+                    context.Result = _validationBadRequestBuilder.CreateBadRequestResult((ValidationException)context.Exception, context.Request);
                     return;
                 }
 
                 if (context.Exception is UnauthorisedException)
                 {
                     logger.Warn(context.Exception, FormatLogMessage("Authorisation error", context));
-                    context.Result = CreateStringResult(HttpStatusCode.Unauthorized, ((UnauthorisedException) context.Exception).Message, context.Request);
+                    context.Result = CreateStringResult(HttpStatusCode.Unauthorized, ((UnauthorisedException)context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is ResourceNotFoundException)
                 {
-                    logger.Warn(context.Exception, FormatLogMessage("Unable to locate resource error", context));
-                    context.Result = CreateStringResult(HttpStatusCode.NotFound, ((ResourceNotFoundException) context.Exception).Message, context.Request);
+                    logger.Info(FormatLogMessage("Unable to locate resource error", context));
+                    context.Result = CreateStringResult(HttpStatusCode.NotFound, ((ResourceNotFoundException)context.Exception).Message, context.Request);
                     return;
                 }
 
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         private string FormatLogMessage(string message, ExceptionHandlerContext context)
         {
             var requestUri = context.Request?.RequestUri?.ToString();
-            
+
             return !string.IsNullOrEmpty(requestUri) ? $"{message} url:{requestUri}" : message;
         }
     }
