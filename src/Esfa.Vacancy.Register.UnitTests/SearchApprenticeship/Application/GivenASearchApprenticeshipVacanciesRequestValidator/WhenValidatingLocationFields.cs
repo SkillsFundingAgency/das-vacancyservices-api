@@ -53,7 +53,31 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     },
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
                 ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
-                .SetName("And no longitude then invalid")
+                .SetName("And no longitude then invalid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                    {
+                        StandardLarsCodes = ValidStandardCodes,
+                        Latitude = 52.399085
+                    },
+                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
+                .SetName("And only latitude then invalid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                    {
+                        StandardLarsCodes = ValidStandardCodes,
+                        Longitude = -1.506115
+                    },
+                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
+                .SetName("And only longitude then invalid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                    {
+                        StandardLarsCodes = ValidStandardCodes,
+                        DistanceInMiles = 342
+                    },
+                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
+                .SetName("And only distance then invalid")
         };
 
         [TestCaseSource(nameof(FailingTestCases))]
@@ -61,8 +85,13 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
         {
             var result = Validator.Validate(request);
 
+            foreach (var validationFailure in result.Errors)
+            {
+                Console.WriteLine(validationFailure.ErrorMessage);
+            }
+
             result.IsValid.Should().Be(false);
-            result.Errors.Count.Should().Be(1);
+            
             //result.Errors.First().ErrorMessage.Should().Be(expectedErrorMessage);
             //result.Errors.First().ErrorCode.Should().Be(expectedErrorCode);
         }
