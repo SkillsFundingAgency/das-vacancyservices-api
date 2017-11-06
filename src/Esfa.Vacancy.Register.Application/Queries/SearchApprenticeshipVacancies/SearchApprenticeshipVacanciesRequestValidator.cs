@@ -65,15 +65,18 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 
             RuleFor(request => request.Latitude)
                 .NotNull()
-                .When(request => request.Longitude.HasValue || request.DistanceInMiles.HasValue);
+                .When(request => request.Longitude.HasValue || request.DistanceInMiles.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch);
 
             RuleFor(request => request.Longitude)
                 .NotNull()
-                .When(request => request.Latitude.HasValue || request.DistanceInMiles.HasValue);
+                .When(request => request.Latitude.HasValue || request.DistanceInMiles.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch);
 
             RuleFor(request => request.DistanceInMiles)
                 .NotNull()
-                .When(request => request.Latitude.HasValue || request.Longitude.HasValue);
+                .When(request => request.Latitude.HasValue || request.Longitude.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch);
         }
 
         private static bool BeValidNumber(string value)
