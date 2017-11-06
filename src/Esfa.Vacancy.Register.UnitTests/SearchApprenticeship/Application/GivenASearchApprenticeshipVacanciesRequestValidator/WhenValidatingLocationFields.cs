@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         Latitude = 52.399085,
                         Longitude = -1.506115
                     },
-                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "e"),
+                "'Distance In Miles' must not be empty.",
                 ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
                 .SetName("And no distance then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         Longitude = -1.506115,
                         DistanceInMiles = 342
                     },
-                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "1.1"),
+                    "'Latitude' must not be empty.",
                 ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
                 .SetName("And no latitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         Latitude = 52.399085,
                         DistanceInMiles = 342
                     },
-                ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    "'Longitude' must not be empty.",
                 ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
                 .SetName("And no longitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -60,7 +60,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         StandardLarsCodes = ValidStandardCodes,
                         Latitude = 52.399085
                     },
-                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    "'Longitude' must not be empty.",
                     ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
                 .SetName("And only latitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -68,7 +68,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         StandardLarsCodes = ValidStandardCodes,
                         Longitude = -1.506115
                     },
-                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    "'Latitude' must not be empty.",
                     ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
                 .SetName("And only longitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                         StandardLarsCodes = ValidStandardCodes,
                         DistanceInMiles = 342
                     },
-                    ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, "2 0"),
+                    "'Latitude' must not be empty.",
                     ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
                 .SetName("And only distance then invalid")
         };
@@ -93,7 +93,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 
             result.IsValid.Should().Be(false);
             
-            //result.Errors.First().ErrorMessage.Should().Be(expectedErrorMessage);
+            result.Errors.First().ErrorMessage.Should().Be(expectedErrorMessage);
             result.Errors.First().ErrorCode.Should().Be(expectedErrorCode);
         }
     }
