@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
 
             ISearchResponse<ApprenticeshipSummary> esReponse;
 
-            _logger.Info($"Querying Elastic Index with following parameters: {parameters}");
+            _logger.Info($"Querying Apprenticeship Elastic index with following parameters: {parameters}");
 
             try
             {
@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                                     .GreaterOrEquals(parameters.FromDate))
                         ));
 
-                _logger.Info($"Retrieved {esReponse.Total} vacancies from Elastic search with parameters {parameters}");
+                _logger.Info($"Retrieved {esReponse.Total} apprenticeships from Elastic search with parameters {parameters}");
             }
             catch (WebException e)
             {
