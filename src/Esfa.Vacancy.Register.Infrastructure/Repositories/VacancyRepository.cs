@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             {
                 _logger.Warn($"Error retrieving apprenticeship vacancy from database: ({exception.Message}). Retrying... attempt {retryCount}");
             });
-            
+
             return await retry.ExecuteAsync(() => InternalGetVacancyByReferenceNumberAsync(referenceNumber));
         }
 
@@ -45,6 +45,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("@ReferenceNumber", referenceNumber, DbType.Int32);
 
+                _logger.Info($"Querying AVMS database to get Apprenticeship Vacancy details for {referenceNumber}.");
+
                 await sqlConn.OpenAsync();
                 var results =
                     await sqlConn.QueryAsync<DomainEntities.ApprenticeshipVacancy, DomainEntities.Address, DomainEntities.ApprenticeshipVacancy>(
@@ -53,6 +55,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                         map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1",
                         commandType: CommandType.StoredProcedure);
+
+                _logger.Info($"Retrieved Apprenticeship Vacancy details for {referenceNumber} from AVMS database.");
 
                 apprenticeshipVacancy = results.FirstOrDefault();
             }
@@ -71,6 +75,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("@ReferenceNumber", referenceNumber, DbType.Int32);
 
+                _logger.Info($"Querying AVMS database to get Traineeship Vacancy details for {referenceNumber}.");
+
                 await sqlConn.OpenAsync();
                 var results =
                     await sqlConn.QueryAsync<DomainEntities.TraineeshipVacancy, DomainEntities.Address, DomainEntities.TraineeshipVacancy>(
@@ -79,6 +85,8 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                         map: (v, a) => { v.Location = a; return v; },
                         splitOn: "AddressLine1",
                         commandType: CommandType.StoredProcedure);
+
+                _logger.Info($"Retrieved Traineeship Vacancy details for {referenceNumber} from AVMS database.");
 
                 traineeshipVacancy = results.FirstOrDefault();
             }
