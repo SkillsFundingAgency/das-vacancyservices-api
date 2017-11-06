@@ -53,7 +53,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new Exception("any exception"),
-                new ExceptionContextCatchBlock("name", true, true), 
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage()));
 
             _handler.Handle(context);
@@ -91,17 +91,17 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
                 .Setup(builder => builder.CreateBadRequestResult(It.IsAny<ValidationException>(), It.IsAny<HttpRequestMessage>()))
                 .Returns(new CustomErrorResult(new HttpRequestMessage(), badrequestResponse));
 
-            
+
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                validationException, 
+                validationException,
                 new ExceptionContextCatchBlock("name", true, true),
-                new HttpRequestMessage() ));
+                new HttpRequestMessage()));
 
             _handler.Handle(context);
 
             var message = await context.Result.ExecuteAsync(CancellationToken.None);
 
-            _logger.Verify(l => l.Warn(It.IsAny<ValidationException>(), "Validation error"), Times.Once);
+            _logger.Verify(l => l.Info("Validation error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             message.Content.ReadAsAsync<BadRequestContent>().Result.RequestErrors
                 .ShouldAllBeEquivalentTo(new[]
@@ -115,7 +115,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new UnauthorisedException("no access"),
-                new ExceptionContextCatchBlock("name", true, true), 
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage()));
 
             _handler.Handle(context);
@@ -131,15 +131,15 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         public async Task AndResourceNotFoundExceptionIsThrownThenReturnNotFound()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ResourceNotFoundException("no resource"), 
-                new ExceptionContextCatchBlock("name", true, true), 
+                new ResourceNotFoundException("no resource"),
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage()));
 
             _handler.Handle(context);
 
             var message = await context.Result.ExecuteAsync(CancellationToken.None);
 
-            _logger.Verify(l => l.Warn(It.IsAny<ResourceNotFoundException>(), "Unable to locate resource error"), Times.Once);
+            _logger.Verify(l => l.Info("Unable to locate resource error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.NotFound);
             message.Content.ReadAsStringAsync().Result.Should().Be("no resource");
         }
@@ -148,8 +148,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         public async Task AndInfrastructureExceptionIsThrownThenReturnInternalServerError()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new InfrastructureException(new Exception("an infrastructure error")), 
-                new ExceptionContextCatchBlock("name", true, true), 
+                new InfrastructureException(new Exception("an infrastructure error")),
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage()));
 
             _handler.Handle(context);
@@ -165,8 +165,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         public async Task AndExceptionIsThrownThenReturnInternalServerError()
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
-                new Exception("an infrastructure error"), 
-                new ExceptionContextCatchBlock("name", true, true), 
+                new Exception("an infrastructure error"),
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage())
                 );
 
@@ -184,7 +184,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         {
             var context = new ExceptionHandlerContext(new ExceptionContext(
                 new InfrastructureException(new Exception("an infrastructure error")),
-                new ExceptionContextCatchBlock("name", true, true), 
+                new ExceptionContextCatchBlock("name", true, true),
                 new HttpRequestMessage(HttpMethod.Get, "http://resource/that/errored"))
                 );
 
