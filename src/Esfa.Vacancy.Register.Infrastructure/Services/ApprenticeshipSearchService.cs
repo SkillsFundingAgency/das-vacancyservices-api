@@ -48,18 +48,43 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             try
             {
                 esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(search =>
+                {
                     search.Index(indexName)
                         .Type("apprenticeship")
                         .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                         .Take(parameters.PageSize)
                         .Query(query =>
-                            (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
-                             || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
-                            && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
-                            && query.Range(range =>
-                                range.OnField(apprenticeship => apprenticeship.PostedDate)
-                                    .GreaterOrEquals(parameters.FromDate))
-                        ));
+                        {
+                            var container =  
+                                (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
+                                 || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
+                                    && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
+                                    && query.Range(range =>
+                                        range.OnField(apprenticeship => apprenticeship.PostedDate)
+                                            .GreaterOrEquals(parameters.FromDate));
+
+                            if (parameters.Latitude.HasValue && parameters.Longitude.HasValue && parameters.DistanceInMiles.HasValue)
+                            {
+                                container = container && query.Filtered(descriptor =>
+                                    descriptor.Filter(filterDescriptor =>
+                                        filterDescriptor.GeoDistance(summary => summary.Location, distanceFilterDescriptor =>
+                                            distanceFilterDescriptor.Location(parameters.Latitude.Value, parameters.Longitude.Value)
+                                                .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
+                            }
+
+                            return container;
+                        });
+
+                    if (parameters.Latitude.HasValue && parameters.Longitude.HasValue && parameters.DistanceInMiles.HasValue)
+                    {
+                        search.SortGeoDistance(descriptor =>
+                            descriptor.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)
+                                .Unit(GeoUnit.Miles)
+                                .OnField(summary => summary.Location));
+                    }
+
+                    return search;
+                });
 
                 _logger.Info($"Retrieved {esReponse.Total} apprenticeships from Elastic search with parameters {parameters}");
             }
