@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
@@ -37,7 +36,9 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             {
                 try
                 {
+                    _logger.Info($"Querying Training API for Framework code {code}");
                     var framework = await client.GetAsync(code);
+                    _logger.Info($"Training API returned Framework details for code {code}");
                     return new Framework() { Title = framework.Title, Code = code, Uri = framework.Uri };
                 }
                 catch (EntityNotFoundException ex)
@@ -64,7 +65,9 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
             {
                 try
                 {
+                    _logger.Info($"Querying Training API for Standard code {code}");
                     var standard = await client.GetAsync(code);
+                    _logger.Info($"Training API returned Standard details for code {code}");
                     return new Standard() { Title = standard.Title, Code = code, Uri = standard.Uri };
                 }
                 catch (EntityNotFoundException ex)
