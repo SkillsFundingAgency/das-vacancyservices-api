@@ -99,5 +99,11 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string ContactEmail { get; set; }
 
         public string ContactNumber { get; set; }
+
+        public string TrainingProvider { get; set; }
+
+        public string TrainingProviderUkprn { get; set; }
+
+        public string TrainingProviderSite { get; set; }
     }
 }

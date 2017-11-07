@@ -186,5 +186,20 @@ namespace Esfa.Vacancy.Api.Types
         /// Phone number of the contact person
         /// </summary>
         public string ContactNumber { get; set; }
+
+        /// <summary>
+        /// The training provider's trading name
+        /// </summary>
+        public string TrainingProvider { get; set; }
+
+        /// <summary>
+        /// The training provider's UKPRN
+        /// </summary>
+        public string TrainingProviderUkprn { get; set; }
+
+        /// <summary>
+        /// The training provider site
+        /// </summary>
+        public string TrainingProviderSite { get; set; }
     }
 }
