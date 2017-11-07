@@ -16,6 +16,11 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
+        private const double MinimumLatitude = -90;
+        private const double MaximumLatitude = 90;
+        private const double MinimumLongitude = -180;
+        private const double MaximumLongitude = 180;
+        private const int MinimumDistanceInMiles = 0;
 
         public SearchApprenticeshipVacanciesRequestValidator(
             IFrameworkCodeRepository frameworkCodeRepository,
@@ -66,7 +71,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(request => request.Latitude)
                 .NotNull()
                 .When(request => request.Longitude.HasValue || request.DistanceInMiles.HasValue)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
+                .InclusiveBetween(MinimumLatitude, MaximumLatitude)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange);
 
             RuleFor(request => request.Longitude)
                 .NotNull()
