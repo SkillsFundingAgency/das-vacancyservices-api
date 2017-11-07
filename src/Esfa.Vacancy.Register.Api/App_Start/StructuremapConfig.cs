@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StructuremapWebApi.cs" company="Web Advanced">
+// <copyright file="StructureMapConfig.cs" company="Web Advanced">
 // Copyright 2012 Web Advanced (www.webadvanced.com)
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,19 +16,42 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Web.Http;
+using System.Web.Mvc;
 using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Api.DependencyResolution;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using StructureMap;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
+[assembly: PreApplicationStartMethod(typeof(StructureMapConfig), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(StructureMapConfig), "End")]
 
 namespace Esfa.Vacancy.Register.Api
 {
-    public static class StructuremapWebApi
+    public static class StructureMapConfig
     {
+        #region Public Properties
+
+        public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static void End()
+        {
+            StructureMapDependencyScope.Dispose();
+        }
+
         public static void Start()
         {
-            var container = StructuremapMvc.StructureMapDependencyScope.Container;
+            IContainer container = IoC.Initialize();
+            StructureMapDependencyScope = new StructureMapDependencyScope(container);
             GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+            DependencyResolver.SetResolver(StructureMapDependencyScope);
+            DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));
         }
+
+        #endregion
     }
 }

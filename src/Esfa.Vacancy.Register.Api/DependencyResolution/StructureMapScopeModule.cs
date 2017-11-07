@@ -9,10 +9,10 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution {
         }
 
         public void Init(HttpApplication context) {
-            context.BeginRequest += (sender, e) => StructuremapMvc.StructureMapDependencyScope.CreateNestedContainer();
+            context.BeginRequest += (sender, e) => StructureMapConfig.StructureMapDependencyScope.CreateNestedContainer();
             context.EndRequest += (sender, e) => {
                 HttpContextLifecycle.DisposeAndClearAll();
-                StructuremapMvc.StructureMapDependencyScope.DisposeNestedContainer();
+                StructureMapConfig.StructureMapDependencyScope.DisposeNestedContainer();
             };
         }
 

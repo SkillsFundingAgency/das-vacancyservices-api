@@ -56,9 +56,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                         splitOn: "AddressLine1",
                         commandType: CommandType.StoredProcedure);
 
-                _logger.Info($"Retrieved Apprenticeship Vacancy details for {referenceNumber} from AVMS database.");
-
                 apprenticeshipVacancy = results.FirstOrDefault();
+
+                if (apprenticeshipVacancy != null)
+                    _logger.Info($"Retrieved Apprenticeship Vacancy details for {referenceNumber} from AVMS database.");
             }
 
             return apprenticeshipVacancy;
@@ -86,9 +87,10 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
                         splitOn: "AddressLine1",
                         commandType: CommandType.StoredProcedure);
 
-                _logger.Info($"Retrieved Traineeship Vacancy details for {referenceNumber} from AVMS database.");
-
                 traineeshipVacancy = results.FirstOrDefault();
+
+                if (traineeshipVacancy != null)
+                    _logger.Info($"Retrieved Traineeship Vacancy details for {referenceNumber} from AVMS database.");
             }
 
             return traineeshipVacancy;
