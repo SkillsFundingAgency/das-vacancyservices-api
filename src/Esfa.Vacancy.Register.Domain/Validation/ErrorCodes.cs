@@ -20,7 +20,9 @@
             public const string LatitudeMissingFromGeoSearch            = "30109";
             public const string LatitudeOutsideRange                    = "30110";
             public const string LongitudeMissingFromGeoSearch           = "30111";
-            public const string DistanceMissingFromGeoSearch            = "30112";
+            public const string LongitudeOutsideRange                   = "30112";
+            public const string DistanceMissingFromGeoSearch            = "30113";
+            public const string DistanceMissingLessThan0                = "30114";
         }
 
         public static class GetApprenticeship
