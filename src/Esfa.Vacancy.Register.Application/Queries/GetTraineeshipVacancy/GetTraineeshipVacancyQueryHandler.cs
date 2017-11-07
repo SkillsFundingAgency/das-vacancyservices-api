@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy
 
             var vacancy = await _vacancyRepository.GetTraineeshipVacancyByReferenceNumberAsync(message.Reference);
 
-            if (vacancy == null) throw new ResourceNotFoundException($"Vacancy: {message.Reference}");
+            if (vacancy == null) throw new ResourceNotFoundException();
 
             return new GetTraineeshipVacancyResponse { TraineeshipVacancy = vacancy };
         }
