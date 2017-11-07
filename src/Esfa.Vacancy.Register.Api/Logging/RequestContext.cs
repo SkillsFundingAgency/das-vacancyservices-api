@@ -21,8 +21,8 @@ namespace Esfa.Vacancy.Register.Api.Logging
             }
         }
 
-        public string IpAddress { get; private set; }
+        public string IpAddress { get; }
 
-        public string Url { get; private set; }
+        public string Url { get; }
     }
 }
