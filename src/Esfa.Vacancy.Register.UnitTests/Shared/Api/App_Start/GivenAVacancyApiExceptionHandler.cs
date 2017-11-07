@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _mockValidationBadRequestBuilder = new Mock<IValidationBadRequestBuilder>();
 
-            _handler = new VacancyApiExceptionHandler(_mockValidationBadRequestBuilder.Object);
+            _handler = new VacancyApiExceptionHandler(_mockValidationBadRequestBuilder.Object, _logger.Object);
         }
 
         [Test]

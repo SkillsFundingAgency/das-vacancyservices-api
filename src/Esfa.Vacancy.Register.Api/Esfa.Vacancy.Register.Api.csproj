@@ -288,7 +288,6 @@
     <Compile Include="App_Start\CustomErrorResult.cs" />
     <Compile Include="App_Start\ApiFilterConfig.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
-    <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\ValidationBadRequestBuilder.cs" />
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
@@ -305,7 +304,7 @@
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Logging\ApplicationInsightsInitializer.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="App_Start\StructuremapConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />

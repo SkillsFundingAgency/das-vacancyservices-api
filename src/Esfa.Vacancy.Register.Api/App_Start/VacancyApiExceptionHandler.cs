@@ -12,10 +12,12 @@ namespace Esfa.Vacancy.Register.Api.App_Start
     public class VacancyApiExceptionHandler : ExceptionHandler
     {
         private readonly IValidationBadRequestBuilder _validationBadRequestBuilder;
+        private readonly ILog _logger;
 
-        public VacancyApiExceptionHandler(IValidationBadRequestBuilder validationBadRequestBuilder)
+        public VacancyApiExceptionHandler(IValidationBadRequestBuilder validationBadRequestBuilder, ILog logger)
         {
             _validationBadRequestBuilder = validationBadRequestBuilder;
+            _logger = logger;
         }
 
         private const string GenericErrorMessage = "An internal error occurred, please try again.";
@@ -25,37 +27,35 @@ namespace Esfa.Vacancy.Register.Api.App_Start
         {
             try
             {
-                var logger = (ILog)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILog));
-
                 if (context.Exception is ValidationException)
                 {
-                    logger.Info(FormatLogMessage("Validation error", context));
+                    _logger.Info(FormatLogMessage("Validation error", context));
                     context.Result = _validationBadRequestBuilder.CreateBadRequestResult((ValidationException)context.Exception, context.Request);
                     return;
                 }
 
                 if (context.Exception is UnauthorisedException)
                 {
-                    logger.Warn(context.Exception, FormatLogMessage("Authorisation error", context));
+                    _logger.Warn(context.Exception, FormatLogMessage("Authorisation error", context));
                     context.Result = CreateStringResult(HttpStatusCode.Unauthorized, ((UnauthorisedException)context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is ResourceNotFoundException)
                 {
-                    logger.Info(FormatLogMessage("Unable to locate resource error", context));
+                    _logger.Info(FormatLogMessage("Unable to locate resource error", context));
                     context.Result = CreateStringResult(HttpStatusCode.NotFound, ((ResourceNotFoundException)context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is InfrastructureException)
                 {
-                    logger.Error(context.Exception.InnerException, FormatLogMessage("Unexpected infrastructure error", context));
+                    _logger.Error(context.Exception.InnerException, FormatLogMessage("Unexpected infrastructure error", context));
                     context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
                     return;
                 }
 
-                logger.Error(context.Exception, FormatLogMessage("Unexpected error", context));
+                _logger.Error(context.Exception, FormatLogMessage("Unexpected error", context));
                 context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
             }
             catch
