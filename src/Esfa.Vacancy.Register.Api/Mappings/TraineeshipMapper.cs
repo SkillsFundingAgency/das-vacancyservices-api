@@ -49,7 +49,10 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 Location = _addressMapper.MapToLocation(traineeshipVacancy.Location, showAnonymousEmployerDetails: traineeshipVacancy.IsAnonymousEmployer),
                 ContactName = traineeshipVacancy.ContactName,
                 ContactEmail = traineeshipVacancy.ContactEmail,
-                ContactNumber = traineeshipVacancy.ContactNumber
+                ContactNumber = traineeshipVacancy.ContactNumber,
+                TrainingProvider = traineeshipVacancy.TrainingProvider,
+                TrainingProviderUkprn = traineeshipVacancy.TrainingProviderUkprn,
+                TrainingProviderSite = traineeshipVacancy.TrainingProviderSite
             };
         }
     }

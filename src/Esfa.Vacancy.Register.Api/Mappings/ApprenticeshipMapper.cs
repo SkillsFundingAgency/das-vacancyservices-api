@@ -55,7 +55,10 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 Location = _addressMapper.MapToLocation(apprenticeshipVacancy.Location, showAnonymousEmployerDetails: apprenticeshipVacancy.IsAnonymousEmployer),
                 ContactName = apprenticeshipVacancy.ContactName,
                 ContactEmail = apprenticeshipVacancy.ContactEmail,
-                ContactNumber = apprenticeshipVacancy.ContactNumber
+                ContactNumber = apprenticeshipVacancy.ContactNumber,
+                TrainingProvider = apprenticeshipVacancy.TrainingProvider,
+                TrainingProviderUkprn = apprenticeshipVacancy.TrainingProviderUkprn,
+                TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite
             };
 
             MapTrainingDetails(apprenticeshipVacancy, apprenticeship);
