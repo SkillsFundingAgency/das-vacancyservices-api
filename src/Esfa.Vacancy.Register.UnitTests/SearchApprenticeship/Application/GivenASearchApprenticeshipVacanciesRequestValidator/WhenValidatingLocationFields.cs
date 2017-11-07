@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.Results;
@@ -13,21 +11,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     [TestFixture]
     public class WhenValidatingLocationFields : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        [Test]
-        public void AndAllThreeFieldsArePresentAndEachFieldIsValid_ThenRequestIsValid()
-        {
-            var result = Validator.Validate(new SearchApprenticeshipVacanciesRequest
-            {
-                StandardLarsCodes = ValidStandardCodes,
-                Latitude = 52.399085,
-                Longitude = -1.506115,
-                DistanceInMiles = 342
-            });
-
-            result.IsValid.Should().BeTrue();
-        }
-
-        private static List<TestCaseData> FailingTestCases => new List<TestCaseData>
+        private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
@@ -35,7 +19,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
-                }, new ValidationResult())
+                }, new ValidationResult()) // IsValid == true when Errors collection is empty
                 .SetName("And all fields present then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
@@ -123,8 +107,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                 .SetName("And only distance then invalid")
         };
 
-        [TestCaseSource(nameof(FailingTestCases))]
-        public void ValidateMissingFields(SearchApprenticeshipVacanciesRequest request, ValidationResult expectedResult)
+        [TestCaseSource(nameof(TestCases))]
+        public void AndRunningTestCases(SearchApprenticeshipVacanciesRequest request, ValidationResult expectedResult)
         {
             var actualResult = Validator.Validate(request);
 
