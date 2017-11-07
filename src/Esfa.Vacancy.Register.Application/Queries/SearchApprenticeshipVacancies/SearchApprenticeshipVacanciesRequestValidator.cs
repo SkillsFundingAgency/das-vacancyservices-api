@@ -78,7 +78,9 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(request => request.Longitude)
                 .NotNull()
                 .When(request => request.Latitude.HasValue || request.DistanceInMiles.HasValue)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
+                .InclusiveBetween(MinimumLongitude, MaximumLongitude)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange);
 
             RuleFor(request => request.DistanceInMiles)
                 .NotNull()
