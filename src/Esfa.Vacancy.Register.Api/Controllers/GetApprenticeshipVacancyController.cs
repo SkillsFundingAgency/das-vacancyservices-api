@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestError))]
-        [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found or vacancy status is not Live")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
             var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
