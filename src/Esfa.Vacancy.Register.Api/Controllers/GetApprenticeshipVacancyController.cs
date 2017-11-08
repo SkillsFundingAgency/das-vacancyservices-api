@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using SFA.DAS.NLog.Logger;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
@@ -11,12 +10,10 @@ namespace Esfa.Vacancy.Register.Api.Controllers
     [RoutePrefix("api/v1/apprenticeships")]
     public class GetApprenticeshipVacancyController : ApiController
     {
-        private readonly ILog _log;
         private readonly GetApprenticeshipVacancyOrchestrator _apprenticeshipVacancyOrchestrator;
 
-        public GetApprenticeshipVacancyController(ILog log, GetApprenticeshipVacancyOrchestrator apprenticeshipVacancyOrchestrator)
+        public GetApprenticeshipVacancyController(GetApprenticeshipVacancyOrchestrator apprenticeshipVacancyOrchestrator)
         {
-            _log = log;
             _apprenticeshipVacancyOrchestrator = apprenticeshipVacancyOrchestrator;
         }
 
