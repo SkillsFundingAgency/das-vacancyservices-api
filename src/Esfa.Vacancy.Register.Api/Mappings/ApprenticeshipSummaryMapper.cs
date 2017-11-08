@@ -18,7 +18,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target => target.TrainingTitle, c => c.MapFrom(source => source.SubCategory))
                 .ForMember(target => target.TrainingCode, c => c.MapFrom(source =>
                     source.StandardLarsCode.HasValue ? source.StandardLarsCode.ToString() : source.FrameworkLarsCode))
-                .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description));
+                .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description))
+                .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName));
         }
     }
 }

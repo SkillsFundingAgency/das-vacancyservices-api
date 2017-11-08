@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ContactName = apprenticeshipVacancy.ContactName,
                 ContactEmail = apprenticeshipVacancy.ContactEmail,
                 ContactNumber = apprenticeshipVacancy.ContactNumber,
-                TrainingProvider = apprenticeshipVacancy.TrainingProvider,
+                TrainingProviderName = apprenticeshipVacancy.TrainingProvider,
                 TrainingProviderUkprn = apprenticeshipVacancy.TrainingProviderUkprn,
                 TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite
             };

@@ -95,7 +95,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <value>
         /// The name of the provider.
         /// </value>
-        public string ProviderName { get; set; }
+        public string TrainingProviderName { get; set; }
 
         /// <summary>
         /// The type of the vacancy location.
