@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
                 { NationwideOnly = true });
 
-            result.LocationType.Should().Be("Nationwide");
+            result.LocationType.Should().Be("National");
         }
 
         [Test]

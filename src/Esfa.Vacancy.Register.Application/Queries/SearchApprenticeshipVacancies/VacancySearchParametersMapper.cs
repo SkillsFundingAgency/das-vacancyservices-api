@@ -6,7 +6,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
 {
     public static class VacancySearchParametersMapper
     {
-        private const string NationwideLocationType = "Nationwide";
+        private const string NationwideLocationType = "National";
 
         public static VacancySearchParameters Convert(SearchApprenticeshipVacanciesRequest request)
         {
