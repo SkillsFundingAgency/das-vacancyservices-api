@@ -55,7 +55,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                         .Query(query =>
                             (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
                              || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
-                            && query.Term(apprenticeship => apprenticeship.VacancyLocationType, parameters.LocationType)
+                            && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
                             && query.Range(range =>
                                 range.OnField(apprenticeship => apprenticeship.PostedDate)
                                     .GreaterOrEquals(parameters.FromDate))
