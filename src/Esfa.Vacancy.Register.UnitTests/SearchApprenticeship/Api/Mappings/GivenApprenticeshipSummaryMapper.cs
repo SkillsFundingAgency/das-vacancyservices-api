@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
         [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
         [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
-        public void ThenLoadCorrectTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
+        public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
             var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new DomainTypes.ApprenticeshipSummary()
@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         }
 
         [Test]
-        public void ThenLoadCorrectLocationGeoCoordinates()
+        public void WhenMappingGeoCoordinates()
         {
             var domainType = new DomainTypes.ApprenticeshipSummary
             {
@@ -46,9 +46,24 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
-            result.Location.Latitude.Should().Be(51.3288148990m);
-            result.Location.Longitude.Should().Be(0.4452948632m);
+            result.Location.Latitude.Should().Be(51.3288148990m, "Then map latitude to Location");
+            result.Location.Longitude.Should().Be(0.4452948632m, "Then map longitude to Location");
 
         }
+
+        [Test]
+        public void WhenMappingShortDescription()
+        {
+            var description = "desc";
+            var domainType = new DomainTypes.ApprenticeshipSummary
+            {
+                Description = description
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.ShortDescription.Should().Be(description, "Then map description to short description");
+        }
+
     }
 }

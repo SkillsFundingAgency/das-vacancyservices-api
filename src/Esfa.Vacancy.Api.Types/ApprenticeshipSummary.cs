@@ -15,9 +15,9 @@ namespace Esfa.Vacancy.Api.Types
         public string Title { get; set; }
 
         /// <summary>
-        /// The description.
+        /// The short description of the vacancy.
         /// </summary>
-        public string Description { get; set; }
+        public string ShortDescription { get; set; }
 
         /// <summary>
         /// Wage unit.
