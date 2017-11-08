@@ -62,8 +62,21 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
-            result.ShortDescription.Should().Be(description, "Then map description to short description");
+            result.ShortDescription.Should().Be(description, "Then map Description to ShortDescription");
         }
 
+        [Test]
+        public void WhenMappingTrainingProviderName()
+        {
+            var providerName = "desc";
+            var domainType = new DomainTypes.ApprenticeshipSummary
+            {
+                ProviderName = providerName
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.TrainingProviderName.Should().Be(providerName, "Then map ProviderName to TrainingProviderName");
+        }
     }
 }
