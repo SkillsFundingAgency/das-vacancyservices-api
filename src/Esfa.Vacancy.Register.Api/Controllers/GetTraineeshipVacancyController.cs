@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [Route("{vacancyReference:int}")]
         [SwaggerOperation("GetTraineeshipVacancy", Tags = new[] { "Traineeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.TraineeshipVacancy))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestError))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found or vacancy status is not Live")]
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
