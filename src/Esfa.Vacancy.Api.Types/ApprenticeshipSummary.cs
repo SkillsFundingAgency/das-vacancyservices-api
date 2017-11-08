@@ -40,16 +40,6 @@ namespace Esfa.Vacancy.Api.Types
         public decimal? HoursPerWeek { get; set; }
 
         /// <summary>
-        /// The type of the wage.
-        /// </summary>
-        public int WageType { get; set; }
-
-        /// <summary>
-        /// The wage amount.
-        /// </summary>
-        public decimal? WageAmount { get; set; }
-
-        /// <summary>
         /// Expected start date.
         /// </summary>
         public DateTime ExpectedStartDate { get; set; }
