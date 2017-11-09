@@ -26,12 +26,12 @@ namespace Esfa.Vacancy.Api.Types
         /// Description.
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Working week.
         /// </summary>
         public string WorkingWeek { get; set; }
-        
+
         /// <summary>
         /// Expected duration.
         /// </summary>
@@ -118,9 +118,9 @@ namespace Esfa.Vacancy.Api.Types
         public string ThingsToConsider { get; set; }
 
         /// <summary>
-        /// Type of the vacancy location.
+        /// Is this vacancy available nation wide.
         /// </summary>
-        public VacancyLocationType LocationType { get; set; }
+        public bool IsNationWide { get; set; }
 
         /// <summary>
         /// Supplementary question1.
