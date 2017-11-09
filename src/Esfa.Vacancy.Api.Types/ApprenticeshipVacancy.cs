@@ -148,9 +148,9 @@ namespace Esfa.Vacancy.Api.Types
         public string ThingsToConsider { get; set; }
 
         /// <summary>
-        /// Type of the vacancy location.
+        /// Is this vacancy available nation wide.
         /// </summary>
-        public VacancyLocationType LocationType { get; set; }
+        public bool IsNationWide { get; set; }
 
         /// <summary>
         /// Supplementary question1.

@@ -105,6 +105,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationWide.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Mappings\GivenTraineeshipMapper.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
