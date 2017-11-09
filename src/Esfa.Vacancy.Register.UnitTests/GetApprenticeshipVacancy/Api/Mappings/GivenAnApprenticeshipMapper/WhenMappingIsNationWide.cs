@@ -7,6 +7,7 @@ using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
+    [TestFixture]
     public class WhenMappingIsNationwide
     {
         private ApprenticeshipMapper _sut;

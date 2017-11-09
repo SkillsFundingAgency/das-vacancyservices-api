@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 {
     public class ApprenticeshipSummaryMapper : Profile
     {
+        private const string National = "National";
         public ApprenticeshipSummaryMapper()
         {
             CreateMap<DomainTypes.ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
@@ -19,7 +20,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target => target.TrainingCode, c => c.MapFrom(source =>
                     source.StandardLarsCode.HasValue ? source.StandardLarsCode.ToString() : source.FrameworkLarsCode))
                 .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description))
-                .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName));
+                .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName))
+                .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)));
         }
     }
 }

@@ -88,9 +88,9 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingProviderName { get; set; }
 
         /// <summary>
-        /// The type of the vacancy location.
+        /// Is this vacancy available nationwide.
         /// </summary>
-        public string VacancyLocationType { get; set; }
+        public bool IsNationwide { get; set; }
 
         /// <summary>
         /// The location.
