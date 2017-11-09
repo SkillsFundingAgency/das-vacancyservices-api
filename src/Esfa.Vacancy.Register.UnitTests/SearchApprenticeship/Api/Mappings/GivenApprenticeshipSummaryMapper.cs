@@ -8,6 +8,7 @@ using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 {
+    [TestFixture]
     public class GivenApprenticeshipSummaryMapper
     {
         private IMapper _mapper;
@@ -78,5 +79,20 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.TrainingProviderName.Should().Be(providerName, "Then map ProviderName to TrainingProviderName");
         }
+
+        [TestCase("National", true, TestName = "And Location Type is National Then map set IsNationWide to true")]
+        [TestCase("NonNational", false, TestName = "And Location Type is NonNational Then map set IsNationWide to false")]
+        public void WhenMappingIsNationWide(string value, bool expectedResult)
+        {
+            var domainType = new DomainTypes.ApprenticeshipSummary
+            {
+                VacancyLocationType = value
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.IsNationwide.Should().Be(expectedResult);
+        }
+
     }
 }
