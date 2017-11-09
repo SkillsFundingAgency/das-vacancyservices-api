@@ -7,7 +7,7 @@ using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
 {
-    public class WhenMappingIsNationWide
+    public class WhenMappingIsNationwide
     {
         private ApprenticeshipMapper _sut;
 
@@ -18,9 +18,9 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
             _sut = new ApprenticeshipMapper(provideSettings.Object);
         }
 
-        [TestCase(1, false, TestName = "And LocationTypeId is 1 Then set IsNationWide to false")]
-        [TestCase(2, false, TestName = "And LocationTypeId is 2 Then set IsNationWide to false")]
-        [TestCase(3, true, TestName = "And LocationTypeId is 3 Then set IsNationWide to true")]
+        [TestCase(1, false, TestName = "And LocationTypeId is 1 Then set IsNationwide to false")]
+        [TestCase(2, false, TestName = "And LocationTypeId is 2 Then set IsNationwide to false")]
+        [TestCase(3, true, TestName = "And LocationTypeId is 3 Then set IsNationwide to true")]
         public void ShouldMapUsingLocationTypeId(int vacancyLocationTypeid, bool expectedResult)
         {
             var vacancy = new DomainTypes.ApprenticeshipVacancy()
@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
 
             var result = _sut.MapToApprenticeshipVacancy(vacancy);
 
-            result.IsNationWide.Should().Be(expectedResult);
+            result.IsNationwide.Should().Be(expectedResult);
         }
     }
 }

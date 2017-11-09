@@ -20,10 +20,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
             _sut = new TraineeshipMapper(_provideSettingsMock.Object);
         }
 
-        [TestCase(1, false, TestName = "And LocationType is 1 Then set IsNationWide to false")]
-        [TestCase(2, false, TestName = "And LocationType is 2 Then set IsNationWide to false")]
-        [TestCase(3, true, TestName = "And LocationType is 3 Then set IsNationWide to true")]
-        public void WhenMappingIsNationWide(int vacancyLocationTypeid, bool expectedResult)
+        [TestCase(1, false, TestName = "And LocationType is 1 Then set IsNationwide to false")]
+        [TestCase(2, false, TestName = "And LocationType is 2 Then set IsNationwide to false")]
+        [TestCase(3, true, TestName = "And LocationType is 3 Then set IsNationwide to true")]
+        public void WhenMappingIsNationwide(int vacancyLocationTypeid, bool expectedResult)
         {
             var vacancy = new DomainTypes.TraineeshipVacancy()
             {
@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
 
             var result = _sut.MapToTraineeshipVacancy(vacancy);
 
-            result.IsNationWide.Should().Be(expectedResult);
+            result.IsNationwide.Should().Be(expectedResult);
         }
 
         [TestCase("", TestName = "And Anonymous Employer Name is empty Then populate using EmployerName")]
