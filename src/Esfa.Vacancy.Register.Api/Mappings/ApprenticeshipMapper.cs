@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         private readonly IProvideSettings _provideSettings;
         private readonly AddressMapper _addressMapper = new AddressMapper();
         private const string UnknownText = "Unknown";
-        private const int NationWide = 3;
+        private const int Nationwide = 3;
 
         public ApprenticeshipMapper(IProvideSettings provideSettings)
         {
@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ImportantInformation = apprenticeshipVacancy.ImportantInformation,
                 FutureProspects = apprenticeshipVacancy.FutureProspects,
                 ThingsToConsider = apprenticeshipVacancy.ThingsToConsider,
-                IsNationWide = apprenticeshipVacancy.VacancyLocationTypeId == NationWide,
+                IsNationwide = apprenticeshipVacancy.VacancyLocationTypeId == Nationwide,
                 SupplementaryQuestion1 = apprenticeshipVacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = apprenticeshipVacancy.SupplementaryQuestion2,
                 VacancyUrl = $"{liveVacancyBaseUrl}/{apprenticeshipVacancy.VacancyReferenceNumber}",

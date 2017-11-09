@@ -1,5 +1,4 @@
-﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+﻿using Esfa.Vacancy.Register.Infrastructure.Settings;
 using TraineeshipVacancy = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
@@ -8,13 +7,13 @@ namespace Esfa.Vacancy.Register.Api.Mappings
     {
         private readonly IProvideSettings _provideSettings;
         private readonly AddressMapper _addressMapper = new AddressMapper();
-        private const int NationWide = 3;
+        private const int Nationwide = 3;
 
         public TraineeshipMapper(IProvideSettings provideSettings)
         {
             _provideSettings = provideSettings;
         }
-        
+
         public TraineeshipVacancy MapToTraineeshipVacancy(Domain.Entities.TraineeshipVacancy traineeshipVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey);
@@ -43,7 +42,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ImportantInformation = traineeshipVacancy.ImportantInformation,
                 FutureProspects = traineeshipVacancy.FutureProspects,
                 ThingsToConsider = traineeshipVacancy.ThingsToConsider,
-                IsNationWide = traineeshipVacancy.VacancyLocationTypeId == NationWide,
+                IsNationwide = traineeshipVacancy.VacancyLocationTypeId == Nationwide,
                 SupplementaryQuestion1 = traineeshipVacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = traineeshipVacancy.SupplementaryQuestion2,
                 VacancyUrl = $"{liveVacancyBaseUrl}/{traineeshipVacancy.VacancyReferenceNumber}",
