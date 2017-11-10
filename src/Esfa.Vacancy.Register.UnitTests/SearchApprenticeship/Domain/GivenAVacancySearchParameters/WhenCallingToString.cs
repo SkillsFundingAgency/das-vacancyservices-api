@@ -29,5 +29,27 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Domain.GivenAVaca
 
             formattedParams.Should().Contain($"{nameof(parameters.Latitude)}: {latitude}{Environment.NewLine}");
         }
+
+        [Test]
+        public void AndLongitudeIsNull_ThenLongitudeNotWritten()
+        {
+            var longitude = (double?)null;
+            var parameters = new VacancySearchParameters { Longitude = longitude };
+
+            var formattedParams = parameters.ToString();
+
+            formattedParams.Should().NotContain($"{nameof(parameters.Longitude)}: {longitude}");
+        }
+
+        [Test]
+        public void AndLongitudeIsNotNull_ThenLongitudeWritten()
+        {
+            var longitude = 23.234;
+            var parameters = new VacancySearchParameters { Longitude = longitude };
+
+            var formattedParams = parameters.ToString();
+
+            formattedParams.Should().Contain($"{nameof(parameters.Longitude)}: {longitude}{Environment.NewLine}");
+        }
     }
 }

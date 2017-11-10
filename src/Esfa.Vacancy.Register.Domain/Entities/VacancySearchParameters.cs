@@ -39,6 +39,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
                 result.Append($"{nameof(LocationType)}: {LocationType}{Environment.NewLine}");
             if (Latitude.HasValue)
                 result.Append($"{nameof(Latitude)}: {Latitude}{Environment.NewLine}");
+            if (Longitude.HasValue)
+                result.Append($"{nameof(Longitude)}: {Longitude}{Environment.NewLine}");
 
             return result.ToString();
         }
