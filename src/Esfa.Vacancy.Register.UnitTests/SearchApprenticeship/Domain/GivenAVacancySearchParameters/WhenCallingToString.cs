@@ -51,5 +51,27 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Domain.GivenAVaca
 
             formattedParams.Should().Contain($"{nameof(parameters.Longitude)}: {longitude}{Environment.NewLine}");
         }
+
+        [Test]
+        public void AndDistanceInMilesIsNull_ThenDistanceInMilesNotWritten()
+        {
+            var distanceInMiles = (int?)null;
+            var parameters = new VacancySearchParameters { DistanceInMiles = distanceInMiles };
+
+            var formattedParams = parameters.ToString();
+
+            formattedParams.Should().NotContain($"{nameof(parameters.DistanceInMiles)}: {distanceInMiles}");
+        }
+
+        [Test]
+        public void AndDistanceInMilesIsNotNull_ThenDistanceInMilesWritten()
+        {
+            var distanceInMiles = 234;
+            var parameters = new VacancySearchParameters { DistanceInMiles = distanceInMiles };
+
+            var formattedParams = parameters.ToString();
+
+            formattedParams.Should().Contain($"{nameof(parameters.DistanceInMiles)}: {distanceInMiles}{Environment.NewLine}");
+        }
     }
 }

@@ -41,6 +41,8 @@ namespace Esfa.Vacancy.Register.Domain.Entities
                 result.Append($"{nameof(Latitude)}: {Latitude}{Environment.NewLine}");
             if (Longitude.HasValue)
                 result.Append($"{nameof(Longitude)}: {Longitude}{Environment.NewLine}");
+            if (DistanceInMiles.HasValue)
+                result.Append($"{nameof(DistanceInMiles)}: {DistanceInMiles}{Environment.NewLine}");
 
             return result.ToString();
         }
