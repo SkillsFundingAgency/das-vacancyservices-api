@@ -16,6 +16,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
         public int? DistanceInMiles { get; set; }
+        public bool HasLocationFields => Latitude.HasValue && Longitude.HasValue && DistanceInMiles.HasValue;
 
         public override string ToString()
         {
