@@ -20,26 +20,6 @@ namespace Esfa.Vacancy.Api.Types
         public string ShortDescription { get; set; }
 
         /// <summary>
-        /// Wage unit.
-        /// </summary>
-        public WageUnit WageUnit { get; set; }
-
-        /// <summary>
-        /// Working week.
-        /// </summary>
-        public string WorkingWeek { get; set; }
-
-        /// <summary>
-        /// Wage text.
-        /// </summary>
-        public string WageText { get; set; }
-
-        /// <summary>
-        /// Hours per week.
-        /// </summary>
-        public decimal? HoursPerWeek { get; set; }
-
-        /// <summary>
         /// Expected start date.
         /// </summary>
         public DateTime ExpectedStartDate { get; set; }
