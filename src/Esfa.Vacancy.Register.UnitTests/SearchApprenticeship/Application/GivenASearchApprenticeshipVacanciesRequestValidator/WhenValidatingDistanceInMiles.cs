@@ -20,29 +20,51 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Longitude = -1.506115,
                     DistanceInMiles = 235
                 }, new ValidationResult()) // IsValid == true when Errors collection is empty
-                .SetName("And greater than 0 then valid"),
+                .SetName("And between 1 and 1000"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardLarsCodes = ValidStandardCodes,
+                    Latitude = 45,
+                    Longitude = -18,
+                    DistanceInMiles = 1
+                }, new ValidationResult())
+                .SetName("And 1 then valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    StandardLarsCodes = ValidStandardCodes,
+                    Latitude = 45,
+                    Longitude = -18,
+                    DistanceInMiles = 1000
+                }, new ValidationResult())
+                .SetName("And 1000 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
                     DistanceInMiles = 0
-                }, new ValidationResult())
-                .SetName("And 0 then valid"),
+                }, new ValidationResult
+                {
+                    Errors = { new ValidationFailure("", "'Distance In Miles' must be between 1 and 1000. You entered 0.")
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceOutsideRange
+                    }}
+                })
+                .SetName("And less than 1 then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
-                    DistanceInMiles = -1
+                    DistanceInMiles = 1001
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Distance In Miles' must be greater than or equal to '0'.")
+                    Errors = { new ValidationFailure("", "'Distance In Miles' must be between 1 and 1000. You entered 1001.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceLessThan0
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceOutsideRange
                     }}
                 })
-                .SetName("And less than 0 then invalid")
+                .SetName("And greater than 1000 then invalid")
         };
 
         [TestCaseSource(nameof(TestCases))]

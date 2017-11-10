@@ -20,7 +20,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         private const double MaximumLatitude = 90;
         private const double MinimumLongitude = -180;
         private const double MaximumLongitude = 180;
-        private const int MinimumDistanceInMiles = 0;
+        private const int MinimumDistanceInMiles = 1;
+        private const int MaximumDistanceInMiles = 1000;
 
         public SearchApprenticeshipVacanciesRequestValidator(
             IFrameworkCodeRepository frameworkCodeRepository,
@@ -86,8 +87,8 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .NotNull()
                 .When(request => request.Latitude.HasValue || request.Longitude.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
-                .GreaterThanOrEqualTo(0)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceLessThan0);
+                .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange);
         }
 
         private static bool BeValidNumber(string value)
