@@ -31,12 +31,14 @@ namespace Esfa.Vacancy.Register.Domain.Entities
                 result.Append(Environment.NewLine);
             }
 
-            result.Append($"{nameof(PageSize)}: {PageSize}" + Environment.NewLine);
-            result.Append($"{nameof(PageNumber)}: {PageNumber}" + Environment.NewLine);
+            result.Append($"{nameof(PageSize)}: {PageSize}{Environment.NewLine}");
+            result.Append($"{nameof(PageNumber)}: {PageNumber}{Environment.NewLine}");
             if (FromDate.HasValue)
-                result.Append($"{nameof(FromDate)}: {FromDate}" + Environment.NewLine);
+                result.Append($"{nameof(FromDate)}: {FromDate}{Environment.NewLine}");
             if (!string.IsNullOrWhiteSpace(LocationType))
-                result.Append($"{nameof(LocationType)}: {LocationType}" + Environment.NewLine);
+                result.Append($"{nameof(LocationType)}: {LocationType}{Environment.NewLine}");
+            if (Latitude.HasValue)
+                result.Append($"{nameof(Latitude)}: {Latitude}{Environment.NewLine}");
 
             return result.ToString();
         }
