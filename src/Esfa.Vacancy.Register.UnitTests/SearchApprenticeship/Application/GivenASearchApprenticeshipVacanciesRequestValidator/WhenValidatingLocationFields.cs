@@ -11,6 +11,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
     [TestFixture]
     public class WhenValidatingLocationFields : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
+        private const string ErrorText = "When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided '{0}'.";
+
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -28,7 +30,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Longitude = -1.506115
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Distance In Miles' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
                     }}
@@ -41,7 +43,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     DistanceInMiles = 342
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Latitude' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
                     }}
@@ -54,7 +56,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     DistanceInMiles = 342
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Longitude' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
                     }}
@@ -66,10 +68,10 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Latitude = 52.399085
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Longitude' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
-                    },new ValidationFailure("", "'Distance In Miles' must not be empty.")
+                    },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
                     }}
@@ -81,10 +83,10 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Longitude = -1.506115
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Latitude' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
-                    },new ValidationFailure("", "'Distance In Miles' must not be empty.")
+                    },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
                     }}
@@ -96,10 +98,10 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     DistanceInMiles = 342
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("", "'Latitude' must not be empty.")
+                    Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
-                    },new ValidationFailure("", "'Longitude' must not be empty.")
+                    },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
                     }}

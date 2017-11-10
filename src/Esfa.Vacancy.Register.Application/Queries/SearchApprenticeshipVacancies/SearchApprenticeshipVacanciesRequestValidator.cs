@@ -73,6 +73,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .NotNull()
                 .When(request => request.Longitude.HasValue || request.DistanceInMiles.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                 .InclusiveBetween(MinimumLatitude, MaximumLatitude)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange);
 
@@ -80,6 +81,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .NotNull()
                 .When(request => request.Latitude.HasValue || request.DistanceInMiles.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                 .InclusiveBetween(MinimumLongitude, MaximumLongitude)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange);
 
@@ -87,6 +89,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 .NotNull()
                 .When(request => request.Latitude.HasValue || request.Longitude.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                 .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange);
         }
