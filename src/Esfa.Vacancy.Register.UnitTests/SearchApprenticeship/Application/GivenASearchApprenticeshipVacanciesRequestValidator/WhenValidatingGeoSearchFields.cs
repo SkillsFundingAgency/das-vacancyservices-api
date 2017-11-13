@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingLocationFields : GivenSearchApprenticeshipVacanciesRequestValidatorBase
+    public class WhenValidatingGeoSearchFields : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
         private const string ErrorText = "When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided '{0}'.";
 

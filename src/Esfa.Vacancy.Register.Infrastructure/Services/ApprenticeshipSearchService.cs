@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                                         range.OnField(apprenticeship => apprenticeship.PostedDate)
                                             .GreaterOrEquals(parameters.FromDate));
 
-                            if (parameters.HasLocationFields)
+                            if (parameters.HasGeoSearchFields)
                             {
                                 container = container && query.Filtered(descriptor =>
                                     descriptor.Filter(filterDescriptor =>
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Services
                             return container;
                         });
 
-                    if (parameters.HasLocationFields)
+                    if (parameters.HasGeoSearchFields)
                     {
                         search.SortGeoDistance(descriptor =>
                             descriptor.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)

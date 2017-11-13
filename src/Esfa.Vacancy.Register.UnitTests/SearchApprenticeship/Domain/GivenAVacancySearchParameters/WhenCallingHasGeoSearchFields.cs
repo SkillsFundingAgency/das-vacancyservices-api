@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Domain.GivenAVacancySearchParameters
 {
     [TestFixture]
-    public class WhenCallingHasLocationFields
+    public class WhenCallingHasGeoSearchFields
     {
         [Test]
         public void AndAllLocationFieldsNotNull_ThenReturnsTrue()
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Domain.GivenAVaca
                 DistanceInMiles = 43
             };
 
-            parameters.HasLocationFields.Should().BeTrue();
+            parameters.HasGeoSearchFields.Should().BeTrue();
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Domain.GivenAVaca
                 DistanceInMiles = 43
             };
 
-            parameters.HasLocationFields.Should().BeFalse();
+            parameters.HasGeoSearchFields.Should().BeFalse();
         }
     }
 }
