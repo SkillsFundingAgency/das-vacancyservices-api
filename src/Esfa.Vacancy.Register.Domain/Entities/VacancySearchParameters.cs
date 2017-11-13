@@ -13,27 +13,35 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public int PageNumber { get; set; }
         public DateTime? FromDate { get; set; }
         public string LocationType { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public int? DistanceInMiles { get; set; }
+        public bool HasGeoSearchFields => Latitude.HasValue && Longitude.HasValue && DistanceInMiles.HasValue;
 
         public override string ToString()
         {
             var result = new StringBuilder();
             if (FrameworkLarsCodes.Any())
             {
-                result.Append($"{nameof(FrameworkLarsCodes)}: {FrameworkLarsCodes.Aggregate((i, j) => i + ", " + j)}");
-                result.Append(Environment.NewLine);
+                result.AppendLine($"{nameof(FrameworkLarsCodes)}: {FrameworkLarsCodes.Aggregate((i, j) => i + ", " + j)}");
             }
             if (StandardLarsCodes.Any())
             {
-                result.Append($"{nameof(StandardLarsCodes)}: {StandardLarsCodes.Aggregate((i, j) => i + ", " + j)}");
-                result.Append(Environment.NewLine);
+                result.AppendLine($"{nameof(StandardLarsCodes)}: {StandardLarsCodes.Aggregate((i, j) => i + ", " + j)}");
             }
 
-            result.Append($"{nameof(PageSize)}: {PageSize}" + Environment.NewLine);
-            result.Append($"{nameof(PageNumber)}: {PageNumber}" + Environment.NewLine);
+            result.AppendLine($"{nameof(PageSize)}: {PageSize}");
+            result.AppendLine($"{nameof(PageNumber)}: {PageNumber}");
             if (FromDate.HasValue)
-                result.Append($"{nameof(FromDate)}: {FromDate}" + Environment.NewLine);
+                result.AppendLine($"{nameof(FromDate)}: {FromDate}");
             if (!string.IsNullOrWhiteSpace(LocationType))
-                result.Append($"{nameof(LocationType)}: {LocationType}" + Environment.NewLine);
+                result.AppendLine($"{nameof(LocationType)}: {LocationType}");
+            if (Latitude.HasValue)
+                result.AppendLine($"{nameof(Latitude)}: {Latitude}");
+            if (Longitude.HasValue)
+                result.AppendLine($"{nameof(Longitude)}: {Longitude}");
+            if (DistanceInMiles.HasValue)
+                result.AppendLine($"{nameof(DistanceInMiles)}: {DistanceInMiles}");
 
             return result.ToString();
         }

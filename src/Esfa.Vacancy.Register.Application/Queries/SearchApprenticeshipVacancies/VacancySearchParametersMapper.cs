@@ -21,7 +21,10 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
                 StandardLarsCodes = request.StandardLarsCodes.Select(x => x.Trim()).ToList(),
                 LocationType = request.NationwideOnly
                     ? NationwideLocationType
-                    : null
+                    : null,
+                Longitude = request.Longitude,
+                Latitude = request.Latitude,
+                DistanceInMiles = request.DistanceInMiles
             };
         }
     }

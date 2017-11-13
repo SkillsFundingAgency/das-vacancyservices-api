@@ -16,6 +16,12 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
+        private const double MinimumLatitude = -90;
+        private const double MaximumLatitude = 90;
+        private const double MinimumLongitude = -180;
+        private const double MaximumLongitude = 180;
+        private const int MinimumDistanceInMiles = 1;
+        private const int MaximumDistanceInMiles = 1000;
 
         public SearchApprenticeshipVacanciesRequestValidator(
             IFrameworkCodeRepository frameworkCodeRepository,
@@ -62,6 +68,30 @@ namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancie
             RuleFor(r => r.PostedInLastNumberOfDays)
                 .GreaterThanOrEqualTo(0)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDaysLessThan0);
+
+            RuleFor(request => request.Latitude)
+                .NotNull()
+                .When(request => request.Longitude.HasValue || request.DistanceInMiles.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
+                .InclusiveBetween(MinimumLatitude, MaximumLatitude)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange);
+
+            RuleFor(request => request.Longitude)
+                .NotNull()
+                .When(request => request.Latitude.HasValue || request.DistanceInMiles.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
+                .InclusiveBetween(MinimumLongitude, MaximumLongitude)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange);
+
+            RuleFor(request => request.DistanceInMiles)
+                .NotNull()
+                .When(request => request.Latitude.HasValue || request.Longitude.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
+                .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange);
         }
 
         private static bool BeValidNumber(string value)

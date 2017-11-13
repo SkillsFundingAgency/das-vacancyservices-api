@@ -16,6 +16,13 @@
 
             public const string FrameworkCodeNotFound                   = "30107";
             public const string StandardCodeNotFound                    = "30108";
+
+            public const string LatitudeMissingFromGeoSearch            = "30109";
+            public const string LatitudeOutsideRange                    = "30110";
+            public const string LongitudeMissingFromGeoSearch           = "30111";
+            public const string LongitudeOutsideRange                   = "30112";
+            public const string DistanceMissingFromGeoSearch            = "30113";
+            public const string DistanceOutsideRange                    = "30114";
         }
 
         public static class GetApprenticeship

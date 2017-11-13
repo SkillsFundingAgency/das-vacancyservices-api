@@ -35,5 +35,23 @@
         /// Nationwide only is optional and defaults to false.
         /// </summary>
         public bool NationwideOnly { get; set; }
+
+        /// <summary>
+        /// The latitude to search near
+        /// Latitude is optional.
+        /// </summary>
+        public double? Latitude { get; set; }
+
+        /// <summary>
+        /// The longitude to search near
+        /// Longitude is optional.
+        /// </summary>
+        public double? Longitude { get; set; }
+
+        /// <summary>
+        /// The distance (in miles) to search from the geo-point
+        /// DistanceInMiles is optional.
+        /// </summary>
+        public int? DistanceInMiles { get; set; }
     }
 }
