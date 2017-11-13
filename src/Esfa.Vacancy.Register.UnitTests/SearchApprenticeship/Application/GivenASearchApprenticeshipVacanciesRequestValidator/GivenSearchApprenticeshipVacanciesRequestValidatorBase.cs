@@ -9,21 +9,28 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
 {
     public abstract class GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private Mock<IFrameworkCodeRepository> FrameworkCodeRepositoryMock;
-        internal static readonly List<string> ValidFrameworkCodes = new List<string> { "1" };
-        private Mock<IStandardRepository> StandardRepositoryMock;
-        internal static readonly List<string> ValidStandardCodes = new List<string>() { "1" };
+        private Mock<IFrameworkCodeRepository> _mockFrameworkCodeRepository;
+        private Mock<IStandardRepository> _mockStandardRepository;
+
+        internal static List<string> ValidFrameworkCodes => new List<string> { "1" };
+        internal static List<string> ValidStandardCodes => new List<string> { "1" };
         internal SearchApprenticeshipVacanciesRequestValidator Validator { get; private set; }
 
         [SetUp]
         public void Setup()
         {
-            StandardRepositoryMock = new Mock<IStandardRepository>();
-            StandardRepositoryMock.Setup(r => r.GetStandardIdsAsync()).ReturnsAsync(ValidStandardCodes.Select(int.Parse));
-            FrameworkCodeRepositoryMock = new Mock<IFrameworkCodeRepository>();
-            FrameworkCodeRepositoryMock.Setup(r => r.GetAsync()).ReturnsAsync(ValidFrameworkCodes);
+            _mockStandardRepository = new Mock<IStandardRepository>();
+            _mockStandardRepository
+                .Setup(r => r.GetStandardIdsAsync())
+                .ReturnsAsync(ValidStandardCodes.Select(int.Parse));
+
+            _mockFrameworkCodeRepository = new Mock<IFrameworkCodeRepository>();
+            _mockFrameworkCodeRepository
+                .Setup(r => r.GetAsync())
+                .ReturnsAsync(ValidFrameworkCodes);
+
             Validator = new SearchApprenticeshipVacanciesRequestValidator(
-                FrameworkCodeRepositoryMock.Object, StandardRepositoryMock.Object);
+                _mockFrameworkCodeRepository.Object, _mockStandardRepository.Object);
         }
     }
 }
