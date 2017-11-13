@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
-                }, new ValidationResult()) // IsValid == true when Errors collection is empty
+                }, new ValidationResult())
                 .SetName("And between -180 and 180 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
