@@ -25,5 +25,26 @@ namespace Esfa.Vacancy.Register.Api
         {
             HttpContext.Current?.Response.Headers.Remove("Server");
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var ex = Server.GetLastError();
+            var req = Request;
+            var res = Response;
+
+            if (!(ex is HttpException httpError)) return;
+
+            if (Request.Path.StartsWith("api/"))
+            {
+                Response.Redirect("api/DangerousRequest");
+            }
+            else
+            {
+                Response.Redirect("/DangerousRequest");
+            }
+
+            var logger = DependencyResolver.Current.GetService<ILog>();
+            logger.Error(httpError, httpError.Message);
+        }
     }
 }
