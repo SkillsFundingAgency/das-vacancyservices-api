@@ -26,6 +26,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// - Search by framework LARS code(s)
         /// - Search by standard LARS code(s)
         /// - Search by framework or standard LARS code(s)
+        /// - Search by location (geopoint) and radius
         /// - Search for recently posted vacancies
         /// - Search for nationwide vacancies
         /// 
@@ -91,6 +92,12 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30106       | Number of days since posted must be greater than or equal to 0 |
         /// | 30107       | Framework code not recognised                                  |
         /// | 30108       | Standard code not recognised                                   |
+        /// | 30109       | Latitude is required when performing geo-search                |
+        /// | 30110       | Latitude must be between -90 and 90 (inclusive)                |
+        /// | 30111       | Longitude is required when performing geo-search               |
+        /// | 30112       | Longitude must be between -180 and 180 (inclusive)             |
+        /// | 30113       | Distance in miles is required when performing geo-search       |
+        /// | 30114       | Distance in miles must be between 1 and 1000 (inclusive)       |
         /// 
         /// </summary>
         [HttpGet]
