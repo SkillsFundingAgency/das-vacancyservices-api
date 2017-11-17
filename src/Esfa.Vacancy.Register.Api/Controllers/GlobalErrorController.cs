@@ -1,0 +1,19 @@
+﻿using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
+
+namespace Esfa.Vacancy.Register.Api.Controllers
+{
+    public class GlobalErrorController : ApiController
+    {
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/error")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public HttpResponseMessage Get()
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "bad stuff");
+        }
+    }
+}

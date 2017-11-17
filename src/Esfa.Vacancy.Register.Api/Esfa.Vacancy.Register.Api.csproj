@@ -280,7 +280,9 @@
     <Content Include="Content\src\styles\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
     <Content Include="Content\src\styles\govuk_template\views\layouts\govuk_template.html" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
@@ -291,6 +293,7 @@
     <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\ValidationBadRequestBuilder.cs" />
     <Compile Include="Constants\RouteName.cs" />
+    <Compile Include="Controllers\GlobalErrorController.cs" />
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\VersionController.cs" />

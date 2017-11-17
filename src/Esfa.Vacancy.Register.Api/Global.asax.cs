@@ -1,4 +1,5 @@
 ﻿using System;
+using System.EnterpriseServices;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -29,22 +30,22 @@ namespace Esfa.Vacancy.Register.Api
         protected void Application_Error(object sender, EventArgs e)
         {
             var ex = Server.GetLastError();
-            var req = Request;
-            var res = Response;
 
-            if (!(ex is HttpException httpError)) return;
-
-            if (Request.Path.StartsWith("api/"))
+            if (ex is HttpException httpError)
             {
-                Response.Redirect("api/DangerousRequest");
-            }
-            else
-            {
-                Response.Redirect("/DangerousRequest");
+                ApiRedirect("~/api/error");
+                return;
             }
 
             var logger = DependencyResolver.Current.GetService<ILog>();
-            logger.Error(httpError, httpError.Message);
+            if (ex != null) logger.Warn(ex, ex.Message);
+        }
+
+        private void ApiRedirect(string path)
+        {
+            Response.Clear();
+            Server.ClearError();
+            Context.RewritePath(path, false);
         }
     }
 }
