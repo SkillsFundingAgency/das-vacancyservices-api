@@ -7,7 +7,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
 {
     public class GlobalErrorController : ApiController
     {
-        [HttpGet]
         [AllowAnonymous]
         [Route("api/error")]
         [ApiExplorerSettings(IgnoreApi = true)]

@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
             var message = await context.Result.ExecuteAsync(CancellationToken.None);
 
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(ExceptionInExceptionHandlerErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{ExceptionInExceptionHandlerErrorMessage}\"}}");
         }
 
         [Test]

@@ -61,16 +61,8 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             catch
             {
                 //whatever happens don't leak the stack trace
-                context.Result = CreateStringResult(HttpStatusCode.InternalServerError, ExceptionInExceptionHandlerErrorMessage, context.Request);
+                context.Result = CreateResult(HttpStatusCode.InternalServerError, ExceptionInExceptionHandlerErrorMessage, context.Request);
             }
-        }
-
-        private IHttpActionResult CreateStringResult(HttpStatusCode statusCode, string content, HttpRequestMessage request)
-        {
-            var response = new HttpResponseMessage(statusCode);
-            response.Content = new StringContent(content);
-            var result = new CustomErrorResult(request, response);
-            return result;
         }
 
         private string FormatLogMessage(string message, ExceptionHandlerContext context)
