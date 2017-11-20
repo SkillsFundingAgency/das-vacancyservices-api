@@ -11,6 +11,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         public ApprenticeshipSummaryMapper()
         {
             CreateMap<DomainTypes.ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
+                .ConstructUsingServiceLocator()
                 .ForMember(target => target.VacancyReference, c => c.MapFrom(source => int.Parse(source.VacancyReference)))
                 .ForMember(target => target.ExpectedStartDate, c => c.MapFrom(source => source.StartDate))
                 .ForMember(target => target.ApplicationClosingDate, c => c.MapFrom(source => source.ClosingDate))
@@ -21,7 +22,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     source.StandardLarsCode.HasValue ? source.StandardLarsCode.ToString() : source.FrameworkLarsCode))
                 .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description))
                 .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName))
-                .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)));
+                .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)))
+                .ForMember(target => target.VacancyUrl, c => c.Ignore());
         }
     }
 }

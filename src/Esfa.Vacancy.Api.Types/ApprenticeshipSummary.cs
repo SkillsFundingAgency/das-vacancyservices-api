@@ -1,9 +1,12 @@
 ﻿using System;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 
 namespace Esfa.Vacancy.Api.Types
 {
     public class ApprenticeshipSummary
     {
+        private readonly IProvideSettings _provideSettings;
+
         /// <summary>
         /// Vacancy reference number
         /// </summary>
@@ -82,8 +85,14 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string ApprenticeshipLevel { get; set; }
 
-        public ApprenticeshipSummary()
+        /// <summary>
+        /// The FAA vacancy URL.
+        /// </summary>
+        public string VacancyUrl => $"{_provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey)}/{VacancyReference}";
+
+        public ApprenticeshipSummary(IProvideSettings provideSettings)
         {
+            _provideSettings = provideSettings;
             Location = new GeoPoint();
         }
     }

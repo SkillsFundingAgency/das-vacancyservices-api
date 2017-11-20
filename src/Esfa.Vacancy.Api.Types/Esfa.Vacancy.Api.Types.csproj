@@ -55,6 +55,12 @@
     <Compile Include="VacancyType.cs" />
     <Compile Include="WageUnit.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
+      <Project>{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}</Project>
+      <Name>Esfa.Vacancy.Register.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

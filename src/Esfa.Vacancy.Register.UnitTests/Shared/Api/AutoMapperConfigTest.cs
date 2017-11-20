@@ -1,5 +1,7 @@
-﻿using Esfa.Vacancy.Register.Api;
+﻿using AutoMapper;
+using Esfa.Vacancy.Register.Api.DependencyResolution;
 using NUnit.Framework;
+using StructureMap;
 
 namespace Esfa.Vacancy.Register.UnitTests.Shared.Api
 {
@@ -9,7 +11,8 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api
         [Test]
         public void ShouldHaveValidAutoMapperConfig()
         {
-            var config = AutoMapperConfig.Configure();
+            var container = new Container(new DefaultRegistry());
+            var config = container.GetInstance<MapperConfiguration>();
 
             config.AssertConfigurationIsValid();
         }

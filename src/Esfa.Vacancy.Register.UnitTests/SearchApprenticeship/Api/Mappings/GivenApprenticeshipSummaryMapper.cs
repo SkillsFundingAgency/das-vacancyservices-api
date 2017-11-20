@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using Esfa.Vacancy.Register.Api;
+using Esfa.Vacancy.Register.Api.DependencyResolution;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using NUnit.Framework;
+using StructureMap;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
-
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 {
@@ -12,19 +13,20 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
     public class GivenApprenticeshipSummaryMapper
     {
         private IMapper _mapper;
+        private IContainer _container;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            var config = AutoMapperConfig.Configure();
-            _mapper = config.CreateMapper();
+            _container = IoC.Initialize();
+            _mapper = _container.GetInstance<IMapper>();
         }
 
         [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
         [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
         public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
-            var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
+            string expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new DomainTypes.ApprenticeshipSummary()
             {
                 FrameworkLarsCode = frameworkCode,
@@ -49,7 +51,6 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.Location.Latitude.Should().Be(51.3288148990m, "Then map latitude to Location");
             result.Location.Longitude.Should().Be(0.4452948632m, "Then map longitude to Location");
-
         }
 
         [Test]
@@ -94,5 +95,19 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
             result.IsNationwide.Should().Be(expectedResult);
         }
 
+        [Test]
+        public void ThenVacancyUrlShouldBePopulated()
+        {
+            string baseUrl = _container.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
+            var vacancyRef = 1234;
+            var domainType = new DomainTypes.ApprenticeshipSummary
+            {
+                VacancyReference = vacancyRef.ToString()
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.VacancyUrl.Should().Be($"{baseUrl}/{vacancyRef}");
+        }
     }
 }

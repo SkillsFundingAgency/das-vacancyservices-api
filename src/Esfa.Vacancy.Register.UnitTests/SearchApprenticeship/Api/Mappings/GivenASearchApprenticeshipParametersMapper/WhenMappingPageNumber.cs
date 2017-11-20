@@ -3,7 +3,9 @@ using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
+using StructureMap;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
@@ -15,7 +17,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         [SetUp]
         public void Setup()
         {
-            var config = AutoMapperConfig.Configure();
+            var mockContext = new Mock<IContext>();
+            MapperConfiguration config = AutoMapperConfig.Configure(mockContext.Object);
             _mapper = config.CreateMapper();
         }
 

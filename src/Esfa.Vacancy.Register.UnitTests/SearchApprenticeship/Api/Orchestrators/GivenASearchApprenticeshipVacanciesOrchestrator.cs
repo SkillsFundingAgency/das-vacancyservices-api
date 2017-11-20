@@ -12,6 +12,7 @@ using MediatR;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
 {
@@ -21,17 +22,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         private SearchApprenticeshipVacanciesOrchestrator _orchestrator;
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
         private SearchResponse<ApprenticeshipSummary> _searchResponse;
+        private Fixture _fixture;
 
         [SetUp]
         public void WhenCallingSearchApprenticeship()
         {
-            var fixture = new Fixture();
+            _fixture = new Fixture();
+            _fixture.Customize(new AutoMoqCustomization());
 
-            _searchApprenticeshipParameters = fixture.Create<SearchApprenticeshipParameters>();
-            _searchResponse = fixture.Create<SearchResponse<ApprenticeshipSummary>>();
-            var searchApprenticeshipVacanciesRequest = fixture.Create<SearchApprenticeshipVacanciesRequest>();
-            var searchApprenticeshipVacanciesResponse = fixture.Create<SearchApprenticeshipVacanciesResponse>();
-
+            _searchApprenticeshipParameters = _fixture.Create<SearchApprenticeshipParameters>();
+            _searchResponse = _fixture.Create<SearchResponse<ApprenticeshipSummary>>();
+            var searchApprenticeshipVacanciesRequest = _fixture.Create<SearchApprenticeshipVacanciesRequest>();
+            var searchApprenticeshipVacanciesResponse = _fixture.Create<SearchApprenticeshipVacanciesResponse>();
 
             var mockMapper = new Mock<IMapper>();
             mockMapper
@@ -60,7 +62,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public async Task ThenMappedResponseFromMediatorIsReturned()
         {
-            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
+            SearchResponse<ApprenticeshipSummary> response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
 
             response.Should().BeSameAs(_searchResponse);
         }
