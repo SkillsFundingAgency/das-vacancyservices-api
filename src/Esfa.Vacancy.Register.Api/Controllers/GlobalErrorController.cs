@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public HttpResponseMessage Get()
         {
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "bad stuff");
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "There was a problem with your request.");
         }
     }
 }
