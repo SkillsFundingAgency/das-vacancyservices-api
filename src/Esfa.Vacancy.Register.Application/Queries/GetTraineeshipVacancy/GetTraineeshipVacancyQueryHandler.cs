@@ -9,6 +9,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy
 {
     public sealed class GetTraineeshipVacancyQueryHandler : IAsyncRequestHandler<GetTraineeshipVacancyRequest, GetTraineeshipVacancyResponse>
     {
+        private const string VacancyNotFoundErrorMessage = "The traineeship vacancy you are looking for cannot be found.";
         private readonly AbstractValidator<GetTraineeshipVacancyRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
         private readonly ILog _logger;
@@ -33,7 +34,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy
 
             var vacancy = await _vacancyRepository.GetTraineeshipVacancyByReferenceNumberAsync(message.Reference);
 
-            if (vacancy == null) throw new ResourceNotFoundException();
+            if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
 
             return new GetTraineeshipVacancyResponse { TraineeshipVacancy = vacancy };
         }

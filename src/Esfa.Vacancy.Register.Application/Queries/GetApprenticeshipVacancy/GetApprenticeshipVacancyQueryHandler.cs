@@ -10,6 +10,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 {
     public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {
+        private const string VacancyNotFoundErrorMessage = "The apprenticeship vacancy you are looking for cannot be found.";
         private readonly AbstractValidator<GetApprenticeshipVacancyRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
         private readonly ILog _logger;
@@ -37,7 +38,7 @@ namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
 
             var vacancy = await _vacancyRepository.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference);
 
-            if (vacancy == null) throw new ResourceNotFoundException();
+            if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
 
             if (vacancy.FrameworkCode.HasValue)
             {
