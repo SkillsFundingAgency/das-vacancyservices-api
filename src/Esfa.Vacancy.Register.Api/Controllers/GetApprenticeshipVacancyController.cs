@@ -1,6 +1,8 @@
 ﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Constants;
 using Esfa.Vacancy.Register.Api.Orchestrators;
@@ -45,7 +47,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        [Route("{vacancyReference:int}", Name = RouteName.GetApprenticeshipVacancyByReference)]
+        [Route("{vacancyReference:int}", Order = 0, Name = RouteName.GetApprenticeshipVacancyByReference)]
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
@@ -54,6 +56,15 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         {
             var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
             return Ok(vacancy);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("{wrongRoute}", Order = 1)]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public HttpResponseMessage Get(string wrongRoute)
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "You have not searched by vacancy reference number.");
         }
     }
 }
