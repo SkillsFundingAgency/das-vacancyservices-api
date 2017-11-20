@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 if (context.Exception is UnauthorisedException)
                 {
                     _logger.Warn(context.Exception, FormatLogMessage("Authorisation error", context));
-                    context.Result = CreateStringResult(HttpStatusCode.Unauthorized, ((UnauthorisedException)context.Exception).Message, context.Request);
+                    context.Result = CreateResult(HttpStatusCode.Unauthorized, ((UnauthorisedException)context.Exception).Message, context.Request);
                     return;
                 }
 
@@ -78,6 +78,12 @@ namespace Esfa.Vacancy.Register.Api.App_Start
             var requestUri = context.Request?.RequestUri?.ToString();
 
             return !string.IsNullOrEmpty(requestUri) ? $"{message} url:{requestUri}" : message;
+        }
+
+        private IHttpActionResult CreateResult(HttpStatusCode statusCode, string content, HttpRequestMessage request)
+        {
+            var response = request.CreateErrorResponse(statusCode, content);
+            return new CustomErrorResult(request, response);
         }
     }
 }
