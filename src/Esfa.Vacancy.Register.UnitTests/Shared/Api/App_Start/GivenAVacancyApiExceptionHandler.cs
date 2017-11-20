@@ -135,7 +135,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Info("Unable to locate resource error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            message.Content.ReadAsStringAsync().Result.Should().Be("no resource");
+            message.Content.ReadAsStringAsync().Result.Should().Be("{\"Message\":\"no resource\"}");
         }
 
         [Test]
@@ -149,7 +149,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{GenericErrorMessage}\"}}");
         }
 
         [Test]
@@ -163,7 +163,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{GenericErrorMessage}\"}}");
         }
 
         [Test]

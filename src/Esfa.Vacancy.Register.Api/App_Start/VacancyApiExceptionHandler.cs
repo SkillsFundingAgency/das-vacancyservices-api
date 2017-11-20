@@ -44,19 +44,19 @@ namespace Esfa.Vacancy.Register.Api.App_Start
                 if (context.Exception is ResourceNotFoundException)
                 {
                     _logger.Info(FormatLogMessage("Unable to locate resource error", context));
-                    context.Result = CreateStringResult(HttpStatusCode.NotFound, ((ResourceNotFoundException)context.Exception).Message, context.Request);
+                    context.Result = CreateResult(HttpStatusCode.NotFound, ((ResourceNotFoundException)context.Exception).Message, context.Request);
                     return;
                 }
 
                 if (context.Exception is InfrastructureException)
                 {
                     _logger.Error(context.Exception.InnerException, FormatLogMessage("Unexpected infrastructure error", context));
-                    context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
+                    context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
                     return;
                 }
 
                 _logger.Error(context.Exception, FormatLogMessage("Unexpected error", context));
-                context.Result = CreateStringResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
+                context.Result = CreateResult(HttpStatusCode.InternalServerError, GenericErrorMessage, context.Request);
             }
             catch
             {
