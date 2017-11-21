@@ -28,16 +28,22 @@ namespace Esfa.Vacancy.Register.Api
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            var ex = Server.GetLastError();
-
-            if (ex is HttpException httpError)
+            try
             {
-                ApiRedirect("~/api/error");
-                return;
-            }
+                var ex = Server.GetLastError();
 
-            var logger = DependencyResolver.Current.GetService<ILog>();
-            if (ex != null) logger.Warn(ex, ex.Message);
+                var logger = DependencyResolver.Current.GetService<ILog>();
+                if (ex != null) logger.Warn(ex, ex.Message);
+
+                if (ex is HttpException)
+                {
+                    ApiRedirect("~/api/error");
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         private void ApiRedirect(string path)
