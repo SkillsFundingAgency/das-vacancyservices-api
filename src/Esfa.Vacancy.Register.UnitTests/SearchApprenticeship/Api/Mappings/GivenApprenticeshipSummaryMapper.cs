@@ -107,7 +107,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
-            result.VacancyUrl.Should().Be($"{baseUrl}/{vacancyRef}");
+            result.VacancyUrl.Should().Be($"{baseUrl.TrimEnd('/')}/{vacancyRef}");
         }
     }
 }

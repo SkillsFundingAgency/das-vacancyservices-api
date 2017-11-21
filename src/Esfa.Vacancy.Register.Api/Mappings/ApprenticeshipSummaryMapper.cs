@@ -2,12 +2,12 @@
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
-
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
     public class ApprenticeshipSummaryMapper : Profile
     {
         private const string National = "National";
+
         public ApprenticeshipSummaryMapper()
         {
             CreateMap<DomainTypes.ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
@@ -23,7 +23,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description))
                 .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName))
                 .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)))
-                .ForMember(target => target.VacancyUrl, c => c.Ignore());
+                .ForMember(target => target.VacancyUrl, c => c.Ignore())
+                .ForMember(target => target.ApiDetailUrl, c => c.Ignore());
         }
     }
 }

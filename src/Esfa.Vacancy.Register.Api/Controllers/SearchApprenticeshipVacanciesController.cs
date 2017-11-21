@@ -108,7 +108,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
-            var results = await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters);
+            var results = await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters, Url);
             return Ok(results);
         }
     }

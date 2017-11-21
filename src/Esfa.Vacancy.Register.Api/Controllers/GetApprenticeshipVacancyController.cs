@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        [Route("{vacancyReference:int}")]
+        [Route("{vacancyReference:int}", Name = "GetApprenticeshipVacancyByReference")]
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
@@ -52,7 +52,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         public async Task<IHttpActionResult> Get(int vacancyReference)
         {
             var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
-
             return Ok(vacancy);
         }
     }

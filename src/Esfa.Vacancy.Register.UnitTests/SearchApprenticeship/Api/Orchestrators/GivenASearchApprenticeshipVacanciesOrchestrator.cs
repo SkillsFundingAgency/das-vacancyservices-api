@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.Routing;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
@@ -54,7 +56,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public void AndParametersAreNull_ThenThrowsValidationException()
         {
-            Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null); };
+            Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null, null); };
 
             action.ShouldThrow<ValidationException>().WithMessage($"Validation failed: \r\n -- {ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull}");
         }
@@ -62,9 +64,16 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public async Task ThenMappedResponseFromMediatorIsReturned()
         {
-            SearchResponse<ApprenticeshipSummary> response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
+            // refactor to use controller/routes
+            var requestUrl = "http://localhost/api/v1/apprenticeships";
+            var mockUrlHelper = new Mock<UrlHelper>();
+            mockUrlHelper.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<object>())).Returns($"{requestUrl}/{_searchResponse.Results.First().VacancyReference}");
+
+            SearchResponse<ApprenticeshipSummary> response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, mockUrlHelper.Object).ConfigureAwait(false);
 
             response.Should().BeSameAs(_searchResponse);
+            var summaryItem = response.Results.First();
+            summaryItem.ApiDetailUrl.Should().Be($"{requestUrl}/{summaryItem.VacancyReference}");
         }
     }
 }

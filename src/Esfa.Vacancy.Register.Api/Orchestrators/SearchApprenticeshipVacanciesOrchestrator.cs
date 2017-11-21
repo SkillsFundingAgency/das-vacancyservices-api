@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http.Routing;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
@@ -22,13 +23,19 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         }
 
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
-            SearchApprenticeshipParameters apprenticeSearchParameters)
+            SearchApprenticeshipParameters apprenticeSearchParameters, UrlHelper urlHelper)
         {
             if (apprenticeSearchParameters == null) ThrowValidationException();
 
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
             var response = await _mediator.Send(request);
             var results = _mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
+
+            foreach (ApprenticeshipSummary summary in results.Results)
+            {
+                summary.ApiDetailUrl = urlHelper.Link("GetApprenticeshipVacancyByReference", new { vacancyReference = summary.VacancyReference });
+            }
+
             return results;
         }
 

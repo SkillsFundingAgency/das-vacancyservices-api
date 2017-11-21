@@ -88,7 +88,16 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// The FAA vacancy URL.
         /// </summary>
-        public string VacancyUrl => $"{_provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey)}/{VacancyReference}";
+        public string VacancyUrl
+        {
+            get
+            {
+                string url = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
+                return url.EndsWith("/") ? $"{url}{VacancyReference}" : $"{url}/{VacancyReference}";
+            }
+        }
+
+        public string ApiDetailUrl { get; set; }
 
         public ApprenticeshipSummary(IProvideSettings provideSettings)
         {
