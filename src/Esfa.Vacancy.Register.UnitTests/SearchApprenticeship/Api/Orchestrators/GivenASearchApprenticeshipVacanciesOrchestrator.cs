@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Http.Routing;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Api.Controllers;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Validation;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
@@ -64,16 +68,24 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public async Task ThenMappedResponseFromMediatorIsReturned()
         {
-            // refactor to use controller/routes
-            var requestUrl = "http://localhost/api/v1/apprenticeships";
-            var mockUrlHelper = new Mock<UrlHelper>();
-            mockUrlHelper.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<object>())).Returns($"{requestUrl}/{_searchResponse.Results.First().VacancyReference}");
-
-            SearchResponse<ApprenticeshipSummary> response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, mockUrlHelper.Object).ConfigureAwait(false);
+            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, new Mock<UrlHelper>().Object);
 
             response.Should().BeSameAs(_searchResponse);
-            var summaryItem = response.Results.First();
-            summaryItem.ApiDetailUrl.Should().Be($"{requestUrl}/{summaryItem.VacancyReference}");
+        }
+
+        [Test]
+        public async Task ThenApiDetailsUrlIsPopulated()
+        {
+            var requestUrl = "http://localhost/api/v1/apprenticeships";
+            var controller = new GetApprenticeshipVacancyController(new GetApprenticeshipVacancyOrchestrator(new Mock<IMediator>().Object, new Mock<IProvideSettings>().Object));
+            controller.Request = new HttpRequestMessage() { RequestUri = new Uri(requestUrl) };
+            controller.Configuration = new HttpConfiguration();
+            controller.Configuration.MapHttpAttributeRoutes();
+            controller.Configuration.EnsureInitialized();
+
+            SearchResponse<ApprenticeshipSummary> response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, controller.Url).ConfigureAwait(false);
+
+            response.Results.First().ApiDetailUrl.Should().Be($"{requestUrl}/{_searchResponse.Results.First().VacancyReference}");
         }
     }
 }
