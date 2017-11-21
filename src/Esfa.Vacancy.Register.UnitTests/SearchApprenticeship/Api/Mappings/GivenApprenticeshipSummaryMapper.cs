@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Esfa.Vacancy.Register.Api.DependencyResolution;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Register.Api;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
-using StructureMap;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
@@ -14,17 +11,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
     public class GivenApprenticeshipSummaryMapper
     {
         private IMapper _mapper;
-        private IContainer _container;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
-            var provideSettings = new Mock<IProvideSettings>();
-            provideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey)).Returns(baseUrl);
-            _container = IoC.Initialize();
-            _container.Inject(provideSettings.Object);
-            _mapper = _container.GetInstance<IMapper>();
+            _mapper = AutoMapperConfig.Configure().CreateMapper();
         }
 
         [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
@@ -98,21 +89,6 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
             result.IsNationwide.Should().Be(expectedResult);
-        }
-
-        [Test]
-        public void ThenVacancyUrlShouldBePopulated()
-        {
-            string baseUrl = _container.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
-            var vacancyRef = 1234;
-            var domainType = new DomainTypes.ApprenticeshipSummary
-            {
-                VacancyReference = vacancyRef.ToString()
-            };
-
-            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
-
-            result.VacancyUrl.Should().Be($"{baseUrl.TrimEnd('/')}/{vacancyRef}");
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http.Routing;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Validation;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
@@ -15,15 +16,17 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IProvideSettings _provideSettings;
 
-        public SearchApprenticeshipVacanciesOrchestrator(IMediator mediator, IMapper mapper)
+        public SearchApprenticeshipVacanciesOrchestrator(IMediator mediator, IMapper mapper, IProvideSettings provideSettings)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _provideSettings = provideSettings;
         }
 
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
-            SearchApprenticeshipParameters apprenticeSearchParameters, UrlHelper urlHelper)
+            SearchApprenticeshipParameters apprenticeSearchParameters, Func<int, string> linkFunc)
         {
             if (apprenticeSearchParameters == null) ThrowValidationException();
 
@@ -31,12 +34,20 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             var response = await _mediator.Send(request);
             var results = _mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
 
+
             foreach (ApprenticeshipSummary summary in results.Results)
             {
-                summary.ApiDetailUrl = urlHelper.Link("GetApprenticeshipVacancyByReference", new { vacancyReference = summary.VacancyReference });
+                summary.VacancyUrl = GetVacancyUrl(summary.VacancyReference);
+                summary.ApiDetailUrl = linkFunc(summary.VacancyReference);
             }
 
             return results;
+        }
+
+        private string GetVacancyUrl(int reference)
+        {
+            string url = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
+            return url.EndsWith("/") ? $"{url}{reference}" : $"{url}/{reference}";
         }
 
         private static void ThrowValidationException()

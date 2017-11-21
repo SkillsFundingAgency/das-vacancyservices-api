@@ -2,7 +2,6 @@
 using AutoMapper;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
-using StructureMap;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
@@ -10,11 +9,10 @@ namespace Esfa.Vacancy.Register.Api
 {
     public static class AutoMapperConfig
     {
-        public static MapperConfiguration Configure(IContext context)
+        public static MapperConfiguration Configure()
         {
             return new MapperConfiguration(cfg =>
             {
-                cfg.ConstructServicesUsing(context.GetInstance);
                 cfg.CreateMap<int?, ApiTypes.VacancyType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyType>());
                 cfg.CreateMap<int?, ApiTypes.WageUnit>().ConvertUsing(new IntToEnumConverter<ApiTypes.WageUnit>());
                 cfg.CreateMap<int?, ApiTypes.VacancyLocationType>().ConvertUsing(new IntToEnumConverter<ApiTypes.VacancyLocationType>());

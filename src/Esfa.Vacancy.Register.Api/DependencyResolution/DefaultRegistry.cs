@@ -39,8 +39,8 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
                 });
 
-            For<IConfigurationProvider>().Singleton().Use(ctx => AutoMapperConfig.Configure(ctx));
-            For<IMapper>().Use(ctx => new Mapper(ctx.GetInstance<IConfigurationProvider>(), ctx.GetInstance));
+            For<IConfigurationProvider>().Singleton().Use(AutoMapperConfig.Configure());
+            For<IMapper>().Use(ctx => new Mapper(ctx.GetInstance<IConfigurationProvider>()));
         }
     }
 }
