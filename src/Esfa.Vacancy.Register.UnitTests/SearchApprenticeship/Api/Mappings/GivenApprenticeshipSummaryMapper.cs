@@ -2,6 +2,7 @@
 using Esfa.Vacancy.Register.Api.DependencyResolution;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using StructureMap;
 using ApiTypes = Esfa.Vacancy.Api.Types;
@@ -18,7 +19,11 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         [OneTimeSetUp]
         public void Setup()
         {
+            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
+            var provideSettings = new Mock<IProvideSettings>();
+            provideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey)).Returns(baseUrl);
             _container = IoC.Initialize();
+            _container.Inject(provideSettings.Object);
             _mapper = _container.GetInstance<IMapper>();
         }
 
