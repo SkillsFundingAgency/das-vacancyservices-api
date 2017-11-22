@@ -10,6 +10,7 @@ using System.Web.Http.Dependencies;
 using System.Web.Http.ExceptionHandling;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentAssertions;

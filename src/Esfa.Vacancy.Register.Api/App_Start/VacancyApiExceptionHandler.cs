@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentValidation;
