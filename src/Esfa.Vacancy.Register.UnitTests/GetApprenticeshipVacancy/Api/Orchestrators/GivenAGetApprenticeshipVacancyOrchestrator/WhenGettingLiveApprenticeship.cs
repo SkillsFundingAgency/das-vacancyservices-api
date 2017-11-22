@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -86,7 +86,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference);
+            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -124,7 +124,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
 
             var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
             //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync(12345);
+            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
