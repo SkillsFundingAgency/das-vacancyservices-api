@@ -5,6 +5,7 @@ using NUnit.Framework;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
+
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 {
     [TestFixture]
@@ -15,14 +16,15 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         [OneTimeSetUp]
         public void Setup()
         {
-            _mapper = AutoMapperConfig.Configure().CreateMapper();
+            var config = AutoMapperConfig.Configure();
+            _mapper = config.CreateMapper();
         }
 
         [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
         [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
         public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
-            string expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
+            var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new DomainTypes.ApprenticeshipSummary()
             {
                 FrameworkLarsCode = frameworkCode,
@@ -47,6 +49,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.Location.Latitude.Should().Be(51.3288148990m, "Then map latitude to Location");
             result.Location.Longitude.Should().Be(0.4452948632m, "Then map longitude to Location");
+
         }
 
         [Test]
@@ -90,5 +93,6 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.IsNationwide.Should().Be(expectedResult);
         }
+
     }
 }

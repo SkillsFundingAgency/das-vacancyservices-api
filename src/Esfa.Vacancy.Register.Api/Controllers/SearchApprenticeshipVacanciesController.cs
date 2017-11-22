@@ -110,7 +110,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
             string ApiLinkUrlFunction(int reference) => 
-                Url.Link(RouteNameConstants.GetApprenticeshipVacancyByReference, new { vacancyReference = reference });
+                Url.Link(RouteName.GetApprenticeshipVacancyByReference, new { vacancyReference = reference });
             SearchResponse<ApprenticeshipSummary> results =
                 await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters, ApiLinkUrlFunction)
                                          .ConfigureAwait(false);

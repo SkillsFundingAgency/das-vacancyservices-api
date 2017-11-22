@@ -1,6 +1,6 @@
 ﻿namespace Esfa.Vacancy.Register.Api.Constants
 {
-    public class RouteNameConstants
+    public class RouteName
     {
         public const string GetApprenticeshipVacancyByReference = "GetApprenticeshipVacancyByReference";
     }

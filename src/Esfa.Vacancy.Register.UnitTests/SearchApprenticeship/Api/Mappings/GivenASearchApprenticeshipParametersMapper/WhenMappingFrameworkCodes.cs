@@ -15,14 +15,14 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         [SetUp]
         public void Setup()
         {
-            MapperConfiguration config = AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
             _mapper = config.CreateMapper();
         }
 
         [TestCaseSource(nameof(TestCases))]
         public IEnumerable<string> AndMapExecutes(string frameworkCodes)
         {
-            var parameters = new SearchApprenticeshipParameters { FrameworkLarsCodes = frameworkCodes };
+            var parameters = new SearchApprenticeshipParameters {FrameworkLarsCodes = frameworkCodes};
 
             return _mapper
                 .Map<SearchApprenticeshipVacanciesRequest>(parameters)
@@ -32,10 +32,10 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData("1")
-                .Returns(new[] { "1" })
+                .Returns(new[]{"1"})
                 .SetName("Then a single value is acceptable"),
             new TestCaseData("1,2, 23lkk")
-                .Returns(new[] { "1", "2", " 23lkk" })
+                .Returns(new[]{"1","2", " 23lkk"})
                 .SetName("Then a comma delimited array is split on comma"),
             new TestCaseData(" ")
                 .Returns(new List<string>())

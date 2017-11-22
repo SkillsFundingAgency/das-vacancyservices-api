@@ -15,7 +15,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.Give
         [SetUp]
         public void Setup()
         {
-            MapperConfiguration config = AutoMapperConfig.Configure();
+            var config = AutoMapperConfig.Configure();
             _mapper = config.CreateMapper();
         }
 

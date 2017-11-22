@@ -45,7 +45,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        [Route("{vacancyReference:int}", Name = RouteNameConstants.GetApprenticeshipVacancyByReference)]
+        [Route("{vacancyReference:int}", Name = RouteName.GetApprenticeshipVacancyByReference)]
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]

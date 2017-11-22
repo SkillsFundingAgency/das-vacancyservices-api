@@ -290,7 +290,7 @@
     <Compile Include="App_Start\ApiFilterConfig.cs" />
     <Compile Include="App_Start\StrictEnumConverter.cs" />
     <Compile Include="App_Start\ValidationBadRequestBuilder.cs" />
-    <Compile Include="Constants\RouteNameConstants.cs" />
+    <Compile Include="Constants\RouteName.cs" />
     <Compile Include="Controllers\GetTraineeshipVacancyController.cs" />
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\VersionController.cs" />

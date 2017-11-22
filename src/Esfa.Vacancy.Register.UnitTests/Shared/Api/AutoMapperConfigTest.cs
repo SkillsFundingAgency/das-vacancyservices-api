@@ -9,7 +9,9 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api
         [Test]
         public void ShouldHaveValidAutoMapperConfig()
         {
-            AutoMapperConfig.Configure().AssertConfigurationIsValid();
+            var config = AutoMapperConfig.Configure();
+
+            config.AssertConfigurationIsValid();
         }
     }
 }
