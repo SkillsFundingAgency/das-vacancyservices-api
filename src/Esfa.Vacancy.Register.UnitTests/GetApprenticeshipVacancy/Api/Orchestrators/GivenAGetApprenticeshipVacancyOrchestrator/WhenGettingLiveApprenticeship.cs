@@ -1,9 +1,13 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
+using FluentValidation;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -19,15 +23,34 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private Mock<IProvideSettings> _provideSettings;
+        private Mock<IApprenticeshipMapper> _mockApprenticeshipMapper;
         private GetApprenticeshipVacancyOrchestrator _sut;
 
         [SetUp]
         public void SetUp()
         {
             _mockMediator = new Mock<IMediator>();
+            _mockMediator
+                .Setup(mediator => mediator.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetApprenticeshipVacancyResponse());
+
+            _mockApprenticeshipMapper = new Mock<IApprenticeshipMapper>();
+            _mockApprenticeshipMapper
+                .Setup(mapper => mapper.MapToApprenticeshipVacancy(It.IsAny<Domain.Entities.ApprenticeshipVacancy>()))
+                .Returns(new ApprenticeshipVacancy());
+
             _provideSettings = new Mock<IProvideSettings>();
 
-            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            _sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _mockApprenticeshipMapper.Object);
+        }
+
+        [Test]
+        public async Task ThenCreatesGetApprenticeshipVacancyRequestWithRefNumber()
+        {
+            var uniqueVacancyRef = new Random().Next();
+            await _sut.GetApprenticeshipVacancyDetailsAsync(uniqueVacancyRef.ToString());
+            _mockMediator.Verify(mediator => 
+                mediator.Send(It.Is<GetApprenticeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef), CancellationToken.None));
         }
 
         [Test]
@@ -49,7 +72,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(_provideSettings.Object));
+            var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -86,7 +110,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                                             .Create()
                 });
 
-            var result = await _sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(_provideSettings.Object));
+            var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -122,12 +147,24 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                 .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _provideSettings.Object);
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(_provideSettings.Object));
             //Act
             var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
+        }
+
+        [Test]
+        public void AndParamIsNotAnInt32_ThenThrowsValidationException()
+        {
+            Func<Task> action = async () =>
+            {
+                await _sut.GetApprenticeshipVacancyDetailsAsync(Guid.NewGuid().ToString());
+            };
+
+            action.ShouldThrow<ValidationException>();
+            //WithMessage($"Validation failed: \r\n -- {ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull}");
         }
     }
 }

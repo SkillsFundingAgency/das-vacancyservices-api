@@ -7,7 +7,7 @@ using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public sealed class ApprenticeshipMapper
+    public sealed class ApprenticeshipMapper : IApprenticeshipMapper
     {
         private readonly IProvideSettings _provideSettings;
         private readonly AddressMapper _addressMapper = new AddressMapper();
