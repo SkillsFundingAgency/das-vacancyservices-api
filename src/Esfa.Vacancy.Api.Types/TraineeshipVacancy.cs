@@ -160,7 +160,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// The training provider's trading name
         /// </summary>
-        public string TrainingProvider { get; set; }
+        public string TrainingProviderName { get; set; }
 
         /// <summary>
         /// The training provider's UKPRN
