@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +7,7 @@ using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Validation;
+using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
@@ -13,25 +15,28 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
+
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
 {
     [TestFixture]
     public class GivenASearchApprenticeshipVacanciesOrchestrator
     {
+        private const string FAABaseUrl = "https://findapprentice.com/apprenticeship/reference";
+        private const string ApiBaseUrl = "http://localhost/api/v1/apprenticeships";
         private SearchApprenticeshipVacanciesOrchestrator _orchestrator;
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
         private SearchResponse<ApprenticeshipSummary> _searchResponse;
+        private Fixture _fixture;
 
         [SetUp]
         public void WhenCallingSearchApprenticeship()
         {
-            var fixture = new Fixture();
+            _fixture = new Fixture();
 
-            _searchApprenticeshipParameters = fixture.Create<SearchApprenticeshipParameters>();
-            _searchResponse = fixture.Create<SearchResponse<ApprenticeshipSummary>>();
-            var searchApprenticeshipVacanciesRequest = fixture.Create<SearchApprenticeshipVacanciesRequest>();
-            var searchApprenticeshipVacanciesResponse = fixture.Create<SearchApprenticeshipVacanciesResponse>();
-
+            _searchApprenticeshipParameters = _fixture.Create<SearchApprenticeshipParameters>();
+            _searchResponse = _fixture.Create<SearchResponse<ApprenticeshipSummary>>();
+            var searchApprenticeshipVacanciesRequest = _fixture.Create<SearchApprenticeshipVacanciesRequest>();
+            var searchApprenticeshipVacanciesResponse = _fixture.Create<SearchApprenticeshipVacanciesResponse>();
 
             var mockMapper = new Mock<IMapper>();
             mockMapper
@@ -46,13 +51,18 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
                 .Setup(mediator => mediator.Send(searchApprenticeshipVacanciesRequest, CancellationToken.None))
                 .ReturnsAsync(searchApprenticeshipVacanciesResponse);
 
-            _orchestrator = new SearchApprenticeshipVacanciesOrchestrator(mockMediator.Object, mockMapper.Object);
+            var mockSettings = new Mock<IProvideSettings>();
+            mockSettings
+                .Setup(x => x.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey))
+                .Returns(FAABaseUrl);
+
+            _orchestrator = new SearchApprenticeshipVacanciesOrchestrator(mockMediator.Object, mockMapper.Object, mockSettings.Object);
         }
 
         [Test]
         public void AndParametersAreNull_ThenThrowsValidationException()
         {
-            Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null); };
+            Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null, null); };
 
             action.ShouldThrow<ValidationException>().WithMessage($"Validation failed: \r\n -- {ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull}");
         }
@@ -60,9 +70,29 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public async Task ThenMappedResponseFromMediatorIsReturned()
         {
-            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
+            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, x => String.Empty);
 
             response.Should().BeSameAs(_searchResponse);
+        }
+
+        [Test]
+        public async Task ThenApiDetailsUrlShouldBePopulated()
+        {
+            SearchResponse<ApprenticeshipSummary> response = await _orchestrator
+                .SearchApprenticeship(_searchApprenticeshipParameters, reference => $"{ApiBaseUrl}/{reference}")
+                .ConfigureAwait(false);
+
+            response.Results.First().ApiDetailUrl.Should().Be($"{ApiBaseUrl}/{_searchResponse.Results.First().VacancyReference}");
+        }
+
+        [Test]
+        public async Task ThenVacancyUrlShouldBePopulated()
+        {
+            SearchResponse<ApprenticeshipSummary> response = await _orchestrator
+                .SearchApprenticeship(_searchApprenticeshipParameters, reference => string.Empty)
+                .ConfigureAwait(false);
+
+            response.Results.First().VacancyUrl.Should().Be($"{FAABaseUrl}/{_searchResponse.Results.First().VacancyReference}");
         }
     }
 }

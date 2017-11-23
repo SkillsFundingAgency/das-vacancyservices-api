@@ -82,6 +82,16 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string ApprenticeshipLevel { get; set; }
 
+        /// <summary>
+        /// The FAA vacancy URL.
+        /// </summary>
+        public string VacancyUrl { get; set; }
+
+        /// <summary>
+        /// The API detail URL.
+        /// </summary>
+        public string ApiDetailUrl { get; set; }
+
         public ApprenticeshipSummary()
         {
             Location = new GeoPoint();
