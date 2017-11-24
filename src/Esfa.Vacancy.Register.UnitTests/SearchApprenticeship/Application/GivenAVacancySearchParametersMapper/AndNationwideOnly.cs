@@ -13,16 +13,27 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Application.Given
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
                 { NationwideOnly = true });
 
-            result.LocationType.Should().Be("National");
+            result.LocationType.Should().Be(VacancySearchParametersMapper.NationwideLocationType);
         }
 
         [Test]
-        public void AndIsFalse_ThenMapsToNull()
+        public void AndIsTrue_ThenGeoCodeFieldsAreSetToNull()
+        {
+            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
+                { NationwideOnly = true, Latitude = 1, Longitude = 1, DistanceInMiles = 1});
+
+            result.Latitude.Should().BeNull();
+            result.Longitude.Should().BeNull();
+            result.DistanceInMiles.Should().BeNull();
+        }
+
+        [Test]
+        public void AndIsFalse_ThenMapsToNonNationwide()
         {
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
                 { NationwideOnly = false });
 
-            result.LocationType.Should().BeNull();
+            result.LocationType.Should().Be(VacancySearchParametersMapper.NonNationwideLocationType);
         }
     }
 }
