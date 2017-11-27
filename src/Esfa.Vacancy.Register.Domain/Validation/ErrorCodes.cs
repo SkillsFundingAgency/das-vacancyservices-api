@@ -29,6 +29,7 @@
         {
             // 30200 - 30299
             public const string VacancyReferenceNumberLessThan0         = "30201";
+            public const string VacancyReferenceNumberNotInt32          = "30202";
         }
 
         public static class SearchTraineeships

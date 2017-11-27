@@ -327,6 +327,7 @@
     <Compile Include="Orchestrators\GetApprenticeshipVacancyOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\IValidationBadRequestBuilder.cs" />
+    <Compile Include="Validation\IValidationExceptionBuilder.cs" />
     <Compile Include="Validation\ValidationBadRequestBuilder.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Api.Mappings;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
-using FluentValidation;
+using Esfa.Vacancy.Register.Domain.Validation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -10,11 +11,13 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     {
         private readonly IMediator _mediator;
         private readonly IApprenticeshipMapper _mapper;
+        private readonly IValidationExceptionBuilder _validationExceptionBuilder;
 
-        public GetApprenticeshipVacancyOrchestrator(IMediator mediator, IApprenticeshipMapper apprenticeshipMapper)
+        public GetApprenticeshipVacancyOrchestrator(IMediator mediator, IApprenticeshipMapper apprenticeshipMapper, IValidationExceptionBuilder validationExceptionBuilder)
         {
             _mediator = mediator;
             _mapper = apprenticeshipMapper;
+            _validationExceptionBuilder = validationExceptionBuilder;
         }
 
         public async Task<Vacancy.Api.Types.ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(string id)
@@ -22,7 +25,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             int parsedId;
             if (!int.TryParse(id, out parsedId))
             {
-                throw new ValidationException("todo");
+                throw _validationExceptionBuilder.Build(
+                    ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32, 
+                    ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric);
             }
 
             var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId });

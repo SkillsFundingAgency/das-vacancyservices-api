@@ -19,5 +19,10 @@ namespace Esfa.Vacancy.Register.Domain.Validation
             public static string GetGeoLocationFieldNotProvidedErrorMessage(string fieldName) =>
                 $"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided '{fieldName}'.";
         }
+
+        public static class GetApprenticeship
+        {
+            public const string VacancyReferenceNumberNotNumeric = "The vacancy reference number must be numeric.";
+        }
     }
 }
