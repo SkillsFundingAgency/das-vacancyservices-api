@@ -329,6 +329,7 @@
     <Compile Include="Validation\IValidationBadRequestBuilder.cs" />
     <Compile Include="Validation\IValidationExceptionBuilder.cs" />
     <Compile Include="Validation\ValidationBadRequestBuilder.cs" />
+    <Compile Include="Validation\ValidationExceptionBuilder.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
