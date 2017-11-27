@@ -93,11 +93,6 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingCode { get; set; }
 
         /// <summary>
-        /// URL to get Training details
-        /// </summary>
-        public string TrainingUrl { get; set; }
-
-        /// <summary>
         /// The name of the employer.
         /// </summary>
         public string EmployerName { get; set; }
