@@ -24,7 +24,6 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Mappings.
             var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
-                .With(v => v.VacancyTypeId, (int) VacancyType.Apprenticeship)
                 .With(v => v.WageType, (int) WageType.LegacyWeekly)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
