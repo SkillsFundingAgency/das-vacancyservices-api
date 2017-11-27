@@ -41,6 +41,7 @@
         {
             // 30400 - 30499
             public const string VacancyReferenceNumberLessThan0         = "30401";
+            public const string VacancyReferenceNumberNotInt32          = "30402";
         }
     }
 }

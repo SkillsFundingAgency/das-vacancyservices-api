@@ -24,5 +24,10 @@ namespace Esfa.Vacancy.Register.Domain.Validation
         {
             public const string VacancyReferenceNumberNotNumeric = "The vacancy reference number must be numeric.";
         }
+
+        public static class GetTraineeship
+        {
+            public const string VacancyReferenceNumberNotNumeric = "The vacancy reference number must be numeric.";
+        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Swashbuckle.Swagger.Annotations;
@@ -46,25 +44,16 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        [Route("{vacancyReference:int}", Order = 0)]
+        [Route("{vacancyReference}")]
         [SwaggerOperation("GetTraineeshipVacancy", Tags = new[] { "Traineeships" })]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.TraineeshipVacancy))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(TraineeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found or vacancy status is not Live")]
-        public async Task<IHttpActionResult> Get(int vacancyReference)
+        public async Task<IHttpActionResult> Get(string vacancyReference)
         {
             var vacancy = await _vacancyOrchestrator.GetTraineeshipVacancyDetailsAsync(vacancyReference);
 
             return Ok(vacancy);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("{wrongRoute}", Order = 1)]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public HttpResponseMessage Get(string wrongRoute)
-        {
-            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "You have not searched by vacancy reference number.");
         }
     }
 }
