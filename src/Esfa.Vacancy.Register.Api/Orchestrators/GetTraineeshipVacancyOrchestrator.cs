@@ -31,8 +31,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
                     ErrorMessages.GetTraineeship.VacancyReferenceNumberNotNumeric);
             }
 
-            var response = await _mediator.Send(new GetTraineeshipVacancyRequest() { Reference = -1 });
+            var response = await _mediator.Send(new GetTraineeshipVacancyRequest() { Reference = parsedId });
             var vacancy = _mapper.MapToTraineeshipVacancy(response.TraineeshipVacancy);
+
             return vacancy;
         }
     }

@@ -26,7 +26,6 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _mockProvideSettings;
         private GetTraineeshipVacancyOrchestrator _sut;
         private IFixture _fixture;
         private string _expectedErrorMessage;
@@ -52,6 +51,18 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
             ));
 
             _sut = _fixture.Create<GetTraineeshipVacancyOrchestrator>();
+        }
+
+        [Test]
+        public async Task ThenCreatesGetApprenticeshipVacancyRequestWithRefNumber()
+        {
+            var uniqueVacancyRef = _fixture.Create<int>();
+            await _sut.GetTraineeshipVacancyDetailsAsync(uniqueVacancyRef.ToString());
+
+            _mockMediator.Verify(mediator =>
+                mediator.Send(
+                    It.Is<GetTraineeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef),
+                    CancellationToken.None));
         }
 
         [Test]
