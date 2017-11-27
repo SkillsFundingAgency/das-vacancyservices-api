@@ -163,6 +163,7 @@ namespace Esfa.Vacancy.Register.UnitTests.GetApprenticeshipVacancy.Api.Orchestra
                 .ReturnsAsync(response);
 
             var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(provideSettings.Object), _fixture.Create<IValidationExceptionBuilder>());
+            
             //Act
             var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");
 

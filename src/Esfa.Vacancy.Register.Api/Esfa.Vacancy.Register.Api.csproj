@@ -299,6 +299,7 @@
     <Compile Include="Mappings\ApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IntToEnumConverter.cs" />
+    <Compile Include="Mappings\ITraineeshipMapper.cs" />
     <Compile Include="Mappings\TraineeshipMapper.cs" />
     <Compile Include="Mappings\ApprenticeshipSummaryMapper.cs" />
     <Compile Include="Models\VersionInformation.cs" />

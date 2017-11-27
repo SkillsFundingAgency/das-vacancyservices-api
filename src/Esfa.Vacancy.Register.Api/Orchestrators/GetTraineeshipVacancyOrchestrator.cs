@@ -2,7 +2,6 @@
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -10,12 +9,12 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
     public class GetTraineeshipVacancyOrchestrator
     {
         private readonly IMediator _mediator;
-        private readonly TraineeshipMapper _mapper;
+        private readonly ITraineeshipMapper _mapper;
 
-        public GetTraineeshipVacancyOrchestrator(IMediator mediator, IProvideSettings provideSettings)
+        public GetTraineeshipVacancyOrchestrator(IMediator mediator, ITraineeshipMapper mapper)
         {
             _mediator = mediator;
-            _mapper = new TraineeshipMapper(provideSettings);
+            _mapper = mapper;
         }
 
         public async Task<TraineeshipVacancy> GetTraineeshipVacancyDetailsAsync(int id)

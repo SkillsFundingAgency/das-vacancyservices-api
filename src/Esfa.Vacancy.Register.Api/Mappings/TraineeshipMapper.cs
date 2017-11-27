@@ -3,7 +3,7 @@ using TraineeshipVacancy = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public sealed class TraineeshipMapper
+    public sealed class TraineeshipMapper : ITraineeshipMapper
     {
         private readonly IProvideSettings _provideSettings;
         private readonly AddressMapper _addressMapper = new AddressMapper();
