@@ -41,16 +41,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | Error code  | Explanation                                                    |
         /// | ----------- | -------------------------------------------------------------- |
         /// | 30201       | Vacancy reference number must be greater than 0                |
+        /// | 30202       | Vacancy reference number must be a whole number                |
         /// 
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
-        [Route("{vacancyReference:int}", Name = RouteName.GetApprenticeshipVacancyByReference)]
+        [Route("{vacancyReference}", Name = RouteName.GetApprenticeshipVacancyByReference)]
         [SwaggerOperation("GetApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(Vacancy.Api.Types.ApprenticeshipVacancy))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipVacancy))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found or vacancy status is not Live")]
-        public async Task<IHttpActionResult> Get(int vacancyReference)
+        public async Task<IHttpActionResult> Get(string vacancyReference)
         {
             var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
             return Ok(vacancy);

@@ -1,13 +1,21 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
+using Esfa.Vacancy.Register.Domain.Validation;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrators.GivenAGetTraineeshipVacancyOrchestrator
 {
@@ -18,15 +26,43 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
         private const int VacancyReference = 1234;
         private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
-        private Mock<IProvideSettings> _mockProvideSettings;
         private GetTraineeshipVacancyOrchestrator _sut;
+        private IFixture _fixture;
+        private string _expectedErrorMessage;
+        private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
 
         [SetUp]
         public void SetUp()
         {
-            _mockMediator = new Mock<IMediator>();
-            _mockProvideSettings = new Mock<IProvideSettings>();
-            _sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _mockProvideSettings.Object);
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+            _expectedErrorMessage = _fixture.Create<string>();
+
+            _mockMediator = _fixture.Freeze<Mock<IMediator>>(composer => composer.Do(mock => mock
+                .Setup(mediator => mediator.Send(It.IsAny<GetTraineeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(_fixture.Create<GetTraineeshipVacancyResponse>())));
+
+            _mockValidationExceptionBuilder = _fixture.Freeze<Mock<IValidationExceptionBuilder>>(composer => composer.Do(mock => mock
+                .Setup(builder => builder.Build(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new ValidationException(new List<ValidationFailure>
+                {
+                    new ValidationFailure("", _expectedErrorMessage)
+                }))
+            ));
+
+            _sut = _fixture.Create<GetTraineeshipVacancyOrchestrator>();
+        }
+
+        [Test]
+        public async Task ThenCreatesGetApprenticeshipVacancyRequestWithRefNumber()
+        {
+            var uniqueVacancyRef = _fixture.Create<int>();
+            await _sut.GetTraineeshipVacancyDetailsAsync(uniqueVacancyRef.ToString());
+
+            _mockMediator.Verify(mediator =>
+                mediator.Send(
+                    It.Is<GetTraineeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef),
+                    CancellationToken.None));
         }
 
         [Test]
@@ -47,7 +83,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
                                             .Create()
                 });
 
-            var result = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
+            var sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<TraineeshipMapper>(), _fixture.Create<IValidationExceptionBuilder>());
+            var result = await sut.GetTraineeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -83,7 +120,8 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
                                             .Create()
                 });
 
-            var result = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
+            var sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<TraineeshipMapper>(), _fixture.Create<IValidationExceptionBuilder>());
+            var result = await sut.GetTraineeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
             result.EmployerName.Should().Be("ABC Ltd");
@@ -105,8 +143,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
             //Arrange
             var baseUrl = "https://findapprentice.com/traineeship/reference";
 
-            _mockProvideSettings.Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
-                                .Returns(baseUrl);
+            var mockProvideSettings = new Mock<IProvideSettings>();
+            mockProvideSettings
+                .Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
+                .Returns(baseUrl);
 
             var response = new GetTraineeshipVacancyResponse
             {
@@ -118,12 +158,31 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Orchestrator
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetTraineeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
+            var sut = new GetTraineeshipVacancyOrchestrator(_mockMediator.Object, new TraineeshipMapper(mockProvideSettings.Object), _fixture.Create<IValidationExceptionBuilder>());
 
             //Act
-            var vacancy = await _sut.GetTraineeshipVacancyDetailsAsync(VacancyReference);
+            var vacancy = await sut.GetTraineeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             //Assert
             Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
+        }
+
+        [Test]
+        public void AndParamIsNotAnInt32_ThenThrowsValidationException()
+        {
+            Func<Task> action = async () =>
+            {
+                await _sut.GetTraineeshipVacancyDetailsAsync(Guid.NewGuid().ToString());
+            };
+
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: \r\n -- {_expectedErrorMessage}");
+
+            _mockValidationExceptionBuilder.Verify(builder =>
+                builder.Build(
+                    ErrorCodes.GetTraineeship.VacancyReferenceNumberNotInt32,
+                    ErrorMessages.GetTraineeship.VacancyReferenceNumberNotNumeric,
+                    It.IsAny<string>()), Times.Once);
         }
     }
 }

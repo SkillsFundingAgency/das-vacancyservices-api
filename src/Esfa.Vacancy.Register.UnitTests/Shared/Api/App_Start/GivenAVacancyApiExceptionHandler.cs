@@ -10,6 +10,7 @@ using System.Web.Http.Dependencies;
 using System.Web.Http.ExceptionHandling;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.App_Start;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using FluentAssertions;
@@ -61,7 +62,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
             var message = await context.Result.ExecuteAsync(CancellationToken.None);
 
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(ExceptionInExceptionHandlerErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{ExceptionInExceptionHandlerErrorMessage}\"}}");
         }
 
         [Test]
@@ -113,10 +114,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
         [Test]
         public async Task AndUnauthorisedExceptionIsThrownThenReturnUnauthorized()
         {
-            var context = new ExceptionHandlerContext(new ExceptionContext(
-                new UnauthorisedException("no access"),
-                new ExceptionContextCatchBlock("name", true, true),
-                new HttpRequestMessage()));
+            var context = BuildNewContext(new UnauthorisedException("no access"));
 
             _handler.Handle(context);
 
@@ -124,16 +122,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Warn(It.IsAny<UnauthorisedException>(), "Authorisation error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-            message.Content.ReadAsStringAsync().Result.Should().Be("no access");
+            message.Content.ReadAsStringAsync().Result.Should().Be("{\"Message\":\"no access\"}");
         }
 
         [Test]
         public async Task AndResourceNotFoundExceptionIsThrownThenReturnNotFound()
         {
-            var context = new ExceptionHandlerContext(new ExceptionContext(
-                new ResourceNotFoundException("no resource"),
-                new ExceptionContextCatchBlock("name", true, true),
-                new HttpRequestMessage()));
+            var context = BuildNewContext(new ResourceNotFoundException("no resource"));
 
             _handler.Handle(context);
 
@@ -141,16 +136,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Info("Unable to locate resource error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            message.Content.ReadAsStringAsync().Result.Should().Be("no resource");
+            message.Content.ReadAsStringAsync().Result.Should().Be("{\"Message\":\"no resource\"}");
         }
 
         [Test]
         public async Task AndInfrastructureExceptionIsThrownThenReturnInternalServerError()
         {
-            var context = new ExceptionHandlerContext(new ExceptionContext(
-                new InfrastructureException(new Exception("an infrastructure error")),
-                new ExceptionContextCatchBlock("name", true, true),
-                new HttpRequestMessage()));
+            var context = BuildNewContext(new InfrastructureException(new Exception("an infrastructure error")));
 
             _handler.Handle(context);
 
@@ -158,17 +150,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{GenericErrorMessage}\"}}");
         }
 
         [Test]
         public async Task AndExceptionIsThrownThenReturnInternalServerError()
         {
-            var context = new ExceptionHandlerContext(new ExceptionContext(
-                new Exception("an infrastructure error"),
-                new ExceptionContextCatchBlock("name", true, true),
-                new HttpRequestMessage())
-                );
+            var context = BuildNewContext(new Exception("an infrastructure error"));
 
             _handler.Handle(context);
 
@@ -176,7 +164,7 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
 
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected error"), Times.Once);
             message.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            message.Content.ReadAsStringAsync().Result.Should().Be(GenericErrorMessage);
+            message.Content.ReadAsStringAsync().Result.Should().Be($"{{\"Message\":\"{GenericErrorMessage}\"}}");
         }
 
         [Test]
@@ -195,5 +183,13 @@ namespace Esfa.Vacancy.Register.UnitTests.Shared.Api.App_Start
             _logger.Verify(l => l.Error(It.IsAny<Exception>(), "Unexpected infrastructure error url:http://resource/that/errored"), Times.Once);
         }
 
+        private static ExceptionHandlerContext BuildNewContext<T>(T exception) where T : Exception
+        {
+            return new ExceptionHandlerContext(new ExceptionContext(
+                exception,
+                new ExceptionContextCatchBlock("name", true, true),
+                new Mock<HttpRequestMessage>().Object)
+            );
+        }
     }
 }

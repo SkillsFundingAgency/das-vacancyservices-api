@@ -81,7 +81,9 @@
     </Reference>
     <Reference Include="Ploeh.AutoFixture, Version=3.50.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoFixture.3.50.6\lib\net40\Ploeh.AutoFixture.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.50.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.AutoMoq.3.50.6\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
     </Reference>
     <Reference Include="Polly, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.5.3.1\lib\net45\Polly.dll</HintPath>
@@ -121,6 +123,7 @@
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndLocationFields.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingHasGeoSearchFields.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingToString.cs" />
+    <Compile Include="Shared\Api\Validation\GivenAValidationExceptionBuilder.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkLarsCodes.cs" />
