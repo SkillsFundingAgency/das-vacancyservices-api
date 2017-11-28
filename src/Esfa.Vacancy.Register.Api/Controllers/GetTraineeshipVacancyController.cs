@@ -40,6 +40,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | Error code  | Explanation                                                    |
         /// | ----------- | -------------------------------------------------------------- |
         /// | 30401       | Vacancy reference number must be greater than 0                |
+        /// | 30402       | Vacancy reference number must be a whole number                |
         /// 
         /// </summary>
         [HttpGet]
