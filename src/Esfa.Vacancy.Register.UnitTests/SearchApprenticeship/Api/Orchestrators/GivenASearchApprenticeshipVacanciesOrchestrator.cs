@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Register.Api.Orchestrators;
+using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Validation;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -27,6 +30,8 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
         private SearchResponse<ApprenticeshipSummary> _searchResponse;
         private Fixture _fixture;
+        private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
+        private string _expectedErrorMessage;
 
         [SetUp]
         public void WhenCallingSearchApprenticeship()
@@ -37,6 +42,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
             _searchResponse = _fixture.Create<SearchResponse<ApprenticeshipSummary>>();
             var searchApprenticeshipVacanciesRequest = _fixture.Create<SearchApprenticeshipVacanciesRequest>();
             var searchApprenticeshipVacanciesResponse = _fixture.Create<SearchApprenticeshipVacanciesResponse>();
+            _expectedErrorMessage = _fixture.Create<string>();
 
             var mockMapper = new Mock<IMapper>();
             mockMapper
@@ -56,15 +62,33 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Orchestrators
                 .Setup(x => x.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey))
                 .Returns(FAABaseUrl);
 
-            _orchestrator = new SearchApprenticeshipVacanciesOrchestrator(mockMediator.Object, mockMapper.Object, mockSettings.Object);
+            _mockValidationExceptionBuilder = _fixture.Freeze<Mock<IValidationExceptionBuilder>>(composer => composer.Do(mock => mock
+                .Setup(builder => builder.Build(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new ValidationException(new List<ValidationFailure>
+                {
+                    new ValidationFailure("", _expectedErrorMessage)
+                }))
+            ));
+
+            _orchestrator = new SearchApprenticeshipVacanciesOrchestrator(mockMediator.Object, mockMapper.Object, mockSettings.Object, _mockValidationExceptionBuilder.Object);
         }
 
         [Test]
         public void AndParametersAreNull_ThenThrowsValidationException()
         {
-            Func<Task> action = async () => { await _orchestrator.SearchApprenticeship(null, null); };
+            Func<Task> action = async () =>
+            {
+                await _orchestrator.SearchApprenticeship(null, null);
+            };
 
-            action.ShouldThrow<ValidationException>().WithMessage($"Validation failed: \r\n -- {ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull}");
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: \r\n -- {_expectedErrorMessage}");
+
+            _mockValidationExceptionBuilder.Verify(builder =>
+                builder.Build(
+                    ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
+                    ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
+                    It.IsAny<string>()), Times.Once);
         }
 
         [Test]
