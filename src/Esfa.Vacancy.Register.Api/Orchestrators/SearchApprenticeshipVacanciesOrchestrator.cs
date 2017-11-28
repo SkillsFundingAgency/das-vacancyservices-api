@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
@@ -7,14 +6,13 @@ using Esfa.Vacancy.Register.Api.Validation;
 using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Validation;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
-using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
 {
     public class SearchApprenticeshipVacanciesOrchestrator
     {
+        private const string ApprenticeSearchPropertyName = "apprenticeSearchParameters";
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly IProvideSettings _provideSettings;
@@ -40,7 +38,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
                 throw _validationExceptionBuilder.Build(
                     ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
                     ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
-                    "apprenticeSearchParameters");
+                    ApprenticeSearchPropertyName);
             }
 
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
