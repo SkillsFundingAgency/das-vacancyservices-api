@@ -92,6 +92,11 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string ApiDetailUrl { get; set; }
 
+        /// <summary>
+        /// Is employer disability confident.
+        /// </summary>
+        public bool IsEmployerDisabilityConfident { get; set; }
+
         public ApprenticeshipSummary()
         {
             Location = new GeoPoint();
