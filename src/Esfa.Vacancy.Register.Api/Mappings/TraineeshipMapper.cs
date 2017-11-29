@@ -52,7 +52,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ContactNumber = traineeshipVacancy.ContactNumber,
                 TrainingProviderName = traineeshipVacancy.TrainingProvider,
                 TrainingProviderUkprn = traineeshipVacancy.TrainingProviderUkprn,
-                TrainingProviderSite = traineeshipVacancy.TrainingProviderSite
+                TrainingProviderSite = traineeshipVacancy.TrainingProviderSite,
+                IsEmployerDisabilityConfident = traineeshipVacancy.IsDisabilityConfident
             };
         }
     }

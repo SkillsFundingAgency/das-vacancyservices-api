@@ -171,5 +171,10 @@ namespace Esfa.Vacancy.Api.Types
         /// The training provider site
         /// </summary>
         public string TrainingProviderSite { get; set; }
+
+        /// <summary>
+        /// Is employer disability confident.
+        /// </summary>
+        public bool IsEmployerDisabilityConfident { get; set; }
     }
 }
