@@ -63,5 +63,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string FrameworkLarsCode { get; set; }
 
         public int? StandardLarsCode { get; set; }
+
+        public bool IsDisabilityConfident { get; set; }
     }
 }

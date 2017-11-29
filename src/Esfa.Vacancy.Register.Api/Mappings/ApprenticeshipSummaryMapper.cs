@@ -23,7 +23,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName))
                 .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)))
                 .ForMember(target => target.VacancyUrl, c => c.Ignore())
-                .ForMember(target => target.ApiDetailUrl, c => c.Ignore());
+                .ForMember(target => target.ApiDetailUrl, c => c.Ignore())
+                .ForMember(target => target.IsEmployerDisabilityConfident, c => c.MapFrom(source => source.IsDisabilityConfident));
         }
     }
 }
