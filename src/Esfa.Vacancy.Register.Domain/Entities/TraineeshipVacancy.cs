@@ -79,5 +79,7 @@ namespace Esfa.Vacancy.Register.Domain.Entities
         public string TrainingProviderUkprn { get; set; }
 
         public string TrainingProviderSite { get; set; }
+
+        public bool IsDisabilityConfident { get; set; }
     }
 }
