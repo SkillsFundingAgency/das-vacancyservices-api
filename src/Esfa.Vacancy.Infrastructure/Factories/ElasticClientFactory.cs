@@ -1,8 +1,8 @@
 ﻿using System;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Factories
+namespace Esfa.Vacancy.Infrastructure.Factories
 {
     public class ElasticClientFactory
     {

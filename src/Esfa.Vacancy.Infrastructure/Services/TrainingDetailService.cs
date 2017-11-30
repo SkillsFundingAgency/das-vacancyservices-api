@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.Apprenticeships.Api.Client;
 using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Services
+namespace Esfa.Vacancy.Infrastructure.Services
 {
     public class TrainingDetailService : ITrainingDetailService
     {

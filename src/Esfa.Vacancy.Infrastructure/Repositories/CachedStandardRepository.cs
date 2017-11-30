@@ -5,7 +5,7 @@ using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Repositories
+namespace Esfa.Vacancy.Infrastructure.Repositories
 {
     public class CachedStandardRepository : IStandardRepository
     {

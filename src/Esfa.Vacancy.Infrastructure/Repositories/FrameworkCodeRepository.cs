@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Domain.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Repositories
+namespace Esfa.Vacancy.Infrastructure.Repositories
 {
     public class FrameworkCodeRepository : IFrameworkCodeRepository
     {

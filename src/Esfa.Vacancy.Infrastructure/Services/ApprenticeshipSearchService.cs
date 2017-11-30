@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Register.Infrastructure.Exceptions;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Exceptions;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Services
+namespace Esfa.Vacancy.Infrastructure.Services
 {
     public class ApprenticeshipSearchService : IApprenticeshipSearchService
     {

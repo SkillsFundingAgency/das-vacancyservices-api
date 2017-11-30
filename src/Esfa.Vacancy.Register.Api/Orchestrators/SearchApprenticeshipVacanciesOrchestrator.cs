@@ -4,8 +4,8 @@ using AutoMapper;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Validation;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Validation;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators

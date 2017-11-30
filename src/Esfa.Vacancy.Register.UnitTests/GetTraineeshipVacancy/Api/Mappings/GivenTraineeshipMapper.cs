@@ -1,6 +1,6 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;

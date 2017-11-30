@@ -2,7 +2,7 @@
 using System.Globalization;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Settings;
 using ApprenticeshipVacancy = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 using TrainingType = Esfa.Vacancy.Api.Types.TrainingType;
 
