@@ -7,8 +7,8 @@
     <ProjectGuid>{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Esfa.Vacancy.Register.Infrastructure</RootNamespace>
-    <AssemblyName>Esfa.Vacancy.Register.Infrastructure</AssemblyName>
+    <RootNamespace>Esfa.Vacancy.Infrastructure</RootNamespace>
+    <AssemblyName>Esfa.Vacancy.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

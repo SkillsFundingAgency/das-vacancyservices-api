@@ -1,7 +1,7 @@
 ﻿using System;
 using Polly;
 
-namespace Esfa.Vacancy.Register.Infrastructure
+namespace Esfa.Vacancy.Infrastructure
 {
     public static class VacancyRegisterRetryPolicy
     {

@@ -445,9 +445,9 @@
       <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>
       <Name>Esfa.Vacancy.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
+    <ProjectReference Include="..\Esfa.Vacancy.Infrastructure\Esfa.Vacancy.Infrastructure.csproj">
       <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>
-      <Name>Esfa.Vacancy.Register.Infrastructure</Name>
+      <Name>Esfa.Vacancy.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

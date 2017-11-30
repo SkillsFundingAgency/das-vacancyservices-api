@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Newtonsoft.Json;
 using SFA.DAS.NLog.Logger;
 using StackExchange.Redis;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Caching
+namespace Esfa.Vacancy.Infrastructure.Caching
 {
 
     public class AzureRedisCacheService : ICacheService

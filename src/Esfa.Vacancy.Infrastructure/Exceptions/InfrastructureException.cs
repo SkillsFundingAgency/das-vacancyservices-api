@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Exceptions
+namespace Esfa.Vacancy.Infrastructure.Exceptions
 {
     public class InfrastructureException : Exception
     {

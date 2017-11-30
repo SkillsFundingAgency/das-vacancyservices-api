@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Settings
+namespace Esfa.Vacancy.Infrastructure.Settings
 {
     public sealed class MachineSettings : IProvideSettings
     {

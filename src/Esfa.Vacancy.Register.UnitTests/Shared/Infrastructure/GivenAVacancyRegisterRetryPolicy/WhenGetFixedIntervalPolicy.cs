@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Infrastructure;
+using Esfa.Vacancy.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
 

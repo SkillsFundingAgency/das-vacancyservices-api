@@ -3,14 +3,14 @@ using System.Diagnostics;
 using System.Reflection;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Caching;
-using Esfa.Vacancy.Register.Infrastructure.Factories;
-using Esfa.Vacancy.Register.Infrastructure.Repositories;
-using Esfa.Vacancy.Register.Infrastructure.Settings;
+using Esfa.Vacancy.Infrastructure.Caching;
+using Esfa.Vacancy.Infrastructure.Factories;
+using Esfa.Vacancy.Infrastructure.Repositories;
+using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Infrastructure
+namespace Esfa.Vacancy.Infrastructure
 {
     public sealed class InfrastructureRegistry : StructureMap.Registry
     {

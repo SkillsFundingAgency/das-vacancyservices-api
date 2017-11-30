@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Microsoft.Azure;
 
-namespace Esfa.Vacancy.Register.Infrastructure.Settings
+namespace Esfa.Vacancy.Infrastructure.Settings
 {
     public class AppConfigSettingsProvider : IProvideSettings
     {
