@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Esfa.Vacancy.Register.Application.Exceptions
+namespace Esfa.Vacancy.Application.Exceptions
 {
     public sealed class ResourceNotFoundException : Exception
     {

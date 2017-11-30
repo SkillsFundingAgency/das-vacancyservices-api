@@ -1,4 +1,4 @@
-﻿using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+﻿using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
 

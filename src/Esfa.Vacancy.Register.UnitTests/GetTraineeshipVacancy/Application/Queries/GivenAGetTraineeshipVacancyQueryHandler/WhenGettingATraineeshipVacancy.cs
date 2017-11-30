@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Esfa.Vacancy.Register.Application.Exceptions;
-using Esfa.Vacancy.Register.Application.Interfaces;
-using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
+using Esfa.Vacancy.Application.Exceptions;
+using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
 using FluentValidation.Results;

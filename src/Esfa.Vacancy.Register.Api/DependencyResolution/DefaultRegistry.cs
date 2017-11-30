@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
 {
     public class DefaultRegistry : StructureMap.Registry
     {
-        private const string ServiceName = "Esfa.Vacancy.Register";
+        private const string ServiceName = "Esfa.Vacancy";
 
         public DefaultRegistry()
         {

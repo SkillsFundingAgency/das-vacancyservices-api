@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
-using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Domain.Entities;
 using FluentAssertions;
 using FluentValidation;

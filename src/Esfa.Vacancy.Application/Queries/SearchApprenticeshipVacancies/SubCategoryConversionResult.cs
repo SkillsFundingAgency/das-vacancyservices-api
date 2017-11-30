@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
     public class SubCategoryConversionResult
     {

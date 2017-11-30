@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\Esfa.Vacancy.Register.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Esfa.Vacancy.Api.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -135,9 +135,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj">
-      <Project>{14E462C1-30DD-49FD-A265-2B16542A26CF}</Project>
-      <Name>Esfa.Vacancy.Register.Application</Name>
+    <ProjectReference Include="..\Esfa.Vacancy.Application\Esfa.Vacancy.Application.csproj">
+      <Project>{14e462c1-30dd-49fd-a265-2b16542a26cf}</Project>
+      <Name>Esfa.Vacancy.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
       <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>

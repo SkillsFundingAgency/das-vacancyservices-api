@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Validation;
-using Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Register.Domain.Validation;
 using MediatR;
 

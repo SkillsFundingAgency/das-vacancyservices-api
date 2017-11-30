@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Interfaces;
+using Esfa.Vacancy.Application.Interfaces;
 using FluentValidation;
 using MediatR;
 
-namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
     public class SearchApprenticeshipVacanciesQueryHandler : IAsyncRequestHandler<SearchApprenticeshipVacanciesRequest, SearchApprenticeshipVacanciesResponse>
     {

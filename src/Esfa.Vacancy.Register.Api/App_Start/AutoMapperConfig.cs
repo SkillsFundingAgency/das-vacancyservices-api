@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Api.Mappings;
-using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 

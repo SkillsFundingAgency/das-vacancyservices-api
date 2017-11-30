@@ -7,7 +7,7 @@ using Esfa.Vacancy.Register.Domain.Repositories;
 using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation;
 
-namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {

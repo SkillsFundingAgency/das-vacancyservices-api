@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Register.Domain.Entities;
 
-namespace Esfa.Vacancy.Register.Application.Interfaces
+namespace Esfa.Vacancy.Application.Interfaces
 {
     public interface ITrainingDetailService
     {
