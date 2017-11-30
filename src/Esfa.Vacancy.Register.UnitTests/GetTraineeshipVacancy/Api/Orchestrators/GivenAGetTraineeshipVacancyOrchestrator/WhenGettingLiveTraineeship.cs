@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Esfa.Vacancy.Register.Api.Validation;
-using Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Register.Domain.Validation;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;

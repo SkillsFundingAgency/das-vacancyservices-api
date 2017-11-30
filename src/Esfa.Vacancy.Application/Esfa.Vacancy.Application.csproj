@@ -7,8 +7,8 @@
     <ProjectGuid>{14E462C1-30DD-49FD-A265-2B16542A26CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Esfa.Vacancy.Register.Application</RootNamespace>
-    <AssemblyName>Esfa.Vacancy.Register.Application</AssemblyName>
+    <RootNamespace>Esfa.Vacancy.Application</RootNamespace>
+    <AssemblyName>Esfa.Vacancy.Application</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Esfa.Vacancy.Api.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Api;
-using Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper

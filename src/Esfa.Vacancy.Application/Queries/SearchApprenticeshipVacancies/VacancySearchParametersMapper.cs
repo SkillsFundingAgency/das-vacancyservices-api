@@ -2,7 +2,7 @@
 using System.Linq;
 using Esfa.Vacancy.Register.Domain.Entities;
 
-namespace Esfa.Vacancy.Register.Application.Queries.SearchApprenticeshipVacancies
+namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
     public static class VacancySearchParametersMapper
     {

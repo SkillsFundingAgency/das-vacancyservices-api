@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Application.Exceptions;
-using Esfa.Vacancy.Register.Application.Interfaces;
+using Esfa.Vacancy.Application.Exceptions;
+using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Register.Domain.Repositories;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetApprenticeshipVacancy
+namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
 {
     public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {

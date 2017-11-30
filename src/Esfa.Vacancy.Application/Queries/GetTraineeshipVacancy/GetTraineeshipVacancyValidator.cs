@@ -1,7 +1,7 @@
 ﻿using Esfa.Vacancy.Register.Domain.Validation;
 using FluentValidation;
 
-namespace Esfa.Vacancy.Register.Application.Queries.GetTraineeshipVacancy
+namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy
 {
     public sealed class GetTraineeshipVacancyValidator : AbstractValidator<GetTraineeshipVacancyRequest>
 
