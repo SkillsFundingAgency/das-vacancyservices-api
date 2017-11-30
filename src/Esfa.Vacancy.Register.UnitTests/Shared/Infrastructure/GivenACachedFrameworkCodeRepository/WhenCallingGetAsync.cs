@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Domain.Interfaces;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Repositories;
 using Moq;
 using NUnit.Framework;

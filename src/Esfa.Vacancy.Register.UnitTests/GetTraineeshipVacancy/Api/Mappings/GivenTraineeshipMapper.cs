@@ -1,9 +1,9 @@
-﻿using Esfa.Vacancy.Register.Api.Mappings;
+﻿using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 
 namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
@@ -25,10 +25,10 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
         [TestCase(3, true, TestName = "And LocationType is 3 Then set IsNationwide to true")]
         public void WhenMappingIsNationwide(int vacancyLocationTypeid, bool expectedResult)
         {
-            var vacancy = new DomainTypes.TraineeshipVacancy()
+            var vacancy = new TraineeshipVacancy()
             {
                 VacancyLocationTypeId = vacancyLocationTypeid,
-                Location = new DomainTypes.Address()
+                Location = new Address()
             };
 
             var result = _sut.MapToTraineeshipVacancy(vacancy);
@@ -40,11 +40,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
         [TestCase("Anonymous name", TestName = "And Anonymous Employer Name is given Then populate using AnonymousEmployerName")]
         public void WhenMappingEmployerName(string anonymousEmployerName)
         {
-            var vacancy = new DomainTypes.TraineeshipVacancy()
+            var vacancy = new TraineeshipVacancy()
             {
                 EmployerName = "Employer Name",
                 AnonymousEmployerName = anonymousEmployerName,
-                Location = new DomainTypes.Address()
+                Location = new Address()
             };
 
             var expectedEmployerName =
@@ -59,12 +59,12 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
         [TestCase("Anonymous desc", TestName = "And Anonymous Employer Name is given Then populate using AnonymousEmployerDescription")]
         public void WhenMappingEmployerDescription(string anonymousEmployerName)
         {
-            var vacancy = new DomainTypes.TraineeshipVacancy()
+            var vacancy = new TraineeshipVacancy()
             {
                 AnonymousEmployerDescription = "Anonymous Employer Desc",
                 EmployerDescription = "Employer Desc",
                 AnonymousEmployerName = anonymousEmployerName,
-                Location = new DomainTypes.Address()
+                Location = new Address()
             };
 
             var expectedEmployerDescription =
@@ -79,11 +79,11 @@ namespace Esfa.Vacancy.Register.UnitTests.GetTraineeshipVacancy.Api.Mappings
         [TestCase("Anonymous desc", TestName = "And Anonymous Employer Name is given Then populate using AnonymousEmployerDescription")]
         public void WhenMappingEmployerWebsite(string anonymousEmployerName)
         {
-            var vacancy = new DomainTypes.TraineeshipVacancy()
+            var vacancy = new TraineeshipVacancy()
             {
                 EmployerWebsite = "www.google.com",
                 AnonymousEmployerName = anonymousEmployerName,
-                Location = new DomainTypes.Address()
+                Location = new Address()
             };
 
             var expectedEmployerWebsite =

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Esfa.Vacancy.Register.Domain.Entities
+namespace Esfa.Vacancy.Domain.Entities
 {
     public class VacancySearchParameters
     {

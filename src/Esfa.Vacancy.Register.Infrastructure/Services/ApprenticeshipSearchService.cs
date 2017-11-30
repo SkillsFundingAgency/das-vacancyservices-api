@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Exceptions;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using Nest;

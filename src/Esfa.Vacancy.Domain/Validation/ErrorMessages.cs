@@ -1,6 +1,6 @@
-﻿using Esfa.Vacancy.Register.Domain.Entities;
+﻿using Esfa.Vacancy.Domain.Entities;
 
-namespace Esfa.Vacancy.Register.Domain.Validation
+namespace Esfa.Vacancy.Domain.Validation
 {
     public static class ErrorMessages
     {

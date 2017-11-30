@@ -2,7 +2,7 @@
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Repositories;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;

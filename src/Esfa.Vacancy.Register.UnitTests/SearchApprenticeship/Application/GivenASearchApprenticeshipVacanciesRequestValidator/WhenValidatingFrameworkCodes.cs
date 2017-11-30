@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
-using Esfa.Vacancy.Register.Domain.Validation;
+using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using NUnit.Framework;
 

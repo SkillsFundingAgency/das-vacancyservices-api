@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Repositories;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;

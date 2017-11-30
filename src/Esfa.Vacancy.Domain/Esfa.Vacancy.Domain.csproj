@@ -7,8 +7,8 @@
     <ProjectGuid>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Esfa.Vacancy.Register.Domain</RootNamespace>
-    <AssemblyName>Esfa.Vacancy.Register.Domain</AssemblyName>
+    <RootNamespace>Esfa.Vacancy.Domain</RootNamespace>
+    <AssemblyName>Esfa.Vacancy.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

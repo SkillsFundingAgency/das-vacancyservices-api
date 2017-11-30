@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Register.Domain.Validation
+﻿namespace Esfa.Vacancy.Domain.Validation
 {
     public static class ErrorCodes
     {

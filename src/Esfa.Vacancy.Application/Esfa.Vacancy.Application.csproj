@@ -88,13 +88,17 @@
     <Folder Include="Commands\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
+    <ProjectReference Include="..\Esfa.Vacancy.Domain\Esfa.Vacancy.Domain.csproj">
       <Project>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</Project>
-      <Name>Esfa.Vacancy.Register.Domain</Name>
+      <Name>Esfa.Vacancy.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

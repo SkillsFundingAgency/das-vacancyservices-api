@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {

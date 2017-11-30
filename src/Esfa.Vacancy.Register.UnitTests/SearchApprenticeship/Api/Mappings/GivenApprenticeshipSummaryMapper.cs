@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Api;
 using FluentAssertions;
 using NUnit.Framework;
 using ApiTypes = Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 
 namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
             var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
-            var domainType = new DomainTypes.ApprenticeshipSummary()
+            var domainType = new ApprenticeshipSummary()
             {
                 FrameworkLarsCode = frameworkCode,
                 StandardLarsCode = standardId
@@ -40,9 +40,9 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         [Test]
         public void WhenMappingGeoCoordinates()
         {
-            var domainType = new DomainTypes.ApprenticeshipSummary
+            var domainType = new ApprenticeshipSummary
             {
-                Location = new DomainTypes.GeoPoint() { Lat = 51.3288148990, Lon = 0.4452948632 }
+                Location = new GeoPoint() { Lat = 51.3288148990, Lon = 0.4452948632 }
             };
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         public void WhenMappingShortDescription()
         {
             var description = "desc";
-            var domainType = new DomainTypes.ApprenticeshipSummary
+            var domainType = new ApprenticeshipSummary
             {
                 Description = description
             };
@@ -70,7 +70,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         public void WhenMappingTrainingProviderName()
         {
             var providerName = "desc";
-            var domainType = new DomainTypes.ApprenticeshipSummary
+            var domainType = new ApprenticeshipSummary
             {
                 ProviderName = providerName
             };
@@ -84,7 +84,7 @@ namespace Esfa.Vacancy.Register.UnitTests.SearchApprenticeship.Api.Mappings
         [TestCase("NonNational", false, TestName = "And Location Type is NonNational Then map set IsNationWide to false")]
         public void WhenMappingIsNationWide(string value, bool expectedResult)
         {
-            var domainType = new DomainTypes.ApprenticeshipSummary
+            var domainType = new ApprenticeshipSummary
             {
                 VacancyLocationType = value
             };
