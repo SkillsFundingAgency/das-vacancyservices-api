@@ -1,7 +1,9 @@
-﻿namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy
+﻿using Esfa.Vacancy.Domain.Entities;
+
+namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy
 {
     public sealed class GetTraineeshipVacancyResponse
     {
-        public Register.Domain.Entities.TraineeshipVacancy TraineeshipVacancy { get; set; }
+        public TraineeshipVacancy TraineeshipVacancy { get; set; }
     }
 }

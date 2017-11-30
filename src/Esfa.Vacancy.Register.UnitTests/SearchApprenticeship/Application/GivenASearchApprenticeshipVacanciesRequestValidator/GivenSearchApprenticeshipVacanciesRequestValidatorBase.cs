@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Repositories;
 using Moq;
 using NUnit.Framework;
 

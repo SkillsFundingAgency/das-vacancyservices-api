@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Domain.Interfaces;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories

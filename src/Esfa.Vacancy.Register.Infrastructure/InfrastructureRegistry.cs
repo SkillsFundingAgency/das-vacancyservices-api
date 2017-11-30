@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using Esfa.Vacancy.Register.Domain.Interfaces;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Caching;
 using Esfa.Vacancy.Register.Infrastructure.Factories;
 using Esfa.Vacancy.Register.Infrastructure.Repositories;

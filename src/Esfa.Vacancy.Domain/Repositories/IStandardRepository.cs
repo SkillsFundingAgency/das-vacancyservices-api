@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Esfa.Vacancy.Register.Domain.Repositories
+namespace Esfa.Vacancy.Domain.Repositories
 {
     public interface IStandardRepository
     {

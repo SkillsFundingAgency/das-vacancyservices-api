@@ -1,4 +1,4 @@
-﻿using Esfa.Vacancy.Register.Domain.Validation;
+﻿using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy

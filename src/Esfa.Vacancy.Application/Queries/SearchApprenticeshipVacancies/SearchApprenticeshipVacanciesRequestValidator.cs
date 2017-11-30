@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Register.Domain.Entities;
-using Esfa.Vacancy.Register.Domain.Repositories;
-using Esfa.Vacancy.Register.Domain.Validation;
+using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies

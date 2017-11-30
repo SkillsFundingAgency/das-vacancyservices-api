@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;

@@ -187,9 +187,9 @@
       <Project>{496B0F28-936C-4FBE-BB63-B848B5569F65}</Project>
       <Name>Esfa.Vacancy.Register.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
+    <ProjectReference Include="..\Esfa.Vacancy.Domain\Esfa.Vacancy.Domain.csproj">
       <Project>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</Project>
-      <Name>Esfa.Vacancy.Register.Domain</Name>
+      <Name>Esfa.Vacancy.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj">
       <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>

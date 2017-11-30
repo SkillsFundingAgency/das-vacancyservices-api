@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
+using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Validation;
-using Esfa.Vacancy.Register.Domain.Validation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators

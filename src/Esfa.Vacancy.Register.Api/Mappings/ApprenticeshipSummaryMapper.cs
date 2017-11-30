@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Esfa.Vacancy.Domain.Entities;
 using ApiTypes = Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         public ApprenticeshipSummaryMapper()
         {
-            CreateMap<DomainTypes.ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
+            CreateMap<ApprenticeshipSummary, ApiTypes.ApprenticeshipSummary>()
                 .ForMember(target => target.VacancyReference, c => c.MapFrom(source => int.Parse(source.VacancyReference)))
                 .ForMember(target => target.ExpectedStartDate, c => c.MapFrom(source => source.StartDate))
                 .ForMember(target => target.ApplicationClosingDate, c => c.MapFrom(source => source.ClosingDate))

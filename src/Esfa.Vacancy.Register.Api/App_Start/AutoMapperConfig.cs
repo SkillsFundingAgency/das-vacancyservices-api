@@ -3,7 +3,7 @@ using AutoMapper;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Api.Mappings;
 using ApiTypes = Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Register.Domain.Entities;
+using DomainTypes = Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Api
 {

@@ -3,10 +3,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
-using DomainEntities = Esfa.Vacancy.Register.Domain.Entities;
 
 namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 {
@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task<DomainEntities.ApprenticeshipVacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber)
+        public async Task<ApprenticeshipVacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
@@ -33,12 +33,12 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
             return await retry.ExecuteAsync(() => InternalGetVacancyByReferenceNumberAsync(referenceNumber));
         }
 
-        private async Task<DomainEntities.ApprenticeshipVacancy> InternalGetVacancyByReferenceNumberAsync(int referenceNumber)
+        private async Task<ApprenticeshipVacancy> InternalGetVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
-            DomainEntities.ApprenticeshipVacancy apprenticeshipVacancy;
+            ApprenticeshipVacancy apprenticeshipVacancy;
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
                 await sqlConn.OpenAsync();
                 var results =
-                    await sqlConn.QueryAsync<DomainEntities.ApprenticeshipVacancy, DomainEntities.Address, DomainEntities.ApprenticeshipVacancy>(
+                    await sqlConn.QueryAsync<ApprenticeshipVacancy, Address, ApprenticeshipVacancy>(
                         GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc,
                         param: parameters,
                         map: (v, a) => { v.Location = a; return v; },
@@ -64,12 +64,12 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
             return apprenticeshipVacancy;
         }
-        public async Task<DomainEntities.TraineeshipVacancy> GetTraineeshipVacancyByReferenceNumberAsync(int referenceNumber)
+        public async Task<TraineeshipVacancy> GetTraineeshipVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
-            DomainEntities.TraineeshipVacancy traineeshipVacancy;
+            TraineeshipVacancy traineeshipVacancy;
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
@@ -80,7 +80,7 @@ namespace Esfa.Vacancy.Register.Infrastructure.Repositories
 
                 await sqlConn.OpenAsync();
                 var results =
-                    await sqlConn.QueryAsync<DomainEntities.TraineeshipVacancy, DomainEntities.Address, DomainEntities.TraineeshipVacancy>(
+                    await sqlConn.QueryAsync<TraineeshipVacancy, Address, TraineeshipVacancy>(
                         GetLiveTraineeshipVacancyByReferenceNumberSqlSproc,
                         param: parameters,
                         map: (v, a) => { v.Location = a; return v; },

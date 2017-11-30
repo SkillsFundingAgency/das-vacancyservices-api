@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Esfa.Vacancy.Register.Domain.Repositories;
+using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 

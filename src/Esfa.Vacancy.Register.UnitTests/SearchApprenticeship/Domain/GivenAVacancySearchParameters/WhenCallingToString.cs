@@ -1,5 +1,5 @@
 ﻿using System;
-using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
 

@@ -139,9 +139,9 @@
       <Project>{14e462c1-30dd-49fd-a265-2b16542a26cf}</Project>
       <Name>Esfa.Vacancy.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj">
+    <ProjectReference Include="..\Esfa.Vacancy.Domain\Esfa.Vacancy.Domain.csproj">
       <Project>{74f5f03c-3e85-44b3-b862-c070c2b6e824}</Project>
-      <Name>Esfa.Vacancy.Register.Domain</Name>
+      <Name>Esfa.Vacancy.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

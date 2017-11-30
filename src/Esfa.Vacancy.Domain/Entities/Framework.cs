@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Register.Domain.Entities
+﻿namespace Esfa.Vacancy.Domain.Entities
 {
     public class Framework
     {

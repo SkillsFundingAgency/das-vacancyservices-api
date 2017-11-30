@@ -1,5 +1,5 @@
 ﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Api.Mappings;
-using Esfa.Vacancy.Register.Domain.Entities;
 using Esfa.Vacancy.Register.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;

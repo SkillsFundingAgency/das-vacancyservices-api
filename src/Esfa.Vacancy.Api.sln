@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Api.Types", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Register.Api", "Esfa.Vacancy.Register.Api\Esfa.Vacancy.Register.Api.csproj", "{496B0F28-936C-4FBE-BB63-B848B5569F65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Register.Application", "Esfa.Vacancy.Register.Application\Esfa.Vacancy.Register.Application.csproj", "{14E462C1-30DD-49FD-A265-2B16542A26CF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Register.Domain", "Esfa.Vacancy.Register.Domain\Esfa.Vacancy.Register.Domain.csproj", "{74F5F03C-3E85-44B3-B862-C070C2B6E824}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Domain", "Esfa.Vacancy.Domain\Esfa.Vacancy.Domain.csproj", "{74F5F03C-3E85-44B3-B862-C070C2B6E824}"
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Esfa.Vacancy.Register.Azure.Resources", "Esfa.Vacancy.Register.Azure.Resources\Esfa.Vacancy.Register.Azure.Resources.deployproj", "{637B4878-A4D7-4174-8376-947E5331F6E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Application", "Esfa.Vacancy.Application\Esfa.Vacancy.Application.csproj", "{14E462C1-30DD-49FD-A265-2B16542A26CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,6 @@ Global
 		{496B0F28-936C-4FBE-BB63-B848B5569F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{496B0F28-936C-4FBE-BB63-B848B5569F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{496B0F28-936C-4FBE-BB63-B848B5569F65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74F5F03C-3E85-44B3-B862-C070C2B6E824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74F5F03C-3E85-44B3-B862-C070C2B6E824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74F5F03C-3E85-44B3-B862-C070C2B6E824}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +49,10 @@ Global
 		{637B4878-A4D7-4174-8376-947E5331F6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{637B4878-A4D7-4174-8376-947E5331F6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{637B4878-A4D7-4174-8376-947E5331F6E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

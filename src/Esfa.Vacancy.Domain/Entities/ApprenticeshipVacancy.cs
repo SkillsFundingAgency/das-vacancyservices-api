@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Esfa.Vacancy.Register.Domain.Entities
+namespace Esfa.Vacancy.Domain.Entities
 {
     public sealed class ApprenticeshipVacancy
     {
