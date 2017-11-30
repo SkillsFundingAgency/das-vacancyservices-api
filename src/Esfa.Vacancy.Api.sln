@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Register.Infrastructure", "Esfa.Vacancy.Register.Infrastructure\Esfa.Vacancy.Register.Infrastructure.csproj", "{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Infrastructure", "Esfa.Vacancy.Infrastructure\Esfa.Vacancy.Infrastructure.csproj", "{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CF3CE7-7446-441B-A5AE-72AD4CF2E98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Register.UnitTests", "Esfa.Vacancy.Register.UnitTests\Esfa.Vacancy.Register.UnitTests.csproj", "{56AA0C40-2D0A-43C7-A3CE-5E4B3AC101A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.UnitTests", "Esfa.Vacancy.UnitTests\Esfa.Vacancy.UnitTests.csproj", "{56AA0C40-2D0A-43C7-A3CE-5E4B3AC101A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Api.Types", "Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj", "{3CADF1D0-BD14-4A5C-AFAD-FC78A31C09E7}"
 EndProject
