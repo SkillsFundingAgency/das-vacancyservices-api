@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappings\CreateApprenticeshipRequestMapper.cs" />
     <Compile Include="Mappings\ICreateApprenticeshipRequestMapper.cs" />
     <Compile Include="Mappings\ICreateApprenticeshipResponseMapper.cs" />
     <Compile Include="Orchestrators\CreateApprenticeshipOrchestrator.cs" />

@@ -112,6 +112,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateApprenticeship\Api\Mappings\GivenACreateApprenticeshipRequestMapper\WhenMappingTitle.cs" />
     <Compile Include="CreateApprenticeship\Api\Orchestrators\GivenACreateApprenticeshipOrchestrator\WhenCreatingAnApprenticeshipVacancy.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
