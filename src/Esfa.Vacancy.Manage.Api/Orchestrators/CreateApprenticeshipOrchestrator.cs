@@ -1,5 +1,7 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Manage.Api.Mappings;
 using MediatR;
 
 namespace Esfa.Vacancy.Manage.Api.Orchestrators
@@ -7,16 +9,18 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
     public class CreateApprenticeshipOrchestrator
     {
         private readonly IMediator _mediator;
+        private readonly ICreateApprenticeshipResponseMapper _apprenticeshipResponseMapper;
 
-        public CreateApprenticeshipOrchestrator(IMediator mediator)
+        public CreateApprenticeshipOrchestrator(IMediator mediator, ICreateApprenticeshipResponseMapper apprenticeshipResponseMapper)
         {
             _mediator = mediator;
+            _apprenticeshipResponseMapper = apprenticeshipResponseMapper;
         }
 
-        public CreateApprecticeshipResponse CreateApprecticeship(CreateApprenticeshipParameters parameters)
+        public async Task<CreateApprecticeshipResponse> CreateApprecticeship(CreateApprenticeshipParameters parameters)
         {
-            _mediator.Send(new CreateApprenticeshipRequest());
-            return null;
+            var response = await _mediator.Send(new CreateApprenticeshipRequest());
+            return _apprenticeshipResponseMapper.MapToApiResponse(response);
         }
     }
 }
