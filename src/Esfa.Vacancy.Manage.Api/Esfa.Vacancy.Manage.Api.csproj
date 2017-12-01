@@ -157,7 +157,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CreateVacancyController.cs" />
+    <Compile Include="Controllers\CreateApprenticeshipController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -362,6 +362,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
+      <Project>{3cadf1d0-bd14-4a5c-afad-fc78a31c09e7}</Project>
+      <Name>Esfa.Vacancy.Api.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
