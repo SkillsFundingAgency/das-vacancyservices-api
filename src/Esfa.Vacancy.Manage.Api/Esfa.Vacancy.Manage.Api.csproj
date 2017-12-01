@@ -168,6 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappings\ICreateApprenticeshipResponseMapper.cs" />
     <Compile Include="Orchestrators\CreateApprenticeshipOrchestrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -363,7 +364,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
