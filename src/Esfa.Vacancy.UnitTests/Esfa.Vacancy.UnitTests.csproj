@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateApprenticeship\Api\Mappings\GivenACreateApprenticeshipRequestMapper\WhenMappingTitle.cs" />
+    <Compile Include="CreateApprenticeship\Api\Mappings\GivenACreateApprenticeshipResponseMapper\WhenMappingVacancyReferenceNumber.cs" />
     <Compile Include="CreateApprenticeship\Api\Orchestrators\GivenACreateApprenticeshipOrchestrator\WhenCreatingAnApprenticeshipVacancy.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
