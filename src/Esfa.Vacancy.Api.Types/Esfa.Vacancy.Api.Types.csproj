@@ -44,7 +44,7 @@
     <Compile Include="Address.cs" />
     <Compile Include="BadRequestError.cs" />
     <Compile Include="BadRequestContent.cs" />
-    <Compile Include="CreateApprecticeshipResponse.cs" />
+    <Compile Include="CreateApprenticeshipResponse.cs" />
     <Compile Include="CreateApprenticeshipParameters.cs" />
     <Compile Include="TraineeshipVacancy.cs" />
     <Compile Include="GeoPoint.cs" />

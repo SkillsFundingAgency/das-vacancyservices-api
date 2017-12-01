@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
             _apprenticeshipResponseMapper = apprenticeshipResponseMapper;
         }
 
-        public async Task<CreateApprecticeshipResponse> CreateApprecticeship(CreateApprenticeshipParameters parameters)
+        public async Task<Vacancy.Api.Types.CreateApprenticeshipResponse> CreateApprecticeship(CreateApprenticeshipParameters parameters)
         {
             var response = await _mediator.Send(new CreateApprenticeshipRequest());
             return _apprenticeshipResponseMapper.MapToApiResponse(response);
