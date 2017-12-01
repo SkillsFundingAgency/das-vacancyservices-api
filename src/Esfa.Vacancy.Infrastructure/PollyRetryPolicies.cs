@@ -3,7 +3,7 @@ using Polly;
 
 namespace Esfa.Vacancy.Infrastructure
 {
-    public static class VacancyRegisterRetryPolicy
+    public static class PollyRetryPolicies
     {
         private const int RetryCount = 3;
         private const int SleepDurationMilliseconds = 500;

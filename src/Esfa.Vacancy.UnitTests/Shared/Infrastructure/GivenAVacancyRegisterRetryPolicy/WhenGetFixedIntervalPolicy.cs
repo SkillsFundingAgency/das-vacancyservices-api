@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure.GivenAVacancyRegisterRetr
             var message = "error";
             var retries = new List<Tuple<string, TimeSpan, int>>();
 
-            var policy = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, timeSpan, retryCount, context) =>
+            var policy = PollyRetryPolicies.GetFixedIntervalPolicy((exception, timeSpan, retryCount, context) =>
             {
                 retries.Add(new Tuple<string, TimeSpan, int>(exception.Message, timeSpan, retryCount));
             });
