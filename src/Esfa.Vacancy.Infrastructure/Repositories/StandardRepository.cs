@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
         public async Task<IEnumerable<int>> GetStandardIdsAsync()
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving standard codes from database: ({exception.Message}). Retrying...attempt {retryCount}");
             });

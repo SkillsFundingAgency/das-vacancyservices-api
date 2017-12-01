@@ -128,7 +128,7 @@
     <Compile Include="Settings\ApplicationSettings.cs" />
     <Compile Include="Settings\IProvideSettings.cs" />
     <Compile Include="Settings\MachineSettings.cs" />
-    <Compile Include="VacancyRegisterRetryPolicy.cs" />
+    <Compile Include="PollyRetryPolicies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

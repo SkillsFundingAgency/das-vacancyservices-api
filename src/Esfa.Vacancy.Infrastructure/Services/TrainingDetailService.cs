@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying... attempt {retryCount}");
             });
@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public async Task<Standard> GetStandardDetailsAsync(int code)
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving standard details from TrainingDetailService: ({exception.Message}). Retrying...attempt {retryCount})");
             });

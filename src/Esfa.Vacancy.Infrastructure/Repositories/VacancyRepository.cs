@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
         public async Task<ApprenticeshipVacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber)
         {
-            var retry = VacancyRegisterRetryPolicy.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving apprenticeship vacancy from database: ({exception.Message}). Retrying... attempt {retryCount}");
             });
