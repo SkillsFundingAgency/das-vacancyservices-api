@@ -17,9 +17,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
     public class WhenCreatingAnApprenticeshipVacancy
     {
         private Mock<IMediator> _mockMediator;
-        private ApiTypes.CreateApprecticeshipResponse _actualResponse;
+        private ApiTypes.CreateApprenticeshipResponse _actualResponse;
         private CreateApprenticeshipResponse _expectedMediatorResponse;
-        private ApiTypes.CreateApprecticeshipResponse _expectedMapperResponse;
+        private ApiTypes.CreateApprenticeshipResponse _expectedMapperResponse;
         private Mock<ICreateApprenticeshipResponseMapper> _mockMapper;
 
         [SetUp]
@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _expectedMediatorResponse = fixture.Create<CreateApprenticeshipResponse>();
-            _expectedMapperResponse = fixture.Create<ApiTypes.CreateApprecticeshipResponse>();
+            _expectedMapperResponse = fixture.Create<ApiTypes.CreateApprenticeshipResponse>();
 
             _mockMediator = fixture.Freeze<Mock<IMediator>>(composer => composer.Do(mock => mock
                 .Setup(mediator => mediator.Send(It.IsAny<CreateApprenticeshipRequest>(), It.IsAny<CancellationToken>()))

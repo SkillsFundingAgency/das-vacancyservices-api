@@ -14,11 +14,11 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [SwaggerOperation("CreateApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(CreateApprecticeshipResponse))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(CreateApprenticeshipResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public IHttpActionResult Create([FromBody]CreateApprenticeshipParameters createApprenticeshipParameters)
         {
-            return Ok(new CreateApprecticeshipResponse());
+            return Ok(new CreateApprenticeshipResponse());
         }
     }
 }

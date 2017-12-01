@@ -4,6 +4,6 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
 {
     public interface ICreateApprenticeshipResponseMapper
     {
-        Vacancy.Api.Types.CreateApprecticeshipResponse MapToApiResponse(CreateApprenticeshipResponse apprenticeshipVacancy);
+        Vacancy.Api.Types.CreateApprenticeshipResponse MapToApiResponse(CreateApprenticeshipResponse apprenticeshipVacancy);
     }
 }
