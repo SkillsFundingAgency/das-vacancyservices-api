@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Esfa.Vacancy.Application.Exceptions;
-using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
 using Esfa.Vacancy.Domain.Repositories;
 using FluentValidation;
@@ -17,7 +16,6 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Application.Queries.Given
         private Mock<ILog> _mockLogger;
         private Mock<IVacancyRepository> _mockVacancyRepository;
         private Mock<AbstractValidator<GetTraineeshipVacancyRequest>> _mockValidator;
-        private Mock<ITrainingDetailService> _mockTrainingDetailService;
         private GetTraineeshipVacancyQueryHandler _queryHandler;
 
         [SetUp]
