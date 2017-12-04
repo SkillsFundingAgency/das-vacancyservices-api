@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Api
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             var logger = DependencyResolver.Current.GetService<ILog>();
-            logger.Info("Web Role started");
+            logger.Info("Vacancy Register API service started");
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
