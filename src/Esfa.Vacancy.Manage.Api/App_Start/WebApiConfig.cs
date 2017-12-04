@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace Esfa.Vacancy.Manage.Api
 {
@@ -10,6 +8,15 @@ namespace Esfa.Vacancy.Manage.Api
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc
+            };
+
+            ApiFilterConfig.RegisterFilters(config.Filters);
 
             // Web API routes
             config.MapHttpAttributeRoutes();

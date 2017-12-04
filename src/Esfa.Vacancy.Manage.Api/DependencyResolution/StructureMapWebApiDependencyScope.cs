@@ -15,10 +15,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http.Dependencies;
+using Microsoft.Practices.ServiceLocation;
 using StructureMap;
 
-namespace Esfa.Vacancy.Register.Api.DependencyResolution
+namespace Esfa.Vacancy.Manage.Api.DependencyResolution
 {
     /// <summary>
     /// The structure map web api dependency scope.
@@ -26,8 +30,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
     public class StructureMapWebApiDependencyScope : StructureMapDependencyScope, IDependencyScope
     {
         public StructureMapWebApiDependencyScope(IContainer container)
-            : base(container)
-        {
+            : base(container) {
         }
     }
 }
