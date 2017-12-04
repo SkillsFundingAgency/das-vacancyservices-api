@@ -50,7 +50,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
 
             var orchestrator = fixture.Create<CreateApprenticeshipOrchestrator>();
 
-            _actualResponse = await orchestrator.CreateApprecticeship(_actualParameters);
+            _actualResponse = await orchestrator.CreateApprecticeshipAsync(_actualParameters);
         }
 
         [Test]

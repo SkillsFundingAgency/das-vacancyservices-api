@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StructureMapWebApiDependencyScope.cs" company="Web Advanced">
+// <copyright file="IoC.cs" company="Web Advanced">
 // Copyright 2012 Web Advanced (www.webadvanced.com)
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,19 +15,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Web.Http.Dependencies;
+using Esfa.Vacancy.Infrastructure;
 using StructureMap;
 
-namespace Esfa.Vacancy.Register.Api.DependencyResolution
-{
-    /// <summary>
-    /// The structure map web api dependency scope.
-    /// </summary>
-    public class StructureMapWebApiDependencyScope : StructureMapDependencyScope, IDependencyScope
-    {
-        public StructureMapWebApiDependencyScope(IContainer container)
-            : base(container)
-        {
-        }
-    }
+namespace Esfa.Vacancy.Manage.Api.DependencyResolution {
+	public static class IoC {
+		public static IContainer Initialize() {
+			return new Container(c =>
+			{
+				c.AddRegistry<DefaultRegistry>();
+				c.AddRegistry<WebRegistry>();
+				c.AddRegistry<InfrastructureRegistry>();
+			});
+		}
+	}
 }
