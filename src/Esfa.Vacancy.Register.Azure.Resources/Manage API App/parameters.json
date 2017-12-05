@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "value": "__manageApiAppName__"
+    },
+    "appHostingPlanName": {
+      "value": "__appHostingPlanName__"
+    },
+    "appHostingEnvironment": {
+      "value": "__appHostingEnvironment__"
+    },
+    "appServerFarmResourceGroup": {
+      "value": "__appServerFarmResourceGroup__"
+    },
+    "appSubscriptionId": {
+      "value": "__appSubscriptionId__"
+    },
+    "LoggingRedisConnectionString": {
+      "value": "__appSettingLoggingRedisConnectionString__"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "value": "__appSettingManageAvmsPlusDatabaseConnectionString__"
+    },
+    "EnvironmentName": {
+      "value": "__appSettingEnvironmentName__"
+    },
+    "LoggingRedisKey": {
+      "value": "__appSettingLoggingRedisKey__"
+    }
+  }
+}
