@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Esfa.Vacancy.Register.Api.Validation;
+using Esfa.Vacancy.Api.Core.Validation;
 using FluentAssertions;
 using FluentValidation;
 using NUnit.Framework;

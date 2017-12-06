@@ -54,25 +54,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         }
 
         [Test]
-        public void ShouldSendCommandToMediator()
+        public void ThenSendCommandToMediator()
         {
             _mockMediator.Verify(mediator => mediator.Send(_expectedRequest, It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]
-        public void ShouldInvokeMapperWithMediatorResponse()
+        public void ThenInvokeMapperWithMediatorResponse()
         {
             _mockResponseMapper.Verify(mapper => mapper.MapToApiResponse(_expectedMediatorResponse));
         }
 
         [Test]
-        public void ShouldReturnResponseFromMapper()
+        public void ThenReturnResponseFromMapper()
         {
             _actualResponse.Should().BeSameAs(_expectedMapperResponse);
         }
 
         [Test]
-        public void ShouldInvokeRequestMapperWithInputParameters()
+        public void ThenInvokeRequestMapperWithInputParameters()
         {
             _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters));
         }
