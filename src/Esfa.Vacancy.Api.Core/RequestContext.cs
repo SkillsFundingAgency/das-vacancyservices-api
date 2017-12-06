@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Manage.Api.Logging
+namespace Esfa.Vacancy.Api.Core
 {
     public sealed class RequestContext : IRequestContext
     {

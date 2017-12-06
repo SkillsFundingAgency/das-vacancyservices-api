@@ -179,6 +179,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Api.Core\Esfa.Vacancy.Api.Core.csproj">
+      <Project>{95753163-5605-4CC5-8029-7E3CBEA99830}</Project>
+      <Name>Esfa.Vacancy.Api.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
       <Project>{3CADF1D0-BD14-4A5C-AFAD-FC78A31C09E7}</Project>
       <Name>Esfa.Vacancy.Api.Types</Name>

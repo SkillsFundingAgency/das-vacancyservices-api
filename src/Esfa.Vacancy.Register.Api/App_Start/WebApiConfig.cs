@@ -1,6 +1,6 @@
 using System.Web.Http;
-using Esfa.Vacancy.Register.Api.App_Start;
 using Newtonsoft.Json;
+using Esfa.Vacancy.Api.Core;
 
 namespace Esfa.Vacancy.Register.Api
 {
