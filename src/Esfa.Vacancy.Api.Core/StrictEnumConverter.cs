@@ -2,12 +2,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Esfa.Vacancy.Register.Api.App_Start
+namespace Esfa.Vacancy.Api.Core
 {
     /// <summary>
     /// from http://stackoverflow.com/a/21298811/1882637
     /// </summary>
-    internal class StrictEnumConverter : JsonConverter
+    public class StrictEnumConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {

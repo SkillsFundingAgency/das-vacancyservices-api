@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Register.Api.Mappings;
-using Esfa.Vacancy.Register.Api.Validation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             if (!int.TryParse(id, out parsedId))
             {
                 throw _validationExceptionBuilder.Build(
-                    ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32, 
+                    ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32,
                     ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric);
             }
 

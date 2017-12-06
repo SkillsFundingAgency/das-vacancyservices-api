@@ -2,13 +2,13 @@
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Infrastructure.Exceptions;
-using Esfa.Vacancy.Register.Api.Validation;
 using FluentValidation;
 using SFA.DAS.NLog.Logger;
 
-namespace Esfa.Vacancy.Register.Api.App_Start
+namespace Esfa.Vacancy.Api.Core
 {
     public class VacancyApiExceptionHandler : ExceptionHandler
     {
