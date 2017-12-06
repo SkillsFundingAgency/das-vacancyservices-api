@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using Esfa.Vacancy.Register.Api.Logging;
+using Esfa.Vacancy.Api.Core;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 

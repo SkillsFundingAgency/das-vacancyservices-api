@@ -1,10 +1,9 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Esfa.Vacancy.Register.Api.App_Start
+namespace Esfa.Vacancy.Api.Core
 {
     public class CustomErrorResult : IHttpActionResult
     {

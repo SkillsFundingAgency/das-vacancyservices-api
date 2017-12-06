@@ -3,10 +3,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.App_Start;
 using FluentValidation;
 
-namespace Esfa.Vacancy.Register.Api.Validation
+namespace Esfa.Vacancy.Api.Core.Validation
 {
     public class ValidationBadRequestBuilder : IValidationBadRequestBuilder
     {
