@@ -7,7 +7,6 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Manage.Api.Controllers
 {
-    [RoutePrefix("api/v1/apprenticeships")]
     public class CreateApprenticeshipController : ApiController
     {
         private readonly CreateApprenticeshipOrchestrator _orchestrator;
@@ -21,6 +20,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
+        [Route("api/v1/apprenticeships")]
         [SwaggerOperation("CreateApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(CreateApprenticeshipResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
