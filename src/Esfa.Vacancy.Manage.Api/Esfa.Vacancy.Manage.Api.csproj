@@ -194,7 +194,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\CreateApprenticeshipRequestMapper.cs" />
-    <Compile Include="Logging\RequestContext.cs" />
     <Compile Include="Mappings\CreateApprenticeshipResponseMapper.cs" />
     <Compile Include="Mappings\ICreateApprenticeshipRequestMapper.cs" />
     <Compile Include="Mappings\ICreateApprenticeshipResponseMapper.cs" />
@@ -402,6 +401,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esfa.Vacancy.Api.Core\Esfa.Vacancy.Api.Core.csproj">
+      <Project>{95753163-5605-4cc5-8029-7e3cbea99830}</Project>
+      <Name>Esfa.Vacancy.Api.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Api.Types\Esfa.Vacancy.Api.Types.csproj">
       <Project>{3cadf1d0-bd14-4a5c-afad-fc78a31c09e7}</Project>
       <Name>Esfa.Vacancy.Api.Types</Name>

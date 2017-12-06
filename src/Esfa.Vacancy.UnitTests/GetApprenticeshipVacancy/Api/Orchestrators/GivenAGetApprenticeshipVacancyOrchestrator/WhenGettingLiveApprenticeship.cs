@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
-using Esfa.Vacancy.Register.Api.Validation;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -59,9 +59,9 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             var uniqueVacancyRef = _fixture.Create<int>();
             await _sut.GetApprenticeshipVacancyDetailsAsync(uniqueVacancyRef.ToString());
 
-            _mockMediator.Verify(mediator => 
+            _mockMediator.Verify(mediator =>
                 mediator.Send(
-                    It.Is<GetApprenticeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef), 
+                    It.Is<GetApprenticeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef),
                     CancellationToken.None));
         }
 
@@ -163,7 +163,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                 .ReturnsAsync(response);
 
             var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(provideSettings.Object), _fixture.Create<IValidationExceptionBuilder>());
-            
+
             //Act
             var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");
 
@@ -182,10 +182,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             action.ShouldThrow<ValidationException>()
                 .WithMessage($"Validation failed: \r\n -- {_expectedErrorMessage}");
 
-            _mockValidationExceptionBuilder.Verify(builder => 
+            _mockValidationExceptionBuilder.Verify(builder =>
                 builder.Build(
-                    ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32, 
-                    ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric, 
+                    ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32,
+                    ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric,
                     It.IsAny<string>()), Times.Once);
         }
     }

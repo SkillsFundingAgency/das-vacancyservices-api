@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Infrastructure.Settings;
-using Esfa.Vacancy.Register.Api.Validation;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -19,9 +19,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         private readonly IValidationExceptionBuilder _validationExceptionBuilder;
 
         public SearchApprenticeshipVacanciesOrchestrator(
-            IMediator mediator, 
-            IMapper mapper, 
-            IProvideSettings provideSettings, 
+            IMediator mediator,
+            IMapper mapper,
+            IProvideSettings provideSettings,
             IValidationExceptionBuilder validationExceptionBuilder)
         {
             _mediator = mediator;

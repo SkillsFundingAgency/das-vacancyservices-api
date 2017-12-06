@@ -2,7 +2,7 @@
 using System.Web.Http;
 using FluentValidation;
 
-namespace Esfa.Vacancy.Register.Api.Validation
+namespace Esfa.Vacancy.Api.Core.Validation
 {
     public interface IValidationBadRequestBuilder
     {
