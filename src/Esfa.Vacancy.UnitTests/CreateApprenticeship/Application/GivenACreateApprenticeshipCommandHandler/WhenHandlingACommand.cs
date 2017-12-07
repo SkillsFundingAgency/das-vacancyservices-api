@@ -30,11 +30,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _expectedRefNumber = _fixture.Create<int>();
+            var expectedParameters = _fixture.Freeze<CreateApprenticeshipParameters>();
 
             _mockValidator = _fixture.Freeze<Mock<IValidator<CreateApprenticeshipRequest>>>();
 
+            _fixture.Freeze<Mock<ICreateApprenticeshipParametersMapper>>(composer => composer.Do(mock => mock
+                .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>()))
+                .Returns(expectedParameters)));
+
             _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
-                .Setup(repository => repository.CreateApprenticeshipAsync(It.IsAny<CreateApprenticeshipParameters>()))
+                .Setup(repository => repository.CreateApprenticeshipAsync(expectedParameters))
                 .ReturnsAsync(_expectedRefNumber)));
 
             _handler = _fixture.Create<CreateApprenticeshipCommandHandler>();
