@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipCommandHandler.cs" />
+    <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipResponse.cs" />
     <Compile Include="Commands\CreateApprenticeship\ICreateApprenticeshipParametersMapper.cs" />
