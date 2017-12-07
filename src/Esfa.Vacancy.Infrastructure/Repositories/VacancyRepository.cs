@@ -64,6 +64,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
             return apprenticeshipVacancy;
         }
+
         public async Task<TraineeshipVacancy> GetTraineeshipVacancyByReferenceNumberAsync(int referenceNumber)
         {
             var connectionString =
@@ -94,6 +95,11 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
             }
 
             return traineeshipVacancy;
+        }
+
+        public Task<int> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
