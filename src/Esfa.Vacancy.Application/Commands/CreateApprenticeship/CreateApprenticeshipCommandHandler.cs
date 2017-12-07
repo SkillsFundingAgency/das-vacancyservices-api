@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Repositories;
 using FluentValidation;
 using MediatR;
@@ -11,15 +10,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     {
         private readonly IValidator<CreateApprenticeshipRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
+        private readonly ICreateApprenticeshipParametersMapper _parametersMapper;
         private readonly ILog _logger;
 
         public CreateApprenticeshipCommandHandler(
             IValidator<CreateApprenticeshipRequest> validator, 
             IVacancyRepository vacancyRepository,
+            ICreateApprenticeshipParametersMapper parametersMapper,
             ILog logger)
         {
             _validator = validator;
             _vacancyRepository = vacancyRepository;
+            _parametersMapper = parametersMapper;
             _logger = logger;
         }
 
@@ -32,8 +34,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            // todo: mapping
-            var referenceNumber = await _vacancyRepository.CreateApprenticeshipAsync(new CreateApprenticeshipParameters());
+            var parameters = _parametersMapper.MapFromRequest(message);
+
+            var referenceNumber = await _vacancyRepository.CreateApprenticeshipAsync(parameters);
 
             _logger.Info($"Successfully created new Apprenticeship Vacancy: [{message.Title}], Reference Number: [{referenceNumber}]");
 
