@@ -11,12 +11,13 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
     public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {
         private const string VacancyNotFoundErrorMessage = "The apprenticeship vacancy you are looking for could not be found.";
-        private readonly AbstractValidator<GetApprenticeshipVacancyRequest> _validator;
+        private readonly IValidator<GetApprenticeshipVacancyRequest> _validator;
         private readonly IVacancyRepository _vacancyRepository;
         private readonly ILog _logger;
         private readonly ITrainingDetailService _trainingDetailService;
 
-        public GetApprenticeshipVacancyQueryHandler(AbstractValidator<GetApprenticeshipVacancyRequest> validator,
+        public GetApprenticeshipVacancyQueryHandler(
+            IValidator<GetApprenticeshipVacancyRequest> validator,
             IVacancyRepository vacancyRepository,
             ILog logger,
             ITrainingDetailService trainingDetailService)
