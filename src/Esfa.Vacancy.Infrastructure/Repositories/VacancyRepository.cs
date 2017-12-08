@@ -101,6 +101,16 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
         public async Task<int> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
         {
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error creating apprenticeship vacancy: ({exception.Message}). Retrying... attempt {retryCount}");
+            });
+
+            return await retry.ExecuteAsync(() => InternalCreateApprenticeshipAsync(parameters));
+        }
+
+        private async Task<int> InternalCreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
+        {
             var connectionString =
                 _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
 
@@ -129,5 +139,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
             return referenceNumber;
         }
+
+
     }
 }
