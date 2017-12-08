@@ -109,7 +109,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
             using (var sqlConn = new SqlConnection(connectionString))
             {
                 var dynamicParameters = new DynamicParameters(parameters);
-                dynamicParameters.Add("ReferenceNumber", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                dynamicParameters.Add("VacancyReferenceNumber", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                 _logger.Info($"Command to create new Apprenticeship Vacancy in AVMS database, Title: [{parameters.Title}].");
 
@@ -119,7 +119,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
                     param: dynamicParameters,
                     commandType: CommandType.StoredProcedure);
 
-                referenceNumber = dynamicParameters.Get<int>("ReferenceNumber");
+                referenceNumber = dynamicParameters.Get<int>("VacancyReferenceNumber");
 
                 if (referenceNumber == int.MinValue)
                     throw new Exception($"Failed to get reference number for new Apprenticeship Vacancy [{parameters.Title}]");
