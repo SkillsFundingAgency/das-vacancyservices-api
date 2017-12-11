@@ -75,9 +75,9 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors =
                     {
-                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
+                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided
+                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
                         }
                     }
                 })

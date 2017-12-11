@@ -7,7 +7,7 @@
             // 30100 - 30199
             public const string SearchApprenticeshipParametersIsNull    = "30100";
 
-            public const string StandardAndFrameworkCodeNotProvided     = "30101";
+            public const string MinimumRequiredFieldsNotProvided        = "30101";
             public const string StandardCodeNotInt32                    = "30102";
             public const string FrameworkCodeNotInt32                   = "30103";
             public const string PageSizeOutsideRange                    = "30104";
