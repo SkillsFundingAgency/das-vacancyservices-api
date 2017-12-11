@@ -33,6 +33,8 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
             RuleFor(request => request.StandardLarsCodes)
                 .NotEmpty()
                 .When(request => !request.FrameworkLarsCodes.Any())
+                .When(request => !request.NationwideOnly)
+                .When(request => !request.PostedInLastNumberOfDays.HasValue)
                 .WithMessage(ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
 

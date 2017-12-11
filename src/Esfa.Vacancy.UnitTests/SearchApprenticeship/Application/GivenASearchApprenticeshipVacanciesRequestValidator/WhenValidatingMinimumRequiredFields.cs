@@ -54,6 +54,16 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     StandardLarsCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    NationwideOnly = true
+                }, new ValidationResult())
+                .SetName("Nationwide present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PostedInLastNumberOfDays = 3242
+                }, new ValidationResult())
+                .SetName("PostedInLastNumberOfDays present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult
                 {
                     Errors =
@@ -64,7 +74,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                         }
                     }
                 })
-                .SetName("No Frameworks or Standards present is not allowed")
+                .SetName("No required fields present is not allowed")
         };
     }
 }
