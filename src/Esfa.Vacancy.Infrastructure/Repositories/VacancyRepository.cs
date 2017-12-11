@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
     {
         private const string GetLiveApprenticeshipVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveApprenticeshipVacancy]";
         private const string GetLiveTraineeshipVacancyByReferenceNumberSqlSproc = "[VACANCY_API].[GetLiveTraineeshipVacancy]";
+        private const string CreateApprenticeshipVacancySqlSproc = "[VACANCY_API].[CreateApprenticeshipVacancy]";
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
 
@@ -97,9 +99,47 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
             return traineeshipVacancy;
         }
 
-        public Task<int> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
+        public async Task<int> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
         {
-            throw new System.NotImplementedException();
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error creating apprenticeship vacancy: ({exception.Message}). Retrying... attempt {retryCount}");
+            });
+
+            return await retry.ExecuteAsync(() => InternalCreateApprenticeshipAsync(parameters));
         }
+
+        private async Task<int> InternalCreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
+        {
+            var connectionString =
+                _provideSettings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
+
+            int referenceNumber;
+
+            using (var sqlConn = new SqlConnection(connectionString))
+            {
+                var dynamicParameters = new DynamicParameters(parameters);
+                dynamicParameters.Add("VacancyReferenceNumber", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                _logger.Info($"Command to create new Apprenticeship Vacancy in AVMS database, Title: [{parameters.Title}].");
+
+                await sqlConn.OpenAsync();
+                await sqlConn.ExecuteAsync(
+                    CreateApprenticeshipVacancySqlSproc,
+                    param: dynamicParameters,
+                    commandType: CommandType.StoredProcedure);
+
+                referenceNumber = dynamicParameters.Get<int>("VacancyReferenceNumber");
+
+                if (referenceNumber == int.MinValue)
+                    throw new Exception($"Failed to get reference number for new Apprenticeship Vacancy [{parameters.Title}]");
+
+                _logger.Info($"Created Apprenticeship Vacancy for [{referenceNumber}] from AVMS database.");
+            }
+
+            return referenceNumber;
+        }
+
+
     }
 }
