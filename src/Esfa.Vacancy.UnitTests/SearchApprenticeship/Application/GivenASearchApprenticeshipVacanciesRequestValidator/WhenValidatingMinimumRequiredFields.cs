@@ -64,6 +64,13 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     PostedInLastNumberOfDays = 3242
                 }, new ValidationResult())
                 .SetName("PostedInLastNumberOfDays present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    Latitude = 23.2,
+                    Longitude = 75.7,
+                    DistanceInMiles = 76
+                }, new ValidationResult())
+                .SetName("Geo-Location fields present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult
                 {
                     Errors =
