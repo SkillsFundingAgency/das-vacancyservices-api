@@ -1,0 +1,97 @@
+﻿@using Microsoft.ApplicationInsights.Extensibility
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>Register of vacancies</title>
+
+    <link href="~/Content/dist/css/govuk-template.css" media="screen" rel="stylesheet" />
+
+    <!--[if gte IE 9]><!-->
+    <link href="~/Content/dist/css/fonts.css" media="all" rel="stylesheet" /><!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="~/Content/dist/images/opengraph-image.png">
+    <meta name="msapplication-config" content="none" />
+    <!--[if IE 6]><link href="~/Content/dist/css/screen-ie6.css" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if IE 7]><link href="~/Content/dist/css/screen-ie7.css" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if IE 8]><link href="~/Content/dist/css/screen-ie8.css" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link href="~/Content/dist/css/screen.css" media="all" rel="stylesheet" />
+    <!--<![endif]-->
+
+    <link rel="icon" type="image/png" href="/Content/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/Content/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/Content/favicons/favicon-96x96.png" sizes="96x96">
+
+    <script src="~/Content/dist/js/prism.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9 ]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script>
+             !function(a,b){function c(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function d(){var a=t.elements;return"string"==typeof a?a.split(" "):a}function e(a,b){var c=t.elements;"string"!=typeof c&&(c=c.join(" ")),"string"!=typeof a&&(a=a.join(" ")),t.elements=c+" "+a,j(b)}function f(a){var b=s[a[q]];return b||(b={},r++,a[q]=r,s[r]=b),b}function g(a,c,d){if(c||(c=b),l)return c.createElement(a);d||(d=f(c));var e;return e=d.cache[a]?d.cache[a].cloneNode():p.test(a)?(d.cache[a]=d.createElem(a)).cloneNode():d.createElem(a),!e.canHaveChildren||o.test(a)||e.tagUrn?e:d.frag.appendChild(e)}function h(a,c){if(a||(a=b),l)return a.createDocumentFragment();c=c||f(a);for(var e=c.frag.cloneNode(),g=0,h=d(),i=h.length;i>g;g++)e.createElement(h[g]);return e}function i(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return t.shivMethods?g(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+d().join().replace(/[\w\-:]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(t,b.frag)}function j(a){a||(a=b);var d=f(a);return!t.shivCSS||k||d.hasCSS||(d.hasCSS=!!c(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),l||i(a,d),a}var k,l,m="3.7.3",n=a.html5||{},o=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,p=/^(?:a|b|frameworkId|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,q="_html5shiv",r=0,s={};!function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",k="hidden"in a,l=1==a.childNodes.length||function(){b.createElement("a");var a=b.createDocumentFragment();return"undefined"==typeof a.cloneNode||"undefined"==typeof a.createDocumentFragment||"undefined"==typeof a.createElement}()}catch(c){k=!0,l=!0}}();var t={elements:n.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:m,shivCSS:n.shivCSS!==!1,supportsUnknownElements:l,shivMethods:n.shivMethods!==!1,type:"default",shivDocument:j,createElement:g,createDocumentFragment:h,addElements:e};a.html5=t,j(b),"getFrameworks"==typeof module&&module.exports&&(module.exports=t)}("undefined"!=typeof window?window:this,document);
+        </script>
+    <![endif]-->
+    <!--<link href='swagger/ui/css/reset-css' media='screen' rel='stylesheet' type='text/css' />-->
+    <link href='/swagger/ui/css/screen-css' media='screen' rel='stylesheet' type='text/css' />
+    <script src='/swagger/ui/lib/jquery-1-8-0-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/jquery-slideto-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/jquery-wiggle-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/jquery-ba-bbq-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/handlebars-4-0-5-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/lodash-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/backbone-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/swagger-ui-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/highlight-9-1-0-pack-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/highlight-9-1-0-pack_extended-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/jsoneditor-min-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/marked-js' type='text/javascript'></script>
+    <script src='/swagger/ui/lib/swagger-oauth-js' type='text/javascript'></script>
+    
+    <!-- Some basic translations -->
+    <!-- <script src='lang/translator.js' type='text/javascript'></script> -->
+    <!-- <script src='lang/ru.js' type='text/javascript'></script> -->
+    <!-- <script src='lang/en.js' type='text/javascript'></script> -->
+
+    <!-- Google Tag Manager -->
+    <script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push(
+{'gtm.start': new Date().getTime(),event:'gtm.js'}
+);var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3CZC2');</script>
+    <!-- End Google Tag Manager -->
+
+        <script type='text/javascript'>
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey: "@TelemetryConfiguration.Active.InstrumentationKey"
+        });
+
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+        </script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    @*TODO replace the GTM token with one specific to Vacancies*@
+@*<noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3CZC2"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>*@
+    <!-- End Google Tag Manager (noscript) -->
+
+@Html.Partial("_Header")
+
+@RenderBody()
+
+@Html.Partial("_Footer")
+
+@RenderSection("footerJS", false)
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    },
+    "appHostingPlanName": {
+      "type": "string"
+    },
+    "appHostingEnvironment": {
+      "type": "string"
+    },
+    "appServerFarmResourceGroup": {
+      "type": "string"
+    },
+    "appSubscriptionId": {
+      "type": "string"
+    },
+    "LoggingRedisConnectionString": {
+      "type": "string"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "LoggingRedisKey": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",
+      "kind": "api",
+      "name": "[parameters('appName')]",
+      "apiVersion": "2016-03-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-related:', '/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]": "empty"
+      },
+      "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('appName')), '2015-05-01').InstrumentationKey]"
+            },
+            {
+              "name": "LoggingRedisConnectionString",
+              "value": "[parameters('LoggingRedisConnectionString')]"
+            },
+            {
+              "name": "AvmsPlusDatabaseConnectionString",
+              "value": "[parameters('AvmsPlusDatabaseConnectionString')]"
+            },
+            {
+              "name": "EnvironmentName",
+              "value": "[parameters('EnvironmentName')]"
+            },
+            {
+              "name": "LoggingRedisKey",
+              "value": "[parameters('LoggingRedisKey')]"
+            }
+          ],
+          "alwaysOn": true,
+          "phpVersion": ""
+        },
+        "name": "[parameters('appName')]",
+        "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
+        "hostingEnvironment": "[parameters('appHostingEnvironment')]"
+      },
+      "dependsOn": [
+        "[resourceId('microsoft.insights/components/', parameters('appName'))]"
+      ]
+    },
+    {
+      "type": "microsoft.insights/components",
+      "name": "[parameters('appName')]",
+      "apiVersion": "2015-05-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('appName'))]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[parameters('appName')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    }
+  ]
+}

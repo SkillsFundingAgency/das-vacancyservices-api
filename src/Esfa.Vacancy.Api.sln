@@ -19,6 +19,10 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Esfa.Vacancy.Register.Azure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Application", "Esfa.Vacancy.Application\Esfa.Vacancy.Application.csproj", "{14E462C1-30DD-49FD-A265-2B16542A26CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Manage.Api", "Esfa.Vacancy.Manage.Api\Esfa.Vacancy.Manage.Api.csproj", "{4F2F5386-91F1-4376-8A58-4859EE54291E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Api.Core", "Esfa.Vacancy.Api.Core\Esfa.Vacancy.Api.Core.csproj", "{95753163-5605-4CC5-8029-7E3CBEA99830}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E462C1-30DD-49FD-A265-2B16542A26CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F2F5386-91F1-4376-8A58-4859EE54291E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F2F5386-91F1-4376-8A58-4859EE54291E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F2F5386-91F1-4376-8A58-4859EE54291E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F2F5386-91F1-4376-8A58-4859EE54291E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95753163-5605-4CC5-8029-7E3CBEA99830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95753163-5605-4CC5-8029-7E3CBEA99830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95753163-5605-4CC5-8029-7E3CBEA99830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95753163-5605-4CC5-8029-7E3CBEA99830}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

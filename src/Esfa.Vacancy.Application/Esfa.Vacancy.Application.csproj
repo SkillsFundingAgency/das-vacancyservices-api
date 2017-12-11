@@ -64,6 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipCommandHandler.cs" />
+    <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
+    <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequestValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipResponse.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
@@ -84,9 +88,7 @@
     <Compile Include="Queries\SearchApprenticeshipVacancies\SubCategoryConversionResult.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersMapper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
