@@ -9,7 +9,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     {
         [TestCase(null, false, TestName = "Title cannot be null")]
         [TestCase(" ", false, TestName = "Title cannot be empty")]
-        [TestCase("title", true, TestName = "Is valid")]
+        [TestCase("title", false, TestName = "Fail if apprenticeship of apprentice is missing")]
+        [TestCase("title apprentice", true, TestName = "Should contain word apprentice")]
+        [TestCase("title APPRENTICEship", true, TestName = "Case does not matter")]
         public void ThenCheckItIsProvided(string title, bool expectedResult)
         {
             var sut = new CreateApprenticeshipRequestValidator();
