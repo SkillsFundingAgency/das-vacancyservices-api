@@ -17,7 +17,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -25,7 +24,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And all fields present then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     Longitude = -1.506115
                 }, new ValidationResult
@@ -38,7 +36,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And no distance then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Longitude = -1.506115,
                     DistanceInMiles = 342
                 }, new ValidationResult
@@ -51,7 +48,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And no latitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     DistanceInMiles = 342
                 }, new ValidationResult
@@ -64,7 +60,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And no longitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085
                 }, new ValidationResult
                 {
@@ -79,7 +74,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And only latitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Longitude = -1.506115
                 }, new ValidationResult
                 {
@@ -94,7 +88,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And only longitude then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     DistanceInMiles = 342
                 }, new ValidationResult
                 {

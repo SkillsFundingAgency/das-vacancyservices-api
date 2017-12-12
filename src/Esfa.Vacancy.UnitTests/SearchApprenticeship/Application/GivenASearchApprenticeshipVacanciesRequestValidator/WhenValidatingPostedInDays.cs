@@ -41,12 +41,11 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes
+                    NationwideOnly = true,
                 }, new ValidationResult())
                 .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = -1
                 }, new ValidationResult
                 {
@@ -58,13 +57,11 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("Then less than 0 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = 0
                 }, new ValidationResult())
                 .SetName("Then 0 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     PostedInLastNumberOfDays = new Random().Next()
                 }, new ValidationResult())
                 .SetName("Then greater than 0 is valid")

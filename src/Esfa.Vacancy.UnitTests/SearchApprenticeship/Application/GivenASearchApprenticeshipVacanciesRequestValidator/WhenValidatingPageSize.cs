@@ -41,12 +41,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes
+                    NationwideOnly = true,
                 }, new ValidationResult())
                 .SetName("Then default is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
+                    NationwideOnly = true,
                     PageSize = 0
                 }, new ValidationResult
                 {
@@ -58,25 +58,25 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("Then less than 1 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
+                    NationwideOnly = true,
                     PageSize = 1
                 }, new ValidationResult())
                 .SetName("Then 1 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
+                    NationwideOnly = true,
                     PageSize = new Random().Next(1, 250)
                 }, new ValidationResult())
                 .SetName("Then between 1 and 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
+                    NationwideOnly = true,
                     PageSize = 250
                 }, new ValidationResult())
                 .SetName("Then 250 is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
+                    NationwideOnly = true,
                     PageSize = 251
                 }, new ValidationResult
                 {
