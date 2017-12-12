@@ -54,17 +54,49 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     StandardLarsCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    NationwideOnly = true
+                }, new ValidationResult())
+                .SetName("Nationwide present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PostedInLastNumberOfDays = 3242
+                }, new ValidationResult())
+                .SetName("PostedInLastNumberOfDays present is allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    Latitude = 23.2,
+                    Longitude = 75.7,
+                    DistanceInMiles = 76
+                }, new ValidationResult())
+                .SetName("Geo-Location fields present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest(), new ValidationResult
                 {
                     Errors =
                     {
-                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
+                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided
+                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
                         }
                     }
                 })
-                .SetName("No Frameworks or Standards present is not allowed")
+                .SetName("No required fields present is not allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PageNumber = 3
+                }, 
+                new ValidationResult
+                {
+                    Errors =
+                    {
+                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
+                        {
+                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
+                        }
+                    }
+                })
+                .SetName("Non required field only present is not allowed")
         };
     }
 }

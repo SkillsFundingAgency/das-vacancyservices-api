@@ -15,7 +15,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -23,7 +22,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And between -90 and 90 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = -90,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -31,7 +29,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And -90 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 90,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -39,7 +36,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And 90 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = -90.1,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -53,7 +49,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And less than -90 then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 90.1,
                     Longitude = -1.506115,
                     DistanceInMiles = 235

@@ -15,7 +15,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -23,7 +22,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And between 1 and 1000"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
                     DistanceInMiles = 1
@@ -31,7 +29,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And 1 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
                     DistanceInMiles = 1000
@@ -39,7 +36,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And 1000 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
                     DistanceInMiles = 0
@@ -53,7 +49,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And less than 1 then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -18,
                     DistanceInMiles = 1001

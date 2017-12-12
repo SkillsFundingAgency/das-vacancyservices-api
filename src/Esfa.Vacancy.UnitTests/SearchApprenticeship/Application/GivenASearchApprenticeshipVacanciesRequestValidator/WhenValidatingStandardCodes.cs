@@ -11,8 +11,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
     [TestFixture]
     public class WhenValidatingStandardCodes : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-
-        public static List<TestCaseData> SuccessTestCases => new List<TestCaseData>
+        private static List<TestCaseData> SuccessTestCases => new List<TestCaseData>
         {
             new TestCaseData(ValidStandardCodes)
                 .SetName("Then any number is valid"),
@@ -34,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             result.IsValid.Should().BeTrue();
         }
 
-        public static List<TestCaseData> FailingTestCases => new List<TestCaseData>
+        private static List<TestCaseData> FailingTestCases => new List<TestCaseData>
         {
             new TestCaseData("e",
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "e"),

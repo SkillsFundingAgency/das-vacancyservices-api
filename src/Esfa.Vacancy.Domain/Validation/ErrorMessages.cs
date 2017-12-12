@@ -8,7 +8,7 @@ namespace Esfa.Vacancy.Domain.Validation
         {
             public const string SearchApprenticeshipParametersIsNull = "At least one search parameter is required.";
 
-            public const string StandardAndFrameworkCodeNotProvided = "At least one of the Standard or Framework code is required.";
+            public const string MinimumRequiredFieldsNotProvided = "At least one of Standard code, Framework code, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.";
 
             public static string GetTrainingCodeNotFoundErrorMessage(TrainingType trainingType, string code) =>
                 $"{trainingType} code {code} not found.";
@@ -18,6 +18,8 @@ namespace Esfa.Vacancy.Domain.Validation
 
             public static string GetGeoLocationFieldNotProvidedErrorMessage(string fieldName) =>
                 $"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided '{fieldName}'.";
+
+            public const string GeoSearchAndNationwideNotAllowed = "Searching by geo-location and national vacancies is not a valid combination.";
         }
 
         public static class GetApprenticeship

@@ -33,8 +33,17 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
             RuleFor(request => request.StandardLarsCodes)
                 .NotEmpty()
                 .When(request => !request.FrameworkLarsCodes.Any())
-                .WithMessage(ErrorMessages.SearchApprenticeships.StandardAndFrameworkCodeNotProvided)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardAndFrameworkCodeNotProvided);
+                .When(request => !request.NationwideOnly)
+                .When(request => !request.PostedInLastNumberOfDays.HasValue)
+                .When(request => !request.Latitude.HasValue && !request.Longitude.HasValue && !request.DistanceInMiles.HasValue)
+                .WithMessage(ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided);
+
+            RuleFor(request => request.NationwideOnly)
+                .NotEqual(true)
+                .When(request => request.Latitude.HasValue || request.Longitude.HasValue || request.DistanceInMiles.HasValue)
+                .WithMessage(ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed);
 
             RuleForEach(request => request.StandardLarsCodes)
                 .Must(BeValidNumber)

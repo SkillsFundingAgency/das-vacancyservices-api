@@ -15,7 +15,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 52.399085,
                     Longitude = -1.506115,
                     DistanceInMiles = 235
@@ -23,7 +22,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And between -180 and 180 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -180,
                     DistanceInMiles = 235
@@ -31,7 +29,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And -180 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = 180,
                     DistanceInMiles = 235
@@ -39,7 +36,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And 180 then valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = -180.1,
                     DistanceInMiles = 235
@@ -53,7 +49,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And less than -180 then invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidStandardCodes,
                     Latitude = 45,
                     Longitude = 180.1,
                     DistanceInMiles = 235
