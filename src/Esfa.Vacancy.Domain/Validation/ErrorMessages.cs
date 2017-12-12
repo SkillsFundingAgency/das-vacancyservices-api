@@ -18,6 +18,8 @@ namespace Esfa.Vacancy.Domain.Validation
 
             public static string GetGeoLocationFieldNotProvidedErrorMessage(string fieldName) =>
                 $"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided '{fieldName}'.";
+
+            public const string GeoSearchAndNationwideNotAllowed = "Searching by geo-location and national vacancies is not a valid combination.";
         }
 
         public static class GetApprenticeship
