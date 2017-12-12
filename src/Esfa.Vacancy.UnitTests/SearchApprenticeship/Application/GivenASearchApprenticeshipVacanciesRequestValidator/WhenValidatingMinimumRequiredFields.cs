@@ -81,7 +81,22 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                         }
                     }
                 })
-                .SetName("No required fields present is not allowed")
+                .SetName("No required fields present is not allowed"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PageNumber = 3
+                }, 
+                new ValidationResult
+                {
+                    Errors =
+                    {
+                        new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
+                        {
+                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
+                        }
+                    }
+                })
+                .SetName("Non required field only present is not allowed")
         };
     }
 }
