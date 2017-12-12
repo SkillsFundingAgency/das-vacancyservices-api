@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Infrastructure", "Esfa.Vacancy.Infrastructure\Esfa.Vacancy.Infrastructure.csproj", "{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}"
 EndProject
@@ -25,6 +25,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Manage.Api", "Esfa.Vacancy.Manage.Api\Esfa.Vacancy.Manage.Api.csproj", "{4F2F5386-91F1-4376-8A58-4859EE54291E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Api.Core", "Esfa.Vacancy.Api.Core\Esfa.Vacancy.Api.Core.csproj", "{95753163-5605-4CC5-8029-7E3CBEA99830}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{503A84CC-EE18-4365-B75A-81063CC645F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Api.AcceptanceTests", "Esfa.Vacanci.Api.AcceptanceTests\Esfa.Vacancy.Api.AcceptanceTests.csproj", "{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,9 +71,16 @@ Global
 		{95753163-5605-4CC5-8029-7E3CBEA99830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95753163-5605-4CC5-8029-7E3CBEA99830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95753163-5605-4CC5-8029-7E3CBEA99830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4371C8FA-1ED1-4D7B-9BCA-6516195C9B6F} = {503A84CC-EE18-4365-B75A-81063CC645F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D1C72A0-1954-44F4-9812-86940D8C83BA}
