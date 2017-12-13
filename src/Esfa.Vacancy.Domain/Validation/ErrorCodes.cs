@@ -24,6 +24,7 @@
             public const string DistanceMissingFromGeoSearch            = "30113";
             public const string DistanceOutsideRange                    = "30114";
             public const string GeoSearchAndNationwideNotAllowed        = "30115";
+            public const string SortByDistanceOnlyWhenGeoSearch         = "30116";
         }
 
         public static class GetApprenticeship

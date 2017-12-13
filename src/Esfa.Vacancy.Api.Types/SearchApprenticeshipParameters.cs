@@ -53,5 +53,11 @@
         /// DistanceInMiles is optional.
         /// </summary>
         public int? DistanceInMiles { get; set; }
+
+        /// <summary>
+        /// The order that the results are to be sorted by.
+        /// Defaults to distance for geo-location search and age for any other search.
+        /// </summary>
+        public SortOrder? SortOrder { get; set; }
     }
 }
