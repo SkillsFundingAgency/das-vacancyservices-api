@@ -14,6 +14,6 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public int? DistanceInMiles { get; set; }
-        public SortOrder SortOrder { get; set; }
+        public SortOrder? SortOrder { get; set; }
     }
 }
