@@ -43,25 +43,43 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     NationwideOnly = true,
                 }, new ValidationResult())
-                .SetName("Then default is valid"),
+                .SetName("Then null is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
+                    PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    PageNumber = 0
+                    SortOrder = SortOrder.Age
+                }, new ValidationResult())
+                .SetName("And searching without location then sort by age is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    Latitude = 23,
+                    Longitude = 54,
+                    DistanceInMiles = 200,
+                    SortOrder = SortOrder.Age
+                }, new ValidationResult())
+                .SetName("And searching with location then sort by age is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PostedInLastNumberOfDays = 2,
+                    NationwideOnly = true,
+                    SortOrder = SortOrder.Distance
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("PageNumber", "'Page Number' must be greater than or equal to '1'.")
+                    Errors = { new ValidationFailure("SortOrder", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageNumberLessThan1
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch
                     }}
                 })
-                .SetName("Then less than 1 is invalid"),
+                .SetName("And searching without location then sort by distance is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    NationwideOnly = true,
-                    PageNumber = new Random().Next()
+                    Latitude = 23,
+                    Longitude = 54,
+                    DistanceInMiles = 200,
+                    SortOrder = SortOrder.Distance
                 }, new ValidationResult())
-                .SetName("Then greater than 1 is valid")
+                .SetName("And searching with location then sort by distance is valid")
         };
     }
 }
