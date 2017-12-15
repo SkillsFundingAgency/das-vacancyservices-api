@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public double? Latitude { get; set; }
         public int? DistanceInMiles { get; set; }
         public bool HasGeoSearchFields => Latitude.HasValue && Longitude.HasValue && DistanceInMiles.HasValue;
+        public string SortOrder { get; set; }
 
         public override string ToString()
         {
@@ -32,6 +33,7 @@ namespace Esfa.Vacancy.Domain.Entities
 
             result.AppendLine($"{nameof(PageSize)}: {PageSize}");
             result.AppendLine($"{nameof(PageNumber)}: {PageNumber}");
+            result.AppendLine($"{nameof(SortOrder)}: {SortOrder}");
             if (FromDate.HasValue)
                 result.AppendLine($"{nameof(FromDate)}: {FromDate}");
             if (!string.IsNullOrWhiteSpace(LocationType))
