@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Infrastructure.Exceptions;
 using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 
@@ -132,14 +133,12 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
                 referenceNumber = dynamicParameters.Get<int>("VacancyReferenceNumber");
 
                 if (referenceNumber == int.MinValue)
-                    throw new Exception($"Failed to get reference number for new Apprenticeship Vacancy [{parameters.Title}]");
+                    throw new InfrastructureException(new Exception($"Failed to get reference number for new Apprenticeship Vacancy [{parameters.Title}]"));
 
                 _logger.Info($"Created Apprenticeship Vacancy for [{referenceNumber}] from AVMS database.");
             }
 
             return referenceNumber;
         }
-
-
     }
 }
