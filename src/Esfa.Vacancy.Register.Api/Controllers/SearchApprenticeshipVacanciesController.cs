@@ -77,6 +77,14 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// Note that when specifying both framework and standard codes, the results will include vacancies with matching 
         /// framework or standard codes.
         /// 
+        /// #### Sorting results ####
+        /// 
+        /// The results will be ordered by the following rules by default:
+        /// - If searching by geo-location then the results are sorted by distance (closest first).
+        /// - If searching by anything other than geo-location then the results are sorted by age (posted date) (newest first).
+        /// The default sorting rules can be overriden by using the `SortBy` query parameter. 
+        /// Beware that it is invalid to sort by distance if you have not searched by geo-location.
+        /// 
         /// #### Error codes ####
         /// 
         /// The following error codes may be returned when calling this operation if any of the search criteria values 
