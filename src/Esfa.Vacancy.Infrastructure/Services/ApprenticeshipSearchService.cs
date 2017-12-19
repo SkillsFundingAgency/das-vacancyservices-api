@@ -75,17 +75,15 @@ namespace Esfa.Vacancy.Infrastructure.Services
                             return container;
                         });
 
-                    if (parameters.HasGeoSearchFields)
+                    if (parameters.SortBy == SortBy.Distance)
                     {
                         search.SortGeoDistance(descriptor =>
                             descriptor.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)
                                 .Unit(GeoUnit.Miles)
                                 .OnField(summary => summary.Location));
                     }
-                    else
-                    {
-                        search.SortDescending(summary => summary.PostedDate);
-                    }
+
+                    search.SortDescending(summary => summary.PostedDate);
 
                     return search;
                 });
