@@ -82,6 +82,10 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                 .Unit(GeoUnit.Miles)
                                 .OnField(summary => summary.Location));
                     }
+                    else
+                    {
+                        search.SortDescending(summary => summary.PostedDate);
+                    }
 
                     return search;
                 });
