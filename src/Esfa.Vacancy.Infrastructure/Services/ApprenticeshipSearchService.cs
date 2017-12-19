@@ -84,6 +84,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                     }
 
                     search.SortDescending(summary => summary.PostedDate);
+                    search.SortDescending(summary => summary.VacancyReference);
 
                     return search;
                 });
@@ -107,6 +108,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 TotalReturned = esReponse.Documents.Count(),
                 CurrentPage = parameters.PageNumber,
                 TotalPages = Math.Ceiling((double)esReponse.Total / parameters.PageSize),
+                SortBy = parameters.SortBy,
                 ApprenticeshipSummaries = esReponse.Documents
             };
 

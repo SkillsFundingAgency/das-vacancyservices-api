@@ -12,5 +12,6 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public IEnumerable<ApprenticeshipSummary> ApprenticeshipSummaries { get; set; }
         public int CurrentPage { get; set; }
         public double TotalPages { get; set; }
+        public SortBy SortBy { get; set; }
     }
 }

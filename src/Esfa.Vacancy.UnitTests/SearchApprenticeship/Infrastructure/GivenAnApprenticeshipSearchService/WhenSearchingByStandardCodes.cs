@@ -27,6 +27,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         private int _expectedTotal;
         private int _expectedCurrentPage;
         private double _expectedTotalPages;
+        private SortBy _expectedSortBy;
 
         [SetUp]
         public async Task Setup()
@@ -34,10 +35,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
             var pageSize = 68;
             _expectedTotal = 3245458;
             _expectedCurrentPage = 37987;
+            _expectedSortBy = SortBy.Distance;
             var vacancySearchParameters = new VacancySearchParameters
             {
                 PageSize = 68,
-                PageNumber = _expectedCurrentPage
+                PageNumber = _expectedCurrentPage,
+                SortBy = _expectedSortBy
             };
             _expectedTotalPages = Math.Ceiling((double) _expectedTotal / pageSize);
 
@@ -129,6 +132,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         public void ThenApprenticeshipSummariesIsCorrect()
         {
             _actualResponse.ApprenticeshipSummaries.ShouldAllBeEquivalentTo(_apprenticeshipSummaries);
+        }
+
+        [Test]
+        public void ThenSortByIsCorrect()
+        {
+            _actualResponse.SortBy.Should().Be(_expectedSortBy);
         }
     }
 }
