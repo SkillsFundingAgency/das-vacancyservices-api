@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingSortOrder : GivenSearchApprenticeshipVacanciesRequestValidatorBase
+    public class WhenValidatingSortBy : GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
         [TestCaseSource(nameof(TestCases))]
         public void AndCheckingIsValid(SearchApprenticeshipVacanciesRequest searchRequest, ValidationResult expectedResult)

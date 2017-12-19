@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
-    public class WhenMappingSortOrder
+    public class WhenMappingSortBy
     {
         private IMapper _mapper;
 
