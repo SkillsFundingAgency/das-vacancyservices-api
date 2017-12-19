@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.Results;

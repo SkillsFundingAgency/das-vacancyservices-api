@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Esfa.Vacancy.Domain.Entities;
 using MediatR;
 
 namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies

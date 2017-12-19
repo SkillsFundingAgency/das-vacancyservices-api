@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Api;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using FluentAssertions;
