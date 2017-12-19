@@ -87,7 +87,7 @@
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequest.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesResponse.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SearchApprenticeshipVacanciesRequestValidator.cs" />
-    <Compile Include="Queries\SearchApprenticeshipVacancies\SortOrder.cs" />
+    <Compile Include="Queries\SearchApprenticeshipVacancies\SortBy.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\SubCategoryConversionResult.cs" />
     <Compile Include="Queries\SearchApprenticeshipVacancies\VacancySearchParametersMapper.cs" />
   </ItemGroup>

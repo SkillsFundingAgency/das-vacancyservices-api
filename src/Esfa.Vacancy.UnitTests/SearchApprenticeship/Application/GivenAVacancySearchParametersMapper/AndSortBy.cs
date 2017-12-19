@@ -5,13 +5,13 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture, Ignore("not complete")]
-    public class AndSortOrder
+    public class AndSortBy
     {
         [Test]
         public void AndIsAge_ThenMapsToAge()
         {
             var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { SortOrder = SortOrder.Age });
+                { SortBy = SortBy.Age });
 
             result.SortOrder.Should().Be("todo");
         }

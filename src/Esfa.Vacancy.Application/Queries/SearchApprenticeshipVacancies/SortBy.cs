@@ -1,6 +1,6 @@
 ﻿namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
-    public enum SortOrder
+    public enum SortBy
     {
         Age,
         Distance

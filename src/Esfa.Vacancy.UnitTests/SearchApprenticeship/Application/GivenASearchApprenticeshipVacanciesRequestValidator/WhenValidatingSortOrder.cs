@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortOrder = SortOrder.Age
+                    SortBy = SortBy.Age
                 }, new ValidationResult())
                 .SetName("And searching without location then sort by age is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -56,17 +56,17 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortOrder = SortOrder.Age
+                    SortBy = SortBy.Age
                 }, new ValidationResult())
                 .SetName("And searching with location then sort by age is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortOrder = SortOrder.Distance
+                    SortBy = SortBy.Distance
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortOrder", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
+                    Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch
                     }}
@@ -77,7 +77,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortOrder = SortOrder.Distance
+                    SortBy = SortBy.Distance
                 }, new ValidationResult())
                 .SetName("And searching with location then sort by distance is valid")
         };

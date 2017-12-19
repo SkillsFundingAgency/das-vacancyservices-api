@@ -131,7 +131,7 @@
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoSearchFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingSortOrder.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndLocationFields.cs" />
-    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndSortOrder.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndSortBy.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingHasGeoSearchFields.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingToString.cs" />
     <Compile Include="Shared\Api\Validation\GivenAValidationExceptionBuilder.cs" />
