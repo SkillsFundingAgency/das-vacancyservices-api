@@ -17,7 +17,7 @@ using Ploeh.AutoFixture.AutoMoq;
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnApprenticeshipSearchService
 {
     [TestFixture]
-    public class WhenSearchingByStandardCodes
+    public class WhenSearching
     {
         private List<ApprenticeshipSummary> _apprenticeshipSummaries;
         private SearchApprenticeshipVacanciesResponse _actualResponse;
