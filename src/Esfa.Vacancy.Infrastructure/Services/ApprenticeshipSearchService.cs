@@ -65,26 +65,28 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
                             if (parameters.HasGeoSearchFields)
                             {
-                                container = container && query.Filtered(descriptor =>
-                                    descriptor.Filter(filterDescriptor =>
-                                        filterDescriptor.GeoDistance(summary => summary.Location, distanceFilterDescriptor =>
-                                            distanceFilterDescriptor.Location(parameters.Latitude.Value, parameters.Longitude.Value)
+                                container = container && query.Filtered(filteredQuery =>
+                                    filteredQuery.Filter(filter =>
+                                        filter.GeoDistance(summary => summary.Location, geoDistanceFilter =>
+                                            geoDistanceFilter.Location(parameters.Latitude.Value, parameters.Longitude.Value)
                                                 .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
                             }
 
                             return container;
                         });
 
-                    if (parameters.SortBy == SortBy.Distance)
+                    switch (parameters.SortBy)
                     {
-                        search.SortGeoDistance(descriptor =>
-                            descriptor.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)
-                                .Unit(GeoUnit.Miles)
-                                .OnField(summary => summary.Location));
-                    }
+                        case SortBy.Distance:
+                            search.TrySortByDistance(parameters);
+                            search.SortByAge();
+                            break;
 
-                    search.SortDescending(summary => summary.PostedDate);
-                    search.SortDescending(summary => summary.VacancyReference);
+                        default:
+                            search.SortByAge();
+                            search.TrySortByDistance(parameters);
+                            break;
+                    }
 
                     return search;
                 });
