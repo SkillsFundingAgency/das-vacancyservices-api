@@ -7,12 +7,12 @@ using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using Esfa.Vacancy.Infrastructure.Services;
-using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.NLog.Logger;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnApprenticeshipSearchService
 {
@@ -32,31 +32,28 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         [SetUp]
         public async Task Setup()
         {
-            var pageSize = 68;
-            _expectedTotal = 3245458;
-            _expectedCurrentPage = 37987;
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+
+            var pageSize = fixture.Create<int>();
+            _expectedTotal = fixture.Create<int>();
+            _expectedCurrentPage = fixture.Create<int>();
             _expectedSortBy = SortBy.Distance;
             var vacancySearchParameters = new VacancySearchParameters
             {
-                PageSize = 68,
+                PageSize = pageSize,
                 PageNumber = _expectedCurrentPage,
                 SortBy = _expectedSortBy
             };
             _expectedTotalPages = Math.Ceiling((double) _expectedTotal / pageSize);
 
-            _apprenticeshipSummaries = new List<ApprenticeshipSummary>
-            {
-                new ApprenticeshipSummary {Id = 234243},
-                new ApprenticeshipSummary {Id = 226453453},
-                new ApprenticeshipSummary {Id = 9089853}
-            };
+            _apprenticeshipSummaries = fixture.Create<List<ApprenticeshipSummary>>();
 
-            _connectionStatus = new Mock<IElasticsearchResponse>();
+            _connectionStatus = fixture.Freeze<Mock<IElasticsearchResponse>>();
             _connectionStatus
                 .Setup(response => response.Success)
                 .Returns(true);
 
-            var searchResponse = new Mock<ISearchResponse<ApprenticeshipSummary>>();
+            var searchResponse = fixture.Freeze<Mock<ISearchResponse<ApprenticeshipSummary>>>();
             searchResponse
                 .Setup(response => response.Total)
                 .Returns(_expectedTotal);
@@ -67,12 +64,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
                 .Setup(response => response.ConnectionStatus)
                 .Returns(_connectionStatus.Object);
 
-            _mockElasticClient = new Mock<IElasticClient>();
+            _mockElasticClient = fixture.Freeze<Mock<IElasticClient>>();
             _mockElasticClient
                 .Setup(client => client.SearchAsync(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
                 .ReturnsAsync(searchResponse.Object);
 
-            _apprenticeshipSearchService = new ApprenticeshipSearchService(new Mock<IProvideSettings>().Object, new Mock<ILog>().Object, _mockElasticClient.Object);
+            _apprenticeshipSearchService = fixture.Create<ApprenticeshipSearchService>();
 
             _actualResponse = await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(vacancySearchParameters);
         }
