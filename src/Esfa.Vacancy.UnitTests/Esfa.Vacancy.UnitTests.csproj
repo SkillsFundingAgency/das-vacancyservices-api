@@ -124,6 +124,7 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Mappings\GivenTraineeshipMapper.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchResponseMapper\WhenMappingApprenticeshipSummary.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchResponseMapper\WhenMappingSortBy.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoLocationAndNationwide.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenApprenticeshipSummaryMapper.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithAmbiguousWage.cs" />

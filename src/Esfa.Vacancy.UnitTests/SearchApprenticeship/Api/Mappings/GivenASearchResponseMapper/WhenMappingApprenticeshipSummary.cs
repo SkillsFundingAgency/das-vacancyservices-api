@@ -7,10 +7,10 @@ using ApprenticeshipSummary = Esfa.Vacancy.Domain.Entities.ApprenticeshipSummary
 using GeoPoint = Esfa.Vacancy.Domain.Entities.GeoPoint;
 
 
-namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
+namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchResponseMapper
 {
     [TestFixture]
-    public class GivenApprenticeshipSummaryMapper
+    public class WhenMappingApprenticeshipSummary
     {
         private IMapper _mapper;
 
