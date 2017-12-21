@@ -94,6 +94,5 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.IsNationwide.Should().Be(expectedResult);
         }
-
     }
 }

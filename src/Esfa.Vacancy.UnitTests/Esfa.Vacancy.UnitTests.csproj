@@ -124,6 +124,7 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Mappings\GivenTraineeshipMapper.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchResponseMapper\WhenMappingSortBy.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoLocationAndNationwide.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingLongitude.cs" />

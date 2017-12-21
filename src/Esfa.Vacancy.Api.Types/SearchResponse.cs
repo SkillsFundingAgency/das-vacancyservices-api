@@ -29,5 +29,9 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public IEnumerable<T> Results { get; set; }
 
+        /// <summary>
+        /// The order that the results are sorted by
+        /// </summary>
+        public SortBy SortBy { get; set; }
     }
 }
