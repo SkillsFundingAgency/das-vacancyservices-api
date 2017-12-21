@@ -21,9 +21,9 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
             _mapper = config.CreateMapper();
         }
 
-        [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
-        [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
-        public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
+        [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "And has Standard ID then TrainingType set to Standard")]
+        [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "And has Framework Code then TrainingType set to Framework")]
+        public void AndMappingTrainingType(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
             var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new ApprenticeshipSummary()
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
         }
 
         [Test]
-        public void WhenMappingGeoCoordinates()
+        public void ThenGeoCoordinatesMapCorrectly()
         {
             var domainType = new ApprenticeshipSummary
             {
@@ -54,7 +54,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
         }
 
         [Test]
-        public void WhenMappingShortDescription()
+        public void ThenShortDescriptionMapsCorrectly()
         {
             var description = "desc";
             var domainType = new ApprenticeshipSummary
@@ -68,7 +68,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
         }
 
         [Test]
-        public void WhenMappingTrainingProviderName()
+        public void ThenTrainingProviderNameMapsCorrectly()
         {
             var providerName = "desc";
             var domainType = new ApprenticeshipSummary
@@ -83,7 +83,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
 
         [TestCase("National", true, TestName = "And Location Type is National Then map set IsNationWide to true")]
         [TestCase("NonNational", false, TestName = "And Location Type is NonNational Then map set IsNationWide to false")]
-        public void WhenMappingIsNationWide(string value, bool expectedResult)
+        public void AndMappingIsNationWide(string value, bool expectedResult)
         {
             var domainType = new ApprenticeshipSummary
             {
