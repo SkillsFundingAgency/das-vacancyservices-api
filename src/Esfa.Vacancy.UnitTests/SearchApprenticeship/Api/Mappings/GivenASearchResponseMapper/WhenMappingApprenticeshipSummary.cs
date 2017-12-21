@@ -50,7 +50,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
 
             result.Location.Latitude.Should().Be(51.3288148990m, "Then map latitude to Location");
             result.Location.Longitude.Should().Be(0.4452948632m, "Then map longitude to Location");
-
         }
 
         [Test]
@@ -93,6 +92,20 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
 
             result.IsNationwide.Should().Be(expectedResult);
+        }
+
+        [Test]
+        public void ThenDistanceInMilesMapsCorrectly()
+        {
+            var expectedDistance = 3245.3245;
+            var domainType = new ApprenticeshipSummary
+            {
+                DistanceInMiles = expectedDistance
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.DistanceInMiles.Should().Be(expectedDistance);
         }
     }
 }

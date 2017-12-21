@@ -32,6 +32,8 @@ namespace Esfa.Vacancy.Domain.Entities
 
         public GeoPoint Location { get; set; }
 
+        public double? DistanceInMiles { get; set; }
+
         public string ApprenticeshipLevel { get; set; }
 
         public string VacancyReference { get; set; }
