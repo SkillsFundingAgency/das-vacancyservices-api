@@ -19,15 +19,18 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
     [TestFixture]
     public class WhenSearching
     {
+        private VacancySearchParameters _vacancySearchParameters;
         private List<ApprenticeshipSummary> _apprenticeshipSummaries;
         private SearchApprenticeshipVacanciesResponse _actualResponse;
-        private Mock<IElasticClient> _mockElasticClient;
         private ApprenticeshipSearchService _apprenticeshipSearchService;
-        private Mock<IElasticsearchResponse> _connectionStatus;
         private int _expectedTotal;
         private int _expectedCurrentPage;
         private double _expectedTotalPages;
         private SortBy _expectedSortBy;
+        private Mock<IElasticsearchResponse> _mockElasticsearchResponse;
+        private Mock<IElasticClient> _mockElasticClient;
+        private Mock<IGeoSearchResultDistanceSetter> _mockDistanceSetter;
+        private Mock<ISearchResponse<ApprenticeshipSummary>> _mockSearchResponse;
 
         [SetUp]
         public async Task Setup()
@@ -38,40 +41,45 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
             _expectedTotal = fixture.Create<int>();
             _expectedCurrentPage = fixture.Create<int>();
             _expectedSortBy = SortBy.Distance;
-            var vacancySearchParameters = new VacancySearchParameters
+            _vacancySearchParameters = new VacancySearchParameters
             {
                 PageSize = pageSize,
                 PageNumber = _expectedCurrentPage,
-                SortBy = _expectedSortBy
+                SortBy = _expectedSortBy,
+                Latitude = 32,
+                Longitude = 2,
+                DistanceInMiles = 342
             };
             _expectedTotalPages = Math.Ceiling((double) _expectedTotal / pageSize);
 
             _apprenticeshipSummaries = fixture.Create<List<ApprenticeshipSummary>>();
 
-            _connectionStatus = fixture.Freeze<Mock<IElasticsearchResponse>>();
-            _connectionStatus
+            _mockElasticsearchResponse = fixture.Freeze<Mock<IElasticsearchResponse>>();
+            _mockElasticsearchResponse
                 .Setup(response => response.Success)
                 .Returns(true);
 
-            var searchResponse = fixture.Freeze<Mock<ISearchResponse<ApprenticeshipSummary>>>();
-            searchResponse
+            _mockSearchResponse = fixture.Freeze<Mock<ISearchResponse<ApprenticeshipSummary>>>();
+            _mockSearchResponse
                 .Setup(response => response.Total)
                 .Returns(_expectedTotal);
-            searchResponse
+            _mockSearchResponse
                 .Setup(response => response.Documents)
                 .Returns(_apprenticeshipSummaries);
-            searchResponse
+            _mockSearchResponse
                 .Setup(response => response.ConnectionStatus)
-                .Returns(_connectionStatus.Object);
+                .Returns(_mockElasticsearchResponse.Object);
 
             _mockElasticClient = fixture.Freeze<Mock<IElasticClient>>();
             _mockElasticClient
                 .Setup(client => client.SearchAsync(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
-                .ReturnsAsync(searchResponse.Object);
+                .ReturnsAsync(_mockSearchResponse.Object);
+
+            _mockDistanceSetter = fixture.Freeze<Mock<IGeoSearchResultDistanceSetter>>();
 
             _apprenticeshipSearchService = fixture.Create<ApprenticeshipSearchService>();
 
-            _actualResponse = await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(vacancySearchParameters);
+            _actualResponse = await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(_vacancySearchParameters);
         }
 
         [Test]
@@ -94,11 +102,25 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         [Test]
         public void AndConnectionStatusNotSuccess_ThenThrowsInfrastructureException()
         {
-            _connectionStatus
+            _mockElasticsearchResponse
                 .Setup(response => response.Success)
                 .Returns(false);
 
             Assert.ThrowsAsync<InfrastructureException>(() => _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters()));
+        }
+
+        [Test]
+        public void AndIsGeoSearch_ThenDistanceSetterIsCalled()
+        {
+            _mockDistanceSetter.Verify(setter => setter.SetDistance(_vacancySearchParameters, _mockSearchResponse.Object), Times.Once);
+        }
+
+        [Test]
+        public async Task AndIsNotGeoSearch_ThenDistanceSetterIsNotCalled()
+        {
+            _mockDistanceSetter.ResetCalls();
+            await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters());
+            _mockDistanceSetter.Verify(setter => setter.SetDistance(It.IsAny<VacancySearchParameters>(), It.IsAny<ISearchResponse<ApprenticeshipSummary>>()), Times.Never);
         }
 
         [Test]

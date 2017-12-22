@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -17,12 +18,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
         private readonly IElasticClient _elasticClient;
+        private readonly IGeoSearchResultDistanceSetter _distanceSetter;
 
-        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient)
+        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient, IGeoSearchResultDistanceSetter distanceSetter)
         {
             _provideSettings = provideSettings;
             _logger = logger;
             _elasticClient = elasticClient;
+            _distanceSetter = distanceSetter;
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
@@ -102,6 +105,11 @@ namespace Esfa.Vacancy.Infrastructure.Services
             {
                 var ex = new Exception("Unexpected response received from Elastic Search");
                 throw new InfrastructureException(ex);
+            }
+
+            if (parameters.HasGeoSearchFields)
+            {
+                _distanceSetter.SetDistance(parameters, esReponse);
             }
 
             var searchResponse = new SearchApprenticeshipVacanciesResponse()
