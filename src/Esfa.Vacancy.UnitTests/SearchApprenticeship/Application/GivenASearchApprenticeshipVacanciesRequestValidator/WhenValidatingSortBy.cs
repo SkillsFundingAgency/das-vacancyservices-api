@@ -79,7 +79,20 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     DistanceInMiles = 200,
                     SortBy = SortBy.Distance
                 }, new ValidationResult())
-                .SetName("And searching with location then sort by distance is valid")
+                .SetName("And searching with location then sort by distance is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PostedInLastNumberOfDays = 2,
+                    NationwideOnly = true,
+                    SortBy = (SortBy)34
+                }, new ValidationResult
+                {
+                    Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{34}'.")
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.InvalidSortBy
+                    }}
+                })
+                .SetName("And sorting by non-enum value then is invalid")
         };
     }
 }

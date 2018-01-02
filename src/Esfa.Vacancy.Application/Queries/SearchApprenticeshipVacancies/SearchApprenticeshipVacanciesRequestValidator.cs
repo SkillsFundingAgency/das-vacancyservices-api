@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Cache;
 using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Entities;
@@ -103,6 +104,9 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange);
 
             RuleFor(request => request.SortBy)
+                .IsInEnum()
+                .When(request => request.SortBy.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.InvalidSortBy)
                 .NotEqual(SortBy.Distance)
                 .When(request => !request.Latitude.HasValue && !request.Longitude.HasValue && !request.DistanceInMiles.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
