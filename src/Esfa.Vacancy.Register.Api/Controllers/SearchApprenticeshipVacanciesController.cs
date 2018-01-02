@@ -110,6 +110,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30114       | Distance in miles must be between 1 and 1000 (inclusive)                         |
         /// | 30115       | Searching by geo-location and national vacancies is not a valid combination      |
         /// | 30116       | Invalid search and sort combination (e.g. sort by distance but not a geo-search) |
+        /// | 30117       | SortBy value outside of accepted values                                          |
         /// 
         /// </summary>
         [HttpGet]
