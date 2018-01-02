@@ -121,6 +121,7 @@
     <Compile Include="Repositories\StandardRepository.cs" />
     <Compile Include="Repositories\VacancyRepository.cs" />
     <Compile Include="Services\ApprenticeshipSearchService.cs" />
+    <Compile Include="Services\GeoSearchResultDistanceSetter.cs" />
     <Compile Include="Services\IGeoSearchResultDistanceSetter.cs" />
     <Compile Include="Services\SearchDescriptorExtensions.cs" />
     <Compile Include="Services\TrainingDetailService.cs" />
