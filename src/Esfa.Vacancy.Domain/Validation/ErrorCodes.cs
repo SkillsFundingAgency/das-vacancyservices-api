@@ -58,6 +58,10 @@
             public const string ShortDescriptionShouldBeSpecified = "31004";
             public const string ShortDescriptionMaximumFieldLength = "31005";
             public const string ShortDescriptionShouldNotIncludeSpecialCharacters = "31006";
+
+            public const string LongDescriptionShouldBeSpecified = "31007";
+            public const string LongDescriptionShouldNotIncludeSpecialCharacters = "31008";
+            public const string LongDescriptionShouldNotIncludeBlacklistedHtmlElements = "31009";
         }
     }
 }

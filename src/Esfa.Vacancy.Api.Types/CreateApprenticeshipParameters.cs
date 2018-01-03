@@ -8,8 +8,13 @@
         public string Title { get; set; }
 
         /// <summary>
-        /// A short description of the vacancy.
+        /// A short description of the vacancy to be displayed in search results.
         /// </summary>
         public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// A description of the vacancy.
+        /// </summary>
+        public string LongDescription { get; set; }
     }
 }
