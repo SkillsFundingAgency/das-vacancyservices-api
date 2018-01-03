@@ -7,6 +7,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class CreateApprenticeshipRequestValidator : AbstractValidator<CreateApprenticeshipRequest>
     {
+        public const string RegexFreeTextWhiteList = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/\[\]]+$";
+
         private const string TitleApprentice = "apprentice";
         private const int TitleMaximumLength = 100;
         public CreateApprenticeshipRequestValidator()
@@ -20,7 +22,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                         .MaximumLength(TitleMaximumLength)
                         .WithErrorCode(TitleMaximumFieldLength)
                         .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
-                        .WithErrorCode(TitleShouldIncludeWordApprentice);
+                        .WithErrorCode(TitleShouldIncludeWordApprentice)
+                        .Matches(RegexFreeTextWhiteList)
+                        .WithErrorCode(TitleShouldNotIncludeSpecialCharacters);
                 });
         }
     }

@@ -118,6 +118,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipCommandHandler\WhenHandlingACommand.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingFromARequest.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTitle.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithRegexFreeTextWhiteList.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />

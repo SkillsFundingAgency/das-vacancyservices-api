@@ -18,7 +18,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .SetName("Fail if title does not contain word 'apprentice'"),
                 new TestCaseData("1apprentice0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
                     TitleMaximumFieldLength)
-                    .SetName("Should contain 100 or less characters")
+                    .SetName("Should contain 100 or less characters"),
+                new TestCaseData("apprentice <", TitleShouldNotIncludeSpecialCharacters)
+                    .SetName("Should contain valid characters")
             };
 
         [TestCaseSource(nameof(FailingTestCases))]
