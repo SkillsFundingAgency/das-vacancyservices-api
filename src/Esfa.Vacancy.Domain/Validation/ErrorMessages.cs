@@ -33,10 +33,5 @@ namespace Esfa.Vacancy.Domain.Validation
         {
             public const string VacancyReferenceNumberNotNumeric = "The vacancy reference number must be numeric.";
         }
-
-        public static class CreateApprenticeship
-        {
-            //public const string MaximumLength = "Title should be hunders characters or less.";
-        }
     }
 }
