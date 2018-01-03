@@ -17,5 +17,13 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public int? DistanceInMiles { get; set; }
         public SortBy? SortBy { get; set; }
         public bool IsGeoSearch => Latitude.HasValue || Longitude.HasValue || DistanceInMiles.HasValue;
+
+        public SortBy CalculateSortBy()
+        {
+            if (SortBy.HasValue)
+                return SortBy.Value;
+
+            return IsGeoSearch ? Domain.Entities.SortBy.Distance : Domain.Entities.SortBy.Age;
+        }
     }
 }

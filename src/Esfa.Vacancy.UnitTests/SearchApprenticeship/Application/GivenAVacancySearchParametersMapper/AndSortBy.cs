@@ -9,56 +9,14 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
     public class AndSortBy
     {
         [Test]
-        public void AndIsAge_ThenMapsToAge()
+        public void ThenAssignsValueFromCalculateSortBy()
         {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { SortBy = SortBy.Age });
+            var request = new SearchApprenticeshipVacanciesRequest
+                { SortBy = SortBy.Distance };
 
-            result.SortBy.Should().Be(SortBy.Age);
-        }
+            var result = VacancySearchParametersMapper.Convert(request);
 
-        [Test]
-        public void AndIsDistance_ThenMapsToDistance()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { SortBy = SortBy.Distance });
-
-            result.SortBy.Should().Be(SortBy.Distance);
-        }
-
-        [Test]
-        public void AndIsNullAndLatitudeHasValue_ThenMapsToDistance()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { Latitude = 34 });
-
-            result.SortBy.Should().Be(SortBy.Distance);
-        }
-
-        [Test]
-        public void AndIsNullAndLongitudeHasValue_ThenMapsToDistance()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { Longitude = 34 });
-
-            result.SortBy.Should().Be(SortBy.Distance);
-        }
-
-        [Test]
-        public void AndIsNullAndDistanceInMilesHasValue_ThenMapsToDistance()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { DistanceInMiles = 34 });
-
-            result.SortBy.Should().Be(SortBy.Distance);
-        }
-
-        [Test]
-        public void AndIsNullAndNotLocationSearch_ThenMapsToAge()
-        {
-            var result = VacancySearchParametersMapper.Convert(new SearchApprenticeshipVacanciesRequest());
-
-            result.SortBy.Should().Be(SortBy.Age);
+            result.SortBy.Should().Be(request.CalculateSortBy());
         }
     }
 }

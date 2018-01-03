@@ -15,7 +15,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                SortBy = CalculateSortBy(request),
+                SortBy = request.CalculateSortBy(),
                 FromDate = request.PostedInLastNumberOfDays.HasValue
                     ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
@@ -28,14 +28,6 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 Latitude = request.NationwideOnly ? null : request.Latitude,
                 DistanceInMiles = request.NationwideOnly ? null : request.DistanceInMiles
             };
-        }
-
-        private static SortBy CalculateSortBy(SearchApprenticeshipVacanciesRequest request)
-        {
-            if (request.SortBy.HasValue)
-                return request.SortBy.Value;
-            
-            return request.IsGeoSearch ? SortBy.Distance : SortBy.Age;
         }
     }
 }
