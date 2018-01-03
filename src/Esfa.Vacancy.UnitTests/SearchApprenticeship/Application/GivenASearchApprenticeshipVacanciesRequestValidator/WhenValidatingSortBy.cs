@@ -37,6 +37,8 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 options => options.Including(failure => failure.ErrorCode));
         }
 
+        private static int _dodgyEnum = 224;
+
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -84,10 +86,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortBy = (SortBy)34
+                    SortBy = (SortBy)_dodgyEnum
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{34}'.")
+                    Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{_dodgyEnum}'.")
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.InvalidSortBy
                     }}
