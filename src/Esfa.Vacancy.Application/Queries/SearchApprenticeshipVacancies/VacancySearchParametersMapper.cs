@@ -34,10 +34,8 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         {
             if (request.SortBy.HasValue)
                 return request.SortBy.Value;
-
-            var isGeoSearch = request.Latitude.HasValue || request.Longitude.HasValue || request.DistanceInMiles.HasValue;
-
-            return isGeoSearch ? SortBy.Distance : SortBy.Age;
+            
+            return request.IsGeoSearch ? SortBy.Distance : SortBy.Age;
         }
     }
 }
