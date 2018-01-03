@@ -54,6 +54,10 @@
             public const string TitleMaximumFieldLength = "31001";
             public const string TitleShouldIncludeWordApprentice = "31002";
             public const string TitleShouldNotIncludeSpecialCharacters = "31003";
+
+            public const string ShortDescriptionShouldBeSpecified = "31004";
+            public const string ShortDescriptionMaximumFieldLength = "31005";
+            public const string ShortDescriptionShouldNotIncludeSpecialCharacters = "31006";
         }
     }
 }

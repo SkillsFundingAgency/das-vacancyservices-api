@@ -11,6 +11,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
         private const string TitleApprentice = "apprentice";
         private const int TitleMaximumLength = 100;
+        private const int ShortDescriptionMaximumLength = 350;
+
         public CreateApprenticeshipRequestValidator()
         {
             RuleFor(request => request.Title)
@@ -26,6 +28,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                         .Matches(RegexFreeTextWhiteList)
                         .WithErrorCode(TitleShouldNotIncludeSpecialCharacters);
                 });
+
+            RuleFor(request => request.ShortDescription)
+                .NotEmpty()
+                .WithErrorCode(ShortDescriptionShouldBeSpecified)
+                .DependentRules(rules =>
+                {
+                    rules.RuleFor(request => request.ShortDescription)
+                        .MaximumLength(ShortDescriptionMaximumLength)
+                        .WithErrorCode(ShortDescriptionMaximumFieldLength)
+                        .Matches(RegexFreeTextWhiteList)
+                        .WithErrorCode(ShortDescriptionShouldNotIncludeSpecialCharacters);
+                });
+
         }
     }
 }
