@@ -38,6 +38,7 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\ApprenticeshipSummary.cs" />
     <Compile Include="Entities\CreateApprenticeshipParameters.cs" />
+    <Compile Include="Entities\SortBy.cs" />
     <Compile Include="Entities\TraineeshipVacancy.cs" />
     <Compile Include="Entities\Framework.cs" />
     <Compile Include="Entities\GeoPoint.cs" />

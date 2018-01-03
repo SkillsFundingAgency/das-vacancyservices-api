@@ -123,14 +123,22 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
     <Compile Include="GetTraineeshipVacancy\Api\Mappings\GivenTraineeshipMapper.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchResponseMapper\WhenMappingApprenticeshipSummary.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchResponseMapper\WhenMappingSortBy.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoLocationAndNationwide.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingLatitude.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoSearchFields.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequest\WhenCallingCalculateSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequest\WhenGettingIsGeoSearch.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndLocationFields.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndSortBy.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingHasGeoSearchFields.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingToString.cs" />
+    <Compile Include="SearchApprenticeship\Infrastructure\GivenAGeoSearchResultDistanceSetter.cs" />
     <Compile Include="Shared\Api\Validation\GivenAValidationExceptionBuilder.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
@@ -150,7 +158,6 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingStandardCodes.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenApprenticeshipSummaryMapper.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithAmbiguousWage.cs" />
@@ -174,7 +181,7 @@
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingFrameworkCodes.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingStandardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchApprenticeship\Infrastructure\GivenAnApprenticeshipSearchService\WhenSearchingByStandardCodes.cs" />
+    <Compile Include="SearchApprenticeship\Infrastructure\GivenAnApprenticeshipSearchService\WhenSearching.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

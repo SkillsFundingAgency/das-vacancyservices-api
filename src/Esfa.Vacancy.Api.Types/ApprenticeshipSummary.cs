@@ -97,6 +97,11 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public bool IsEmployerDisabilityConfident { get; set; }
 
+        /// <summary>
+        /// The distance in miles from the geo-location based search
+        /// </summary>
+        public double? DistanceInMiles { get; set; }
+
         public ApprenticeshipSummary()
         {
             Location = new GeoPoint();

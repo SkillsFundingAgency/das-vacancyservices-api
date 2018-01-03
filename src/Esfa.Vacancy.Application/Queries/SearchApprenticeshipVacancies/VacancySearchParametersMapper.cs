@@ -15,6 +15,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
+                SortBy = request.CalculateSortBy(),
                 FromDate = request.PostedInLastNumberOfDays.HasValue
                     ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,

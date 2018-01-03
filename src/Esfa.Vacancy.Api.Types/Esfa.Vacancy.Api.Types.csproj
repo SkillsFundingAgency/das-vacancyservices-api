@@ -46,6 +46,7 @@
     <Compile Include="BadRequestContent.cs" />
     <Compile Include="CreateApprenticeshipResponse.cs" />
     <Compile Include="CreateApprenticeshipParameters.cs" />
+    <Compile Include="SortBy.cs" />
     <Compile Include="TraineeshipVacancy.cs" />
     <Compile Include="GeoPoint.cs" />
     <Compile Include="SearchApprenticeshipParameters.cs" />

@@ -25,9 +25,13 @@ namespace Esfa.Vacancy.Api.Types
         public double TotalPages { get; set; }
 
         /// <summary>
+        /// The order that the results are sorted by
+        /// </summary>
+        public SortBy SortBy { get; set; }
+
+        /// <summary>
         /// Search results
         /// </summary>
         public IEnumerable<T> Results { get; set; }
-
     }
 }

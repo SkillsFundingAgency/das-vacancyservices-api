@@ -77,29 +77,40 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// Note that when specifying both framework and standard codes, the results will include vacancies with matching 
         /// framework or standard codes.
         /// 
+        /// #### Sorting results ####
+        /// 
+        /// The results will be ordered by the following rules by default:
+        /// - If searching by geo-location then the results are sorted by distance (closest first).
+        /// - If searching by anything other than geo-location then the results are sorted by age (posted date) (newest first).
+        /// The default sorting rules can be overriden by using the `SortBy` query parameter. 
+        /// SortBy can be set to "Age", "Distance".
+        /// Beware that it is invalid to sort by distance if you have not searched by geo-location.
+        /// 
         /// #### Error codes ####
         /// 
         /// The following error codes may be returned when calling this operation if any of the search criteria values 
         /// specified fail validation:
         /// 
-        /// | Error code  | Explanation                                                                 |
-        /// | ----------- | --------------------------------------------------------------------------- |
-        /// | 30100       | Search parameters were not specified                                        |
-        /// | 30101       | At least 1 standard *or* framework code must be specified                   |
-        /// | 30102       | Standard code must be a number                                              |
-        /// | 30103       | Framework code must be a number                                             |
-        /// | 30104       | Page size must be between 1 and 250 (inclusive)                             |
-        /// | 30105       | Page number must be greater than 0                                          |
-        /// | 30106       | Number of days since posted must be greater than or equal to 0              |
-        /// | 30107       | Framework code not recognised                                               |
-        /// | 30108       | Standard code not recognised                                                |
-        /// | 30109       | Latitude is required when performing geo-search                             |
-        /// | 30110       | Latitude must be between -90 and 90 (inclusive)                             |
-        /// | 30111       | Longitude is required when performing geo-search                            |
-        /// | 30112       | Longitude must be between -180 and 180 (inclusive)                          |
-        /// | 30113       | Distance in miles is required when performing geo-search                    |
-        /// | 30114       | Distance in miles must be between 1 and 1000 (inclusive)                    |
-        /// | 30115       | Searching by geo-location and national vacancies is not a valid combination |
+        /// | Error code  | Explanation                                                                      |
+        /// | ----------- | -------------------------------------------------------------------------------- |
+        /// | 30100       | Search parameters were not specified                                             |
+        /// | 30101       | At least 1 valid search criteria must be provided                                |
+        /// | 30102       | Standard code must be a number                                                   |
+        /// | 30103       | Framework code must be a number                                                  |
+        /// | 30104       | Page size must be between 1 and 250 (inclusive)                                  |
+        /// | 30105       | Page number must be greater than 0                                               |
+        /// | 30106       | Number of days since posted must be greater than or equal to 0                   |
+        /// | 30107       | Framework code not recognised                                                    |
+        /// | 30108       | Standard code not recognised                                                     |
+        /// | 30109       | Latitude is required when performing geo-search                                  |
+        /// | 30110       | Latitude must be between -90 and 90 (inclusive)                                  |
+        /// | 30111       | Longitude is required when performing geo-search                                 |
+        /// | 30112       | Longitude must be between -180 and 180 (inclusive)                               |
+        /// | 30113       | Distance in miles is required when performing geo-search                         |
+        /// | 30114       | Distance in miles must be between 1 and 1000 (inclusive)                         |
+        /// | 30115       | Searching by geo-location and national vacancies is not a valid combination      |
+        /// | 30116       | Invalid search and sort combination (e.g. sort by distance but not a geo-search) |
+        /// | 30117       | SortBy value outside of accepted values                                          |
         /// 
         /// </summary>
         [HttpGet]

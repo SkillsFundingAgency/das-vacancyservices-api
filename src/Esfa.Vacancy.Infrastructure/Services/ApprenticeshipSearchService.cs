@@ -17,12 +17,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
         private readonly IElasticClient _elasticClient;
+        private readonly IGeoSearchResultDistanceSetter _distanceSetter;
 
-        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient)
+        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient, IGeoSearchResultDistanceSetter distanceSetter)
         {
             _provideSettings = provideSettings;
             _logger = logger;
             _elasticClient = elasticClient;
+            _distanceSetter = distanceSetter;
         }
 
         public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
@@ -65,22 +67,27 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
                             if (parameters.HasGeoSearchFields)
                             {
-                                container = container && query.Filtered(descriptor =>
-                                    descriptor.Filter(filterDescriptor =>
-                                        filterDescriptor.GeoDistance(summary => summary.Location, distanceFilterDescriptor =>
-                                            distanceFilterDescriptor.Location(parameters.Latitude.Value, parameters.Longitude.Value)
+                                container = container && query.Filtered(filteredQuery =>
+                                    filteredQuery.Filter(filter =>
+                                        filter.GeoDistance(summary => summary.Location, geoDistanceFilter =>
+                                            geoDistanceFilter.Location(parameters.Latitude.Value, parameters.Longitude.Value)
                                                 .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
                             }
 
                             return container;
                         });
 
-                    if (parameters.HasGeoSearchFields)
+                    switch (parameters.SortBy)
                     {
-                        search.SortGeoDistance(descriptor =>
-                            descriptor.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)
-                                .Unit(GeoUnit.Miles)
-                                .OnField(summary => summary.Location));
+                        case SortBy.Distance:
+                            search.TrySortByDistance(parameters);
+                            search.SortByAge();
+                            break;
+
+                        default:
+                            search.SortByAge();
+                            search.TrySortByDistance(parameters);
+                            break;
                     }
 
                     return search;
@@ -99,12 +106,18 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 throw new InfrastructureException(ex);
             }
 
+            if (parameters.HasGeoSearchFields)
+            {
+                _distanceSetter.SetDistance(parameters, esReponse);
+            }
+
             var searchResponse = new SearchApprenticeshipVacanciesResponse()
             {
                 TotalMatched = esReponse.Total,
                 TotalReturned = esReponse.Documents.Count(),
                 CurrentPage = parameters.PageNumber,
                 TotalPages = Math.Ceiling((double)esReponse.Total / parameters.PageSize),
+                SortBy = parameters.SortBy,
                 ApprenticeshipSummaries = esReponse.Documents
             };
 

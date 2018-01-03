@@ -7,10 +7,10 @@ using ApprenticeshipSummary = Esfa.Vacancy.Domain.Entities.ApprenticeshipSummary
 using GeoPoint = Esfa.Vacancy.Domain.Entities.GeoPoint;
 
 
-namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
+namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchResponseMapper
 {
     [TestFixture]
-    public class GivenApprenticeshipSummaryMapper
+    public class WhenMappingApprenticeshipSummary
     {
         private IMapper _mapper;
 
@@ -21,9 +21,9 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
             _mapper = config.CreateMapper();
         }
 
-        [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "Then load Standard type")]
-        [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "Then load Framework type")]
-        public void WhenMappingTraingingDetails(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
+        [TestCase(1, null, ApiTypes.TrainingType.Standard, TestName = "And has Standard ID then TrainingType set to Standard")]
+        [TestCase(null, "10", ApiTypes.TrainingType.Framework, TestName = "And has Framework Code then TrainingType set to Framework")]
+        public void AndMappingTrainingType(int? standardId, string frameworkCode, ApiTypes.TrainingType expectedTrainingType)
         {
             var expectedTrainingCode = standardId.HasValue ? standardId.ToString() : frameworkCode;
             var domainType = new ApprenticeshipSummary()
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
         }
 
         [Test]
-        public void WhenMappingGeoCoordinates()
+        public void ThenGeoCoordinatesMapCorrectly()
         {
             var domainType = new ApprenticeshipSummary
             {
@@ -50,11 +50,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
 
             result.Location.Latitude.Should().Be(51.3288148990m, "Then map latitude to Location");
             result.Location.Longitude.Should().Be(0.4452948632m, "Then map longitude to Location");
-
         }
 
         [Test]
-        public void WhenMappingShortDescription()
+        public void ThenShortDescriptionMapsCorrectly()
         {
             var description = "desc";
             var domainType = new ApprenticeshipSummary
@@ -68,7 +67,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
         }
 
         [Test]
-        public void WhenMappingTrainingProviderName()
+        public void ThenTrainingProviderNameMapsCorrectly()
         {
             var providerName = "desc";
             var domainType = new ApprenticeshipSummary
@@ -83,7 +82,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
 
         [TestCase("National", true, TestName = "And Location Type is National Then map set IsNationWide to true")]
         [TestCase("NonNational", false, TestName = "And Location Type is NonNational Then map set IsNationWide to false")]
-        public void WhenMappingIsNationWide(string value, bool expectedResult)
+        public void AndMappingIsNationWide(string value, bool expectedResult)
         {
             var domainType = new ApprenticeshipSummary
             {
@@ -95,5 +94,18 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings
             result.IsNationwide.Should().Be(expectedResult);
         }
 
+        [Test]
+        public void ThenDistanceInMilesMapsCorrectly()
+        {
+            var expectedDistance = 3245.3245;
+            var domainType = new ApprenticeshipSummary
+            {
+                DistanceInMiles = expectedDistance
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.DistanceInMiles.Should().Be(expectedDistance);
+        }
     }
 }
