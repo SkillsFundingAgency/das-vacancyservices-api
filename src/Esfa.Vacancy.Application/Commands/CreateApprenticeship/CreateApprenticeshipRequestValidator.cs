@@ -8,8 +8,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class CreateApprenticeshipRequestValidator : AbstractValidator<CreateApprenticeshipRequest>
     {
-        public const string RegexFreeTextWhiteList = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/\[\]]+$";
-        public const string RegexHtmlFreeTextWhiteList = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/<>\[\]]+$";
+        public const string RegexFreeTextWhitelist = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/\[\]]+$";
+        public const string RegexHtmlFreeTextWhitelist = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/<>\[\]]+$";
         public const string RegexScriptsBlacklist = @"<\s*s\s*c\s*r\s*i\s*p\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         public const string RegexInputsBlacklist = @"<\s*i\s*n\s*p\s*u\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         public const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                         .WithErrorCode(TitleMaximumFieldLength)
                         .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
                         .WithErrorCode(TitleShouldIncludeWordApprentice)
-                        .Matches(RegexFreeTextWhiteList)
+                        .Matches(RegexFreeTextWhitelist)
                         .WithErrorCode(TitleShouldNotIncludeSpecialCharacters);
                 });
 
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     rules.RuleFor(request => request.ShortDescription)
                         .MaximumLength(ShortDescriptionMaximumLength)
                         .WithErrorCode(ShortDescriptionMaximumFieldLength)
-                        .Matches(RegexFreeTextWhiteList)
+                        .Matches(RegexFreeTextWhitelist)
                         .WithErrorCode(ShortDescriptionShouldNotIncludeSpecialCharacters);
                 });
 
@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .DependentRules(rules =>
                 {
                     rules.RuleFor(request => request.LongDescription)
-                        .Matches(RegexHtmlFreeTextWhiteList)
+                        .Matches(RegexHtmlFreeTextWhitelist)
                         .WithErrorCode(LongDescriptionShouldNotIncludeSpecialCharacters)
                         .Must(CheckHtmlFreeTextBlacklist)
                         .WithErrorCode(LongDescriptionShouldNotIncludeBlacklistedHtmlElements);

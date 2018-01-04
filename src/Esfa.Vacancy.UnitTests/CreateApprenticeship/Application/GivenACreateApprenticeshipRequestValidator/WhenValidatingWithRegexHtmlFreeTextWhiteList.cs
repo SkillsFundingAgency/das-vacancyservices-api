@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             var validChars = GetValidCharacters();
 
-            var match = Regex.Match(validChars, CreateApprenticeshipRequestValidator.RegexHtmlFreeTextWhiteList);
+            var match = Regex.Match(validChars, CreateApprenticeshipRequestValidator.RegexHtmlFreeTextWhitelist);
 
             match.Success.Should().Be(true);
         }
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             foreach (var invalidChar in invalidChars)
             {                
-                var match = Regex.Match(invalidChar.ToString(), CreateApprenticeshipRequestValidator.RegexHtmlFreeTextWhiteList);
+                var match = Regex.Match(invalidChar.ToString(), CreateApprenticeshipRequestValidator.RegexHtmlFreeTextWhitelist);
 
                 match.Success.Should().Be(false);
             }
