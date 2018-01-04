@@ -4,44 +4,46 @@ using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchApprenticeshipVacanciesRequest
+namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASortByCalculater
 {
     [TestFixture]
-    public class WhenCallingCalculateSortBy
+    public class WhenCalculatingSortBy
     {
         private Fixture _fixture;
+        private SortByCalculator _calculator;
 
         [SetUp]
         public void SetUp()
         {
             _fixture = new Fixture();
+            _calculator = _fixture.Create<SortByCalculator>();
         }
 
         [Test]
-        public void AndIsAge_ThenReturnsAge()
+        public void AndIsAge_ThenMapsToAge()
         {
             var request = new SearchApprenticeshipVacanciesRequest
                 { SortBy = SortBy.Age };
 
-            request.CalculateSortBy().Should().Be(SortBy.Age);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Age);
         }
 
         [Test]
-        public void AndIsDistance_ThenReturnsDistance()
+        public void AndIsDistance_ThenMapsToDistance()
         {
             var request = new SearchApprenticeshipVacanciesRequest
                 { SortBy = SortBy.Distance };
 
-            request.CalculateSortBy().Should().Be(SortBy.Distance);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Distance);
         }
 
         [Test]
-        public void AndIsNullAndLatitudeHasValue_ThenReturnsDistance()
+        public void AndIsNullAndLatitudeHasValue_ThenMapsToDistance()
         {
             var request = new SearchApprenticeshipVacanciesRequest
                 { Latitude = _fixture.Create<double>() };
 
-            request.CalculateSortBy().Should().Be(SortBy.Distance);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Distance);
         }
 
         [Test]
@@ -50,24 +52,24 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             var request = new SearchApprenticeshipVacanciesRequest
                 { Longitude = _fixture.Create<double>() };
 
-            request.CalculateSortBy().Should().Be(SortBy.Distance);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Distance);
         }
 
         [Test]
-        public void AndIsNullAndDistanceInMilesHasValue_ThenReturnsDistance()
+        public void AndIsNullAndDistanceInMilesHasValue_ThenMapsToDistance()
         {
             var request = new SearchApprenticeshipVacanciesRequest
                 { DistanceInMiles = _fixture.Create<int>() };
 
-            request.CalculateSortBy().Should().Be(SortBy.Distance);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Distance);
         }
 
         [Test]
-        public void AndIsNullAndNotLocationSearch_ThenReturnsAge()
+        public void AndIsNullAndNotLocationSearch_ThenMapsToAge()
         {
-            var result = new SearchApprenticeshipVacanciesRequest();
+            var request = new SearchApprenticeshipVacanciesRequest();
 
-            result.CalculateSortBy().Should().Be(SortBy.Age);
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.Age);
         }
     }
 }
