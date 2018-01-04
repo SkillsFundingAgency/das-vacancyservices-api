@@ -83,33 +83,37 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 .When(request => request.IsGeoSearch)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
-                .InclusiveBetween(MinimumLatitude, MaximumLatitude)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange);
+                .DependentRules(rules => rules.RuleFor(request => request.Latitude)
+                    .InclusiveBetween(MinimumLatitude, MaximumLatitude)
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange));
 
             RuleFor(request => request.Longitude)
                 .NotNull()
                 .When(request => request.IsGeoSearch)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
-                .InclusiveBetween(MinimumLongitude, MaximumLongitude)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange);
+                .DependentRules(rules => rules.RuleFor(request => request.Longitude)
+                    .InclusiveBetween(MinimumLongitude, MaximumLongitude)
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange));
 
             RuleFor(request => request.DistanceInMiles)
                 .NotNull()
                 .When(request => request.IsGeoSearch)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
-                .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange);
+                .DependentRules(rules => rules.RuleFor(request => request.DistanceInMiles)
+                    .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange));
 
             RuleFor(request => request.SortBy)
                 .IsInEnum()
                 .When(request => request.SortBy.HasValue)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.InvalidSortBy)
-                .NotEqual(SortBy.Distance)
-                .When(request => !request.IsGeoSearch)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
-                .WithMessage(ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch);
+                .DependentRules(rules => rules.RuleFor(request => request.SortBy)
+                    .NotEqual(SortBy.Distance)
+                    .When(request => !request.IsGeoSearch)
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
+                    .WithMessage(ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch));
         }
 
         private static bool BeValidNumber(string value)
