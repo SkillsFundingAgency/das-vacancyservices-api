@@ -1,12 +1,23 @@
 ﻿using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using FluentAssertions;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancySearchParametersMapper
 {
     [TestFixture]
     public class AndLocationFields
     {
+        private VacancySearchParametersMapper _mapper;
+
+        [SetUp]
+        public void SetUp()
+        {
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _mapper = fixture.Create<VacancySearchParametersMapper>();
+        }
+
         [Test]
         public void WhenMappingLongitude_ThenMappedToSearchParams()
         {
@@ -16,7 +27,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
                 Longitude = expectedLongitude
             };
 
-            var result = VacancySearchParametersMapper.Convert(request);
+            var result = _mapper.Convert(request);
 
             result.Longitude.Should().Be(expectedLongitude);
         }
@@ -30,7 +41,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
                 Latitude = expectedLatitude
             };
 
-            var result = VacancySearchParametersMapper.Convert(request);
+            var result = _mapper.Convert(request);
 
             result.Latitude.Should().Be(expectedLatitude);
         }
@@ -44,7 +55,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
                 DistanceInMiles = expectedDistance
             };
 
-            var result = VacancySearchParametersMapper.Convert(request);
+            var result = _mapper.Convert(request);
 
             result.DistanceInMiles.Should().Be(expectedDistance);
         }

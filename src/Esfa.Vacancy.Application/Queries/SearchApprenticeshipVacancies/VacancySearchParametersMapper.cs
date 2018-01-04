@@ -4,18 +4,24 @@ using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
-    public static class VacancySearchParametersMapper
+    public class VacancySearchParametersMapper : IVacancySearchParametersMapper
     {
+        private readonly ISortByCalculator _sortByCalculator;
         public const string NationwideLocationType = "National";
         public const string NonNationwideLocationType = "NonNational";
 
-        public static VacancySearchParameters Convert(SearchApprenticeshipVacanciesRequest request)
+        public VacancySearchParametersMapper(ISortByCalculator sortByCalculator)
+        {
+            _sortByCalculator = sortByCalculator;
+        }
+
+        public VacancySearchParameters Convert(SearchApprenticeshipVacanciesRequest request)
         {
             return new VacancySearchParameters
             {
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
-                SortBy = request.CalculateSortBy(),
+                SortBy = _sortByCalculator.CalculateSortBy(request),
                 FromDate = request.PostedInLastNumberOfDays.HasValue
                     ? DateTime.Today.AddDays(-request.PostedInLastNumberOfDays.Value)
                     : (DateTime?)null,
