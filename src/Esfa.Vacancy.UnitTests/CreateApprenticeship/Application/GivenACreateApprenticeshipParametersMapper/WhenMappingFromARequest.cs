@@ -19,6 +19,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var parameters = mapper.MapFromRequest(request);
 
             parameters.Title.Should().Be(request.Title);
+            parameters.ShortDescription.Should().Be(request.ShortDescription);
+            parameters.Description.Should().Be(request.LongDescription);
         }
     }
 }

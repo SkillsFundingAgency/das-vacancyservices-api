@@ -8,7 +8,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             return new CreateApprenticeshipParameters
             {
-                Title = request.Title
+                Title = request.Title,
+                ShortDescription = request.ShortDescription,
+                Description = request.LongDescription
             };
         }
     }

@@ -9,7 +9,9 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
         {
             return new CreateApprenticeshipRequest
             {
-                Title = parameters.Title
+                Title = parameters.Title,
+                ShortDescription = parameters.ShortDescription,
+                LongDescription = parameters.LongDescription
             };
         }
     }
