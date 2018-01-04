@@ -27,11 +27,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData("~", false, LongDescriptionShouldNotIncludeSpecialCharacters)
                     .SetName("LongDescription should contain valid characters"),
                 new TestCaseData("< i n p u t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
-                    .SetName("LongDescription should contain <input>"),
+                    .SetName("LongDescription cannot contain <input>"),
                 new TestCaseData("< o b j e c t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
-                    .SetName("LongDescription should contain <object>"),
+                    .SetName("LongDescription cannot contain <object>"),
                 new TestCaseData("< s c r i p t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
-                    .SetName("LongDescription should contain <script>"),
+                    .SetName("LongDescription cannot contain <script>"),
             };
 
         [TestCaseSource(nameof(TestCases))]

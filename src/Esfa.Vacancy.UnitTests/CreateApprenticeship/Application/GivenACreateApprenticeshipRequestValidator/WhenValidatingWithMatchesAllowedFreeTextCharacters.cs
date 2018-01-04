@@ -2,22 +2,27 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
+using FluentValidation;
 using NUnit.Framework;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingWithRegexHtmlFreeTextWhiteList
+    public class WhenValidatingWithMatchesAllowedFreeTextCharacters
     {
+        private const string ErrorCode = "ErrorCode";
+        
         [Test]
         public void ThenCheckValidCharacters()
         {
             var validChars = GetValidCharacters();
+            var sut = new TestMatchesAllowedHtmlFreeTextCharactersValidator();
 
-            var match = Regex.Match(validChars, Extensions.RegexHtmlFreeTextWhitelist);
+            var result = sut.Validate(validChars);
 
-            match.Success.Should().Be(true);
+            result.IsValid.Should().BeTrue();
         }
 
         [Test]
@@ -30,11 +35,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var invalidChars = allChars.Except(validChars).Select(i => (char)i).ToArray();
 
-            foreach (var invalidChar in invalidChars)
-            {                
-                var match = Regex.Match(invalidChar.ToString(), Extensions.RegexHtmlFreeTextWhitelist);
+            var sut = new TestMatchesAllowedHtmlFreeTextCharactersValidator();
 
-                match.Success.Should().Be(false);
+            foreach (var invalidChar in invalidChars)
+            {
+
+                var result = sut.Validate(invalidChar.ToString());
+
+                result.IsValid.Should().BeFalse();
+                result.Errors.Single().ErrorCode.Should().Be(ErrorCode);
             }
             
         }
@@ -56,7 +65,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             text.Append(GetStringForCharacterCodeRange(128, 65447));
 
             //specific characters
-            text.Append(@"?$@#()""'!,+-=_:;.&€£*%/<>[]");
+            text.Append(@"?$@#()""'!,+-=_:;.&€£*%/[]");
 
             //whitespace characters matched by \s regex
             text.Append(" \f\n\r\t\v");
@@ -67,6 +76,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private string GetStringForCharacterCodeRange(int rangeStart, int rangeEnd)
         {
             return new string(Enumerable.Range(rangeStart, rangeEnd - rangeStart + 1).Select(i => (char)i).ToArray());
+        }
+
+        private class TestMatchesAllowedHtmlFreeTextCharactersValidator : AbstractValidator<string>
+        {
+            public TestMatchesAllowedHtmlFreeTextCharactersValidator()
+            {
+                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode);
+            }
         }
     }
 }
