@@ -9,13 +9,16 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
     public class SearchApprenticeshipVacanciesQueryHandler : IAsyncRequestHandler<SearchApprenticeshipVacanciesRequest, SearchApprenticeshipVacanciesResponse>
     {
         private readonly IValidator<SearchApprenticeshipVacanciesRequest> _validator;
+        private readonly IVacancySearchParametersMapper _mapper;
         private readonly IApprenticeshipSearchService _vacancySearchService;
 
         public SearchApprenticeshipVacanciesQueryHandler(
             IValidator<SearchApprenticeshipVacanciesRequest> validator,
+            IVacancySearchParametersMapper mapper,
             IApprenticeshipSearchService vacancySearchService)
         {
             _validator = validator;
+            _mapper = mapper;
             _vacancySearchService = vacancySearchService;
         }
 
@@ -26,7 +29,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var searchParameters = new VacancySearchParameters(); //VacancySearchParametersMapper.Convert(request);
+            var searchParameters = _mapper.Convert(request);
 
             return await _vacancySearchService.SearchApprenticeshipVacanciesAsync(searchParameters);
         }
