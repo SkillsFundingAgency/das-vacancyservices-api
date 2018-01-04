@@ -7,7 +7,7 @@
             // 30100 - 30199
             public const string SearchApprenticeshipParametersIsNull = "30100";
 
-            public const string MinimumRequiredFieldsNotProvided        = "30101";
+            public const string MinimumRequiredFieldsNotProvided = "30101";
             public const string StandardCodeNotInt32 = "30102";
             public const string FrameworkCodeNotInt32 = "30103";
             public const string PageSizeOutsideRange = "30104";
@@ -23,9 +23,9 @@
             public const string LongitudeOutsideRange = "30112";
             public const string DistanceMissingFromGeoSearch = "30113";
             public const string DistanceOutsideRange = "30114";
-            public const string GeoSearchAndNationwideNotAllowed        = "30115";
-            public const string SortByDistanceOnlyWhenGeoSearch         = "30116";
-            public const string InvalidSortBy                           = "30117";
+            public const string GeoSearchAndNationwideNotAllowed = "30115";
+            public const string SortByDistanceOnlyWhenGeoSearch = "30116";
+            public const string InvalidSortBy = "30117";
         }
 
         public static class GetApprenticeship
