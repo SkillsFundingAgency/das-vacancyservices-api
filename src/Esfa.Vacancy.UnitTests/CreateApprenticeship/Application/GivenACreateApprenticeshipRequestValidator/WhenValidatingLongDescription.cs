@@ -18,9 +18,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(null, false, LongDescriptionShouldBeSpecified)
+                new TestCaseData(null, false, LongDescriptionIsRequired)
                     .SetName("LongDescription cannot be null"),
-                new TestCaseData("", false, LongDescriptionShouldBeSpecified)
+                new TestCaseData("", false, LongDescriptionIsRequired)
                     .SetName("LongDescription cannot be empty"),
                 new TestCaseData("<", true, null)
                     .SetName("LongDescription should contain valid characters"),

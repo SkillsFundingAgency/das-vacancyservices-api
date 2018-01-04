@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -18,7 +15,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             var validChars = GetValidCharacters();
 
-            var match = Regex.Match(validChars, CreateApprenticeshipRequestValidator.RegexFreeTextWhitelist);
+            var match = Regex.Match(validChars, Extensions.RegexFreeTextWhitelist);
 
             match.Success.Should().Be(true);
         }
@@ -35,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             foreach (var invalidChar in invalidChars)
             {                
-                var match = Regex.Match(invalidChar.ToString(), CreateApprenticeshipRequestValidator.RegexFreeTextWhitelist);
+                var match = Regex.Match(invalidChar.ToString(), Extensions.RegexFreeTextWhitelist);
 
                 match.Success.Should().Be(false);
             }
