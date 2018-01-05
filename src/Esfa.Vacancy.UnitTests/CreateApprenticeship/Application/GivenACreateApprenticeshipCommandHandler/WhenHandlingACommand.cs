@@ -23,26 +23,34 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private Mock<IValidator<CreateApprenticeshipRequest>> _mockValidator;
         private IFixture _fixture;
         private CreateApprenticeshipCommandHandler _handler;
+        private Mock<ICreateApprenticeshipParametersMapper> _mockMapper;
+        private Mock<IVacancyRepository> _mockRepository;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _expectedRefNumber = _fixture.Create<int>();
             var expectedParameters = _fixture.Freeze<CreateApprenticeshipParameters>();
+            var validRequest = _fixture.Create<CreateApprenticeshipRequest>();
 
             _mockValidator = _fixture.Freeze<Mock<IValidator<CreateApprenticeshipRequest>>>();
+            _mockValidator
+                .Setup(validator => validator.ValidateAsync(validRequest, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
 
-            _fixture.Freeze<Mock<ICreateApprenticeshipParametersMapper>>(composer => composer.Do(mock => mock
+            _mockMapper = _fixture.Freeze<Mock<ICreateApprenticeshipParametersMapper>>(composer => composer.Do(mock => mock
                 .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>()))
                 .Returns(expectedParameters)));
 
-            _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
+            _mockRepository = _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
                 .Setup(repository => repository.CreateApprenticeshipAsync(expectedParameters))
                 .ReturnsAsync(_expectedRefNumber)));
 
             _handler = _fixture.Create<CreateApprenticeshipCommandHandler>();
+
+            _createApprenticeshipResponse = await _handler.Handle(validRequest);
         }
 
         [Test]
@@ -65,16 +73,20 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndCommandValid_ThenReturnsRefNumberFromRepository()
+        public void ThenValidatesRequest()
         {
-            var validRequest = _fixture.Create<CreateApprenticeshipRequest>();
+            
+        }
 
-            _mockValidator
-                .Setup(validator => validator.ValidateAsync(validRequest, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ValidationResult());
+        [Test]
+        public void ThenMapsRequestToCreateParams()
+        {
+            
+        }
 
-            _createApprenticeshipResponse = await _handler.Handle(validRequest);
-
+        [Test]
+        public void ThenReturnsRefNumberFromRepository()
+        {
             _createApprenticeshipResponse.VacancyReferenceNumber.Should().Be(_expectedRefNumber);
         }
     }

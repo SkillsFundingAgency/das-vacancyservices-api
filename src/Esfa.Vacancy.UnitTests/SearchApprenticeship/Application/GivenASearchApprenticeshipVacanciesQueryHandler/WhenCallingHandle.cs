@@ -40,8 +40,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .Setup(validator => validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ValidationResult());
 
-            
-
             _mockMapper = fixture.Freeze<Mock<IVacancySearchParametersMapper>>();
             _mockMapper
                 .Setup(mapper => mapper.Convert(It.IsAny<SearchApprenticeshipVacanciesRequest>()))
