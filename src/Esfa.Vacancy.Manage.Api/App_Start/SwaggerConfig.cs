@@ -26,13 +26,13 @@ namespace Esfa.Vacancy.Manage.Api
                         // the docs is taken as the default. If your API supports multiple schemes and you want to be explicit
                         // about them, you can use the "Schemes" option as shown below.
                         //
-                        c.Schemes(new[] { "http", "https" });
+                        c.Schemes(new[] { "https" });
 
                         // Use "SingleApiVersion" to describe a single version API. Swagger 2.0 includes an "Info" object to
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "Esfa.Vacancy.Manage.Api");
+                        c.SingleApiVersion("v1", "Manage vacancies API");
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
