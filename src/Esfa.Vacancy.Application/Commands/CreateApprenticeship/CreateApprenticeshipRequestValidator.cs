@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             SetValidatorDisallowEmpty(request => request.Title, TitleIsRequired, new TitleValidator());
             SetValidatorDisallowEmpty(request => request.ShortDescription, ShortDescriptionIsRequired, new ShortDescriptionValidator());
             SetValidatorDisallowEmpty(request => request.LongDescription, LongDescriptionIsRequired, new LongDescriptionValidator());
-            SetValidatorDisallowEmpty(request => request.ApplicationClosingDate, "7", new ApplicationClosingDateValidator());
+            SetValidatorDisallowEmpty(request => request.ApplicationClosingDate, ApplicationClosingDateRequired, new ApplicationClosingDateValidator());
         }
 
         private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)
