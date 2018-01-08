@@ -13,13 +13,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             SetValidatorDisallowEmpty(request => request.Title, TitleIsRequired, new TitleValidator());
             SetValidatorDisallowEmpty(request => request.ShortDescription, ShortDescriptionIsRequired, new ShortDescriptionValidator());
             SetValidatorDisallowEmpty(request => request.LongDescription, LongDescriptionIsRequired, new LongDescriptionValidator());
+            SetValidatorDisallowEmpty(request => request.ApplicationClosingDate, "7", new ApplicationClosingDateValidator());
         }
 
-        private IRuleBuilderOptions<CreateApprenticeshipRequest, TProperty> SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode,
-            AbstractValidator<TProperty> validatorToAdd)
+        private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)
         {
             //AbstractValidators do not work against null fields so adding the validator as a dependent rule and doing a NotEmpty check first
-            return RuleFor(selector)
+            RuleFor(selector)
                 .NotEmpty()
                 .WithErrorCode(emptyErrorCode)
                 .DependentRules(rules =>
@@ -27,6 +27,5 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     rules.RuleFor(selector).SetValidator(validatorToAdd);
                 });
         }
-
     }
 }

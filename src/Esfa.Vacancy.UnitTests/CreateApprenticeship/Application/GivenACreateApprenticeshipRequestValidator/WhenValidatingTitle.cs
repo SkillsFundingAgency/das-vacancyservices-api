@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Net.Cache;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using FluentValidation;
-using FluentValidation.Internal;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
