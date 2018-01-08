@@ -33,5 +33,10 @@ namespace Esfa.Vacancy.Domain.Validation
         {
             public const string VacancyReferenceNumberNotNumeric = "The vacancy reference number must be numeric.";
         }
+
+        public static class CreateApprenticeship
+        {
+            public const string ApplicationClosingDateLessThanTomorrow = "'Application Closing Date' must be after today's date.";
+        }
     }
 }

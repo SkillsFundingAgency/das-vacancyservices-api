@@ -15,19 +15,23 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     {
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
-            new TestCaseData(DateTime.Today, false, new List<string>()
-            {
-                ErrorCodes.CreateApprenticeship.ApplicationClosingDateLessThanTomorrow
-            }).SetName("And is today Then is invalid"),
-            new TestCaseData(DateTime.Today.AddDays(1), true, new List<string>()).SetName("And is tomorrow Then is valid"),
-            new TestCaseData(null, false, new List<string>()
-            {
-                ErrorCodes.CreateApprenticeship.ApplicationClosingDateRequired
-            }).SetName("And is null Then is valid"),
+            new TestCaseData(null, false, 
+                new List<string> { ErrorCodes.CreateApprenticeship.ApplicationClosingDateRequired }, 
+                new List<string> { "'Application Closing Date' should not be empty." })
+            .SetName("And is null Then is invalid"),
+            new TestCaseData(DateTime.Today, false, 
+                new List<string> { ErrorCodes.CreateApprenticeship.ApplicationClosingDateLessThanTomorrow }, 
+                new List<string> { "'Application Closing Date' must be after today's date." })
+            .SetName("And is today Then is invalid"),
+            new TestCaseData(DateTime.Today.AddDays(1), true, 
+                new List<string>(), 
+                new List<string>())
+            .SetName("And is tomorrow Then is valid")
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCallingValidate(DateTime dateToValidate, bool expectedIsValid, List<string> expectedErrorCodes)
+        public async Task AndCallingValidate(DateTime dateToValidate, bool expectedIsValid, 
+            List<string> expectedErrorCodes, List<string> expectedErrorMessages)
         {
             var fixture = new Fixture();
 
@@ -41,10 +45,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await validator.ValidateAsync(context);
 
-            Console.WriteLine(request.ApplicationClosingDate);
-
             result.IsValid.Should().Be(expectedIsValid);
-            result.Errors.Select(failure => failure.ErrorCode).ShouldAllBeEquivalentTo(expectedErrorCodes);
+            result.Errors.Select(failure => failure.ErrorCode)
+                .ShouldAllBeEquivalentTo(expectedErrorCodes);
+            result.Errors.Select(failure => failure.ErrorMessage)
+                .ShouldAllBeEquivalentTo(expectedErrorMessages);
         }
     }
 }
