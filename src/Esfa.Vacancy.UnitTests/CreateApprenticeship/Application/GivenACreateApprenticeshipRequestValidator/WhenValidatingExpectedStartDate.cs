@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using NUnit.Framework;
@@ -49,9 +48,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .With(req => req.ApplicationClosingDate, closingDate)
                 .Create();
 
-            var validator = fixture.Create<ExpectedStartDateValidator>();
+            var context = GetValidationContextForProperty(request, req => req.ExpectedStartDate);
 
-            var result = await validator.ValidateAsync(request);
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(expectedIsValid);
             result.Errors.Select(failure => failure.ErrorCode)
