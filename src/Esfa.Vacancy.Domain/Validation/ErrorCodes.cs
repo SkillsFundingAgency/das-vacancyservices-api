@@ -64,7 +64,7 @@
             public const string LongDescriptionShouldNotIncludeBlacklistedHtmlElements = "31009";
 
             public const string ApplicationClosingDateRequired = "31010";
-            public const string ApplicationClosingDateLessThanTomorrow = "31011";
+            public const string ApplicationClosingDateBeforeTomorrow = "31011";
 
             public const string ExpectedStartDateRequired = "31012";
             public const string ExpectedStartDateBeforeClosingDate = "31012";
