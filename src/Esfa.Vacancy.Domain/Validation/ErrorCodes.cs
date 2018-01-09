@@ -65,6 +65,9 @@
 
             public const string ApplicationClosingDateRequired = "31010";
             public const string ApplicationClosingDateLessThanTomorrow = "31011";
+
+            public const string ExpectedStartDateRequired = "31012";
+            public const string ExpectedStartDateBeforeClosingDate = "31012";
         }
     }
 }
