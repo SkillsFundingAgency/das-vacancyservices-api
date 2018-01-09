@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Domain.Validation
 
         public static class CreateApprenticeship
         {
-            public const string ApplicationClosingDateLessThanTomorrow = "'Application Closing Date' must be after today's date.";
+            public const string ApplicationClosingDateBeforeTomorrow = "'Application Closing Date' must be after today's date.";
             public const string ExpectedStartDateBeforeClosingDate = "'Expected Start Date' must be after the specified closing date.";
         }
     }

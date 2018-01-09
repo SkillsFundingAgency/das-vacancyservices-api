@@ -21,11 +21,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             .SetName("And is null Then is invalid"),
             new TestCaseData(DateTime.Today, false, 
                 new List<string> { ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow }, 
-                new List<string> { ErrorMessages.CreateApprenticeship.ApplicationClosingDateLessThanTomorrow })
+                new List<string> { ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow })
             .SetName("And is today Then is invalid"),
             new TestCaseData(DateTime.Today.AddHours(12), false,
                 new List<string> { ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow },
-                new List<string> { ErrorMessages.CreateApprenticeship.ApplicationClosingDateLessThanTomorrow })
+                new List<string> { ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow })
             .SetName("And is today (with hrs) Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(1), true, 
                 new List<string>(), 

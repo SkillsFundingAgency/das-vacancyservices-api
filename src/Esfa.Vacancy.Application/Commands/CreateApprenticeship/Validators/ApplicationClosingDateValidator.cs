@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             RuleFor(closingDate => closingDate)
                 .GreaterThanOrEqualTo(DateTime.Today.AddDays(1))
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow)
-                .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateLessThanTomorrow);
+                .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow);
         }
     }
 }
