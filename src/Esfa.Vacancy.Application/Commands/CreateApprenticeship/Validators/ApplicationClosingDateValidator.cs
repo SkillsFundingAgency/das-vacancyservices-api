@@ -8,8 +8,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         public ApplicationClosingDateValidator()
         {
+            var tomorrow = DateTime.Today.AddDays(1);
+
             RuleFor(closingDate => closingDate)
-                .GreaterThanOrEqualTo(DateTime.Today.AddDays(1))
+                .GreaterThanOrEqualTo(tomorrow)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow)
                 .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow);
         }
