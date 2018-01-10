@@ -21,15 +21,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .SetName("And is null Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(3), DateTime.Today.AddDays(4), false,
                     new List<string> { ErrorCodes.CreateApprenticeship.ExpectedStartDateBeforeClosingDate },
-                    new List<string> { "'Expected Start Date' must be after the specified closing date." })
+                    new List<string> { ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate })
                 .SetName("And is before closing date Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(3), DateTime.Today.AddDays(3), false,
                     new List<string> { ErrorCodes.CreateApprenticeship.ExpectedStartDateBeforeClosingDate },
-                    new List<string> { "'Expected Start Date' must be after the specified closing date." })
+                    new List<string> { ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate })
                 .SetName("And is on closing date Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(3).AddHours(12), DateTime.Today.AddDays(3), false,
                     new List<string> { ErrorCodes.CreateApprenticeship.ExpectedStartDateBeforeClosingDate },
-                    new List<string> { "'Expected Start Date' must be after the specified closing date." })
+                    new List<string> { ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate })
                 .SetName("And is on closing date (with hrs) Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(3), DateTime.Today.AddDays(2), true,
                     new List<string>(),
