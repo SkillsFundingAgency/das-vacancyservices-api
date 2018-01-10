@@ -25,16 +25,16 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// 
         /// | Error code  | Explanation                                                                      |
         /// | ----------- | -------------------------------------------------------------------------------- |
-        /// | 31000       | Title was not specified                                                          |
-        /// | 31001       | Title cannot be longer than 100 characters                                       |
-        /// | 31002       | Title must contain the word 'apprentice' or 'apprenticeship'                     |
-        /// | 31003       | Title must not contain invalid characters                                        |
-        /// | 31004       | ShortDescription was not specified                                               |
-        /// | 31005       | ShortDescription cannot be longer than 350 characters                            |
-        /// | 31006       | ShortDescription must not contain invalid characters                             |
-        /// | 31007       | LongDescription was not specified                                                |
-        /// | 31008       | LongDescription must not contain invalid characters                              |
-        /// | 31009       | LongDescription must not contain blacklisted HTML elements                       |
+        /// | 31000       | 'Title' should not be empty                                                      |
+        /// | 31001       | 'Title' can't be longer than 100 characters                                      |
+        /// | 31002       | 'Title' must contain the word 'apprentice' or 'apprenticeship'                   |
+        /// | 31003       | 'Title' can't contain invalid characters                                         |
+        /// | 31004       | 'Short Description' should not be empty                                          |
+        /// | 31005       | 'Short Description' can't be longer than 350 characters                          |
+        /// | 31006       | 'Short Description' can't contain invalid characters                             |
+        /// | 31007       | 'Long Description' should not be empty                                           |
+        /// | 31008       | 'Long Description' can't contain invalid characters                              |
+        /// | 31009       | 'Long Description' can't contain blacklisted HTML elements                       |
         /// | 31010       | Application closing date is required                                             |
         /// | 31011       | Application closing date be after tomorrow                                       |
         /// | 31012       | Expected start date is required                                                  |
