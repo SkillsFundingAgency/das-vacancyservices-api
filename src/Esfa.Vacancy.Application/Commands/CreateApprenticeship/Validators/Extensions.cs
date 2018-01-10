@@ -12,23 +12,26 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
 
         public static IRuleBuilderOptions<string, string> MatchesAllowedFreeTextCharacters(
-            this IRuleBuilder<string, string> rule, string errorCode, string propertyName)
+            this IRuleBuilder<string, string> rule, string errorCode, string errorMessage, string propertyName)
         {
             return rule.Matches(RegexFreeTextWhitelist)
                 .WithErrorCode(errorCode)
-                .WithName(propertyName);
+                .WithName(propertyName)
+                .WithMessage(errorMessage);
         }
 
         public static IRuleBuilderOptions<string, string> MatchesAllowedHtmlFreeTextCharacters(
-            this IRuleBuilder<string, string> rule, string whitelistErrorCode, string blacklistErrorCode, string propertyName)
+            this IRuleBuilder<string, string> rule, string whitelistErrorCode, string whitelistErrorMessage, string blacklistErrorCode, string blacklistErrorMessage, string propertyName)
         {
             return rule.Matches(RegexHtmlFreeTextWhitelist)
                 .WithErrorCode(whitelistErrorCode)
                 .WithName(propertyName)
+                .WithMessage(whitelistErrorMessage)
 
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(blacklistErrorCode)
-                .WithName(propertyName);
+                .WithName(propertyName)
+                .WithMessage(blacklistErrorMessage);
         }
 
         private static bool CheckHtmlFreeTextBlacklist(string text)

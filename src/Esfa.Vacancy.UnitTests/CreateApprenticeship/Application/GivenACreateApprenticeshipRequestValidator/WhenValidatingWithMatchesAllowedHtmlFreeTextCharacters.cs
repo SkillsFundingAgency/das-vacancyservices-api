@@ -13,8 +13,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     {
 
         private const string WhitelistErrorCode = "WhitelistErrorCode";
+        private const string WhitelistErrorMessage = "WhitelistErrorMessage";
         private const string BlacklistErrorCode = "BlackistErrorCode";
-        
+        private const string BlacklistErrorMessage = "BlacklistErrorMessage";
+
         [Test]
         public void ThenCheckValidCharacters()
         {
@@ -98,7 +100,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, "propertyName");
+                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, WhitelistErrorMessage, BlacklistErrorCode, BlacklistErrorMessage, "propertyName");
             }
         }
     }

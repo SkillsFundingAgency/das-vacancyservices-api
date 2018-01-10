@@ -13,7 +13,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingWithMatchesAllowedFreeTextCharacters
     {
         private const string ErrorCode = "ErrorCode";
-        
+        private const string ErrorMessage = "ErrorMessage";
+
         [Test]
         public void ThenCheckValidCharacters()
         {
@@ -82,7 +83,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode, "propertyName");
+                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode, ErrorMessage, "propertyName");
             }
         }
     }

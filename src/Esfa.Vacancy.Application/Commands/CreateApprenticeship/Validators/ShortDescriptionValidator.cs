@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
+﻿using Esfa.Vacancy.Domain.Validation;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
@@ -12,11 +12,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(x => x)
                 .MaximumLength(ShortDescriptionMaximumLength)
-                .WithErrorCode(ShortDescriptionMaximumFieldLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescriptionMaximumFieldLength)
                 .WithName(PropertyName)
 
-                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters, PropertyName);
-                
+                .MatchesAllowedFreeTextCharacters(ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters,
+                    ErrorMessages.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters,
+                    PropertyName);
+
         }
     }
 }
