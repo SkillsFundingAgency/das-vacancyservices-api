@@ -62,6 +62,12 @@
             public const string LongDescriptionIsRequired = "31007";
             public const string LongDescriptionShouldNotIncludeSpecialCharacters = "31008";
             public const string LongDescriptionShouldNotIncludeBlacklistedHtmlElements = "31009";
+
+            public const string ApplicationClosingDateRequired = "31010";
+            public const string ApplicationClosingDateBeforeTomorrow = "31011";
+
+            public const string ExpectedStartDateRequired = "31012";
+            public const string ExpectedStartDateBeforeClosingDate = "31013";
         }
     }
 }

@@ -35,6 +35,10 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31007       | LongDescription was not specified                                                |
         /// | 31008       | LongDescription must not contain invalid characters                              |
         /// | 31009       | LongDescription must not contain blacklisted HTML elements                       |
+        /// | 31010       | Application closing date is required                                             |
+        /// | 31011       | Application closing date be after tomorrow                                       |
+        /// | 31012       | Expected start date is required                                                  |
+        /// | 31013       | Expected start date must be after application closing date                       |
         /// 
         /// </summary>
         [HttpPost]

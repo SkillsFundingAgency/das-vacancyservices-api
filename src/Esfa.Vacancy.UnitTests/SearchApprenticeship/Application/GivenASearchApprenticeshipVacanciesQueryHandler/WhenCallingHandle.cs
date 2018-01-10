@@ -40,8 +40,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .Setup(validator => validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ValidationResult());
 
-            
-
             _mockMapper = fixture.Freeze<Mock<IVacancySearchParametersMapper>>();
             _mockMapper
                 .Setup(mapper => mapper.Convert(It.IsAny<SearchApprenticeshipVacanciesRequest>()))
@@ -65,10 +63,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
 
             _validatorMock
                 .Setup(validator => validator.ValidateAsync(invalidRequest, It.IsAny<CancellationToken>()))
-                    .ReturnsAsync(new ValidationResult(new List<ValidationFailure>
-                    {
-                        new ValidationFailure("stuff", errorMessage)
-                    }));
+                .ReturnsAsync(new ValidationResult(new List<ValidationFailure>
+                {
+                    new ValidationFailure("stuff", errorMessage)
+                }));
 
             var action = new Func<Task<SearchApprenticeshipVacanciesResponse>>(() =>
                 _handler.Handle(invalidRequest));

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using System.Linq.Expressions;
 using FluentValidation;
 using FluentValidation.Internal;
 
@@ -11,9 +7,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 {
     public abstract class CreateApprenticeshipRequestValidatorBase
     {
-        protected ValidationContext<T> GetValidationContextForProperty<T>(T objectToValidate, string propertyNameToValidate)
+        protected ValidationContext<T> GetValidationContextForProperty<T>(T objectToValidate, string propertyName)
         {
-            return new ValidationContext<T>(objectToValidate, new PropertyChain(), new MemberNameValidatorSelector(new[] { propertyNameToValidate }));
-        }       
+            return new ValidationContext<T>(objectToValidate, new PropertyChain(), new MemberNameValidatorSelector(new[] { propertyName }));
+        }
+
+        protected ValidationContext<T> GetValidationContextForProperty<T, TProperty>(T objectToValidate, Expression<Func<T, TProperty>> propertyPicker)
+        {
+            return new ValidationContext<T>(objectToValidate, new PropertyChain(), new MemberNameValidatorSelector(new[] { propertyPicker.GetMember().Name }));
+        }
     }
 }
