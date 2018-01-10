@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Api.Types
         public string LongDescription { get; set; }
 
         /// <summary>
-        /// The closing date of the applicaiton.
+        /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }
 
