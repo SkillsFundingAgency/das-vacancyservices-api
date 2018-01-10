@@ -98,7 +98,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode);
+                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, "propertyName");
             }
         }
     }

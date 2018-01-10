@@ -5,6 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public class ShortDescriptionValidator : AbstractValidator<string>
     {
+        private const string PropertyName = "ShortDescription";
         private const int ShortDescriptionMaximumLength = 350;
 
         public ShortDescriptionValidator()
@@ -12,7 +13,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             RuleFor(x => x)
                 .MaximumLength(ShortDescriptionMaximumLength)
                 .WithErrorCode(ShortDescriptionMaximumFieldLength)
-                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters);
+                .WithName(PropertyName)
+
+                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters, PropertyName);
                 
         }
     }

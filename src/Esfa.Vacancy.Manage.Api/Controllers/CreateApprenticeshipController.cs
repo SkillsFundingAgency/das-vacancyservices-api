@@ -17,6 +17,25 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         }
         /// <summary>
         /// Creates the specified apprenticeship vacancy.
+        /// 
+        /// #### Error codes ####
+        /// 
+        /// The following error codes may be returned when calling this operation if any of the vacancy values 
+        /// specified fail validation:
+        /// 
+        /// | Error code  | Explanation                                                                      |
+        /// | ----------- | -------------------------------------------------------------------------------- |
+        /// | 31000       | Title was not specified                                                          |
+        /// | 31001       | Title cannot be longer than 100 characters                                       |
+        /// | 31002       | Title must contain the word 'apprentice' or 'apprenticeship'                     |
+        /// | 31003       | Title must not contain invalid characters                                        |
+        /// | 31004       | ShortDescription was not specified                                               |
+        /// | 31005       | ShortDescription cannot be longer than 350 characters                            |
+        /// | 31006       | ShortDescription must not contain invalid characters                             |
+        /// | 31007       | LongDescription was not specified                                                |
+        /// | 31008       | LongDescription must not contain invalid characters                              |
+        /// | 31009       | LongDescription must not contain blacklisted HTML elements                       |
+        /// 
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
