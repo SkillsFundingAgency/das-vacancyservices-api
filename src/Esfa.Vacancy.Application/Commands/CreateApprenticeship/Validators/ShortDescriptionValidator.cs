@@ -15,8 +15,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ShortDescriptionMaximumFieldLength)
                 .WithName(PropertyName)
 
-                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters, PropertyName);
-                
+                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters,
+                    PropertyName);
+
         }
     }
 }

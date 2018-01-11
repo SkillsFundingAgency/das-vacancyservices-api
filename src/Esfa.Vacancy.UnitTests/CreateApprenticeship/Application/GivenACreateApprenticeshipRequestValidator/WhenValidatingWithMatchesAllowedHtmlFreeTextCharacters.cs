@@ -14,7 +14,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         private const string WhitelistErrorCode = "WhitelistErrorCode";
         private const string BlacklistErrorCode = "BlackistErrorCode";
-        
+        private const string PropertyName = "PropertyName";
+
         [Test]
         public void ThenCheckValidCharacters()
         {
@@ -47,6 +48,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
                 result.IsValid.Should().BeFalse();
                 result.Errors.Single().ErrorCode.Should().Be(WhitelistErrorCode);
+                result.Errors.Single().ErrorMessage.Should().Be("'PropertyName' can't contain invalid characters");
             }
             
         }
@@ -98,7 +100,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, "propertyName");
+                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, PropertyName);
             }
         }
     }

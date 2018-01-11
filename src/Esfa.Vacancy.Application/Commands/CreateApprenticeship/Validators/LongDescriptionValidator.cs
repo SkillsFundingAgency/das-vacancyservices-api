@@ -10,7 +10,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         public LongDescriptionValidator()
         {
             RuleFor(x => x)
-                .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters, LongDescriptionShouldNotIncludeBlacklistedHtmlElements, PropertyName);
+                .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters,
+                LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
+                PropertyName);
         }
     }
 }

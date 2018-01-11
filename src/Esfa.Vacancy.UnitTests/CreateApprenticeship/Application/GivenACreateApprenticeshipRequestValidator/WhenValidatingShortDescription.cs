@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using FluentValidation;
-using FluentValidation.Internal;
+using Esfa.Vacancy.Domain.Validation;
 using NUnit.Framework;
-using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -18,20 +12,20 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(null, false, ShortDescriptionIsRequired)
+                new TestCaseData(null, false, ErrorCodes.CreateApprenticeship.ShortDescriptionIsRequired, "'Short Description' should not be empty.")
                     .SetName("ShortDescription cannot be null"),
-                new TestCaseData("", false, ShortDescriptionIsRequired)
+                new TestCaseData("", false, ErrorCodes.CreateApprenticeship.ShortDescriptionIsRequired, "'Short Description' should not be empty.")
                     .SetName("ShortDescription cannot be empty"),
-                new TestCaseData(new string('a', 351), false, ShortDescriptionMaximumFieldLength)
+                new TestCaseData(new string('a', 351), false, ErrorCodes.CreateApprenticeship.ShortDescriptionMaximumFieldLength, "'ShortDescription' must be less than 351 characters. You entered 351 characters.")
                     .SetName("ShortDescription should contain 350 or less characters"),
-                new TestCaseData(new string('a', 350), true, null)
+                new TestCaseData(new string('a', 350), true, null, null)
                     .SetName("ShortDescription contains 350 or less characters"),
-                new TestCaseData("<", false, ShortDescriptionShouldNotIncludeSpecialCharacters)
+                new TestCaseData("<", false, ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters, "'ShortDescription' can't contain invalid characters")
                     .SetName("ShortDescription should contain valid characters"),
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ThenShouldValidate(string shortDescription, bool isValid, string errorCode)
+        public void ThenShouldValidate(string shortDescription, bool isValid, string errorCode, string errorMessage)
         {
             var sut = new CreateApprenticeshipRequestValidator();
 
@@ -49,7 +43,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             if (!result.IsValid)
             {
+                Assert.AreEqual(1, result.Errors.Count);
                 Assert.AreEqual(errorCode, result.Errors[0].ErrorCode);
+                Assert.AreEqual(errorMessage, result.Errors[0].ErrorMessage);
             }
         }
     }

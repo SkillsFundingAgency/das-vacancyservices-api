@@ -1,6 +1,7 @@
 ﻿using System;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
-using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
+
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
@@ -14,14 +15,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(x => x)
                 .MaximumLength(TitleMaximumLength)
-                .WithErrorCode(TitleMaximumFieldLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength)
                 .WithName(PropertyName)
 
                 .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
-                .WithErrorCode(TitleShouldIncludeWordApprentice)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice)
                 .WithName(PropertyName)
+                .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
 
-                .MatchesAllowedFreeTextCharacters(TitleShouldNotIncludeSpecialCharacters, PropertyName);
+                .MatchesAllowedFreeTextCharacters(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, PropertyName);
         }
     }
 }

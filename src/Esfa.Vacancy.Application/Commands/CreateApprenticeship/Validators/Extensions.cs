@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
@@ -16,7 +17,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             return rule.Matches(RegexFreeTextWhitelist)
                 .WithErrorCode(errorCode)
-                .WithName(propertyName);
+                .WithName(propertyName)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName));
         }
 
         public static IRuleBuilderOptions<string, string> MatchesAllowedHtmlFreeTextCharacters(
@@ -25,10 +27,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             return rule.Matches(RegexHtmlFreeTextWhitelist)
                 .WithErrorCode(whitelistErrorCode)
                 .WithName(propertyName)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName))
 
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(blacklistErrorCode)
-                .WithName(propertyName);
+                .WithName(propertyName)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.HtmlBlacklist, propertyName));
         }
 
         private static bool CheckHtmlFreeTextBlacklist(string text)

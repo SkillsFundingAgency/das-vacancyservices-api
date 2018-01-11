@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using FluentValidation;
-using FluentValidation.Internal;
+using Esfa.Vacancy.Domain.Validation;
 using NUnit.Framework;
-using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -18,24 +12,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(null, false, LongDescriptionIsRequired)
+                new TestCaseData(null, false, ErrorCodes.CreateApprenticeship.LongDescriptionIsRequired, "'Long Description' should not be empty.")
                     .SetName("LongDescription cannot be null"),
-                new TestCaseData("", false, LongDescriptionIsRequired)
+                new TestCaseData("", false, ErrorCodes.CreateApprenticeship.LongDescriptionIsRequired, "'Long Description' should not be empty.")
                     .SetName("LongDescription cannot be empty"),
-                new TestCaseData("<", true, null)
+                new TestCaseData("<", true, ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeSpecialCharacters, "'LongDescription' can't contain invalid characters") 
                     .SetName("LongDescription should contain valid characters"),
-                new TestCaseData("~", false, LongDescriptionShouldNotIncludeSpecialCharacters)
+                new TestCaseData("~", false, ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeSpecialCharacters, "'LongDescription' can't contain invalid characters")
                     .SetName("LongDescription should contain valid characters"),
-                new TestCaseData("< i n p u t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
+                new TestCaseData("< i n p u t >", false, ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements, "'LongDescription' can't contain blacklisted HTML elements")
                     .SetName("LongDescription cannot contain <input>"),
-                new TestCaseData("< o b j e c t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
+                new TestCaseData("< o b j e c t >", false, ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements, "'LongDescription' can't contain blacklisted HTML elements")
                     .SetName("LongDescription cannot contain <object>"),
-                new TestCaseData("< s c r i p t >", false, LongDescriptionShouldNotIncludeBlacklistedHtmlElements)
+                new TestCaseData("< s c r i p t >", false, ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements, "'LongDescription' can't contain blacklisted HTML elements")
                     .SetName("LongDescription cannot contain <script>"),
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ThenShouldValidate(string longDescription, bool isValid, string errorCode)
+        public void ThenShouldValidate(string longDescription, bool isValid, string errorCode, string errorMessage)
         {
             var sut = new CreateApprenticeshipRequestValidator();
 
@@ -53,7 +47,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             if (!result.IsValid)
             {
+                Assert.AreEqual(1, result.Errors.Count);
                 Assert.AreEqual(errorCode, result.Errors[0].ErrorCode);
+                Assert.AreEqual(errorMessage, result.Errors[0].ErrorMessage);
             }
         }
     }
