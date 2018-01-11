@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingWithMatchesAllowedFreeTextCharacters
     {
         private const string ErrorCode = "ErrorCode";
-        private const string ErrorMessage = "ErrorMessage";
+        private const string PropertyName = "PropertyName";
 
         [Test]
         public void ThenCheckValidCharacters()
@@ -45,6 +45,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
                 result.IsValid.Should().BeFalse();
                 result.Errors.Single().ErrorCode.Should().Be(ErrorCode);
+                result.Errors.Single().ErrorMessage.Should().Be("'PropertyName' can't contain invalid characters");
             }
             
         }
@@ -83,7 +84,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode, ErrorMessage, "propertyName");
+                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode, PropertyName);
             }
         }
     }

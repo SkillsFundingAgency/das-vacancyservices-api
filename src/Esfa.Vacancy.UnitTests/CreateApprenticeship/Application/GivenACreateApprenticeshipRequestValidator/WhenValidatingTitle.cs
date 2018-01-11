@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData("apprentice0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
                         ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength, "'Title' must be less than 101 characters. You entered 101 characters.")
                     .SetName("Should contain 100 or less characters"),
-                new TestCaseData("apprentice <", ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, ErrorMessages.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters)
+                new TestCaseData("apprentice <", ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, "'Title' can't contain invalid characters")
                     .SetName("Should contain valid characters")
             };
 

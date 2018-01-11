@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .SetName("ShortDescription should contain 350 or less characters"),
                 new TestCaseData(new string('a', 350), true, null, null)
                     .SetName("ShortDescription contains 350 or less characters"),
-                new TestCaseData("<", false, ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters, ErrorMessages.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters)
+                new TestCaseData("<", false, ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters, "'ShortDescription' can't contain invalid characters")
                     .SetName("ShortDescription should contain valid characters"),
             };
 

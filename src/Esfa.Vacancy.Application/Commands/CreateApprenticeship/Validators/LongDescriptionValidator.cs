@@ -1,5 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Validation;
-using FluentValidation;
+﻿using FluentValidation;
+using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
@@ -9,10 +9,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         public LongDescriptionValidator()
         {
-            RuleFor(x => x).MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeSpecialCharacters,
-                ErrorMessages.CreateApprenticeship.LongDescriptionShouldNotIncludeSpecialCharacters,
-                ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
-                ErrorMessages.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
+            RuleFor(x => x)
+                .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters,
+                LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
                 PropertyName);
         }
     }

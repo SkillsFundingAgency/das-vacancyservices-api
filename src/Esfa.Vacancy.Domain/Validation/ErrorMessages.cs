@@ -36,13 +36,13 @@ namespace Esfa.Vacancy.Domain.Validation
 
         public static class CreateApprenticeship
         {
+            public const string Whitelist = "'{0}' can't contain invalid characters";
+            public const string HtmlBlacklist = "'{0}' can't contain blacklisted HTML elements";
             public const string TitleShouldIncludeWordApprentice = "'Title' must contain the word 'apprentice' or 'apprenticeship'.";
-            public const string TitleShouldNotIncludeSpecialCharacters = "'Title' can't contain invalid characters.";
-            public const string ShortDescriptionShouldNotIncludeSpecialCharacters = "'Short Description' can't contain invalid characters";
-            public const string LongDescriptionShouldNotIncludeSpecialCharacters = "'Long Description' can't contain invalid characters";
-            public const string LongDescriptionShouldNotIncludeBlacklistedHtmlElements = "'Long Description' can't contain blacklisted HTML elements";
+            
             public const string ApplicationClosingDateBeforeTomorrow = "'Application Closing Date' must be after today's date.";
             public const string ExpectedStartDateBeforeClosingDate = "'Expected Start Date' must be after the specified application closing date.";
         }
+        //MatchesAllowedFreeTextCharacters
     }
 }

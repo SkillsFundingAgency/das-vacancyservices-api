@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithName(PropertyName)
                 .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
 
-                .MatchesAllowedFreeTextCharacters(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, ErrorMessages.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, PropertyName);
+                .MatchesAllowedFreeTextCharacters(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, PropertyName);
         }
     }
 }
