@@ -12,5 +12,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
+        public LocationType LocationType { get; set; }
     }
 }

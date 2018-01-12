@@ -4,6 +4,7 @@ using Esfa.Vacancy.Manage.Api.Mappings;
 using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateApprenticeshipRequestMapper
 {
@@ -65,5 +66,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.HoursPerWeek.Should().Be(_apiParameters.HoursPerWeek);
         }
+        
+        [Test]
+        public void ThenMapsLocationType()
+        {
+            _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)(int)_apiParameters.LocationType);
+        }
+
     }
 }
