@@ -1,5 +1,6 @@
 ﻿using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
@@ -15,7 +16,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ApplicationClosingDate = parameters.ApplicationClosingDate,
                 ExpectedStartDate = parameters.ExpectedStartDate,
                 WorkingWeek = parameters.WorkingWeek,
-                HoursPerWeek = parameters.HoursPerWeek
+                HoursPerWeek = parameters.HoursPerWeek,
+                LocationType = (ApplicationTypes.LocationType)(int)parameters.LocationType
             };
         }
     }

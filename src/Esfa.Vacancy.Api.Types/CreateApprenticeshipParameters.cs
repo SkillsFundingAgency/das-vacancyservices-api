@@ -34,9 +34,16 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string WorkingWeek { get; set; }
 
+
         /// <summary>
         /// The number of hours in a typical working week.
         /// </summary>
         public double HoursPerWeek { get; set; }
+        
+        /// <summary>
+        /// The location type used for the vacancy
+        /// </summary>
+        public LocationType LocationType { get; set; }
+
     }
 }
