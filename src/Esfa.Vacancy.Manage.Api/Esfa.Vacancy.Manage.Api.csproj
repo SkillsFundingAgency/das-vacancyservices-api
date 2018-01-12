@@ -433,6 +433,10 @@
       <Project>{14e462c1-30dd-49fd-a265-2b16542a26cf}</Project>
       <Name>Esfa.Vacancy.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Esfa.Vacancy.Domain\Esfa.Vacancy.Domain.csproj">
+      <Project>{74F5F03C-3E85-44B3-B862-C070C2B6E824}</Project>
+      <Name>Esfa.Vacancy.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Esfa.Vacancy.Infrastructure\Esfa.Vacancy.Infrastructure.csproj">
       <Project>{3aae3727-fb7e-4f2a-854c-e95bac1fae1a}</Project>
       <Name>Esfa.Vacancy.Infrastructure</Name>

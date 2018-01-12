@@ -1,9 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using Esfa.Vacancy.Manage.Api.Orchestrators;
 using FluentAssertions;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Moq;
 using NUnit.Framework;
@@ -24,6 +30,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         private Mock<ICreateApprenticeshipRequestMapper> _mockRequestMapper;
         private ApiTypes.CreateApprenticeshipParameters _actualParameters;
         private CreateApprenticeshipRequest _expectedRequest;
+        private CreateApprenticeshipOrchestrator _orchestrator;
+        private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
+        private string _expectedErrorMessage;
 
         [SetUp]
         public async Task SetUp()
@@ -35,6 +44,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
             _expectedMediatorResponse = fixture.Create<CreateApprenticeshipResponse>();
             _expectedMapperResponse = fixture.Create<ApiTypes.CreateApprenticeshipResponse>();
             _expectedRequest = new CreateApprenticeshipRequest();
+            _expectedErrorMessage = fixture.Create<string>();
 
             _mockRequestMapper = fixture.Freeze<Mock<ICreateApprenticeshipRequestMapper>>(composer => composer.Do(mock => mock
                 .Setup(mapper => mapper.MapFromApiParameters(_actualParameters))
@@ -48,9 +58,35 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
                 .Setup(mapper => mapper.MapToApiResponse(It.IsAny<CreateApprenticeshipResponse>()))
                 .Returns(_expectedMapperResponse)));
 
-            var orchestrator = fixture.Create<CreateApprenticeshipOrchestrator>();
+            _mockValidationExceptionBuilder = fixture.Freeze<Mock<IValidationExceptionBuilder>>(composer => composer.Do(mock => mock
+                .Setup(builder => builder.Build(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new ValidationException(new List<ValidationFailure>
+                {
+                    new ValidationFailure("", _expectedErrorMessage)
+                }))
+            ));
 
-            _actualResponse = await orchestrator.CreateApprecticeshipAsync(_actualParameters);
+            _orchestrator = fixture.Create<CreateApprenticeshipOrchestrator>();
+
+            _actualResponse = await _orchestrator.CreateApprecticeshipAsync(_actualParameters);
+        }
+
+        [Test]
+        public void AndParametersAreNull_ThenThrowsValidationException()
+        {
+            Func<Task> action = async () =>
+            {
+                await _orchestrator.CreateApprecticeshipAsync(null);
+            };
+
+            action.ShouldThrow<ValidationException>()
+                .WithMessage($"Validation failed: \r\n -- {_expectedErrorMessage}");
+
+            _mockValidationExceptionBuilder.Verify(builder =>
+                builder.Build(
+                    ErrorCodes.CreateApprenticeship.CreateApprenticeshipParametersIsNull,
+                    ErrorMessages.CreateApprenticeship.CreateApprenticeshipParametersIsNull,
+                    It.IsAny<string>()), Times.Once);
         }
 
         [Test]

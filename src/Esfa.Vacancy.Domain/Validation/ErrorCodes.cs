@@ -68,6 +68,8 @@
 
             public const string ExpectedStartDateRequired = "31012";
             public const string ExpectedStartDateBeforeClosingDate = "31013";
+
+            public const string CreateApprenticeshipParametersIsNull = "31014";
         }
     }
 }
