@@ -39,6 +39,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31011       | Application closing date be after tomorrow                                       |
         /// | 31012       | Expected start date is required                                                  |
         /// | 31013       | Expected start date must be after application closing date                       |
+        /// | 31014       | The request must be valid json/xml and contain required values                   |
         /// 
         /// </summary>
         [HttpPost]
