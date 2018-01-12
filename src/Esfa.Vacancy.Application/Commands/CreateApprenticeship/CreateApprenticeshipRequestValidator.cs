@@ -26,6 +26,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
             WorkingWeekValidator();
             HoursPerWeekValidator();
+            ValidateLocationType();
         }
 
         private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)
@@ -38,6 +39,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 {
                     rules.RuleFor(selector).SetValidator(validatorToAdd);
                 });
+        }
+
+        private void ValidateLocationType()
+        {
+            RuleFor(request => request.LocationType)
+                .IsInEnum()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
         }
     }
 }

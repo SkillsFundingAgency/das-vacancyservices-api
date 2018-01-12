@@ -77,6 +77,9 @@
 
             public const string HoursPerWeekRequired = "31018";
             public const string HoursPerWeekOutsideRange = "31019";
+            
+            public const string LocationTypeIsRequired = "31031";
+
         }
     }
 }
