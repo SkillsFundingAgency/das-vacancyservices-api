@@ -55,7 +55,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public async Task<IHttpActionResult> Create([FromBody]CreateApprenticeshipParameters createApprenticeshipParameters)
         {
-            var result = await _orchestrator.CreateApprecticeshipAsync(createApprenticeshipParameters);
+            var result = await _orchestrator.CreateApprenticeshipAsync(createApprenticeshipParameters);
             return Ok(result);
         }
     }
