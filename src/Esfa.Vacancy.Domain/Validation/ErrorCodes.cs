@@ -73,6 +73,7 @@
 
             public const string WorkingWeekRequired = "31015";
             public const string WorkingWeekLengthGreaterThan250 = "31016";
+            public const string WorkingWeekShouldNotIncludeSpecialCharacters = "31017";
         }
     }
 }
