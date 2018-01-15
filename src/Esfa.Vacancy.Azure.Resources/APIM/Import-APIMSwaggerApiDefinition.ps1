@@ -11,7 +11,7 @@ The name of the APIM instnace
 .PARAMETER ApiName
 The name of the API to update
 
-.PARAMETER SwaggerSpecificationName
+.PARAMETER SwaggerSpecificationUrl
 The full path to the swagger defintion
 
 For example:
