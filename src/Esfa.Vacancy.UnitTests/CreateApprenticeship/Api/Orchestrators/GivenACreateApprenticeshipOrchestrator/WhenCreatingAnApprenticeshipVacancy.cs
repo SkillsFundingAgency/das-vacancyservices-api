@@ -68,7 +68,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
 
             _orchestrator = fixture.Create<CreateApprenticeshipOrchestrator>();
 
-            _actualResponse = await _orchestrator.CreateApprecticeshipAsync(_actualParameters);
+            _actualResponse = await _orchestrator.CreateApprenticeshipAsync(_actualParameters);
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         {
             Func<Task> action = async () =>
             {
-                await _orchestrator.CreateApprecticeshipAsync(null);
+                await _orchestrator.CreateApprenticeshipAsync(null);
             };
 
             action.ShouldThrow<ValidationException>()

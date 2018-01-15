@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
 
         public CreateApprenticeshipOrchestrator(
             ICreateApprenticeshipRequestMapper createApprenticeshipRequestMapper,
-            IMediator mediator, ICreateApprenticeshipResponseMapper apprenticeshipResponseMapper, 
+            IMediator mediator, ICreateApprenticeshipResponseMapper apprenticeshipResponseMapper,
             IValidationExceptionBuilder validationExceptionBuilder)
         {
             _createApprenticeshipRequestMapper = createApprenticeshipRequestMapper;
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
             _validationExceptionBuilder = validationExceptionBuilder;
         }
 
-        public async Task<CreateApprenticeshipResponse> CreateApprecticeshipAsync(CreateApprenticeshipParameters parameters)
+        public async Task<CreateApprenticeshipResponse> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
         {
             if (parameters == null)
             {
