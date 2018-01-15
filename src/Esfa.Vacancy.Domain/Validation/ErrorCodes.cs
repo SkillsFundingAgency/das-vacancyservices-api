@@ -79,7 +79,12 @@
             public const string HoursPerWeekOutsideRange = "31019";
             
             public const string LocationTypeIsRequired = "31031";
-
+	    public const string AddressLine1IsRequired = "31032";
+           
+            public const string AddressLine2IsRequired = "31033";
+            public const string AddressLine3IsRequired = "31034";
+            public const string TownIsRequired = "31035";
+            public const string PostcodeIsRequired = "31036";
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             WorkingWeekValidator();
             HoursPerWeekValidator();
             ValidateLocationType();
+            ValidateLocation();
         }
 
         private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)
@@ -46,6 +47,30 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             RuleFor(request => request.LocationType)
                 .IsInEnum()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
+        }
+
+        private void ValidateLocation()
+        {
+            RuleFor(request => request.AddressLine1)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1IsRequired);
+            RuleFor(request => request.AddressLine2)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2IsRequired);
+            RuleFor(request => request.AddressLine3)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3IsRequired);
+            RuleFor(request => request.Town)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TownIsRequired);
+            RuleFor(request => request.PostCode)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired);
         }
     }
 }
