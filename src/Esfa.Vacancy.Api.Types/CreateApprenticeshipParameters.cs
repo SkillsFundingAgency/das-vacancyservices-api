@@ -45,5 +45,9 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public LocationType LocationType { get; set; }
 
+        /// <summary>
+        /// The Location of the Vacancy, required in case LocationType is set to OtherLocation
+        /// </summary>
+        public Address Location { get; set; } = new Address();
     }
 }
