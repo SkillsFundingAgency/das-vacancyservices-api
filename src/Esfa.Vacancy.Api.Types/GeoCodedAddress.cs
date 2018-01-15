@@ -1,6 +1,6 @@
 ﻿namespace Esfa.Vacancy.Api.Types
 {
-    public class Address
+    public class GeoCodedAddress
     {
         /// <summary>
         /// Address line1.

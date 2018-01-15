@@ -2,19 +2,19 @@
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public sealed class AddressMapper
+    public sealed class GeoCodedAddressMapper
     {
-        public Address MapToLocation(Domain.Entities.Address location, bool showAnonymousEmployerDetails)
+        public GeoCodedAddress MapToLocation(Domain.Entities.Address location, bool showAnonymousEmployerDetails)
         {
             if (showAnonymousEmployerDetails)
             {
-                return new Address
+                return new GeoCodedAddress
                 {
                     Town = location.Town
                 };
             }
 
-            return new Address
+            return new GeoCodedAddress
             {
                 AddressLine1 = location.AddressLine1,
                 AddressLine2 = location.AddressLine2,

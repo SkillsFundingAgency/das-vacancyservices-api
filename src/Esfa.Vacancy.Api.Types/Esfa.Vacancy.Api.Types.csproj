@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
+    <Compile Include="GeoCodedAddress.cs" />
     <Compile Include="BadRequestError.cs" />
     <Compile Include="BadRequestContent.cs" />
     <Compile Include="CreateApprenticeshipResponse.cs" />

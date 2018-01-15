@@ -165,7 +165,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Contains the address of the Vacancy
         /// </summary>
-        public Address Location { get; set; }
+        public GeoCodedAddress Location { get; set; }
 
         /// <summary>
         /// Name of the contact person

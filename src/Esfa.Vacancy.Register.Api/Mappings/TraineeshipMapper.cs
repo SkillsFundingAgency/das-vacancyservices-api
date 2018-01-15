@@ -6,7 +6,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
     public sealed class TraineeshipMapper : ITraineeshipMapper
     {
         private readonly IProvideSettings _provideSettings;
-        private readonly AddressMapper _addressMapper = new AddressMapper();
+        private readonly GeoCodedAddressMapper _geoCodedAddressMapper = new GeoCodedAddressMapper();
         private const int Nationwide = 3;
 
         public TraineeshipMapper(IProvideSettings provideSettings)
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 SupplementaryQuestion1 = traineeshipVacancy.SupplementaryQuestion1,
                 SupplementaryQuestion2 = traineeshipVacancy.SupplementaryQuestion2,
                 VacancyUrl = $"{liveVacancyBaseUrl}/{traineeshipVacancy.VacancyReferenceNumber}",
-                Location = _addressMapper.MapToLocation(traineeshipVacancy.Location, showAnonymousEmployerDetails: traineeshipVacancy.IsAnonymousEmployer),
+                Location = _geoCodedAddressMapper.MapToLocation(traineeshipVacancy.Location, showAnonymousEmployerDetails: traineeshipVacancy.IsAnonymousEmployer),
                 ContactName = traineeshipVacancy.ContactName,
                 ContactEmail = traineeshipVacancy.ContactEmail,
                 ContactNumber = traineeshipVacancy.ContactNumber,
