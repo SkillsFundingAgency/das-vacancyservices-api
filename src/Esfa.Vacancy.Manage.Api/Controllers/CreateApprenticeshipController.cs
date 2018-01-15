@@ -45,6 +45,12 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31017       | Working week can't contain invalid characters                                    |
         /// | 31018       | Hours per week can't be empty                                                    |
         /// | 31019       | Hours per week must be between 16 and 48                                         |
+        /// | 31031       | Location type is required                                                        |
+        /// | 31032       | Address line 1 is required when location type is other location                  |
+        /// | 31033       | Address line 2 is required when location type is other location                  |
+        /// | 31034       | Address line 3 is required when location type is other location                  |
+        /// | 31035       | Town is required when location type is other location                            |
+        /// | 31036       | Postcode is required when location type is other location                        |
         /// 
         /// </summary>
         [HttpPost]
