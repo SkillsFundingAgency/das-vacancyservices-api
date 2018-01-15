@@ -73,5 +73,17 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)(int)_apiParameters.LocationType);
         }
 
+        [Test]
+        public void ThenMapsLocation()
+        {
+            _mappedRequest.AddressLine1.Should().Be(_apiParameters.Location.AddressLine1);
+            _mappedRequest.AddressLine2.Should().Be(_apiParameters.Location.AddressLine2);
+            _mappedRequest.AddressLine3.Should().Be(_apiParameters.Location.AddressLine3);
+            _mappedRequest.AddressLine4.Should().Be(_apiParameters.Location.AddressLine4);
+            _mappedRequest.AddressLine5.Should().Be(_apiParameters.Location.AddressLine5);
+            _mappedRequest.Town.Should().Be(_apiParameters.Location.Town);
+            _mappedRequest.PostCode.Should().Be(_apiParameters.Location.PostCode);
+        }
+
     }
 }

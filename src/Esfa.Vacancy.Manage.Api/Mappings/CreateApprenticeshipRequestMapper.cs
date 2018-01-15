@@ -17,7 +17,14 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ExpectedStartDate = parameters.ExpectedStartDate,
                 WorkingWeek = parameters.WorkingWeek,
                 HoursPerWeek = parameters.HoursPerWeek,
-                LocationType = (ApplicationTypes.LocationType)(int)parameters.LocationType
+                LocationType = (ApplicationTypes.LocationType)(int)parameters.LocationType,
+                AddressLine1 = parameters.Location.AddressLine1,
+                AddressLine2 = parameters.Location.AddressLine2,
+                AddressLine3 = parameters.Location.AddressLine3,
+                AddressLine4 = parameters.Location.AddressLine4,
+                AddressLine5 = parameters.Location.AddressLine5,
+                Town = parameters.Location.Town,
+                PostCode = parameters.Location.PostCode
             };
         }
     }
