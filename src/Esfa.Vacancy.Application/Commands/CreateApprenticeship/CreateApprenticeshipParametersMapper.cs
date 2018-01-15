@@ -12,7 +12,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ShortDescription = request.ShortDescription,
                 Description = request.LongDescription,
                 ApplicationClosingDate = request.ApplicationClosingDate,
-                ExpectedStartDate = request.ExpectedStartDate
+                ExpectedStartDate = request.ExpectedStartDate,
+                WorkingWeek = request.WorkingWeek,
+                HoursPerWeek = request.HoursPerWeek
             };
         }
     }

@@ -52,5 +52,17 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _mappedParameters.ExpectedStartDate.Should().Be(_request.ExpectedStartDate);
         }
+
+        [Test]
+        public void ThenMapsWorkingWeek()
+        {
+            _mappedParameters.WorkingWeek.Should().Be(_request.WorkingWeek);
+        }
+
+        [Test]
+        public void ThenMapsHoursPerWeek()
+        {
+            _mappedParameters.HoursPerWeek.Should().Be(_request.HoursPerWeek);
+        }
     }
 }
