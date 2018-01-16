@@ -12,7 +12,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenValidatingHoursPerWeek : CreateApprenticeshipRequestValidatorBase
     {
-        // todo: consts 
         private const double HoursLessThan16 = 15.999999;
         private const double HoursEquals16 = 16;
         private const double HoursBetween16And48 = 25.3245;
