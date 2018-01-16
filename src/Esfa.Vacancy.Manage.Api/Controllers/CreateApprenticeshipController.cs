@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31007       | Long description can't be empty                                                  |
         /// | 31008       | Long description can't contain invalid characters                                |
         /// | 31009       | Long description can't contain blacklisted HTML elements                         |
-        /// | 31010       | Application closing can't be empty                                               |
+        /// | 31010       | Application closing date can't be empty                                          |
         /// | 31011       | Application closing date be after tomorrow                                       |
         /// | 31012       | Expected start date can't be empty                                               |
         /// | 31013       | Expected start date must be after application closing date                       |
@@ -45,12 +45,25 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31017       | Working week can't contain invalid characters                                    |
         /// | 31018       | Hours per week can't be empty                                                    |
         /// | 31019       | Hours per week must be between 16 and 48                                         |
-        /// | 31031       | Location type is required                                                        |
-        /// | 31032       | Address line 1 is required when location type is other location                  |
-        /// | 31033       | Address line 2 is required when location type is other location                  |
-        /// | 31034       | Address line 3 is required when location type is other location                  |
-        /// | 31035       | Town is required when location type is other location                            |
-        /// | 31036       | Postcode is required when location type is other location                        |
+        /// | 31031       | Location type can't be empty                                                     |
+        /// | 31032       | Address line 1 can't be empty when location type is other location               |
+        /// | 31033       | Address line 1 can't be longer than 300 characters                               |
+        /// | 31034       | Address line 1 can't contain invalid characters                                  |
+        /// | 31035       | Address line 2 can't be empty when location type is other location               |
+        /// | 31036       | Address line 2 can't be longer than 300 characters                               |
+        /// | 31037       | Address line 2 can't contain invalid characters                                  |
+        /// | 31038       | Address line 3 can't be empty when location type is other location               |
+        /// | 31039       | Address line 3 can't be longer than 300 characters                               |
+        /// | 31040       | Address line 3 can't contain invalid characters                                  |
+        /// | 31041       | Address line 4 can't be longer than 300 characters                               |
+        /// | 31042       | Address line 4 can't contain invalid characters                                  |
+        /// | 31043       | Address line 5 can't be longer than 300 characters                               |
+        /// | 31044       | Address line 5 can't contain invalid characters                                  |
+        /// | 31045       | Town can't be empty when location type is other location                         |
+        /// | 31046       | Town can't be longer than 100 characters                                         |
+        /// | 31047       | Town can't contain invalid characters                                            |
+        /// | 31048       | Postcode can't be empty when location type is other location                     |
+        /// | 31049       | Postcode must be a valid UK postcode                                             |
         /// 
         /// </summary>
         [HttpPost]
