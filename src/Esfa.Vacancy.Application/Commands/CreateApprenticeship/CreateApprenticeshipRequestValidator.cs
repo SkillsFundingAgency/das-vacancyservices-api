@@ -25,6 +25,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     .WithMessage(ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate));
 
             WorkingWeekValidator();
+            HoursPerWeekValidator();
         }
 
         private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)
