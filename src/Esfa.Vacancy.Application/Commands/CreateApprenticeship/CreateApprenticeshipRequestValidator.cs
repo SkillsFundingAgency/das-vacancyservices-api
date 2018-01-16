@@ -13,8 +13,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             SetValidatorDisallowEmpty(request => request.Title, TitleIsRequired, new TitleValidator());
             SetValidatorDisallowEmpty(request => request.ShortDescription, ShortDescriptionIsRequired, new ShortDescriptionValidator());
             SetValidatorDisallowEmpty(request => request.LongDescription, LongDescriptionIsRequired, new LongDescriptionValidator());
-            SetValidatorDisallowEmpty(request => request.ApplicationClosingDate, ApplicationClosingDateRequired, new ApplicationClosingDateValidator());
 
+            ApplicationClosingDateValidator();
             ExpectedStartDateValidator();
             WorkingWeekValidator();
             HoursPerWeekValidator();

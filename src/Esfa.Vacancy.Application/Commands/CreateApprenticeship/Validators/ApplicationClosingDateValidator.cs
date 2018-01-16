@@ -2,18 +2,21 @@
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class ApplicationClosingDateValidator : AbstractValidator<DateTime>
+    public partial class CreateApprenticeshipRequestValidator
     {
-        public ApplicationClosingDateValidator()
+        private void ApplicationClosingDateValidator()
         {
             var tomorrow = DateTime.Today.AddDays(1);
 
-            RuleFor(closingDate => closingDate)
-                .GreaterThanOrEqualTo(tomorrow)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow)
-                .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow);
+            RuleFor(request => request.ApplicationClosingDate)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDateRequired)
+                .DependentRules(rules => rules.RuleFor(request => request.ApplicationClosingDate)
+                    .GreaterThanOrEqualTo(tomorrow)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateBeforeTomorrow));
         }
     }
 }
