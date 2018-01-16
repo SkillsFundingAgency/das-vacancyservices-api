@@ -1,5 +1,4 @@
-﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
-using Esfa.Vacancy.Domain.Validation;
+﻿using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
