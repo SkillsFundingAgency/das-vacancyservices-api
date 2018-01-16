@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
-using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
@@ -16,14 +15,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             SetValidatorDisallowEmpty(request => request.LongDescription, LongDescriptionIsRequired, new LongDescriptionValidator());
             SetValidatorDisallowEmpty(request => request.ApplicationClosingDate, ApplicationClosingDateRequired, new ApplicationClosingDateValidator());
 
-            RuleFor(request => request.ExpectedStartDate)
-                .NotEmpty()
-                .WithErrorCode(ExpectedStartDateRequired)
-                .DependentRules(rules => rules.RuleFor(request => request.ExpectedStartDate)
-                    .GreaterThanOrEqualTo(request => request.ApplicationClosingDate.Date.AddDays(1))
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ExpectedStartDateBeforeClosingDate)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate));
-
+            ExpectedStartDateValidator();
             WorkingWeekValidator();
             HoursPerWeekValidator();
             ValidateLocationType();
