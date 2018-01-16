@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Api.Types
         public string WorkingWeek { get; set; }
 
         /// <summary>
-        /// The number of hours worked per week.
+        /// The number of hours in a typical working week.
         /// </summary>
         public double HoursPerWeek { get; set; }
     }
