@@ -103,6 +103,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .MustContainAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TownShouldNotIncludeSpecialCharacters)
                 .When(request => request.LocationType == LocationType.OtherLocation);
+
+            RuleFor(request => request.PostCode)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired)
+                .MustBeAValidPostcode()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeShouldBeValid)
+                .When(request => request.LocationType == LocationType.OtherLocation);
+
         }
     }
 }

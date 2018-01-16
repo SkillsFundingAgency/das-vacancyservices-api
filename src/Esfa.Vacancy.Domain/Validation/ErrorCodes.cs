@@ -97,8 +97,7 @@
             public const string TownMaxLength = "31046";
             public const string TownShouldNotIncludeSpecialCharacters = "31047";
             public const string PostcodeIsRequired = "31048";
-            public const string PostcodeMaxLength = "31049";
-            public const string PostcodeShouldNotIncludeSpecialCharacters = "31050";
+            public const string PostcodeShouldBeValid = "31049";
         }
     }
 }
