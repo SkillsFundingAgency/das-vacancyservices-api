@@ -196,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine2.cs" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
