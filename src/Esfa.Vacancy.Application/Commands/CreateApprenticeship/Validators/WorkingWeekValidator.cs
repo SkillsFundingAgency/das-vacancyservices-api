@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Validation;
+﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
@@ -6,7 +7,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     public partial class CreateApprenticeshipRequestValidator
     {
         private const int WorkingWeekMaximumLength = 250;
-        private const string RegexFreeTextWhitelist = @"^[a-zA-Z0-9\u0080-\uFFA7?$@#()""'!,+\-=_:;.&€£*%\s\/\[\]]+$";
 
         private void WorkingWeekValidator()
         {
@@ -16,9 +16,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .DependentRules(rules => rules.RuleFor(request => request.WorkingWeek)
                     .MaximumLength(WorkingWeekMaximumLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekLengthGreaterThan250)
-                    .Matches(RegexFreeTextWhitelist)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters)
-                    .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, nameof(CreateApprenticeshipRequest.WorkingWeek))));
+                    .MatchesAllowedFreeTextCharacters(
+                        ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters, 
+                        nameof(CreateApprenticeshipRequest.WorkingWeek)));
         }
     }
 }
