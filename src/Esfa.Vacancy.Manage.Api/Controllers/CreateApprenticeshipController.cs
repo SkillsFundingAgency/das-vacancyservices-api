@@ -40,6 +40,11 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31012       | Expected start date is required                                                  |
         /// | 31013       | Expected start date must be after application closing date                       |
         /// | 31014       | The request must be valid json/xml and contain required values                   |
+        /// | 31015       | Working week can't be empty                                                      |
+        /// | 31016       | Working week can't be longer than 250 characters                                 |
+        /// | 31017       | Working week can't contain invalid characters                                    |
+        /// | 31018       | Hours per week can't be empty                                                    |
+        /// | 31019       | Hours per week must be between 16 and 48                                         |
         /// 
         /// </summary>
         [HttpPost]
