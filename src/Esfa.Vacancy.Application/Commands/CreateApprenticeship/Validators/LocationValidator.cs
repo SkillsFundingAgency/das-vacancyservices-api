@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TownShouldNotIncludeSpecialCharacters)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
-            RuleFor(request => request.PostCode)
+            RuleFor(request => request.Postcode)
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired)
                 .MustBeAValidPostcode()

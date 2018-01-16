@@ -25,7 +25,7 @@
         /// <summary>
         /// Post code.
         /// </summary>
-        public string PostCode { get; set; }
+        public string Postcode { get; set; }
         /// <summary>
         /// Town.
         /// </summary>
