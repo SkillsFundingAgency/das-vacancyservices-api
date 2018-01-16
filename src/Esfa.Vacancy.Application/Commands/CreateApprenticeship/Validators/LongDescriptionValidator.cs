@@ -1,18 +1,22 @@
-﻿using FluentValidation;
+﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using FluentValidation;
 using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class LongDescriptionValidator : AbstractValidator<string>
+    public partial class CreateApprenticeshipRequestValidator
     {
-        public const string PropertyName = "LongDescription";
+        private const string PropertyName = "LongDescription";
 
-        public LongDescriptionValidator()
+        private void LongDescriptionValidator()
         {
-            RuleFor(x => x)
-                .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters,
-                LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
-                PropertyName);
+            RuleFor(request => request.LongDescription)
+                .NotEmpty()
+                .WithErrorCode(LongDescriptionIsRequired)
+                .DependentRules(rules => rules.RuleFor(request => request.LongDescription)
+                    .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters,
+                    LongDescriptionShouldNotIncludeBlacklistedHtmlElements,
+                    PropertyName));
         }
     }
 }
