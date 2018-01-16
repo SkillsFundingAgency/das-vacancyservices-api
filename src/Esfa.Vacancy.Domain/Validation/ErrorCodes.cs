@@ -81,10 +81,20 @@
             public const string LocationTypeIsRequired = "31031";
 	    public const string AddressLine1IsRequired = "31032";
            
-            public const string AddressLine2IsRequired = "31033";
-            public const string AddressLine3IsRequired = "31034";
-            public const string TownIsRequired = "31035";
-            public const string PostcodeIsRequired = "31036";
+            public const string AddressLine1MaxLength = "31033";
+            public const string AddressLine1ShouldNotIncludeSpecialCharacters = "31034";
+            public const string AddressLine2IsRequired = "31035";
+            public const string AddressLine2MaxLength = "31036";
+            public const string AddressLine2ShouldNotIncludeSpecialCharacters = "31037";
+            public const string AddressLine3IsRequired = "31038";
+            public const string AddressLine3MaxLength = "31039";
+            public const string AddressLine3ShouldNotIncludeSpecialCharacters = "31040";
+            public const string TownIsRequired = "31041";
+            public const string TownMaxLength = "31042";
+            public const string TownShouldNotIncludeSpecialCharacters = "31043";
+            public const string PostcodeIsRequired = "31044";
+            public const string PostcodeMaxLength = "31045";
+            public const string PostcodeShouldNotIncludeSpecialCharacters = "31046";
         }
     }
 }

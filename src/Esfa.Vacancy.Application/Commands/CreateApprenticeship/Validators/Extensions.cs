@@ -13,6 +13,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string RegexInputsBlacklist = @"<\s*i\s*n\s*p\s*u\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         private const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
 
+        public const string WhitelistErrorMessage = "{PropertyName} can't contain invalid characters";
+
+        public static IRuleBuilderOptions<T, string> MustContainAllowedFreeTextCharacters<T>(
+            this IRuleBuilder<T, string> rule)
+        {
+            return rule.Matches(RegexFreeTextWhitelist)
+                .WithMessage(WhitelistErrorMessage);
+        }
+
         [Obsolete]
         public static IRuleBuilderOptions<string, string> MatchesAllowedFreeTextCharacters(
             this IRuleBuilder<string, string> rule, string errorCode, string propertyName)

@@ -117,11 +117,11 @@
     <Compile Include="CreateApprenticeship\Api\Orchestrators\GivenACreateApprenticeshipOrchestrator\WhenCreatingAnApprenticeshipVacancy.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipCommandHandler\WhenHandlingACommand.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingFromARequest.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine1.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\CreateApprenticeshipRequestValidatorBase.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingApplicationClosingDate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingExpectedStartDate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingHoursPerWeek.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeIsOther.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWorkingWeek.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocationType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLongDescription.cs" />
