@@ -66,7 +66,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.HoursPerWeek.Should().Be(_apiParameters.HoursPerWeek);
         }
-        
+
         [Test]
         public void ThenMapsLocationType()
         {
@@ -82,7 +82,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             _mappedRequest.AddressLine4.Should().Be(_apiParameters.Location.AddressLine4);
             _mappedRequest.AddressLine5.Should().Be(_apiParameters.Location.AddressLine5);
             _mappedRequest.Town.Should().Be(_apiParameters.Location.Town);
-            _mappedRequest.PostCode.Should().Be(_apiParameters.Location.PostCode);
+            _mappedRequest.Postcode.Should().Be(_apiParameters.Location.Postcode);
         }
 
     }

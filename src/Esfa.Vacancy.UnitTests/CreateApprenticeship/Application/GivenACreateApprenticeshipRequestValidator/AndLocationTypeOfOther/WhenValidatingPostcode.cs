@@ -22,19 +22,19 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest()
             {
                 LocationType = locationType,
-                PostCode = PostCode
+                Postcode = PostCode
             };
 
             var validator = new CreateApprenticeshipRequestValidator();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.PostCode, request);
+                validator.ShouldNotHaveValidationErrorFor(r => r.Postcode, request);
             }
             else
             {
                 validator
-                    .ShouldHaveValidationErrorFor(r => r.PostCode, request)
+                    .ShouldHaveValidationErrorFor(r => r.Postcode, request)
                     .WithErrorCode(errorCode);
             }
         }

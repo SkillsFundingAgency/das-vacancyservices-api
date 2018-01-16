@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 AddressLine4 = parameters.Location.AddressLine4,
                 AddressLine5 = parameters.Location.AddressLine5,
                 Town = parameters.Location.Town,
-                PostCode = parameters.Location.PostCode
+                Postcode = parameters.Location.Postcode
             };
         }
     }
