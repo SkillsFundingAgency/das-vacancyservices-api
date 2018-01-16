@@ -51,26 +51,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
         private void ValidateLocation()
         {
+            const int addressMaxLength = 300;
             RuleFor(request => request.AddressLine1)
                 .NotEmpty()
                 .When(request => request.LocationType == LocationType.OtherLocation)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1IsRequired);
-            RuleFor(request => request.AddressLine2)
-                .NotEmpty()
-                .When(request => request.LocationType == LocationType.OtherLocation)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2IsRequired);
-            RuleFor(request => request.AddressLine3)
-                .NotEmpty()
-                .When(request => request.LocationType == LocationType.OtherLocation)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3IsRequired);
-            RuleFor(request => request.Town)
-                .NotEmpty()
-                .When(request => request.LocationType == LocationType.OtherLocation)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TownIsRequired);
-            RuleFor(request => request.PostCode)
-                .NotEmpty()
-                .When(request => request.LocationType == LocationType.OtherLocation)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired);
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1IsRequired)
+                .MaximumLength(addressMaxLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1MaxLength)
+                .MustContainAllowedFreeTextCharacters()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1ShouldNotIncludeSpecialCharacters);            
         }
     }
 }
