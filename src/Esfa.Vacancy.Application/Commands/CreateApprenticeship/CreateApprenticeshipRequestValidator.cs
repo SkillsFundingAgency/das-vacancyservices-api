@@ -59,7 +59,16 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .MaximumLength(addressMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1MaxLength)
                 .MustContainAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1ShouldNotIncludeSpecialCharacters);            
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1ShouldNotIncludeSpecialCharacters);
+
+            RuleFor(request => request.AddressLine2)
+                .NotEmpty()
+                .When(request => request.LocationType == LocationType.OtherLocation)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2IsRequired)
+                .MaximumLength(addressMaxLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2MaxLength)
+                .MustContainAllowedFreeTextCharacters()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2ShouldNotIncludeSpecialCharacters);
         }
     }
 }
