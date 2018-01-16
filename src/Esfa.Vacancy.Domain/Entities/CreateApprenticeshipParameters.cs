@@ -9,5 +9,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public string Description { get; set; }
         public DateTime ApplicationClosingDate { get; set; }
         public DateTime ExpectedStartDate { get; set; }
+        public string WorkingWeek { get; set; }
+        public double HoursPerWeek { get; set; }
     }
 }

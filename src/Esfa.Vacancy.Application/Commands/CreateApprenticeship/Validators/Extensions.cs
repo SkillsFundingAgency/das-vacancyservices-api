@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
@@ -12,6 +13,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string RegexInputsBlacklist = @"<\s*i\s*n\s*p\s*u\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         private const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
 
+        [Obsolete]
         public static IRuleBuilderOptions<string, string> MatchesAllowedFreeTextCharacters(
             this IRuleBuilder<string, string> rule, string errorCode, string propertyName)
         {
@@ -21,6 +23,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName));
         }
 
+        public static IRuleBuilderOptions<CreateApprenticeshipRequest, string> MatchesAllowedFreeTextCharacters(
+            this IRuleBuilder<CreateApprenticeshipRequest, string> rule, string errorCode, string propertyName)
+        {
+            return rule.Matches(RegexFreeTextWhitelist)
+                .WithErrorCode(errorCode)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName));
+        }
+
+        [Obsolete]
         public static IRuleBuilderOptions<string, string> MatchesAllowedHtmlFreeTextCharacters(
             this IRuleBuilder<string, string> rule, string whitelistErrorCode, string blacklistErrorCode, string propertyName)
         {
@@ -32,6 +43,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(blacklistErrorCode)
                 .WithName(propertyName)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.HtmlBlacklist, propertyName));
+        }
+
+        public static IRuleBuilderOptions<CreateApprenticeshipRequest, string> MatchesAllowedHtmlFreeTextCharacters(
+            this IRuleBuilder<CreateApprenticeshipRequest, string> rule, string whitelistErrorCode, string blacklistErrorCode, string propertyName)
+        {
+            return rule.Matches(RegexHtmlFreeTextWhitelist)
+                .WithErrorCode(whitelistErrorCode)
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName))
+
+                .Must(CheckHtmlFreeTextBlacklist)
+                .WithErrorCode(blacklistErrorCode)
                 .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.HtmlBlacklist, propertyName));
         }
 

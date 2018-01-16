@@ -7,7 +7,7 @@ using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class CreateApprenticeshipRequestValidator : AbstractValidator<CreateApprenticeshipRequest>
+    public partial class CreateApprenticeshipRequestValidator : AbstractValidator<CreateApprenticeshipRequest>
     {
         public CreateApprenticeshipRequestValidator()
         {
@@ -23,6 +23,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     .GreaterThanOrEqualTo(request => request.ApplicationClosingDate.Date.AddDays(1))
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ExpectedStartDateBeforeClosingDate)
                     .WithMessage(ErrorMessages.CreateApprenticeship.ExpectedStartDateBeforeClosingDate));
+
+            WorkingWeekValidator();
+            HoursPerWeekValidator();
         }
 
         private void SetValidatorDisallowEmpty<TProperty>(Expression<Func<CreateApprenticeshipRequest, TProperty>> selector, string emptyErrorCode, AbstractValidator<TProperty> validatorToAdd)

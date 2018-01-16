@@ -35,11 +35,16 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31007       | Long description can't be empty                                                  |
         /// | 31008       | Long description can't contain invalid characters                                |
         /// | 31009       | Long description can't contain blacklisted HTML elements                         |
-        /// | 31010       | Application closing date is required                                             |
+        /// | 31010       | Application closing can't be empty                                               |
         /// | 31011       | Application closing date be after tomorrow                                       |
-        /// | 31012       | Expected start date is required                                                  |
+        /// | 31012       | Expected start date can't be empty                                               |
         /// | 31013       | Expected start date must be after application closing date                       |
         /// | 31014       | The request must be valid json/xml and contain required values                   |
+        /// | 31015       | Working week can't be empty                                                      |
+        /// | 31016       | Working week can't be longer than 250 characters                                 |
+        /// | 31017       | Working week can't contain invalid characters                                    |
+        /// | 31018       | Hours per week can't be empty                                                    |
+        /// | 31019       | Hours per week must be between 16 and 48                                         |
         /// 
         /// </summary>
         [HttpPost]

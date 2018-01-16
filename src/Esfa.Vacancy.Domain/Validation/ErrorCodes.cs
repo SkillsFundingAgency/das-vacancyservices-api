@@ -70,6 +70,13 @@
             public const string ExpectedStartDateBeforeClosingDate = "31013";
 
             public const string CreateApprenticeshipParametersIsNull = "31014";
+
+            public const string WorkingWeekRequired = "31015";
+            public const string WorkingWeekLengthGreaterThan250 = "31016";
+            public const string WorkingWeekShouldNotIncludeSpecialCharacters = "31017";
+
+            public const string HoursPerWeekRequired = "31018";
+            public const string HoursPerWeekOutsideRange = "31019";
         }
     }
 }
