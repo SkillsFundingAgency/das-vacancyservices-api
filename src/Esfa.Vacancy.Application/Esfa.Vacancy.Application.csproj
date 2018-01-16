@@ -74,6 +74,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\ApplicationClosingDateValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\Extensions.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\HoursPerWeekValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\LocationValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LongDescriptionValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ShortDescriptionValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\TitleValidator.cs" />
