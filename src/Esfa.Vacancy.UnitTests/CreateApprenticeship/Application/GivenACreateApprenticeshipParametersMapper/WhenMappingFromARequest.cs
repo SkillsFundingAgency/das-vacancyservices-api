@@ -60,9 +60,51 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void ThenMapsHoursPerWeek()
+        public void ThenMapsLocationType()
         {
-            _mappedParameters.HoursPerWeek.Should().Be(_request.HoursPerWeek);
+            _mappedParameters.LocationType.Should().Be(1);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine1()
+        {
+            _mappedParameters.AddressLine1.Should().Be(_request.AddressLine1);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine2()
+        {
+            _mappedParameters.AddressLine2.Should().Be(_request.AddressLine2);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine3()
+        {
+            _mappedParameters.AddressLine3.Should().Be(_request.AddressLine3);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine4()
+        {
+            _mappedParameters.AddressLine4.Should().Be(_request.AddressLine4);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine5()
+        {
+            _mappedParameters.AddressLine5.Should().Be(_request.AddressLine5);
+        }
+
+        [Test]
+        public void ThenMapsTown()
+        {
+            _mappedParameters.Town.Should().Be(_request.Town);
+        }
+
+        [Test]
+        public void ThenMapsPostcode()
+        {
+            _mappedParameters.Postcode.Should().Be(_request.Postcode);
         }
     }
 }
