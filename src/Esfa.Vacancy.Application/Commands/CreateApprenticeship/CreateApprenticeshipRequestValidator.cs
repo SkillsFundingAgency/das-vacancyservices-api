@@ -1,5 +1,4 @@
-﻿using Esfa.Vacancy.Domain.Validation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -16,13 +15,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             HoursPerWeekValidator();
             ValidateLocationType();
             ValidateLocation();
-        }
-
-        private void ValidateLocationType()
-        {
-            RuleFor(request => request.LocationType)
-                .IsInEnum()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
         }
     }
 }
