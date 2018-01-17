@@ -16,8 +16,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .DependentRules(rules => rules.RuleFor(request => request.WorkingWeek)
                     .MaximumLength(WorkingWeekMaximumLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekLengthGreaterThan250)
-                    .MatchesAllowedFreeTextCharacters(
-                        ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters));
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters));
         }
     }
 }

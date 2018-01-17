@@ -25,8 +25,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice)
                     .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
 
-                    .MatchesAllowedFreeTextCharacters(
-                        ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters));
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters));
         }
     }
 }
