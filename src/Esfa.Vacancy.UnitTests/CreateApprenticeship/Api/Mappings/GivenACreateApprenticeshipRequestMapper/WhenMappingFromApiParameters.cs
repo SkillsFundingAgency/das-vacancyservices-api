@@ -74,16 +74,45 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
-        public void ThenMapsLocation()
+        public void ThenMapsAddressLine1()
         {
             _mappedRequest.AddressLine1.Should().Be(_apiParameters.Location.AddressLine1);
-            _mappedRequest.AddressLine2.Should().Be(_apiParameters.Location.AddressLine2);
-            _mappedRequest.AddressLine3.Should().Be(_apiParameters.Location.AddressLine3);
-            _mappedRequest.AddressLine4.Should().Be(_apiParameters.Location.AddressLine4);
-            _mappedRequest.AddressLine5.Should().Be(_apiParameters.Location.AddressLine5);
-            _mappedRequest.Town.Should().Be(_apiParameters.Location.Town);
-            _mappedRequest.Postcode.Should().Be(_apiParameters.Location.Postcode);
         }
 
+        [Test]
+        public void ThenMapsAddressLine2()
+        {
+            _mappedRequest.AddressLine2.Should().Be(_apiParameters.Location.AddressLine2);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine3()
+        {
+            _mappedRequest.AddressLine3.Should().Be(_apiParameters.Location.AddressLine3);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine4()
+        {
+            _mappedRequest.AddressLine4.Should().Be(_apiParameters.Location.AddressLine4);
+        }
+
+        [Test]
+        public void ThenMapsAddressLine5()
+        {
+            _mappedRequest.AddressLine5.Should().Be(_apiParameters.Location.AddressLine5);
+        }
+
+        [Test]
+        public void ThenMapsTown()
+        {
+            _mappedRequest.Town.Should().Be(_apiParameters.Location.Town);
+        }
+
+        [Test]
+        public void ThenMapsPostcode()
+        {
+            _mappedRequest.Postcode.Should().Be(_apiParameters.Location.Postcode);
+        }
     }
 }
