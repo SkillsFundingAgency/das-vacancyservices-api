@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     .MaximumLength(ShortDescriptionMaximumLength)
                     .WithErrorCode(ShortDescriptionMaximumFieldLength)
                     .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters,
-                        nameof(CreateApprenticeshipRequest.ShortDescription).SplitPascalCase()));
+                        nameof(CreateApprenticeshipRequest.ShortDescription)));
         }
     }
 }

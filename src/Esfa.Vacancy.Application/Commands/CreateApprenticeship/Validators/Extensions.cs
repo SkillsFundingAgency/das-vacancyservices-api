@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
+using FluentValidation.Internal;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
@@ -36,7 +37,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             return rule.Matches(RegexFreeTextWhitelist)
                 .WithErrorCode(errorCode)
-                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName));
+                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName.SplitPascalCase()));
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedHtmlFreeTextCharacters<T>(
