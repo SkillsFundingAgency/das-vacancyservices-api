@@ -11,8 +11,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public CreateApprenticeshipRequestValidator()
         {
             SetValidatorDisallowEmpty(request => request.Title, TitleIsRequired, new TitleValidator());
-            SetValidatorDisallowEmpty(request => request.ShortDescription, ShortDescriptionIsRequired, new ShortDescriptionValidator());
-            
+            //SetValidatorDisallowEmpty(request => request.ShortDescription, ShortDescriptionIsRequired, new ShortDescriptionValidator());
+
+            ShortDescriptionValidator();
             LongDescriptionValidator();
             ApplicationClosingDateValidator();
             ExpectedStartDateValidator();
