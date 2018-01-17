@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1IsRequired)
                 .MaximumLength(addressLineMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1MaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1ShouldNotIncludeSpecialCharacters);
 
             RuleFor(request => request.AddressLine2)
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2IsRequired)
                 .MaximumLength(addressLineMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2MaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2ShouldNotIncludeSpecialCharacters);
 
             RuleFor(request => request.AddressLine3)
@@ -35,20 +35,20 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3IsRequired)
                 .MaximumLength(addressLineMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3MaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3ShouldNotIncludeSpecialCharacters);
 
             RuleFor(request => request.AddressLine4)
                 .MaximumLength(addressLineMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4MaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4ShouldNotIncludeSpecialCharacters)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
             RuleFor(request => request.AddressLine5)
                 .MaximumLength(addressLineMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5MaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5ShouldNotIncludeSpecialCharacters)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
@@ -57,7 +57,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TownIsRequired)
                 .MaximumLength(townMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TownMaxLength)
-                .MustContainAllowedFreeTextCharacters()
+                .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TownShouldNotIncludeSpecialCharacters)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
@@ -67,7 +67,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 .MustBeAValidPostcode()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeShouldBeValid)
                 .When(request => request.LocationType == LocationType.OtherLocation);
-
         }
     }
 }
