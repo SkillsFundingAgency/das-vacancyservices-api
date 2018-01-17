@@ -62,7 +62,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsLocationType()
         {
-            _mappedParameters.LocationType.Should().Be(1);
+            _mappedParameters.LocationTypeId.Should().Be(1);
         }
 
         [Test]
