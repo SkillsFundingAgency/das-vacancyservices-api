@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Esfa.Vacancy.Domain.Validation;
+using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -22,6 +23,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             RuleFor(request => request.LocationType)
                 .IsInEnum()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
-        }        
+        }
     }
 }
