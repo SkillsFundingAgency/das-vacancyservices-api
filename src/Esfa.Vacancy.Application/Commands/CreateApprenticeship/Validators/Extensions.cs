@@ -14,7 +14,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         // See http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
         private const string RegexPostcode = "^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$";
         
-        private const string WhitelistErrorMessage = "'{PropertyName}' can't contain invalid characters";
         private const string InvalidPostCode = "{PropertyName} is invalid";
 
         public static IRuleBuilderOptions<T, string> MustBeAValidPostcode<T>(
@@ -28,7 +27,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             this IRuleBuilder<T, string> rule)
         {
             return rule.Matches(RegexFreeTextWhitelist)
-                .WithMessage(WhitelistErrorMessage);
+                .WithMessage(ErrorMessages.CreateApprenticeship.Whitelist);
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedHtmlFreeTextCharacters<T>(
@@ -36,7 +35,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             return rule.Matches(RegexHtmlFreeTextWhitelist)
                 .WithErrorCode(whitelistErrorCode)
-                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName))
+                .WithMessage(ErrorMessages.CreateApprenticeship.Whitelist)
 
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(blacklistErrorCode)
