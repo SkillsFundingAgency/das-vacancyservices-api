@@ -1,23 +1,24 @@
-﻿using FluentValidation;
+﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using FluentValidation;
+using FluentValidation.Internal;
 using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class ShortDescriptionValidator : AbstractValidator<string>
+    public partial class CreateApprenticeshipRequestValidator
     {
-        private const string PropertyName = "ShortDescription";
         private const int ShortDescriptionMaximumLength = 350;
 
-        public ShortDescriptionValidator()
+        private void ShortDescriptionValidator()
         {
-            RuleFor(x => x)
-                .MaximumLength(ShortDescriptionMaximumLength)
-                .WithErrorCode(ShortDescriptionMaximumFieldLength)
-                .WithName(PropertyName)
-
-                .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters,
-                    PropertyName);
-
+            RuleFor(request => request.ShortDescription)
+                .NotEmpty()
+                .WithErrorCode(ShortDescriptionIsRequired)
+                .DependentRules(rules => rules.RuleFor(request => request.ShortDescription)
+                    .MaximumLength(ShortDescriptionMaximumLength)
+                    .WithErrorCode(ShortDescriptionMaximumFieldLength)
+                    .MatchesAllowedFreeTextCharacters(ShortDescriptionShouldNotIncludeSpecialCharacters,
+                        nameof(CreateApprenticeshipRequest.ShortDescription).SplitPascalCase()));
         }
     }
 }
