@@ -2,8 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
+using FluentValidation;
+using FluentValidation.TestHelper;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
