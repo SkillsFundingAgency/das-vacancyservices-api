@@ -20,12 +20,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenCheckValidCharacters()
         {
             var validChars = GetValidCharacters();
+            var request = new StubRequest { TestString = validChars };
 
             var sut = new TestMatchesAllowedHtmlFreeTextCharactersValidator();
 
-            sut.Validate(validChars);
-
-            var result = sut.Validate(validChars);
+            var result = sut.Validate(request);
 
             result.IsValid.Should().BeTrue();
         }
@@ -44,7 +43,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             foreach (var invalidChar in invalidChars)
             {
-                var result = sut.Validate(invalidChar.ToString());
+                var request = new StubRequest { TestString = invalidChar.ToString() };
+                var result = sut.Validate(request);
 
                 result.IsValid.Should().BeFalse();
                 result.Errors.Single().ErrorCode.Should().Be(WhitelistErrorCode);
@@ -58,9 +58,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCase("< s c r i p t >")]
         public void ThenCheckBlacklistHtmlElements(string text)
         {
+            var request = new StubRequest { TestString = text };
             var sut = new TestMatchesAllowedHtmlFreeTextCharactersValidator();
 
-            var result = sut.Validate(text);
+            var result = sut.Validate(request);
 
             result.IsValid.Should().BeFalse();
             result.Errors.First().ErrorCode.Should().Be(BlacklistErrorCode);
@@ -96,11 +97,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             return new string(Enumerable.Range(rangeStart, rangeEnd - rangeStart + 1).Select(i => (char)i).ToArray());
         }
 
-        private class TestMatchesAllowedHtmlFreeTextCharactersValidator : AbstractValidator<string>
+        private class StubRequest
+        {
+            public string TestString { get; set; }
+        }
+
+        private class TestMatchesAllowedHtmlFreeTextCharactersValidator : AbstractValidator<StubRequest>
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, PropertyName);
+                RuleFor(request => request.TestString).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, PropertyName);
             }
         }
     }

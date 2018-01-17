@@ -19,9 +19,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenCheckValidCharacters()
         {
             var validChars = GetValidCharacters();
+            var request = new StubRequest{TestString = validChars};
             var sut = new TestMatchesAllowedHtmlFreeTextCharactersValidator();
 
-            var result = sut.Validate(validChars);
+            var result = sut.Validate(request);
 
             result.IsValid.Should().BeTrue();
         }
@@ -40,14 +41,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             foreach (var invalidChar in invalidChars)
             {
-
-                var result = sut.Validate(invalidChar.ToString());
+                var request = new StubRequest{TestString = invalidChar.ToString()};
+                var result = sut.Validate(request);
 
                 result.IsValid.Should().BeFalse();
                 result.Errors.Single().ErrorCode.Should().Be(ErrorCode);
                 result.Errors.Single().ErrorMessage.Should().Be("'PropertyName' can't contain invalid characters");
             }
-            
         }
 
         private string GetValidCharacters()
@@ -80,11 +80,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             return new string(Enumerable.Range(rangeStart, rangeEnd - rangeStart + 1).Select(i => (char)i).ToArray());
         }
 
-        private class TestMatchesAllowedHtmlFreeTextCharactersValidator : AbstractValidator<string>
+        private class StubRequest
+        {
+            public string TestString { get; set; }
+        }
+
+        private class TestMatchesAllowedHtmlFreeTextCharactersValidator : AbstractValidator<StubRequest>
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(s => s).MatchesAllowedFreeTextCharacters(ErrorCode, PropertyName);
+                RuleFor(request => request.TestString).MatchesAllowedFreeTextCharacters(ErrorCode, PropertyName);
             }
         }
     }
