@@ -87,7 +87,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
                 RuleFor(request => request.TestString)
-                    .MatchesAllowedFreeTextCharacters(ErrorCode, nameof(StubRequest.TestString));
+                    .MatchesAllowedFreeTextCharacters(ErrorCode);
             }
         }
     }

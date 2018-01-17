@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string RegexInputsBlacklist = @"<\s*i\s*n\s*p\s*u\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         private const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
 
-        private const string WhitelistErrorMessage = "{PropertyName} can't contain invalid characters";
+        private const string WhitelistErrorMessage = "'{PropertyName}' can't contain invalid characters";
         public static IRuleBuilderOptions<T, string> MustContainAllowedFreeTextCharacters<T>(
             this IRuleBuilder<T, string> rule)
         {
@@ -31,11 +31,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedFreeTextCharacters<T>(
-            this IRuleBuilder<T, string> rule, string errorCode, string propertyName)
+            this IRuleBuilder<T, string> rule, string errorCode)
         {
             return rule.Matches(RegexFreeTextWhitelist)
                 .WithErrorCode(errorCode)
-                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.Whitelist, propertyName.SplitPascalCase()));
+                .WithMessage(WhitelistErrorMessage);
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedHtmlFreeTextCharacters<T>(
