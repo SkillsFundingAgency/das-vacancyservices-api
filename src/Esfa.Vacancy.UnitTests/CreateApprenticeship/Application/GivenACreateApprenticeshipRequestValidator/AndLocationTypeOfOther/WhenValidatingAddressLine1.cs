@@ -11,10 +11,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(LocationType.OtherLocation, false, null, "31032").SetName("Then it is required"),
-                new TestCaseData(LocationType.OtherLocation, false, new string('a', 301),  "31033").SetName("Then cannot exceed 300 characters"),
-                new TestCaseData(LocationType.OtherLocation, false, "<p>", "31034").SetName("Then can include free text white list characters only"),
-                new TestCaseData(LocationType.OtherLocation, true, "10 Downing Street", null).SetName("Then it is valid"),
+                new TestCaseData(LocationType.OtherLocation, false, null, "31032").SetName("And is null Then is invalid"),
+                new TestCaseData(LocationType.OtherLocation, false, new string('a', 301),  "31033").SetName("And exceeds 300 characters Then is invalid"),
+                new TestCaseData(LocationType.OtherLocation, false, "<p>", "31034").SetName("And contains illegal chars Then is invalid"),
+                new TestCaseData(LocationType.OtherLocation, true, "10 Downing Street", null).SetName("And is in allowed format Then is valid"),
             };
 
         [TestCaseSource(nameof(TestCases))]
