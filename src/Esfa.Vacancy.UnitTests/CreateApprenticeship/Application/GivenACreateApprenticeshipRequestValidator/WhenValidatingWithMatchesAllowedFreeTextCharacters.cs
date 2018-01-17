@@ -10,8 +10,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenValidatingWithMatchesAllowedFreeTextCharacters
     {
-        private const string ErrorCode = "ErrorCode";
-
         [Test]
         public void ThenCheckValidCharacters()
         {
@@ -42,7 +40,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 var result = sut.Validate(request);
 
                 result.IsValid.Should().BeFalse();
-                result.Errors.Single().ErrorCode.Should().Be(ErrorCode);
                 result.Errors.Single().ErrorMessage.Should().Be("'Test String' can't contain invalid characters");
             }
         }
@@ -87,7 +84,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
                 RuleFor(request => request.TestString)
-                    .MatchesAllowedFreeTextCharacters(ErrorCode);
+                    .MatchesAllowedFreeTextCharacters();
             }
         }
     }

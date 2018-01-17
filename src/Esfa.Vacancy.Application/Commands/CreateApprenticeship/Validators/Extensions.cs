@@ -31,10 +31,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedFreeTextCharacters<T>(
-            this IRuleBuilder<T, string> rule, string errorCode)
+            this IRuleBuilder<T, string> rule)
         {
             return rule.Matches(RegexFreeTextWhitelist)
-                .WithErrorCode(errorCode)
                 .WithMessage(WhitelistErrorMessage);
         }
 
