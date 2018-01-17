@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             .SetName("And is under 250 chars length Then is valid"),
             new TestCaseData(TextWithInvalidChars, false,
                 ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters,
-                "'WorkingWeek' can't contain invalid characters")
+                "'Working Week' can't contain invalid characters")
             .SetName("And has restricted characters Then is invalid")
         };
 
