@@ -1,29 +1,33 @@
 ﻿using System;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class TitleValidator : AbstractValidator<string>
+    public partial class CreateApprenticeshipRequestValidator
     {
-        private const string PropertyName = "Title";
         private const string TitleApprentice = "apprentice";
         private const int TitleMaximumLength = 100;
 
-        public TitleValidator()
+        private void TitleValidator()
         {
-            RuleFor(x => x)
-                .MaximumLength(TitleMaximumLength)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength)
-                .WithName(PropertyName)
+            RuleFor(request => request.Title)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleIsRequired)
 
-                .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice)
-                .WithName(PropertyName)
-                .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
+                .DependentRules(rules => rules.RuleFor(request => request.Title)
+                    .MaximumLength(TitleMaximumLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength)
 
-                .MatchesAllowedFreeTextCharacters(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, PropertyName);
+                    .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
+
+                    .MatchesAllowedFreeTextCharacters(
+                        ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, 
+                        nameof(CreateApprenticeshipRequest.Title)));
         }
     }
 }
