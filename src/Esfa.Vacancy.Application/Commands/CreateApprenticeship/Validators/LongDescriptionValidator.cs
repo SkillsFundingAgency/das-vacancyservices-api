@@ -1,8 +1,7 @@
-﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+﻿using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
-using static Esfa.Vacancy.Domain.Validation.ErrorCodes.CreateApprenticeship;
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
@@ -10,10 +9,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             RuleFor(request => request.LongDescription)
                 .NotEmpty()
-                .WithErrorCode(LongDescriptionIsRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.LongDescriptionIsRequired)
                 .DependentRules(rules => rules.RuleFor(request => request.LongDescription)
-                    .MatchesAllowedHtmlFreeTextCharacters(LongDescriptionShouldNotIncludeSpecialCharacters,
-                    LongDescriptionShouldNotIncludeBlacklistedHtmlElements));
+                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeSpecialCharacters,
+                    ErrorCodes.CreateApprenticeship.LongDescriptionShouldNotIncludeBlacklistedHtmlElements));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using NUnit.Framework;
 
