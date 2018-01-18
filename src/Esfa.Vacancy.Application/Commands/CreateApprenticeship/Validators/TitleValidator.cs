@@ -9,7 +9,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string TitleApprentice = "apprentice";
         private const int TitleMaximumLength = 100;
 
-        private void TitleValidator()
+        private void ConfigureTitleValidator()
         {
             RuleFor(request => request.Title)
                 .NotEmpty()

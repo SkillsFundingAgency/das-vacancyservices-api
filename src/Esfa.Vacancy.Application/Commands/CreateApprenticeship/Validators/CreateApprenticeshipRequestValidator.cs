@@ -6,15 +6,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         public CreateApprenticeshipRequestValidator()
         {
-            TitleValidator();
-            ShortDescriptionValidator();
-            LongDescriptionValidator();
-            ApplicationClosingDateValidator();
-            ExpectedStartDateValidator();
-            WorkingWeekValidator();
-            HoursPerWeekValidator();
-            ValidateLocationType();
-            ValidateLocation();
+            ConfigureTitleValidator();
+            ConfigureShortDescriptionValidator();
+            ConfigureLongDescriptionValidator();
+            ConfigureApplicationClosingDateValidator();
+            ConfigureExpectedStartDateValidator();
+            ConfigureWorkingWeekValidator();
+            ConfigureHoursPerWeekValidator();
+            ConfigureLocationTypeValidator();
+            ConfigureLocationValidator();
         }
     }
 }

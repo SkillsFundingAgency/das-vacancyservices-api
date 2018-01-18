@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
-        private void ValidateLocation()
+        private void ConfigureLocationValidator()
         {
             const int addressLineMaxLength = 300;
             const int townMaxLength = 100;
