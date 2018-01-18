@@ -7,11 +7,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 {
     public abstract class CreateApprenticeshipRequestValidatorBase
     {
-        protected ValidationContext<T> GetValidationContextForProperty<T>(T objectToValidate, string propertyName)
-        {
-            return new ValidationContext<T>(objectToValidate, new PropertyChain(), new MemberNameValidatorSelector(new[] { propertyName }));
-        }
-
         protected ValidationContext<T> GetValidationContextForProperty<T, TProperty>(T objectToValidate, Expression<Func<T, TProperty>> propertyPicker)
         {
             return new ValidationContext<T>(objectToValidate, new PropertyChain(), new MemberNameValidatorSelector(new[] { propertyPicker.GetMember().Name }));
