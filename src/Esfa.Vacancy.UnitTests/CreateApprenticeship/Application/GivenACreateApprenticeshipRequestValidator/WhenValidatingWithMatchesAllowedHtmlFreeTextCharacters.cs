@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using FluentAssertions;
 using FluentValidation;
@@ -14,7 +13,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         private const string WhitelistErrorCode = "WhitelistErrorCode";
         private const string BlacklistErrorCode = "BlackistErrorCode";
-        private const string PropertyName = "PropertyName";
 
         [Test]
         public void ThenCheckValidCharacters()
@@ -48,9 +46,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
                 result.IsValid.Should().BeFalse();
                 result.Errors.Single().ErrorCode.Should().Be(WhitelistErrorCode);
-                result.Errors.Single().ErrorMessage.Should().Be("'PropertyName' can't contain invalid characters");
+                result.Errors.Single().ErrorMessage.Should().Be("'Test String' can't contain invalid characters");
             }
-            
         }
 
         [TestCase("< i n p u t >")]
@@ -106,7 +103,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
-                RuleFor(request => request.TestString).MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode, PropertyName);
+                RuleFor(request => request.TestString)
+                    .MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode);
             }
         }
     }
