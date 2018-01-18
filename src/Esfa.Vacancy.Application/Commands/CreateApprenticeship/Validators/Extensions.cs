@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedHtmlFreeTextCharacters<T>(
-            this IRuleBuilder<T, string> rule, string whitelistErrorCode, string blacklistErrorCode, string propertyName)
+            this IRuleBuilder<T, string> rule, string whitelistErrorCode, string blacklistErrorCode)
         {
             return rule.Matches(RegexHtmlFreeTextWhitelist)
                 .WithErrorCode(whitelistErrorCode)
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(blacklistErrorCode)
-                .WithMessage(string.Format(ErrorMessages.CreateApprenticeship.HtmlBlacklist, propertyName));
+                .WithMessage(ErrorMessages.CreateApprenticeship.HtmlBlacklist);
         }
 
         private static bool CheckHtmlFreeTextBlacklist(string text)
