@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.Infrastructure", "Esfa.Vacancy.Infrastructure\Esfa.Vacancy.Infrastructure.csproj", "{3AAE3727-FB7E-4F2A-854C-E95BAC1FAE1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5CF3CE7-7446-441B-A5AE-72AD4CF2E98C}"
+	ProjectSection(SolutionItems) = preProject
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esfa.Vacancy.UnitTests", "Esfa.Vacancy.UnitTests\Esfa.Vacancy.UnitTests.csproj", "{56AA0C40-2D0A-43C7-A3CE-5E4B3AC101A2}"
 EndProject
