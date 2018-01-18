@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
             //only validate ShortDescription
-            var context = GetValidationContextForProperty(request, "ShortDescription");
+            var context = GetValidationContextForProperty(request, req => req.ShortDescription);
 
             var result = sut.Validate(context);
 

@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
             //only validate Title
-            var context = GetValidationContextForProperty(request, "Title");
+            var context = GetValidationContextForProperty(request, req => req.Title);
 
             var result = sut.Validate(context);
 
@@ -66,7 +66,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
             //only validate Title
-            var context = GetValidationContextForProperty(request, "Title");
+            var context = GetValidationContextForProperty(request, req => req.Title);
 
             var result = sut.Validate(context);
 
