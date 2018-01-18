@@ -36,8 +36,9 @@ namespace Esfa.Vacancy.Domain.Validation
 
         public static class CreateApprenticeship
         {
-            public const string Whitelist = "'{PropertyName}' can't contain invalid characters";
-            public const string HtmlBlacklist = "'{PropertyName}' can't contain blacklisted HTML elements";
+            public const string WhitelistFailed = "'{PropertyName}' can't contain invalid characters";
+            public const string HtmlBlacklistFailed = "'{PropertyName}' can't contain blacklisted HTML elements";
+            public const string PostcodeInvalid = "'{PropertyName}' is invalid";
             public const string TitleShouldIncludeWordApprentice = "'Title' must contain the word 'apprentice' or 'apprenticeship'.";
             
             public const string ApplicationClosingDateBeforeTomorrow = "'Application Closing Date' must be after today's date.";
