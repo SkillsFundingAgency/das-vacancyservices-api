@@ -112,6 +112,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CreateApprenticeship\Api\Mappings\GivenACreateApprenticeshipRequestMapper\WhenMappingFromApiParameters.cs" />
     <Compile Include="CreateApprenticeship\Api\Mappings\GivenACreateApprenticeshipResponseMapper\WhenMappingVacancyReferenceNumber.cs" />
     <Compile Include="CreateApprenticeship\Api\Orchestrators\GivenACreateApprenticeshipOrchestrator\WhenCreatingAnApprenticeshipVacancy.cs" />
