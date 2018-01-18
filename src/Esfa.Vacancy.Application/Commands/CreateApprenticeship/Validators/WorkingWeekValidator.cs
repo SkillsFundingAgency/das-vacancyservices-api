@@ -7,7 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         private const int WorkingWeekMaximumLength = 250;
 
-        private void WorkingWeekValidator()
+        private void ConfigureWorkingWeekValidator()
         {
             RuleFor(request => request.WorkingWeek)
                 .NotEmpty()

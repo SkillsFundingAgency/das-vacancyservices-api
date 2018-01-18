@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
-        private void ExpectedStartDateValidator()
+        private void ConfigureExpectedStartDateValidator()
         {
             RuleFor(request => request.ExpectedStartDate)
                 .NotEmpty()

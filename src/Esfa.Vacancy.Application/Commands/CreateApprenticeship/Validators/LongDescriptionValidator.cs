@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
-        private void LongDescriptionValidator()
+        private void ConfigureLongDescriptionValidator()
         {
             RuleFor(request => request.LongDescription)
                 .NotEmpty()

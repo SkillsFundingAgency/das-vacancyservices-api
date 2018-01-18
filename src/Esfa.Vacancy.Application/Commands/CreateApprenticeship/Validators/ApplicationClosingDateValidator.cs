@@ -6,7 +6,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
-        private void ApplicationClosingDateValidator()
+        private void ConfigureApplicationClosingDateValidator()
         {
             var tomorrow = DateTime.Today.AddDays(1);
 

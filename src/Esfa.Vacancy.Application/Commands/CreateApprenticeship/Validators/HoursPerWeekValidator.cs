@@ -8,7 +8,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const double HoursPerWeekMinimumLength = 16;
         private const double HoursPerWeekMaximumLength = 48;
 
-        private void HoursPerWeekValidator()
+        private void ConfigureHoursPerWeekValidator()
         {
             RuleFor(request => request.HoursPerWeek)
                 .NotEmpty()

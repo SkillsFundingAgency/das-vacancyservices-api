@@ -7,7 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         private const int ShortDescriptionMaximumLength = 350;
 
-        private void ShortDescriptionValidator()
+        private void ConfigureShortDescriptionValidator()
         {
             RuleFor(request => request.ShortDescription)
                 .NotEmpty()

@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
-        private void ValidateLocationType()
+        private void ConfigureLocationTypeValidator()
         {
             RuleFor(request => request.LocationType)
                 .IsInEnum()
