@@ -73,8 +73,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.Postcode)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired)
-                    .MustBeAValidPostcode()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeShouldBeValid);
+                    .DependentRules(rule => rule.RuleFor(request => request.Postcode)
+                        .MustBeAValidPostcode()
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeShouldBeValid));
             });
         }
     }
