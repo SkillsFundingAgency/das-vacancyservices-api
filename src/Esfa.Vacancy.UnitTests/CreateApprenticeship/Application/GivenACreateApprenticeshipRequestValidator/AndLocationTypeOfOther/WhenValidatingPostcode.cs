@@ -37,18 +37,18 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
             var validator = new CreateApprenticeshipRequestValidator();
-			
+
             if (isValid)
             {
                 validator.ShouldNotHaveValidationErrorFor(r => r.Postcode, request);
             }
             else
             {
-                var s = validator
+                var errors = validator
                     .ShouldHaveValidationErrorFor(r => r.Postcode, request)
                     .WithErrorCode(errorCode)
                     .WithErrorMessage(errorMessage);
-                s.Count().Should().Be(1);
+                errors.Count().Should().Be(1);
             }
         }
     }
