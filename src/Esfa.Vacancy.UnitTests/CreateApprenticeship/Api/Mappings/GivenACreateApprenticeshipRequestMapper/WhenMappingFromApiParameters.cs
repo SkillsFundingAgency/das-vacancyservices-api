@@ -114,5 +114,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.Postcode.Should().Be(_apiParameters.Location.Postcode);
         }
+
+        [Test]
+        public void ThenMapsNumberOfPositions()
+        {
+            _mappedRequest.NumberOfPostions.Should().Be(_apiParameters.NumberOfPositions);
+        }
     }
 }
