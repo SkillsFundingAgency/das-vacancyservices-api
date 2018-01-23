@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.Api.Types
         /// The number of hours in a typical working week.
         /// </summary>
         public double HoursPerWeek { get; set; }
-        
+
         /// <summary>
         /// The location type used for the vacancy
         /// </summary>
@@ -49,5 +49,10 @@ namespace Esfa.Vacancy.Api.Types
         /// The Location of the Vacancy, required in case LocationType is set to OtherLocation
         /// </summary>
         public Address Location { get; set; } = new Address();
+
+        /// <summary>
+        /// Number of positions available for the vacancy
+        /// </summary>
+        public int NumberOfPositions { get; set; }
     }
 }
