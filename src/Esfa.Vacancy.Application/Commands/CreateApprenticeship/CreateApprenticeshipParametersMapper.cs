@@ -23,7 +23,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 AddressLine4 = request.AddressLine4,
                 AddressLine5 = request.AddressLine5,
                 Town = request.Town,
-                Postcode = request.Postcode
+                Postcode = request.Postcode,
+                NumberOfPositions = request.NumberOfPositions
             };
         }
     }
