@@ -8,4 +8,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Education & Skills Funding Agency")]
 [assembly: AssemblyProduct("Esfa Vacancy API")]
 [assembly: AssemblyCopyright("Copyright ©")]
-[assembly: AssemblyCulture("en-GB")]
+[assembly: AssemblyCulture("")]
