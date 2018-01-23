@@ -15,6 +15,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             ConfigureHoursPerWeekValidator();
             ConfigureLocationTypeValidator();
             ConfigureLocationValidator();
+            ConfigureNumberOfPositions();
         }
     }
 }
