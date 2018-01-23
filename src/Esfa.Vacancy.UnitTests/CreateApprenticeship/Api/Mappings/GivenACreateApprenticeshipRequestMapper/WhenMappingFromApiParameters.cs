@@ -118,7 +118,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsNumberOfPositions()
         {
-            _mappedRequest.NumberOfPostions.Should().Be(_apiParameters.NumberOfPositions);
+            _mappedRequest.NumberOfPositions.Should().Be(_apiParameters.NumberOfPositions);
         }
     }
 }
