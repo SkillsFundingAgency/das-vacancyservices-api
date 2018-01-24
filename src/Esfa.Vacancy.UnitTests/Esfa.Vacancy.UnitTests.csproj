@@ -160,6 +160,7 @@
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingHasGeoSearchFields.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingToString.cs" />
     <Compile Include="SearchApprenticeship\Infrastructure\GivenAGeoSearchResultDistanceSetter.cs" />
+    <Compile Include="Shared\Api.Core\GivenHttpRequestExtensions.cs" />
     <Compile Include="Shared\Api\Validation\GivenAValidationExceptionBuilder.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
