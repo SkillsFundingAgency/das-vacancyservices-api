@@ -1,4 +1,6 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using System.Collections.Generic;
+using Esfa.Vacancy.Api.Core;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using FluentAssertions;
@@ -20,9 +22,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             var fixture = new Fixture();
             _apiParameters = fixture.Create<CreateApprenticeshipParameters>();
 
+            var headers =
+                new Dictionary<string, string> {{Constants.RequestHeaderNames.UserNote, "UKPRN=12345678"}};
+
             var mapper = new CreateApprenticeshipRequestMapper();
 
-            _mappedRequest = mapper.MapFromApiParameters(_apiParameters);
+            _mappedRequest = mapper.MapFromApiParameters(_apiParameters, headers);
         }
 
         [Test]
@@ -119,6 +124,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void ThenMapsNumberOfPositions()
         {
             _mappedRequest.NumberOfPositions.Should().Be(_apiParameters.NumberOfPositions);
+        }
+
+        [Test]
+        public void ThenMapsUkprnFromTheHeader()
+        {
+            _mappedRequest.ProviderUkprn.Should().Be("12345678");
         }
     }
 }

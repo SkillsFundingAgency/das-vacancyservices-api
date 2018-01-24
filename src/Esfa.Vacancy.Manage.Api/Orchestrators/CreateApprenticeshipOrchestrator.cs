@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Domain.Validation;
@@ -26,7 +27,8 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
             _validationExceptionBuilder = validationExceptionBuilder;
         }
 
-        public async Task<CreateApprenticeshipResponse> CreateApprenticeshipAsync(CreateApprenticeshipParameters parameters)
+        public async Task<CreateApprenticeshipResponse> CreateApprenticeshipAsync(
+            CreateApprenticeshipParameters parameters, Dictionary<string, string> headers)
         {
             if (parameters == null)
             {
@@ -36,7 +38,10 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
                     CreateApprenticeshipParametersName);
             }
 
-            var request = _createApprenticeshipRequestMapper.MapFromApiParameters(parameters);
+            var request = _createApprenticeshipRequestMapper.MapFromApiParameters(parameters, headers);
+
+
+
             var response = await _mediator.Send(request);
             return _apprenticeshipResponseMapper.MapToApiResponse(response);
         }

@@ -1,4 +1,6 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using System.Collections.Generic;
+using Esfa.Vacancy.Api.Core;
+using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
@@ -6,7 +8,9 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
 {
     public class CreateApprenticeshipRequestMapper : ICreateApprenticeshipRequestMapper
     {
-        public CreateApprenticeshipRequest MapFromApiParameters(CreateApprenticeshipParameters parameters)
+        public CreateApprenticeshipRequest MapFromApiParameters(
+            CreateApprenticeshipParameters parameters,
+            Dictionary<string, string> requestHeaders)
         {
             return new CreateApprenticeshipRequest
             {
@@ -25,8 +29,16 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 AddressLine5 = parameters.Location.AddressLine5,
                 Town = parameters.Location.Town,
                 Postcode = parameters.Location.Postcode,
-                NumberOfPositions = parameters.NumberOfPositions
+                NumberOfPositions = parameters.NumberOfPositions,
+                ProviderUkprn =
+                    GetProvidersUkprnFromHeaderValue(
+                        requestHeaders[Constants.RequestHeaderNames.UserNote])
             };
+        }
+
+        private static string GetProvidersUkprnFromHeaderValue(string headerValue)
+        {
+            return headerValue?.Replace("UKPRN=", string.Empty);
         }
     }
 }

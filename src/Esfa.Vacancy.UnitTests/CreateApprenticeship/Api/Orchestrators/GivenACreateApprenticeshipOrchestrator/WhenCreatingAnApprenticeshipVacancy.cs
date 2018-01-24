@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
             _expectedErrorMessage = fixture.Create<string>();
 
             _mockRequestMapper = fixture.Freeze<Mock<ICreateApprenticeshipRequestMapper>>(composer => composer.Do(mock => mock
-                .Setup(mapper => mapper.MapFromApiParameters(_actualParameters))
+                .Setup(mapper => mapper.MapFromApiParameters(_actualParameters, It.IsAny<Dictionary<string, string>>()))
                 .Returns(_expectedRequest)));
 
             _mockMediator = fixture.Freeze<Mock<IMediator>>(composer => composer.Do(mock => mock
@@ -68,7 +68,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
 
             _orchestrator = fixture.Create<CreateApprenticeshipOrchestrator>();
 
-            _actualResponse = await _orchestrator.CreateApprenticeshipAsync(_actualParameters);
+            _actualResponse = await _orchestrator.CreateApprenticeshipAsync(_actualParameters, It.IsAny<Dictionary<string, string>>());
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         {
             Func<Task> action = async () =>
             {
-                await _orchestrator.CreateApprenticeshipAsync(null);
+                await _orchestrator.CreateApprenticeshipAsync(null, It.IsAny<Dictionary<string, string>>());
             };
 
             action.ShouldThrow<ValidationException>()
@@ -110,7 +110,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         [Test]
         public void ThenInvokeRequestMapperWithInputParameters()
         {
-            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters));
+            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, It.IsAny<Dictionary<string, string>>()));
         }
     }
 }
