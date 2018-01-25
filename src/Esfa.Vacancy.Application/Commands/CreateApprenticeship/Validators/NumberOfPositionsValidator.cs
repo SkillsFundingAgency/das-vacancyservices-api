@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             RuleFor(request => request.NumberOfPositions)
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.NumberOfPositions)
-                .LessThanOrEqualTo(maxPositionsAllowed)
+                .InclusiveBetween(1, maxPositionsAllowed)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.NumberOfPositions);
         }
     }

@@ -13,8 +13,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             TestName = "And is zero then it is invalid.")]
         [TestCase(5000, true, null,
             TestName = "And is less than or equal to 5000 then is valid")]
-        [TestCase(5001, false, "'Number Of Positions' must be less than or equal to '5000'.",
+        [TestCase(5001, false, "'Number Of Positions' must be between 1 and 5000. You entered 5001.",
             TestName = "And is greater than 5000 then is invalid")]
+        [TestCase(-1, false, "'Number Of Positions' must be between 1 and 5000. You entered -1.",
+            TestName = "And is less than zero then is invalid")]
         public void ValidateNumberOfPositions(int numberOfPositions, bool isValid, string errorMessage)
         {
             var request = new CreateApprenticeshipRequest()
@@ -31,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             else
             {
                 const string errorCode = "31201";
-                var s = validator.Validate(request);
+
                 validator
                     .ShouldHaveValidationErrorFor(x => x.NumberOfPositions, request)
                     .WithErrorCode(errorCode)
