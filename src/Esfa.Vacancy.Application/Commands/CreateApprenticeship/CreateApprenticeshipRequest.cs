@@ -21,6 +21,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string Postcode { get; set; }
         public string Town { get; set; }
         public int NumberOfPositions { get; set; }
-        public string ProviderUkprn { get; set; }
+        public int ProviderUkprn { get; set; }
     }
 }
