@@ -15,6 +15,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
     {
         private CreateApprenticeshipParameters _apiParameters;
         private CreateApprenticeshipRequest _mappedRequest;
+        private int _ukprn = 12345678;
 
         [SetUp]
         public void SetUp()
@@ -23,11 +24,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             _apiParameters = fixture.Create<CreateApprenticeshipParameters>();
 
             var headers =
-                new Dictionary<string, string> {{Constants.RequestHeaderNames.UserNote, "UKPRN=12345678"}};
+                new Dictionary<string, string> { { Constants.RequestHeaderNames.UserNote, "UKPRN=12345678" } };
 
             var mapper = new CreateApprenticeshipRequestMapper();
 
-            _mappedRequest = mapper.MapFromApiParameters(_apiParameters, headers);
+            _mappedRequest = mapper.MapFromApiParameters(_apiParameters, _ukprn);
         }
 
         [Test]
@@ -127,9 +128,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
-        public void ThenMapsUkprnFromTheHeader()
+        public void ThenMapsProviderUkprn()
         {
-            _mappedRequest.ProviderUkprn.Should().Be("12345678");
+            _mappedRequest.ProviderUkprn.Should().Be(_ukprn);
         }
     }
 }

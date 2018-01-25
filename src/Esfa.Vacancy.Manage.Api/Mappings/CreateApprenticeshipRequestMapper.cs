@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
     {
         public CreateApprenticeshipRequest MapFromApiParameters(
             CreateApprenticeshipParameters parameters,
-            Dictionary<string, string> requestHeaders)
+            int providerUkprn)
         {
             return new CreateApprenticeshipRequest
             {
@@ -30,15 +30,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 Town = parameters.Location.Town,
                 Postcode = parameters.Location.Postcode,
                 NumberOfPositions = parameters.NumberOfPositions,
-                ProviderUkprn =
-                    GetProvidersUkprnFromHeaderValue(
-                        requestHeaders[Constants.RequestHeaderNames.UserNote])
+                ProviderUkprn = providerUkprn
             };
-        }
-
-        private static string GetProvidersUkprnFromHeaderValue(string headerValue)
-        {
-            return headerValue?.Replace("UKPRN=", string.Empty);
         }
     }
 }
