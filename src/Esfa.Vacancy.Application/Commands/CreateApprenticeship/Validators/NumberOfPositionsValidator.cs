@@ -9,6 +9,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             const int maxPositionsAllowed = 5000;
             RuleFor(request => request.NumberOfPositions)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.NumberOfPositions)
                 .InclusiveBetween(1, maxPositionsAllowed)
