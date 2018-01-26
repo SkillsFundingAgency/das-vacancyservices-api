@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using Esfa.Vacancy.Manage.Api.Orchestrators;
@@ -36,7 +35,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private string _expectedErrorMessage;
         private Dictionary<string, string> _validHeader
-            = new Dictionary<string, string> { { Constants.RequestHeaderNames.UserNote, "ukprn=12345678" } };
+            = new Dictionary<string, string> { { Constants.RequestHeaderNames.ProviderUkprn, "12345678" } };
 
         [SetUp]
         public async Task SetUp()
@@ -93,31 +92,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
                     It.IsAny<string>()), Times.Once);
         }
 
-        [TestCase(null, false, TestName = "And is missing Then raise unauthorised exception")]
-        [TestCase("null", false, TestName = "And is unexpected value Then raise unauthorised exception")]
-        [TestCase("UkpRn=12345678", true, TestName = "And is correct format in mix case Then is fine")]
-        [TestCase("UkpRn = 12345678", true, TestName = "And is correct format with spaces Then is fine")]
-        public void ValidateUkprn(string headerValue, bool isValid)
-        {
-            var headers =
-                new Dictionary<string, string> { { Constants.RequestHeaderNames.UserNote, headerValue } };
-
-            Func<Task> action = async () =>
-            {
-                await _orchestrator.CreateApprenticeshipAsync(_actualParameters, headers);
-            };
-
-            if (isValid)
-            {
-                action.ShouldNotThrow<UnauthorisedException>();
-            }
-            else
-            {
-                action.ShouldThrow<UnauthorisedException>()
-                    .WithMessage($"Your account is not linked to a valid UKPRN.");
-            }
-        }
-
         [Test]
         public void ThenSendCommandToMediator()
         {
@@ -139,7 +113,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         [Test]
         public void ThenInvokeRequestMapperWithInputParameters()
         {
-            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, It.IsAny<int>()));
+            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, 12345678));
         }
     }
 }
