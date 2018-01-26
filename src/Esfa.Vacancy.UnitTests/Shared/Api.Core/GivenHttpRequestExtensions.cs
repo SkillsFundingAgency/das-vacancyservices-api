@@ -22,5 +22,15 @@ namespace Esfa.Vacancy.UnitTests.Shared.Api.Core
 
             result.ContainsKey(key).Should().Be(included);
         }
+
+        [TestCase("TestHeader1", "Value", TestName = "And Header exists then return value of the header")]
+        [TestCase("TestHeader2", null, TestName = "And Header doesn't exists then return null")]
+        public void WhenGetHeaderValue(string key, string value)
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("TestHeader1", "Value");
+
+            request.GetHeaderValue(key).Should().Be(value);
+        }
     }
 }

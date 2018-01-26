@@ -10,7 +10,8 @@ namespace Esfa.Vacancy.Api.Core.Extensions
         {
             Constants.RequestHeaderNames.UserId,
             Constants.RequestHeaderNames.UserEmail,
-            Constants.RequestHeaderNames.UserNote
+            Constants.RequestHeaderNames.UserNote,
+            Constants.RequestHeaderNames.ProviderUkprn
         };
 
         public static Dictionary<string, string> GetApimUserContextHeaders(this HttpRequestMessage request)
@@ -26,7 +27,7 @@ namespace Esfa.Vacancy.Api.Core.Extensions
             return result;
         }
 
-        private static string GetHeaderValue(this HttpRequestMessage request, string header)
+        public static string GetHeaderValue(this HttpRequestMessage request, string header)
         {
             IEnumerable<string> values;
             var found = request.Headers.TryGetValues(header, out values);

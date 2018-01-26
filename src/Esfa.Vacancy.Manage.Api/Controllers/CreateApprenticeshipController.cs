@@ -1,6 +1,8 @@
 ﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Esfa.Vacancy.Api.Core.ActionFilters;
 using Esfa.Vacancy.Api.Core.Extensions;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Manage.Api.Orchestrators;
@@ -70,10 +72,12 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
+        [ProviderAuthorisationFilter]
         [Route("api/v1/apprenticeships")]
         [SwaggerOperation("CreateApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(CreateApprenticeshipResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, "Invalid provider ukprn", typeof(StringContent))]
         public async Task<IHttpActionResult> Create([FromBody]CreateApprenticeshipParameters createApprenticeshipParameters)
         {
             var headers = Request.GetApimUserContextHeaders();
