@@ -25,26 +25,22 @@ namespace Esfa.Vacancy.Infrastructure.Factories
             return new SqlConnection(connectionString);
         }
 
-        public async Task<T> ExecuteWithRetryAsync<T>(string operationName, Func<SqlConnection, Task<T>> action)
+        public async Task<T> ExecuteWithRetryAsync<T>(string operationName, Func<SqlConnection, Task<T>> asyncFunc)
         {
             var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Database operation {operationName} failed with error: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            var conn = GetConnection();
-
-            await conn.OpenAsync();
-
-            T result;
-            try
+            var result = await retry.ExecuteAsync(async () =>
             {
-                result = await retry.ExecuteAsync(() => action(conn));
-            }
-            finally
-            {
-                conn.Close();
-            }
+                using (var conn = GetConnection())
+                {
+                    await conn.OpenAsync();
+
+                    return await asyncFunc(conn);
+                }
+            });
 
             return result;
         }

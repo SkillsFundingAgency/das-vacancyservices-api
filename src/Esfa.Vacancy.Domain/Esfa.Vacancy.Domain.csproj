@@ -54,6 +54,7 @@
     <Compile Include="Entities\LegacyWageType.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IVacancyOwnerService.cs" />
+    <Compile Include="Interfaces\ICreateApprenticeshipService.cs" />
     <Compile Include="Validation\ErrorCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IFrameworkCodeRepository.cs" />
