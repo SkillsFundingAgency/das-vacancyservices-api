@@ -100,6 +100,10 @@
             public const string PostcodeShouldBeValid = "31049";
 
             public const string NumberOfPositions = "31201";
+
+            public const string ProviderUkprn = "31202";
+            public const string EmployerEdsUrn = "31203";
+            public const string ProviderSiteEdsUrn = "31204";
         }
     }
 }

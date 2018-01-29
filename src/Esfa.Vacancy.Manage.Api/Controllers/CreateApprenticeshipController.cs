@@ -67,7 +67,10 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31047       | Town can't contain invalid characters                                            |
         /// | 31048       | Postcode can't be empty when location type is other location                     |
         /// | 31049       | Postcode must be a valid UK postcode                                             |
-        /// | 31201       | Number of positions can't be empty and has to less than equal to 5000            |
+        /// | 31201       | Number of positions can't be empty and has to less than or equal to 5000         |
+        /// | 31202       | Provider's Ukprn is required to be set in the user profile                       |
+        /// | 31203       | Employer's unique reference number should be a valid positive number             |
+        /// | 31204       | Provider site's unique reference number should be a valid positive number        |
         /// 
         /// </summary>
         [HttpPost]

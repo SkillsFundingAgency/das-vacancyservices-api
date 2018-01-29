@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Employer's unique reference number
         /// </summary>
-        public int EmployersEdsUrn { get; set; }
+        public int EmployerEdsUrn { get; set; }
 
         /// <summary>
         /// Provider site's unique reference number
