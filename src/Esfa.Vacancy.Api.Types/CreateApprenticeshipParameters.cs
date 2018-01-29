@@ -54,5 +54,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Number of positions available for the vacancy
         /// </summary>
         public int NumberOfPositions { get; set; }
+
+        /// <summary>
+        /// Employer's unique reference number
+        /// </summary>
+        public int EmployersEdsUrn { get; set; }
     }
 }
