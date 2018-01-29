@@ -78,6 +78,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\ExpectedStartDateValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\Extensions.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\HoursPerWeekValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\KeyIndentifiers.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LocationTypeValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LocationValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LongDescriptionValidator.cs" />

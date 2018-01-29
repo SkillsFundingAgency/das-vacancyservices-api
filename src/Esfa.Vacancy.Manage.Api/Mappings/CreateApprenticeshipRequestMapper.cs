@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 Postcode = parameters.Location.Postcode,
                 NumberOfPositions = parameters.NumberOfPositions,
                 ProviderUkprn = providerUkprn,
-                EmployersEdsUrn = parameters.EmployersEdsUrn,
+                EmployerEdsUrn = parameters.EmployerEdsUrn,
                 ProviderSiteEdsUrn = parameters.ProviderSiteEdsUrn
             };
         }

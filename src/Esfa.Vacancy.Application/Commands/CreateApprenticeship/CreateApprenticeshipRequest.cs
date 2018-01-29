@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string Town { get; set; }
         public int NumberOfPositions { get; set; }
         public int ProviderUkprn { get; set; }
-        public int EmployersEdsUrn { get; set; }
+        public int EmployerEdsUrn { get; set; }
         public int ProviderSiteEdsUrn { get; set; }
     }
 }
