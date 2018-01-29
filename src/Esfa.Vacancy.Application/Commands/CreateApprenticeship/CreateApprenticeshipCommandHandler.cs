@@ -12,20 +12,20 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     public class CreateApprenticeshipCommandHandler : IAsyncRequestHandler<CreateApprenticeshipRequest, CreateApprenticeshipResponse>
     {
         private readonly IValidator<CreateApprenticeshipRequest> _validator;
-        private readonly IVacancyRepository _vacancyRepository;
+        private readonly ICreateApprenticeshipService _createApprenticehipService;
         private readonly ICreateApprenticeshipParametersMapper _parametersMapper;
         private readonly ILog _logger;
         private readonly IVacancyOwnerService _vacancyOwnerService;
 
         public CreateApprenticeshipCommandHandler(
             IValidator<CreateApprenticeshipRequest> validator,
-            IVacancyRepository vacancyRepository,
+            ICreateApprenticeshipService createApprenticeshipService,
             ICreateApprenticeshipParametersMapper parametersMapper,
             ILog logger,
             IVacancyOwnerService vacancyOwnerService)
         {
             _validator = validator;
-            _vacancyRepository = vacancyRepository;
+            _createApprenticehipService = createApprenticeshipService;
             _parametersMapper = parametersMapper;
             _logger = logger;
             _vacancyOwnerService = vacancyOwnerService;
@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
             var parameters = _parametersMapper.MapFromRequest(message, employerInformation);
 
-            var referenceNumber = await _vacancyRepository.CreateApprenticeshipAsync(parameters);
+            var referenceNumber = await _createApprenticehipService.CreateApprenticeshipAsync(parameters);
 
             _logger.Info($"Successfully created new Apprenticeship Vacancy: [{message.Title}], Reference Number: [{referenceNumber}]");
 

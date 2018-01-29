@@ -6,7 +6,6 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation;
@@ -28,7 +27,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private IFixture _fixture;
         private CreateApprenticeshipCommandHandler _handler;
         private Mock<ICreateApprenticeshipParametersMapper> _mockMapper;
-        private Mock<IVacancyRepository> _mockRepository;
+        private Mock<ICreateApprenticeshipService> _mockService;
         private CreateApprenticeshipRequest _validRequest;
         private CreateApprenticeshipParameters _expectedParameters;
         private Mock<IVacancyOwnerService> _mockVacancyOwnerService;
@@ -57,7 +56,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>(), It.IsAny<EmployerInformation>()))
                 .Returns(_expectedParameters)));
 
-            _mockRepository = _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
+            _mockService = _fixture.Freeze<Mock<ICreateApprenticeshipService>>(composer => composer.Do(mock => mock
                 .Setup(repository => repository.CreateApprenticeshipAsync(It.IsAny<CreateApprenticeshipParameters>()))
                 .ReturnsAsync(_expectedRefNumber)));
 
@@ -124,7 +123,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenCreatesVacancy()
         {
-            _mockRepository.Verify(repository =>
+            _mockService.Verify(repository =>
                 repository.CreateApprenticeshipAsync(_expectedParameters),
                 Times.Once);
         }
