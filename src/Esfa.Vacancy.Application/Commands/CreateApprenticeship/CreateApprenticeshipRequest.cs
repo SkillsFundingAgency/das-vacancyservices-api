@@ -23,5 +23,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public int NumberOfPositions { get; set; }
         public int ProviderUkprn { get; set; }
         public int EmployersEdsUrn { get; set; }
+        public int ProviderSiteEdsUrn { get; set; }
     }
 }

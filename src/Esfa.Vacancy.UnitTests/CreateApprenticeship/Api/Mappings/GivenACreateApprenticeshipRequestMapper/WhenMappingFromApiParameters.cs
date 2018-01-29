@@ -133,5 +133,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.EmployersEdsUrn.Should().Be(_apiParameters.EmployersEdsUrn);
         }
+
+        [Test]
+        public void ThenMapsProviderSiteEdsUrn()
+        {
+            _mappedRequest.ProviderSiteEdsUrn.Should().Be(_apiParameters.ProviderSiteEdsUrn);
+        }
     }
 }
