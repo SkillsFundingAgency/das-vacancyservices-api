@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Domain.Entities;
+using DomainTypes = Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
@@ -20,14 +20,14 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
         public void FixtureSetup()
         {
             var provideSettings = new Mock<IProvideSettings>();
-            _sut = new Register.Api.Mappings.ApprenticeshipMapper(provideSettings.Object);
+            _sut = new ApprenticeshipMapper(provideSettings.Object);
         }
 
         [Test]
         public void ShouldThrowErrorForUnknownWageUnitId()
         {
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                .With(v => v.WageType, (int)WageType.Custom)
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+                .With(v => v.WageType, (int)DomainTypes.WageType.Custom)
                 .With(v => v.WageUnitId, 99)
                 .Create();
             
@@ -41,8 +41,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
         public void ShouldMapWageUnitIdToWageUnitEnum(int? wageUnitId, WageUnit wageUnitType, int expectedWageUnitUnderlyingValue)
         {
             //Arrange
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                .With(v => v.WageType, (int) WageType.Custom)
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+                .With(v => v.WageType, (int)DomainTypes.WageType.Custom)
                 .With(v => v.WageUnitId, wageUnitId)
                 .Create();
             

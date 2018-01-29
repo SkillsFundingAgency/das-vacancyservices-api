@@ -1,5 +1,5 @@
 ﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Domain.Entities;
+using DomainTypes = Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
@@ -29,12 +29,12 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var provideSettings = new Mock<IProvideSettings>();
             var sut = new Register.Api.Mappings.ApprenticeshipMapper(provideSettings.Object);
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
                 .With(v => v.WageLowerBound, lowerBound)
                 .With(v => v.WageUpperBound, upperBound)
-                .With(v => v.WageType, (int) WageType.CustomRange)
+                .With(v => v.WageType, (int)DomainTypes.WageType.CustomRange)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
                 .With(v => v.WageUnitId, wageUnitId)

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Domain.Entities;
+using DomainTypes = Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using ApprenticeshipVacancy = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 using TrainingType = Esfa.Vacancy.Api.Types.TrainingType;
@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             _provideSettings = provideSettings;
         }
 
-        public ApprenticeshipVacancy MapToApprenticeshipVacancy(Domain.Entities.ApprenticeshipVacancy apprenticeshipVacancy)
+        public ApprenticeshipVacancy MapToApprenticeshipVacancy(DomainTypes.ApprenticeshipVacancy apprenticeshipVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
 
@@ -89,40 +89,40 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             }
         }
 
-        private string MapWage(Domain.Entities.ApprenticeshipVacancy src)
+        private string MapWage(DomainTypes.ApprenticeshipVacancy src)
         {
             switch (src.WageType)
             {
-                case (int)WageType.LegacyText:
+                case (int)DomainTypes.WageType.LegacyText:
                     return UnknownText;
-                case (int)WageType.LegacyWeekly:
-                case (int)WageType.Custom:
+                case (int)DomainTypes.WageType.LegacyWeekly:
+                case (int)DomainTypes.WageType.Custom:
                     return GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
-                case (int)WageType.ApprenticeshipMinimum:
+                case (int)DomainTypes.WageType.ApprenticeshipMinimum:
                     return GetMinimumApprenticeWage(src);
-                case (int)WageType.NationalMinimum:
+                case (int)DomainTypes.WageType.NationalMinimum:
                     return GetNationalMinimumWageRangeText(src);
-                case (int)WageType.CustomRange:
+                case (int)DomainTypes.WageType.CustomRange:
                     return GetWageRangeText(src);
-                case (int)WageType.CompetitiveSalary:
+                case (int)DomainTypes.WageType.CompetitiveSalary:
                     return "Competitive salary";
-                case (int)WageType.ToBeAgreedUponAppointment:
+                case (int)DomainTypes.WageType.ToBeAgreedUponAppointment:
                     return "To be agreed upon appointment";
-                case (int)WageType.Unwaged:
+                case (int)DomainTypes.WageType.Unwaged:
                     return "Unwaged";
                 default:
                     return UnknownText;
             }
         }
 
-        private string GetMinimumApprenticeWage(Domain.Entities.ApprenticeshipVacancy src)
+        private string GetMinimumApprenticeWage(DomainTypes.ApprenticeshipVacancy src)
         {
             return src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue
                 ? GetFormattedCurrencyString(src.MinimumWageRate.Value * src.HoursPerWeek.Value)
                 : UnknownText;
         }
 
-        private string GetWageRangeText(Domain.Entities.ApprenticeshipVacancy src)
+        private string GetWageRangeText(DomainTypes.ApprenticeshipVacancy src)
         {
             return $"{GetFormattedCurrencyString(src.WageLowerBound) ?? UnknownText} - {GetFormattedCurrencyString(src.WageUpperBound) ?? UnknownText}";
         }
@@ -133,7 +133,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return src?.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
         }
 
-        private string GetNationalMinimumWageRangeText(Domain.Entities.ApprenticeshipVacancy src)
+        private string GetNationalMinimumWageRangeText(DomainTypes.ApprenticeshipVacancy src)
         {
             if (!src.HoursPerWeek.HasValue || src.HoursPerWeek <= 0)
             {
@@ -154,7 +154,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
 
-        private void MapTrainingDetails(Domain.Entities.ApprenticeshipVacancy src, ApprenticeshipVacancy dest)
+        private void MapTrainingDetails(DomainTypes.ApprenticeshipVacancy src, ApprenticeshipVacancy dest)
         {
             if (src.Framework != null)
             {

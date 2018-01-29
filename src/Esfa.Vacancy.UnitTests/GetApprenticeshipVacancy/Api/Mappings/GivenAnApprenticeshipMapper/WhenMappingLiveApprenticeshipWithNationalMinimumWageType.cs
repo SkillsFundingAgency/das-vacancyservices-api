@@ -1,5 +1,5 @@
 ﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Domain.Entities;
+using DomainTypes = Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
@@ -34,10 +34,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageUpperBound = upperBound;
             const decimal hoursPerWeek = 30;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)DomainTypes.WageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .With(v => v.HoursPerWeek, hoursPerWeek)
@@ -60,10 +60,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageLowerBound = lowerBound;
             var minNationalWageUpperBound = upperBound;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)DomainTypes.WageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .Without(v => v.HoursPerWeek)
@@ -86,10 +86,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageLowerBound = lowerBound;
             var minNationalWageUpperBound = upperBound;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)DomainTypes.WageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .With(v => v.HoursPerWeek, 0)
