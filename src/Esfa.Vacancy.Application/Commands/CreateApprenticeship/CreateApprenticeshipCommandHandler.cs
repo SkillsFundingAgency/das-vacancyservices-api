@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Esfa.Vacancy.Application.Exceptions;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
@@ -12,17 +15,20 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private readonly IVacancyRepository _vacancyRepository;
         private readonly ICreateApprenticeshipParametersMapper _parametersMapper;
         private readonly ILog _logger;
+        private readonly IVacancyOwnerService _vacancyOwnerService;
 
         public CreateApprenticeshipCommandHandler(
-            IValidator<CreateApprenticeshipRequest> validator, 
+            IValidator<CreateApprenticeshipRequest> validator,
             IVacancyRepository vacancyRepository,
             ICreateApprenticeshipParametersMapper parametersMapper,
-            ILog logger)
+            ILog logger,
+            IVacancyOwnerService vacancyOwnerService)
         {
             _validator = validator;
             _vacancyRepository = vacancyRepository;
             _parametersMapper = parametersMapper;
             _logger = logger;
+            _vacancyOwnerService = vacancyOwnerService;
         }
 
         public async Task<CreateApprenticeshipResponse> Handle(CreateApprenticeshipRequest message)
@@ -34,13 +40,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var parameters = _parametersMapper.MapFromRequest(message);
+            var vacancyOwnerRelationshipId = await _vacancyOwnerService.GetVacancyOwnerLinkIdAsync(message.ProviderUkprn,
+                message.ProviderSiteEdsUrn, message.EmployerEdsUrn);
+            if (vacancyOwnerRelationshipId == null)
+                throw new UnauthorisedException(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
+
+            var parameters = _parametersMapper.MapFromRequest(message, vacancyOwnerRelationshipId.Value);
 
             var referenceNumber = await _vacancyRepository.CreateApprenticeshipAsync(parameters);
 
             _logger.Info($"Successfully created new Apprenticeship Vacancy: [{message.Title}], Reference Number: [{referenceNumber}]");
 
-            return new CreateApprenticeshipResponse {VacancyReferenceNumber = referenceNumber};
+            return new CreateApprenticeshipResponse { VacancyReferenceNumber = referenceNumber };
         }
     }
 }

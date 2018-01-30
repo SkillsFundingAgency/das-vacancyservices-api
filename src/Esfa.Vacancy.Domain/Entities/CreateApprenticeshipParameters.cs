@@ -20,5 +20,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public string Town { get; set; }
         public string Postcode { get; set; }
         public int NumberOfPositions { get; set; }
+        public int VacancyOwnerRelationshipId { get; set; }
     }
 }

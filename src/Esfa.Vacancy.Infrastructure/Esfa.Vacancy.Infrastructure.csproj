@@ -116,6 +116,7 @@
     <Compile Include="Caching\AzureRedisCacheService.cs" />
     <Compile Include="Exceptions\InfrastructureException.cs" />
     <Compile Include="Factories\ElasticClientFactory.cs" />
+    <Compile Include="Factories\SqlDatabaseService.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CachedFrameworkCodeRepository.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Services\IGeoSearchResultDistanceSetter.cs" />
     <Compile Include="Services\SearchDescriptorExtensions.cs" />
     <Compile Include="Services\TrainingDetailService.cs" />
+    <Compile Include="Services\VacancyOwnerService.cs" />
     <Compile Include="Settings\AppConfigSettingsProvider.cs" />
     <Compile Include="Settings\ApplicationSettingKeyConstants.cs" />
     <Compile Include="Settings\ApplicationSettings.cs" />

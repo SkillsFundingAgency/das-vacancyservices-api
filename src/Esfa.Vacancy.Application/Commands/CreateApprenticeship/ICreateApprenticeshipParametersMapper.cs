@@ -4,6 +4,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public interface ICreateApprenticeshipParametersMapper
     {
-        CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request);
+        CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request, int i);
     }
 }
