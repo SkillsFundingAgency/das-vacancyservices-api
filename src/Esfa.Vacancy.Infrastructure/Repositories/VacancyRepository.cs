@@ -127,7 +127,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
                 await sqlConn.OpenAsync();
                 await sqlConn.ExecuteAsync(
                     CreateApprenticeshipVacancySqlSproc,
-                    param: dynamicParameters,
+                    dynamicParameters,
                     commandType: CommandType.StoredProcedure);
 
                 referenceNumber = dynamicParameters.Get<int>("VacancyReferenceNumber");

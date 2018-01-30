@@ -9,8 +9,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenMappingFromARequest
     {
+        private const int VacancyOwnerRelationshipId = 1;
         private CreateApprenticeshipParameters _mappedParameters;
         private CreateApprenticeshipRequest _request;
+
 
         [SetUp]
         public void SetUp()
@@ -20,7 +22,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var mapper = fixture.Create<CreateApprenticeshipParametersMapper>();
 
-            _mappedParameters = mapper.MapFromRequest(_request);
+            _mappedParameters = mapper.MapFromRequest(_request, VacancyOwnerRelationshipId);
         }
 
         [Test]
@@ -111,6 +113,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsNumberOfPositions()
         {
             _mappedParameters.NumberOfPositions.Should().Be(_request.NumberOfPositions);
+        }
+
+        [Test]
+        public void ThenMapsVacancyOwnerRelationshipId()
+        {
+            _mappedParameters.VacancyOwnerRelationshipId.Should().Be(VacancyOwnerRelationshipId);
         }
     }
 }

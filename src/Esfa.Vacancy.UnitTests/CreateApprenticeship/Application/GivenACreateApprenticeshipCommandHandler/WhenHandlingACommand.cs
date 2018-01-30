@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -18,6 +21,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenHandlingACommand
     {
+        private const int VacancyOwnerRelationshipId = 1;
         private CreateApprenticeshipResponse _createApprenticeshipResponse;
         private int _expectedRefNumber;
         private Mock<IValidator<CreateApprenticeshipRequest>> _mockValidator;
@@ -27,6 +31,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private Mock<IVacancyRepository> _mockRepository;
         private CreateApprenticeshipRequest _validRequest;
         private CreateApprenticeshipParameters _expectedParameters;
+        private Mock<IVacancyOwnerService> _mockVacancyOwnerService;
 
         [SetUp]
         public async Task SetUp()
@@ -42,8 +47,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Setup(validator => validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ValidationResult());
 
+            _mockVacancyOwnerService = _fixture.Freeze<Mock<IVacancyOwnerService>>();
+            _mockVacancyOwnerService
+                .Setup(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(VacancyOwnerRelationshipId);
+
             _mockMapper = _fixture.Freeze<Mock<ICreateApprenticeshipParametersMapper>>(composer => composer.Do(mock => mock
-                .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>()))
+                .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>(), It.IsAny<int>()))
                 .Returns(_expectedParameters)));
 
             _mockRepository = _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
@@ -77,23 +87,47 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenValidatesRequest()
         {
-            _mockValidator.Verify(validator => 
+            _mockValidator.Verify(validator =>
                 validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()),
                 Times.Once);
         }
 
         [Test]
+        public void ThenFetchVacancyOwnerLink()
+        {
+            _mockVacancyOwnerService.Verify(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
+        }
+
+        [Test]
+        public void AndIfLinkIsNotRetrieved_ThenThrowUnauthorisedException()
+        {
+            var validRequest = _fixture.Create<CreateApprenticeshipRequest>();
+
+            _mockValidator
+                .Setup(validator => validator.ValidateAsync(validRequest, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
+
+            _mockVacancyOwnerService
+                .Setup(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync((int?)null);
+
+            var action = new Func<Task<CreateApprenticeshipResponse>>(() => _handler.Handle(validRequest));
+            action.ShouldThrow<UnauthorisedException>()
+                .WithMessage(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
+        }
+
+        [Test]
         public void ThenMapsRequestToCreateParams()
         {
-            _mockMapper.Verify(mapper => 
-                mapper.MapFromRequest(_validRequest),
+            _mockMapper.Verify(mapper =>
+                mapper.MapFromRequest(_validRequest, VacancyOwnerRelationshipId),
                 Times.Once);
         }
 
         [Test]
         public void ThenCreatesVacancy()
         {
-            _mockRepository.Verify(repository => 
+            _mockRepository.Verify(repository =>
                 repository.CreateApprenticeshipAsync(_expectedParameters),
                 Times.Once);
         }

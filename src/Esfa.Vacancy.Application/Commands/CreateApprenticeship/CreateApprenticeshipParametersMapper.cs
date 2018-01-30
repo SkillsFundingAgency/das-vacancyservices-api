@@ -5,7 +5,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     public class CreateApprenticeshipParametersMapper : ICreateApprenticeshipParametersMapper
     {
         private const int StandardLocationType = 1;
-        public CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request)
+        public CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request, int vacancyOwnerRelationshipId)
         {
             return new CreateApprenticeshipParameters
             {
@@ -24,7 +24,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 AddressLine5 = request.AddressLine5,
                 Town = request.Town,
                 Postcode = request.Postcode,
-                NumberOfPositions = request.NumberOfPositions
+                NumberOfPositions = request.NumberOfPositions,
+                VacancyOwnerRelationshipId = vacancyOwnerRelationshipId
             };
         }
     }
