@@ -85,6 +85,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\NumberOfPositionsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ShortDescriptionValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\TitleValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\WageTypeValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\WorkingWeekValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\WageType.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
