@@ -11,6 +11,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
+        public WageType WageType { get; set; }
         public int LocationTypeId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

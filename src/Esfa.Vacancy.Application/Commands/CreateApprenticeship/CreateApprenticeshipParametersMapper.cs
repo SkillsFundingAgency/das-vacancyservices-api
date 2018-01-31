@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
+                WageType = (Domain.Entities.WageType)request.WageType,
                 LocationTypeId = StandardLocationType, //This should change when more location type are introduced
                 AddressLine1 = request.AddressLine1,
                 AddressLine2 = request.AddressLine2,
