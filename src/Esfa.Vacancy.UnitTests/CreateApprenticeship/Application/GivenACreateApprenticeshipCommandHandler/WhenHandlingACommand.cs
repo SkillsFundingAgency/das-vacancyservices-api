@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenHandlingACommand
     {
-        private const int VacancyOwnerRelationshipId = 1;
+        private EmployerInformation _employerInformation;
         private CreateApprenticeshipResponse _createApprenticeshipResponse;
         private int _expectedRefNumber;
         private Mock<IValidator<CreateApprenticeshipRequest>> _mockValidator;
@@ -38,6 +38,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
+            _employerInformation = _fixture.Create<EmployerInformation>();
             _expectedRefNumber = _fixture.Create<int>();
             _expectedParameters = _fixture.Freeze<CreateApprenticeshipParameters>();
             _validRequest = _fixture.Create<CreateApprenticeshipRequest>();
@@ -49,11 +50,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             _mockVacancyOwnerService = _fixture.Freeze<Mock<IVacancyOwnerService>>();
             _mockVacancyOwnerService
-                .Setup(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync(VacancyOwnerRelationshipId);
+                .Setup(svc => svc.GetEmployersInformationAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(_employerInformation);
 
             _mockMapper = _fixture.Freeze<Mock<ICreateApprenticeshipParametersMapper>>(composer => composer.Do(mock => mock
-                .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>(), It.IsAny<int>()))
+                .Setup(mapper => mapper.MapFromRequest(It.IsAny<CreateApprenticeshipRequest>(), It.IsAny<EmployerInformation>()))
                 .Returns(_expectedParameters)));
 
             _mockRepository = _fixture.Freeze<Mock<IVacancyRepository>>(composer => composer.Do(mock => mock
@@ -95,7 +96,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenFetchVacancyOwnerLink()
         {
-            _mockVacancyOwnerService.Verify(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
+            _mockVacancyOwnerService.Verify(svc => svc.GetEmployersInformationAsync(
+                It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
         }
 
         [Test]
@@ -108,8 +110,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .ReturnsAsync(new ValidationResult());
 
             _mockVacancyOwnerService
-                .Setup(svc => svc.GetVacancyOwnerLinkIdAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((int?)null);
+                .Setup(svc => svc.GetEmployersInformationAsync(
+                    It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync((EmployerInformation)null);
 
             var action = new Func<Task<CreateApprenticeshipResponse>>(() => _handler.Handle(validRequest));
             action.ShouldThrow<UnauthorisedException>()
@@ -120,7 +123,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsRequestToCreateParams()
         {
             _mockMapper.Verify(mapper =>
-                mapper.MapFromRequest(_validRequest, VacancyOwnerRelationshipId),
+                mapper.MapFromRequest(_validRequest, _employerInformation),
                 Times.Once);
         }
 

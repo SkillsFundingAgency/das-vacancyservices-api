@@ -9,7 +9,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenMappingFromARequest
     {
-        private const int VacancyOwnerRelationshipId = 1;
+        private EmployerInformation _employerInformation;
         private CreateApprenticeshipParameters _mappedParameters;
         private CreateApprenticeshipRequest _request;
 
@@ -20,9 +20,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture();
             _request = fixture.Create<CreateApprenticeshipRequest>();
 
+            _employerInformation = fixture.Create<EmployerInformation>();
+
             var mapper = fixture.Create<CreateApprenticeshipParametersMapper>();
 
-            _mappedParameters = mapper.MapFromRequest(_request, VacancyOwnerRelationshipId);
+            _mappedParameters = mapper.MapFromRequest(_request, _employerInformation);
         }
 
         [Test]
@@ -118,7 +120,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsVacancyOwnerRelationshipId()
         {
-            _mappedParameters.VacancyOwnerRelationshipId.Should().Be(VacancyOwnerRelationshipId);
+            _mappedParameters.VacancyOwnerRelationshipId
+                .Should().Be(_employerInformation.VacancyOwnerRelationshipId);
+        }
+
+        [Test]
+        public void ThenMapsEmployerDescription()
+        {
+            _mappedParameters.EmployerDescription
+                .Should().Be(_employerInformation.EmployerDescription);
+        }
+
+        [Test]
+        public void ThenMapsEmployerWebsite()
+        {
+            _mappedParameters.EmployerWebsite
+                .Should().Be(_employerInformation.EmployerWebsite);
         }
     }
 }

@@ -40,12 +40,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancyOwnerRelationshipId = await _vacancyOwnerService.GetVacancyOwnerLinkIdAsync(message.ProviderUkprn,
+            var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(message.ProviderUkprn,
                 message.ProviderSiteEdsUrn, message.EmployerEdsUrn);
-            if (vacancyOwnerRelationshipId == null)
+
+            if (employerInformation == null)
                 throw new UnauthorisedException(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
 
-            var parameters = _parametersMapper.MapFromRequest(message, vacancyOwnerRelationshipId.Value);
+            var parameters = _parametersMapper.MapFromRequest(message, employerInformation);
 
             var referenceNumber = await _vacancyRepository.CreateApprenticeshipAsync(parameters);
 
