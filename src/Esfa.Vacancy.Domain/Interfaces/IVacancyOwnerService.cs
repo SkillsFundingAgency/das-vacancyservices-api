@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Domain.Interfaces
 {
     public interface IVacancyOwnerService
     {
-        Task<int?> GetVacancyOwnerLinkIdAsync(int providerUkprn, int providerSiteEdsUrn, int employerEdsUrn);
+        Task<EmployerInformation> GetEmployersInformationAsync(int providerUkprn,
+            int providerSiteEdsUrn, int employerEdsUrn);
     }
 }
