@@ -65,20 +65,21 @@ namespace Esfa.Vacancy.Api.AcceptanceTests.Regression
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get vacancy details by id without authorization")]
-        [NUnit.Framework.CategoryAttribute("RA388")]
-        [NUnit.Framework.CategoryAttribute("GetVacancyById")]
-        public virtual void GetVacancyDetailsByIdWithoutAuthorization()
+        [NUnit.Framework.DescriptionAttribute("Get vacancy details for Live Apprenticeship Vacancy")]
+        [NUnit.Framework.CategoryAttribute("GetVacancyDetailsByVacancyReferenceNumber")]
+        public virtual void GetVacancyDetailsForLiveApprenticeshipVacancy()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get vacancy details by id without authorization", new string[] {
-                        "RA388",
-                        "GetVacancyById"});
-#line 21
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get vacancy details for Live Apprenticeship Vacancy", new string[] {
+                        "GetVacancyDetailsByVacancyReferenceNumber"});
+#line 20
 this.ScenarioSetup(scenarioInfo);
+#line 21
+ testRunner.When("I request the vacancy details for the apprenticeship with reference number: 87654" +
+                    "321", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
- testRunner.When("I request the vacancy details for the vacancy with id: 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("The response status is: OK", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 23
- testRunner.Then("The response status is: Unauthorized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("The response body contains a field called Vacancy Reference Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
