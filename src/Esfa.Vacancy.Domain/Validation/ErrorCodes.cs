@@ -80,6 +80,7 @@
 
             public const string WageTypeRequired = "31020";
             public const string MinWageError = "31021";
+            public const string MaxWageError = "31022";
 
             public const string LocationTypeIsRequired = "31031";
             public const string AddressLine1IsRequired = "31032";
