@@ -11,10 +11,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenValidatingProviderSiteEdsUrn
     {
-        [TestCase(0, false, TestName = "And is zero Then is invalid")]
-        [TestCase(-1, false, TestName = "And is less than zero Then is invalid")]
-        [TestCase(1, true, TestName = "And is greater than zero Then is valid")]
-        public void AndProviderUkprnIsMissing_ThenIsInvalid(int value, bool shouldBeValid)
+        [TestCase(0, false, "'Provider Site Eds Urn' should not be empty.", TestName = "And is zero Then is invalid")]
+        [TestCase(-1, false, "'Provider Site Eds Urn' must be greater than '0'.", TestName = "And is less than zero Then is invalid")]
+        [TestCase(1, true, "", TestName = "And is greater than zero Then is valid")]
+        public void ValidateProviderSiteEdsUrn(int value, bool shouldBeValid, string errorMessage)
         {
             var request = new CreateApprenticeshipRequest()
             {
@@ -30,7 +30,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             else
             {
                 var result = validator.ShouldHaveValidationErrorFor(r => r.ProviderSiteEdsUrn, request)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ProviderSiteEdsUrn);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ProviderSiteEdsUrn)
+                    .WithErrorMessage(errorMessage);
                 result.Count().Should().Be(1);
             }
         }

@@ -103,18 +103,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void AndIfLinkIsNotRetrieved_ThenThrowUnauthorisedException()
         {
-            var validRequest = _fixture.Create<CreateApprenticeshipRequest>();
-
-            _mockValidator
-                .Setup(validator => validator.ValidateAsync(validRequest, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new ValidationResult());
-
             _mockVacancyOwnerService
                 .Setup(svc => svc.GetEmployersInformationAsync(
                     It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync((EmployerInformation)null);
 
-            var action = new Func<Task<CreateApprenticeshipResponse>>(() => _handler.Handle(validRequest));
+            var action = new Func<Task<CreateApprenticeshipResponse>>(() => _handler.Handle(_validRequest));
             action.ShouldThrow<UnauthorisedException>()
                 .WithMessage(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
         }

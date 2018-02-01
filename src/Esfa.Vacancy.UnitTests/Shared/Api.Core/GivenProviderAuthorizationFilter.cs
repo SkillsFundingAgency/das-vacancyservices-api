@@ -38,6 +38,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Api.Core
         [TestCase("UKpRN = 12345678", TestName = "Then spaces are allowed")]
         public void WhenValidHeader(string value)
         {
+            const string expectedValue = "12345678";
             var context = new HttpActionContext();
 
             var request = new HttpRequestMessage();
@@ -47,7 +48,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Api.Core
             var filter = new ProviderAuthorisationFilter();
             filter.OnActionExecuting(context);
 
-            context.Request.GetHeaderValue(Constants.RequestHeaderNames.ProviderUkprn).Should().Be("12345678");
+            context.Request.GetHeaderValue(Constants.RequestHeaderNames.ProviderUkprn).Should().Be(expectedValue);
 
             Assert.IsNull(context.Response);
         }

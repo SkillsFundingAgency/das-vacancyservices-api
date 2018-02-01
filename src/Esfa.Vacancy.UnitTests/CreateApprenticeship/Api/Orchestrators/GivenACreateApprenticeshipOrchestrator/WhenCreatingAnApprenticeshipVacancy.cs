@@ -23,6 +23,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
     [TestFixture]
     public class WhenCreatingAnApprenticeshipVacancy
     {
+        private const int providerUkprn = 12345678;
         private Mock<IMediator> _mockMediator;
         private ApiTypes.CreateApprenticeshipResponse _actualResponse;
         private CreateApprenticeshipResponse _expectedMediatorResponse;
@@ -35,7 +36,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private string _expectedErrorMessage;
         private Dictionary<string, string> _validHeader
-            = new Dictionary<string, string> { { Constants.RequestHeaderNames.ProviderUkprn, "12345678" } };
+            = new Dictionary<string, string> { { Constants.RequestHeaderNames.ProviderUkprn, providerUkprn.ToString() } };
 
         [SetUp]
         public async Task SetUp()
@@ -113,7 +114,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         [Test]
         public void ThenInvokeRequestMapperWithInputParameters()
         {
-            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, 12345678));
+            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, providerUkprn));
         }
     }
 }
