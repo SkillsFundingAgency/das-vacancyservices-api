@@ -9,10 +9,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.WageType)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeError)
                 .DependentRules(rules => rules.RuleFor(request => request.WageType)
                     .IsInEnum()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeRequired));
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeError));
 
             When(request => request.WageType == WageType.ApprenticeshipMinimumWage, () =>
             {

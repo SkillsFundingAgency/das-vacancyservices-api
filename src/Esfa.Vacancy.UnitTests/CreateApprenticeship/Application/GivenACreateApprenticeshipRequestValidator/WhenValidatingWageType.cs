@@ -19,11 +19,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(null, false,
-                ErrorCodes.CreateApprenticeship.WageTypeRequired,
+                ErrorCodes.CreateApprenticeship.WageTypeError,
                 "'Wage Type' should not be empty.")
             .SetName("And is null Then is invalid"),
             new TestCaseData((WageType)InvalidWageType, false,
-                ErrorCodes.CreateApprenticeship.WageTypeRequired,
+                ErrorCodes.CreateApprenticeship.WageTypeError,
                 $"'Wage Type' has a range of values which does not include '{InvalidWageType}'.")
             .SetName("And is not a known wage type Then is invalid"),
             new TestCaseData(ValidWageType, true, null, null)

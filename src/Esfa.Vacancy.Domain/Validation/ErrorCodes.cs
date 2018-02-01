@@ -78,7 +78,7 @@
             public const string HoursPerWeekRequired = "31018";
             public const string HoursPerWeekOutsideRange = "31019";
 
-            public const string WageTypeRequired = "31020";
+            public const string WageTypeError = "31020";
             public const string MinWageError = "31021";
             public const string MaxWageError = "31022";
 
