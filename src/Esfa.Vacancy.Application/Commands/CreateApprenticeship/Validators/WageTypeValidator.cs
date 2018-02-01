@@ -13,6 +13,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.WageType)
                     .IsInEnum()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeRequired));
+
+            When(request => request.WageType == WageType.ApprenticeshipMinimumWage, () =>
+            {
+                RuleFor(request => request.MinWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWageError);
+            });
         }
     }
 }

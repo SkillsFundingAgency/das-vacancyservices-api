@@ -13,6 +13,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
         public WageType WageType { get; set; }
+        public decimal? MinWage { get; set; }
         public LocationType LocationType { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
