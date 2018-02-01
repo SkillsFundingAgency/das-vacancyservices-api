@@ -22,6 +22,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 ErrorCodes.CreateApprenticeship.WageTypeError,
                 "'Wage Type' should not be empty.")
             .SetName("And is null Then is invalid"),
+            new TestCaseData(0, false,
+                    ErrorCodes.CreateApprenticeship.WageTypeError,
+                    "'Wage Type' should not be empty.")
+                .SetName("And is 0 Then is invalid"),
             new TestCaseData((WageType)InvalidWageType, false,
                 ErrorCodes.CreateApprenticeship.WageTypeError,
                 $"'Wage Type' has a range of values which does not include '{InvalidWageType}'.")

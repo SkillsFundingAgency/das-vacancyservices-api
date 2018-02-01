@@ -45,6 +45,16 @@ namespace Esfa.Vacancy.Api.Types
         public WageType WageType { get; set; }
 
         /// <summary>
+        /// The minimum wage for the vacancy
+        /// </summary>
+        public decimal? MinWage { get; set; }
+
+        /// <summary>
+        /// The maximum wage for the vacancy
+        /// </summary>
+        public decimal? MaxWage { get; set; }
+
+        /// <summary>
         /// The location type used for the vacancy
         /// </summary>
         public LocationType LocationType { get; set; }

@@ -81,6 +81,18 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
+        public void ThenMapsMinWage()
+        {
+            _mappedRequest.MinWage.Should().Be(_apiParameters.MinWage);
+        }
+
+        [Test]
+        public void ThenMapsMaxWage()
+        {
+            _mappedRequest.MaxWage.Should().Be(_apiParameters.MaxWage);
+        }
+
+        [Test]
         public void ThenMapsLocationType()
         {
             _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)(int)_apiParameters.LocationType);
