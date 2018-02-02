@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.MinWageError);
+                .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Min Wage' must be empty.");
         }

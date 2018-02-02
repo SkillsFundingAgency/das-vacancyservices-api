@@ -21,11 +21,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(null, false,
-                ErrorCodes.CreateApprenticeship.WorkingWeekRequired,
+                ErrorCodes.CreateApprenticeship.WorkingWeek,
                 "'Working Week' should not be empty.")
             .SetName("And is null Then is invalid"),
             new TestCaseData(TextLengthOver250, false,
-                ErrorCodes.CreateApprenticeship.WorkingWeekLengthGreaterThan250,
+                ErrorCodes.CreateApprenticeship.WorkingWeek,
                 "'Working Week' must be less than 251 characters. You entered 251 characters.")
             .SetName("And is over 250 chars length Then is invalid"),
             new TestCaseData(TextLengthAt250, true, null, null)
@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             new TestCaseData(TextLengthUnder250, true, null, null)
             .SetName("And is under 250 chars length Then is valid"),
             new TestCaseData(TextWithInvalidChars, false,
-                ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters,
+                ErrorCodes.CreateApprenticeship.WorkingWeek,
                 "'Working Week' can't contain invalid characters")
             .SetName("And has restricted characters Then is invalid")
         };

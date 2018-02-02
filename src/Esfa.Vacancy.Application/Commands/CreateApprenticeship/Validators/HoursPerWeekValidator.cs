@@ -12,10 +12,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.HoursPerWeek)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.HoursPerWeekRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.HoursPerWeek)
                 .DependentRules(rules => rules.RuleFor(request => request.HoursPerWeek)
                     .InclusiveBetween(HoursPerWeekMinimumLength, HoursPerWeekMaximumLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.HoursPerWeekOutsideRange));
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.HoursPerWeek));
         }
     }
 }

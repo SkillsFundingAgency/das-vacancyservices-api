@@ -13,18 +13,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.Title)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleIsRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.Title)
 
                 .DependentRules(rules => rules.RuleFor(request => request.Title)
                     .MaximumLength(TitleMaximumLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Title)
 
                     .Must(title => title.IndexOf(TitleApprentice, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Title)
                     .WithMessage(ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
 
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters));
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Title));
         }
     }
 }

@@ -11,7 +11,7 @@ using Ploeh.AutoFixture;
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
     [TestFixture]
-    public class WhenValidatingWageType: CreateApprenticeshipRequestValidatorBase
+    public class WhenValidatingWageType : CreateApprenticeshipRequestValidatorBase
     {
         private const int InvalidWageType = 234;
         private const WageType ValidWageType = WageType.ApprenticeshipMinimumWage;
@@ -19,15 +19,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
             new TestCaseData(null, false,
-                ErrorCodes.CreateApprenticeship.WageTypeError,
+                ErrorCodes.CreateApprenticeship.WageType,
                 "'Wage Type' should not be empty.")
             .SetName("And is null Then is invalid"),
             new TestCaseData(0, false,
-                    ErrorCodes.CreateApprenticeship.WageTypeError,
+                    ErrorCodes.CreateApprenticeship.WageType,
                     "'Wage Type' should not be empty.")
                 .SetName("And is 0 Then is invalid"),
             new TestCaseData((WageType)InvalidWageType, false,
-                ErrorCodes.CreateApprenticeship.WageTypeError,
+                ErrorCodes.CreateApprenticeship.WageType,
                 $"'Wage Type' has a range of values which does not include '{InvalidWageType}'.")
             .SetName("And is not a known wage type Then is invalid"),
             new TestCaseData(ValidWageType, true, null, null)

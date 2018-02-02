@@ -12,14 +12,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> FailingTestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(null, ErrorCodes.CreateApprenticeship.TitleIsRequired, "'Title' should not be empty.")
+                new TestCaseData(null, ErrorCodes.CreateApprenticeship.Title, "'Title' should not be empty.")
                     .SetName("Title cannot be null"),
-                new TestCaseData("title", ErrorCodes.CreateApprenticeship.TitleShouldIncludeWordApprentice, ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
+                new TestCaseData("title", ErrorCodes.CreateApprenticeship.Title, ErrorMessages.CreateApprenticeship.TitleShouldIncludeWordApprentice)
                     .SetName("Fail if title does not contain word 'apprentice'"),
                 new TestCaseData("apprentice0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
-                        ErrorCodes.CreateApprenticeship.TitleMaximumFieldLength, "'Title' must be less than 101 characters. You entered 101 characters.")
+                        ErrorCodes.CreateApprenticeship.Title, "'Title' must be less than 101 characters. You entered 101 characters.")
                     .SetName("Should contain 100 or less characters"),
-                new TestCaseData("apprentice <", ErrorCodes.CreateApprenticeship.TitleShouldNotIncludeSpecialCharacters, "'Title' can't contain invalid characters")
+                new TestCaseData("apprentice <", ErrorCodes.CreateApprenticeship.Title, "'Title' can't contain invalid characters")
                     .SetName("Should contain valid characters")
             };
 
@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCaseSource(nameof(PassingTestCases))]
         public void ThenCheckAllowedCases(string title)
         {
-            
+
             var sut = new CreateApprenticeshipRequestValidator();
 
             var request = new CreateApprenticeshipRequest()
@@ -73,6 +73,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             Assert.AreEqual(true, result.IsValid);
         }
-        
+
     }
 }

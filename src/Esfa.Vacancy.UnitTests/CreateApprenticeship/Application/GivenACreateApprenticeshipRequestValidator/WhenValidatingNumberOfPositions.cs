@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
@@ -34,10 +35,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             }
             else
             {
-                const string errorCode = "31201";
                 var errors = validator
                     .ShouldHaveValidationErrorFor(x => x.NumberOfPositions, request)
-                    .WithErrorCode(errorCode)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.NumberOfPositions)
                     .WithErrorMessage(errorMessage);
                 errors.Count().Should().Be(1);
             }

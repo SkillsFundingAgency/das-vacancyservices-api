@@ -50,64 +50,30 @@
         public static class CreateApprenticeship
         {
             //31000 - 31999
-            public const string TitleIsRequired = "31000";
-            public const string TitleMaximumFieldLength = "31001";
-            public const string TitleShouldIncludeWordApprentice = "31002";
-            public const string TitleShouldNotIncludeSpecialCharacters = "31003";
+            public const string CreateApprenticeshipParametersIsNull = "31000";
 
-            public const string ShortDescriptionIsRequired = "31004";
-            public const string ShortDescriptionMaximumFieldLength = "31005";
-            public const string ShortDescriptionShouldNotIncludeSpecialCharacters = "31006";
-
-            public const string LongDescriptionIsRequired = "31007";
-            public const string LongDescriptionShouldNotIncludeSpecialCharacters = "31008";
-            public const string LongDescriptionShouldNotIncludeBlacklistedHtmlElements = "31009";
-
-            public const string ApplicationClosingDateRequired = "31010";
-            public const string ApplicationClosingDateBeforeTomorrow = "31011";
-
-            public const string ExpectedStartDateRequired = "31012";
-            public const string ExpectedStartDateBeforeClosingDate = "31013";
-
-            public const string CreateApprenticeshipParametersIsNull = "31014";
-
-            public const string WorkingWeekRequired = "31015";
-            public const string WorkingWeekLengthGreaterThan250 = "31016";
-            public const string WorkingWeekShouldNotIncludeSpecialCharacters = "31017";
-
-            public const string HoursPerWeekRequired = "31018";
-            public const string HoursPerWeekOutsideRange = "31019";
-
-            public const string WageTypeError = "31020";
-            public const string MinWageError = "31021";
-            public const string MaxWageError = "31022";
-
-            public const string LocationTypeIsRequired = "31031";
-            public const string AddressLine1IsRequired = "31032";
-
-            public const string AddressLine1MaxLength = "31033";
-            public const string AddressLine1ShouldNotIncludeSpecialCharacters = "31034";
-            public const string AddressLine2IsRequired = "31035";
-            public const string AddressLine2MaxLength = "31036";
-            public const string AddressLine2ShouldNotIncludeSpecialCharacters = "31037";
-            public const string AddressLine3IsRequired = "31038";
-            public const string AddressLine3MaxLength = "31039";
-            public const string AddressLine3ShouldNotIncludeSpecialCharacters = "31040";
-            public const string AddressLine4MaxLength = "31041";
-            public const string AddressLine4ShouldNotIncludeSpecialCharacters = "31042";
-            public const string AddressLine5MaxLength = "31043";
-            public const string AddressLine5ShouldNotIncludeSpecialCharacters = "31044";
-            public const string TownIsRequired = "31045";
-            public const string TownMaxLength = "31046";
-            public const string TownShouldNotIncludeSpecialCharacters = "31047";
-            public const string PostcodeIsRequired = "31048";
-            public const string PostcodeShouldBeValid = "31049";
-
-            public const string NumberOfPositions = "31201";
-
-            public const string ProviderUkprn = "31202";
-            public const string EmployerEdsUrn = "31203";
-            public const string ProviderSiteEdsUrn = "31204";
+            public const string Title = "31001";
+            public const string ShortDescription = "31002";
+            public const string LongDescription = "31003";
+            public const string ApplicationClosingDate = "31004";
+            public const string ExpectedStartDate = "31005";
+            public const string WorkingWeek = "31006";
+            public const string HoursPerWeek = "31007";
+            public const string WageType = "31008";
+            public const string MinWage = "31009";
+            public const string MaxWage = "31010";
+            public const string LocationType = "31011";
+            public const string AddressLine1 = "31012";
+            public const string AddressLine2 = "31013";
+            public const string AddressLine3 = "31014";
+            public const string AddressLine4 = "31015";
+            public const string AddressLine5 = "31016";
+            public const string Town = "31017";
+            public const string Postcode = "31018";
+            public const string NumberOfPositions = "31019";
+            public const string ProviderUkprn = "31020";
+            public const string EmployerEdsUrn = "31021";
+            public const string ProviderSiteEdsUrn = "31022";
         }
     }
 }

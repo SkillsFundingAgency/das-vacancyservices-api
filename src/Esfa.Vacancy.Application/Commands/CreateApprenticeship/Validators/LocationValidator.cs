@@ -14,68 +14,68 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             {
                 RuleFor(request => request.AddressLine1)
                     .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1IsRequired)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1)
                     .MaximumLength(addressLineMaxLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1MaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1ShouldNotIncludeSpecialCharacters);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1);
             });
 
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
                 RuleFor(request => request.AddressLine2)
                     .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2IsRequired)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2)
                     .MaximumLength(addressLineMaxLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2MaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2ShouldNotIncludeSpecialCharacters);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2);
             });
 
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
                 RuleFor(request => request.AddressLine3)
                     .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3IsRequired)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3)
                     .MaximumLength(addressLineMaxLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3MaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3ShouldNotIncludeSpecialCharacters);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3);
             });
 
             RuleFor(request => request.AddressLine4)
                 .MaximumLength(addressLineMaxLength)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4MaxLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4)
                 .MatchesAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4ShouldNotIncludeSpecialCharacters)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
             RuleFor(request => request.AddressLine5)
                 .MaximumLength(addressLineMaxLength)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5MaxLength)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
                 .MatchesAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5ShouldNotIncludeSpecialCharacters)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
                 .When(request => request.LocationType == LocationType.OtherLocation);
 
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
                 RuleFor(request => request.Town)
                     .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TownIsRequired)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Town)
                     .MaximumLength(townMaxLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TownMaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Town)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TownShouldNotIncludeSpecialCharacters);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Town);
             });
 
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
                 RuleFor(request => request.Postcode)
                     .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeIsRequired)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode)
                     .DependentRules(rule => rule.RuleFor(request => request.Postcode)
                         .MustBeAValidPostcode()
-                        .WithErrorCode(ErrorCodes.CreateApprenticeship.PostcodeShouldBeValid));
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode));
             });
         }
     }

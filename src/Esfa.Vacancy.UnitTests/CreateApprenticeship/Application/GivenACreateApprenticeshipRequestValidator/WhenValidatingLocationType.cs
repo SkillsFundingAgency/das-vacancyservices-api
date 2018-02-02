@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             validator
                 .ShouldHaveValidationErrorFor(x => x.LocationType, request)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationType);
         }
 
         [Test]
