@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Entities;
 
-namespace Esfa.Vacancy.Domain.Repositories
+namespace Esfa.Vacancy.Domain.Interfaces
 {
-    public interface IVacancyRepository
+    public interface IGetApprenticeshipService
     {
         Task<ApprenticeshipVacancy> GetApprenticeshipVacancyByReferenceNumberAsync(int referenceNumber);
-        Task<TraineeshipVacancy> GetTraineeshipVacancyByReferenceNumberAsync(int referenceNumber);
     }
 }

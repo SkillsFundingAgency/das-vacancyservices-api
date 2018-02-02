@@ -53,13 +53,14 @@
     <Compile Include="Entities\VacancyStatus.cs" />
     <Compile Include="Entities\LegacyWageType.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
+    <Compile Include="Interfaces\IGetApprenticeshipService.cs" />
+    <Compile Include="Interfaces\IGetTraineeshipService.cs" />
     <Compile Include="Interfaces\IVacancyOwnerService.cs" />
     <Compile Include="Interfaces\ICreateApprenticeshipService.cs" />
     <Compile Include="Validation\ErrorCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IFrameworkCodeRepository.cs" />
     <Compile Include="Repositories\IStandardRepository.cs" />
-    <Compile Include="Repositories\IVacancyRepository.cs" />
     <Compile Include="Validation\ErrorMessages.cs" />
   </ItemGroup>
   <ItemGroup />
