@@ -1,5 +1,5 @@
-﻿using Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Domain.Entities;
+﻿using ApiTypes = Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
@@ -30,10 +30,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             const decimal minApprenticeshipWageRate = 4.05m;
             const decimal hoursPerWeek = 30;
 
-            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int)DomainTypes.WageType.ApprenticeshipMinimum)
+                .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
                 .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
                 .With(v => v.HoursPerWeek, hoursPerWeek)
                 .Without(v => v.WageUnitId)
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be("£121.50");
         }
 
@@ -51,10 +51,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
         {
             const decimal minApprenticeshipWageRate = 4.05m;
 
-            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int)DomainTypes.WageType.ApprenticeshipMinimum)
+                .With(v => v.WageType, (int)WageType.ApprenticeshipMinimum)
                 .With(v => v.MinimumWageRate, minApprenticeshipWageRate)
                 .Without(v => v.HoursPerWeek)
                 .Without(v => v.WageUnitId)
@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
     }

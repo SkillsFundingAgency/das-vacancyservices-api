@@ -1,5 +1,5 @@
-﻿using Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Domain.Entities;
+﻿using ApiTypes = Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
@@ -21,17 +21,17 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var provideSettings = new Mock<IProvideSettings>();
             var sut = new Register.Api.Mappings.ApprenticeshipMapper(provideSettings.Object);
 
-            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
-                .With(v => v.WageType, (int)DomainTypes.WageType.LegacyText)
+                .With(v => v.WageType, (int)WageType.LegacyText)
                 .Without(v => v.WageUnitId)
                 .Create();
 
             var vacancy = sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(vacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be(unknownwWageText);
         }
     }

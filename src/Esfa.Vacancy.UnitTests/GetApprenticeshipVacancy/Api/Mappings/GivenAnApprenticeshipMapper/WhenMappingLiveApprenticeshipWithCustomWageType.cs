@@ -1,5 +1,5 @@
-﻿using Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Domain.Entities;
+﻿using ApiTypes = Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
@@ -11,11 +11,11 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
     [TestFixture]
     public class WhenMappingLiveApprenticeshipWithCustomWageType
     {
-        [TestCase(2, WageUnit.Weekly)]
-        [TestCase(3, WageUnit.Monthly)]
-        [TestCase(4, WageUnit.Annually)]
-        [TestCase(null, WageUnit.Unspecified)]
-        public void ShouldHaveWageSetForVacanciesWithCustomWageType(int? wageUnitId, WageUnit expectedWageUnit)
+        [TestCase(2, ApiTypes.WageUnit.Weekly)]
+        [TestCase(3, ApiTypes.WageUnit.Monthly)]
+        [TestCase(4, ApiTypes.WageUnit.Annually)]
+        [TestCase(null, ApiTypes.WageUnit.Unspecified)]
+        public void ShouldHaveWageSetForVacanciesWithCustomWageType(int? wageUnitId, ApiTypes.WageUnit expectedWageUnit)
         {
             const int weeklyWage = 2550;
             const int vacancyReference = 1234;
@@ -24,10 +24,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var provideSettings = new Mock<IProvideSettings>();
             var sut = new Register.Api.Mappings.ApprenticeshipMapper(provideSettings.Object);
 
-            var apprenticeshipVacancy = new Fixture().Build<DomainTypes.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
-                .With(v => v.WageType, (int)DomainTypes.WageType.Custom)
+                .With(v => v.WageType, (int)WageType.Custom)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
                 .With(v => v.WageUnitId, wageUnitId)
