@@ -11,12 +11,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.WorkingWeek)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeek)
                 .DependentRules(rules => rules.RuleFor(request => request.WorkingWeek)
                     .MaximumLength(WorkingWeekMaximumLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekLengthGreaterThan250)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeek)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeekShouldNotIncludeSpecialCharacters));
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WorkingWeek));
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.MaxWageError);
+                .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Max Wage' must be empty.");
         }

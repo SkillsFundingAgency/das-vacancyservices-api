@@ -9,7 +9,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.LocationType)
                 .IsInEnum()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationTypeIsRequired);
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.LocationType);
         }
     }
 }

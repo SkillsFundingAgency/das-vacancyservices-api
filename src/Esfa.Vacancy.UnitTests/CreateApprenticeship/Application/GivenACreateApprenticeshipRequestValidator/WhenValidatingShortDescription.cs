@@ -13,15 +13,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(null, false, ErrorCodes.CreateApprenticeship.ShortDescriptionIsRequired, "'Short Description' should not be empty.")
+                new TestCaseData(null, false, ErrorCodes.CreateApprenticeship.ShortDescription, "'Short Description' should not be empty.")
                     .SetName("ShortDescription cannot be null"),
-                new TestCaseData("", false, ErrorCodes.CreateApprenticeship.ShortDescriptionIsRequired, "'Short Description' should not be empty.")
+                new TestCaseData("", false, ErrorCodes.CreateApprenticeship.ShortDescription, "'Short Description' should not be empty.")
                     .SetName("ShortDescription cannot be empty"),
-                new TestCaseData(new string('a', 351), false, ErrorCodes.CreateApprenticeship.ShortDescriptionMaximumFieldLength, "'Short Description' must be less than 351 characters. You entered 351 characters.")
+                new TestCaseData(new string('a', 351), false, ErrorCodes.CreateApprenticeship.ShortDescription, "'Short Description' must be less than 351 characters. You entered 351 characters.")
                     .SetName("ShortDescription should contain 350 or less characters"),
                 new TestCaseData(new string('a', 350), true, null, null)
                     .SetName("ShortDescription contains 350 or less characters"),
-                new TestCaseData("<", false, ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters, "'Short Description' can't contain invalid characters")
+                new TestCaseData("<", false, ErrorCodes.CreateApprenticeship.ShortDescription, "'Short Description' can't contain invalid characters")
                     .SetName("ShortDescription should contain valid characters"),
             };
 

@@ -11,12 +11,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.ShortDescription)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescriptionIsRequired)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescription)
                 .DependentRules(rules => rules.RuleFor(request => request.ShortDescription)
                     .MaximumLength(ShortDescriptionMaximumLength)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescriptionMaximumFieldLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescription)
                     .MatchesAllowedFreeTextCharacters()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescriptionShouldNotIncludeSpecialCharacters));
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ShortDescription));
         }
     }
 }
