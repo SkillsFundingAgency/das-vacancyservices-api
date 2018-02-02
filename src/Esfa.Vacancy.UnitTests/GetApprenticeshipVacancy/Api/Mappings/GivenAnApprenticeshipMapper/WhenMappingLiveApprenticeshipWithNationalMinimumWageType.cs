@@ -1,4 +1,4 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using ApiTypes = Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
@@ -34,10 +34,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageUpperBound = upperBound;
             const decimal hoursPerWeek = 30;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .With(v => v.HoursPerWeek, hoursPerWeek)
@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be(expectedWageText);
         }
 
@@ -60,10 +60,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageLowerBound = lowerBound;
             var minNationalWageUpperBound = upperBound;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .Without(v => v.HoursPerWeek)
@@ -73,7 +73,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
 
@@ -86,10 +86,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var minNationalWageLowerBound = lowerBound;
             var minNationalWageUpperBound = upperBound;
 
-            var apprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+            var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                .With(v => v.WageType, (int) WageType.NationalMinimum)
+                .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
                 .With(v => v.MinimumWageUpperBound, minNationalWageUpperBound)
                 .With(v => v.HoursPerWeek, 0)
@@ -99,7 +99,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
 
             vacancy.VacancyReference.Should().Be(VacancyReference);
-            vacancy.WageUnit.Should().Be(WageUnit.Unspecified);
+            vacancy.WageUnit.Should().Be(ApiTypes.WageUnit.Unspecified);
             vacancy.WageText.Should().Be(UnknownwWageText);
         }
     }

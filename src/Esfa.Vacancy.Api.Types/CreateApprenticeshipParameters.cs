@@ -34,11 +34,25 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string WorkingWeek { get; set; }
 
-
         /// <summary>
         /// The number of hours in a typical working week.
         /// </summary>
         public double HoursPerWeek { get; set; }
+
+        /// <summary>
+        /// The wage type used for the vacancy
+        /// </summary>
+        public WageType WageType { get; set; }
+
+        /// <summary>
+        /// The minimum wage for the vacancy
+        /// </summary>
+        public decimal? MinWage { get; set; }
+
+        /// <summary>
+        /// The maximum wage for the vacancy
+        /// </summary>
+        public decimal? MaxWage { get; set; }
 
         /// <summary>
         /// The location type used for the vacancy

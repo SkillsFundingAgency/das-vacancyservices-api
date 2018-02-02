@@ -4,6 +4,8 @@ using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
+
+
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipParametersMapper
 {
     [TestFixture]
@@ -12,13 +14,17 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private EmployerInformation _employerInformation;
         private CreateApprenticeshipParameters _mappedParameters;
         private CreateApprenticeshipRequest _request;
+        private int _randomWageType;
 
 
         [SetUp]
         public void SetUp()
         {
             var fixture = new Fixture();
-            _request = fixture.Create<CreateApprenticeshipRequest>();
+            _randomWageType = fixture.Create<int>();
+            _request = fixture.Build<CreateApprenticeshipRequest>()
+                .With(request => request.WageType, (Vacancy.Application.Commands.CreateApprenticeship.WageType)_randomWageType)
+                .Create();
 
             _employerInformation = fixture.Create<EmployerInformation>();
 
@@ -61,6 +67,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsWorkingWeek()
         {
             _mappedParameters.WorkingWeek.Should().Be(_request.WorkingWeek);
+        }
+
+        [Test]
+        public void ThenMapsWageType()
+        {
+            _mappedParameters.LegacyWageType.Should().Be((Domain.Entities.LegacyWageType)_randomWageType);
         }
 
         [Test]

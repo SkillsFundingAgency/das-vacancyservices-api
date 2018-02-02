@@ -1,6 +1,6 @@
 ﻿namespace Esfa.Vacancy.Domain.Entities
 {
-    public enum WageType
+    public enum LegacyWageType
     {
         // NOTE: enum starts at zero to support direct mapping to legacy system.
         LegacyText = 0,

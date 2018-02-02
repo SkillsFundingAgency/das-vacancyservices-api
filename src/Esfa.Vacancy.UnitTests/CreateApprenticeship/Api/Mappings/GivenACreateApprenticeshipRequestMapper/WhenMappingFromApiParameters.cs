@@ -1,4 +1,4 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using ApiTypes = Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using FluentAssertions;
@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
     [TestFixture]
     public class WhenMappingFromApiParameters
     {
-        private CreateApprenticeshipParameters _apiParameters;
+        private ApiTypes.CreateApprenticeshipParameters _apiParameters;
         private CreateApprenticeshipRequest _mappedRequest;
         private int _ukprn = 12345678;
 
@@ -19,7 +19,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void SetUp()
         {
             var fixture = new Fixture();
-            _apiParameters = fixture.Create<CreateApprenticeshipParameters>();
+
+            var randomWageType = fixture.Create<int>();
+            var randomLocationType = fixture.Create<int>();
+            _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
+                .With(parameters => parameters.LocationType, (ApiTypes.LocationType) randomLocationType)
+                .With(parameters => parameters.WageType, (ApiTypes.WageType) randomWageType)
+                .Create();
 
             var mapper = new CreateApprenticeshipRequestMapper();
 
@@ -66,6 +72,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void ThenMapsHoursPerWeek()
         {
             _mappedRequest.HoursPerWeek.Should().Be(_apiParameters.HoursPerWeek);
+        }
+
+        [Test]
+        public void ThenMapsWageType()
+        {
+            _mappedRequest.WageType.Should().Be((WageType)(int)_apiParameters.WageType);
+        }
+
+        [Test]
+        public void ThenMapsMinWage()
+        {
+            _mappedRequest.MinWage.Should().Be(_apiParameters.MinWage);
+        }
+
+        [Test]
+        public void ThenMapsMaxWage()
+        {
+            _mappedRequest.MaxWage.Should().Be(_apiParameters.MaxWage);
         }
 
         [Test]

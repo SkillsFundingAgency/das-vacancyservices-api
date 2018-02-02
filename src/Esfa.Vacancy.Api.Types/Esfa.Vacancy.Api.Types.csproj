@@ -60,6 +60,7 @@
     <Compile Include="SearchResponse.cs" />
     <Compile Include="TrainingType.cs" />
     <Compile Include="ApprenticeshipVacancy.cs" />
+    <Compile Include="WageType.cs" />
     <Compile Include="WageUnit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
