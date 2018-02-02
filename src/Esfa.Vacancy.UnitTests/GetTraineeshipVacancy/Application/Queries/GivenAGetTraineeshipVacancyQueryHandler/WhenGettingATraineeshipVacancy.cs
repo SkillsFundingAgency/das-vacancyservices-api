@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
-using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Application.Queries.Given
     public class WhenGettingATraineeshipVacancy
     {
         private Mock<ILog> _mockLogger;
-        private Mock<IVacancyRepository> _mockVacancyRepository;
+        private Mock<IGetTraineeshipService> _mockGetTraineeshipService;
         private Mock<AbstractValidator<GetTraineeshipVacancyRequest>> _mockValidator;
         private GetTraineeshipVacancyQueryHandler _queryHandler;
 
@@ -22,10 +22,10 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Application.Queries.Given
         public void Setup()
         {
             _mockLogger = new Mock<ILog>();
-            _mockVacancyRepository = new Mock<IVacancyRepository>();
+            _mockGetTraineeshipService = new Mock<IGetTraineeshipService>();
             _mockValidator = new Mock<AbstractValidator<GetTraineeshipVacancyRequest>>();
             _queryHandler = new GetTraineeshipVacancyQueryHandler(_mockValidator.Object,
-                _mockVacancyRepository.Object, _mockLogger.Object);
+                _mockGetTraineeshipService.Object, _mockLogger.Object);
         }
 
         [Test]
@@ -41,8 +41,8 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Application.Queries.Given
         public void ThenIfNoDataFound()
         {
             _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetTraineeshipVacancyRequest>>())).Returns(new ValidationResult());
-            Domain.Entities.ApprenticeshipVacancy apprenticeshipVacancy = null;
-            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(apprenticeshipVacancy);
+            Domain.Entities.TraineeshipVacancy traineeshipVacancy = null;
+            _mockGetTraineeshipService.Setup(r => r.GetTraineeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(traineeshipVacancy);
 
             Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetTraineeshipVacancyRequest()));
         }

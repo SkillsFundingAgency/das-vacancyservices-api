@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
-using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
@@ -12,18 +12,18 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
     {
         private const string VacancyNotFoundErrorMessage = "The apprenticeship vacancy you are looking for could not be found.";
         private readonly IValidator<GetApprenticeshipVacancyRequest> _validator;
-        private readonly IVacancyRepository _vacancyRepository;
+        private readonly IGetApprenticeshipService _getApprenticeshipService;
         private readonly ILog _logger;
         private readonly ITrainingDetailService _trainingDetailService;
 
         public GetApprenticeshipVacancyQueryHandler(
             IValidator<GetApprenticeshipVacancyRequest> validator,
-            IVacancyRepository vacancyRepository,
+            IGetApprenticeshipService getApprenticeshipService,
             ILog logger,
             ITrainingDetailService trainingDetailService)
         {
             _validator = validator;
-            _vacancyRepository = vacancyRepository;
+            _getApprenticeshipService = getApprenticeshipService;
             _logger = logger;
             _trainingDetailService = trainingDetailService;
         }
@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancy = await _vacancyRepository.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference);
+            var vacancy = await _getApprenticeshipService.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference);
 
             if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
 

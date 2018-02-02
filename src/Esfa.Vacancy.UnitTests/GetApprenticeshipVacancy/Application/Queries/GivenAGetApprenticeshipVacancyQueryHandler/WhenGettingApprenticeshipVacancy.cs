@@ -4,7 +4,7 @@ using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
     public class WhenGettingApprenticeshipVacancy
     {
         private Mock<ILog> _mockLogger;
-        private Mock<IVacancyRepository> _mockVacancyRepository;
+        private Mock<IGetApprenticeshipService> _mockGetApprenticeshipService;
         private Mock<AbstractValidator<GetApprenticeshipVacancyRequest>> _mockValidator;
         private Mock<ITrainingDetailService> _mockTrainingDetailService;
         private GetApprenticeshipVacancyQueryHandler _queryHandler;
@@ -26,11 +26,11 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
         public void Setup()
         {
             _mockLogger = new Mock<ILog>();
-            _mockVacancyRepository = new Mock<IVacancyRepository>();
+            _mockGetApprenticeshipService = new Mock<IGetApprenticeshipService>();
             _mockValidator = new Mock<AbstractValidator<GetApprenticeshipVacancyRequest>>();
             _mockTrainingDetailService = new Mock<ITrainingDetailService>();
             _queryHandler = new GetApprenticeshipVacancyQueryHandler(_mockValidator.Object,
-                _mockVacancyRepository.Object, _mockLogger.Object, _mockTrainingDetailService.Object);
+                _mockGetApprenticeshipService.Object, _mockLogger.Object, _mockTrainingDetailService.Object);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
         {
             _mockValidator.Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>())).Returns(new ValidationResult());
             Domain.Entities.ApprenticeshipVacancy apprenticeshipVacancy = null;
-            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(apprenticeshipVacancy);
+            _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(apprenticeshipVacancy);
 
             Assert.ThrowsAsync<ResourceNotFoundException>(async () => await _queryHandler.Handle(new GetApprenticeshipVacancyRequest()));
         }
@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
                 .ReturnsAsync(new Framework() { Title = "framework" });
 
             var vacancy = new Domain.Entities.ApprenticeshipVacancy() { FrameworkCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
             _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
@@ -83,7 +83,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
                 .ReturnsAsync(new Standard() { Title = "standard" });
 
             var vacancy = new Domain.Entities.ApprenticeshipVacancy() { StandardCode = 123 };
-            _mockVacancyRepository.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
+            _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
-using Esfa.Vacancy.Domain.Repositories;
+using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using SFA.DAS.NLog.Logger;
@@ -11,15 +11,15 @@ namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy
     {
         private const string VacancyNotFoundErrorMessage = "The traineeship vacancy you are looking for could not be found.";
         private readonly AbstractValidator<GetTraineeshipVacancyRequest> _validator;
-        private readonly IVacancyRepository _vacancyRepository;
+        private readonly IGetTraineeshipService _getTraineeshipService;
         private readonly ILog _logger;
 
         public GetTraineeshipVacancyQueryHandler(AbstractValidator<GetTraineeshipVacancyRequest> validator,
-            IVacancyRepository vacancyRepository,
+            IGetTraineeshipService getTraineeshipService,
             ILog logger)
         {
             _validator = validator;
-            _vacancyRepository = vacancyRepository;
+            _getTraineeshipService = getTraineeshipService;
             _logger = logger;
         }
 
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancy = await _vacancyRepository.GetTraineeshipVacancyByReferenceNumberAsync(message.Reference);
+            var vacancy = await _getTraineeshipService.GetTraineeshipVacancyByReferenceNumberAsync(message.Reference);
 
             if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
 
