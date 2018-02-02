@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
-        public LegacyWageType LegacyWageType { get; set; }
+        public LegacyWageType WageType { get; set; }
         public int LocationTypeId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
@@ -23,6 +23,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public int NumberOfPositions { get; set; }
         public int VacancyOwnerRelationshipId { get; set; }
         public string EmployerDescription { get; set; }
-        public string EmployerWebsite { get; set; }
+        public string EmployersWebsite { get; set; }
     }
 }

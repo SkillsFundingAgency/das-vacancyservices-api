@@ -72,7 +72,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsWageType()
         {
-            _mappedParameters.LegacyWageType.Should().Be((Domain.Entities.LegacyWageType)_randomWageType);
+            _mappedParameters.WageType.Should().Be((Domain.Entities.LegacyWageType)_randomWageType);
         }
 
         [Test]
@@ -146,7 +146,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsEmployerWebsite()
         {
-            _mappedParameters.EmployerWebsite
+            _mappedParameters.EmployersWebsite
                 .Should().Be(_employerInformation.EmployerWebsite);
         }
     }

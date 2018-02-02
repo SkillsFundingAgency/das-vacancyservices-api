@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
-                LegacyWageType = (Domain.Entities.LegacyWageType)request.WageType,
+                WageType = (Domain.Entities.LegacyWageType)request.WageType,
                 LocationTypeId = StandardLocationType, //This should change when more location type are introduced
                 AddressLine1 = request.AddressLine1,
                 AddressLine2 = request.AddressLine2,
@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId.Value,
                 EmployerDescription = employerInformation.EmployerDescription,
-                EmployerWebsite = employerInformation.EmployerWebsite
+                EmployersWebsite = employerInformation.EmployerWebsite
             };
         }
     }
