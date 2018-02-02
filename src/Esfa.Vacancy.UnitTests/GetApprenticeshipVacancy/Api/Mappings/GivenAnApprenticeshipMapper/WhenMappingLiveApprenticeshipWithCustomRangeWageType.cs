@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
                 .With(v => v.WageLowerBound, lowerBound)
                 .With(v => v.WageUpperBound, upperBound)
-                .With(v => v.WageType, (int)WageType.CustomRange)
+                .With(v => v.WageType, (int)LegacyWageType.CustomRange)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
                 .With(v => v.WageUnitId, wageUnitId)

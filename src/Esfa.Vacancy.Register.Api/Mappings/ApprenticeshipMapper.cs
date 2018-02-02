@@ -91,22 +91,22 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         {
             switch (src.WageType)
             {
-                case (int)WageType.LegacyText:
+                case (int)LegacyWageType.LegacyText:
                     return UnknownText;
-                case (int)WageType.LegacyWeekly:
-                case (int)WageType.Custom:
+                case (int)LegacyWageType.LegacyWeekly:
+                case (int)LegacyWageType.Custom:
                     return GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
-                case (int)WageType.ApprenticeshipMinimum:
+                case (int)LegacyWageType.ApprenticeshipMinimum:
                     return GetMinimumApprenticeWage(src);
-                case (int)WageType.NationalMinimum:
+                case (int)LegacyWageType.NationalMinimum:
                     return GetNationalMinimumWageRangeText(src);
-                case (int)WageType.CustomRange:
+                case (int)LegacyWageType.CustomRange:
                     return GetWageRangeText(src);
-                case (int)WageType.CompetitiveSalary:
+                case (int)LegacyWageType.CompetitiveSalary:
                     return "Competitive salary";
-                case (int)WageType.ToBeAgreedUponAppointment:
+                case (int)LegacyWageType.ToBeAgreedUponAppointment:
                     return "To be agreed upon appointment";
-                case (int)WageType.Unwaged:
+                case (int)LegacyWageType.Unwaged:
                     return "Unwaged";
                 default:
                     return UnknownText;

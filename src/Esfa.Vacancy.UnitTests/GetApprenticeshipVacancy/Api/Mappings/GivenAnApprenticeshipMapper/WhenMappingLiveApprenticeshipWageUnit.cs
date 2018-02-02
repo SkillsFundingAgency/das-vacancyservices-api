@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
         public void ShouldThrowErrorForUnknownWageUnitId()
         {
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
-                .With(v => v.WageType, (int)WageType.Custom)
+                .With(v => v.WageType, (int)LegacyWageType.Custom)
                 .With(v => v.WageUnitId, 99)
                 .Create();
             
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
         {
             //Arrange
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
-                .With(v => v.WageType, (int)WageType.Custom)
+                .With(v => v.WageType, (int)LegacyWageType.Custom)
                 .With(v => v.WageUnitId, wageUnitId)
                 .Create();
             

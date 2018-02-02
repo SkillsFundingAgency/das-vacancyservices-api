@@ -2,7 +2,6 @@
 {
     public enum WageType
     {
-        ApprenticeshipMinimumWage = 3
-
+        ApprenticeshipMinimumWage = 2
     }
 }

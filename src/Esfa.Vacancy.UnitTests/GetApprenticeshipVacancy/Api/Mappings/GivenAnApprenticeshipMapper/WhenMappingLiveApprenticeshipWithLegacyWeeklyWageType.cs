@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
-                .With(v => v.WageType, (int)WageType.LegacyWeekly)
+                .With(v => v.WageType, (int)LegacyWageType.LegacyWeekly)
                 .With(v => v.WeeklyWage, weeklyWage)
                 .Without(v => v.WageText)
                 .With(v => v.WageUnitId, 2)
