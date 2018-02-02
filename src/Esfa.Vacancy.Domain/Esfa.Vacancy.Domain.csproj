@@ -51,7 +51,7 @@
     <Compile Include="Entities\TrainingType.cs" />
     <Compile Include="Entities\VacancySearchParameters.cs" />
     <Compile Include="Entities\VacancyStatus.cs" />
-    <Compile Include="Entities\WageType.cs" />
+    <Compile Include="Entities\LegacyWageType.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IVacancyOwnerService.cs" />
     <Compile Include="Validation\ErrorCodes.cs" />
