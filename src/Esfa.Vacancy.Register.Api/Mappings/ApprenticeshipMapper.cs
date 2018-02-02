@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-using Esfa.Vacancy.Api.Types;
-using DomainTypes = Esfa.Vacancy.Domain.Entities;
+using ApiTypes = Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Settings;
-using ApprenticeshipVacancy = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
-using TrainingType = Esfa.Vacancy.Api.Types.TrainingType;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
@@ -20,11 +18,11 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             _provideSettings = provideSettings;
         }
 
-        public ApprenticeshipVacancy MapToApprenticeshipVacancy(DomainTypes.ApprenticeshipVacancy apprenticeshipVacancy)
+        public ApiTypes.ApprenticeshipVacancy MapToApprenticeshipVacancy(ApprenticeshipVacancy apprenticeshipVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
 
-            var apprenticeship = new ApprenticeshipVacancy
+            var apprenticeship = new ApiTypes.ApprenticeshipVacancy
             {
                 VacancyReference = apprenticeshipVacancy.VacancyReferenceNumber,
                 Title = apprenticeshipVacancy.Title,
@@ -69,60 +67,60 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return apprenticeship;
         }
 
-        private WageUnit MapWageUnit(int? wageUnitId)
+        private ApiTypes.WageUnit MapWageUnit(int? wageUnitId)
         {
             if (wageUnitId.HasValue == false)
             {
-                return WageUnit.Unspecified;
+                return ApiTypes.WageUnit.Unspecified;
             }
 
             switch (wageUnitId.Value)
             {
                 case 2:
-                    return WageUnit.Weekly;
+                    return ApiTypes.WageUnit.Weekly;
                 case 3:
-                    return WageUnit.Monthly;
+                    return ApiTypes.WageUnit.Monthly;
                 case 4:
-                    return WageUnit.Annually;
+                    return ApiTypes.WageUnit.Annually;
                 default:
                     throw new InvalidEnumArgumentException($"Invalid wage unit for a live apprenticeship: {wageUnitId}");
             }
         }
 
-        private string MapWage(DomainTypes.ApprenticeshipVacancy src)
+        private string MapWage(ApprenticeshipVacancy src)
         {
             switch (src.WageType)
             {
-                case (int)DomainTypes.WageType.LegacyText:
+                case (int)WageType.LegacyText:
                     return UnknownText;
-                case (int)DomainTypes.WageType.LegacyWeekly:
-                case (int)DomainTypes.WageType.Custom:
+                case (int)WageType.LegacyWeekly:
+                case (int)WageType.Custom:
                     return GetFormattedCurrencyString(src.WeeklyWage) ?? UnknownText;
-                case (int)DomainTypes.WageType.ApprenticeshipMinimum:
+                case (int)WageType.ApprenticeshipMinimum:
                     return GetMinimumApprenticeWage(src);
-                case (int)DomainTypes.WageType.NationalMinimum:
+                case (int)WageType.NationalMinimum:
                     return GetNationalMinimumWageRangeText(src);
-                case (int)DomainTypes.WageType.CustomRange:
+                case (int)WageType.CustomRange:
                     return GetWageRangeText(src);
-                case (int)DomainTypes.WageType.CompetitiveSalary:
+                case (int)WageType.CompetitiveSalary:
                     return "Competitive salary";
-                case (int)DomainTypes.WageType.ToBeAgreedUponAppointment:
+                case (int)WageType.ToBeAgreedUponAppointment:
                     return "To be agreed upon appointment";
-                case (int)DomainTypes.WageType.Unwaged:
+                case (int)WageType.Unwaged:
                     return "Unwaged";
                 default:
                     return UnknownText;
             }
         }
 
-        private string GetMinimumApprenticeWage(DomainTypes.ApprenticeshipVacancy src)
+        private string GetMinimumApprenticeWage(ApprenticeshipVacancy src)
         {
             return src.MinimumWageRate.HasValue && src.HoursPerWeek.HasValue
                 ? GetFormattedCurrencyString(src.MinimumWageRate.Value * src.HoursPerWeek.Value)
                 : UnknownText;
         }
 
-        private string GetWageRangeText(DomainTypes.ApprenticeshipVacancy src)
+        private string GetWageRangeText(ApprenticeshipVacancy src)
         {
             return $"{GetFormattedCurrencyString(src.WageLowerBound) ?? UnknownText} - {GetFormattedCurrencyString(src.WageUpperBound) ?? UnknownText}";
         }
@@ -133,7 +131,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return src?.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
         }
 
-        private string GetNationalMinimumWageRangeText(DomainTypes.ApprenticeshipVacancy src)
+        private string GetNationalMinimumWageRangeText(ApprenticeshipVacancy src)
         {
             if (!src.HoursPerWeek.HasValue || src.HoursPerWeek <= 0)
             {
@@ -154,23 +152,23 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return $"{minLowerBoundSection} - {minUpperBoundSection}";
         }
 
-        private void MapTrainingDetails(DomainTypes.ApprenticeshipVacancy src, ApprenticeshipVacancy dest)
+        private void MapTrainingDetails(ApprenticeshipVacancy src, ApiTypes.ApprenticeshipVacancy dest)
         {
             if (src.Framework != null)
             {
-                dest.TrainingType = TrainingType.Framework;
+                dest.TrainingType = ApiTypes.TrainingType.Framework;
                 dest.TrainingTitle = src.Framework.Title;
                 dest.TrainingCode = src.Framework.Code.ToString();
             }
             else if (src.Standard != null)
             {
-                dest.TrainingType = TrainingType.Standard;
+                dest.TrainingType = ApiTypes.TrainingType.Standard;
                 dest.TrainingTitle = src.Standard.Title;
                 dest.TrainingCode = src.Standard.Code.ToString();
             }
             else
             {
-                dest.TrainingType = TrainingType.Unavailable;
+                dest.TrainingType = ApiTypes.TrainingType.Unavailable;
             }
         }
     }
