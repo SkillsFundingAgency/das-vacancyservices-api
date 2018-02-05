@@ -55,6 +55,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapAddressLine4FromEmployeeInformation()
+        {
+            _mappedParameters.AddressLine4.Should().Be(_createApprenticeshipRequest.AddressLine4);
+            _mappedParameters.AddressLine4.Should().NotBe(_employerInformation.AddressLine4);
+        }
+
+        [Test]
         public void ThenMapAddressLine5FromEmployeeInformation()
         {
             _mappedParameters.AddressLine5.Should().Be(_createApprenticeshipRequest.AddressLine5);
@@ -73,13 +80,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _mappedParameters.Postcode.Should().Be(_createApprenticeshipRequest.Postcode);
             _mappedParameters.Postcode.Should().NotBe(_employerInformation.Postcode);
-        }
-
-        [Test]
-        public void ThenMapAddressLine4FromEmployeeInformation()
-        {
-            _mappedParameters.AddressLine4.Should().Be(_createApprenticeshipRequest.AddressLine4);
-            _mappedParameters.AddressLine4.Should().NotBe(_employerInformation.AddressLine4);
         }
     }
 }
