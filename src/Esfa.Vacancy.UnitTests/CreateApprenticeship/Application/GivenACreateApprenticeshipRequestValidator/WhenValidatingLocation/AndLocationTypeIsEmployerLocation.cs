@@ -98,7 +98,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         public static string GetLocationFieldNotRequiredErrorMessage(string propertyName) =>
-            $"'{propertyName}' is not required when Location type is EmployerLocation or Nationwide";
+            $"'{propertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
 
     }
 }
