@@ -47,8 +47,7 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string MissingProviderSiteEmployerLink = "User entry is invalid or no existing link between the provider site and employer.";
 
             public const string LocationFieldNotRequired =
-                "'{PropertyName}' is not required when Location type is EmployerLocation or Nationwide";
+                "'{PropertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
         }
-        //MatchesAllowedFreeTextCharacters
     }
 }
