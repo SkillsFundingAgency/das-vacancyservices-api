@@ -24,6 +24,17 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
             });
+
+            When(request => request.WageType == WageType.NationalMinimumWage, () =>
+            {
+                RuleFor(request => request.MinWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage);
+
+                RuleFor(request => request.MaxWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+            });
         }
     }
 }
