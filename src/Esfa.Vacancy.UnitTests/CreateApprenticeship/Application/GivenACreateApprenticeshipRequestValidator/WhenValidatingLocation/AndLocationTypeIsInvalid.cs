@@ -3,12 +3,12 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndLocationTypeIsNotOther
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation
 {
     /// <summary>
     /// This should be refactored after adding more Location Type
     /// </summary>
-    public class WhenValidatingLocation
+    public class AndLocationTypeIsInvalid
     {
         private CreateApprenticeshipRequestValidator _validator;
         private CreateApprenticeshipRequest _request;
