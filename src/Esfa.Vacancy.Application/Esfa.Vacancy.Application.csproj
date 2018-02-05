@@ -70,6 +70,7 @@
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipCommandHandler.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
+    <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CreateApprenticeshipRequestValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipResponse.cs" />
     <Compile Include="Commands\CreateApprenticeship\ICreateApprenticeshipParametersMapper.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\WageTypeValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\WorkingWeekValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\WageType.cs" />
+    <Compile Include="Commands\CreateApprenticeship\WageTypeMapper.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />
