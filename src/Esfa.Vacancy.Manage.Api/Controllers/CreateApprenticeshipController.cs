@@ -18,6 +18,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         {
             _orchestrator = orchestrator;
         }
+
         /// <summary>
         /// Creates the specified apprenticeship vacancy.
         /// 
