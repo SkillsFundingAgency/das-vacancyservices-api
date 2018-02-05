@@ -1,9 +1,10 @@
 ﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
-
+using Ploeh.AutoFixture.AutoMoq;
 
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipParametersMapper
@@ -15,16 +16,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipParameters _mappedParameters;
         private CreateApprenticeshipRequest _request;
         private int _randomWageType;
-
+        private int _randomLegacyWageType;
+        private Mock<IWageTypeMapper> _mockWageTypeMapper;
 
         [SetUp]
         public void SetUp()
         {
-            var fixture = new Fixture();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
             _randomWageType = fixture.Create<int>();
+            _randomLegacyWageType = fixture.Create<int>();
+
             _request = fixture.Build<CreateApprenticeshipRequest>()
-                .With(request => request.WageType, (Vacancy.Application.Commands.CreateApprenticeship.WageType)_randomWageType)
+                .With(request => request.WageType, (WageType)_randomWageType)
                 .Create();
+
+            _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
+            _mockWageTypeMapper
+                .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<WageType>()))
+                .Returns((LegacyWageType) _randomLegacyWageType);
 
             _employerInformation = fixture.Create<EmployerInformation>();
 
@@ -70,9 +79,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void ThenMapsWageType()
+        public void ThenUsesWageTypeMapper()
         {
-            _mappedParameters.WageType.Should().Be((Domain.Entities.LegacyWageType)_randomWageType);
+            _mockWageTypeMapper.Verify(mapper => mapper.MapToLegacy((WageType)_randomWageType), Times.Once);
+        }
+
+        [Test]
+        public void ThenAssignsValueFromWageTypeMapper()
+        {
+            _mappedParameters.WageType.Should().Be((LegacyWageType) _randomLegacyWageType);
         }
 
         [Test]
