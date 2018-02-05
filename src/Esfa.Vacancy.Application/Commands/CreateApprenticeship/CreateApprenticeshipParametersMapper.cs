@@ -6,12 +6,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     {
         private readonly IWageTypeMapper _wageTypeMapper;
         private const int StandardLocationType = 1;
-	private const int NationwideLocationType = 3;
-        public CreateApprenticeshipParametersMapper(IWageTypeMapper wageTypeMapper)        
+        private const int NationwideLocationType = 3;
+        public CreateApprenticeshipParametersMapper(IWageTypeMapper wageTypeMapper)
         {
             _wageTypeMapper = wageTypeMapper;
         }
-        
+
         public CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request,
             EmployerInformation employerInformation)
         {
@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
-                WageType = (LegacyWageType)request.WageType,
+                WageType = _wageTypeMapper.MapToLegacy(request.WageType),
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId.Value, //a value should always exist
