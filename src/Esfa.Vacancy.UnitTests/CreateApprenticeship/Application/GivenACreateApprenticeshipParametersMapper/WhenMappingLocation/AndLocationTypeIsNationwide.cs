@@ -3,6 +3,7 @@ using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipParametersMapper.WhenMappingLocation
 {
@@ -16,12 +17,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [SetUp]
         public void Setup()
         {
-            var fixture = new Fixture();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
             _createApprenticeshipRequest = fixture.Build<CreateApprenticeshipRequest>()
                 .With(request => request.LocationType, LocationType.Nationwide)
                 .Create();
             _employerInformation = fixture.Create<EmployerInformation>();
-            var mapper = new CreateApprenticeshipParametersMapper();
+
+            var mapper = fixture.Create<CreateApprenticeshipParametersMapper>();
             _mappedParameters = mapper.MapFromRequest(_createApprenticeshipRequest, _employerInformation);
         }
 
