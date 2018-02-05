@@ -2,6 +2,8 @@
 {
     public enum LocationType
     {
-        OtherLocation = 1
+        OtherLocation = 1,
+        EmployerLocation = 2,
+        Nationwide = 3
     }
 }
