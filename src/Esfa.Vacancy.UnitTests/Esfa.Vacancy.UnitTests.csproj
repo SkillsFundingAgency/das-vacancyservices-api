@@ -120,13 +120,13 @@
     <Compile Include="CreateApprenticeship\Api\Orchestrators\GivenACreateApprenticeshipOrchestrator\WhenCreatingAnApprenticeshipVacancy.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipCommandHandler\WhenHandlingACommand.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingFromARequest.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeIsNotOther\WhenValidatingLocation.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine1.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine3.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine4.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine5.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingPostcode.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingTown.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeIsInvalid.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingAddressLine1.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingAddressLine3.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingAddressLine4.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingAddressLine5.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingPostcode.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingTown.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeApprenticeshipMinimumWage\WhenValidatingMaxWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeApprenticeshipMinimumWage\WhenValidatingMinWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeNationalMinimumWage\WhenValidatingMaxWage.cs" />
@@ -217,7 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndLocationTypeOfOther\WhenValidatingAddressLine2.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocation\AndLocationTypeOfOther\WhenValidatingAddressLine2.cs" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

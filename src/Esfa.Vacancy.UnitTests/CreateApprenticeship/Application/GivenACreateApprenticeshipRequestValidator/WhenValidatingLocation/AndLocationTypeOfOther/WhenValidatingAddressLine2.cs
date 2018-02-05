@@ -5,16 +5,16 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndLocationTypeOfOther
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation.AndLocationTypeOfOther
 {
     [TestFixture]
-    public class WhenValidatingAddressLine4
+    public class WhenValidatingAddressLine2
     {
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(LocationType.OtherLocation, true, null)
-                    .SetName("And is null Then is valid"),
+                new TestCaseData(LocationType.OtherLocation, false, null)
+                    .SetName("And is null Then is invalid"),
                 new TestCaseData(LocationType.OtherLocation, false, new string('a', 301))
                     .SetName("And exceeds 300 characters Then is invalid"),
                 new TestCaseData(LocationType.OtherLocation, false, "<p>")
@@ -24,25 +24,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateAddressLine4(LocationType locationType, bool isValid, string addressLine4)
+        public void ValidateAddressLine2(LocationType locationType, bool isValid, string addressLine2)
         {
             var request = new CreateApprenticeshipRequest()
             {
                 LocationType = locationType,
-                AddressLine4 = addressLine4
+                AddressLine2 = addressLine2
             };
 
             var validator = new CreateApprenticeshipRequestValidator();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.AddressLine4, request);
+                validator.ShouldNotHaveValidationErrorFor(r => r.AddressLine2, request);
             }
             else
             {
                 validator
-                    .ShouldHaveValidationErrorFor(r => r.AddressLine4, request)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4);
+                    .ShouldHaveValidationErrorFor(r => r.AddressLine2, request)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2);
             }
         }
     }

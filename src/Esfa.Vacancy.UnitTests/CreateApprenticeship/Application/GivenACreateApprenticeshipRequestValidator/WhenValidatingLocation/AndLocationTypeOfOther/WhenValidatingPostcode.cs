@@ -7,7 +7,7 @@ using FluentAssertions;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndLocationTypeOfOther
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation.AndLocationTypeOfOther
 {
     public class WhenValidatingPostcode
     {

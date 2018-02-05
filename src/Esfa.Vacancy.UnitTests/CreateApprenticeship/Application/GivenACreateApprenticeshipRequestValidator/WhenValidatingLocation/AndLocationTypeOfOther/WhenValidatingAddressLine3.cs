@@ -5,10 +5,10 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndLocationTypeOfOther
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation.AndLocationTypeOfOther
 {
     [TestFixture]
-    public class WhenValidatingAddressLine2
+    public class WhenValidatingAddressLine3
     {
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
@@ -24,25 +24,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateAddressLine2(LocationType locationType, bool isValid, string addressLine2)
+        public void ValidateAddressLine3(LocationType locationType, bool isValid, string addressLine3)
         {
             var request = new CreateApprenticeshipRequest()
             {
                 LocationType = locationType,
-                AddressLine2 = addressLine2
+                AddressLine3 = addressLine3
             };
 
             var validator = new CreateApprenticeshipRequestValidator();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.AddressLine2, request);
+                validator.ShouldNotHaveValidationErrorFor(r => r.AddressLine3, request);
             }
             else
             {
                 validator
-                    .ShouldHaveValidationErrorFor(r => r.AddressLine2, request)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2);
+                    .ShouldHaveValidationErrorFor(r => r.AddressLine3, request)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3);
             }
         }
     }
