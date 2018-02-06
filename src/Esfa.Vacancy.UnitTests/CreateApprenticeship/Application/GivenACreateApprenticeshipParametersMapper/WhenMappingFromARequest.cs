@@ -91,6 +91,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsWageTypeReason()
+        {
+            _mappedParameters.WageTypeReason.Should().Be(_request.WageTypeReason);
+        }
+
+        [Test]
         public void ThenMapsNumberOfPositions()
         {
             _mappedParameters.NumberOfPositions.Should().Be(_request.NumberOfPositions);

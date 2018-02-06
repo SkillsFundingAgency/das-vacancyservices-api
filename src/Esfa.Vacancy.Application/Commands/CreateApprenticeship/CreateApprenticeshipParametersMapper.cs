@@ -25,6 +25,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
                 WageType = _wageTypeMapper.MapToLegacy(request.WageType),
+                WageTypeReason = request.WageTypeReason,
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId.Value, //a value should always exist
