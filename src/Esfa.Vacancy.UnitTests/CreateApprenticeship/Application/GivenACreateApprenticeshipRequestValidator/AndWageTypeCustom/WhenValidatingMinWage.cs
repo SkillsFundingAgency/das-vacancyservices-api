@@ -7,22 +7,21 @@ using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeNationalMinimumWage
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
 {
     [TestFixture]
-    public class WhenValidatingWageTypeReason : CreateApprenticeshipRequestValidatorBase
+    public class WhenValidatingMinWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndHasValueThenIsInvalid()
+        public async Task AndNoValueThenIsInValid()
         {
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.NationalMinimumWage,
-                WageTypeReason = fixture.Create<string>()
+                WageType = WageType.Custom
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
+            var context = GetValidationContextForProperty(request, req => req.MinWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
@@ -30,21 +29,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WageTypeReason);
+                .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
             result.Errors.First().ErrorMessage
-                .Should().Be("'Wage Type Reason' must be empty.");
+                .Should().Be("'Min Wage' must not be empty.");
         }
 
         [Test]
-        public async Task AndNoValueThenIsValid()
+        public async Task AndHasValueThenIsValid()
         {
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.NationalMinimumWage
+                WageType = WageType.Custom,
+                MinWage = fixture.Create<decimal>()
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
+            var context = GetValidationContextForProperty(request, req => req.MinWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 

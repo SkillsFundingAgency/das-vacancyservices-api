@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageType = WageType.ApprenticeshipMinimumWage
             };
 
-            var context = GetValidationContextForProperty(request, req => req.MaxWage);
+            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 

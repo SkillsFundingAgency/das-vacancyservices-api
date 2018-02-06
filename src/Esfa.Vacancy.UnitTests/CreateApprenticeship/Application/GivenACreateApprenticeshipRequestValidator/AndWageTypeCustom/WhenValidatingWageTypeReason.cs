@@ -7,7 +7,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeNationalMinimumWage
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
 {
     [TestFixture]
     public class WhenValidatingWageTypeReason : CreateApprenticeshipRequestValidatorBase
@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.NationalMinimumWage,
+                WageType = WageType.Custom,
                 WageTypeReason = fixture.Create<string>()
             };
 
@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.NationalMinimumWage
+                WageType = WageType.Custom
             };
 
             var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
