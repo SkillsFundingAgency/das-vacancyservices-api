@@ -24,5 +24,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public int VacancyOwnerRelationshipId { get; set; }
         public string EmployerDescription { get; set; }
         public string EmployersWebsite { get; set; }
+        public string ContactName { get; set; }
     }
 }

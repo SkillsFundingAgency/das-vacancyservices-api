@@ -116,5 +116,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mappedParameters.EmployersWebsite
                 .Should().Be(_employerInformation.EmployerWebsite);
         }
+
+        [Test]
+        public void ThenMapsContactName()
+        {
+            _mappedParameters.ContactName
+                .Should().Be(_request.ContactName);
+        }
+
     }
 }

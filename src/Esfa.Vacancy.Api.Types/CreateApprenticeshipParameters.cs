@@ -78,5 +78,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Provider site's unique reference number
         /// </summary>
         public int ProviderSiteEdsUrn { get; set; }
+
+        /// <summary>
+        /// Vacancy's contact name
+        /// </summary>
+        public string ContactName { get; set; }
     }
 }

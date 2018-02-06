@@ -18,6 +18,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             ConfigureLocationValidator();
             ConfigureNumberOfPositions();
             ConfigureKeyIdentifiers();
+            ConfigureContactDetails();
         }
     }
 }
