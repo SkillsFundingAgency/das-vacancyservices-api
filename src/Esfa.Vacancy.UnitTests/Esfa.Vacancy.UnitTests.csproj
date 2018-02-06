@@ -147,6 +147,9 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingMaxWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingMinWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingWageTypeReason.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeToBeSpecified\WhenValidatingMaxWage.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeToBeSpecified\WhenValidatingMinWage.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeToBeSpecified\WhenValidatingWageTypeReason.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeUnwaged\WhenValidatingMaxWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeUnwaged\WhenValidatingMinWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeUnwaged\WhenValidatingWageTypeReason.cs" />

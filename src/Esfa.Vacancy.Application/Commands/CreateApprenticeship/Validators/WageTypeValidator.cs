@@ -88,6 +88,21 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotNull()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
+
+            When(request => request.WageType == WageType.ToBeSpecified, () =>
+            {
+                RuleFor(request => request.MinWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage);
+
+                RuleFor(request => request.MaxWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.WageTypeReason)
+                    .NotNull()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+            });
         }
     }
 }
