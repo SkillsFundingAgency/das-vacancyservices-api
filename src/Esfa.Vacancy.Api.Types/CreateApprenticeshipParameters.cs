@@ -45,6 +45,11 @@ namespace Esfa.Vacancy.Api.Types
         public WageType WageType { get; set; }
 
         /// <summary>
+        /// The reason for choosing the wage type
+        /// </summary>
+        public string WageTypeReason { get; set; }
+
+        /// <summary>
         /// The minimum wage for the vacancy
         /// </summary>
         public decimal? MinWage { get; set; }
