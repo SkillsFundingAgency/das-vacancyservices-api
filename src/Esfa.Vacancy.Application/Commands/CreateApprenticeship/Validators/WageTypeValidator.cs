@@ -23,6 +23,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.MaxWage)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.WageTypeReason)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
@@ -34,6 +38,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.MaxWage)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.WageTypeReason)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
         }
     }
