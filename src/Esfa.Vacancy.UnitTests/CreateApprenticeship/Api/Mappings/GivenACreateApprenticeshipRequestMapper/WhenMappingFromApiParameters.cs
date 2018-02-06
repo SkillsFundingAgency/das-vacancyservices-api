@@ -1,9 +1,9 @@
-﻿using ApiTypes = Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using ApiTypes = Esfa.Vacancy.Api.Types;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateApprenticeshipRequestMapper
@@ -23,8 +23,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             var randomWageType = fixture.Create<int>();
             var randomLocationType = fixture.Create<int>();
             _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
-                .With(parameters => parameters.LocationType, (ApiTypes.LocationType) randomLocationType)
-                .With(parameters => parameters.WageType, (ApiTypes.WageType) randomWageType)
+                .With(parameters => parameters.LocationType, (ApiTypes.LocationType)randomLocationType)
+                .With(parameters => parameters.WageType, (ApiTypes.WageType)randomWageType)
                 .Create();
 
             var mapper = new CreateApprenticeshipRequestMapper();
@@ -162,6 +162,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void ThenMapsProviderSiteEdsUrn()
         {
             _mappedRequest.ProviderSiteEdsUrn.Should().Be(_apiParameters.ProviderSiteEdsUrn);
+        }
+
+        [Test]
+        public void ThenMapsContactName()
+        {
+            _mappedRequest.ContactName.Should().Be(_apiParameters.ContactName);
         }
     }
 }

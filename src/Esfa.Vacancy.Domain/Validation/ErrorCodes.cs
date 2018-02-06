@@ -74,6 +74,7 @@
             public const string ProviderUkprn = "31020";
             public const string EmployerEdsUrn = "31021";
             public const string ProviderSiteEdsUrn = "31022";
+            public const string ContactName = "31201";
         }
     }
 }

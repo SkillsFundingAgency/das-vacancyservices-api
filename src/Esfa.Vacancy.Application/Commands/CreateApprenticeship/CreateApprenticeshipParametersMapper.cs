@@ -29,7 +29,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId.Value, //a value should always exist
                 EmployerDescription = employerInformation.EmployerDescription,
-                EmployersWebsite = employerInformation.EmployerWebsite
+                EmployersWebsite = employerInformation.EmployerWebsite,
+                ContactName = request.ContactName
             };
 
             MapLocationFields(request, employerInformation, parameters);
