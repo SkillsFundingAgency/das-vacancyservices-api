@@ -31,7 +31,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 EmployerDescription = employerInformation.EmployerDescription,
                 EmployersWebsite = employerInformation.EmployerWebsite,
                 ContactName = request.ContactName,
-                ContactEmail = request.ContactEmail
+                ContactEmail = request.ContactEmail,
+                ContactNumber = request.ContactNumber
             };
 
             MapLocationFields(request, employerInformation, parameters);

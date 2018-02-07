@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
             _mockWageTypeMapper
                 .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<WageType>()))
-                .Returns((LegacyWageType) _randomLegacyWageType);
+                .Returns((LegacyWageType)_randomLegacyWageType);
 
             _employerInformation = fixture.Create<EmployerInformation>();
 
@@ -87,7 +87,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenAssignsValueFromWageTypeMapper()
         {
-            _mappedParameters.WageType.Should().Be((LegacyWageType) _randomLegacyWageType);
+            _mappedParameters.WageType.Should().Be((LegacyWageType)_randomLegacyWageType);
         }
 
         [Test]
@@ -129,6 +129,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _mappedParameters.ContactEmail
                 .Should().Be(_request.ContactEmail);
+        }
+
+        [Test]
+        public void ThenMapsContactNumber()
+        {
+            _mappedParameters.ContactNumber
+                .Should().Be(_request.ContactNumber);
         }
     }
 }

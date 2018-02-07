@@ -76,6 +76,7 @@
             public const string ProviderSiteEdsUrn = "31022";
             public const string ContactName = "31201";
             public const string ContactEmail = "31202";
+            public const string ContactNumber = "31203";
         }
     }
 }
