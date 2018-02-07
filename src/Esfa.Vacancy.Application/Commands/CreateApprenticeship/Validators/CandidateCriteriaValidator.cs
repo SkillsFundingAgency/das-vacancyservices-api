@@ -1,5 +1,6 @@
 ﻿namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
+    using System;
     using Domain.Validation;
     using FluentValidation;
 
@@ -56,6 +57,18 @@
                                               .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.FutureProspects,
                                                   ErrorCodes.CreateApprenticeship.FutureProspects)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects));
+
+            When(request => !String.IsNullOrEmpty(request.ThingsToConsider), () =>
+            {
+                RuleFor(request => request.ThingsToConsider)
+                    .MaximumLength(CandidateCriteriaMaximumLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ThingsToConsider)
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ThingsToConsider)
+                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.ThingsToConsider,
+                        ErrorCodes.CreateApprenticeship.ThingsToConsider)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ThingsToConsider);
+            });
         }
     }
 }

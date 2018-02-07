@@ -83,7 +83,7 @@
             public const string DesiredPersonalQualities = "31302";
             public const string DesiredQualifications = "31303";
             public const string FutureProspects= "31304";
-            public const string ThingsToConsiders = "31305";
+            public const string ThingsToConsider = "31305";
         }
     }
 }

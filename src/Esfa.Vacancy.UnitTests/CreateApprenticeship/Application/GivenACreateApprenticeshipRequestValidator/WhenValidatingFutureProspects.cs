@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
+﻿namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
+    using System;
+    using System.Collections.Generic;
     using Domain.Validation;
     using FluentValidation.TestHelper;
     using NUnit.Framework;
@@ -29,7 +25,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData("<", "'Future Prospects' can't contain invalid characters", true)
                     .SetName("Then FutureProspects cannot contain invalid characters"),
                 new TestCaseData("<script>", "'Future Prospects' can't contain blacklisted HTML elements", true)
-                    .SetName("Then FutureProspectsDe cannot contain blacklisted HTML elements")
+                    .SetName("Then FutureProspects cannot contain blacklisted HTML elements")
             };
 
         [TestCaseSource(nameof(TestCases))]

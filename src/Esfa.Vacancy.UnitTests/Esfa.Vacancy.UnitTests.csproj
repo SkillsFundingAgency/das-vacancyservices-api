@@ -153,6 +153,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingProviderUkprn.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingNumberOfPositions.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingProviderSiteEdsUrn.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingThingsToConsider.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageTypeReason.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWorkingWeek.cs" />
