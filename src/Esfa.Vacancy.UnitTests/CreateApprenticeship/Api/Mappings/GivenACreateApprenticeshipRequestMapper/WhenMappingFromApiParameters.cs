@@ -169,5 +169,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.ContactName.Should().Be(_apiParameters.ContactName);
         }
+
+        [Test]
+        public void ThenMapsContactEmail()
+        {
+            _mappedRequest.ContactEmail.Should().Be(_apiParameters.ContactEmail);
+        }
     }
 }

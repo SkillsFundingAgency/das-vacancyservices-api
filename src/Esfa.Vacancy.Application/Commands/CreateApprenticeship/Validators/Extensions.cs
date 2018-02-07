@@ -13,12 +13,20 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private const string RegexObjectsBlacklist = @"<\s*o\s*b\s*j\s*e\s*c\s*t\s*[^>]*\s*[^>]*\s*[^>]*>";
         // See http://stackoverflow.com/questions/164979/uk-postcode-regex-comprehensive
         private const string RegexPostcode = @"^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$";
+        public const string RegexEmailAddress = @"^[a-zA-Z0-9\u0080-\uFFA7?$#()""'!,+\-=_:;.&€£*%\s\/]+@[a-zA-Z0-9\u0080-\uFFA7?$#()""'!,+\-=_:;.&€£*%\s\/]+\.([a-zA-Z0-9\u0080-\uFFA7]{2,10})$";
+
+        public static IRuleBuilderOptions<T, string> MustBeAValidEmailAddress<T>(
+            this IRuleBuilder<T, string> rule)
+        {
+            return rule.Matches(RegexEmailAddress)
+                .WithMessage(ErrorMessages.CreateApprenticeship.InvalidPropertyValue);
+        }
 
         public static IRuleBuilderOptions<T, string> MustBeAValidPostcode<T>(
             this IRuleBuilder<T, string> rule)
         {
             return rule.Matches(RegexPostcode)
-                .WithMessage(ErrorMessages.CreateApprenticeship.PostcodeInvalid);
+                .WithMessage(ErrorMessages.CreateApprenticeship.InvalidPropertyValue);
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedFreeTextCharacters<T>(

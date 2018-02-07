@@ -83,5 +83,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Vacancy's contact name
         /// </summary>
         public string ContactName { get; set; }
+
+        /// <summary>
+        /// Vacancy contact's email
+        /// </summary>
+        public string ContactEmail { get; set; }
     }
 }
