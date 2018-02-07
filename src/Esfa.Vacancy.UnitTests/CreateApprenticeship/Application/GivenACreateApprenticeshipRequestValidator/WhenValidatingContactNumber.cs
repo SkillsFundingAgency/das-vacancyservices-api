@@ -14,13 +14,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             new List<TestCaseData>
             {
                 new TestCaseData(null, null, false)
-                    .SetName("And is not provided then is valid."),
+                    .SetName("And is null then is valid."),
+                new TestCaseData(string.Empty, null, false)
+                    .SetName("And is empty string then is valid."),
                 new TestCaseData("abcdcom<>", "'Contact Number' is invalid.", true)
                     .SetName("And has invalid characters then is invalid."),
-                new TestCaseData(
-                        new string('1', 17),
-                        "'Contact Number' must be less than 17 characters. You entered 17 characters.",
-                        true)
+                new TestCaseData(new string('1', 17), "'Contact Number' is invalid.", true)
                     .SetName("And if length exceeds 17 then is invalid."),
                 new TestCaseData("+44 (0123)-45678", null, false)
                     .SetName("And contains allowed characters and numbers then is invalid.")
