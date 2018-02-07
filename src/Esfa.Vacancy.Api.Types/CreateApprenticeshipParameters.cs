@@ -35,6 +35,11 @@ namespace Esfa.Vacancy.Api.Types
         public string DesiredQualifications { get; set; }
 
         /// <summary>
+        /// The future prospects offered by the apprenticeship.
+        /// </summary>
+        public string FutureProspects { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }

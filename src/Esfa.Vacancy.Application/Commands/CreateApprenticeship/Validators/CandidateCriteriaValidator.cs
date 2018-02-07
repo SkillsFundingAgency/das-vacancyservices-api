@@ -44,6 +44,18 @@
                                               .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.DesiredQualifications,
                                                   ErrorCodes.CreateApprenticeship.DesiredQualifications)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredQualifications));
+
+            RuleFor(request => request.FutureProspects)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects)
+                .DependentRules(rules => rules.RuleFor(request => request.FutureProspects)
+                                              .MaximumLength(CandidateCriteriaMaximumLength)
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects)
+                                              .MatchesAllowedFreeTextCharacters()
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.FutureProspects,
+                                                  ErrorCodes.CreateApprenticeship.FutureProspects)
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects));
         }
     }
 }

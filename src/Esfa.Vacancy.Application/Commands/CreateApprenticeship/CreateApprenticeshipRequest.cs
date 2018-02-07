@@ -11,6 +11,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string DesiredSkills { get; set; }
         public string DesiredPersonalQualities { get; set; }
         public string DesiredQualifications { get; set; }
+        public string FutureProspects { get; set; }
         public DateTime ApplicationClosingDate { get; set; }
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }

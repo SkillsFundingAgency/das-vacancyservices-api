@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
+﻿namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
+    using System;
+    using System.Collections.Generic;
     using Domain.Validation;
     using FluentValidation.TestHelper;
     using NUnit.Framework;
@@ -25,7 +21,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .SetName("Then DesiredQualifications is not empty"),
                 new TestCaseData(new String('a', 4001),
                         "'Desired Qualifications' must be less than 4001 characters. You entered 4001 characters.", true)
-                    .SetName("Then s cannot be more than 4000 characters"),
+                    .SetName("Then DesiredQualifications cannot be more than 4000 characters"),
                 new TestCaseData("<", "'Desired Qualifications' can't contain invalid characters", true)
                     .SetName("Then DesiredQualifications cannot contain invalid characters"),
                 new TestCaseData("<script>", "'Desired Qualifications' can't contain blacklisted HTML elements", true)
