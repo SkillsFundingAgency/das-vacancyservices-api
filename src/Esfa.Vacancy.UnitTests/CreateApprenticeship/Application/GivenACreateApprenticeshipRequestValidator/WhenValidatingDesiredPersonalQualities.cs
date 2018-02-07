@@ -18,7 +18,7 @@
                     .SetName("Then DesiredPersonalQualities cannot be null"),
                 new TestCaseData("", "'Desired Personal Qualities' should not be empty.", true)
                     .SetName("Then DesiredPersonalQualities cannot be empty"),
-                new TestCaseData("desired skill", null, false)
+                new TestCaseData("desired personal qualities", null, false)
                     .SetName("Then DesiredPersonalQualities is not empty"),
                 new TestCaseData(new String('a', 4001),
                         "'Desired Personal Qualities' must be less than 4001 characters. You entered 4001 characters.", true)
@@ -30,7 +30,7 @@
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateDesiredSkills(string value, string errorMessage, bool shouldError)
+        public void ValidateDesiredPersonalQualities(string value, string errorMessage, bool shouldError)
         {
             var request = new CreateApprenticeshipRequest
             {

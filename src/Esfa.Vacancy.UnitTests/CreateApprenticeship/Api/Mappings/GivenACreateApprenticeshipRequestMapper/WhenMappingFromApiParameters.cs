@@ -63,6 +63,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
+        public void ThenMapsDesiredQualifications()
+        {
+            _mappedRequest.DesiredQualifications.Should().Be(_apiParameters.DesiredQualifications);
+        }
+
+        [Test]
         public void ThenMapsApplicationClosingDate()
         {
             _mappedRequest.ApplicationClosingDate.Should().Be(_apiParameters.ApplicationClosingDate);

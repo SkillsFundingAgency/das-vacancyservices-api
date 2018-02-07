@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 LongDescription = parameters.LongDescription,
                 DesiredSkills = parameters.DesiredSkills,
                 DesiredPersonalQualities = parameters.DesiredPersonalQualities,
+                DesiredQualifications = parameters.DesiredQualifications,
                 ApplicationClosingDate = parameters.ApplicationClosingDate,
                 ExpectedStartDate = parameters.ExpectedStartDate,
                 WorkingWeek = parameters.WorkingWeek,
