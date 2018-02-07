@@ -20,6 +20,11 @@ namespace Esfa.Vacancy.Api.Types
         public string LongDescription { get; set; }
 
         /// <summary>
+        /// The desired skills required for the position.
+        /// </summary>
+        public string DesiredSkills { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }
