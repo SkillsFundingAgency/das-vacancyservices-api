@@ -2,6 +2,7 @@
 
 namespace Esfa.Vacancy.Infrastructure.Exceptions
 {
+    [Serializable]
     public class InfrastructureException : Exception
     {
 
