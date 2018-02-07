@@ -53,6 +53,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31021       | Invalid Employer's Edsurn                   |
         /// | 31022       | Invalid Provider site's Edsurn              |
         /// | 31201       | Invalid Contact Name                        |
+        /// | 31202       | Invalid Contact Email                       |
         ///                                                                                                  
         /// </summary>
         [HttpPost]
