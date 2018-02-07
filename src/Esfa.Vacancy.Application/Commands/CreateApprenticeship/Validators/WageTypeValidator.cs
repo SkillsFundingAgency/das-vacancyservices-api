@@ -14,12 +14,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .IsInEnum()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageType));
 
-            RuleFor(request => request.WageTypeReason)
-                .MaximumLength(240)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
-                .MatchesAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
-
             When(request => request.WageType == WageType.Custom, () =>
             {
                 RuleFor(request => request.MinWage)
@@ -109,6 +103,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotNull()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
+
+            RuleFor(request => request.WageTypeReason)
+                .MaximumLength(240)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
+                .MatchesAllowedFreeTextCharacters()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
     }
 }
