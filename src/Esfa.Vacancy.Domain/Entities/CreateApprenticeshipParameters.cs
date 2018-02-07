@@ -12,6 +12,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
         public LegacyWageType WageType { get; set; }
+        public string WageTypeReason { get; set; }
         public int LocationTypeId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

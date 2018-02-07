@@ -81,6 +81,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
+        public void ThenMapsWageTypeReason()
+        {
+            _mappedRequest.WageTypeReason.Should().Be(_apiParameters.WageTypeReason);
+        }
+
+        [Test]
         public void ThenMapsMinWage()
         {
             _mappedRequest.MinWage.Should().Be(_apiParameters.MinWage);

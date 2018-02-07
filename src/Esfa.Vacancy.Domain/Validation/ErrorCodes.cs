@@ -60,6 +60,7 @@
             public const string WorkingWeek = "31006";
             public const string HoursPerWeek = "31007";
             public const string WageType = "31008";
+            public const string WageTypeReason = "31123";
             public const string MinWage = "31009";
             public const string MaxWage = "31010";
             public const string LocationType = "31011";
