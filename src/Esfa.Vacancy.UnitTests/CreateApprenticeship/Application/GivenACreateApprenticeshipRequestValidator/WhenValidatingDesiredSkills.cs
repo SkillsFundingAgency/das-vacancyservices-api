@@ -9,7 +9,7 @@
     using Vacancy.Application.Commands.CreateApprenticeship.Validators;
 
     [TestFixture]
-    public class WhenValidatingCandidateDesiredSkills
+    public class WhenValidatingDesiredSkills
     {
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>

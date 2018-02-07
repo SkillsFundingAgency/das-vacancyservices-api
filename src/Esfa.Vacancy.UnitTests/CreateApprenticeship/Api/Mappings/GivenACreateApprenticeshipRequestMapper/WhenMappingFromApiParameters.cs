@@ -51,9 +51,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
-        public void TheMapsDesiredSkills()
+        public void ThenMapsDesiredSkills()
         {
             _mappedRequest.DesiredSkills.Should().Be(_apiParameters.DesiredSkills);
+        }
+
+        [Test]
+        public void ThenMapsDesiredPersonalQualities()
+        {
+            _mappedRequest.DesiredPersonalQualities.Should().Be(_apiParameters.DesiredPersonalQualities);
         }
 
         [Test]

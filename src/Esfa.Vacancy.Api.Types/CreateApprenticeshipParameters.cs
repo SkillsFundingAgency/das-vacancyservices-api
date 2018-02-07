@@ -25,6 +25,11 @@ namespace Esfa.Vacancy.Api.Types
         public string DesiredSkills { get; set; }
 
         /// <summary>
+        /// The desired personal qualities required for the position.
+        /// </summary>
+        public string DesiredPersonalQualities { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }

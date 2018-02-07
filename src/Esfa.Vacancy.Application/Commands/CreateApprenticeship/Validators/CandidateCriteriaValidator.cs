@@ -20,6 +20,19 @@
                                               .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.DesiredSkills,
                                                   ErrorCodes.CreateApprenticeship.DesiredSkills)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredSkills));
+
+            RuleFor(request => request.DesiredPersonalQualities)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
+                .DependentRules(rules => rules.RuleFor(request => request.DesiredPersonalQualities)
+                                              .MaximumLength(DesiredSkillsMaximumLength)
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
+                                              .MatchesAllowedFreeTextCharacters()
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities,
+                                                  ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities));
+
         }
     }
 }
