@@ -45,7 +45,7 @@ namespace Esfa.Vacancy.Api.Types
         public WageType WageType { get; set; }
 
         /// <summary>
-        /// The reason for choosing the wage type
+        /// The reason for choosing the wage type of 'CompetitiveSalary', 'Unwaged' or 'ToBeSpecified'.
         /// </summary>
         public string WageTypeReason { get; set; }
 
