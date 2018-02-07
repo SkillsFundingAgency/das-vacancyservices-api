@@ -86,6 +86,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\WorkingWeekValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\WageType.cs" />
     <Compile Include="Commands\CreateApprenticeship\WageTypeMapper.cs" />
+    <Compile Include="Commands\CreateApprenticeship\WageUnit.cs" />
     <Compile Include="Exceptions\UnauthorisedException.cs" />
     <Compile Include="Exceptions\ResourceNotFoundException.cs" />
     <Compile Include="Interfaces\ITrainingDetailService.cs" />

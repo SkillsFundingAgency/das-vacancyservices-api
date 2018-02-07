@@ -21,10 +21,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             var fixture = new Fixture();
 
             var randomWageType = fixture.Create<int>();
+            var randomWageUnit = fixture.Create<int>();
             var randomLocationType = fixture.Create<int>();
             _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
                 .With(parameters => parameters.LocationType, (ApiTypes.LocationType)randomLocationType)
                 .With(parameters => parameters.WageType, (ApiTypes.WageType)randomWageType)
+                .With(parameters => parameters.WageUnit, (ApiTypes.CreateApprenticeship.WageUnit)randomWageUnit)
                 .Create();
 
             var mapper = new CreateApprenticeshipRequestMapper();
@@ -113,13 +115,19 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsWageType()
         {
-            _mappedRequest.WageType.Should().Be((WageType)(int)_apiParameters.WageType);
+            _mappedRequest.WageType.Should().Be((WageType)_apiParameters.WageType);
         }
 
         [Test]
         public void ThenMapsWageTypeReason()
         {
             _mappedRequest.WageTypeReason.Should().Be(_apiParameters.WageTypeReason);
+        }
+
+        [Test]
+        public void ThenMapsWageUnit()
+        {
+            _mappedRequest.WageUnit.Should().Be((WageUnit)_apiParameters.WageUnit);
         }
 
         [Test]

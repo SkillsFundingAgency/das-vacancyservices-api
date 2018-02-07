@@ -80,6 +80,11 @@ namespace Esfa.Vacancy.Api.Types
         public string WageTypeReason { get; set; }
 
         /// <summary>
+        /// The frequency of payments
+        /// </summary>
+        public CreateApprenticeship.WageUnit WageUnit { get; set; }
+
+        /// <summary>
         /// The minimum wage for the vacancy
         /// </summary>
         public decimal? MinWage { get; set; }
