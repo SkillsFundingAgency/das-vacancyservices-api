@@ -80,7 +80,7 @@ namespace Esfa.Vacancy.Api.Types
         public int ProviderSiteEdsUrn { get; set; }
 
         /// <summary>
-        /// Vacancy's contact name
+        /// Vacancy contact's name
         /// </summary>
         public string ContactName { get; set; }
 
