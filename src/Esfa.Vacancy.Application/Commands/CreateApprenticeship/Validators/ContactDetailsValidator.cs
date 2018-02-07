@@ -18,6 +18,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactEmail)
                 .MustBeAValidEmailAddress()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactEmail);
+
+            RuleFor(request => request.ContactNumber)
+                .MaximumLength(16)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactNumber)
+                .MustBeAValidPhoneNumber()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactNumber);
         }
     }
 }

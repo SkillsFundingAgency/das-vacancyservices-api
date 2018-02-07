@@ -35,7 +35,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 EmployerEdsUrn = parameters.EmployerEdsUrn,
                 ProviderSiteEdsUrn = parameters.ProviderSiteEdsUrn,
                 ContactName = parameters.ContactName,
-                ContactEmail = parameters.ContactEmail
+                ContactEmail = parameters.ContactEmail,
+                ContactNumber = parameters.ContactNumber
             };
         }
     }
