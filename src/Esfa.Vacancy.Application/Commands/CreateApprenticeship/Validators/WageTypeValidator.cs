@@ -70,7 +70,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
                 RuleFor(request => request.WageTypeReason)
-                    .NotNull()
+                    .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
 
@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
                 RuleFor(request => request.WageTypeReason)
-                    .NotNull()
+                    .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
 
@@ -100,7 +100,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
                 RuleFor(request => request.WageTypeReason)
-                    .NotNull()
+                    .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
             });
 

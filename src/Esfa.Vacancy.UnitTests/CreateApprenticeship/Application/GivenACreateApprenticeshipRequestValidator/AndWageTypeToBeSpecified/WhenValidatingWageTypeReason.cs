@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingWageTypeReason : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndHasValueThenIsInvalid()
+        public async Task AndNoValueThenIsInvalid()
         {
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
@@ -31,11 +31,34 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             result.Errors.First().ErrorCode
                 .Should().Be(ErrorCodes.CreateApprenticeship.WageTypeReason);
             result.Errors.First().ErrorMessage
-                .Should().Be("'Wage Type Reason' must not be empty.");
+                .Should().Be("'Wage Type Reason' should not be empty.");
         }
 
         [Test]
-        public async Task AndNoValueThenIsValid()
+        public async Task AndEmptyStringValueThenIsInvalid()
+        {
+            var fixture = new Fixture();
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.ToBeSpecified,
+                WageTypeReason = ""
+            };
+
+            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
+
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.WageTypeReason);
+            result.Errors.First().ErrorMessage
+                .Should().Be("'Wage Type Reason' should not be empty.");
+        }
+
+        [Test]
+        public async Task AndHasValueThenIsValid()
         {
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
