@@ -57,6 +57,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Equal(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             When(request => request.WageType == WageType.Unwaged, () =>
@@ -109,6 +113,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+        }
+
+        private bool BeEmptyWageUnit(WageUnit wageUnit)
+        {
+            return false;
         }
     }
 }
