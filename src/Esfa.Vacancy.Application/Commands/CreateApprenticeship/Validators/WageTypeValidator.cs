@@ -14,6 +14,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .IsInEnum()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageType));
 
+            RuleFor(request => request.WageUnit)
+                .NotEmpty()
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
+                .DependentRules(rules => rules.RuleFor(request => request.WageUnit)
+                    .IsInEnum()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit));
+
             When(request => request.WageType == WageType.Custom, () =>
             {
                 RuleFor(request => request.MinWage)
@@ -133,11 +140,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
-        }
-
-        private bool BeEmptyWageUnit(WageUnit wageUnit)
-        {
-            return false;
         }
     }
 }
