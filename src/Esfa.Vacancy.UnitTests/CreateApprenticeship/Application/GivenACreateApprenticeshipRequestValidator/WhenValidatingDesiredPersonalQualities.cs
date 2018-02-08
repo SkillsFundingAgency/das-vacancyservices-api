@@ -1,13 +1,13 @@
-﻿namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
-{
-    using System;
-    using System.Collections.Generic;
-    using Domain.Validation;
-    using FluentValidation.TestHelper;
-    using NUnit.Framework;
-    using Vacancy.Application.Commands.CreateApprenticeship;
-    using Vacancy.Application.Commands.CreateApprenticeship.Validators;
+﻿using System;
+using System.Collections.Generic;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using Esfa.Vacancy.Domain.Validation;
+using FluentValidation.TestHelper;
+using NUnit.Framework;
 
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
+{
     [TestFixture]
     public class WhenValidatingDesiredPersonalQualities
     {
@@ -23,8 +23,8 @@
                 new TestCaseData(new String('a', 4001),
                         "'Desired Personal Qualities' must be less than 4001 characters. You entered 4001 characters.", true)
                     .SetName("Then DesiredPersonalQualities cannot be more than 4000 characters"),
-                new TestCaseData("<", "'Desired Personal Qualities' can't contain invalid characters", true)
-                    .SetName("Then DesiredPersonalQualities cannot contain invalid characters"),
+                new TestCaseData("<", null, false)
+                    .SetName("Then DesiredPersonalQualities can contain valid characters"),
                 new TestCaseData("<script>", "'Desired Personal Qualities' can't contain blacklisted HTML elements", true)
                     .SetName("Then DesiredPersonalQualities cannot contain blacklisted HTML elements")
             };
