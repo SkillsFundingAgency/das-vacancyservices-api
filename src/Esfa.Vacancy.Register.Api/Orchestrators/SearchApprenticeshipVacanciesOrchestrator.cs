@@ -4,8 +4,9 @@ using AutoMapper;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
-using Esfa.Vacancy.Infrastructure.Settings;
 using MediatR;
 
 namespace Esfa.Vacancy.Register.Api.Orchestrators
@@ -57,7 +58,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         private string GetVacancyUrl(int reference)
         {
-            string url = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
+            string url = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
             return url.EndsWith("/") ? $"{url}{reference}" : $"{url}/{reference}";
         }
     }

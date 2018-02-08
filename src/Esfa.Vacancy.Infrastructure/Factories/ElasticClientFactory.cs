@@ -1,5 +1,6 @@
 ﻿using System;
-using Esfa.Vacancy.Infrastructure.Settings;
+using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using Nest;
 
 namespace Esfa.Vacancy.Infrastructure.Factories
@@ -16,10 +17,10 @@ namespace Esfa.Vacancy.Infrastructure.Factories
 
         public IElasticClient GetClient()
         {
-            var baseUri = _provideSettings.GetSetting(ApplicationSettingKeyConstants.VacancySearchUrlKey);
+            var baseUri = _provideSettings.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey);
             var node = new Uri(baseUri);
             var settings = new ConnectionSettings(node);
-            
+
             settings.SetTimeout(ElasticClientTimeoutMilliseconds);
 
             return new ElasticClient(settings);

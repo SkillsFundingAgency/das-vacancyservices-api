@@ -1,5 +1,6 @@
 ﻿using ApiTypes = Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;

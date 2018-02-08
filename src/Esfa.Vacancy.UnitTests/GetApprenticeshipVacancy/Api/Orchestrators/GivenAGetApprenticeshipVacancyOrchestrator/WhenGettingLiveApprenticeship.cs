@@ -4,8 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
+using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using FluentAssertions;
@@ -147,7 +148,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
 
             var provideSettings = new Mock<IProvideSettings>();
             provideSettings
-                .Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey))
+                .Setup(p => p.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey))
                 .Returns(baseUrl);
 
             var response = new GetApprenticeshipVacancyResponse()

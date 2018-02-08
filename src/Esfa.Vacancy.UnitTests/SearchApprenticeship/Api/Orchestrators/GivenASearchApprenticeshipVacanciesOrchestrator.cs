@@ -7,8 +7,9 @@ using AutoMapper;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using FluentAssertions;
 using FluentValidation;
@@ -58,7 +59,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
 
             var mockSettings = new Mock<IProvideSettings>();
             mockSettings
-                .Setup(x => x.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey))
+                .Setup(x => x.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey))
                 .Returns(FAABaseUrl);
 
             _mockValidationExceptionBuilder = _fixture.Freeze<Mock<IValidationExceptionBuilder>>(composer => composer.Do(mock => mock

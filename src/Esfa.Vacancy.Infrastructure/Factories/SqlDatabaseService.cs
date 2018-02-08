@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Infrastructure.Settings;
+using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Infrastructure.Factories
@@ -20,7 +21,7 @@ namespace Esfa.Vacancy.Infrastructure.Factories
         public SqlConnection GetConnection()
         {
             var connectionString =
-                _settings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
+                _settings.GetSetting(ApplicationSettingKeys.AvmsPlusDatabaseConnectionStringKey);
 
             return new SqlConnection(connectionString);
         }
