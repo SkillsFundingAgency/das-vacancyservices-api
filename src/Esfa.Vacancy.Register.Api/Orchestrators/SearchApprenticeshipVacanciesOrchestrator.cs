@@ -4,6 +4,7 @@ using AutoMapper;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Infrastructure.Settings;
 using MediatR;

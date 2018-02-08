@@ -55,6 +55,7 @@
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IGetApprenticeshipService.cs" />
     <Compile Include="Interfaces\IGetTraineeshipService.cs" />
+    <Compile Include="Interfaces\IProvideSettings.cs" />
     <Compile Include="Interfaces\IVacancyOwnerService.cs" />
     <Compile Include="Interfaces\ICreateApprenticeshipService.cs" />
     <Compile Include="Validation\ErrorCodes.cs" />

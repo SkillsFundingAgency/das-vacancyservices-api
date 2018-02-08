@@ -1,4 +1,6 @@
-﻿namespace Esfa.Vacancy.Infrastructure.Settings
+﻿using Esfa.Vacancy.Domain.Interfaces;
+
+namespace Esfa.Vacancy.Infrastructure.Settings
 {
     public sealed class ApplicationSettings
     {
