@@ -27,6 +27,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .NotEqual(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
@@ -42,6 +46,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Equal(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             When(request => request.WageType == WageType.ApprenticeshipMinimumWage, () =>
@@ -76,6 +84,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Equal(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             When(request => request.WageType == WageType.CompetitiveSalary, () =>
@@ -91,6 +103,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Equal(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             When(request => request.WageType == WageType.ToBeSpecified, () =>
@@ -106,6 +122,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Equal(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
             RuleFor(request => request.WageTypeReason)
