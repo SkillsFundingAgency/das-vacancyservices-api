@@ -1,6 +1,6 @@
-﻿namespace Esfa.Vacancy.Infrastructure.Settings
+﻿namespace Esfa.Vacancy.Domain.Constants
 {
-    public static class ApplicationSettingKeyConstants
+    public static class ApplicationSettingKeys
     {
         public const string AvmsPlusDatabaseConnectionStringKey = "AvmsPlusDatabaseConnectionString";
         public const string DasApprenticeshipInfoApiBaseUrlKey = "ApprenticeshipInfoApiBaseUrl";

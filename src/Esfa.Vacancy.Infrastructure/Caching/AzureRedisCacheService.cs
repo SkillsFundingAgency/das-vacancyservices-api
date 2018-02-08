@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Newtonsoft.Json;
 using SFA.DAS.NLog.Logger;
 using StackExchange.Redis;
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
             _logger = logger;
-            var cacheConnectionString = settings.GetSetting(ApplicationSettingKeyConstants.CacheConnectionString);
+            var cacheConnectionString = settings.GetSetting(ApplicationSettingKeys.CacheConnectionString);
             _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(cacheConnectionString));
         }
 

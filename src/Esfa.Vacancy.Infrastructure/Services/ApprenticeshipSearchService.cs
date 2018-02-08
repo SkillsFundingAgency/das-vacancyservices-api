@@ -4,10 +4,10 @@ using System.Net;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
 using SFA.DAS.NLog.Logger;
 
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private async Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
             VacancySearchParameters parameters)
         {
-            var indexName = _provideSettings.GetSetting(ApplicationSettingKeyConstants.ApprenticeshipIndexAliasKey);
+            var indexName = _provideSettings.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey);
 
             ISearchResponse<ApprenticeshipSummary> esReponse;
 
@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         .Take(parameters.PageSize)
                         .Query(query =>
                         {
-                            var container =  
+                            var container =
                                 (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
                                  || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
                                     && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
