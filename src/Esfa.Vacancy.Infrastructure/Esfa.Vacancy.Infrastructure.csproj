@@ -122,7 +122,6 @@
     <Compile Include="Settings\AppConfigSettingsProvider.cs" />
     <Compile Include="Settings\ApplicationSettingKeyConstants.cs" />
     <Compile Include="Settings\ApplicationSettings.cs" />
-    <Compile Include="Settings\IProvideSettings.cs" />
     <Compile Include="Settings\MachineSettings.cs" />
     <Compile Include="PollyRetryPolicies.cs" />
   </ItemGroup>

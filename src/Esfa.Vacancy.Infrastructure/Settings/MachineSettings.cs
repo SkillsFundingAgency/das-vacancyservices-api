@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Esfa.Vacancy.Domain.Interfaces;
 
 namespace Esfa.Vacancy.Infrastructure.Settings
 {

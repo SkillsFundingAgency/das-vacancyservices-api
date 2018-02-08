@@ -1,4 +1,5 @@
 ﻿using System;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
 

@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Infrastructure.Settings
+﻿namespace Esfa.Vacancy.Domain.Interfaces
 {
     public interface IProvideSettings
     {

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;

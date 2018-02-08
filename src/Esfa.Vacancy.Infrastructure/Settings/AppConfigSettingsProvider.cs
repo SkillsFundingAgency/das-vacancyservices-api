@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Esfa.Vacancy.Domain.Interfaces;
 using Microsoft.Azure;
 
 namespace Esfa.Vacancy.Infrastructure.Settings

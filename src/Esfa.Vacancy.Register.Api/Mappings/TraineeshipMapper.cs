@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Infrastructure.Settings;
+﻿using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Infrastructure.Settings;
 using TraineeshipVacancy = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
