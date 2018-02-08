@@ -54,7 +54,6 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31022       | Invalid Provider site's Edsurn              |
         /// | 31201       | Invalid Contact Name                        |
         /// | 31202       | Invalid Contact Email                       |
-        /// |     |               |
         /// | 31301       | Invalid Desired skills                      |
         /// | 31302       | Invalid Desired personal qualities          |
         /// | 31303       | Invalid Desired qualifications              |

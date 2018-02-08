@@ -34,6 +34,9 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string DesiredQualifications { get; set; }
 
+        /// <summary>
+        /// The future prospects for the vacancy.
+        /// </summary>
         public string FutureProspects { get; set; }
 
         /// <summary>
