@@ -1,4 +1,5 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
