@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-using ApiTypes = Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
+using ApiTypes = Esfa.Vacancy.Api.Types;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         public ApiTypes.ApprenticeshipVacancy MapToApprenticeshipVacancy(ApprenticeshipVacancy apprenticeshipVacancy)
         {
-            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveApprenticeshipVacancyBaseUrlKey);
+            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
 
             var apprenticeship = new ApiTypes.ApprenticeshipVacancy
             {

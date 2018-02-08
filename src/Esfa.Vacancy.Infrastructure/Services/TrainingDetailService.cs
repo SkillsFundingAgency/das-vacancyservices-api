@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.Apprenticeships.Api.Client;
 using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             _logger = logger;
             _dasApiBaseUrl =
-                provideSettings.GetSetting(ApplicationSettingKeyConstants.DasApprenticeshipInfoApiBaseUrlKey);
+                provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey);
         }
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)

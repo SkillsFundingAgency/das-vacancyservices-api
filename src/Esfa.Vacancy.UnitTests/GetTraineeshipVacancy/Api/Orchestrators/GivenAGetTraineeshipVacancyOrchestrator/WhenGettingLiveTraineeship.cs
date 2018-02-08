@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using FluentAssertions;
@@ -146,7 +146,7 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Orchestrators.GivenAG
 
             var mockProvideSettings = new Mock<IProvideSettings>();
             mockProvideSettings
-                .Setup(p => p.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey))
+                .Setup(p => p.GetSetting(ApplicationSettingKeys.LiveTraineeshipVacancyBaseUrlKey))
                 .Returns(baseUrl);
 
             var response = new GetTraineeshipVacancyResponse

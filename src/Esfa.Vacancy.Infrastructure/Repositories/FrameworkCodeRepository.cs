@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
-using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Infrastructure.Repositories
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
         private readonly ILog _logger;
 
         private const string GetActiveFrameworkCodesSqlSproc = "[VACANCY_API].[GetActiveFrameworkCodes]";
-        
+
         public FrameworkCodeRepository(IProvideSettings settings, ILog logger)
         {
             _settings = settings;
@@ -38,7 +38,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
         {
             _logger.Info("Querying AVMS database for Framework Codes");
             var connectionString =
-                _settings.GetSetting(ApplicationSettingKeyConstants.AvmsPlusDatabaseConnectionStringKey);
+                _settings.GetSetting(ApplicationSettingKeys.AvmsPlusDatabaseConnectionStringKey);
 
             using (var sqlConn = new SqlConnection(connectionString))
             {
