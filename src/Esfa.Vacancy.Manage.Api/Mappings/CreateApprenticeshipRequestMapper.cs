@@ -20,6 +20,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 DesiredQualifications = parameters.DesiredQualifications,
                 FutureProspects = parameters.FutureProspects,
                 ThingsToConsider = parameters.ThingsToConsider,
+                TrainingToBeProvided = parameters.TrainingToBeProvided,
                 ApplicationClosingDate = parameters.ApplicationClosingDate,
                 ExpectedStartDate = parameters.ExpectedStartDate,
                 WorkingWeek = parameters.WorkingWeek,
