@@ -7,6 +7,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         private void ConfigureWageTypeValidator()
         {
+            const int wageTypeReasonMaxLength = 240;
+
             RuleFor(request => request.WageType)
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageType)
@@ -136,7 +138,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             });
 
             RuleFor(request => request.WageTypeReason)
-                .MaximumLength(240)
+                .MaximumLength(wageTypeReasonMaxLength)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
