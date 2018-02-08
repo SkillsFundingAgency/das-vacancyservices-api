@@ -26,6 +26,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 DesiredQualifications = request.DesiredQualifications,
                 FutureProspects = request.FutureProspects,
                 ThingsToConsider = request.ThingsToConsider,
+                TrainingToBeProvided = request.TrainingToBeProvided,
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,

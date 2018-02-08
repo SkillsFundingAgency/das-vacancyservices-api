@@ -103,6 +103,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsTrainingToBeProvided()
+        {
+            _mappedParameters.TrainingToBeProvided.Should().Be(_request.TrainingToBeProvided);
+        }
+
+        [Test]
         public void ThenMapsWorkingWeek()
         {
             _mappedParameters.WorkingWeek.Should().Be(_request.WorkingWeek);
