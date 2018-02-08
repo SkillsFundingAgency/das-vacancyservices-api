@@ -9,5 +9,6 @@
         public const string VacancySearchUrlKey = "VacancySearchUrl";
         public const string ApprenticeshipIndexAliasKey = "ApprenticeshipIndexAlias";
         public const string CacheConnectionString = "CacheConnectionString";
+        public const string IsSandboxEnvironment = "IsSandboxEnvironment";
     }
 }
