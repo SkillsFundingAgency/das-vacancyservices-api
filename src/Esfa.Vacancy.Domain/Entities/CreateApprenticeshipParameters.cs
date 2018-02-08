@@ -28,5 +28,10 @@ namespace Esfa.Vacancy.Domain.Entities
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
         public string ContactNumber { get; set; }
+        public string DesiredSkills { get; set; }
+        public string DesiredPersonalQualities { get; set; }
+        public string DesiredQualifications { get; set; }
+        public string FutureProspects { get; set; }
+        public string ThingsToConsider { get; set; }
     }
 }

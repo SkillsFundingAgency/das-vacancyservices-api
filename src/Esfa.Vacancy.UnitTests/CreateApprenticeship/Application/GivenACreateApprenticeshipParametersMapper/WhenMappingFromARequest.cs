@@ -73,6 +73,36 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsDesiredSkills()
+        {
+            _mappedParameters.DesiredSkills.Should().Be(_request.DesiredSkills);
+        }
+
+        [Test]
+        public void ThenMapsDesiredPersonalQualities()
+        {
+            _mappedParameters.DesiredPersonalQualities.Should().Be(_request.DesiredPersonalQualities);
+        }
+
+        [Test]
+        public void ThenMapsDesiredQualifications()
+        {
+            _mappedParameters.DesiredQualifications.Should().Be(_request.DesiredQualifications);
+        }
+
+        [Test]
+        public void ThenMapsFutureProspects()
+        {
+            _mappedParameters.FutureProspects.Should().Be(_request.FutureProspects);
+        }
+
+        [Test]
+        public void ThenMapsThingsToConsider()
+        {
+            _mappedParameters.ThingsToConsider.Should().Be(_request.ThingsToConsider);
+        }
+
+        [Test]
         public void ThenMapsWorkingWeek()
         {
             _mappedParameters.WorkingWeek.Should().Be(_request.WorkingWeek);

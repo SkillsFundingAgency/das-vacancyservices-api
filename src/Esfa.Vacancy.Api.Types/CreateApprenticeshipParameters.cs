@@ -20,6 +20,31 @@ namespace Esfa.Vacancy.Api.Types
         public string LongDescription { get; set; }
 
         /// <summary>
+        /// The desired skills expected from the candidate.
+        /// </summary>
+        public string DesiredSkills { get; set; }
+
+        /// <summary>
+        /// The desired personal qualities expected from the candidate.
+        /// </summary>
+        public string DesiredPersonalQualities { get; set; }
+
+        /// <summary>
+        /// The desired qualifications for the vacancy.
+        /// </summary>
+        public string DesiredQualifications { get; set; }
+
+        /// <summary>
+        /// The future prospects for the vacancy.
+        /// </summary>
+        public string FutureProspects { get; set; }
+
+        /// <summary>
+        /// The things to consider about the vacancy.
+        /// </summary>
+        public string ThingsToConsider { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }
