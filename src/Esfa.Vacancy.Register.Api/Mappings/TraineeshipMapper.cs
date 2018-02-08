@@ -1,5 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
+﻿using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Interfaces;
 using TraineeshipVacancy = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         public TraineeshipVacancy MapToTraineeshipVacancy(Domain.Entities.TraineeshipVacancy traineeshipVacancy)
         {
-            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeyConstants.LiveTraineeshipVacancyBaseUrlKey);
+            var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveTraineeshipVacancyBaseUrlKey);
 
             return new TraineeshipVacancy
             {

@@ -38,6 +38,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Constants\ApplicationSettingKeys.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\ApprenticeshipSummary.cs" />
     <Compile Include="Entities\CreateApprenticeshipParameters.cs" />
