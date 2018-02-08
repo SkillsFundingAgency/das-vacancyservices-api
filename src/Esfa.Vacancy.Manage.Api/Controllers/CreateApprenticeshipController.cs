@@ -59,6 +59,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31303       | Invalid Desired qualifications              |
         /// | 31304       | Invalid Future prospects                    |
         /// | 31305       | Invalid Things to consider                  |
+        /// | 31306       | Invalid Training to be provided             |
         ///                                                                                                  
         /// </summary>
         [HttpPost]
