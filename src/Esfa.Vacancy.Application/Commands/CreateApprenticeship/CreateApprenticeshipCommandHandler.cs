@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
-using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
@@ -16,22 +15,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private readonly ICreateApprenticeshipParametersMapper _parametersMapper;
         private readonly ILog _logger;
         private readonly IVacancyOwnerService _vacancyOwnerService;
-        private readonly IProvideSettings _provideSettings;
 
         public CreateApprenticeshipCommandHandler(
             IValidator<CreateApprenticeshipRequest> validator,
             ICreateApprenticeshipService createApprenticeshipService,
             ICreateApprenticeshipParametersMapper parametersMapper,
             ILog logger,
-            IVacancyOwnerService vacancyOwnerService,
-            IProvideSettings provideSettings)
+            IVacancyOwnerService vacancyOwnerService)
         {
             _validator = validator;
             _createApprenticehipService = createApprenticeshipService;
             _parametersMapper = parametersMapper;
             _logger = logger;
             _vacancyOwnerService = vacancyOwnerService;
-            _provideSettings = provideSettings;
         }
 
         public async Task<CreateApprenticeshipResponse> Handle(CreateApprenticeshipRequest message)
@@ -50,15 +46,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 throw new UnauthorisedException(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
 
             var parameters = _parametersMapper.MapFromRequest(message, employerInformation);
-
-            var isRunningUnderSandboxEnvironment =
-                _provideSettings.GetNullableSetting(ApplicationSettingKeys.IsSandboxEnvironment);
-
-            if (string.IsNullOrWhiteSpace(isRunningUnderSandboxEnvironment) == false)
-            {
-                //If sandbox environment then don't persist the vacancy
-                return new CreateApprenticeshipResponse();
-            }
 
             var referenceNumber = await _createApprenticehipService.CreateApprenticeshipAsync(parameters);
 
