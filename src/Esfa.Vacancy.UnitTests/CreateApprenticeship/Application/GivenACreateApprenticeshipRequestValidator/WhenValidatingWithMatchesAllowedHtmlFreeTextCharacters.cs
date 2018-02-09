@@ -11,8 +11,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingWithMatchesAllowedHtmlFreeTextCharacters
     {
 
-        private const string WhitelistErrorCode = "WhitelistErrorCode";
-        private const string BlacklistErrorCode = "BlackistErrorCode";
+        private const string ErrorCode = "ErrorCode";
 
         [Test]
         public void ThenCheckValidCharacters()
@@ -45,7 +44,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 var result = sut.Validate(request);
 
                 result.IsValid.Should().BeFalse();
-                result.Errors.Single().ErrorCode.Should().Be(WhitelistErrorCode);
+                result.Errors.Single().ErrorCode.Should().Be(ErrorCode);
                 result.Errors.Single().ErrorMessage.Should().Be("'Test String' can't contain invalid characters");
             }
         }
@@ -61,7 +60,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = sut.Validate(request);
 
             result.IsValid.Should().BeFalse();
-            result.Errors.First().ErrorCode.Should().Be(BlacklistErrorCode);
+            result.Errors.First().ErrorCode.Should().Be(ErrorCode);
         }
 
         private string GetValidCharacters()
@@ -104,7 +103,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             public TestMatchesAllowedHtmlFreeTextCharactersValidator()
             {
                 RuleFor(request => request.TestString)
-                    .MatchesAllowedHtmlFreeTextCharacters(WhitelistErrorCode, BlacklistErrorCode);
+                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCode);
             }
         }
     }

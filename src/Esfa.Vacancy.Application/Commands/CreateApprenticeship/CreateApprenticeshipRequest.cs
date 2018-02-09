@@ -36,5 +36,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
         public string ContactNumber { get; set; }
+        public string TrainingToBeProvided { get; set; }
     }
 }

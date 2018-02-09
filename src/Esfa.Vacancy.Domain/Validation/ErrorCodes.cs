@@ -84,6 +84,7 @@
             public const string DesiredQualifications = "31303";
             public const string FutureProspects= "31304";
             public const string ThingsToConsider = "31305";
+            public const string TrainingToBeProvided = "31306";
         }
     }
 }

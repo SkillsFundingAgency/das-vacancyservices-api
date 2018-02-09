@@ -10,6 +10,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             ConfigureShortDescriptionValidator();
             ConfigureLongDescriptionValidator();
             ConfigureCandidateCriteriaValidator();
+            ConfigureTrainingToBeProvided();
             ConfigureApplicationClosingDateValidator();
             ConfigureExpectedStartDateValidator();
             ConfigureWorkingWeekValidator();

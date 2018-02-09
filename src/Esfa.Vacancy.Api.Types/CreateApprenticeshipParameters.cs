@@ -45,6 +45,11 @@ namespace Esfa.Vacancy.Api.Types
         public string ThingsToConsider { get; set; }
 
         /// <summary>
+        /// The training to be provided during the vacancy.
+        /// </summary>
+        public string TrainingToBeProvided { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }

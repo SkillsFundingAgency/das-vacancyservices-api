@@ -11,8 +11,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.LongDescription)
                 .DependentRules(rules => rules.RuleFor(request => request.LongDescription)
-                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.LongDescription,
-                    ErrorCodes.CreateApprenticeship.LongDescription));
+                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.LongDescription));
         }
     }
 }

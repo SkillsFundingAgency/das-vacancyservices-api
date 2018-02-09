@@ -33,5 +33,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public string DesiredQualifications { get; set; }
         public string FutureProspects { get; set; }
         public string ThingsToConsider { get; set; }
+        public string TrainingToBeProvided { get; set; }
     }
 }
