@@ -16,8 +16,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.DesiredSkills)
                                               .MaximumLength(CandidateCriteriaMaximumLength)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredSkills)
-                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.DesiredSkills,
-                                                  ErrorCodes.CreateApprenticeship.DesiredSkills)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.DesiredSkills)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredSkills));
 
             RuleFor(request => request.DesiredPersonalQualities)
@@ -26,9 +25,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.DesiredPersonalQualities)
                                               .MaximumLength(CandidateCriteriaMaximumLength)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
-                                              .MatchesAllowedHtmlFreeTextCharacters(
-                                                  ErrorCodes.CreateApprenticeship.DesiredPersonalQualities,
-                                                  ErrorCodes.CreateApprenticeship.DesiredPersonalQualities)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship
+                                                                                              .DesiredPersonalQualities)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredPersonalQualities));
 
             RuleFor(request => request.DesiredQualifications)
@@ -37,9 +35,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.DesiredQualifications)
                                               .MaximumLength(CandidateCriteriaMaximumLength)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredQualifications)
-                                              .MatchesAllowedHtmlFreeTextCharacters(
-                                                  ErrorCodes.CreateApprenticeship.DesiredQualifications,
-                                                  ErrorCodes.CreateApprenticeship.DesiredQualifications)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes
+                                                                                    .CreateApprenticeship.DesiredQualifications)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.DesiredQualifications));
 
             RuleFor(request => request.FutureProspects)
@@ -48,9 +45,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.FutureProspects)
                                               .MaximumLength(CandidateCriteriaMaximumLength)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects)
-                                              .MatchesAllowedHtmlFreeTextCharacters(
-                                                  ErrorCodes.CreateApprenticeship.FutureProspects,
-                                                  ErrorCodes.CreateApprenticeship.FutureProspects)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes
+                                                                                    .CreateApprenticeship.FutureProspects)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.FutureProspects));
 
             When(request => !String.IsNullOrEmpty(request.ThingsToConsider), () =>
@@ -58,8 +54,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.ThingsToConsider)
                     .MaximumLength(CandidateCriteriaMaximumLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ThingsToConsider)
-                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.ThingsToConsider,
-                        ErrorCodes.CreateApprenticeship.ThingsToConsider)
+                    .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes.CreateApprenticeship.ThingsToConsider)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ThingsToConsider);
             });
         }

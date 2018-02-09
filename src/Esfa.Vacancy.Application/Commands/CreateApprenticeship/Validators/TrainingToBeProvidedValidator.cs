@@ -15,9 +15,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .DependentRules(rules => rules.RuleFor(request => request.TrainingToBeProvided)
                                               .MaximumLength(TrainingToBeProvidedMaximumLength)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingToBeProvided)
-                                              .MatchesAllowedHtmlFreeTextCharacters(
-                                                  ErrorCodes.CreateApprenticeship.TrainingToBeProvided,
-                                                  ErrorCodes.CreateApprenticeship.TrainingToBeProvided)
+                                              .MatchesAllowedHtmlFreeTextCharacters(ErrorCodes
+                                                                                    .CreateApprenticeship.TrainingToBeProvided)
                                               .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingToBeProvided));
         }
     }
