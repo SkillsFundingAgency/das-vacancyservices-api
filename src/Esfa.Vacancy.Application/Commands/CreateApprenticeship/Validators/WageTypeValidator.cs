@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Validation;
+﻿using System;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
@@ -39,6 +40,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.WageUnit)
                     .NotEqual(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
+                    .Must(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
@@ -142,6 +145,27 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+        }
+
+        private static bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
+        {
+            const decimal minimumHourlyWage = 3.50m; //todo: needs to come from ref table
+            var actualHourlyWage = 0m;
+
+            switch (wageUnit)
+            {
+                case WageUnit.Weekly:
+                    actualHourlyWage = decimal.Divide(request.MinWage.Value, (decimal) request.HoursPerWeek);
+                    break;
+                case WageUnit.Monthly:
+                    break;
+                case WageUnit.Annually:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(wageUnit), wageUnit, null);
+            }
+
+            return actualHourlyWage >= minimumHourlyWage;
         }
     }
 }
