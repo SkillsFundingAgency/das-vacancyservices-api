@@ -112,6 +112,7 @@
     <Compile Include="Repositories\CachedStandardRepository.cs" />
     <Compile Include="Repositories\StandardRepository.cs" />
     <Compile Include="Services\ApprenticeshipSearchService.cs" />
+    <Compile Include="Services\CreateApprenticeshipSandboxService.cs" />
     <Compile Include="Services\GeoSearchResultDistanceSetter.cs" />
     <Compile Include="Services\GetApprenticeshipService.cs" />
     <Compile Include="Services\GetTraineeshipService.cs" />

@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Exceptions;
-using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
@@ -32,7 +31,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipRequest _validRequest;
         private CreateApprenticeshipParameters _expectedParameters;
         private Mock<IVacancyOwnerService> _mockVacancyOwnerService;
-        private Mock<IProvideSettings> _mockProvideSettings;
 
         [SetUp]
         public async Task SetUp()
@@ -61,10 +59,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mockService = _fixture.Freeze<Mock<ICreateApprenticeshipService>>(composer => composer.Do(mock => mock
                 .Setup(repository => repository.CreateApprenticeshipAsync(It.IsAny<CreateApprenticeshipParameters>()))
                 .ReturnsAsync(_expectedRefNumber)));
-
-            _mockProvideSettings = _fixture.Freeze<Mock<IProvideSettings>>(composer => composer.Do(mock => mock
-                .Setup(provider => provider.GetNullableSetting(It.IsAny<string>()))
-                .Returns((string)null)));
 
             _handler = _fixture.Create<CreateApprenticeshipCommandHandler>();
 
@@ -105,7 +99,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
         }
 
-        [Test]
         public void AndIfLinkIsNotRetrieved_ThenThrowUnauthorisedException()
         {
             _mockVacancyOwnerService
@@ -124,13 +117,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mockMapper.Verify(mapper =>
                 mapper.MapFromRequest(_validRequest, _employerInformation),
                 Times.Once);
-        }
-
-        [Test]
-        public void ThenChecksIfRunnintInSandboxEnvironment()
-        {
-            _mockProvideSettings.Verify(provider =>
-                provider.GetNullableSetting(ApplicationSettingKeys.IsSandboxEnvironment));
         }
 
         [Test]
