@@ -71,11 +71,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         [TestCaseSource(nameof(TestCases))]
         public async Task WhenCallingSelectHourlyRate(DateTime expectedStartDate, decimal expectedHourlyRate)
         {
-            var request = _fixture.Build<CreateApprenticeshipRequest>()
-                .With(apprenticeshipRequest => apprenticeshipRequest.ExpectedStartDate, expectedStartDate)
-                .Create();
-
-            var hourlyRate = await _minimumWageSelector.SelectHourlyRateAsync(request);
+            var hourlyRate = await _minimumWageSelector.SelectHourlyRateAsync(expectedStartDate);
 
             hourlyRate.Should().Be(expectedHourlyRate);
         }
@@ -83,7 +79,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         [Test]
         public async Task ThenCallsMinimumWageService()
         {
-            var hourlyRate = await _minimumWageSelector.SelectHourlyRateAsync(new CreateApprenticeshipRequest());
+            await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Now);
 
             _mockMinimumWageService
                 .Verify(service => service.GetAllWagesAsync(), Times.Once);
