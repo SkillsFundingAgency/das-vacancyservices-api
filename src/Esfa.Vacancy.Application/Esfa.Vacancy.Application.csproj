@@ -64,6 +64,7 @@
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
     <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
+    <Compile Include="Commands\CreateApprenticeship\MinimumWageSelector.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ContactDetailsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CandidateCriteriaValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CreateApprenticeshipRequestValidator.cs" />

@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenValidatingWageUnit : CreateApprenticeshipRequestValidatorBase
     {
-        [Test]
+        [Test, Ignore("extract to dependency")]
         public async Task AndIsNotNotApplicableThenIsInvalid()
         {
             var fixture = new Fixture();
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Should().Be("'Wage Unit' should not be equal to 'NotApplicable'.");
         }
 
-        [Test]
+        [Test, Ignore("extract to dependency")]
         public async Task AndIsNotApplicableThenIsValid()
         {
             var fixture = new Fixture();

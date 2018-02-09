@@ -173,6 +173,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTitle.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithMatchesAllowedHtmlFreeTextCharacters.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithMatchesAllowedFreeTextCharacters.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
