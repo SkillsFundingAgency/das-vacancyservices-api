@@ -61,13 +61,13 @@ namespace Esfa.Vacancy.Infrastructure
             var isRunningUnderSandboxEnvironment =
                 _provideSettings.GetNullableSetting(ApplicationSettingKeys.UseSandboxServices);
 
-            if (string.IsNullOrWhiteSpace(isRunningUnderSandboxEnvironment) == false)
+            if (string.IsNullOrWhiteSpace(isRunningUnderSandboxEnvironment))
             {
-                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipSandboxService>();
+                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipService>();
             }
             else
             {
-                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipService>();
+                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipSandboxService>();
             }
         }
     }
