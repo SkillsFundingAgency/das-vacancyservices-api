@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
     public class GivenStructureMapRegistry
     {
         [Test]
-        public void AndIsReadonlyEnabled()
+        public void AndUseSandboxServiceIsEnabled()
         {
             var mockRequestContext = new Mock<IRequestContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
         }
 
         [Test]
-        public void AndIsReadonlyDisabled()
+        public void AndUseSandboxSeriveIsDisabled()
         {
             var mockRequestContext = new Mock<IRequestContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
