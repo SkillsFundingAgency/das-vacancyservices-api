@@ -50,6 +50,21 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
+        /// The application method to be used for the vacancy.
+        /// </summary>
+        public ApplicationMethod ApplicationMethod { get; set; }
+
+        /// <summary>
+        /// The first supplementary question for an online vacancy.
+        /// </summary>
+        public string SupplementaryQuestion1 { get; set; }
+
+        /// <summary>
+        /// The second supplementary question for an online vacancy.
+        /// </summary>
+        public string SupplementaryQuestion2 { get; set; }
+
+        /// <summary>
         /// The expected duration of the apprenticeship.
         /// </summary>
         public int ExpectedDuration { get; set; }

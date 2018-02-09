@@ -23,10 +23,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             var randomWageType = fixture.Create<int>();
             var randomWageUnit = fixture.Create<int>();
             var randomLocationType = fixture.Create<int>();
+            var randomApplicationMethod = fixture.Create<int>();
             _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
                 .With(parameters => parameters.LocationType, (ApiTypes.LocationType)randomLocationType)
                 .With(parameters => parameters.WageType, (ApiTypes.WageType)randomWageType)
                 .With(parameters => parameters.WageUnit, (Vacancy.Api.Types.Request.WageUnit)randomWageUnit)
+                .With(parameters => parameters.ApplicationMethod, (ApiTypes.ApplicationMethod)randomApplicationMethod)
                 .Create();
 
             var mapper = new CreateApprenticeshipRequestMapper();
@@ -98,6 +100,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void ThenMapsDurationType()
         {
             _mappedRequest.DurationType.Should().Be((DurationType)_apiParameters.DurationType);
+        }
+
+        [Test]
+        public void ThenMapsApplicationMethod()
+        {
+            _mappedRequest.ApplicationMethod.Should().Be((ApplicationMethod)_apiParameters.ApplicationMethod);
+        }
+
+        [Test]
+        public void ThenMapsSupplementaryQuestion1()
+        {
+            _mappedRequest.SupplementaryQuestion1.Should().Be(_apiParameters.SupplementaryQuestion1);
+        }
+
+        [Test]
+        public void ThenMapsSupplementaryQuestion2()
+        {
+            _mappedRequest.SupplementaryQuestion2.Should().Be(_apiParameters.SupplementaryQuestion2);
         }
 
         [Test]

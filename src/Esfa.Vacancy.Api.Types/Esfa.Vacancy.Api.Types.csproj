@@ -45,6 +45,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Address.cs" />
+    <Compile Include="ApplicationMethod.cs" />
     <Compile Include="Request\WageUnit.cs" />
     <Compile Include="DurationType.cs" />
     <Compile Include="GeoCodedAddress.cs" />

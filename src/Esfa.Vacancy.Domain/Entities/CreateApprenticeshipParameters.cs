@@ -41,5 +41,8 @@ namespace Esfa.Vacancy.Domain.Entities
         public string ExpectedDuration { get; set; }
         public int DurationTypeId { get; set; }
         public int DurationValue { get; set; }
+        public int OfflineVacancyTypeId { get; set; }
+        public string SupplementaryQuestion1 { get; set; }
+        public string SupplementaryQuestion2 { get; set; }
     }
 }
