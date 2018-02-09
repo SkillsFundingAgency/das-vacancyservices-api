@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateDesiredSkills(string value, string errorMessage, bool shouldError)
+        public void ValidateTrainingToBeProvided(string value, string errorMessage, bool shouldError)
         {
             var request = new CreateApprenticeshipRequest
             {
