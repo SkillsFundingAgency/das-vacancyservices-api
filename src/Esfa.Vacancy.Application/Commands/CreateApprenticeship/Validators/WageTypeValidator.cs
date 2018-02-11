@@ -149,6 +149,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         private static bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
         {
+            //todo this func will use both selector (to get allowed min wage) and calc (to get actual min wage)
+
             const decimal minimumHourlyWage = 3.50m; //todo: needs to come from ref table
             var actualHourlyWage = 0m;
 
