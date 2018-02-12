@@ -152,10 +152,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
         {
-            //todo: ex handling
-            var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
-            var attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request);
-            return attemptedMinimumWage >= allowedMinimumWage;
+            try
+            {
+                var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
+                var attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request);
+
+                return attemptedMinimumWage >= allowedMinimumWage;
+            }
+            catch (ArgumentOutOfRangeException outOfRangeException)
+            {
+                _logger.Debug(outOfRangeException.Message);
+                return false;
+            }
         }
     }
 }
