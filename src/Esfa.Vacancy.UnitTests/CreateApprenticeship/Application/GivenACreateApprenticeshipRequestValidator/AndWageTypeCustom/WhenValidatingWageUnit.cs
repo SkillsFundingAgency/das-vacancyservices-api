@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
@@ -12,8 +13,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     [TestFixture]
     public class WhenValidatingWageUnit : CreateApprenticeshipRequestValidatorBase
     {
-        [Test, Ignore("extract to dependency")]
-        public async Task AndIsNotNotApplicableThenIsInvalid()
+        [Test]
+        public async Task AndIsNotApplicableThenIsInvalid()
         {
             var fixture = new Fixture();
             var request = new CreateApprenticeshipRequest
@@ -28,7 +29,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await validator.ValidateAsync(context);
 
+            foreach (var validationFailure in result.Errors)
+            {
+                Console.WriteLine($"ErrorCode:{validationFailure.ErrorCode}");
+                Console.WriteLine($"ErrorMessage:{validationFailure.ErrorMessage}");
+            }
+
             result.IsValid.Should().Be(false);
+            result.Errors.Count.Should().Be(1);
             result.Errors.First().ErrorCode
                 .Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
             result.Errors.First().ErrorMessage

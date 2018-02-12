@@ -39,6 +39,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
 
                 RuleFor(request => request.WageUnit)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
                     .Must(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
@@ -149,25 +150,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         private static bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
         {
-            //todo this func will use both selector (to get allowed min wage) and calc (to get actual min wage)
-
-            const decimal minimumHourlyWage = 3.50m; //todo: needs to come from ref table
-            var actualHourlyWage = 0m;
-
-            switch (wageUnit)
-            {
-                case WageUnit.Weekly:
-                    actualHourlyWage = decimal.Divide(request.MinWage.Value, (decimal) request.HoursPerWeek);
-                    break;
-                case WageUnit.Monthly:
-                    break;
-                case WageUnit.Annually:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(wageUnit), wageUnit, null);
-            }
-
-            return actualHourlyWage >= minimumHourlyWage;
+            //todo: ex handling
+            var allowedMinimumWage = 3;// todo: use selector
+            var attemptedMinimumWage = 3;// todo: use calc.
+            //todo: assert rule
+            return false;
         }
     }
 }
