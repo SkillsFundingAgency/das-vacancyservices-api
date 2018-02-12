@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
@@ -42,7 +44,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    .Must(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
             });
 
@@ -148,13 +150,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
 
-        private bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
+        private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
         {
             //todo: ex handling
-            var allowedMinimumWage = _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
+            var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
             var attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request);
-            //todo: assert rule
-            return false;
+            return attemptedMinimumWage >= allowedMinimumWage;
         }
     }
 }
