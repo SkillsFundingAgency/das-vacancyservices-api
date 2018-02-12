@@ -4,8 +4,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator : AbstractValidator<CreateApprenticeshipRequest>
     {
-        public CreateApprenticeshipRequestValidator()
+        private readonly IMinimumWageSelector _minimumWageSelector;
+        private readonly IMinimumWageCalculator _minimumWageCalculator;
+
+        public CreateApprenticeshipRequestValidator(IMinimumWageSelector minimumWageSelector, IMinimumWageCalculator minimumWageCalculator)
         {
+            _minimumWageSelector = minimumWageSelector;
+            _minimumWageCalculator = minimumWageCalculator;
+
             ConfigureTitleValidator();
             ConfigureShortDescriptionValidator();
             ConfigureLongDescriptionValidator();

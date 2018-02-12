@@ -6,6 +6,7 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeApprenticeshipMinimumWage
 {
@@ -15,7 +16,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public async Task AndHasValueThenIsInvalid()
         {
-            var fixture = new Fixture();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.ApprenticeshipMinimumWage,
@@ -38,7 +39,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public async Task AndNoValueThenIsValid()
         {
-            var fixture = new Fixture();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.ApprenticeshipMinimumWage

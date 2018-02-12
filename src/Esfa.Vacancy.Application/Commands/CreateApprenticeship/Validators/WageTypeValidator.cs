@@ -148,11 +148,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
 
-        private static bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
+        private bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit)
         {
             //todo: ex handling
-            var allowedMinimumWage = 3;// todo: use selector
-            var attemptedMinimumWage = 3;// todo: use calc.
+            var allowedMinimumWage = _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
+            var attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request);
             //todo: assert rule
             return false;
         }
