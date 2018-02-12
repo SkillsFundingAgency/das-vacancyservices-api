@@ -33,8 +33,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
                 RuleFor(request => request.AddressLine3)
-                    .NotEmpty()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3)
                     .MaximumLength(addressLineMaxLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3)
                     .MatchesAllowedFreeTextCharacters()

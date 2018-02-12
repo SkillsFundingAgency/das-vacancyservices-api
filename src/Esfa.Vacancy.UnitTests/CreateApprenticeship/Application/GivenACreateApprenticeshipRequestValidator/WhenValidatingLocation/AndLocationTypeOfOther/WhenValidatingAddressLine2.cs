@@ -23,8 +23,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .SetName("And exceeds 300 characters Then is invalid"),
                 new TestCaseData("<p>", false, "'Address Line2' can't contain invalid characters")
                     .SetName("And contains illegal chars Then is invalid"),
-                new TestCaseData("10 Downing Street", true)
-                    .SetName("And is in allowed format Then is valid"),
+                new TestCaseData("10 Downing Street", true, null)
+                    .SetName("And is in allowed format Then is valid")
             };
 
         [TestCaseSource(nameof(TestCases))]
