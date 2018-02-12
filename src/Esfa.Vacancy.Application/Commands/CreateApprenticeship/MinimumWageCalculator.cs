@@ -2,7 +2,7 @@
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
-    public class MinimumWageCalculator
+    public class MinimumWageCalculator : IMinimumWageCalculator
     {
         private const decimal WeeksPerMonth = 4m;
         private const decimal WeeksPerYear = 52m;
