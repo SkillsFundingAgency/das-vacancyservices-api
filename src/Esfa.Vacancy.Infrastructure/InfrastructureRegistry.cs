@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Esfa.Vacancy.Domain.Constants;
@@ -61,13 +62,13 @@ namespace Esfa.Vacancy.Infrastructure
             var isRunningUnderSandboxEnvironment =
                 _provideSettings.GetNullableSetting(ApplicationSettingKeys.UseSandboxServices);
 
-            if (string.IsNullOrWhiteSpace(isRunningUnderSandboxEnvironment))
+            if ("yes".Equals(isRunningUnderSandboxEnvironment, StringComparison.OrdinalIgnoreCase))
             {
-                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipService>();
+                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipSandboxService>();
             }
             else
             {
-                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipSandboxService>();
+                For<ICreateApprenticeshipService>().Use<CreateApprenticeshipService>();
             }
         }
     }
