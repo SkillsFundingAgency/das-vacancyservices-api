@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
+using Esfa.Vacancy.Infrastructure.Exceptions;
 using FluentAssertions;
+using FluentValidation.Results;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
@@ -99,6 +101,27 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void AndSelectorThrowsInfrastructureException_ThenLetsExceptionBubble()
+        {
+            var expectedStartDate = _fixture.Create<DateTime>();
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.Custom,
+                WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
+                ExpectedStartDate = expectedStartDate
+            };
+            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+
+            _mockSelector
+                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
+                .Throws<InfrastructureException>();
+
+            var action = new Func<Task<ValidationResult>>(() => _validator.ValidateAsync(context));
+
+            action.ShouldThrow<InfrastructureException>();
+        }
+
+        [Test]
         public async Task AndCalculatorThrowsException_ThenReturnsValidationResult()
         {
             var expectedStartDate = _fixture.Create<DateTime>();
@@ -117,15 +140,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = await _validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(false);
-            //result.Errors.First().ErrorCode.Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
         }
-
-        /*[Test]
-        public async Task AndCalculatorThrowsException_ThenReturnsValidationResult()
-        {
-            
-        }*/
-
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
