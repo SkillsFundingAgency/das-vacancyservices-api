@@ -23,8 +23,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                         "'Contact Name' must be less than 101 characters. You entered 101 characters.",
                         true)
                     .SetName("And if length exceeds 100 then is invalid."),
-                new TestCaseData("<", "'Contact Name' can't contain invalid characters", true)
-                .SetName("And if contains special character then is invalid.")
+                new TestCaseData("{@<", "'Contact Name' is invalid.", true)
+                    .SetName("And if contains special character then is invalid."),
+                new TestCaseData("122134", "'Contact Name' is invalid.", true)
+                    .SetName("And if contains numbers then is invalid.")
             };
 
         [TestCaseSource(nameof(TestCases))]
