@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             RuleFor(request => request.ContactName)
                 .MaximumLength(100)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactName)
-                .MatchesAllowedFreeTextCharacters()
+                .MustBeAValidName()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactName)
                 .When(request => string.IsNullOrWhiteSpace(request.ContactName) == false);
 
