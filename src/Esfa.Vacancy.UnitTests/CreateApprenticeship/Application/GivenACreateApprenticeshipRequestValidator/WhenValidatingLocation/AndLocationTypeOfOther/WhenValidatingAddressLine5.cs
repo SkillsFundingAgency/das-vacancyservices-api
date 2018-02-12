@@ -13,22 +13,26 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(LocationType.OtherLocation, true, null)
+                new TestCaseData(null, true, null)
                     .SetName("And is null Then is valid"),
-                new TestCaseData(LocationType.OtherLocation, false, new string('a', 301))
+                new TestCaseData(string.Empty, true, null)
+                    .SetName("And is empty Then is valid"),
+                new TestCaseData("   ", true, null)
+                    .SetName("And is whitespace Then is valid"),
+                new TestCaseData(new string('a', 301), false, "'Address Line5' must be less than 301 characters. You entered 301 characters.")
                     .SetName("And exceeds 300 characters Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, "<p>")
+                new TestCaseData("<p>", false, "'Address Line5' can't contain invalid characters")
                     .SetName("And contains illegal chars Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, true, "10 Downing Street")
-                    .SetName("And is in allowed format Then is valid"),
+                new TestCaseData("10 Downing Street", true, null)
+                    .SetName("And is in allowed format Then is valid")
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateAddressLine5(LocationType locationType, bool isValid, string addressLine5)
+        public void ValidateAddressLine5(string addressLine5, bool isValid, string errorMessage)
         {
             var request = new CreateApprenticeshipRequest()
             {
-                LocationType = locationType,
+                LocationType = LocationType.OtherLocation,
                 AddressLine5 = addressLine5
             };
 
@@ -42,7 +46,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 validator
                     .ShouldHaveValidationErrorFor(r => r.AddressLine5, request)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
+                    .WithErrorMessage(errorMessage);
             }
         }
     }
