@@ -2,8 +2,6 @@
 {
     public enum ApplicationMethod
     {
-        NotSpecified = 0,
-        Online = 1,
-        Offline = 2
+        Online = 1
     }
 }

@@ -5,11 +5,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
+        private const int SupplementaryQuestionMaximumLength = 4000;
+
         private void ConfigureApplicationMethodValidator()
         {
             RuleFor(request => request.ApplicationMethod)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
+                .IsInEnum()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationMethod)
                 .Must(request => request == ApplicationMethod.Online)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationMethod)
@@ -18,13 +20,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             When(request => request.ApplicationMethod == ApplicationMethod.Online, () =>
             {
                 RuleFor(request => request.SupplementaryQuestion1)
-                    .MaximumLength(4000)
+                    .MaximumLength(SupplementaryQuestionMaximumLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion1)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion1);
 
                 RuleFor(request => request.SupplementaryQuestion2)
-                    .MaximumLength(4000)
+                    .MaximumLength(SupplementaryQuestionMaximumLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion2)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion2);
