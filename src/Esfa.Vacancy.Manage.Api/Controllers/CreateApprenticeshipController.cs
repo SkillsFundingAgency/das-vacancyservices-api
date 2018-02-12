@@ -38,6 +38,8 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31006       | Invalid Working week                        |
         /// | 31007       | Invalid Hours per week                      |
         /// | 31008       | Invalid Wage type                           |
+        /// | 31123       | Invalid Wage type reason                    |
+        /// | 31124       | Invalid Wage unit                           |
         /// | 31009       | Invalid Min wage                            |
         /// | 31010       | Invalid Max wage                            |
         /// | 31011       | Invalid Location type                       |
