@@ -36,9 +36,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 WageUnit = (LegacyWageUnit)request.WageUnit,
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
-                VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId.Value, //a value should always exist
+                VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId,
                 EmployerDescription = employerInformation.EmployerDescription,
                 EmployersWebsite = employerInformation.EmployerWebsite,
+                ProviderId = employerInformation.ProviderId,
+                ProviderSiteId = employerInformation.ProviderSiteId,
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber

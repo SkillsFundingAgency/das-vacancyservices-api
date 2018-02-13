@@ -2,7 +2,7 @@
 {
     public class EmployerInformation
     {
-        public int? VacancyOwnerRelationshipId { get; set; }
+        public int VacancyOwnerRelationshipId { get; set; }
 
         public string EmployerDescription { get; set; }
 
@@ -21,5 +21,9 @@
         public string Town { get; set; }
 
         public string Postcode { get; set; }
+
+        public int ProviderId { get; set; }
+
+        public int ProviderSiteId { get; set; }
     }
 }
