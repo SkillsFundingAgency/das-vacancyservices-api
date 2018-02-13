@@ -29,6 +29,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = await validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(false);
+            result.Errors.Count
+                .Should().Be(1);
             result.Errors.First().ErrorCode
                 .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
             result.Errors.First().ErrorMessage

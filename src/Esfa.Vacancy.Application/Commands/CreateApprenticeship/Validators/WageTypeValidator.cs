@@ -37,6 +37,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary);
 
                 RuleFor(request => request.MaxWage)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
                     .Must(BeMonetaryValue)
