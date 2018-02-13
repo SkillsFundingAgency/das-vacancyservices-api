@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
                 .With(parameters => parameters.LocationType, (ApiTypes.LocationType)randomLocationType)
                 .With(parameters => parameters.WageType, (ApiTypes.WageType)randomWageType)
-                .With(parameters => parameters.WageUnit, (ApiTypes.CreateApprenticeship.WageUnit)randomWageUnit)
+                .With(parameters => parameters.WageUnit, (Vacancy.Api.Types.Request.WageUnit)randomWageUnit)
                 .Create();
 
             var mapper = new CreateApprenticeshipRequestMapper();

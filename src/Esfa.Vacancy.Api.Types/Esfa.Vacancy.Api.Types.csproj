@@ -45,7 +45,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Address.cs" />
-    <Compile Include="CreateApprenticeship\WageUnit.cs" />
+    <Compile Include="Request\WageUnit.cs" />
     <Compile Include="GeoCodedAddress.cs" />
     <Compile Include="BadRequestError.cs" />
     <Compile Include="BadRequestContent.cs" />

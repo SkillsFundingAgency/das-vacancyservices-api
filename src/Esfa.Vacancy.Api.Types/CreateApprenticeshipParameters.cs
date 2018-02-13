@@ -82,7 +82,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// The frequency of payments
         /// </summary>
-        public CreateApprenticeship.WageUnit WageUnit { get; set; }
+        public Request.WageUnit WageUnit { get; set; }
 
         /// <summary>
         /// The minimum wage for the vacancy

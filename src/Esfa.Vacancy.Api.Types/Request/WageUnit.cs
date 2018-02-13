@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Api.Types.CreateApprenticeship
+﻿namespace Esfa.Vacancy.Api.Types.Request
 {
     public enum WageUnit
     {
