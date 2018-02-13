@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string CreateApprenticeshipParametersIsNull = "Either no request was provided or the request could not be recognised.";
             public const string MissingProviderSiteEmployerLink = "User entry is invalid or no existing link between the provider site and employer.";
 
-            public const string WageUnit = "The '{PropertyName}' you have selected has resulted in a wage that is below the national minimum Wage for apprentices.";
+            public const string MinWageIsBelowApprenticeMinimumWage = "The wage should not be less than the National Minimum Wage for Apprentices.";
 
             public const string LocationFieldNotRequired =
                 "'{PropertyName}' can't be specified when Location type is EmployerLocation or Nationwide";

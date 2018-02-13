@@ -141,7 +141,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
+                .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
         }
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
@@ -179,9 +179,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             if (!result.IsValid)
             {
                 result.Errors.First().ErrorCode
-                    .Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
+                    .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
                 result.Errors.First().ErrorMessage
-                    .Should().Be(ErrorMessages.CreateApprenticeship.WageUnit.Replace("{PropertyName}", "Wage Unit"));
+                    .Should().Be(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
             }
         }
     }

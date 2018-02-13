@@ -45,8 +45,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotEqual(WageUnit.NotApplicable)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
                     .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.WageUnit);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
