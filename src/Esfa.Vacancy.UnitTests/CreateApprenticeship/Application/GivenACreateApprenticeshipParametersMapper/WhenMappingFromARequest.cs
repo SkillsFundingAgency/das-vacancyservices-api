@@ -139,7 +139,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsWageUnit()
         {
-            _mappedParameters.WageUnit.Should().Be((LegacyWageUnit) _randomWageUnit);
+            _mappedParameters.WageUnit.Should().Be((LegacyWageUnit)_randomWageUnit);
         }
 
         [Test]
@@ -153,6 +153,20 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _mappedParameters.VacancyOwnerRelationshipId
                 .Should().Be(_employerInformation.VacancyOwnerRelationshipId);
+        }
+
+        [Test]
+        public void ThenMapsProviderId()
+        {
+            _mappedParameters.ProviderId
+                .Should().Be(_employerInformation.ProviderId);
+        }
+
+        [Test]
+        public void ThenMapsProviderSiteId()
+        {
+            _mappedParameters.ProviderSiteId
+                .Should().Be(_employerInformation.ProviderSiteId);
         }
 
         [Test]
