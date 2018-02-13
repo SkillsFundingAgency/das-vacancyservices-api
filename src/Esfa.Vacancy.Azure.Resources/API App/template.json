@@ -49,6 +49,9 @@
     },
     "CacheConnectionString": {
       "type": "string"
+    },
+    "UseSandboxServices": {
+      "type": "string"
     }
   },
     "resources": [
@@ -107,6 +110,10 @@
               {
                 "name": "CacheConnectionString",
                 "value": "[parameters('CacheConnectionString')]"
+              },
+              {
+                "name": "UseSandboxServices",
+                "value": "[parameters('UseSandboxServices')]"
               }
             ],
             "alwaysOn": true,
