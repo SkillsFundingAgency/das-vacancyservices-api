@@ -36,13 +36,16 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
                     .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary);
 
-                RuleFor(request => request.MaxWage)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
-                    .NotNull()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
-                    .Must(BeMonetaryValue)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary);
+                When(request => request.MaxWage.HasValue, () =>
+                {
+                    RuleFor(request => request.MaxWage)
+                        .Must(BeMonetaryValue)
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
+                        .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary)
+                        .GreaterThanOrEqualTo(request => request.MinWage)
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
+                        .WithMessage(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
+                });
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()

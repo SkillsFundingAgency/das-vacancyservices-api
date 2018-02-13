@@ -14,12 +14,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingMaxWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndNoValueThenIsInValid()
+        public async Task AndNoValueThenIsValid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom
+                WageType = WageType.Custom,
+                MinWage = 50m
             };
 
             var context = GetValidationContextForProperty(request, req => req.MaxWage);
@@ -28,13 +29,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await validator.ValidateAsync(context);
 
-            result.IsValid.Should().Be(false);
-            result.Errors.Count
-                .Should().Be(1);
-            result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
-            result.Errors.First().ErrorMessage
-                .Should().Be("'Max Wage' must not be empty.");
+            result.IsValid.Should().Be(true);
         }
 
         [Test]
@@ -44,6 +39,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.Custom,
+                MinWage = 50m,
                 MaxWage = 99999.99m
             };
 
@@ -63,6 +59,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.Custom,
+                MinWage = 50m,
                 MaxWage = 99.99999m
             };
 
@@ -77,6 +74,30 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Max Wage' must be a monetary value.");
+        }
+
+        [Test]
+        public async Task AndLessThanMinWageThenIsInvalid()
+        {
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.Custom,
+                MinWage = 50m,
+                MaxWage = 49.99m
+            };
+
+            var context = GetValidationContextForProperty(request, req => req.MaxWage);
+
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
+            result.Errors.First().ErrorMessage
+                .Should().Be(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
         }
     }
 }
