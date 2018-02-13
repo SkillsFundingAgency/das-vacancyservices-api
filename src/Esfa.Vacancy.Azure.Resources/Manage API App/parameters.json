@@ -28,6 +28,9 @@
     },
     "LoggingRedisKey": {
       "value": "__appSettingLoggingRedisKey__"
+    },
+    "UseSandboxServices": {
+      "value": "__appSettingUseSandboxServices__"
     }
   }
 }

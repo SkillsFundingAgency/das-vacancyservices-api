@@ -28,6 +28,9 @@
     },
     "LoggingRedisKey": {
       "type": "string"
+    },
+    "UseSandboxServices": {
+      "type": "string"
     }
   },
   "resources": [
@@ -62,7 +65,11 @@
             {
               "name": "LoggingRedisKey",
               "value": "[parameters('LoggingRedisKey')]"
-            }
+            },
+              {
+                "name": "UseSandboxServices",
+                "value": "[parameters('UseSandboxServices')]"
+              }
           ],
           "alwaysOn": true,
           "phpVersion": ""
