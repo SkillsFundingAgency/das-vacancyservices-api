@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.Custom,
-                MaxWage = fixture.Create<decimal>()
+                MaxWage = 99999.99m
             };
 
             var context = GetValidationContextForProperty(request, req => req.MaxWage);
@@ -52,6 +52,29 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = await validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(true);
+        }
+
+        [Test]
+        public async Task AndValueNotMonetaryThenIsInvalid()
+        {
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.Custom,
+                MaxWage = 99.99999m
+            };
+
+            var context = GetValidationContextForProperty(request, req => req.MaxWage);
+
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
+            result.Errors.First().ErrorMessage
+                .Should().Be("'Max Wage' must be a monetary value.");
         }
     }
 }
