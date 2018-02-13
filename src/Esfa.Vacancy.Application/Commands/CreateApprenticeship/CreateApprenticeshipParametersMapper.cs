@@ -1,16 +1,20 @@
-﻿using Esfa.Vacancy.Domain.Entities;
+﻿using System;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
+using Humanizer;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class CreateApprenticeshipParametersMapper : ICreateApprenticeshipParametersMapper
     {
         private readonly IWageTypeMapper _wageTypeMapper;
+        private readonly IDurationMapper _durationMapper;
         private const int StandardLocationType = 1;
         private const int NationwideLocationType = 3;
-        public CreateApprenticeshipParametersMapper(IWageTypeMapper wageTypeMapper)
+        public CreateApprenticeshipParametersMapper(IWageTypeMapper wageTypeMapper, IDurationMapper durationMapper)
         {
             _wageTypeMapper = wageTypeMapper;
+            _durationMapper = durationMapper;
         }
 
         public CreateApprenticeshipParameters MapFromRequest(CreateApprenticeshipRequest request,
@@ -28,6 +32,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 FutureProspects = request.FutureProspects,
                 ThingsToConsider = request.ThingsToConsider,
                 TrainingToBeProvided = request.TrainingToBeProvided,
+                DurationValue = request.ExpectedDuration,
+                DurationTypeId = (int)_durationMapper.MapTypeToDomainType(request.DurationType),
+                ExpectedDuration = _durationMapper.MapToDisplayText(request.DurationType, request.ExpectedDuration),
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,

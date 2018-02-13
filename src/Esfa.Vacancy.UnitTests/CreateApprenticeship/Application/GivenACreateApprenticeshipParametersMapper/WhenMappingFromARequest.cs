@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+﻿using System;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
 using FluentAssertions;
@@ -18,6 +19,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipRequest _request;
         private int _randomWageType;
         private int _randomLegacyWageType;
+        private DurationType _randomDurationType;
+        private DomainDurationType _randomDomainDurationType;
+        private string _durationDisplayText;
         private Mock<IWageTypeMapper> _mockWageTypeMapper;
         private int _randomWageUnit;
 
@@ -29,15 +33,23 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _randomLegacyWageType = fixture.Create<int>();
             _randomWageUnit = fixture.Create<int>();
 
+            _randomDurationType = (DurationType)new Random().Next(1, 4);
+            var durationTypeMapper = new DurationMapper();
+            _randomDomainDurationType = durationTypeMapper.MapTypeToDomainType(_randomDurationType);
+
             _request = fixture.Build<CreateApprenticeshipRequest>()
                 .With(request => request.WageType, (WageType)_randomWageType)
                 .With(request => request.WageUnit, (WageUnit)_randomWageUnit)
-                .Create();
+                              .With(request => request.DurationType, _randomDurationType)
+                              .Create();
+            _durationDisplayText = durationTypeMapper.MapToDisplayText(_request.DurationType, _request.ExpectedDuration);
 
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
             _mockWageTypeMapper
                 .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<WageType>()))
                 .Returns((LegacyWageType)_randomLegacyWageType);
+
+            fixture.Inject<IDurationMapper>(durationTypeMapper);
 
             _employerInformation = fixture.Create<EmployerInformation>();
 
@@ -110,6 +122,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsTrainingToBeProvided()
         {
             _mappedParameters.TrainingToBeProvided.Should().Be(_request.TrainingToBeProvided);
+        }
+
+        [Test]
+        public void ThenMapsExpectedDuration()
+        {
+            _mappedParameters.ExpectedDuration.Should().Be(_durationDisplayText);
+        }
+
+        [Test]
+        public void ThenAssignsValueFromDurationTypeMapper()
+        {
+            _mappedParameters.DurationTypeId.Should().Be((int)_randomDomainDurationType);
+        }
+
+        [Test]
+        public void ThenMapsDurationValue()
+        {
+            _mappedParameters.DurationValue.Should().Be(_request.ExpectedDuration);
         }
 
         [Test]
