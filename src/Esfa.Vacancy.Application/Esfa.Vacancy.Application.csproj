@@ -63,6 +63,7 @@
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipCommandHandler.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
+    <Compile Include="Commands\CreateApprenticeship\DurationType.cs" />
     <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ContactDetailsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CandidateCriteriaValidator.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Commands\CreateApprenticeship\ICreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\LocationType.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ApplicationClosingDateValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\ExpectedDurationValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ExpectedStartDateValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\Extensions.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\HoursPerWeekValidator.cs" />
