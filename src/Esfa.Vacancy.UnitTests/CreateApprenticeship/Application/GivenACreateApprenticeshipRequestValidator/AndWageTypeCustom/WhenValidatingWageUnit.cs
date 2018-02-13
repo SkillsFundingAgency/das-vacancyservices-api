@@ -181,7 +181,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 result.Errors.First().ErrorCode
                     .Should().Be(ErrorCodes.CreateApprenticeship.WageUnit);
                 result.Errors.First().ErrorMessage
-                    .Should().Be(ErrorMessages.CreateApprenticeship.WageUnit);
+                    .Should().Be(ErrorMessages.CreateApprenticeship.WageUnit.Replace("{PropertyName}", "Wage Unit"));
             }
         }
     }
