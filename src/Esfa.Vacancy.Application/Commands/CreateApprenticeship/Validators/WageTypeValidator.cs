@@ -29,8 +29,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             When(request => request.WageType == WageType.Custom, () =>
             {
                 RuleFor(request => request.MinWage)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
+                    .Must(BeMonetaryValue)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary);
 
                 RuleFor(request => request.MaxWage)
                     .NotNull()
@@ -149,6 +153,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason)
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+        }
+
+        private bool BeMonetaryValue(decimal? monetaryValue)
+        {
+            if (!monetaryValue.HasValue)
+                return false;
+
+            var roundedValue = decimal.Round(monetaryValue.Value, 2);
+            return decimal.Equals(roundedValue, monetaryValue);
         }
 
         private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
