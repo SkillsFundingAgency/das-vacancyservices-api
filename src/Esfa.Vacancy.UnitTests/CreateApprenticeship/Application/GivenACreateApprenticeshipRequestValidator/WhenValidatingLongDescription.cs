@@ -3,6 +3,8 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -46,7 +48,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCaseSource(nameof(TestCases))]
         public void ThenShouldValidate(string longDescription, bool isValid, string errorCode, string errorMessage)
         {
-            var sut = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var sut = fixture.Create<CreateApprenticeshipRequestValidator>();
 
             var request = new CreateApprenticeshipRequest()
             {

@@ -7,6 +7,7 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -38,7 +39,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public async Task AndCallingValidate(WageType wageTypeToValidate, bool expectedIsValid,
             string expectedErrorCodes, string expectedErrorMessages)
         {
-            var fixture = new Fixture();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
                 WageType = wageTypeToValidate

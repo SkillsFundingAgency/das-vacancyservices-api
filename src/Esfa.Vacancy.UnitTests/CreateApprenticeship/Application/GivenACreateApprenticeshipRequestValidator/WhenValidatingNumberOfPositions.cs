@@ -5,7 +5,8 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -27,15 +28,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 NumberOfPositions = numberOfPositions
             };
 
-            var validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var sut = fixture.Create<CreateApprenticeshipRequestValidator>();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(x => x.NumberOfPositions, request);
+                sut.ShouldNotHaveValidationErrorFor(x => x.NumberOfPositions, request);
             }
             else
             {
-                var errors = validator
+                var errors = sut
                     .ShouldHaveValidationErrorFor(x => x.NumberOfPositions, request)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.NumberOfPositions)
                     .WithErrorMessage(errorMessage);

@@ -27,6 +27,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 HoursPerWeek = parameters.HoursPerWeek,
                 WageType = (ApplicationTypes.WageType)parameters.WageType,
                 WageTypeReason = parameters.WageTypeReason,
+                WageUnit = (ApplicationTypes.WageUnit)parameters.WageUnit,
                 MinWage = parameters.MinWage,
                 MaxWage = parameters.MaxWage,
                 LocationType = (ApplicationTypes.LocationType)parameters.LocationType,

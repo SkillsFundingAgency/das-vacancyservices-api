@@ -113,6 +113,12 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsNationwide.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsEmployerLocation.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsOtherLocation.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeApprenticeshipMinimumWage\WhenValidatingWageUnit.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingWageUnit.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCustom\WhenValidatingWageUnit.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeNationalMinimumWage\WhenValidatingWageUnit.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeToBeSpecified\WhenValidatingWageUnit.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeUnwaged\WhenValidatingWageUnit.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingContactEmail.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingContactName.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingContactNumber.cs" />
@@ -159,6 +165,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingToBeProvided.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageTypeReason.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageUnit.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWorkingWeek.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLocationType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingLongDescription.cs" />
@@ -166,6 +173,8 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTitle.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithMatchesAllowedHtmlFreeTextCharacters.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithMatchesAllowedFreeTextCharacters.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageCalculator\WhenCallingCalculate.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />

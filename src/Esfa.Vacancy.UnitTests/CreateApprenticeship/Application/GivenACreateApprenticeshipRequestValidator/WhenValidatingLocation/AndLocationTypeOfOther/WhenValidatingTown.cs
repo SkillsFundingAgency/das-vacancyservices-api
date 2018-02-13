@@ -4,6 +4,8 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation.AndLocationTypeOfOther
 {
@@ -32,15 +34,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 Town = town
             };
 
-            var validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var sut = fixture.Create<CreateApprenticeshipRequestValidator>();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.Town, request);
+                sut.ShouldNotHaveValidationErrorFor(r => r.Town, request);
             }
             else
             {
-                validator
+                sut
                     .ShouldHaveValidationErrorFor(r => r.Town, request)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Town);
             }

@@ -5,6 +5,8 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator
 {
@@ -21,15 +23,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 ProviderSiteEdsUrn = value
             };
 
-            var validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var sut = fixture.Create<CreateApprenticeshipRequestValidator>();
 
             if (shouldBeValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.ProviderSiteEdsUrn, request);
+                sut.ShouldNotHaveValidationErrorFor(r => r.ProviderSiteEdsUrn, request);
             }
             else
             {
-                var result = validator.ShouldHaveValidationErrorFor(r => r.ProviderSiteEdsUrn, request)
+                var result = sut.ShouldHaveValidationErrorFor(r => r.ProviderSiteEdsUrn, request)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ProviderSiteEdsUrn)
                     .WithErrorMessage(errorMessage);
                 result.Count().Should().Be(1);

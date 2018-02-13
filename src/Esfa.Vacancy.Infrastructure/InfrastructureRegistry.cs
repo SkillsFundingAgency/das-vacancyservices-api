@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
@@ -40,6 +41,9 @@ namespace Esfa.Vacancy.Infrastructure
 
             For<IStandardRepository>().Use<CachedStandardRepository>()
                 .Ctor<IStandardRepository>().Is<StandardRepository>();
+
+            For<IGetAllApprenticeMinimumWagesService>().Use<CachedGetAllApprenticeMinimumWagesService>()
+                .Ctor<IGetAllApprenticeMinimumWagesService>().Is<GetAllApprenticeMinimumWagesService>();
 
             RegisterCreateApprenticeshipService();
         }

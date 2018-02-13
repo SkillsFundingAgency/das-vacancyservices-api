@@ -6,6 +6,8 @@ using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation.AndLocationTypeOfOther
 {
@@ -37,15 +39,16 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 Postcode = postCode
             };
 
-            var validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var sut = fixture.Create<CreateApprenticeshipRequestValidator>();
 
             if (isValid)
             {
-                validator.ShouldNotHaveValidationErrorFor(r => r.Postcode, request);
+                sut.ShouldNotHaveValidationErrorFor(r => r.Postcode, request);
             }
             else
             {
-                var errors = validator
+                var errors = sut
                     .ShouldHaveValidationErrorFor(r => r.Postcode, request)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode)
                     .WithErrorMessage(errorMessage);

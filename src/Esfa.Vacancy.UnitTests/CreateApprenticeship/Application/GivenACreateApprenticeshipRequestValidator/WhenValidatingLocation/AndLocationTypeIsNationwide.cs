@@ -4,6 +4,8 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation
 {
@@ -27,7 +29,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 Postcode = "CV1 1AA"
             };
 
-            _validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _validator = fixture.Create<CreateApprenticeshipRequestValidator>();
         }
 
         [Test]
@@ -95,7 +98,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         }
 
-        public static string GetLocationFieldNotRequiredErrorMessage(string propertyName) =>
+        private static string GetLocationFieldNotRequiredErrorMessage(string propertyName) =>
             $"'{propertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
     }
 }

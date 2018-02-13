@@ -99,6 +99,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()));
         }
 
+        [Test]
         public void AndIfLinkIsNotRetrieved_ThenThrowUnauthorisedException()
         {
             _mockVacancyOwnerService

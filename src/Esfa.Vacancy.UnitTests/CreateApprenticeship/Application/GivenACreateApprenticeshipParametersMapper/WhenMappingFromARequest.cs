@@ -1,5 +1,6 @@
 ﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -18,6 +19,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private int _randomWageType;
         private int _randomLegacyWageType;
         private Mock<IWageTypeMapper> _mockWageTypeMapper;
+        private int _randomWageUnit;
 
         [SetUp]
         public void SetUp()
@@ -25,9 +27,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             _randomWageType = fixture.Create<int>();
             _randomLegacyWageType = fixture.Create<int>();
+            _randomWageUnit = fixture.Create<int>();
 
             _request = fixture.Build<CreateApprenticeshipRequest>()
                 .With(request => request.WageType, (WageType)_randomWageType)
+                .With(request => request.WageUnit, (WageUnit)_randomWageUnit)
                 .Create();
 
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
@@ -130,6 +134,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsWageTypeReason()
         {
             _mappedParameters.WageTypeReason.Should().Be(_request.WageTypeReason);
+        }
+
+        [Test]
+        public void ThenMapsWageUnit()
+        {
+            _mappedParameters.WageUnit.Should().Be((LegacyWageUnit) _randomWageUnit);
         }
 
         [Test]

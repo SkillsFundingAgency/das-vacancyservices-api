@@ -2,6 +2,8 @@
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingLocation
 {
@@ -18,7 +20,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _request = new CreateApprenticeshipRequest()
             {
-                LocationType = (LocationType)0,
+                LocationType = 0,
                 AddressLine1 = "<>",
                 AddressLine2 = "<>",
                 AddressLine3 = "<>",
@@ -26,7 +28,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 Postcode = "<>"
             };
 
-            _validator = new CreateApprenticeshipRequestValidator();
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
         }
 
