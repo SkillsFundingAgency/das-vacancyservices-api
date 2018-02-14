@@ -24,6 +24,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ApplicationMethod = (ApplicationTypes.ApplicationMethod)parameters.ApplicationMethod,
                 SupplementaryQuestion1 = parameters.SupplementaryQuestion1,
                 SupplementaryQuestion2 = parameters.SupplementaryQuestion2,
+                ExternalApplicationUrl = parameters.ExternalApplicationUrl,
+                ExternalApplicationInstructions = parameters.ExternalApplicationInstructions,
                 ExpectedDuration = parameters.ExpectedDuration,
                 DurationType = (ApplicationTypes.DurationType)parameters.DurationType,
                 ApplicationClosingDate = parameters.ApplicationClosingDate,

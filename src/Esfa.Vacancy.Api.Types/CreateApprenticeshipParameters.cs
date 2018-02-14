@@ -65,6 +65,16 @@ namespace Esfa.Vacancy.Api.Types
         public string SupplementaryQuestion2 { get; set; }
 
         /// <summary>
+        /// The external application url for an offline vacancy.
+        /// </summary>
+        public string ExternalApplicationUrl { get; set; }
+
+        /// <summary>
+        /// The external application instructions for an offline vacancy.
+        /// </summary>
+        public string ExternalApplicationInstructions { get; set; }
+
+        /// <summary>
         /// The expected duration of the apprenticeship.
         /// </summary>
         public int ExpectedDuration { get; set; }
