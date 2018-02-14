@@ -1,7 +1,5 @@
-﻿using System;
-using Esfa.Vacancy.Domain.Entities;
+﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
-using Humanizer;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
