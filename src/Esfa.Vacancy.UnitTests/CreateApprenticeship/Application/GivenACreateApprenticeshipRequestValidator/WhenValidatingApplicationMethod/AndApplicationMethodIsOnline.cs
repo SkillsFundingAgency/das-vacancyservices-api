@@ -5,6 +5,8 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.
     WhenValidatingApplicationMethod
@@ -45,7 +47,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 SupplementaryQuestion1 = value
             };
 
-            var sut = new CreateApprenticeshipRequestValidator();
+            var sut = new Fixture().Customize(new AutoMoqCustomization())
+                                   .Create<CreateApprenticeshipRequestValidator>();
             if (shouldError)
             {
                 var validationResult = sut.Validate(request);
@@ -68,7 +71,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 SupplementaryQuestion2 = value
             };
 
-            var sut = new CreateApprenticeshipRequestValidator();
+            var sut = new Fixture().Customize(new AutoMoqCustomization())
+                                   .Create<CreateApprenticeshipRequestValidator>();
             if (shouldError)
             {
                 var validationResult = sut.Validate(request);
