@@ -91,6 +91,8 @@
             public const string SupplementaryQuestion2 = "31309";
             public const string ExpectedDuration = "31310";
             public const string DurationType = "31311";
+            public const string ExternalApplicationUrl = "31312";
+            public const string ExternalApplicationInstructions = "31313";
         }
     }
 }

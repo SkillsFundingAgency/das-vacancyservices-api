@@ -10,12 +10,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         private void ConfigureApplicationMethodValidator()
         {
             RuleFor(request => request.ApplicationMethod)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .IsInEnum()
+                .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationMethod)
-                .Must(request => request == ApplicationMethod.Online)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationMethod)
-                .WithMessage("Invalid Application Method");
+                .DependentRules(rules => rules.RuleFor(request => request.ApplicationMethod)
+                                              .IsInEnum()
+                                              .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationMethod));
 
             When(request => request.ApplicationMethod == ApplicationMethod.Online, () =>
             {
@@ -30,7 +29,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion2)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion2);
+
+                RuleFor(request => request.ExternalApplicationUrl)
+                    .Empty()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.ExternalApplicationValuesNotToBeSpecified);
+
+                RuleFor(request => request.ExternalApplicationInstructions)
+                    .Empty()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationInstructions)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.ExternalApplicationValuesNotToBeSpecified);
             });
+
         }
     }
 }

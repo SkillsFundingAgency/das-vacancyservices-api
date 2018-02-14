@@ -51,6 +51,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 OfflineVacancyTypeId = (int)request.ApplicationMethod,
                 SupplementaryQuestion1 = request.SupplementaryQuestion1,
                 SupplementaryQuestion2 = request.SupplementaryQuestion2,
+                ExternalApplicationUrl = request.ExternalApplicationUrl,
+                ExternalApplicationInstructions = request.ExternalApplicationInstructions,
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber

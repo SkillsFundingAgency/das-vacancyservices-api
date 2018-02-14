@@ -120,7 +120,6 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeNationalMinimumWage\WhenValidatingWageUnit.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeToBeSpecified\WhenValidatingWageUnit.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeUnwaged\WhenValidatingWageUnit.cs" />
-    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingApplicationMethod\AndApplicationMethodIsNotSpecified.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingApplicationMethod\AndApplicationMethodIsOffline.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingApplicationMethod\AndApplicationMethodIsOnline.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingContactEmail.cs" />

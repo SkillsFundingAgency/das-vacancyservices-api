@@ -44,5 +44,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public int OfflineVacancyTypeId { get; set; }
         public string SupplementaryQuestion1 { get; set; }
         public string SupplementaryQuestion2 { get; set; }
+        public string ExternalApplicationUrl { get; set; }
+        public string ExternalApplicationInstructions { get; set; }
     }
 }
