@@ -44,9 +44,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    /*.MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage)*/;
+                    .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
@@ -151,7 +151,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
 
-        /*private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
+        private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
         {
             try
             {
@@ -165,6 +165,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 _logger.Debug(outOfRangeException.Message);
                 return false;
             }
-        }*/
+        }
     }
 }

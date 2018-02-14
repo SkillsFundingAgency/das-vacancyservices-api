@@ -17,7 +17,6 @@
 
 using FluentValidation;
 using MediatR;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 
 namespace Esfa.Vacancy.Manage.Api.DependencyResolution
@@ -40,7 +39,13 @@ namespace Esfa.Vacancy.Manage.Api.DependencyResolution
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
                 });
 
-            For<IValidator<CreateApprenticeshipRequest>>().Singleton().Use<CreateApprenticeshipRequestValidator>();
+            AssemblyScanner.FindValidatorsInAssemblyContaining<CreateApprenticeshipRequestValidator>()
+                .ForEach(result =>
+                {
+                    For(result.InterfaceType)
+                        .Singleton()
+                        .Use(result.ValidatorType);
+                });
         }
     }
 }

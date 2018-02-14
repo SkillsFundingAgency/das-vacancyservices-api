@@ -15,7 +15,7 @@ using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
 {
-    /*[TestFixture, Ignore("ioc failing on deployed envts")]
+    [TestFixture]
     public class WhenValidatingWageUnit : CreateApprenticeshipRequestValidatorBase
     {
         private IFixture _fixture;
@@ -184,5 +184,5 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .Should().Be(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
             }
         }
-    }*/
+    }
 }
