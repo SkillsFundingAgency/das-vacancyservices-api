@@ -42,8 +42,8 @@ namespace Esfa.Vacancy.Infrastructure
             For<IStandardRepository>().Use<CachedStandardRepository>()
                 .Ctor<IStandardRepository>().Is<StandardRepository>();
 
-            For<IGetAllApprenticeMinimumWagesService>().Use<CachedGetAllApprenticeMinimumWagesService>()
-                .Ctor<IGetAllApprenticeMinimumWagesService>().Is<GetAllApprenticeMinimumWagesService>();
+            /*For<IGetAllApprenticeMinimumWagesService>().Use<CachedGetAllApprenticeMinimumWagesService>()
+                .Ctor<IGetAllApprenticeMinimumWagesService>().Is<GetAllApprenticeMinimumWagesService>();*/
 
             RegisterCreateApprenticeshipService();
         }
