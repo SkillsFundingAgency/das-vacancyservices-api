@@ -107,7 +107,6 @@
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CachedFrameworkCodeRepository.cs" />
-    <Compile Include="Services\CachedGetAllApprenticeMinimumWagesService.cs" />
     <Compile Include="Services\CreateApprenticeshipService.cs" />
     <Compile Include="Repositories\FrameworkCodeRepository.cs" />
     <Compile Include="Repositories\CachedStandardRepository.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Services\ApprenticeshipSearchService.cs" />
     <Compile Include="Services\CreateApprenticeshipSandboxService.cs" />
     <Compile Include="Services\GeoSearchResultDistanceSetter.cs" />
-    <Compile Include="Services\GetAllApprenticeMinimumWagesService.cs" />
     <Compile Include="Services\GetApprenticeshipService.cs" />
     <Compile Include="Services\GetTraineeshipService.cs" />
     <Compile Include="Services\IGeoSearchResultDistanceSetter.cs" />
