@@ -73,7 +73,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         private static bool BeValidWebUrl(string arg)
         {
-            return Uri.TryCreate(arg, UriKind.Absolute, out Uri result) 
+            Uri result;
+            return Uri.TryCreate(arg, UriKind.Absolute, out result) 
                    && (result.Scheme.Equals(Uri.UriSchemeHttp) || result.Scheme.Equals(Uri.UriSchemeHttps));
         }
     }
