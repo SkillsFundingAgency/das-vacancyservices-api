@@ -21,6 +21,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 FutureProspects = parameters.FutureProspects,
                 ThingsToConsider = parameters.ThingsToConsider,
                 TrainingToBeProvided = parameters.TrainingToBeProvided,
+                ExpectedDuration = parameters.ExpectedDuration,
+                DurationType = (ApplicationTypes.DurationType)parameters.DurationType,
                 ApplicationClosingDate = parameters.ApplicationClosingDate,
                 ExpectedStartDate = parameters.ExpectedStartDate,
                 WorkingWeek = parameters.WorkingWeek,

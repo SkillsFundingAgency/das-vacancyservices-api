@@ -62,6 +62,8 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31304       | Invalid Future prospects                    |
         /// | 31305       | Invalid Things to consider                  |
         /// | 31306       | Invalid Training to be provided             |
+        /// | 31310       | Invalid Expected duration                   |
+        /// | 31311       | Invalid Duration type                       |
         ///                                                                                                  
         /// </summary>
         [HttpPost]

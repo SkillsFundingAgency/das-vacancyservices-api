@@ -50,6 +50,16 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingToBeProvided { get; set; }
 
         /// <summary>
+        /// The expected duration of the apprenticeship.
+        /// </summary>
+        public int ExpectedDuration { get; set; }
+
+        /// <summary>
+        /// The type of duration - weeks, months or years.
+        /// </summary>
+        public DurationType DurationType { get; set; }
+
+        /// <summary>
         /// The closing date of the application.
         /// </summary>
         public DateTime ApplicationClosingDate { get; set; }

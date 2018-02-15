@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="Address.cs" />
     <Compile Include="Request\WageUnit.cs" />
+    <Compile Include="DurationType.cs" />
     <Compile Include="GeoCodedAddress.cs" />
     <Compile Include="BadRequestError.cs" />
     <Compile Include="BadRequestContent.cs" />

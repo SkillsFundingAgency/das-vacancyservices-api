@@ -34,6 +34,9 @@
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.2.1\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Humanizer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.2.0\lib\netstandard1.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.3.0.1\lib\net45\MediatR.dll</HintPath>
     </Reference>
@@ -63,6 +66,9 @@
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipCommandHandler.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
+    <Compile Include="Commands\CreateApprenticeship\DurationType.cs" />
+    <Compile Include="Commands\CreateApprenticeship\DurationMapper.cs" />
+    <Compile Include="Commands\CreateApprenticeship\IDurationMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ContactDetailsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CandidateCriteriaValidator.cs" />
@@ -71,6 +77,7 @@
     <Compile Include="Commands\CreateApprenticeship\ICreateApprenticeshipParametersMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\LocationType.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ApplicationClosingDateValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\ExpectedDurationValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ExpectedStartDateValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\Extensions.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\HoursPerWeekValidator.cs" />
