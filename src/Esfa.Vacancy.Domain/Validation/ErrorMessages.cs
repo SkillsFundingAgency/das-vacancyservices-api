@@ -41,6 +41,14 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string InvalidPropertyValue = "'{PropertyName}' is invalid.";
             public const string TitleShouldIncludeWordApprentice = "'Title' must contain the word 'apprentice' or 'apprenticeship'.";
 
+            public const string ExternalApplicationValuesNotToBeSpecified =
+                "'{PropertyName}' must not be specified based on the ApplicationMethod chosen";
+
+            public const string ExternalApplicationUrlInvalid = "Please specify a valid Url";
+
+            public const string SupplementaryQuestionNotToBeSpecified =
+                "You cannot specify Supplementary Questions for this Application Method";
+
             public const string ApplicationClosingDateBeforeTomorrow = "'Application Closing Date' must be after today's date.";
             public const string ExpectedStartDateBeforeClosingDate = "'Expected Start Date' must be after the specified application closing date.";
             public const string CreateApprenticeshipParametersIsNull = "Either no request was provided or the request could not be recognised.";

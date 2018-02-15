@@ -1,5 +1,7 @@
-﻿using Esfa.Vacancy.Domain.Entities;
+﻿using System;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
+using Humanizer;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -46,6 +48,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 EmployersWebsite = employerInformation.EmployerWebsite,
                 ProviderId = employerInformation.ProviderId,
                 ProviderSiteId = employerInformation.ProviderSiteId,
+                ApplyOutsideNAVMS = request.ApplicationMethod == ApplicationMethod.Offline,
+                SupplementaryQuestion1 = request.SupplementaryQuestion1,
+                SupplementaryQuestion2 = request.SupplementaryQuestion2,
+                EmployersRecruitmentWebsite = request.ExternalApplicationUrl,
+                EmployersApplicationInstructions = request.ExternalApplicationInstructions,
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber

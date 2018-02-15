@@ -86,8 +86,13 @@
             public const string FutureProspects= "31304";
             public const string ThingsToConsider = "31305";
             public const string TrainingToBeProvided = "31306";
+            public const string ApplicationMethod = "31307";
+            public const string SupplementaryQuestion1 = "31308";
+            public const string SupplementaryQuestion2 = "31309";
             public const string ExpectedDuration = "31310";
             public const string DurationType = "31311";
+            public const string ExternalApplicationUrl = "31312";
+            public const string ExternalApplicationInstructions = "31313";
         }
     }
 }

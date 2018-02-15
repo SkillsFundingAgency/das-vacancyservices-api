@@ -7,7 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         private const int TrainingToBeProvidedMaximumLength = 4000;
 
-        private void ConfigureTrainingToBeProvided()
+        private void ConfigureTrainingToBeProvidedValidator()
         {
             RuleFor(request => request.TrainingToBeProvided)
                 .NotEmpty()

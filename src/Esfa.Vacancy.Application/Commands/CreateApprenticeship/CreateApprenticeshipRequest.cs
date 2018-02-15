@@ -38,6 +38,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string ContactEmail { get; set; }
         public string ContactNumber { get; set; }
         public string TrainingToBeProvided { get; set; }
+        public ApplicationMethod ApplicationMethod { get; set; }
+        public string SupplementaryQuestion1 { get; set; }
+        public string SupplementaryQuestion2 { get; set; }
+        public string ExternalApplicationUrl { get; set; }
+        public string ExternalApplicationInstructions { get; set; }
         public int ExpectedDuration { get; set; }
         public DurationType DurationType { get; set; }
     }

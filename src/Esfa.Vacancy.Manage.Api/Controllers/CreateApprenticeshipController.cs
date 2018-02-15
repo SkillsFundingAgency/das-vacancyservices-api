@@ -62,8 +62,13 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31304       | Invalid Future prospects                    |
         /// | 31305       | Invalid Things to consider                  |
         /// | 31306       | Invalid Training to be provided             |
+        /// | 31307       | Invalid Application method                  |
+        /// | 31308       | Invalid Supplementary question 1            |
+        /// | 31309       | Invalid Supplementary question 2            |
         /// | 31310       | Invalid Expected duration                   |
         /// | 31311       | Invalid Duration type                       |
+        /// | 31312       | Invalid External application url            |
+        /// | 31313       | Invalid External Application Instructions   |
         ///                                                                                                  
         /// </summary>
         [HttpPost]
