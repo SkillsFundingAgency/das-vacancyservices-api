@@ -173,6 +173,18 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsMinWage()
+        {
+            _mappedParameters.WageLowerBound.Should().Be(_request.MinWage);
+        }
+
+        [Test]
+        public void ThenMapsMaxWage()
+        {
+            _mappedParameters.WageUpperBound.Should().Be(_request.MaxWage);
+        }
+
+        [Test]
         public void ThenMapsNumberOfPositions()
         {
             _mappedParameters.NumberOfPositions.Should().Be(_request.NumberOfPositions);

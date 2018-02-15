@@ -15,6 +15,8 @@ namespace Esfa.Vacancy.Domain.Entities
         public LegacyWageType WageType { get; set; }
         public string WageTypeReason { get; set; }
         public LegacyWageUnit WageUnit { get; set; }
+        public decimal? WageLowerBound { get; set; }
+        public decimal? WageUpperBound { get; set; }
         public int LocationTypeId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
