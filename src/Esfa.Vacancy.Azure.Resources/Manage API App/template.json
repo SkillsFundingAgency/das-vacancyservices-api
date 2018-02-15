@@ -29,6 +29,9 @@
     "LoggingRedisKey": {
       "type": "string"
     },
+    "CacheConnectionString": {
+      "type": "string"
+    },
     "UseSandboxServices": {
       "type": "string"
     }
@@ -66,10 +69,14 @@
               "name": "LoggingRedisKey",
               "value": "[parameters('LoggingRedisKey')]"
             },
-              {
-                "name": "UseSandboxServices",
-                "value": "[parameters('UseSandboxServices')]"
-              }
+            {
+              "name": "CacheConnectionString",
+              "value": "[parameters('CacheConnectionString')]"
+            },
+            {
+              "name": "UseSandboxServices",
+              "value": "[parameters('UseSandboxServices')]"
+            }
           ],
           "alwaysOn": true,
           "phpVersion": ""
