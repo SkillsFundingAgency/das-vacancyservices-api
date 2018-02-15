@@ -1,5 +1,4 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -39,7 +38,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 HoursPerWeek = request.HoursPerWeek,
                 WageType = (int)_wageTypeMapper.MapToLegacy(request.WageType),
                 WageTypeReason = request.WageTypeReason,
-                WageUnit = (LegacyWageUnit)request.WageUnit,
+                WageUnitId = (int)request.WageUnit,
                 WageLowerBound = request.MinWage,
                 WageUpperBound = request.MaxWage,
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
