@@ -143,36 +143,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void ThenMapsApplicationMethod()
-        {
-            _mappedParameters.OfflineVacancyTypeId.Should().Be((int)_request.ApplicationMethod);
-        }
-
-        [Test]
-        public void ThenMapsSupplemtaryQuestion1()
-        {
-            _mappedParameters.SupplementaryQuestion1.Should().Be(_request.SupplementaryQuestion1);
-        }
-
-        [Test]
-        public void ThenMapsSupplemtaryQuestion2()
-        {
-            _mappedParameters.SupplementaryQuestion2.Should().Be(_request.SupplementaryQuestion2);
-        }
-
-        [Test]
-        public void ThenMapsExternalApplicationUrl()
-        {
-            _mappedParameters.ExternalApplicationUrl.Should().Be(_request.ExternalApplicationUrl);
-        }
-
-        [Test]
-        public void ThenMapsExternalApplicationInstructions()
-        {
-            _mappedParameters.ExternalApplicationInstructions.Should().Be(_request.ExternalApplicationInstructions);
-        }
-
-        [Test]
         public void ThenMapsWorkingWeek()
         {
             _mappedParameters.WorkingWeek.Should().Be(_request.WorkingWeek);

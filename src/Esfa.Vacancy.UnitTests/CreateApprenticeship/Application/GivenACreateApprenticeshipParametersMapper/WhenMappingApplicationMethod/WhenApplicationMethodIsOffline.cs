@@ -9,7 +9,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     WhenMappingApplicationMethod
 {
     [TestFixture]
-    public class AndApplicationMethodIsOnline
+    public class WhenApplicationMethodIsOffline
     {
         private CreateApprenticeshipParameters _mappedParameters;
         private CreateApprenticeshipRequest _createApprenticeshipRequest;
@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             _createApprenticeshipRequest = fixture.Build<CreateApprenticeshipRequest>()
-                                                  .With(request => request.ApplicationMethod, ApplicationMethod.Online)
+                                                  .With(request => request.ApplicationMethod, ApplicationMethod.Offline)
                                                   .Create();
             var _employerInformation = fixture.Create<EmployerInformation>();
 
@@ -28,21 +28,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void ThenMapApplicationMethodToOnline()
+        public void ThenMapApplicationMethodToOffline()
         {
-            _mappedParameters.ApplyOutsideNAVMS.Should().BeFalse();
+            _mappedParameters.ApplyOutsideNAVMS.Should().BeTrue();
         }
 
         [Test]
-        public void ThenMapSupplementaryQuestion1()
+        public void ThenMapExternalApplicationUrl()
         {
-            _mappedParameters.SupplementaryQuestion1.Should().Be(_createApprenticeshipRequest.SupplementaryQuestion1);
+            _mappedParameters.EmployersRecruitmentWebsite.Should().Be(_createApprenticeshipRequest.ExternalApplicationUrl);
         }
 
         [Test]
-        public void ThenMapSupplementaryQuestion2()
+        public void ThenMapExternalApplicationInstructions()
         {
-            _mappedParameters.SupplementaryQuestion2.Should().Be(_createApprenticeshipRequest.SupplementaryQuestion2);
+            _mappedParameters.EmployersApplicationInstructions.Should()
+                             .Be(_createApprenticeshipRequest.ExternalApplicationInstructions);
         }
     }
 }
