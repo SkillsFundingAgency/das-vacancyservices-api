@@ -29,6 +29,9 @@
     "LoggingRedisKey": {
       "value": "__appSettingLoggingRedisKey__"
     },
+    "CacheConnectionString": {
+      "value": "__appSettingCacheConnectionString__"
+    },
     "UseSandboxServices": {
       "value": "__appSettingUseSandboxServices__"
     }
