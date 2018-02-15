@@ -11,22 +11,27 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 
     public class AzureRedisCacheService : ICacheService
     {
-        private readonly Lazy<ConnectionMultiplexer> _lazyConnection;
+        private readonly Func<ConnectionMultiplexer> _connectionFactory;
         private readonly ILog _logger;
+        private ConnectionMultiplexer _connection;
+
 
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
             _logger = logger;
-            var cacheConnectionString = settings.GetSetting(ApplicationSettingKeys.CacheConnectionString);
-            _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(cacheConnectionString));
-        }
 
-        private ConnectionMultiplexer Connection => _lazyConnection.Value;
+            _connectionFactory = () =>
+            {
+                var cacheConnectionString = settings.GetSetting(ApplicationSettingKeys.CacheConnectionString);
+                return ConnectionMultiplexer.Connect(cacheConnectionString);
+            };
+        }
 
         public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan timeSpan)
         {
-            var cache = Connection.GetDatabase();
+            if (_connection == null) _connection = _connectionFactory();
 
+            var cache = _connection.GetDatabase();
             var cachedValue = await cache.StringGetAsync(key);
 
             T result;
@@ -46,6 +51,5 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 
             return result;
         }
-
     }
 }
