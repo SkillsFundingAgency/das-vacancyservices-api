@@ -99,5 +99,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             result.Errors.First().ErrorMessage
                 .Should().Be(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
         }
+
+        [Test]
+        public async Task AndSameAsMinWageThenIsValid()
+        {
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.Custom,
+                MinWage = 345.82m,
+                MaxWage = 345.82m
+            };
+
+            var context = GetValidationContextForProperty(request, req => req.MaxWage);
+
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
+
+            result.IsValid.Should().Be(true);
+        }
     }
 }
