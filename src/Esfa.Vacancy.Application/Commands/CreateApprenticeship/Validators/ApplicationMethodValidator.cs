@@ -1,5 +1,4 @@
-﻿using System;
-using Esfa.Vacancy.Domain.Validation;
+﻿using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
@@ -49,9 +48,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl)
                     .DependentRules(rules => rules.RuleFor(request => request.ExternalApplicationUrl)
-                                                  .Must(BeValidWebUrl)
-                                                  .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl)
-                                                  .WithMessage(ErrorMessages.CreateApprenticeship.ExternalApplicationUrlInvalid));
+                                                  .MustBeAValidWebUrl()
+                                                  .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl));
 
                 RuleFor(request => request.ExternalApplicationInstructions)
                     .MaximumLength(ExternalApplicationInstructionMaximumLength)
@@ -69,13 +67,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.SupplementaryQuestion2)
                     .WithMessage(ErrorMessages.CreateApprenticeship.SupplementaryQuestionNotToBeSpecified);
             });
-        }
-
-        private static bool BeValidWebUrl(string arg)
-        {
-            Uri result;
-            return Uri.TryCreate(arg, UriKind.Absolute, out result) 
-                   && (result.Scheme.Equals(Uri.UriSchemeHttp) || result.Scheme.Equals(Uri.UriSchemeHttps));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
@@ -45,6 +46,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithMessage(ErrorMessages.CreateApprenticeship.InvalidPropertyValue);
         }
 
+        public static IRuleBuilderOptions<T, string> MustBeAValidWebUrl<T>(this IRuleBuilder<T, string> rule)
+        {
+            return rule.Must(BeValidWebUrl)
+                       .WithMessage(ErrorMessages.CreateApprenticeship.ExternalApplicationUrlInvalid);
+        }
+
         public static IRuleBuilderOptions<T, string> MatchesAllowedFreeTextCharacters<T>(
             this IRuleBuilder<T, string> rule)
         {
@@ -62,6 +69,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .Must(CheckHtmlFreeTextBlacklist)
                 .WithErrorCode(errorCode)
                 .WithMessage(ErrorMessages.CreateApprenticeship.HtmlBlacklistFailed);
+        }
+
+        private static bool BeValidWebUrl(string arg)
+        {
+            Uri result;
+            return Uri.TryCreate(arg, UriKind.Absolute, out result)
+                   && (result.Scheme.Equals(Uri.UriSchemeHttp) || result.Scheme.Equals(Uri.UriSchemeHttps));
         }
 
         private static bool CheckHtmlFreeTextBlacklist(string text)
