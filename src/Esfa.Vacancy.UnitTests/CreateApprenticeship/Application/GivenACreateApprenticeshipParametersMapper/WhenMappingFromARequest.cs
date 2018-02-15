@@ -157,7 +157,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenAssignsValueFromWageTypeMapper()
         {
-            _mappedParameters.WageType.Should().Be((LegacyWageType)_randomLegacyWageType);
+            _mappedParameters.WageType.Should().Be(_randomLegacyWageType);
         }
 
         [Test]

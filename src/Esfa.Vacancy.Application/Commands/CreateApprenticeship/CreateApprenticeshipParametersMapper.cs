@@ -1,7 +1,5 @@
-﻿using System;
-using Esfa.Vacancy.Domain.Entities;
+﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
-using Humanizer;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -39,7 +37,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
-                WageType = _wageTypeMapper.MapToLegacy(request.WageType),
+                WageType = (int)_wageTypeMapper.MapToLegacy(request.WageType),
                 WageTypeReason = request.WageTypeReason,
                 WageUnit = (LegacyWageUnit)request.WageUnit,
                 WageLowerBound = request.MinWage,

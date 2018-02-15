@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
-        public LegacyWageType WageType { get; set; }
+        public int WageType { get; set; }
         public string WageTypeReason { get; set; }
         public LegacyWageUnit WageUnit { get; set; }
         public decimal? WageLowerBound { get; set; }
