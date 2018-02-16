@@ -157,7 +157,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenAssignsValueFromWageTypeMapper()
         {
-            _mappedParameters.WageType.Should().Be((LegacyWageType)_randomLegacyWageType);
+            _mappedParameters.WageType.Should().Be(_randomLegacyWageType);
         }
 
         [Test]
@@ -169,7 +169,19 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsWageUnit()
         {
-            _mappedParameters.WageUnit.Should().Be((LegacyWageUnit)_randomWageUnit);
+            _mappedParameters.WageUnitId.Should().Be(_randomWageUnit);
+        }
+
+        [Test]
+        public void ThenMapsMinWage()
+        {
+            _mappedParameters.WageLowerBound.Should().Be(_request.MinWage);
+        }
+
+        [Test]
+        public void ThenMapsMaxWage()
+        {
+            _mappedParameters.WageUpperBound.Should().Be(_request.MaxWage);
         }
 
         [Test]

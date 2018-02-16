@@ -1,5 +1,4 @@
 ﻿using System;
-using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Domain.Entities
 {
@@ -12,9 +11,11 @@ namespace Esfa.Vacancy.Domain.Entities
         public DateTime ExpectedStartDate { get; set; }
         public string WorkingWeek { get; set; }
         public double HoursPerWeek { get; set; }
-        public LegacyWageType WageType { get; set; }
+        public int WageType { get; set; }
         public string WageTypeReason { get; set; }
-        public LegacyWageUnit WageUnit { get; set; }
+        public int WageUnitId { get; set; }
+        public decimal? WageLowerBound { get; set; }
+        public decimal? WageUpperBound { get; set; }
         public int LocationTypeId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

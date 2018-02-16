@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenValidatingMinWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndNoValueThenIsInValid()
+        public async Task AndNoValueThenIsInvalid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
@@ -29,10 +29,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = await validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(false);
+            result.Errors.Count
+                .Should().Be(1);
             result.Errors.First().ErrorCode
                 .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Min Wage' must not be empty.");
+
         }
 
         [Test]
@@ -42,7 +45,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.Custom,
-                MinWage = fixture.Create<decimal>()
+                MinWage = 99.99m
             };
 
             var context = GetValidationContextForProperty(request, req => req.MinWage);
@@ -52,6 +55,29 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var result = await validator.ValidateAsync(context);
 
             result.IsValid.Should().Be(true);
+        }
+
+        [Test]
+        public async Task AndValueNotMonetaryThenIsInvalid()
+        {
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.Custom,
+                MinWage = 99.99999m
+            };
+
+            var context = GetValidationContextForProperty(request, req => req.MinWage);
+
+            var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
+
+            var result = await validator.ValidateAsync(context);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
+            result.Errors.First().ErrorMessage
+                .Should().Be("'Min Wage' must be a monetary value.");
         }
     }
 }

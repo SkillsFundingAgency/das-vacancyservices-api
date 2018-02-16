@@ -1,7 +1,4 @@
-﻿using System;
-using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
-using Humanizer;
+﻿using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -11,6 +8,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private readonly IDurationMapper _durationMapper;
         private const int StandardLocationType = 1;
         private const int NationwideLocationType = 3;
+
         public CreateApprenticeshipParametersMapper(IWageTypeMapper wageTypeMapper, IDurationMapper durationMapper)
         {
             _wageTypeMapper = wageTypeMapper;
@@ -38,9 +36,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
-                WageType = _wageTypeMapper.MapToLegacy(request.WageType),
+                WageType = (int)_wageTypeMapper.MapToLegacy(request.WageType),
                 WageTypeReason = request.WageTypeReason,
-                WageUnit = (LegacyWageUnit)request.WageUnit,
+                WageUnitId = (int)request.WageUnit,
+                WageLowerBound = request.MinWage,
+                WageUpperBound = request.MaxWage,
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId,

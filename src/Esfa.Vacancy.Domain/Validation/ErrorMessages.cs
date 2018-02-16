@@ -55,6 +55,9 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string MissingProviderSiteEmployerLink = "User entry is invalid or no existing link between the provider site and employer.";
 
             public const string MinWageIsBelowApprenticeMinimumWage = "The wage should not be less than the National Minimum Wage for Apprentices.";
+            public const string NotMonetary = "'{PropertyName}' must be a monetary value.";
+            public const string MaxWageCantBeLessThanMinWage = "'Max Wage' can't be less than 'Min Wage'.";
+
 
             public const string LocationFieldNotRequired =
                 "'{PropertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
