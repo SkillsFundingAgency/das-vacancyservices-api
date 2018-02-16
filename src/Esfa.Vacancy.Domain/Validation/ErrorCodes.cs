@@ -80,6 +80,7 @@
             public const string ContactEmail = "31202";
             public const string ContactNumber = "31203";
             public const string TrainingType = "31204";
+            public const string TrainingCode = "31205";
 
             public const string DesiredSkills = "31301";
             public const string DesiredPersonalQualities = "31302";
@@ -95,6 +96,7 @@
             public const string ExternalApplicationUrl = "31312";
             public const string ExternalApplicationInstructions = "31313";
             public const string FixedWage = "31314";
+
         }
     }
 }

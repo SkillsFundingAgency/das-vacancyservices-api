@@ -63,6 +63,8 @@ namespace Esfa.Vacancy.Domain.Validation
                 "'{PropertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
 
             public const string FixedWageIsBelowApprenticeMinimumWage = "The fixed wage should not be less than the National Minimum Wage for Apprentices.";
+            public const string InvalidStandardLarsCode =
+                "'{PropertyName}' should be a number between 1 and 9999 when Training Type is Standard.";
         }
     }
 }
