@@ -65,6 +65,8 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string FixedWageIsBelowApprenticeMinimumWage = "The fixed wage should not be less than the National Minimum Wage for Apprentices.";
             public const string InvalidStandardLarsCode =
                 "'{PropertyName}' should be a number between 1 and 9999 when Training Type is Standard.";
+            public const string InvalidFrameworkLarsCode =
+                "'{PropertyName}' should be a in format '###-##-#' when Training Type is Framework.";
         }
     }
 }

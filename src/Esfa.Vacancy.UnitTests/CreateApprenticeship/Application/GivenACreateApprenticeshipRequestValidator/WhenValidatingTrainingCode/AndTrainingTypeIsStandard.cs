@@ -4,13 +4,14 @@ using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation.TestHelper;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.WhenValidatingTrainingCode
 {
     [TestFixture]
-    public class AndTrainingTypeIsFramework
+    public class AndTrainingTypeIsStandard
     {
         [TestCase(
             null,
@@ -23,20 +24,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             true,
             TestName = "And is empty then is invalid.")]
         [TestCase(
-            "123",
-            "'Training Code' should be a in format '###-##-#' when Training Type is Framework.",
+            "dfad",
+            "'Training Code' should be a number between 1 and 9999 when Training Type is Standard.",
             true,
-            TestName = "And is not in expected format then is invalid.")]
+            TestName = "And is not a number then is invalid.")]
         [TestCase(
-            "123-12-1",
+            "10000",
+            "'Training Code' should be a number between 1 and 9999 when Training Type is Standard.",
+            true,
+            TestName = "And is greater than 9999 then is invalid.")]
+        [TestCase(
+            "789",
             null,
             false,
-            TestName = "And is in expected format then is valid.")]
+            TestName = "And is less than 9999 then is valid.")]
         public void ValidateTrainingCode(string trainingCode, string errorMessage, bool shouldError)
         {
             var request = new CreateApprenticeshipRequest
             {
-                TrainingType = TrainingType.Framework,
+                TrainingType = TrainingType.Standard,
                 TrainingCode = trainingCode
             };
 
@@ -45,6 +51,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             if (shouldError)
             {
+                var s = validator.Validate(request);
                 validator
                     .ShouldHaveValidationErrorFor(req => req.TrainingCode, request)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
@@ -55,6 +62,5 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 validator.ShouldNotHaveValidationErrorFor(req => req.TrainingCode, request);
             }
         }
-
     }
 }
