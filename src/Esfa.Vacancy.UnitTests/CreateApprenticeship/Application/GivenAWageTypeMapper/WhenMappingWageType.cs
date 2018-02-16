@@ -3,7 +3,6 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
-using WageType = Esfa.Vacancy.Application.Commands.CreateApprenticeship.WageType;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAWageTypeMapper
 {
@@ -19,7 +18,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAWageType
         public void ThenMapsToLegacyWageType(WageType originalWageType, LegacyWageType expectedLegacyWageType)
         {
             var wageTypeMapper = new WageTypeMapper();
-            wageTypeMapper.MapToLegacy(originalWageType)
+            var request = new CreateApprenticeshipRequest{WageType = originalWageType};
+            wageTypeMapper.MapToLegacy(request)
                 .Should().Be(expectedLegacyWageType);
         }
 
@@ -27,7 +27,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAWageType
         public void AndOutOfRange_ThenThrowsException()
         {
             var wageTypeMapper = new WageTypeMapper();
-            Action action = () => wageTypeMapper.MapToLegacy((WageType)8435);
+            var request = new CreateApprenticeshipRequest { WageType = (WageType)8435 };
+            Action action = () => wageTypeMapper.MapToLegacy(request);
             action.ShouldThrow<ArgumentOutOfRangeException>();
         }
     }

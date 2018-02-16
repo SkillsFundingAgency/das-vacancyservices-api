@@ -4,6 +4,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public interface IWageTypeMapper
     {
-        LegacyWageType MapToLegacy(WageType originalWageType);
+        LegacyWageType MapToLegacy(CreateApprenticeshipRequest request);
     }
 }
