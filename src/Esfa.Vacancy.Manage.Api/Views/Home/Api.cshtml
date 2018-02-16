@@ -7,7 +7,7 @@
     <div class="grid-row">
         <div class="column-full">
 
-            <h2 class="heading-large">Register</h2>
+            <h2 class="heading-large">Manage</h2>
 
             <table>
                 <tbody>
@@ -18,7 +18,7 @@
                 </tbody>
             </table>
 
-            <h2 class="heading-large">Query the API</h2>
+            <h2 class="heading-large">Manage Vacancy API</h2>
             <div class="swagger-section">
                 <!--<div id='header'>
                     <div class="swagger-ui-wrap">
@@ -33,33 +33,6 @@
                 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>-->
                 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
             </div>
-
-            <h2 class="heading-large"> </h2>
-            <h2 class="heading-large">C# client usage</h2>
-            <table>
-                <tbody>
-                <tr>
-                    <th><a href="https://www.nuget.org/packages/ESFA.Vacancy.Api.Client">ESFA.Vacancy.Api.Client</a></th>
-                    <td><a href="https://www.nuget.org/packages/ESFA.Vacancy.Api.Client"><img src="https://img.shields.io/nuget/v/ESFA.Vacancy.Api.Client.svg"/></a></td>
-                </tr>
-                </tbody>
-            </table>
-            <h3 class="heading-medium">Basic</h3>
-            <pre>
-            <code class="language-csharp">
-using(var client = new VacancyApiClient())
-{
-    var vacancy = client.Get(11112222);
-}
-                </code>
-            </pre>
-
-            <h3 class="heading-medium">Using StructureMap</h3>
-            <pre>
-            <code class="language-csharp">
-For&lt;IVacancyApiClient&gt;().Use&lt;VacancyApiClient&gt;();
-                </code>
-            </pre>
 
             <h2 class="heading-medium">Help</h2>
             <p>You can contact the National Apprenticeship Service for advice or help using the service.</p>
