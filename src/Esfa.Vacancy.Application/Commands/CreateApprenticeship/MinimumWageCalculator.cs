@@ -7,12 +7,16 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private const decimal WeeksPerMonth = 4m;
         private const decimal WeeksPerYear = 52m;
         private const string MissingMinWageErrorMessage = "MinWage can't be null.";
+        private const string HoursPerWeekZeroErrorMessage = "HoursPerWeek must be greater than 0.";
         private const string IncorrectWageTypeErrorMessage = "WageUnit must be either 'Weekly', 'Monthly' or 'Annually'.";
 
         public decimal CalculateMinimumWage(CreateApprenticeshipRequest request)
         {
             if (!request.MinWage.HasValue)
                 throw new ArgumentOutOfRangeException(nameof(request.MinWage), request.MinWage, MissingMinWageErrorMessage);
+
+            if (!(request.HoursPerWeek > 0))
+                throw new ArgumentOutOfRangeException(nameof(request.HoursPerWeek), request.HoursPerWeek, HoursPerWeekZeroErrorMessage);
 
             decimal calculatedMinWage;
 

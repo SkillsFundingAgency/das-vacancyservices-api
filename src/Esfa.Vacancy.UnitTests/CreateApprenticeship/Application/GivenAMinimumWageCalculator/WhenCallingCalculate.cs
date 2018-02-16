@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         [Test]
         public void AndNoHoursPerWeek_ThenThrowsException()
         {
-            var missingMinWageErrorMessage = "MinWage can't be null.";
+            var missingMinWageErrorMessage = "HoursPerWeek must be greater than 0.";
             var minimumWageCalculator = new MinimumWageCalculator();
             Action action = () => minimumWageCalculator.CalculateMinimumWage(
                 new CreateApprenticeshipRequest
@@ -70,7 +70,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
                     WageUnit = WageUnit.Weekly
                 });
             action.ShouldThrow<ArgumentOutOfRangeException>()
-                .WithMessage($"{missingMinWageErrorMessage}\r\nParameter name: MinWage");
+                .WithMessage($"{missingMinWageErrorMessage}\r\nParameter name: HoursPerWeek\r\nActual value was 0.");
         }
 
         [Test]
@@ -83,6 +83,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
                 new CreateApprenticeshipRequest
                 {
                     MinWage = 300m,
+                    HoursPerWeek = 234,
                     WageType = WageType.Custom
                 });
 
