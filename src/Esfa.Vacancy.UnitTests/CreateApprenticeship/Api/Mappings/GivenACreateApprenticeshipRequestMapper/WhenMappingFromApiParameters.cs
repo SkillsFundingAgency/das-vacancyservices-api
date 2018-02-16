@@ -287,5 +287,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.TrainingType.Should().Be((Domain.Entities.TrainingType)_apiParameters.TrainingType);
         }
+
+        [Test]
+        public void ThenMapsTrainingCode()
+        {
+            _mappedRequest.TrainingCode.Should().Be(_apiParameters.TrainingCode);
+        }
     }
 }

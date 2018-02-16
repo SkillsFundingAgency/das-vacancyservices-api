@@ -178,5 +178,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Vacancy Training Type
         /// </summary>
         public Request.TrainingType TrainingType { get; set; }
+
+        /// <summary>
+        /// Training code for eith Framwork or Standard
+        /// </summary>
+        public string TrainingCode { get; set; }
     }
 }

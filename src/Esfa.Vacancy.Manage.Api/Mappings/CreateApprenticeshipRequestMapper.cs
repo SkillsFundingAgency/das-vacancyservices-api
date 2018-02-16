@@ -53,7 +53,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ContactName = parameters.ContactName,
                 ContactEmail = parameters.ContactEmail,
                 ContactNumber = parameters.ContactNumber,
-                TrainingType = (TrainingType)parameters.TrainingType
+                TrainingType = (TrainingType)parameters.TrainingType,
+                TrainingCode = parameters.TrainingCode
             };
         }
     }
