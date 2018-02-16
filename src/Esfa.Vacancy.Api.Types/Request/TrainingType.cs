@@ -1,4 +1,4 @@
-﻿namespace Esfa.Vacancy.Domain.Entities
+﻿namespace Esfa.Vacancy.Api.Types.Request
 {
     public enum TrainingType
     {

@@ -92,6 +92,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\ShortDescriptionValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\TitleValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\TrainingToBeProvidedValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\TrainingDetailsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\WageTypeValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\WorkingWeekValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\WageType.cs" />

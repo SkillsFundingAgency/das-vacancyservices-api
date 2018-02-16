@@ -173,5 +173,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Vacancy contact's phone number
         /// </summary>
         public string ContactNumber { get; set; }
+
+        /// <summary>
+        /// Vacancy Training Type
+        /// </summary>
+        public Request.TrainingType TrainingType { get; set; }
     }
 }

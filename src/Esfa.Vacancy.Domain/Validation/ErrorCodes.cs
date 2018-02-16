@@ -79,11 +79,12 @@
             public const string ContactName = "31201";
             public const string ContactEmail = "31202";
             public const string ContactNumber = "31203";
+            public const string TrainingType = "31204";
 
             public const string DesiredSkills = "31301";
             public const string DesiredPersonalQualities = "31302";
             public const string DesiredQualifications = "31303";
-            public const string FutureProspects= "31304";
+            public const string FutureProspects = "31304";
             public const string ThingsToConsider = "31305";
             public const string TrainingToBeProvided = "31306";
             public const string ApplicationMethod = "31307";

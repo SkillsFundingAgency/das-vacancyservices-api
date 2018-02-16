@@ -1,5 +1,6 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using Esfa.Vacancy.Domain.Entities;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using CreateApprenticeshipParameters = Esfa.Vacancy.Api.Types.CreateApprenticeshipParameters;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
@@ -51,7 +52,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ProviderSiteEdsUrn = parameters.ProviderSiteEdsUrn,
                 ContactName = parameters.ContactName,
                 ContactEmail = parameters.ContactEmail,
-                ContactNumber = parameters.ContactNumber
+                ContactNumber = parameters.ContactNumber,
+                TrainingType = (TrainingType)parameters.TrainingType
             };
         }
     }
