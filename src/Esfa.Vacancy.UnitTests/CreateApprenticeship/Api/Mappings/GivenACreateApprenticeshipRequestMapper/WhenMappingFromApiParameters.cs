@@ -195,7 +195,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsLocationType()
         {
-            _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)(int)_apiParameters.LocationType);
+            _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)_apiParameters.LocationType);
         }
 
         [Test]
@@ -280,6 +280,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         public void ThenMapsContactNumber()
         {
             _mappedRequest.ContactNumber.Should().Be(_apiParameters.ContactNumber);
+        }
+
+        [Test]
+        public void ThenMapsTrainingType()
+        {
+            _mappedRequest.TrainingType.Should().Be((Domain.Entities.TrainingType)_apiParameters.TrainingType);
         }
     }
 }

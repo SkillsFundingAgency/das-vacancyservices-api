@@ -1,4 +1,5 @@
 ﻿using System;
+using Esfa.Vacancy.Domain.Entities;
 using MediatR;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
@@ -45,6 +46,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public string ExternalApplicationUrl { get; set; }
         public string ExternalApplicationInstructions { get; set; }
         public int ExpectedDuration { get; set; }
+        public TrainingType TrainingType { get; set; }
         public DurationType DurationType { get; set; }
     }
 }
