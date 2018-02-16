@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Validation;
+﻿using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
@@ -13,10 +14,23 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
             RuleFor(request => request.TrainingCode)
                 .NotEmpty()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
-                .Must(MustBeAcceptableStandardCode)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
-                .WithMessage(ErrorMessages.CreateApprenticeship.InvalidStandardLarsCode);
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode);
+
+            When(request => request.TrainingType == TrainingType.Standard, () =>
+                {
+                    RuleFor(request => request.TrainingCode)
+                        .Must(MustBeAcceptableStandardCode)
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
+                        .WithMessage(ErrorMessages.CreateApprenticeship.InvalidStandardLarsCode);
+                });
+
+            When(request => request.TrainingType == TrainingType.Framework, () =>
+            {
+                RuleFor(request => request.TrainingCode)
+                    .Matches(RegexFrameworkCode)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.InvalidFrameworkLarsCode);
+            });
         }
 
         private static bool MustBeAcceptableStandardCode(string code)
@@ -27,5 +41,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             }
             return false;
         }
+
+
+        private const string RegexFrameworkCode = @"^\d{1,4}-\d{1,2}-\d{1,2}$";
     }
 }
