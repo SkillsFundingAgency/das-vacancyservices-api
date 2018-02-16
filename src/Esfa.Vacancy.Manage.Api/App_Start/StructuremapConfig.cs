@@ -53,8 +53,6 @@ namespace Esfa.Vacancy.Manage.Api.App_Start
             GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);
             DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));
-
-            Debug.WriteLine(container.WhatDidIScan());
         }
 
         #endregion

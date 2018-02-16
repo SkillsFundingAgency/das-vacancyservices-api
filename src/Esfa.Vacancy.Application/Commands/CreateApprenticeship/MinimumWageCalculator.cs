@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private const decimal WeeksPerMonth = 4m;
         private const decimal WeeksPerYear = 52m;
         private const string MissingMinWageErrorMessage = "MinWage can't be null.";
+        private const string HoursPerWeekZeroErrorMessage = "HoursPerWeek must be greater than 0.";
         private const string IncorrectWageTypeErrorMessage = "WageUnit must be either 'Weekly', 'Monthly' or 'Annually'.";
 
         public decimal CalculateMinimumWage(CreateApprenticeshipRequest request)
@@ -14,17 +15,27 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             if (!request.MinWage.HasValue)
                 throw new ArgumentOutOfRangeException(nameof(request.MinWage), request.MinWage, MissingMinWageErrorMessage);
 
+            if (!(request.HoursPerWeek > 0))
+                throw new ArgumentOutOfRangeException(nameof(request.HoursPerWeek), request.HoursPerWeek, HoursPerWeekZeroErrorMessage);
+
+            decimal calculatedMinWage;
+
             switch (request.WageUnit)
             {
                 case WageUnit.Weekly:
-                    return decimal.Divide(request.MinWage.Value, (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(request.MinWage.Value, (decimal)request.HoursPerWeek);
+                    break;
                 case WageUnit.Monthly:
-                    return decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerMonth), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerMonth), (decimal)request.HoursPerWeek);
+                    break;
                 case WageUnit.Annually:
-                    return decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerYear), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerYear), (decimal)request.HoursPerWeek);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(request.WageUnit), request.WageUnit, IncorrectWageTypeErrorMessage);
             }
+
+            return decimal.Round(calculatedMinWage,2);
         }
     }
 }
