@@ -14,17 +14,24 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             if (!request.MinWage.HasValue)
                 throw new ArgumentOutOfRangeException(nameof(request.MinWage), request.MinWage, MissingMinWageErrorMessage);
 
+            decimal calculatedMinWage;
+
             switch (request.WageUnit)
             {
                 case WageUnit.Weekly:
-                    return decimal.Divide(request.MinWage.Value, (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(request.MinWage.Value, (decimal)request.HoursPerWeek);
+                    break;
                 case WageUnit.Monthly:
-                    return decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerMonth), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerMonth), (decimal)request.HoursPerWeek);
+                    break;
                 case WageUnit.Annually:
-                    return decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerYear), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerYear), (decimal)request.HoursPerWeek);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(request.WageUnit), request.WageUnit, IncorrectWageTypeErrorMessage);
             }
+
+            return decimal.Round(calculatedMinWage,2);
         }
     }
 }
