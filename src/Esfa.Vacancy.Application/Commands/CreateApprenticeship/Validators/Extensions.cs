@@ -71,6 +71,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithMessage(ErrorMessages.CreateApprenticeship.HtmlBlacklistFailed);
         }
 
+        public static IRuleBuilderOptions<T, decimal?> MustBeAMonetaryValue<T>(
+            this IRuleBuilder<T, decimal?> rule)
+        {
+            return rule
+                .Must(BeMonetaryValue)
+                .WithMessage(ErrorMessages.CreateApprenticeship.NotMonetary);
+        }
+
         private static bool BeValidWebUrl(string arg)
         {
             Uri result;
@@ -87,6 +95,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 return false;
             }
             return true;
+        }
+
+        private static bool BeMonetaryValue(decimal? monetaryValue)
+        {
+            if (!monetaryValue.HasValue)
+                return false;
+
+            var roundedValue = decimal.Round(monetaryValue.Value, 2);
+            return decimal.Equals(roundedValue, monetaryValue);
         }
     }
 }
