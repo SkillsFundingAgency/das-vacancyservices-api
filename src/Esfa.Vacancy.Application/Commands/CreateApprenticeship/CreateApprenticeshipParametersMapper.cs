@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Domain.Entities;
+﻿using System;
+using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
@@ -55,10 +56,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 EmployersApplicationInstructions = request.ExternalApplicationInstructions,
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
-                ContactNumber = request.ContactNumber
+                ContactNumber = request.ContactNumber,
+                TrainingType = request.TrainingType
             };
 
             MapLocationFields(request, employerInformation, parameters);
+
+            MapTrainingCode(request, parameters);
 
             return parameters;
         }
@@ -85,6 +89,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 parameters.AddressLine5 = employerInformation.AddressLine5;
                 parameters.Town = employerInformation.Town;
                 parameters.Postcode = employerInformation.Postcode;
+            }
+        }
+
+        private void MapTrainingCode(CreateApprenticeshipRequest request, CreateApprenticeshipParameters parameters)
+        {
+            if (request.TrainingType == TrainingType.Standard)
+            {
+                parameters.TrainingCode = request.TrainingCode;
+            }
+            else
+            {
+                var length = request.TrainingCode.IndexOf("-", StringComparison.Ordinal);
+                parameters.TrainingCode = request.TrainingCode.Substring(0, length);
             }
         }
     }

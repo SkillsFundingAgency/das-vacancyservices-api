@@ -116,6 +116,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsEmployerLocation.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsOtherLocation.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeApprenticeshipMinimumWage\WhenValidatingFixedWage.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingTrainingDetails.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeApprenticeshipMinimumWage\WhenValidatingWageUnit.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingFixedWage.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\AndWageTypeCompetitiveSalary\WhenValidatingWageUnit.cs" />

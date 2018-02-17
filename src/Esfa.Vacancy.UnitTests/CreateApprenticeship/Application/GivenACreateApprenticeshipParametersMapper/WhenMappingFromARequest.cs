@@ -245,5 +245,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mappedParameters.ContactNumber
                 .Should().Be(_request.ContactNumber);
         }
+
+        [Test]
+        public void ThenMapsTrainingType()
+        {
+            _mappedParameters.TrainingType.Should().Be(_request.TrainingType);
+        }
     }
 }
