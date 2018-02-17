@@ -6,6 +6,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 {
     public partial class CreateApprenticeshipRequestValidator
     {
+        private const string RegexFrameworkCode = @"^\d{1,4}-\d{1,2}-\d{1,2}$";
+
         private void ConfigureTrainingDetailsValidator()
         {
             RuleFor(request => request.TrainingType)
@@ -41,8 +43,5 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             }
             return false;
         }
-
-
-        private const string RegexFrameworkCode = @"^\d{1,4}-\d{1,2}-\d{1,2}$";
     }
 }
