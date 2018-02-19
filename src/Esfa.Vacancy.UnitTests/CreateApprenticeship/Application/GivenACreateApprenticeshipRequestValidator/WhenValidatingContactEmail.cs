@@ -17,8 +17,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 new TestCaseData(null, null, false)
                     .SetName("And is null then is valid."),
-                new TestCaseData(string.Empty, null, false)
-                    .SetName("And is empty string then is valid."),
+                new TestCaseData(string.Empty, "'Contact Email' is invalid.", true)
+                    .SetName("And is empty string then is not valid."),
                 new TestCaseData("ab@cd.com", null, false)
                     .SetName("And looks like email then is valid."),
                 new TestCaseData(

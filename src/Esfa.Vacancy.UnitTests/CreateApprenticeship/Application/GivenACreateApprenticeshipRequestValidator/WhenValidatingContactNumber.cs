@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 new TestCaseData(null, null, false)
                     .SetName("And is null then is valid."),
-                new TestCaseData(string.Empty, null, false)
+                new TestCaseData(string.Empty, "'Contact Number' is invalid.", true)
                     .SetName("And is empty string then is valid."),
                 new TestCaseData("abcdcom<>", "'Contact Number' is invalid.", true)
                     .SetName("And has invalid characters then is invalid."),

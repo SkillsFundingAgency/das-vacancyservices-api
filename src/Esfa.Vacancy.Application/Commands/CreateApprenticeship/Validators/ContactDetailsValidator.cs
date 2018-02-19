@@ -12,19 +12,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactName)
                 .MustBeAValidName()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactName)
-                .When(request => string.IsNullOrWhiteSpace(request.ContactName) == false);
+                .When(request => request.ContactName != null);
 
             RuleFor(request => request.ContactEmail)
                 .MaximumLength(100)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactEmail)
                 .MustBeAValidEmailAddress()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactEmail)
-                .When(request => string.IsNullOrWhiteSpace(request.ContactEmail) == false);
+                .When(request => request.ContactEmail != null);
 
             RuleFor(request => request.ContactNumber)
                 .MustBeAValidPhoneNumber()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ContactNumber)
-                .When(request => string.IsNullOrWhiteSpace(request.ContactNumber) == false);
+                .When(request => request.ContactNumber != null);
         }
     }
 }
