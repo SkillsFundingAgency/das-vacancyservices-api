@@ -26,28 +26,28 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// 
         /// These fields will only accept text or their numeric equivalent:
         /// * ApplicationMethod
-        ///     - Online = 1
-        ///     - Offline = 2
+        ///     - Online
+        ///     - Offline
         /// * LocationType
-        ///     - OtherLocation = 1
-        ///     - EmployerLocation = 2
-        ///     - Nationwide = 3
+        ///     - OtherLocation
+        ///     - EmployerLocation
+        ///     - Nationwide
         /// * DurationType
-        ///     - Weeks = 1
-        ///     - Months = 2
-        ///     - Years = 3
+        ///     - Weeks
+        ///     - Months
+        ///     - Years
         /// * WageType
-        ///     - Custom = 1
-        ///     - NationalMinimumWage = 2
-        ///     - ApprenticeshipMinimumWage = 3
-        ///     - Unwaged = 4
-        ///     - CompetitiveSalary = 5
-        ///     - ToBeSpecified = 6
+        ///     - Custom
+        ///     - NationalMinimumWage
+        ///     - ApprenticeshipMinimumWage
+        ///     - Unwaged
+        ///     - CompetitiveSalary
+        ///     - ToBeSpecified
         /// * WageUnit
-        ///     - NotApplicable = 1
-        ///     - Weekly = 2
-        ///     - Monthly = 3
-        ///     - Annually = 4
+        ///     - NotApplicable
+        ///     - Weekly
+        ///     - Monthly
+        ///     - Annually
         /// 
         /// #### Validation rules ####
         /// 
