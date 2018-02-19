@@ -20,7 +20,89 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         }
 
         /// <summary>
-        /// Creates the specified apprenticeship vacancy.
+        /// The apprenticeship operation creates an apprenticeship vacancy using the specified values.
+        /// 
+        /// #### Restricted values ####
+        /// 
+        /// These fields will only accept text or their numeric equivalent:
+        /// * ApplicationMethod
+        ///     - Online
+        ///     - Offline
+        /// * LocationType
+        ///     - OtherLocation
+        ///     - EmployerLocation
+        ///     - Nationwide
+        /// * DurationType
+        ///     - Weeks
+        ///     - Months
+        ///     - Years
+        /// * WageType
+        ///     - Custom
+        ///     - NationalMinimumWage
+        ///     - ApprenticeshipMinimumWage
+        ///     - Unwaged
+        ///     - CompetitiveSalary
+        ///     - ToBeSpecified
+        /// * WageUnit
+        ///     - NotApplicable
+        ///     - Weekly
+        ///     - Monthly
+        ///     - Annually
+        /// 
+        /// #### Validation rules ####
+        /// 
+        /// When creating a vacancy the following rules must be considered. 
+        /// 1. All values are required to be populated except in the following cases:
+        /// 
+        /// * For all vacancies these values are optional
+        ///     - ContactName
+        ///     - ContactEmail
+        ///     - ContactNumber
+        ///     - ThingsToConsider
+        /// 
+        /// * For an Online vacancy
+        ///     - SupplementaryQuestion1 and SupplementaryQuestion2 are optional
+        ///     - ExternalApplicationUrl and ExternalApplicationInstructions must be empty
+        /// 
+        /// * For an Offline vacancy
+        ///     - ExternalApplicationInstructions is optional
+        ///     - SupplementaryQuestion1 and SupplementaryQuestion2 must be empty
+        /// 
+        /// * When LocationType is EmployerLocation or Nationwide 
+        ///     - All address fields must be empty.
+        /// 
+        /// * When LocationType is OtherLocation 
+        ///     - Only Address1, Town and Postcode are required
+        ///     - All other address fields are optional
+        /// 
+        /// * When WageType is Custom
+        ///     - WageTypeReason must be empty
+        ///     - WageUnit must be a value other than NotApplicable
+        ///     - MinWage must be greater then or equal to the Apprenticeship minimum wage 
+        /// 
+        /// * When WageType is NationalMinimumWage or ApprenticeshipMinimumWage
+        ///     - MinWage, MaxWage and WageTypeReason must be empty
+        ///     - WageUnit must be NotApplicable
+        /// 
+        /// * When WageType is Unwaged, CompetitiveSalary or ToBeSpecified
+        ///     - MinWage and MaxWage must be empty
+        ///     - WageUnit must be NotApplicable
+        /// 
+        /// * Text fields will take a maximum of 4,000 characters except for the following
+        ///     - Title = 100
+        ///     - ShortDescription = 350
+        ///     - ContactName = 100
+        ///     - ContactEmail = 100
+        ///     - AddressLine = 300
+        ///     - Town = 100
+        ///     - WageTypeReason = 240
+        ///     - WorkingWeek = 250
+        /// 
+        /// * Additional rules
+        ///     - Title must include the word ***apprentice***
+        ///     - HoursPerWeek must be between 16 and 48 inclusive
+        ///     - ExpectedDuration must be a minimum of 1 year, 12 months or 52 weeks depending on the value of DurationType selected
+        ///     - NumberOfPositions must not exceed 5,000
         /// 
         /// #### Error codes ####
         /// 
