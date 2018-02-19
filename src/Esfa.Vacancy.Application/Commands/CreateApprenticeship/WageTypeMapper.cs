@@ -5,12 +5,15 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class WageTypeMapper : IWageTypeMapper
     {
-        public LegacyWageType MapToLegacy(WageType originalWageType)
+        public LegacyWageType MapToLegacy(CreateApprenticeshipRequest request)
         {
-            switch (originalWageType)
+            switch (request.WageType)
             {
                 case WageType.Custom:
-                    return LegacyWageType.Custom;
+                    if (request.MinWage.HasValue && request.MaxWage.HasValue && request.MaxWage > request.MinWage)
+                        return LegacyWageType.CustomRange;
+                    else
+                        return LegacyWageType.Custom;
                 case WageType.NationalMinimumWage:
                     return LegacyWageType.NationalMinimum;
                 case WageType.ApprenticeshipMinimumWage:
@@ -22,7 +25,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 case WageType.ToBeSpecified:
                     return LegacyWageType.ToBeAgreedUponAppointment;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(originalWageType), originalWageType, null);
+                    throw new ArgumentOutOfRangeException(nameof(request.WageType), request.WageType, null);
             }
         }
     }

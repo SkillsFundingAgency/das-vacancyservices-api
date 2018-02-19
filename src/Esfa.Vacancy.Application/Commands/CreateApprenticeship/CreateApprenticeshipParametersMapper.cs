@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
-                WageType = (int)_wageTypeMapper.MapToLegacy(request.WageType),
+                WageType = (int)_wageTypeMapper.MapToLegacy(request),
                 WageTypeReason = request.WageTypeReason,
                 WageUnitId = (int)request.WageUnit,
                 WageLowerBound = request.MinWage,

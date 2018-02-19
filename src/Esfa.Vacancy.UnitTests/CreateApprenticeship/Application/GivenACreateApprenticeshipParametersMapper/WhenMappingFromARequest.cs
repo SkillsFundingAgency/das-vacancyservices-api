@@ -1,7 +1,6 @@
 ﻿using System;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Entities.CreateApprenticeship;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -46,7 +45,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
             _mockWageTypeMapper
-                .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<WageType>()))
+                .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<CreateApprenticeshipRequest>()))
                 .Returns((LegacyWageType)_randomLegacyWageType);
 
             fixture.Inject<IDurationMapper>(durationTypeMapper);
@@ -151,7 +150,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenUsesWageTypeMapper()
         {
-            _mockWageTypeMapper.Verify(mapper => mapper.MapToLegacy((WageType)_randomWageType), Times.Once);
+            _mockWageTypeMapper.Verify(
+                mapper => mapper.MapToLegacy(
+                    It.Is<CreateApprenticeshipRequest>(req => req.WageType == (WageType) _randomWageType)), 
+                    Times.Once);
         }
 
         [Test]
