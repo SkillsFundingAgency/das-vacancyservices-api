@@ -32,7 +32,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 TrainingToBeProvided = request.TrainingToBeProvided,
                 DurationValue = request.ExpectedDuration,
                 DurationTypeId = (int)_durationMapper.MapTypeToDomainType(request.DurationType),
-                ExpectedDuration = _durationMapper.MapToDisplayText(request.DurationType, request.ExpectedDuration),
                 ExpectedStartDate = request.ExpectedStartDate,
                 WorkingWeek = request.WorkingWeek,
                 HoursPerWeek = request.HoursPerWeek,
