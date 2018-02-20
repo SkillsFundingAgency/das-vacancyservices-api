@@ -198,8 +198,24 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             try
             {
-                var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate);
-                var attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request);
+                var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate).ConfigureAwait(false);
+                decimal attemptedMinimumWage;
+                switch (request.WageType)
+                {
+                    case WageType.CustomWageFixed:
+                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.WeeklyWage.GetValueOrDefault(),
+                                                                                           request.WageUnit,
+                                                                                           (decimal)request.HoursPerWeek);
+                        break;
+                    case WageType.CustomWageRange:
+                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.MinWage.GetValueOrDefault(), 
+                                                                                           request.WageUnit, 
+                                                                                           (decimal)request.HoursPerWeek);
+                        break;
+                    default:
+                        attemptedMinimumWage = 0m;
+                        break;
+                }
 
                 return attemptedMinimumWage >= allowedMinimumWage;
             }

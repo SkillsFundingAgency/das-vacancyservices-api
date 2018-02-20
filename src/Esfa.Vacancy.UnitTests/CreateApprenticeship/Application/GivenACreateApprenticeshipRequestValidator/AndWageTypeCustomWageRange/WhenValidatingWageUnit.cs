@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             _mockCalculator = _fixture.Freeze<Mock<IMinimumWageCalculator>>();
             _mockCalculator
-                .Setup(calculator => calculator.CalculateMinimumWage(It.IsAny<CreateApprenticeshipRequest>()))
+                .Setup(calculator => calculator.CalculateMinimumWage(It.IsAny<decimal>(), It.IsAny<WageUnit>(), It.IsAny<decimal>()))
                 .Returns(_expectedAttemptedMinimumWage);
 
             _validator = _fixture.Create<CreateApprenticeshipRequestValidator>();
@@ -74,7 +74,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
-                ExpectedStartDate = expectedStartDate
+                ExpectedStartDate = expectedStartDate,
+                MinWage = _fixture.Create<decimal>()
             };
             var context = GetValidationContextForProperty(request, req => req.WageUnit);
 
@@ -91,13 +92,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
-                ExpectedStartDate = expectedStartDate
+                ExpectedStartDate = expectedStartDate,
+                MinWage = _fixture.Create<decimal>()
             };
             var context = GetValidationContextForProperty(request, req => req.WageUnit);
 
             await _validator.ValidateAsync(context);
 
-            _mockCalculator.Verify(calculator => calculator.CalculateMinimumWage(request));
+            _mockCalculator.Verify(calculator => calculator.CalculateMinimumWage(request.MinWage.Value, request.WageUnit, (decimal)request.HoursPerWeek));
         }
 
         [Test]
@@ -134,7 +136,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var context = GetValidationContextForProperty(request, req => req.WageUnit);
 
             _mockCalculator
-                .Setup(calculator => calculator.CalculateMinimumWage(It.IsAny<CreateApprenticeshipRequest>()))
+                .Setup(calculator => calculator.CalculateMinimumWage(It.IsAny<decimal>(), It.IsAny<WageUnit>(), It.IsAny<decimal>()))
                 .Throws<ArgumentOutOfRangeException>();
 
             var result = await _validator.ValidateAsync(context);
@@ -146,32 +148,32 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
-            new TestCaseData(131.25m, 131.24m, false).SetName("And attempted is less than allowed Then is invalid"),
-            new TestCaseData(131.25m, 131.25m, true).SetName("And attempted is same as allowed Then is valid"),
-            new TestCaseData(131.25m, 131.26m, true).SetName("And attempted is greater than allowed Then is valid")
+            new TestCaseData(3.5m, 125.99m, false).SetName("And attempted is less than allowed Then is invalid"),
+            new TestCaseData(3.5m, 126.0m, true).SetName("And attempted is same as allowed Then is valid"),
+            new TestCaseData(3.5m, 126.01m, true).SetName("And attempted is greater than allowed Then is valid")
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCheckingAllowedVersusAttemtpedMinWage(decimal allowedMinWage, decimal attemptedMinWage, bool expectedIsValid)
+        public async Task AndCheckingAllowedVersusAttemtpedMinWage(decimal allowedMinimumHourlyWage, decimal attemptedMinWage, bool expectedIsValid)
         {
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageRange,
-                WageUnit = WageUnit.Annually,
-                MinWage = _fixture.Create<decimal>(),
+                WageUnit = WageUnit.Weekly,
+                HoursPerWeek = 36,
+                MinWage = attemptedMinWage,
                 ExpectedStartDate = _fixture.Create<DateTime>()
             };
             var context = GetValidationContextForProperty(request, req => req.WageUnit);
 
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
             _mockSelector = _fixture.Freeze<Mock<IMinimumWageSelector>>();
             _mockSelector
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(allowedMinWage);
+                .ReturnsAsync(allowedMinimumHourlyWage);
 
-            _mockCalculator = _fixture.Freeze<Mock<IMinimumWageCalculator>>();
-            _mockCalculator
-                .Setup(calculator => calculator.CalculateMinimumWage(It.IsAny<CreateApprenticeshipRequest>()))
-                .Returns(attemptedMinWage);
+            _fixture.Inject<IMinimumWageCalculator>(new MinimumWageCalculator());
+            _validator = _fixture.Create<CreateApprenticeshipRequestValidator>();
 
             var result = await _validator.ValidateAsync(context);
 

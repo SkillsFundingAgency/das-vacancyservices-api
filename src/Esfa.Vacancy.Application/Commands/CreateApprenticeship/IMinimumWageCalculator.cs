@@ -2,6 +2,6 @@
 {
     public interface IMinimumWageCalculator
     {
-        decimal CalculateMinimumWage(CreateApprenticeshipRequest request);
+        decimal CalculateMinimumWage(decimal wageValue, WageUnit wageUnit, decimal hoursPerWeek);
     }
 }

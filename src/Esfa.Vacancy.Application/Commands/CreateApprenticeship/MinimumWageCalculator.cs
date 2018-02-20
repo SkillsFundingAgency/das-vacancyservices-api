@@ -6,36 +6,32 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     {
         private const decimal WeeksPerMonth = 4m;
         private const decimal WeeksPerYear = 52m;
-        private const string MissingMinWageErrorMessage = "MinWage can't be null.";
         private const string HoursPerWeekZeroErrorMessage = "HoursPerWeek must be greater than 0.";
         private const string IncorrectWageTypeErrorMessage = "WageUnit must be either 'Weekly', 'Monthly' or 'Annually'.";
 
-        public decimal CalculateMinimumWage(CreateApprenticeshipRequest request)
+        public decimal CalculateMinimumWage(decimal wageValue, WageUnit wageUnit, decimal hoursPerWeek)
         {
-            if (!request.MinWage.HasValue)
-                throw new ArgumentOutOfRangeException(nameof(request.MinWage), request.MinWage, MissingMinWageErrorMessage);
-
-            if (!(request.HoursPerWeek > 0))
-                throw new ArgumentOutOfRangeException(nameof(request.HoursPerWeek), request.HoursPerWeek, HoursPerWeekZeroErrorMessage);
+            if (!(hoursPerWeek > 0))
+                throw new ArgumentOutOfRangeException(nameof(hoursPerWeek), hoursPerWeek, HoursPerWeekZeroErrorMessage);
 
             decimal calculatedMinWage;
 
-            switch (request.WageUnit)
+            switch (wageUnit)
             {
                 case WageUnit.Weekly:
-                    calculatedMinWage = decimal.Divide(request.MinWage.Value, (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(wageValue, hoursPerWeek);
                     break;
                 case WageUnit.Monthly:
-                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerMonth), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(wageValue, WeeksPerMonth), hoursPerWeek);
                     break;
                 case WageUnit.Annually:
-                    calculatedMinWage = decimal.Divide(decimal.Divide(request.MinWage.Value, WeeksPerYear), (decimal)request.HoursPerWeek);
+                    calculatedMinWage = decimal.Divide(decimal.Divide(wageValue, WeeksPerYear), hoursPerWeek);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(request.WageUnit), request.WageUnit, IncorrectWageTypeErrorMessage);
+                    throw new ArgumentOutOfRangeException(nameof(wageUnit), wageUnit, IncorrectWageTypeErrorMessage);
             }
 
-            return decimal.Round(calculatedMinWage,2);
+            return calculatedMinWage;
         }
     }
 }
