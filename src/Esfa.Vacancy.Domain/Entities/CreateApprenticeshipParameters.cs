@@ -39,7 +39,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public string TrainingToBeProvided { get; set; }
         public int ProviderId { get; set; }
         public int ProviderSiteId { get; set; }
-        public string ExpectedDuration { get; set; }
         public int DurationTypeId { get; set; }
         public int DurationValue { get; set; }
         public bool ApplyOutsideNAVMS { get; set; }

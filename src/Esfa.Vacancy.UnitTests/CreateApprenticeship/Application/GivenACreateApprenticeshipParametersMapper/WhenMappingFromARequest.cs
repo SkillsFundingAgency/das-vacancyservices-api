@@ -41,7 +41,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .With(request => request.WageUnit, (WageUnit)_randomWageUnit)
                               .With(request => request.DurationType, _randomDurationType)
                               .Create();
-            _durationDisplayText = durationTypeMapper.MapToDisplayText(_request.DurationType, _request.ExpectedDuration);
 
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
             _mockWageTypeMapper
@@ -121,12 +120,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsTrainingToBeProvided()
         {
             _mappedParameters.TrainingToBeProvided.Should().Be(_request.TrainingToBeProvided);
-        }
-
-        [Test]
-        public void ThenMapsExpectedDuration()
-        {
-            _mappedParameters.ExpectedDuration.Should().Be(_durationDisplayText);
         }
 
         [Test]
