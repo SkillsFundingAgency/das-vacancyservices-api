@@ -37,7 +37,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
         private static bool MustBeAcceptableStandardCode(string code)
         {
-            if (int.TryParse(code, out var validCode))
+            int validCode;
+            if (int.TryParse(code, out validCode))
             {
                 return validCode > 0 && validCode <= 9999;
             }
