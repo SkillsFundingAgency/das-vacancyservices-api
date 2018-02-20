@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData(null, null, false)
                     .SetName("And is null then is valid."),
                 new TestCaseData(string.Empty, "'Contact Name' is invalid.", true)
-                    .SetName("And is empty string then is valid."),
+                    .SetName("And is empty string then is not valid."),
                 new TestCaseData(
                         new string('a', 101),
                         "'Contact Name' must be less than 101 characters. You entered 101 characters.",
