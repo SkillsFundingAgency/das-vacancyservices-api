@@ -2,11 +2,12 @@
 {
     public enum WageType
     {
-        Custom = 1,
-        NationalMinimumWage = 2,
-        ApprenticeshipMinimumWage = 3,
-        Unwaged = 4,
-        CompetitiveSalary = 5,
-        ToBeSpecified = 6
+        CustomWageFixed = 1,
+        CustomWageRange = 2,
+        NationalMinimumWage = 3,
+        ApprenticeshipMinimumWage = 4,
+        Unwaged = 5,
+        CompetitiveSalary = 6,
+        ToBeSpecified = 7,
     }
 }

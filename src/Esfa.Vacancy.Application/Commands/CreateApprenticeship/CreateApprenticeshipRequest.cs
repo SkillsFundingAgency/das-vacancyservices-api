@@ -22,6 +22,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public WageUnit WageUnit { get; set; }
         public decimal? MinWage { get; set; }
         public decimal? MaxWage { get; set; }
+        public decimal? WeeklyWage { get; set; }
         public LocationType LocationType { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

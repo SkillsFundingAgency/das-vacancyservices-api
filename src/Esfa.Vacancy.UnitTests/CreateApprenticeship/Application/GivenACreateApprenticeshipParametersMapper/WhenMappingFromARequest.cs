@@ -180,6 +180,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsWeeklyWage()
+        {
+            _mappedParameters.WeeklyWage.Should().Be(_request.WeeklyWage);
+        }
+
+        [Test]
         public void ThenMapsNumberOfPositions()
         {
             _mappedParameters.NumberOfPositions.Should().Be(_request.NumberOfPositions);

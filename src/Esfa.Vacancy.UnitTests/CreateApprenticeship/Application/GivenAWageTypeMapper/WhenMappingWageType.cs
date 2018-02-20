@@ -9,23 +9,21 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAWageType
     [TestFixture]
     public class WhenMappingWageType
     {
-        [TestCase(WageType.Custom, 345, null, LegacyWageType.Custom, TestName = "Custom")]
-        [TestCase(WageType.Custom, 345, 345, LegacyWageType.Custom, TestName = "Custom")]
-        [TestCase(WageType.Custom, 345, 346, LegacyWageType.CustomRange, TestName = "CustomRange")]
-        [TestCase(WageType.NationalMinimumWage, null, null, LegacyWageType.NationalMinimum, TestName = "NationalMinimumWage")]
-        [TestCase(WageType.ApprenticeshipMinimumWage, null, null, LegacyWageType.ApprenticeshipMinimum, TestName = "ApprenticeshipMinimumWage")]
-        [TestCase(WageType.Unwaged, null, null, LegacyWageType.Unwaged, TestName = "Unwaged")]
-        [TestCase(WageType.CompetitiveSalary, null, null, LegacyWageType.CompetitiveSalary, TestName = "CompetitiveSalary")]
-        [TestCase(WageType.ToBeSpecified, null, null, LegacyWageType.ToBeAgreedUponAppointment, TestName = "ToBeSpecified")]
-        public void ThenMapsToLegacyWageType(WageType originalWageType, decimal? minWage, decimal? maxWage, LegacyWageType expectedLegacyWageType)
+        [TestCase(WageType.CustomWageFixed, LegacyWageType.Custom, TestName = "Custom")]
+        [TestCase(WageType.CustomWageRange, LegacyWageType.CustomRange, TestName = "CustomRange")]
+        [TestCase(WageType.NationalMinimumWage, LegacyWageType.NationalMinimum, TestName = "NationalMinimumWage")]
+        [TestCase(WageType.ApprenticeshipMinimumWage, LegacyWageType.ApprenticeshipMinimum, TestName = "ApprenticeshipMinimumWage")]
+        [TestCase(WageType.Unwaged, LegacyWageType.Unwaged, TestName = "Unwaged")]
+        [TestCase(WageType.CompetitiveSalary, LegacyWageType.CompetitiveSalary, TestName = "CompetitiveSalary")]
+        [TestCase(WageType.ToBeSpecified, LegacyWageType.ToBeAgreedUponAppointment, TestName = "ToBeSpecified")]
+        public void ThenMapsToLegacyWageType(WageType originalWageType, LegacyWageType expectedLegacyWageType)
         {
             var wageTypeMapper = new WageTypeMapper();
             var request = new CreateApprenticeshipRequest
             {
                 WageType = originalWageType,
-                MinWage = minWage,
-                MaxWage = maxWage
             };
+
             wageTypeMapper.MapToLegacy(request)
                 .Should().Be(expectedLegacyWageType);
         }

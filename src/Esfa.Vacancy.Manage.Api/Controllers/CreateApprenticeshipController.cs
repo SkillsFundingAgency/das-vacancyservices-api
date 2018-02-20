@@ -37,7 +37,8 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - Months
         ///     - Years
         /// * WageType
-        ///     - Custom
+        ///     - CustomWageFixed
+        ///     - CustomWageRange
         ///     - NationalMinimumWage
         ///     - ApprenticeshipMinimumWage
         ///     - Unwaged
@@ -75,10 +76,18 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - Only Address1, Town and Postcode are required
         ///     - All other address fields are optional
         /// 
-        /// * When WageType is Custom
+        /// * When WageType is CustomWageFixed
         ///     - WageTypeReason must be empty
         ///     - WageUnit must be a value other than NotApplicable
-        ///     - MinWage must be greater then or equal to the Apprenticeship minimum wage 
+        ///     - MinWage and MaxWage must be empty
+        ///     - WeeklyWage must be greater than or equal to the Apprenticeship minimum wage 
+        /// 
+        /// * When WageType is CustomWageRange
+        ///     - WageTypeReason must be empty
+        ///     - WageUnit must be a value other than NotApplicable
+        ///     - MinWage must be greater than or equal to the Apprenticeship minimum wage 
+        ///     - MaxWage must be greater than MinWage
+        ///     - WeeklyWage must be empty
         /// 
         /// * When WageType is NationalMinimumWage or ApprenticeshipMinimumWage
         ///     - MinWage, MaxWage and WageTypeReason must be empty

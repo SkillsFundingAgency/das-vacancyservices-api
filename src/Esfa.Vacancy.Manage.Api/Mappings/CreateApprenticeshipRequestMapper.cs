@@ -1,6 +1,7 @@
 ﻿using Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using WageType = Esfa.Vacancy.Api.Types.WageType;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
@@ -35,6 +36,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 WageType = (ApplicationTypes.WageType)parameters.WageType,
                 WageTypeReason = parameters.WageTypeReason,
                 WageUnit = (ApplicationTypes.WageUnit)parameters.WageUnit,
+                WeeklyWage = parameters.WeeklyWage,
                 MinWage = parameters.MinWage,
                 MaxWage = parameters.MaxWage,
                 LocationType = (ApplicationTypes.LocationType)parameters.LocationType,
