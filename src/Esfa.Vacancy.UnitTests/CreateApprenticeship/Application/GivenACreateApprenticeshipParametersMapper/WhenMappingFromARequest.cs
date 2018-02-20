@@ -20,7 +20,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private int _randomLegacyWageType;
         private DurationType _randomDurationType;
         private DomainDurationType _randomDomainDurationType;
-        private string _durationDisplayText;
         private Mock<IWageTypeMapper> _mockWageTypeMapper;
         private int _randomWageUnit;
 

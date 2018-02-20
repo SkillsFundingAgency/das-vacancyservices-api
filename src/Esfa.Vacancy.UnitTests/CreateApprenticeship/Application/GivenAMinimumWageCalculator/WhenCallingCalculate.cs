@@ -84,7 +84,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
                 {
                     MinWage = 300m,
                     HoursPerWeek = 234,
-                    WageType = WageType.Custom
+                    WageType = WageType.CustomWageRange
                 });
 
             action.ShouldThrow<ArgumentOutOfRangeException>()

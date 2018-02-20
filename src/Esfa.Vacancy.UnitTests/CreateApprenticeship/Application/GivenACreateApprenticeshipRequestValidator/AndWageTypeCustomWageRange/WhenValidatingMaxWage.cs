@@ -8,18 +8,18 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustomWageRange
 {
     [TestFixture]
     public class WhenValidatingMaxWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndNoValueThenIsValid()
+        public async Task AndNoValueThenIsInValid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 50m
             };
 
@@ -29,7 +29,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await validator.ValidateAsync(context);
 
-            result.IsValid.Should().Be(true);
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                  .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
+            result.Errors.First().ErrorMessage
+                  .Should().Be("'Max Wage' must not be empty.");
         }
 
         [Test]
@@ -38,7 +42,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 50m,
                 MaxWage = 99999.99m
             };
@@ -58,7 +62,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 50m,
                 MaxWage = 99.99999m
             };
@@ -82,7 +86,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 50m,
                 MaxWage = 49.99m
             };
@@ -101,12 +105,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndSameAsMinWageThenIsValid()
+        public async Task AndSameAsMinWageThenIsInValid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 345.82m,
                 MaxWage = 345.82m
             };
@@ -117,7 +121,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await validator.ValidateAsync(context);
 
-            result.IsValid.Should().Be(true);
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                  .Should().Be(ErrorCodes.CreateApprenticeship.MaxWage);
+            result.Errors.First().ErrorMessage
+                  .Should().Be(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
         }
     }
 }

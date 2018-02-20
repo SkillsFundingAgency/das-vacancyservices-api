@@ -1,17 +1,15 @@
 ﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using WageType = Esfa.Vacancy.Api.Types.WageType;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
     public class CreateApprenticeshipRequestMapper : ICreateApprenticeshipRequestMapper
     {
-        public CreateApprenticeshipRequest MapFromApiParameters(
+        public ApplicationTypes.CreateApprenticeshipRequest MapFromApiParameters(
             CreateApprenticeshipParameters parameters,
             int providerUkprn)
         {
-            return new CreateApprenticeshipRequest
+            return new ApplicationTypes.CreateApprenticeshipRequest
             {
                 Title = parameters.Title,
                 ShortDescription = parameters.ShortDescription,

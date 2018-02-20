@@ -26,7 +26,37 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .IsInEnum()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit));
 
-            When(request => request.WageType == WageType.Custom, () =>
+            When(request => request.WageType == WageType.CustomWageFixed, () =>
+            {
+                RuleFor(request => request.WeeklyWage)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotNull()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage)
+                    .MustBeAMonetaryValue()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+
+                RuleFor(request => request.MinWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage);
+
+                RuleFor(request => request.MaxWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.WageTypeReason)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
+
+                RuleFor(request => request.WageUnit)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotEqual(WageUnit.NotApplicable)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
+                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.WeeklyWageIsBelowApprenticeMinimumWage);
+            });
+
+            When(request => request.WageType == WageType.CustomWageRange, () =>
             {
                 RuleFor(request => request.MinWage)
                     .Cascade(CascadeMode.StopOnFirstFailure)
@@ -35,15 +65,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .MustBeAMonetaryValue()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage);
 
-                When(request => request.MaxWage.HasValue, () =>
-                {
-                    RuleFor(request => request.MaxWage)
-                        .MustBeAMonetaryValue()
-                        .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
-                        .GreaterThanOrEqualTo(request => request.MinWage)
-                        .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
-                        .WithMessage(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
-                });
+                RuleFor(request => request.MaxWage)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotNull()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
+                    .MustBeAMonetaryValue()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
+                    .GreaterThan(request => request.MinWage)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
+
+                RuleFor(request => request.WeeklyWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()
