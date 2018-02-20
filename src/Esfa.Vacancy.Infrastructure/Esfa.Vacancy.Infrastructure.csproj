@@ -63,11 +63,11 @@
     <Reference Include="Polly, Version=5.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.5.3.1\lib\net45\Polly.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Apprenticeships.Api.Client, Version=0.10.87.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Client.0.10.87\lib\net45\SFA.DAS.Apprenticeships.Api.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Apprenticeships.Api.Client, Version=0.10.122.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Client.0.10.122\lib\net45\SFA.DAS.Apprenticeships.Api.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Apprenticeships.Api.Types, Version=0.10.87.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Types.0.10.87\lib\net45\SFA.DAS.Apprenticeships.Api.Types.dll</HintPath>
+    <Reference Include="SFA.DAS.Apprenticeships.Api.Types, Version=0.10.122.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Apprenticeships.Api.Types.0.10.122\lib\net45\SFA.DAS.Apprenticeships.Api.Types.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
