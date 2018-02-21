@@ -7,5 +7,7 @@ namespace Esfa.Vacancy.Application.Interfaces
     {
         Task<Framework> GetFrameworkDetailsAsync(int code);
         Task<Standard> GetStandardDetailsAsync(int code);
+        Task<TrainingDetail> GetFrameworkDetailsAsync(string frameworkCode);
+        Task<TrainingDetail> GetStandardDetailsAsync(string standardLarsCode);
     }
 }
