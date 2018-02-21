@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Constants\ApplicationSettingKeys.cs" />
     <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\TrainingDetail.cs" />
     <Compile Include="Entities\WageRange.cs" />
     <Compile Include="Entities\ApprenticeshipSummary.cs" />
     <Compile Include="Entities\CreateApprenticeshipParameters.cs" />

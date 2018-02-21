@@ -223,6 +223,7 @@
     <Compile Include="Shared\Api.Core\GivenHttpRequestExtensions.cs" />
     <Compile Include="Shared\Api.Core\GivenProviderAuthorizationFilter.cs" />
     <Compile Include="Shared\Api\Validation\GivenAValidationExceptionBuilder.cs" />
+    <Compile Include="Shared\Domain\GivenTrainingDetail.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedFrameworkCodeRepository\WhenCallingGetAsync.cs" />
     <Compile Include="Shared\Infrastructure\GivenACachedStandardRepository\WhenCallingGetStandardIdsAsync.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndFrameworkLarsCodes.cs" />
