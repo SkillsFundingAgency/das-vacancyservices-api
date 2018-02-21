@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Infrastructure.Exceptions;
 using Newtonsoft.Json;
 using SFA.DAS.NLog.Logger;
 using StackExchange.Redis;
@@ -23,6 +24,8 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             _connectionFactory = () =>
             {
                 var cacheConnectionString = settings.GetSetting(ApplicationSettingKeys.CacheConnectionString);
+                if (string.IsNullOrWhiteSpace(cacheConnectionString))
+                    _logger.Error(new InfrastructureException(), "Redis cache connection not found in settings.");
                 return ConnectionMultiplexer.Connect(cacheConnectionString);
             };
         }
@@ -31,9 +34,16 @@ namespace Esfa.Vacancy.Infrastructure.Caching
         {
             if (_connection == null) _connection = _connectionFactory();
 
-            var cache = _connection.GetDatabase();
-            var cachedValue = await cache.StringGetAsync(key);
+            if (_connection.IsConnected == false)
+            {
+                _logger.Error(new InfrastructureException(),
+                    "Redis connection has not been established. By passing cache.");
+                return await actionAsync();
+            }
 
+            var cache = _connection.GetDatabase();
+
+            var cachedValue = await cache.StringGetAsync(key);
             T result;
 
             if (cachedValue.HasValue)
