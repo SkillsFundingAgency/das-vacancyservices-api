@@ -9,10 +9,10 @@ using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.
-    AndWageTypeCustomWageRange
+    AndWageTypeApprenticeshipMinimumWage
 {
     [TestFixture]
-    public class WhenValidatingWeeklyWage : CreateApprenticeshipRequestValidatorBase
+    public class WhenValidatingFixedWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
         public async Task AndHasValueThenIsInvalid()
@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.CustomWageRange,
+                WageType = WageType.ApprenticeshipMinimumWage,
                 FixedWage = 45m
             };
 
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                  .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                  .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
             result.Errors.First().ErrorMessage
                   .Should().Be("'Fixed Wage' must be empty.");
         }
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.CustomWageRange
+                WageType = WageType.ApprenticeshipMinimumWage
             };
 
             var context = GetValidationContextForProperty(request, req => req.FixedWage);

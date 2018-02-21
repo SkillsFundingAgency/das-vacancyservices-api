@@ -11,7 +11,7 @@ using Ploeh.AutoFixture.AutoMoq;
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustomWageFixed
 {
     [TestFixture]
-    public class WhenValidatingWeeklyWage : CreateApprenticeshipRequestValidatorBase
+    public class WhenValidatingFixedWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
         public async Task AndNoValueThenIsInvalid()
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             result.Errors.Count
                 .Should().Be(1);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Fixed Wage' must not be empty.");
 
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
             result.Errors.First().ErrorMessage
                 .Should().Be("'Fixed Wage' must be a monetary value.");
         }
