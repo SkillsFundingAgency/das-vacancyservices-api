@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipRequest _validRequest;
         private CreateApprenticeshipParameters _expectedParameters;
         private Mock<IVacancyOwnerService> _mockVacancyOwnerService;
-        private Mock<ICachedTrainingDetailService> _mockTrainingDetailService;
+        private Mock<ITrainingDetailService> _mockTrainingDetailService;
         private TrainingDetail _trainingDetail;
 
 
@@ -67,7 +67,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .ReturnsAsync(_expectedRefNumber)));
 
             _trainingDetail = _fixture.Create<TrainingDetail>();
-            _mockTrainingDetailService = _fixture.Freeze<Mock<ICachedTrainingDetailService>>(composer =>
+            _mockTrainingDetailService = _fixture.Freeze<Mock<ITrainingDetailService>>(composer =>
                 composer.Do(mock =>
                 {
                     mock
