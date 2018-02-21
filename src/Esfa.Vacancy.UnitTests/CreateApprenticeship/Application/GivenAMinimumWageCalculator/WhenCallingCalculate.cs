@@ -25,9 +25,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         [TestCaseSource(nameof(TestCases))]
         public void RunTestCases(WageUnit wageUnit, decimal minWage, double hoursPerWeek, decimal expectedResult)
         {
-            var minimumWageCalculator = new MinimumWageCalculator();
+            var minimumWageCalculator = new HourlyWageCalculator();
 
-            var result = minimumWageCalculator.CalculateMinimumWage(minWage, wageUnit, (decimal)hoursPerWeek);
+            var result = minimumWageCalculator.Calculate(minWage, wageUnit, (decimal)hoursPerWeek);
 
             result.Should().BeApproximately(expectedResult, 2);
         }
@@ -36,8 +36,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         public void AndNoHoursPerWeek_ThenThrowsException()
         {
             var missingMinWageErrorMessage = "HoursPerWeek must be greater than 0.";
-            var minimumWageCalculator = new MinimumWageCalculator();
-            Action action = () => minimumWageCalculator.CalculateMinimumWage(34m, WageUnit.Weekly, 0m);
+            var minimumWageCalculator = new HourlyWageCalculator();
+            Action action = () => minimumWageCalculator.Calculate(34m, WageUnit.Weekly, 0m);
 
             action.ShouldThrow<ArgumentOutOfRangeException>()
                   .WithMessage($"{missingMinWageErrorMessage}\r\nParameter name: HoursPerWeek\r\nActual value was 0.");
@@ -47,9 +47,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         public void AndNotExpectedWageUnit_ThenThrowsException()
         {
             var expectedMessage = "WageUnit must be either 'Weekly', 'Monthly' or 'Annually'.";
-            var minimumWageCalculator = new MinimumWageCalculator();
+            var minimumWageCalculator = new HourlyWageCalculator();
 
-            Action action = () => minimumWageCalculator.CalculateMinimumWage(300m, 0, 234m);
+            Action action = () => minimumWageCalculator.Calculate(300m, 0, 234m);
 
             action.ShouldThrow<ArgumentOutOfRangeException>()
                   .WithMessage($"{expectedMessage}\r\nParameter name: WageUnit\r\nActual value was 0.");

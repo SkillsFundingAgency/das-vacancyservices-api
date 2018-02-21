@@ -223,14 +223,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 switch (request.WageType)
                 {
                     case WageType.CustomWageFixed:
-                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.FixedWage.GetValueOrDefault(),
-                                                                                           request.WageUnit,
-                                                                                           (decimal)request.HoursPerWeek);
+                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.FixedWage.GetValueOrDefault(),
+                                                                               request.WageUnit,
+                                                                               (decimal)request.HoursPerWeek);
                         break;
                     case WageType.CustomWageRange:
-                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.MinWage.GetValueOrDefault(), 
-                                                                                           request.WageUnit, 
-                                                                                           (decimal)request.HoursPerWeek);
+                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.MinWage.GetValueOrDefault(),
+                                                                               request.WageUnit,
+                                                                               (decimal)request.HoursPerWeek);
                         break;
                     default:
                         attemptedMinimumWage = 0m;
