@@ -11,15 +11,21 @@ namespace Esfa.Vacancy.Infrastructure.Services
 {
     public class TrainingDetailService : ITrainingDetailService
     {
+        private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
-        private readonly string _dasApiBaseUrl;
+        private string _dasApiBaseUrl;
 
         public TrainingDetailService(IProvideSettings provideSettings, ILog logger)
         {
+            _provideSettings = provideSettings;
             _logger = logger;
             _dasApiBaseUrl =
                 provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey);
         }
+
+        private string DasApiBaseUrl => _dasApiBaseUrl ??
+                                        (_dasApiBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey));
+
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)
         {
@@ -33,7 +39,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         private async Task<Framework> InternalGetFrameworkDetailsAsync(int code)
         {
-            using (var client = new FrameworkCodeClient(_dasApiBaseUrl))
+            using (var client = new FrameworkCodeClient(DasApiBaseUrl))
             {
                 try
                 {
@@ -62,7 +68,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         private async Task<Standard> InternalGetStandardDetailsAsync(int code)
         {
-            using (var client = new StandardApiClient(_dasApiBaseUrl))
+            using (var client = new StandardApiClient(DasApiBaseUrl))
             {
                 try
                 {
