@@ -18,6 +18,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .NotEmpty()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode);
 
+            RuleFor(request => request.IsTrainingCodeValid)
+                .Equal(true)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.TrainingCode)
+                .WithName("Training Code")
+                .WithMessage(ErrorMessages.CreateApprenticeship.InvalidPropertyValue);
+
             When(request => request.TrainingType == TrainingType.Standard, () =>
                 {
                     RuleFor(request => request.TrainingCode)
