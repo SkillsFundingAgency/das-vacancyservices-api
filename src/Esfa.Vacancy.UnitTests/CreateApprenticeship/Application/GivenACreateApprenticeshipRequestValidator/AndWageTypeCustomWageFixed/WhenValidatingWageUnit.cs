@@ -140,7 +140,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
         }
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
@@ -179,9 +179,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             if (!result.IsValid)
             {
                 result.Errors.First().ErrorCode
-                    .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
                 result.Errors.First().ErrorMessage
-                    .Should().Be(ErrorMessages.CreateApprenticeship.WeeklyWageIsBelowApprenticeMinimumWage);
+                    .Should().Be(ErrorMessages.CreateApprenticeship.FixedWageIsBelowApprenticeMinimumWage);
             }
         }
     }

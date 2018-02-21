@@ -31,9 +31,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.FixedWage)
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage)
                     .MustBeAMonetaryValue()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.MinWage)
                     .Null()
@@ -52,8 +52,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotEqual(WageUnit.NotApplicable)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
                     .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.WeeklyWageIsBelowApprenticeMinimumWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage)
+                    .WithMessage(ErrorMessages.CreateApprenticeship.FixedWageIsBelowApprenticeMinimumWage);
             });
 
             When(request => request.WageType == WageType.CustomWageRange, () =>
@@ -77,7 +77,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()
@@ -104,7 +104,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()
@@ -127,7 +127,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()
@@ -150,7 +150,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
@@ -173,7 +173,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
@@ -196,7 +196,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 RuleFor(request => request.FixedWage)
                     .Null()
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
