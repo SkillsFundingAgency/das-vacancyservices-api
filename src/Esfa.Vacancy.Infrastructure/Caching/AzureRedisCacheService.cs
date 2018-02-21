@@ -25,7 +25,10 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             {
                 var cacheConnectionString = settings.GetSetting(ApplicationSettingKeys.CacheConnectionString);
                 if (string.IsNullOrWhiteSpace(cacheConnectionString))
-                    _logger.Error(new InfrastructureException(), "Redis cache connection not found in settings.");
+                {
+                    _logger.Error(new InfrastructureException(),
+                        "Redis cache connection not found in settings.");
+                }
                 return ConnectionMultiplexer.Connect(cacheConnectionString);
             };
         }

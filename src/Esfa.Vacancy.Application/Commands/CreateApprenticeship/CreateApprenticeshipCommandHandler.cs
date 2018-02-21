@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         private readonly ICreateApprenticeshipParametersMapper _parametersMapper;
         private readonly ILog _logger;
         private readonly IVacancyOwnerService _vacancyOwnerService;
-        private readonly ICachedTrainingDetailService _cachedTrainingDetailService;
+        private readonly ITrainingDetailService _trainingDetailService;
 
         public CreateApprenticeshipCommandHandler(
             IValidator<CreateApprenticeshipRequest> validator,
@@ -25,14 +25,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             ICreateApprenticeshipParametersMapper parametersMapper,
             ILog logger,
             IVacancyOwnerService vacancyOwnerService,
-            ICachedTrainingDetailService cachedTrainingDetailService)
+            ITrainingDetailService trainingDetailService)
         {
             _validator = validator;
             _createApprenticehipService = createApprenticeshipService;
             _parametersMapper = parametersMapper;
             _logger = logger;
             _vacancyOwnerService = vacancyOwnerService;
-            _cachedTrainingDetailService = cachedTrainingDetailService;
+            _trainingDetailService = trainingDetailService;
         }
 
         public async Task<CreateApprenticeshipResponse> Handle(CreateApprenticeshipRequest request)
@@ -67,11 +67,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
             if (request.TrainingType == TrainingType.Framework)
             {
-                trainingDetail = await _cachedTrainingDetailService.GetFrameworkDetailsAsync(request.TrainingCode);
+                trainingDetail = await _trainingDetailService.GetFrameworkDetailsAsync(request.TrainingCode);
             }
             else
             {
-                trainingDetail = await _cachedTrainingDetailService.GetStandardDetailsAsync(request.TrainingCode);
+                trainingDetail = await _trainingDetailService.GetStandardDetailsAsync(request.TrainingCode);
             }
             if (trainingDetail != null)
             {

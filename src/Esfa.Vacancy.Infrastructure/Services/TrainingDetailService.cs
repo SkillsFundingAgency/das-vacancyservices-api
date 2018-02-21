@@ -135,11 +135,12 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 try
                 {
                     _logger.Info($"Querying Apprenticeship API for Standard code {standardLarsCode}");
-                    var framework = await client.GetAsync(standardLarsCode);
+                    var standard = await client.GetAsync(standardLarsCode);
                     _logger.Info($"Apprenticeship API returned Standard details for code {standardLarsCode}");
                     return new TrainingDetail()
                     {
-                        EffectiveTo = framework.EffectiveTo
+                        EffectiveTo = standard.EffectiveTo,
+                        Level = standard.Level
                     };
                 }
                 catch (EntityNotFoundException ex)
