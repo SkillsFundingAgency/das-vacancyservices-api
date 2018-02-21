@@ -96,7 +96,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             await _validator.ValidateAsync(context).ConfigureAwait(false);
 
-            _mockCalculator.Verify(calculator => calculator.CalculateMinimumWage(request.WeeklyWage.GetValueOrDefault(), request.WageUnit, (decimal)request.HoursPerWeek));
+            _mockCalculator.Verify(calculator => calculator.CalculateMinimumWage(request.FixedWage.GetValueOrDefault(), request.WageUnit, (decimal)request.HoursPerWeek));
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageFixed,
                 WageUnit = WageUnit.Weekly,
-                WeeklyWage = attemptedWeeklyWage,
+                FixedWage = attemptedWeeklyWage,
                 HoursPerWeek = 36,
                 ExpectedStartDate = _fixture.Create<DateTime>()
             };

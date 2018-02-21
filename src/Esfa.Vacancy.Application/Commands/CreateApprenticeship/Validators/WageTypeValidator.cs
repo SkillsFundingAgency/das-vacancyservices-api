@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
             When(request => request.WageType == WageType.CustomWageFixed, () =>
             {
-                RuleFor(request => request.WeeklyWage)
+                RuleFor(request => request.FixedWage)
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotNull()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage)
@@ -75,7 +75,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage)
                     .WithMessage(ErrorMessages.CreateApprenticeship.MaxWageCantBeLessThanMinWage);
 
-                RuleFor(request => request.WeeklyWage)
+                RuleFor(request => request.FixedWage)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
 
@@ -102,6 +102,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
+                RuleFor(request => request.FixedWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+
                 RuleFor(request => request.WageTypeReason)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
@@ -120,6 +124,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.MaxWage)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.FixedWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .Null()
@@ -140,6 +148,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
+                RuleFor(request => request.FixedWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
@@ -159,6 +171,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
 
+                RuleFor(request => request.FixedWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
+
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
@@ -177,6 +193,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 RuleFor(request => request.MaxWage)
                     .Null()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.MaxWage);
+
+                RuleFor(request => request.FixedWage)
+                    .Null()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WeeklyWage);
 
                 RuleFor(request => request.WageTypeReason)
                     .NotEmpty()
@@ -203,7 +223,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 switch (request.WageType)
                 {
                     case WageType.CustomWageFixed:
-                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.WeeklyWage.GetValueOrDefault(),
+                        attemptedMinimumWage = _minimumWageCalculator.CalculateMinimumWage(request.FixedWage.GetValueOrDefault(),
                                                                                            request.WageUnit,
                                                                                            (decimal)request.HoursPerWeek);
                         break;

@@ -80,21 +80,21 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - WageTypeReason must be empty
         ///     - WageUnit must be a value other than NotApplicable
         ///     - MinWage and MaxWage must be empty
-        ///     - WeeklyWage must be greater than or equal to the Apprenticeship minimum wage 
+        ///     - FixedWage must be greater than or equal to the Apprenticeship minimum wage 
         /// 
         /// * When WageType is CustomWageRange
         ///     - WageTypeReason must be empty
         ///     - WageUnit must be a value other than NotApplicable
         ///     - MinWage must be greater than or equal to the Apprenticeship minimum wage 
         ///     - MaxWage must be greater than MinWage
-        ///     - WeeklyWage must be empty
+        ///     - FixedWage must be empty
         /// 
         /// * When WageType is NationalMinimumWage or ApprenticeshipMinimumWage
-        ///     - MinWage, MaxWage and WageTypeReason must be empty
+        ///     - MinWage, MaxWage, FixedWage and WageTypeReason must be empty
         ///     - WageUnit must be NotApplicable
         /// 
         /// * When WageType is Unwaged, CompetitiveSalary or ToBeSpecified
-        ///     - MinWage and MaxWage must be empty
+        ///     - FixedWage, MinWage and MaxWage must be empty
         ///     - WageUnit must be NotApplicable
         /// 
         /// * Text fields will take a maximum of 4,000 characters except for the following

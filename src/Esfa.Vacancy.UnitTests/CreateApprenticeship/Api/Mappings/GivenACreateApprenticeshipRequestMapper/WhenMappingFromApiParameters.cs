@@ -189,7 +189,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsWeeklyWage()
         {
-            _mappedRequest.WeeklyWage.Should().Be(_apiParameters.WeeklyWage);
+            _mappedRequest.FixedWage.Should().Be(_apiParameters.FixedWage);
         }
 
         [Test]

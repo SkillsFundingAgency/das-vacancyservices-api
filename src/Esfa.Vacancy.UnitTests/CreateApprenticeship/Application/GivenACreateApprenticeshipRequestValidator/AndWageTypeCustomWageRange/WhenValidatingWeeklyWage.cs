@@ -21,10 +21,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageRange,
-                WeeklyWage = 45m
+                FixedWage = 45m
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WeeklyWage);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             result.Errors.First().ErrorCode
                   .Should().Be(ErrorCodes.CreateApprenticeship.WeeklyWage);
             result.Errors.First().ErrorMessage
-                  .Should().Be("'Weekly Wage' must be empty.");
+                  .Should().Be("'Fixed Wage' must be empty.");
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageType = WageType.CustomWageRange
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WeeklyWage);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
