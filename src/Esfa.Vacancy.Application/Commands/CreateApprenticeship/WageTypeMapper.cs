@@ -9,11 +9,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             switch (request.WageType)
             {
-                case WageType.Custom:
-                    if (request.MinWage.HasValue && request.MaxWage.HasValue && request.MaxWage > request.MinWage)
-                        return LegacyWageType.CustomRange;
-                    else
-                        return LegacyWageType.Custom;
+                case WageType.CustomWageFixed:
+                    return LegacyWageType.Custom;
+                case WageType.CustomWageRange:
+                    return LegacyWageType.CustomRange;
                 case WageType.NationalMinimumWage:
                     return LegacyWageType.NationalMinimum;
                 case WageType.ApprenticeshipMinimumWage:

@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustomWageRange
 {
     [TestFixture]
     public class WhenValidatingMinWage : CreateApprenticeshipRequestValidatorBase
@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom
+                WageType = WageType.CustomWageRange
             };
 
             var context = GetValidationContextForProperty(request, req => req.MinWage);
@@ -44,7 +44,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 99.99m
             };
 
@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
+                WageType = WageType.CustomWageRange,
                 MinWage = 99.99999m
             };
 

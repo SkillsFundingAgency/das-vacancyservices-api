@@ -1,16 +1,15 @@
 ﻿using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
     public class CreateApprenticeshipRequestMapper : ICreateApprenticeshipRequestMapper
     {
-        public CreateApprenticeshipRequest MapFromApiParameters(
+        public ApplicationTypes.CreateApprenticeshipRequest MapFromApiParameters(
             CreateApprenticeshipParameters parameters,
             int providerUkprn)
         {
-            return new CreateApprenticeshipRequest
+            return new ApplicationTypes.CreateApprenticeshipRequest
             {
                 Title = parameters.Title,
                 ShortDescription = parameters.ShortDescription,
@@ -35,6 +34,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 WageType = (ApplicationTypes.WageType)parameters.WageType,
                 WageTypeReason = parameters.WageTypeReason,
                 WageUnit = (ApplicationTypes.WageUnit)parameters.WageUnit,
+                FixedWage = parameters.FixedWage,
                 MinWage = parameters.MinWage,
                 MaxWage = parameters.MaxWage,
                 LocationType = (ApplicationTypes.LocationType)parameters.LocationType,

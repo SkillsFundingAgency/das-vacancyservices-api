@@ -38,6 +38,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 WageType = (int)_wageTypeMapper.MapToLegacy(request),
                 WageTypeReason = request.WageTypeReason,
                 WageUnitId = (int)request.WageUnit,
+                WeeklyWage = request.FixedWage,
                 WageLowerBound = request.MinWage,
                 WageUpperBound = request.MaxWage,
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,

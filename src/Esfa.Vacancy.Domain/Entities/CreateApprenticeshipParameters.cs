@@ -14,6 +14,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public int WageType { get; set; }
         public string WageTypeReason { get; set; }
         public int WageUnitId { get; set; }
+        public decimal? WeeklyWage { get; set; }
         public decimal? WageLowerBound { get; set; }
         public decimal? WageUpperBound { get; set; }
         public int LocationTypeId { get; set; }

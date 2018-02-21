@@ -93,6 +93,7 @@
             public const string DurationType = "31311";
             public const string ExternalApplicationUrl = "31312";
             public const string ExternalApplicationInstructions = "31313";
+            public const string FixedWage = "31314";
         }
     }
 }

@@ -8,10 +8,9 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustom
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustomWageFixed
 {
-    [TestFixture]
-    public class WhenValidatingWageTypeReason : CreateApprenticeshipRequestValidatorBase
+    public class WhenValidatingMinWage : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
         public async Task AndHasValueThenIsInvalid()
@@ -19,21 +18,21 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom,
-                WageTypeReason = fixture.Create<string>()
+                WageType = WageType.CustomWageFixed,
+                MinWage = 45m
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
+            var context = GetValidationContextForProperty(request, req => req.MinWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
-            var result = await validator.ValidateAsync(context);
+            var result = await validator.ValidateAsync(context).ConfigureAwait(false);
 
             result.IsValid.Should().Be(false);
             result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.WageTypeReason);
+                  .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
             result.Errors.First().ErrorMessage
-                .Should().Be("'Wage Type Reason' must be empty.");
+                  .Should().Be("'Min Wage' must be empty.");
         }
 
         [Test]
@@ -42,14 +41,14 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
             {
-                WageType = WageType.Custom
+                WageType = WageType.CustomWageFixed
             };
 
-            var context = GetValidationContextForProperty(request, req => req.WageTypeReason);
+            var context = GetValidationContextForProperty(request, req => req.MinWage);
 
             var validator = fixture.Create<CreateApprenticeshipRequestValidator>();
 
-            var result = await validator.ValidateAsync(context);
+            var result = await validator.ValidateAsync(context).ConfigureAwait(false);
 
             result.IsValid.Should().Be(true);
         }

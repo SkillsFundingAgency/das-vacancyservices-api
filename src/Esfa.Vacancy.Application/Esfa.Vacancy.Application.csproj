@@ -66,11 +66,11 @@
     <Compile Include="Commands\CreateApprenticeship\CreateApprenticeshipRequest.cs" />
     <Compile Include="Commands\CreateApprenticeship\DurationType.cs" />
     <Compile Include="Commands\CreateApprenticeship\DurationMapper.cs" />
-    <Compile Include="Commands\CreateApprenticeship\IMinimumWageCalculator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\IHourlyWageCalculator.cs" />
     <Compile Include="Commands\CreateApprenticeship\IMinimumWageSelector.cs" />
     <Compile Include="Commands\CreateApprenticeship\IDurationMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
-    <Compile Include="Commands\CreateApprenticeship\MinimumWageCalculator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\HourlyWageCalculator.cs" />
     <Compile Include="Commands\CreateApprenticeship\MinimumWageSelector.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ApplicationMethodValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ContactDetailsValidator.cs" />

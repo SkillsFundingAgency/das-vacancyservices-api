@@ -20,7 +20,6 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private int _randomLegacyWageType;
         private DurationType _randomDurationType;
         private DomainDurationType _randomDomainDurationType;
-        private string _durationDisplayText;
         private Mock<IWageTypeMapper> _mockWageTypeMapper;
         private int _randomWageUnit;
 
@@ -177,6 +176,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsMaxWage()
         {
             _mappedParameters.WageUpperBound.Should().Be(_request.MaxWage);
+        }
+
+        [Test]
+        public void ThenMapsWeeklyWage()
+        {
+            _mappedParameters.WeeklyWage.Should().Be(_request.FixedWage);
         }
 
         [Test]

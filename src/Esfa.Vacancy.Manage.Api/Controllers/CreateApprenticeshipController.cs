@@ -37,7 +37,8 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - Months
         ///     - Years
         /// * WageType
-        ///     - Custom
+        ///     - CustomWageFixed
+        ///     - CustomWageRange
         ///     - NationalMinimumWage
         ///     - ApprenticeshipMinimumWage
         ///     - Unwaged
@@ -75,17 +76,25 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - Only Address1, Town and Postcode are required
         ///     - All other address fields are optional
         /// 
-        /// * When WageType is Custom
+        /// * When WageType is CustomWageFixed
         ///     - WageTypeReason must be empty
         ///     - WageUnit must be a value other than NotApplicable
-        ///     - MinWage must be greater then or equal to the Apprenticeship minimum wage 
+        ///     - MinWage and MaxWage must be empty
+        ///     - FixedWage must be greater than or equal to the Apprenticeship minimum wage 
+        /// 
+        /// * When WageType is CustomWageRange
+        ///     - WageTypeReason must be empty
+        ///     - WageUnit must be a value other than NotApplicable
+        ///     - MinWage must be greater than or equal to the Apprenticeship minimum wage 
+        ///     - MaxWage must be greater than MinWage
+        ///     - FixedWage must be empty
         /// 
         /// * When WageType is NationalMinimumWage or ApprenticeshipMinimumWage
-        ///     - MinWage, MaxWage and WageTypeReason must be empty
+        ///     - MinWage, MaxWage, FixedWage and WageTypeReason must be empty
         ///     - WageUnit must be NotApplicable
         /// 
         /// * When WageType is Unwaged, CompetitiveSalary or ToBeSpecified
-        ///     - MinWage and MaxWage must be empty
+        ///     - FixedWage, MinWage and MaxWage must be empty
         ///     - WageUnit must be NotApplicable
         /// 
         /// * Text fields will take a maximum of 4,000 characters except for the following
@@ -122,6 +131,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31008       | Invalid Wage type                           |
         /// | 31123       | Invalid Wage type reason                    |
         /// | 31124       | Invalid Wage unit                           |
+        /// | 31314       | Invalid Fixed wage                          |
         /// | 31009       | Invalid Min wage                            |
         /// | 31010       | Invalid Max wage                            |
         /// | 31011       | Invalid Location type                       |

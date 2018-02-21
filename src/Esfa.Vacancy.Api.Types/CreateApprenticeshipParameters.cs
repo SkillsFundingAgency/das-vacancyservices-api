@@ -130,6 +130,11 @@ namespace Esfa.Vacancy.Api.Types
         public decimal? MaxWage { get; set; }
 
         /// <summary>
+        /// The fixed wage for the vacancy
+        /// </summary>
+        public decimal? FixedWage { get; set; }
+
+        /// <summary>
         /// The location type used for the vacancy
         /// </summary>
         public LocationType LocationType { get; set; }

@@ -61,6 +61,8 @@ namespace Esfa.Vacancy.Domain.Validation
 
             public const string LocationFieldNotRequired =
                 "'{PropertyName}' can't be specified when Location type is EmployerLocation or Nationwide";
+
+            public const string FixedWageIsBelowApprenticeMinimumWage = "The fixed wage should not be less than the National Minimum Wage for Apprentices.";
         }
     }
 }

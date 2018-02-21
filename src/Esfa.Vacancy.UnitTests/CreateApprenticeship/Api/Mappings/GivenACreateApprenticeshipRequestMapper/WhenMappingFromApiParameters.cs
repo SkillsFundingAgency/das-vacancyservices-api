@@ -187,6 +187,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
+        public void ThenMapsWeeklyWage()
+        {
+            _mappedRequest.FixedWage.Should().Be(_apiParameters.FixedWage);
+        }
+
+        [Test]
         public void ThenMapsLocationType()
         {
             _mappedRequest.LocationType.Should().Be((ApplicationTypes.LocationType)(int)_apiParameters.LocationType);
