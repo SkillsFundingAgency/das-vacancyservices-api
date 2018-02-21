@@ -111,6 +111,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipCommandHandler\WhenHandlingACommand.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApplicationMethod\AndApplicationMethodIsOnline.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApplicationMethod\WhenApplicationMethodIsOffline.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApprenticeshipType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingFromARequest.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsNationwide.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsEmployerLocation.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingThingsToConsider.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingCode\AndTrainingTypeIsFramework.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingCode\AndTrainingTypeIsStandard.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingCode\WhenValidatingIsTrainingCodeValid.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingToBeProvided.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingTrainingType.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWageType.cs" />

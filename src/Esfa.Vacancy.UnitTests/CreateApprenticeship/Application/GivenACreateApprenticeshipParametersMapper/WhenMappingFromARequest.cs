@@ -249,7 +249,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsTrainingType()
         {
-            _mappedParameters.TrainingType.Should().Be(_request.TrainingType);
+            _mappedParameters.TrainingType.Should().Be((int)_request.TrainingType);
         }
     }
 }

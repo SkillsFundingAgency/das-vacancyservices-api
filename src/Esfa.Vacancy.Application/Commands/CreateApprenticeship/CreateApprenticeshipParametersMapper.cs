@@ -57,14 +57,37 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber,
-                TrainingType = request.TrainingType
+                TrainingType = (int)request.TrainingType,
+                ApprenticeshipType = GetApprenticeshipType(request.TrainingType, request.EducationLevel)
             };
 
             MapLocationFields(request, employerInformation, parameters);
 
             MapTrainingCode(request, parameters);
-
             return parameters;
+        }
+
+        private static ApprenticeshipType GetApprenticeshipType(TrainingType trainingType, int educationLevel)
+        {
+            switch (educationLevel)
+            {
+                case 2:
+                    return ApprenticeshipType.Intermediate;
+                case 3:
+                    return ApprenticeshipType.Advance;
+                case 4:
+                    return ApprenticeshipType.Higher;
+                case 5:
+                    return
+                        trainingType == TrainingType.Framework ? ApprenticeshipType.Degree : ApprenticeshipType.Foundation;
+                case 6:
+                    return ApprenticeshipType.Degree;
+                case 7:
+                    return
+                        trainingType == TrainingType.Framework ? ApprenticeshipType.Degree : ApprenticeshipType.Masters;
+                default:
+                    return (ApprenticeshipType)0;
+            }
         }
 
         private static void MapLocationFields(CreateApprenticeshipRequest request, EmployerInformation employerInformation,
@@ -92,7 +115,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             }
         }
 
-        private void MapTrainingCode(CreateApprenticeshipRequest request, CreateApprenticeshipParameters parameters)
+        private static void MapTrainingCode(CreateApprenticeshipRequest request, CreateApprenticeshipParameters parameters)
         {
             if (request.TrainingType == TrainingType.Standard)
             {
