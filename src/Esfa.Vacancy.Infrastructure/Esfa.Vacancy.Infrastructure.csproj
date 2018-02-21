@@ -108,6 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CachedFrameworkCodeRepository.cs" />
     <Compile Include="Services\CachedGetAllApprenticeMinimumWagesService.cs" />
+    <Compile Include="Services\CachedTrainingDetailService.cs" />
     <Compile Include="Services\CreateApprenticeshipService.cs" />
     <Compile Include="Repositories\FrameworkCodeRepository.cs" />
     <Compile Include="Repositories\CachedStandardRepository.cs" />
