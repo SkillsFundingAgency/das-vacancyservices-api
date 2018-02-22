@@ -10,6 +10,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
     {
         private readonly ICacheService _cacheService;
         private readonly ITrainingDetailService _trainingDetailService;
+        private readonly TimeSpan _cacheDuration = TimeSpan.FromHours(12);
 
         public CachedTrainingDetailService(
             ICacheService cacheService, ITrainingDetailService trainingDetailService)
@@ -23,7 +24,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync<Framework>(
                 $"V1-Framework-{code}",
                 async () => await _trainingDetailService.GetFrameworkDetailsAsync(code),
-                TimeSpan.FromHours(24));
+                _cacheDuration);
         }
 
         public async Task<Standard> GetStandardDetailsAsync(int code)
@@ -31,7 +32,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync<Standard>(
                 $"V1-Standard-{code}",
                 async () => await _trainingDetailService.GetStandardDetailsAsync(code),
-                TimeSpan.FromHours(24));
+                _cacheDuration);
         }
 
         public async Task<TrainingDetail> GetFrameworkDetailsAsync(string frameworkCode)
@@ -39,7 +40,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(
                 $"V2-Framework-{frameworkCode}",
                 async () => await _trainingDetailService.GetFrameworkDetailsAsync(frameworkCode),
-                TimeSpan.FromHours(24));
+                _cacheDuration);
         }
 
         public async Task<TrainingDetail> GetStandardDetailsAsync(string standardLarsCode)
@@ -47,7 +48,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(
                 $"V2-Standard-{standardLarsCode}",
                 async () => await _trainingDetailService.GetStandardDetailsAsync(standardLarsCode),
-                TimeSpan.FromHours(12));
+                _cacheDuration);
         }
     }
 }
