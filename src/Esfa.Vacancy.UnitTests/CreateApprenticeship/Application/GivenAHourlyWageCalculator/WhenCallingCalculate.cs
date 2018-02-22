@@ -4,22 +4,19 @@ using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumWageCalculator
+namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAHourlyWageCalculator
 {
     [TestFixture]
     public class WhenCallingCalculate
     {
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
-            new TestCaseData(WageUnit.Weekly, 120m, 40, 3m).SetName("Then calculates correct value from weekly"),
-            new TestCaseData(WageUnit.Weekly, 130.0m, 36.0, 3.61m).SetName("Then calculates correct value from weekly"),
-            new TestCaseData(WageUnit.Weekly, 150m, 30, 5m).SetName("Then calculates correct value from weekly"),
-            new TestCaseData(WageUnit.Monthly, 480m, 40, 3m).SetName("Then calculates correct value from monthly"),
-            new TestCaseData(WageUnit.Monthly, 525m, 37.5, 3.5m).SetName("Then calculates correct value from monthly"),
-            new TestCaseData(WageUnit.Monthly, 600m, 30, 5m).SetName("Then calculates correct value from monthly"),
-            new TestCaseData(WageUnit.Annually, 6240m, 40, 3m).SetName("Then calculates correct value from annually"),
-            new TestCaseData(WageUnit.Annually, 6825m, 37.5, 3.5m).SetName("Then calculates correct value from annually"),
-            new TestCaseData(WageUnit.Annually, 7800m, 30, 5m).SetName("Then calculates correct value from annually")
+            new TestCaseData(WageUnit.Weekly, 120m, 40, 3m).SetName("Then calculates exact value from weekly"),
+            new TestCaseData(WageUnit.Weekly, 130.0m, 36.0, 3.61m).SetName("Then calculates approximate value from weekly"),
+            new TestCaseData(WageUnit.Monthly, 481m, 40, 2.77m).SetName("Then calculates approximate value from monthly"),
+            new TestCaseData(WageUnit.Monthly, 568.75m, 37.5, 3.5m).SetName("Then calculates exact value from monthly"),
+            new TestCaseData(WageUnit.Annually, 6825m, 37.5, 3.5m).SetName("Then calculates exact value from annually"),
+            new TestCaseData(WageUnit.Annually, 6826m, 37.5, 3.5m).SetName("Then calculates approximate value from annually")
         };
 
         [TestCaseSource(nameof(TestCases))]
@@ -29,7 +26,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
 
             var result = minimumWageCalculator.Calculate(minWage, wageUnit, (decimal)hoursPerWeek);
 
-            result.Should().BeApproximately(expectedResult, 2);
+            result.Should().BeApproximately(expectedResult, 0.005m);
         }
 
         [Test]
