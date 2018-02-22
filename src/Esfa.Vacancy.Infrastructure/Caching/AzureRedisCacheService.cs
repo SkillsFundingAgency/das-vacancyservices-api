@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             if (_connection.IsConnected == false)
             {
                 _logger.Error(new InfrastructureException(),
-                    "Redis connection has not been established. By passing cache.");
+                    "Redis connection has not been established. Bypassing cache.");
                 return await actionAsync();
             }
 

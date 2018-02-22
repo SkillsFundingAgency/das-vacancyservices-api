@@ -12,7 +12,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenMappingTrainingDetails
     {
         [Test]
-        public void AndTrainingTypeIsStandard()
+        public void AndTrainingTypeIsStandard_ThenMapTrainingCodeAsIs()
         {
             const string standardCode = "124";
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void AndTrainingTypeIsFramework()
+        public void AndTrainingTypeIsFramework_ThenMapFirstPartOfTrainingCode()
         {
             const string frameworkCode = "123-12-12";
             var fixture = new Fixture().Customize(new AutoMoqCustomization());

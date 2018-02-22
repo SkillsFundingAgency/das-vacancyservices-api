@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             TestName = "And is empty then is invalid.")]
         [TestCase(
             "123",
-            "'Training Code' should be a in format '###-##-#' when Training Type is Framework.",
+            "'Training Code' should be in the format '###-##-##' when Training Type is Framework.",
             true,
             TestName = "And is not in expected format then is invalid.")]
         [TestCase(

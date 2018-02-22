@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     public class WhenMappingApprenticeshipType
     {
         [TestCase(2, ApprenticeshipType.Intermediate)]
-        [TestCase(3, ApprenticeshipType.Advance)]
+        [TestCase(3, ApprenticeshipType.Advanced)]
         [TestCase(4, ApprenticeshipType.Higher)]
         [TestCase(5, ApprenticeshipType.Foundation)]
         [TestCase(6, ApprenticeshipType.Degree)]
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [TestCase(2, ApprenticeshipType.Intermediate)]
-        [TestCase(3, ApprenticeshipType.Advance)]
+        [TestCase(3, ApprenticeshipType.Advanced)]
         [TestCase(4, ApprenticeshipType.Higher)]
         [TestCase(5, ApprenticeshipType.Degree)]
         [TestCase(6, ApprenticeshipType.Degree)]
