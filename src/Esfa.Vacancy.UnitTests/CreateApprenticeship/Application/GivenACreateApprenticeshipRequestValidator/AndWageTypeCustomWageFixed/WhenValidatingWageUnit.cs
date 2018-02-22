@@ -157,13 +157,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCheckingAllowedVersusAttemtpedWeeklyWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedWeeklyWage, bool expectedIsValid)
+        public async Task AndCheckingAllowedVersusAttemtpedWeeklyWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedFixedWage, bool expectedIsValid)
         {
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
                 WageUnit = wageUnit,
-                FixedWage = attemptedWeeklyWage,
+                FixedWage = attemptedFixedWage,
                 HoursPerWeek = 36,
                 ExpectedStartDate = _fixture.Create<DateTime>()
             };
