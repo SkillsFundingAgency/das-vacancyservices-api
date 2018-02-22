@@ -74,7 +74,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 case 2:
                     return ApprenticeshipType.Intermediate;
                 case 3:
-                    return ApprenticeshipType.Advance;
+                    return ApprenticeshipType.Advanced;
                 case 4:
                     return ApprenticeshipType.Higher;
                 case 5:

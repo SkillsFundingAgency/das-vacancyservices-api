@@ -3,7 +3,7 @@
     public enum ApprenticeshipType
     {
         Intermediate = 1,
-        Advance = 2,
+        Advanced = 2,
         Higher = 3,
         Foundation = 5,
         Degree = 6,

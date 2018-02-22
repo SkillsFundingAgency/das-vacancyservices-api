@@ -180,7 +180,7 @@ namespace Esfa.Vacancy.Api.Types
         public Request.TrainingType TrainingType { get; set; }
 
         /// <summary>
-        /// Training code for eith Framwork or Standard
+        /// Lars code for selected Training Type
         /// </summary>
         public string TrainingCode { get; set; }
     }
