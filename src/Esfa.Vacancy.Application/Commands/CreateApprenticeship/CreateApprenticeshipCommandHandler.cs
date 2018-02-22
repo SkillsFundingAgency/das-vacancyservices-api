@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             _logger.Info($"Creating new Apprenticeship Vacancy: [{request.Title}]");
 
-            await UpdateTrainingDetailsAsync(request);
+            await PopulateTrainingDetailsAsync(request);
 
             var validationResult = await _validator.ValidateAsync(request);
 
@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             return new CreateApprenticeshipResponse { VacancyReferenceNumber = referenceNumber };
         }
 
-        private async Task UpdateTrainingDetailsAsync(CreateApprenticeshipRequest request)
+        private async Task PopulateTrainingDetailsAsync(CreateApprenticeshipRequest request)
         {
             TrainingDetail trainingDetail;
 

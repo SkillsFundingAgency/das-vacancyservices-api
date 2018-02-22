@@ -57,7 +57,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber,
-                TrainingType = (int)request.TrainingType,
+                TrainingTypeId = (int)request.TrainingType,
                 ApprenticeshipType = GetApprenticeshipType(request.TrainingType, request.EducationLevel)
             };
 

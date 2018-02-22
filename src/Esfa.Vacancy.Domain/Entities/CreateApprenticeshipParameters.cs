@@ -48,7 +48,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public string EmployersRecruitmentWebsite { get; set; }
         public string EmployersApplicationInstructions { get; set; }
         public string TrainingCode { get; set; }
-        public int TrainingType { get; set; }
+        public int TrainingTypeId { get; set; }
         public ApprenticeshipType ApprenticeshipType { get; set; }
     }
 }
