@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public void WhenIsFalse_ThenIsValid()
+        public void WhenIsFalse_ThenIsInValid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
