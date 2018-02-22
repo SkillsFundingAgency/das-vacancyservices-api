@@ -144,7 +144,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             _mockWageTypeMapper.Verify(
                 mapper => mapper.MapToLegacy(
-                    It.Is<CreateApprenticeshipRequest>(req => req.WageType == (WageType) _randomWageType)), 
+                    It.Is<CreateApprenticeshipRequest>(req => req.WageType == (WageType)_randomWageType)),
                     Times.Once);
         }
 
@@ -249,7 +249,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsTrainingType()
         {
-            _mappedParameters.TrainingType.Should().Be((int)_request.TrainingType);
+            _mappedParameters.TrainingTypeId.Should().Be((int)_request.TrainingType);
         }
     }
 }
