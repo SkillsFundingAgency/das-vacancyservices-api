@@ -4,7 +4,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class HourlyWageCalculator : IHourlyWageCalculator
     {
-        private const decimal WeeksPerMonth = 4m;
+        private const decimal MonthsPerYear = 12m;
         private const decimal WeeksPerYear = 52m;
         private const string HoursPerWeekZeroErrorMessage = "HoursPerWeek must be greater than 0.";
         private const string IncorrectWageTypeErrorMessage = "WageUnit must be either 'Weekly', 'Monthly' or 'Annually'.";
@@ -22,10 +22,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     calculatedHourlyWage = decimal.Divide(wageValue, hoursPerWeek);
                     break;
                 case WageUnit.Monthly:
-                    calculatedHourlyWage = decimal.Divide(decimal.Divide(wageValue, WeeksPerMonth), hoursPerWeek);
+                    calculatedHourlyWage = decimal.Divide(decimal.Multiply(wageValue, MonthsPerYear), decimal.Multiply(WeeksPerYear, hoursPerWeek));
                     break;
                 case WageUnit.Annually:
-                    calculatedHourlyWage = decimal.Divide(decimal.Divide(wageValue, WeeksPerYear), hoursPerWeek);
+                    calculatedHourlyWage = decimal.Divide(wageValue, decimal.Multiply(WeeksPerYear, hoursPerWeek));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(wageUnit), wageUnit, IncorrectWageTypeErrorMessage);

@@ -21,26 +21,26 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipRequestValidator _validator;
         private Mock<IMinimumWageSelector> _mockSelector;
         private Mock<IHourlyWageCalculator> _mockCalculator;
-        private decimal _expectedAllowedWeeklyWage;
-        private decimal _expectedAttemptedWeeklyWage;
+        private decimal _expectedAllowedFixedWage;
+        private decimal _expectedAttemptedFixedWage;
 
         [SetUp]
         public void Setup()
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            _expectedAllowedWeeklyWage = _fixture.Create<decimal>();
-            _expectedAttemptedWeeklyWage = _fixture.Create<decimal>();
+            _expectedAllowedFixedWage = _fixture.Create<decimal>();
+            _expectedAttemptedFixedWage = _fixture.Create<decimal>();
 
             _mockSelector = _fixture.Freeze<Mock<IMinimumWageSelector>>();
             _mockSelector
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(_expectedAllowedWeeklyWage);
+                .ReturnsAsync(_expectedAllowedFixedWage);
 
             _mockCalculator = _fixture.Freeze<Mock<IHourlyWageCalculator>>();
             _mockCalculator
                 .Setup(calculator => calculator.Calculate(It.IsAny<decimal>(), It.IsAny<WageUnit>(), It.IsAny<decimal>()))
-                .Returns(_expectedAttemptedWeeklyWage);
+                .Returns(_expectedAttemptedFixedWage);
 
             _validator = _fixture.Create<CreateApprenticeshipRequestValidator>();
         }
@@ -145,19 +145,25 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
-            new TestCaseData(3.5m, 125.99m, false).SetName("And attempted is less than allowed Then is invalid"),
-            new TestCaseData(3.5m, 126.00m, true).SetName("And attempted is same as allowed Then is valid"),
-            new TestCaseData(3.5m, 126.01m, true).SetName("And attempted is greater than allowed Then is valid")
+            new TestCaseData(WageUnit.Weekly, 3.5m, 125.99m, false).SetName("And attempted weekly is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Weekly, 3.5m, 126.00m, true).SetName("And attempted weekly is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Weekly, 3.5m, 126.01m, true).SetName("And attempted weekly is greater than allowed Then is valid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 545.99m, false).SetName("And attempted monthly is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 546.00m, true).SetName("And attempted monthly is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 546.01m, true).SetName("And attempted monthly is greater than allowed Then is valid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6551.99m, false).SetName("And attempted annually is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6552.00m, true).SetName("And attempted annually is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6552.01m, true).SetName("And attempted annually is greater than allowed Then is valid")
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCheckingAllowedVersusAttemtpedWeeklyWage(decimal allowedMinimumHourlyWage, decimal attemptedWeeklyWage, bool expectedIsValid)
+        public async Task AndCheckingAllowedVersusAttemtpedWeeklyWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedFixedWage, bool expectedIsValid)
         {
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
-                WageUnit = WageUnit.Weekly,
-                FixedWage = attemptedWeeklyWage,
+                WageUnit = wageUnit,
+                FixedWage = attemptedFixedWage,
                 HoursPerWeek = 36,
                 ExpectedStartDate = _fixture.Create<DateTime>()
             };

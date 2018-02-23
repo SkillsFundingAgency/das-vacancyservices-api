@@ -148,18 +148,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
-            new TestCaseData(3.5m, 125.99m, false).SetName("And attempted is less than allowed Then is invalid"),
-            new TestCaseData(3.5m, 126.0m, true).SetName("And attempted is same as allowed Then is valid"),
-            new TestCaseData(3.5m, 126.01m, true).SetName("And attempted is greater than allowed Then is valid")
+            new TestCaseData(WageUnit.Weekly, 3.5m, 125.99m, false).SetName("And attempted weekly is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Weekly, 3.5m, 126.00m, true).SetName("And attempted weekly is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Weekly, 3.5m, 126.01m, true).SetName("And attempted weekly is greater than allowed Then is valid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 545.99m, false).SetName("And attempted monthly is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 546.00m, true).SetName("And attempted monthly is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Monthly, 3.5m, 546.01m, true).SetName("And attempted monthly is greater than allowed Then is valid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6551.99m, false).SetName("And attempted annually is less than allowed Then is invalid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6552.00m, true).SetName("And attempted annually is same as allowed Then is valid"),
+            new TestCaseData(WageUnit.Annually, 3.5m, 6552.01m, true).SetName("And attempted annually is greater than allowed Then is valid")
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCheckingAllowedVersusAttemtpedMinWage(decimal allowedMinimumHourlyWage, decimal attemptedMinWage, bool expectedIsValid)
+        public async Task AndCheckingAllowedVersusAttemtpedMinWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedMinWage, bool expectedIsValid)
         {
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageRange,
-                WageUnit = WageUnit.Weekly,
+                WageUnit = wageUnit,
                 HoursPerWeek = 36,
                 MinWage = attemptedMinWage,
                 ExpectedStartDate = _fixture.Create<DateTime>()
@@ -175,7 +181,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _fixture.Inject<IHourlyWageCalculator>(new HourlyWageCalculator());
             _validator = _fixture.Create<CreateApprenticeshipRequestValidator>();
 
-            var result = await _validator.ValidateAsync(context);
+            var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
 
             result.IsValid.Should().Be(expectedIsValid);
             if (!result.IsValid)
