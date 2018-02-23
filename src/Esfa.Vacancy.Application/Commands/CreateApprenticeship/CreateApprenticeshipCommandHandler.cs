@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using SFA.DAS.NLog.Logger;
 
@@ -39,16 +42,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             _logger.Info($"Creating new Apprenticeship Vacancy: [{request.Title}]");
 
-            await PopulateTrainingDetailsAsync(request);
-
             var validationResult = await _validator.ValidateAsync(request);
-
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
+            request.EducationLevel = await GetTrainingLevelAsync(request);
+
             var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(request.ProviderUkprn,
                 request.ProviderSiteEdsUrn, request.EmployerEdsUrn);
-
             if (employerInformation == null)
                 throw new UnauthorisedException(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
 
@@ -61,24 +62,21 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             return new CreateApprenticeshipResponse { VacancyReferenceNumber = referenceNumber };
         }
 
-        private async Task PopulateTrainingDetailsAsync(CreateApprenticeshipRequest request)
+        private async Task<int> GetTrainingLevelAsync(CreateApprenticeshipRequest request)
         {
-            TrainingDetail trainingDetail;
+            var trainingDetails = request.TrainingType == TrainingType.Framework ?
+                    await _trainingDetailService.GetAllFrameworkDetailsAsync() :
+                    await _trainingDetailService.GetAllStandardDetailsAsync();
 
-            if (request.TrainingType == TrainingType.Framework)
+            var trainingDetail = trainingDetails.FirstOrDefault(fwk => fwk.TrainingCode == request.TrainingCode);
+
+            if (trainingDetail != null) return trainingDetail.Level;
+
+            var error = new ValidationFailure("TrainingCode", ErrorMessages.CreateApprenticeship.InvalidTrainingCode)
             {
-                trainingDetail = await _trainingDetailService.GetFrameworkDetailsAsync(request.TrainingCode);
-            }
-            else
-            {
-                trainingDetail = await _trainingDetailService.GetStandardDetailsAsync(request.TrainingCode);
-            }
-            if (trainingDetail != null)
-            {
-                request.IsTrainingCodeValid = true;
-                request.TrainingEffectiveTo = trainingDetail.EffectiveTo;
-                request.EducationLevel = trainingDetail.Level;
-            }
+                ErrorCode = ErrorCodes.CreateApprenticeship.TrainingCode
+            };
+            throw new ValidationException(new List<ValidationFailure>() { error });
         }
     }
 }

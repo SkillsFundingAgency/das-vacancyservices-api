@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private CreateApprenticeshipParameters _expectedParameters;
         private Mock<IVacancyOwnerService> _mockVacancyOwnerService;
         private Mock<ITrainingDetailService> _mockTrainingDetailService;
-        private TrainingDetail _trainingDetail;
+        private List<TrainingDetail> _trainingDetails;
 
 
         [SetUp]
@@ -66,16 +66,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                     .Setup(repository => repository.CreateApprenticeshipAsync(It.IsAny<CreateApprenticeshipParameters>()))
                     .ReturnsAsync(_expectedRefNumber)));
 
-            _trainingDetail = _fixture.Create<TrainingDetail>();
+            _trainingDetails = new List<TrainingDetail>()
+            {
+                new TrainingDetail()
+                {
+                    TrainingCode = _validRequest.TrainingCode, Level = 1
+                }
+            };
             _mockTrainingDetailService = _fixture.Freeze<Mock<ITrainingDetailService>>(composer =>
                 composer.Do(mock =>
                 {
                     mock
-                        .Setup(svc => svc.GetFrameworkDetailsAsync(It.IsAny<string>()))
-                        .ReturnsAsync(_trainingDetail);
+                        .Setup(svc => svc.GetAllFrameworkDetailsAsync())
+                        .ReturnsAsync(_trainingDetails);
                     mock
-                        .Setup(svc => svc.GetStandardDetailsAsync(It.IsAny<string>()))
-                        .ReturnsAsync(_trainingDetail);
+                        .Setup(svc => svc.GetAllStandardDetailsAsync())
+                        .ReturnsAsync(_trainingDetails);
                 }));
 
             _handler = _fixture.Create<CreateApprenticeshipCommandHandler>();
@@ -103,82 +109,31 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndFrameworkCodeIsNotFound_ThenSetIsValidToFalse()
-        {
-            var request = _fixture.Build<CreateApprenticeshipRequest>()
-                .With(r => r.TrainingType, TrainingType.Framework)
-                .With(r => r.TrainingEffectiveTo, null)
-                .With(r => r.EducationLevel, 0)
-                .Create();
-
-            _mockTrainingDetailService.Setup(svc => svc.GetFrameworkDetailsAsync(It.IsAny<string>())).ReturnsAsync((TrainingDetail)null);
-
-            await _handler.Handle(request);
-
-            _mockTrainingDetailService.Verify(svc => svc.GetFrameworkDetailsAsync(It.IsAny<string>()));
-
-            request.IsTrainingCodeValid.Should().BeFalse();
-            request.TrainingEffectiveTo.Should().BeNull();
-            request.EducationLevel.Should().Be(0);
-        }
-
-        [Test]
-        public async Task AndTrainingTypeIsFramework_ThenUpdateTrainingCode()
-        {
-            var request = _fixture.Create<CreateApprenticeshipRequest>();
-            request.TrainingType = TrainingType.Framework;
-
-            await _handler.Handle(request);
-
-            _mockTrainingDetailService.Verify(svc => svc.GetFrameworkDetailsAsync(It.IsAny<string>()));
-            request.TrainingEffectiveTo.Should().Be(_trainingDetail.EffectiveTo);
-            request.IsTrainingCodeValid.Should().BeTrue();
-            request.EducationLevel.Should().Be(_trainingDetail.Level);
-        }
-
-        [Test]
-        public async Task AndTrainingTypeIsStandard_ThenUpdateTrainingCode()
-        {
-            var request = _fixture.Build<CreateApprenticeshipRequest>()
-                .With(r => r.TrainingEffectiveTo, null)
-                .With(r => r.TrainingType, TrainingType.Standard)
-                .Create();
-
-            await _handler.Handle(request);
-
-            _mockTrainingDetailService.Verify(svc => svc.GetStandardDetailsAsync(It.IsAny<string>()));
-            request.TrainingEffectiveTo.Should().Be(_trainingDetail.EffectiveTo);
-            request.IsTrainingCodeValid.Should().BeTrue();
-            request.EducationLevel.Should().Be(_trainingDetail.Level);
-        }
-
-        [Test]
-        public async Task AndStandardCodeIsNotFound_ThenSetIsValidToFalse()
-        {
-            var request = _fixture.Build<CreateApprenticeshipRequest>()
-                .With(r => r.TrainingEffectiveTo, null)
-                .With(r => r.TrainingType, TrainingType.Standard)
-                .With(r => r.TrainingEffectiveTo, null)
-                .With(r => r.EducationLevel, 0)
-                .Create();
-
-            _mockTrainingDetailService.Setup(svc => svc.GetStandardDetailsAsync(It.IsAny<string>())).ReturnsAsync((TrainingDetail)null);
-
-            await _handler.Handle(request);
-
-            _mockTrainingDetailService.Verify(svc => svc.GetStandardDetailsAsync(It.IsAny<string>()));
-
-            request.IsTrainingCodeValid.Should().BeFalse();
-            request.TrainingEffectiveTo.Should().BeNull();
-            request.EducationLevel.Should().Be(0);
-        }
-
-        [Test]
         public void ThenValidatesRequest()
         {
             _mockValidator.Verify(validator =>
-                validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()),
+                    validator.ValidateAsync(_validRequest, It.IsAny<CancellationToken>()),
                 Times.Once);
+        }
+
+        [Test]
+        public async Task AndTrainingTypeIsFramework_ThenGetEducationLevel()
+        {
+            _validRequest.TrainingType = TrainingType.Framework;
+
+            await _handler.Handle(_validRequest);
+
+            _mockTrainingDetailService.Verify(svc => svc.GetAllFrameworkDetailsAsync());
+        }
+
+        [Test]
+        public async Task AndTrainingTypeIsStandard_ThenGetEducationLevele()
+        {
+            _validRequest.TrainingType = TrainingType.Standard;
+
+            await _handler.Handle(_validRequest);
+
+            _mockTrainingDetailService.Verify(svc => svc.GetAllStandardDetailsAsync());
         }
 
         [Test]

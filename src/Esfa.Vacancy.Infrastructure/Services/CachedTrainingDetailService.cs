@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
@@ -11,6 +12,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly ICacheService _cacheService;
         private readonly ITrainingDetailService _trainingDetailService;
         private readonly TimeSpan _cacheDuration = TimeSpan.FromHours(12);
+        private const string CacheKeyAllFrameworks = "VacancyApi.GetAllFrameworkDetails";
+        private const string CacheKeyAllStandards = "VacancyApi.GetAllStandardDetails";
 
         public CachedTrainingDetailService(
             ICacheService cacheService, ITrainingDetailService trainingDetailService)
@@ -35,19 +38,19 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 _cacheDuration);
         }
 
-        public async Task<TrainingDetail> GetFrameworkDetailsAsync(string frameworkCode)
+        public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
-                $"V2-Framework-{frameworkCode}",
-                async () => await _trainingDetailService.GetFrameworkDetailsAsync(frameworkCode),
+                CacheKeyAllFrameworks,
+                async () => await _trainingDetailService.GetAllFrameworkDetailsAsync(),
                 _cacheDuration);
         }
 
-        public async Task<TrainingDetail> GetStandardDetailsAsync(string standardLarsCode)
+        public async Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
-                $"V2-Standard-{standardLarsCode}",
-                async () => await _trainingDetailService.GetStandardDetailsAsync(standardLarsCode),
+                CacheKeyAllStandards,
+                async () => await _trainingDetailService.GetAllStandardDetailsAsync(),
                 _cacheDuration);
         }
     }
