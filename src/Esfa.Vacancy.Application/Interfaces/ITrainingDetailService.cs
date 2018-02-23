@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Interfaces
@@ -7,7 +8,7 @@ namespace Esfa.Vacancy.Application.Interfaces
     {
         Task<Framework> GetFrameworkDetailsAsync(int code);
         Task<Standard> GetStandardDetailsAsync(int code);
-        Task<TrainingDetail> GetFrameworkDetailsAsync(string frameworkCode);
-        Task<TrainingDetail> GetStandardDetailsAsync(string standardLarsCode);
+        Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync();
+        Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync();
     }
 }

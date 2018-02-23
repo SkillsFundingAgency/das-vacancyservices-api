@@ -50,7 +50,5 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public TrainingType TrainingType { get; set; }
         public string TrainingCode { get; set; }
         public int EducationLevel { get; set; }
-        public DateTime? TrainingEffectiveTo { get; set; }
-        public bool IsTrainingCodeValid { get; set; }
     }
 }

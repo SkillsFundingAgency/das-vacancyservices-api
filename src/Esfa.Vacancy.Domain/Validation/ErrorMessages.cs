@@ -67,6 +67,8 @@ namespace Esfa.Vacancy.Domain.Validation
                 "'{PropertyName}' should be a number between 1 and 9999 when Training Type is Standard.";
             public const string InvalidFrameworkLarsCode =
                 "'{PropertyName}' should be in the format '###-##-##' when Training Type is Framework.";
+
+            public const string InvalidTrainingCode = "'Training Code' is invalid.";
         }
     }
 }
