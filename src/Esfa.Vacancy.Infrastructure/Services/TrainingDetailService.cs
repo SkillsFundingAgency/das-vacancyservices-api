@@ -26,8 +26,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             _provideSettings = provideSettings;
             _logger = logger;
-            _dasApiBaseUrl =
-                provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey);
         }
 
         private string DasApiBaseUrl => _dasApiBaseUrl ??
