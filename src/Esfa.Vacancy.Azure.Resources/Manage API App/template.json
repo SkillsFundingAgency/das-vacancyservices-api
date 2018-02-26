@@ -29,6 +29,9 @@
     "LoggingRedisKey": {
       "type": "string"
     },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "type": "string"
+    },
     "CacheConnectionString": {
       "type": "string"
     },
@@ -68,6 +71,10 @@
             {
               "name": "LoggingRedisKey",
               "value": "[parameters('LoggingRedisKey')]"
+            },
+            {
+              "name": "ApprenticeshipInfoApiBaseUrl",
+              "value": "[parameters('ApprenticeshipInfoApiBaseUrl')]"
             },
             {
               "name": "CacheConnectionString",
