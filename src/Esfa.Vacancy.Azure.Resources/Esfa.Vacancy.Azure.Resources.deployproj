@@ -27,6 +27,7 @@
   <ItemGroup>
     <None Include="API App\parameters.json" />
     <None Include="API App\template.json" />
+    <None Include="APIM\Import-APIMSwaggerApiDefinition.ps1" />
     <None Include="App Service Plan\parameters.json" />
     <None Include="App Service Plan\template.json" />
     <None Include="ASEv2 ILB\parameters.json" />
@@ -37,6 +38,8 @@
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
+    <None Include="Manage API App\parameters.json" />
+    <None Include="Manage API App\template.json" />
     <None Include="NSG\parameters.json" />
     <None Include="NSG\template.json" />
     <None Include="README.md" />
