@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// 
         /// #### Restricted values ####
         /// 
-        /// These fields will only accept text or their numeric equivalent:
+        /// These fields will only accept specific values as listed below:
         /// * ApplicationMethod
         ///     - Online
         ///     - Offline
@@ -49,6 +49,9 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - Weekly
         ///     - Monthly
         ///     - Annually
+        /// * TrainingType
+        ///     - Framework
+        ///     - Standard
         /// 
         /// #### Validation rules ####
         /// 
@@ -96,6 +99,12 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// * When WageType is Unwaged, CompetitiveSalary or ToBeSpecified
         ///     - FixedWage, MinWage and MaxWage must be empty
         ///     - WageUnit must be NotApplicable
+        /// 
+        /// * When TrainingType is Framework
+        ///     - TrainingCode should be in format ###-##-##
+        /// 
+        /// * When TrainingType is Standard
+        ///     - TrainingCode should be a numeric value no greater than 9999
         /// 
         /// * Text fields will take a maximum of 4,000 characters except for the following
         ///     - Title = 100
