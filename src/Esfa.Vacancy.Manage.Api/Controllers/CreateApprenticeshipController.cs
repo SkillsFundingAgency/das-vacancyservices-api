@@ -138,41 +138,41 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31006       | Invalid Working week                        |
         /// | 31007       | Invalid Hours per week                      |
         /// | 31008       | Invalid Wage type                           |
-        /// | 31123       | Invalid Wage type reason                    |
-        /// | 31124       | Invalid Wage unit                           |
-        /// | 31314       | Invalid Fixed wage                          |
-        /// | 31009       | Invalid Min wage                            |
-        /// | 31010       | Invalid Max wage                            |
-        /// | 31011       | Invalid Location type                       |
-        /// | 31012       | Invalid Address line 1                      |
-        /// | 31013       | Invalid Address line 2                      |
-        /// | 31014       | Invalid Address line 3                      |
-        /// | 31015       | Invalid Address line 4                      |
-        /// | 31016       | Invalid Address line 5                      |
-        /// | 31017       | Invalid Town                                |
-        /// | 31018       | Invalid Postcode                            |
-        /// | 31019       | Invalid Number of positions                 |
-        /// | 31020       | Invalid Provider's Ukprn                    |
-        /// | 31021       | Invalid Employer's Edsurn                   |
-        /// | 31022       | Invalid Provider site's Edsurn              |
-        /// | 31201       | Invalid Contact Name                        |
-        /// | 31202       | Invalid Contact Email                       |
-        /// | 31203       | Invalid Contact Number                      |
-        /// | 31204       | Invalid Training Type                       |
-        /// | 31205       | Invalid Training Code                       |
-        /// | 31301       | Invalid Desired skills                      |
-        /// | 31302       | Invalid Desired personal qualities          |
-        /// | 31303       | Invalid Desired qualifications              |
-        /// | 31304       | Invalid Future prospects                    |
-        /// | 31305       | Invalid Things to consider                  |
-        /// | 31306       | Invalid Training to be provided             |
-        /// | 31307       | Invalid Application method                  |
-        /// | 31308       | Invalid Supplementary question 1            |
-        /// | 31309       | Invalid Supplementary question 2            |
-        /// | 31310       | Invalid Expected duration                   |
-        /// | 31311       | Invalid Duration type                       |
-        /// | 31312       | Invalid External application url            |
-        /// | 31313       | Invalid External Application Instructions   |
+        /// | 31009       | Invalid Wage type reason                    |
+        /// | 31010       | Invalid Wage unit                           |
+        /// | 31011       | Invalid Fixed wage                          |
+        /// | 31012       | Invalid Min wage                            |
+        /// | 31013       | Invalid Max wage                            |
+        /// | 31014       | Invalid Expected duration                   |
+        /// | 31015       | Invalid Duration type                       |
+        /// | 31016       | Invalid Location type                       |
+        /// | 31017       | Invalid Address line 1                      |
+        /// | 31018       | Invalid Address line 2                      |
+        /// | 31019       | Invalid Address line 3                      |
+        /// | 31020       | Invalid Address line 4                      |
+        /// | 31021       | Invalid Address line 5                      |
+        /// | 31022       | Invalid Town                                |
+        /// | 31023       | Invalid Postcode                            |
+        /// | 31024       | Invalid Number of positions                 |
+        /// | 31025       | Invalid Provider's Ukprn                    |
+        /// | 31026       | Invalid Employer's Edsurn                   |
+        /// | 31027       | Invalid Provider site's Edsurn              |
+        /// | 31028       | Invalid Contact Name                        |
+        /// | 31029       | Invalid Contact Email                       |
+        /// | 31030       | Invalid Contact Number                      |
+        /// | 31031       | Invalid Training Type                       |
+        /// | 31032       | Invalid Training Code                       |
+        /// | 31033       | Invalid Desired skills                      |
+        /// | 31034       | Invalid Desired personal qualities          |
+        /// | 31035       | Invalid Desired qualifications              |
+        /// | 31036       | Invalid Future prospects                    |
+        /// | 31037       | Invalid Things to consider                  |
+        /// | 31038       | Invalid Training to be provided             |
+        /// | 31039       | Invalid Application method                  |
+        /// | 31040       | Invalid Supplementary question 1            |
+        /// | 31041       | Invalid Supplementary question 2            |
+        /// | 31042       | Invalid External application url            |
+        /// | 31043       | Invalid External Application Instructions   |
         ///                                                                                                  
         /// </summary>
         [HttpPost]

@@ -50,7 +50,7 @@
         public static class CreateApprenticeship
         {
             //31000 - 31999
-            public const string CreateApprenticeshipParametersIsNull = "31000";
+            public const string CreateApprenticeshipParametersIsNull = "32000";
 
             public const string Title = "31001";
             public const string ShortDescription = "31002";
@@ -60,42 +60,43 @@
             public const string WorkingWeek = "31006";
             public const string HoursPerWeek = "31007";
             public const string WageType = "31008";
-            public const string WageTypeReason = "31123";
-            public const string WageUnit = "31124";
-            public const string MinWage = "31009";
-            public const string MaxWage = "31010";
-            public const string LocationType = "31011";
-            public const string AddressLine1 = "31012";
-            public const string AddressLine2 = "31013";
-            public const string AddressLine3 = "31014";
-            public const string AddressLine4 = "31015";
-            public const string AddressLine5 = "31016";
-            public const string Town = "31017";
-            public const string Postcode = "31018";
-            public const string NumberOfPositions = "31019";
-            public const string ProviderUkprn = "31020";
-            public const string EmployerEdsUrn = "31021";
-            public const string ProviderSiteEdsUrn = "31022";
-            public const string ContactName = "31201";
-            public const string ContactEmail = "31202";
-            public const string ContactNumber = "31203";
-            public const string TrainingType = "31204";
-            public const string TrainingCode = "31205";
+            public const string WageTypeReason = "31009";
+            public const string WageUnit = "31010";
+            public const string FixedWage = "31011";
+            public const string MinWage = "31012";
+            public const string MaxWage = "31013";
+            public const string ExpectedDuration = "31014";
+            public const string DurationType = "31015";
+            public const string LocationType = "31016";
+            public const string AddressLine1 = "31017";
+            public const string AddressLine2 = "31018";
+            public const string AddressLine3 = "31019";
+            public const string AddressLine4 = "31020";
+            public const string AddressLine5 = "31021";
+            public const string Town = "31022";
+            public const string Postcode = "31023";
+            public const string NumberOfPositions = "31024";
+            public const string ProviderUkprn = "31025";
+            public const string EmployerEdsUrn = "31026";
+            public const string ProviderSiteEdsUrn = "31027";
+            public const string ContactName = "31028";
+            public const string ContactEmail = "31029";
+            public const string ContactNumber = "31030";
+            public const string TrainingType = "31031";
+            public const string TrainingCode = "31032";
 
-            public const string DesiredSkills = "31301";
-            public const string DesiredPersonalQualities = "31302";
-            public const string DesiredQualifications = "31303";
-            public const string FutureProspects = "31304";
-            public const string ThingsToConsider = "31305";
-            public const string TrainingToBeProvided = "31306";
-            public const string ApplicationMethod = "31307";
-            public const string SupplementaryQuestion1 = "31308";
-            public const string SupplementaryQuestion2 = "31309";
-            public const string ExpectedDuration = "31310";
-            public const string DurationType = "31311";
-            public const string ExternalApplicationUrl = "31312";
-            public const string ExternalApplicationInstructions = "31313";
-            public const string FixedWage = "31314";
+            public const string DesiredSkills = "31033";
+            public const string DesiredPersonalQualities = "31034";
+            public const string DesiredQualifications = "31035";
+            public const string FutureProspects = "31036";
+            public const string ThingsToConsider = "31037";
+            public const string TrainingToBeProvided = "31038";
+            public const string ApplicationMethod = "31039";
+            public const string SupplementaryQuestion1 = "31040";
+            public const string SupplementaryQuestion2 = "31041";
+            public const string ExternalApplicationUrl = "31042";
+            public const string ExternalApplicationInstructions = "31043";
+
 
         }
     }
