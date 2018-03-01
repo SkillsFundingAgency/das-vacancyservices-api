@@ -39,6 +39,7 @@
       <Visible>False</Visible>
     </None>
     <None Include="Manage API App\parameters.json" />
+    <None Include="Manage API App\template.new.json" />
     <None Include="Manage API App\template.json" />
     <None Include="NSG\parameters.json" />
     <None Include="NSG\template.json" />

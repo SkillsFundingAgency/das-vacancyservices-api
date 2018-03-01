@@ -1,0 +1,171 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    },
+    "appHostingPlanName": {
+      "type": "string"
+    },
+    "appHostingEnvironment": {
+      "type": "string"
+    },
+    "appServerFarmResourceGroup": {
+      "type": "string"
+    },
+    "appSubscriptionId": {
+      "type": "string"
+    },
+    "LoggingRedisConnectionString": {
+      "type": "string"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "LoggingRedisKey": {
+      "type": "string"
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "type": "string"
+    },
+    "CacheConnectionString": {
+      "type": "string"
+    },
+    "UseSandboxServices": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "appServicePlanName": "[concat(parameters('appHostingPlanName'))]",
+    "siteName": "[concat(parameters('appName'))]",
+    "stagingSiteName": "[concat(parameters('appName'),'/staging')]",
+    "siteProperties": {
+      "phpVersion": "",
+      "alwaysOn": true
+    }
+  },
+  "resources": [
+    {
+      "type": "microsoft.insights/components",
+      "name": "[variables('siteName')]",
+      "apiVersion": "2015-05-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('siteName'))]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[parameters('appName')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "name": "[concat(variables('siteName'),'-staging')]",
+      "apiVersion": "2015-05-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('siteName'),'/staging')]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[concat(variables('siteName'),'-staging')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[variables('siteName')]",
+      "type": "Microsoft.Web/sites",
+      "kind": "api",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', variables('appServicePlanName'))]"
+      },
+      "dependsOn": [
+        "[resourceId('microsoft.insights/components/', variables('siteName'))]"
+      ],
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+          ],
+          "properties": "[variables('siteProperties')]"
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "appsettings",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+          ],
+          "properties": {
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', variables('siteName')), '2015-05-01').InstrumentationKey]",
+            "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+            "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+            "EnvironmentName": "[parameters('EnvironmentName')]",
+            "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+            "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+            "CacheConnectionString": "[parameters('CacheConnectionString')]",
+            "UseSandboxServices": "[parameters('UseSandboxServices')]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "slotconfignames",
+          "type": "config",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+          ],
+          "properties": {
+            "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName" ]
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "name": "staging",
+          "type": "slots",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('siteName'))]"
+          ],
+          "properties": {},
+          "resources": [
+            {
+              "apiVersion": "2015-08-01",
+              "name": "web",
+              "type": "config",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites/Slots', variables('siteName'), 'staging')]"
+              ],
+              "properties": "[variables('siteProperties')]"
+            },
+            {
+              "apiVersion": "2015-08-01",
+              "name": "appsettings",
+              "type": "config",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites/Slots', variables('siteName'), 'staging')]"
+              ],
+              "properties": {
+                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', concat(variables('siteName'),'-staging')), '2015-05-01').InstrumentationKey]",
+                "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+                "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+                "EnvironmentName": "[parameters('EnvironmentName')]",
+                "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+                "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+                "CacheConnectionString": "[parameters('CacheConnectionString')]",
+                "UseSandboxServices": "[parameters('UseSandboxServices')]"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
