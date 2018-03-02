@@ -84,7 +84,8 @@
       "kind": "api",
       "location": "[resourceGroup().location]",
       "properties": {
-        "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]"
+        "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
+        "hostingEnvironment": "[parameters('appHostingEnvironment')]"
       },
       "dependsOn": [
         "[resourceId('microsoft.insights/components/', parameters('appName'))]"
