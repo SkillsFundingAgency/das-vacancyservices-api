@@ -5,6 +5,9 @@
     "appName": {
       "value": "__manageApiAppName__"
     },
+    "slotName": {
+      "value": "__manageApiAppSlotName__"
+    },
     "appHostingPlanName": {
       "value": "__appHostingPlanName__"
     },
