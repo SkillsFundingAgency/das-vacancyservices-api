@@ -5,11 +5,11 @@
     "appName": {
       "value": "__appName__"
     },
+    "slotName": {
+      "value": "__appSlotName__"
+    },
     "appHostingPlanName": {
       "value": "__appHostingPlanName__"
-    },
-    "appLocation": {
-      "value": "__appLocation__"
     },
     "appHostingEnvironment": {
       "value": "__appHostingEnvironment__"
@@ -53,6 +53,5 @@
     "UseSandboxServices": {
       "value": "__appSettingUseSandboxServices__"
     }
-    
   }
 }

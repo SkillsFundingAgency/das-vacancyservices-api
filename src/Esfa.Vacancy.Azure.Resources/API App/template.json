@@ -1,14 +1,15 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
       "type": "string"
     },
-    "appHostingPlanName": {
-      "type": "string"
+    "slotName": {
+      "type": "string",
+      "defaultValue": "staging"
     },
-    "appLocation": {
+    "appHostingPlanName": {
       "type": "string"
     },
     "appHostingEnvironment": {
@@ -54,85 +55,19 @@
       "type": "string"
     }
   },
+  "variables": {
+    "slotFriendlyName": "[concat(parameters('appName'),'-',parameters('slotName'))]",
+    "siteProperties": {
+      "phpVersion": "",
+      "alwaysOn": true
+    }
+  },
     "resources": [
-      {
-        "type": "Microsoft.Web/sites",
-        "kind": "api",
-        "name": "[parameters('appName')]",
-        "apiVersion": "2016-03-01",
-        "location": "[parameters('appLocation')]",
-        "tags": {
-          "[concat('hidden-related:', '/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]": "empty"
-        },
-        "properties": {
-          "siteConfig": {
-            "appSettings": [
-              {
-                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                "value": "[reference(resourceId('microsoft.insights/components/', parameters('appName')), '2015-05-01').InstrumentationKey]"
-              },
-              {
-                "name": "LoggingRedisConnectionString",
-                "value": "[parameters('LoggingRedisConnectionString')]"
-              },
-              {
-                "name": "AvmsPlusDatabaseConnectionString",
-                "value": "[parameters('AvmsPlusDatabaseConnectionString')]"
-              },
-              {
-                "name": "EnvironmentName",
-                "value": "[parameters('EnvironmentName')]"
-              },
-              {
-                "name": "LoggingRedisKey",
-                "value": "[parameters('LoggingRedisKey')]"
-              },
-              {
-                "name": "ApprenticeshipInfoApiBaseUrl",
-                "value": "[parameters('ApprenticeshipInfoApiBaseUrl')]"
-              },
-              {
-                "name": "LiveApprenticeshipVacancyBaseUrl",
-                "value": "[parameters('LiveApprenticeshipVacancyBaseUrl')]"
-              },
-              {
-                "name": "VacancySearchUrl",
-                "value": "[parameters('VacancySearchUrl')]"
-              },
-              {
-                "name": "ApprenticeshipIndexAlias",
-                "value": "[parameters('ApprenticeshipIndexAlias')]"
-              },
-              {
-                "name": "LiveTraineeshipVacancyBaseUrl",
-                "value": "[parameters('LiveTraineeshipVacancyBaseUrl')]"
-              },
-              {
-                "name": "CacheConnectionString",
-                "value": "[parameters('CacheConnectionString')]"
-              },
-              {
-                "name": "UseSandboxServices",
-                "value": "[parameters('UseSandboxServices')]"
-              }
-            ],
-            "alwaysOn": true,
-            "phpVersion": ""
-
-          },
-          "name": "[parameters('appName')]",
-          "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
-          "hostingEnvironment": "[parameters('appHostingEnvironment')]"
-        },
-        "dependsOn": [
-          "[resourceId('microsoft.insights/components/', parameters('appName'))]"
-        ]
-      },
       {
         "type": "microsoft.insights/components",
         "name": "[parameters('appName')]",
         "apiVersion": "2015-05-01",
-        "location": "North Europe",
+        "location": "[resourceGroup().location]",
         "tags": {
           "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('appName'))]": "Resource"
         },
@@ -140,6 +75,120 @@
           "ApplicationId": "[parameters('appName')]",
           "Request_Source": "IbizaWebAppExtensionCreate"
         }
+      },
+      {
+        "type": "microsoft.insights/components",
+        "name": "[variables('slotFriendlyName')]",
+        "apiVersion": "2015-05-01",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('appName'),'/slots/',parameters('slotName'))]": "Resource"
+        },
+        "properties": {
+          "ApplicationId": "[variables('slotFriendlyName')]",
+          "Request_Source": "IbizaWebAppExtensionCreate"
+        }
+      },
+      {
+        "apiVersion": "2015-08-01",
+        "name": "[parameters('appName')]",
+        "type": "Microsoft.Web/sites",
+        "kind": "api",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "serverFarmId": "[concat('/subscriptions/', parameters('appSubscriptionId'),'/resourcegroups/', parameters('appServerFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appHostingPlanName'))]",
+          "hostingEnvironment": "[parameters('appHostingEnvironment')]"
+        },
+        "dependsOn": [
+          "[resourceId('microsoft.insights/components/', parameters('appName'))]"
+        ],
+        "resources": [
+          {
+            "apiVersion": "2015-08-01",
+            "name": "web",
+            "type": "config",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
+            ],
+            "properties": "[variables('siteProperties')]"
+          },
+          {
+            "apiVersion": "2015-08-01",
+            "name": "appsettings",
+            "type": "config",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
+            ],
+            "properties": {
+              "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', parameters('appName')), '2015-05-01').InstrumentationKey]",
+              "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+              "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+              "EnvironmentName": "[parameters('EnvironmentName')]",
+              "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+              "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+              "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
+              "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
+              "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
+              "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
+              "CacheConnectionString": "[parameters('CacheConnectionString')]",
+              "UseSandboxServices": "[parameters('UseSandboxServices')]"
+            }
+            },
+          {
+            "apiVersion": "2015-08-01",
+            "name": "slotconfignames",
+            "type": "config",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
+            ],
+            "properties": {
+              "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName" ]
+            }
+          },
+          {
+            "apiVersion": "2015-08-01",
+            "name": "[parameters('slotName')]",
+            "type": "slots",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
+            ],
+            "properties": {},
+            "resources": [
+              {
+                "apiVersion": "2015-08-01",
+                "name": "web",
+                "type": "config",
+                "dependsOn": [
+                  "[resourceId('Microsoft.Web/Sites/Slots', parameters('appName'), parameters('slotName'))]"
+                ],
+                "properties": "[variables('siteProperties')]"
+              },
+              {
+                "apiVersion": "2015-08-01",
+                "name": "appsettings",
+                "type": "config",
+                "dependsOn": [
+                  "[resourceId('Microsoft.Web/Sites/Slots', parameters('appName'), parameters('slotName'))]"
+                ],
+                "properties": {
+                  "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', variables('slotFriendlyName')), '2015-05-01').InstrumentationKey]",
+                  "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+                  "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+                  "EnvironmentName": "[parameters('EnvironmentName')]",
+                  "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+                  "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+                  "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
+                  "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
+                  "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
+                  "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
+                  "CacheConnectionString": "[parameters('CacheConnectionString')]",
+                  "UseSandboxServices": "[parameters('UseSandboxServices')]"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
-}
+  }
