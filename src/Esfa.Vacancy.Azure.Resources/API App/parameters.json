@@ -6,7 +6,7 @@
       "value": "__appName__"
     },
     "slotName": {
-      "value": "__slotName__"
+      "value": "__appSlotName__"
     },
     "appHostingPlanName": {
       "value": "__appHostingPlanName__"
