@@ -183,5 +183,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Lars code for selected Training Type
         /// </summary>
         public string TrainingCode { get; set; }
+
+        /// <summary>
+        /// Is the employer disability confident
+        /// </summary>
+        public bool? IsEmployerDisabilityConfident { get; set; }
     }
 }

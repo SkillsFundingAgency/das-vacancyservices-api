@@ -50,5 +50,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public string TrainingCode { get; set; }
         public int TrainingTypeId { get; set; }
         public ApprenticeshipType ApprenticeshipType { get; set; }
+        public bool IsDisabilityConfident { get; set; }
     }
 }

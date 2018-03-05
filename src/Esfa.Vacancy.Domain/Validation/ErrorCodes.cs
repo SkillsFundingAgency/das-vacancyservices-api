@@ -96,8 +96,7 @@
             public const string SupplementaryQuestion2 = "31041";
             public const string ExternalApplicationUrl = "31042";
             public const string ExternalApplicationInstructions = "31043";
-
-
+            public const string IsEmployerDisabilityConfident = "31044";
         }
     }
 }
