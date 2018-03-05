@@ -295,9 +295,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         }
 
         [Test]
-        public void ThenMapsIsDisabilityConfident()
+        public void ThenMapsIsEmployerDisabilityConfident()
         {
             _mappedRequest.IsEmployerDisabilityConfident.Should().Be(_apiParameters.IsEmployerDisabilityConfident);
+        }
+
+        [Test]
+        public void ThenMapsAdditionalLocationInformation()
+        {
+            _mappedRequest.AdditionalLocationInformation.Should().Be(_apiParameters.AdditionalLocationInformation);
         }
     }
 }
