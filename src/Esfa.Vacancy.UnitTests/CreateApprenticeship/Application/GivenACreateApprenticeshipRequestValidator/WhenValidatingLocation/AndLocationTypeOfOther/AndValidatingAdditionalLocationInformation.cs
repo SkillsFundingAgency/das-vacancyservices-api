@@ -19,13 +19,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData(null, true, null)
                     .SetName("And is null Then is valid"),
                 new TestCaseData("null", true, null)
-                    .SetName("And is provided Then is valid"),
+                    .SetName("And is in allowed format Then is valid"),
                 new TestCaseData(new string('a', 4001), false, "'Additional Location Information' must be less than 4001 characters. You entered 4001 characters.")
                     .SetName("And exceeds 4000 characters Then is invalid"),
                 new TestCaseData("<p>", false, "'Additional Location Information' can't contain invalid characters")
                     .SetName("And contains illegal chars Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, true, "10 Downing Street")
-                    .SetName("And is in allowed format Then is valid"),
             };
 
         [TestCaseSource(nameof(TestCases))]
