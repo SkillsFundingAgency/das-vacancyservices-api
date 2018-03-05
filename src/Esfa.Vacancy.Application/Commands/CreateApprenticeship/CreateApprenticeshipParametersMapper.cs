@@ -59,7 +59,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ContactNumber = request.ContactNumber,
                 TrainingTypeId = (int)request.TrainingType,
                 ApprenticeshipType = GetApprenticeshipType(request.TrainingType, request.EducationLevel),
-                IsDisabilityConfident = request.IsEmployerDisabilityConfident.Value
+                IsDisabilityConfident = request.IsEmployerDisabilityConfident.Value,
+                AdditionalLocationInformation = request.AdditionalLocationInformation
             };
 
             MapLocationFields(request, employerInformation, parameters);

@@ -9,6 +9,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             const int addressLineMaxLength = 300;
             const int townMaxLength = 100;
+            const int additionalLocationInformationLength = 4000;
 
             When(request => request.LocationType == LocationType.OtherLocation, () =>
             {
@@ -74,6 +75,16 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                         .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode));
             });
 
+            When(request => request.LocationType == LocationType.OtherLocation, () =>
+            {
+                RuleFor(request => request.AdditionalLocationInformation)
+                    .MaximumLength(additionalLocationInformationLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation)
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation);
+
+            });
+
             When(request =>
                 request.LocationType == LocationType.EmployerLocation || request.LocationType == LocationType.Nationwide,
                 () =>
@@ -106,7 +117,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                         .Empty()
                         .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode)
                         .WithMessage(ErrorMessages.CreateApprenticeship.LocationFieldNotRequired);
-
+                    RuleFor(r => r.AdditionalLocationInformation)
+                        .Empty()
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation)
+                        .WithMessage(ErrorMessages.CreateApprenticeship.LocationFieldNotRequired);
                 });
         }
     }

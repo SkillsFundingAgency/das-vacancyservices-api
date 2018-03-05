@@ -27,7 +27,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 AddressLine4 = "string",
                 AddressLine5 = "string",
                 Town = "Coventry",
-                Postcode = "CV1 1AA"
+                Postcode = "CV1 1AA",
+                AdditionalLocationInformation = "kjb"
             };
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
@@ -96,6 +97,15 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode)
                 .WithErrorMessage(GetLocationFieldNotRequiredErrorMessage(
                     nameof(_request.Postcode)));
+
+        }
+
+        [Test]
+        public void ThenAdditionalLocationInformationIsNotRequired()
+        {
+            _validator.ShouldHaveValidationErrorFor(request => request.AdditionalLocationInformation, _request)
+                .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation)
+                .WithErrorMessage(GetLocationFieldNotRequiredErrorMessage("Additional Location Information"));
 
         }
 

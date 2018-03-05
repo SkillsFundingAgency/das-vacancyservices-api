@@ -188,5 +188,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Is the employer disability confident
         /// </summary>
         public bool? IsEmployerDisabilityConfident { get; set; }
+
+        /// <summary>
+        /// Additional location information for location other than Employer's address
+        /// </summary>
+        public string AdditionalLocationInformation { get; set; }
     }
 }

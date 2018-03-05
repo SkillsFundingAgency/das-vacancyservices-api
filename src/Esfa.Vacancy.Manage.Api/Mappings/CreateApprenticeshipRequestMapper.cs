@@ -55,7 +55,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 ContactNumber = parameters.ContactNumber,
                 TrainingType = (TrainingType)parameters.TrainingType,
                 TrainingCode = parameters.TrainingCode,
-                IsEmployerDisabilityConfident = parameters.IsEmployerDisabilityConfident
+                IsEmployerDisabilityConfident = parameters.IsEmployerDisabilityConfident,
+                AdditionalLocationInformation = parameters.AdditionalLocationInformation
             };
         }
     }
