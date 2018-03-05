@@ -20,42 +20,31 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine1);
-            });
 
-            When(request => request.LocationType == LocationType.OtherLocation, () =>
-            {
                 RuleFor(request => request.AddressLine2)
                     .MaximumLength(addressLineMaxLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine2);
-            });
 
-            When(request => request.LocationType == LocationType.OtherLocation, () =>
-            {
                 RuleFor(request => request.AddressLine3)
                     .MaximumLength(addressLineMaxLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine3);
-            });
 
-            RuleFor(request => request.AddressLine4)
-                .MaximumLength(addressLineMaxLength)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4)
-                .MatchesAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4)
-                .When(request => request.LocationType == LocationType.OtherLocation);
+                RuleFor(request => request.AddressLine4)
+                    .MaximumLength(addressLineMaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4)
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine4);
 
-            RuleFor(request => request.AddressLine5)
-                .MaximumLength(addressLineMaxLength)
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
-                .MatchesAllowedFreeTextCharacters()
-                .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
-                .When(request => request.LocationType == LocationType.OtherLocation);
+                RuleFor(request => request.AddressLine5)
+                    .MaximumLength(addressLineMaxLength)
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5)
+                    .MatchesAllowedFreeTextCharacters()
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.AddressLine5);
 
-            When(request => request.LocationType == LocationType.OtherLocation, () =>
-            {
                 RuleFor(request => request.Town)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Town)
@@ -63,26 +52,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Town)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Town);
-            });
 
-            When(request => request.LocationType == LocationType.OtherLocation, () =>
-            {
                 RuleFor(request => request.Postcode)
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode)
                     .DependentRules(rule => rule.RuleFor(request => request.Postcode)
                         .MustBeAValidPostcode()
                         .WithErrorCode(ErrorCodes.CreateApprenticeship.Postcode));
-            });
 
-            When(request => request.LocationType == LocationType.OtherLocation, () =>
-            {
                 RuleFor(request => request.AdditionalLocationInformation)
                     .MaximumLength(additionalLocationInformationLength)
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation)
                     .MatchesAllowedFreeTextCharacters()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.AdditionalLocationInformation);
-
             });
 
             When(request =>
