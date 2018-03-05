@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Api.Types.Request;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using MediatR;

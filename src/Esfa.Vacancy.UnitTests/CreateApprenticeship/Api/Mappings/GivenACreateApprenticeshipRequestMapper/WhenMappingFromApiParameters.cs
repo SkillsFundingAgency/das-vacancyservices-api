@@ -1,4 +1,5 @@
-﻿using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+﻿using Esfa.Vacancy.Api.Types.Request;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Manage.Api.Mappings;
 using FluentAssertions;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
     [TestFixture]
     public class WhenMappingFromApiParameters
     {
-        private ApiTypes.CreateApprenticeshipParameters _apiParameters;
+        private CreateApprenticeshipParameters _apiParameters;
         private CreateApprenticeshipRequest _mappedRequest;
         private int _ukprn = 12345678;
 
@@ -24,7 +25,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
             var randomWageUnit = fixture.Create<int>();
             var randomLocationType = fixture.Create<int>();
             var randomApplicationMethod = fixture.Create<int>();
-            _apiParameters = fixture.Build<ApiTypes.CreateApprenticeshipParameters>()
+            _apiParameters = fixture.Build<CreateApprenticeshipParameters>()
                 .With(parameters => parameters.LocationType, (ApiTypes.LocationType)randomLocationType)
                 .With(parameters => parameters.WageType, (ApiTypes.WageType)randomWageType)
                 .With(parameters => parameters.WageUnit, (Vacancy.Api.Types.Request.WageUnit)randomWageUnit)
@@ -171,7 +172,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsWageUnit()
         {
-            _mappedRequest.WageUnit.Should().Be((WageUnit)_apiParameters.WageUnit);
+            _mappedRequest.WageUnit.Should().Be((ApplicationTypes.WageUnit)_apiParameters.WageUnit);
         }
 
         [Test]
@@ -303,7 +304,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         [Test]
         public void ThenMapsAdditionalLocationInformation()
         {
-            _mappedRequest.AdditionalLocationInformation.Should().Be(_apiParameters.AdditionalLocationInformation);
+            _mappedRequest.AdditionalLocationInformation.Should().Be(_apiParameters.Location.AdditionalInformation);
         }
     }
 }

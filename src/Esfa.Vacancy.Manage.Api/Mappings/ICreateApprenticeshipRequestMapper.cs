@@ -1,4 +1,4 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using Esfa.Vacancy.Api.Types.Request;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings

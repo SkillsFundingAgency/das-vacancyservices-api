@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Esfa.Vacancy.Api.Types
+namespace Esfa.Vacancy.Api.Types.Request
 {
     public class CreateApprenticeshipParameters
     {
@@ -142,7 +142,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// The Location of the Vacancy, required in case LocationType is set to OtherLocation
         /// </summary>
-        public Address Location { get; set; } = new Address();
+        public Location Location { get; set; } = new Location();
 
         /// <summary>
         /// Number of positions available for the vacancy
@@ -188,10 +188,5 @@ namespace Esfa.Vacancy.Api.Types
         /// Is the employer disability confident
         /// </summary>
         public bool? IsEmployerDisabilityConfident { get; set; }
-
-        /// <summary>
-        /// Additional location information for location other than Employer's address
-        /// </summary>
-        public string AdditionalLocationInformation { get; set; }
     }
 }

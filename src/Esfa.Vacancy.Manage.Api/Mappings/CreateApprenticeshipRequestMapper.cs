@@ -1,6 +1,6 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
 using ApplicationTypes = Esfa.Vacancy.Application.Commands.CreateApprenticeship;
-using CreateApprenticeshipParameters = Esfa.Vacancy.Api.Types.CreateApprenticeshipParameters;
+using CreateApprenticeshipParameters = Esfa.Vacancy.Api.Types.Request.CreateApprenticeshipParameters;
 
 namespace Esfa.Vacancy.Manage.Api.Mappings
 {
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 TrainingType = (TrainingType)parameters.TrainingType,
                 TrainingCode = parameters.TrainingCode,
                 IsEmployerDisabilityConfident = parameters.IsEmployerDisabilityConfident,
-                AdditionalLocationInformation = parameters.AdditionalLocationInformation
+                AdditionalLocationInformation = parameters.Location.AdditionalInformation
             };
         }
     }

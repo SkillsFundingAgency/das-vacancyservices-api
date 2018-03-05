@@ -5,6 +5,7 @@ using System.Web.Http;
 using Esfa.Vacancy.Api.Core.ActionFilters;
 using Esfa.Vacancy.Api.Core.Extensions;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Api.Types.Request;
 using Esfa.Vacancy.Manage.Api.Orchestrators;
 using Swashbuckle.Swagger.Annotations;
 
@@ -73,7 +74,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         ///     - SupplementaryQuestion1 and SupplementaryQuestion2 must be empty
         /// 
         /// * When LocationType is EmployerLocation or Nationwide 
-        ///     - All address fields must be empty.
+        ///     - Location is not required.
         /// 
         /// * When LocationType is OtherLocation 
         ///     - Only Address1, Town and Postcode are required
@@ -146,13 +147,13 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31014       | Invalid Expected duration                   |
         /// | 31015       | Invalid Duration type                       |
         /// | 31016       | Invalid Location type                       |
-        /// | 31017       | Invalid Address line 1                      |
-        /// | 31018       | Invalid Address line 2                      |
-        /// | 31019       | Invalid Address line 3                      |
-        /// | 31020       | Invalid Address line 4                      |
-        /// | 31021       | Invalid Address line 5                      |
-        /// | 31022       | Invalid Town                                |
-        /// | 31023       | Invalid Postcode                            |
+        /// | 31017       | Invalid Location Address line 1             |
+        /// | 31018       | Invalid Location Address line 2             |
+        /// | 31019       | Invalid Location Address line 3             |
+        /// | 31020       | Invalid Location Address line 4             |
+        /// | 31021       | Invalid Location Address line 5             |
+        /// | 31022       | Invalid Location Town                       |
+        /// | 31023       | Invalid Location Postcode                   |
         /// | 31024       | Invalid Number of positions                 |
         /// | 31025       | Invalid Provider's Ukprn                    |
         /// | 31026       | Invalid Employer's Edsurn                   |
@@ -174,7 +175,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31042       | Invalid External application url            |
         /// | 31043       | Invalid External Application Instructions   |
         /// | 31044       | Invalid Is Employer Disability Confident    |
-        /// | 31045       | Invalid Is Additional Location Information  |
+        /// | 31045       | Invalid Location Additional Information     |
         ///                                                                                                  
         /// </summary>
         [HttpPost]
