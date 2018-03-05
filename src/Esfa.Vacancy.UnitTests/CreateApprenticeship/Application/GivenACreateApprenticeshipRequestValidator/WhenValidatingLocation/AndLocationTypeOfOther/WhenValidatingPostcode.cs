@@ -18,24 +18,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(LocationType.OtherLocation, false, null, EmptyMessage)
+                new TestCaseData(false, null, EmptyMessage)
                     .SetName("And is null Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, new string('a', 10), InvalidMessage)
+                new TestCaseData(false, new string('a', 10), InvalidMessage)
                     .SetName("And exceeds 9 characters Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, "<p>", InvalidMessage)
+                new TestCaseData(false, "<p>", InvalidMessage)
                     .SetName("And contains illegal chars Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, "  ", EmptyMessage)
+                new TestCaseData(false, "  ", EmptyMessage)
                     .SetName("And is whitespaces Then raise not empty validation error only"),
-                new TestCaseData(LocationType.OtherLocation, true, "CV1 2WT", string.Empty)
+                new TestCaseData(true, "CV1 2WT", string.Empty)
                     .SetName("And is in allowed format Then is valid"),
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidatePostcode(LocationType locationType, bool isValid, string postCode, string errorMessage)
+        public void ValidatePostcode(bool isValid, string postCode, string errorMessage)
         {
             var request = new CreateApprenticeshipRequest()
             {
-                LocationType = locationType,
+                LocationType = LocationType.OtherLocation,
                 Postcode = postCode
             };
 
