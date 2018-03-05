@@ -15,22 +15,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private static List<TestCaseData> TestCases() =>
             new List<TestCaseData>
             {
-                new TestCaseData(LocationType.OtherLocation, false, null)
+                new TestCaseData(false, null, "'Town' should not be empty.")
                     .SetName("And is null Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, new string('a', 101))
+                new TestCaseData(false, new string('a', 101), "'Town' must be less than 101 characters. You entered 101 characters.")
                     .SetName("And exceeds 100 characters Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, false, "<p>")
+                new TestCaseData(false, "<p>", "'Town' can't contain invalid characters")
                     .SetName("And contains illegal chars Then is invalid"),
-                new TestCaseData(LocationType.OtherLocation, true, "Coventry")
+                new TestCaseData(true, "Coventry", null)
                     .SetName("And is in allowed format Then is valid"),
             };
 
         [TestCaseSource(nameof(TestCases))]
-        public void ValidateTown(LocationType locationType, bool isValid, string town)
+        public void ValidateTown(bool isValid, string town, string errorMessage)
         {
             var request = new CreateApprenticeshipRequest()
             {
-                LocationType = locationType,
+                LocationType = LocationType.OtherLocation,
                 Town = town
             };
 
@@ -45,7 +45,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 sut
                     .ShouldHaveValidationErrorFor(r => r.Town, request)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Town);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.Town)
+                    .WithErrorMessage(errorMessage);
             }
         }
     }
