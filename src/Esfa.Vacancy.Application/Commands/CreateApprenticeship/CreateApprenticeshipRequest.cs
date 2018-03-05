@@ -50,5 +50,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public TrainingType TrainingType { get; set; }
         public string TrainingCode { get; set; }
         public int EducationLevel { get; set; }
+        public bool? IsEmployerDisabilityConfident { get; set; }
     }
 }

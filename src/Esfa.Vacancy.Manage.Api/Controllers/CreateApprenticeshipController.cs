@@ -173,6 +173,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31041       | Invalid Supplementary question 2            |
         /// | 31042       | Invalid External application url            |
         /// | 31043       | Invalid External Application Instructions   |
+        /// | 31044       | Invalid Is Employer Disability Confident    |
         ///                                                                                                  
         /// </summary>
         [HttpPost]

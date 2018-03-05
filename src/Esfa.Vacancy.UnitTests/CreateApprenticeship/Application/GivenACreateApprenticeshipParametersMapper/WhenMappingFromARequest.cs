@@ -38,8 +38,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _request = fixture.Build<CreateApprenticeshipRequest>()
                 .With(request => request.WageType, (WageType)_randomWageType)
                 .With(request => request.WageUnit, (WageUnit)_randomWageUnit)
-                              .With(request => request.DurationType, _randomDurationType)
-                              .Create();
+                .With(request => request.DurationType, _randomDurationType)
+                .With(request => request.IsEmployerDisabilityConfident, fixture.Create<bool>())
+                .Create();
 
             _mockWageTypeMapper = fixture.Freeze<Mock<IWageTypeMapper>>();
             _mockWageTypeMapper
@@ -250,6 +251,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsTrainingType()
         {
             _mappedParameters.TrainingTypeId.Should().Be((int)_request.TrainingType);
+        }
+
+        [Test]
+        public void ThenMapsIsDisabilityConfident()
+        {
+            _mappedParameters.IsDisabilityConfident.Should().Be(_request.IsEmployerDisabilityConfident.Value);
         }
     }
 }
