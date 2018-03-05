@@ -1,6 +1,6 @@
-﻿namespace Esfa.Vacancy.Api.Types
+﻿namespace Esfa.Vacancy.Api.Types.Request
 {
-    public class Address
+    public class Location
     {
         /// <summary>
         /// Address line1.
@@ -30,5 +30,10 @@
         /// Town.
         /// </summary>
         public string Town { get; set; }
+
+        /// <summary>
+        /// Additional information for location other than Employer's address
+        /// </summary>
+        public string AdditionalInformation { get; set; }
     }
 }

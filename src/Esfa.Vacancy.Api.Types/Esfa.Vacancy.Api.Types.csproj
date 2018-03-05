@@ -44,7 +44,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Address.cs" />
+    <Compile Include="Request\Location.cs" />
     <Compile Include="ApplicationMethod.cs" />
     <Compile Include="Request\TrainingType.cs" />
     <Compile Include="Request\WageUnit.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="BadRequestError.cs" />
     <Compile Include="BadRequestContent.cs" />
     <Compile Include="CreateApprenticeshipResponse.cs" />
-    <Compile Include="CreateApprenticeshipParameters.cs" />
+    <Compile Include="Request\CreateApprenticeshipParameters.cs" />
     <Compile Include="LocationType.cs" />
     <Compile Include="SortBy.cs" />
     <Compile Include="TraineeshipVacancy.cs" />

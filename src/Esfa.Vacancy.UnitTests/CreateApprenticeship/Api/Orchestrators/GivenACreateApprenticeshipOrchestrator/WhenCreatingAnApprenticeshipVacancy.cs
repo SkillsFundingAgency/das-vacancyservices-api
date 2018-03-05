@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core;
 using Esfa.Vacancy.Api.Core.Validation;
+using Esfa.Vacancy.Api.Types.Request;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Manage.Api.Mappings;
@@ -30,12 +31,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         private ApiTypes.CreateApprenticeshipResponse _expectedMapperResponse;
         private Mock<ICreateApprenticeshipResponseMapper> _mockResponseMapper;
         private Mock<ICreateApprenticeshipRequestMapper> _mockRequestMapper;
-        private ApiTypes.CreateApprenticeshipParameters _actualParameters;
+        private CreateApprenticeshipParameters _actualParameters;
         private CreateApprenticeshipRequest _expectedRequest;
         private CreateApprenticeshipOrchestrator _orchestrator;
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private string _expectedErrorMessage;
-        private Dictionary<string, string> _validHeader
+        private readonly Dictionary<string, string> _validHeader
             = new Dictionary<string, string> { { Constants.RequestHeaderNames.ProviderUkprn, providerUkprn.ToString() } };
 
         [SetUp]
@@ -43,7 +44,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            _actualParameters = fixture.Create<ApiTypes.CreateApprenticeshipParameters>();
+            _actualParameters = fixture.Create<CreateApprenticeshipParameters>();
 
             _expectedMediatorResponse = fixture.Create<CreateApprenticeshipResponse>();
             _expectedMapperResponse = fixture.Create<ApiTypes.CreateApprenticeshipResponse>();
