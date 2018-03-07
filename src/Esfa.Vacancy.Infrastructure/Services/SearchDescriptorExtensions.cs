@@ -13,8 +13,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public static void SortByExpectedStartDate(this SearchDescriptor<ApprenticeshipSummary> search)
         {
-            search.SortDescending(summary => summary.StartDate);
-            search.SortDescending(summary => summary.VacancyReference);
+            search.SortAscending(summary => summary.StartDate);
+            search.SortAscending(summary => summary.VacancyReference);
         }
 
         public static void TrySortByDistance(this SearchDescriptor<ApprenticeshipSummary> search, VacancySearchParameters parameters)
