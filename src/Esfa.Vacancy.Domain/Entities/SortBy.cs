@@ -3,7 +3,7 @@
     public enum SortBy
     {
         Age,
-        ExpectedStartDate,
-        Distance
+        Distance,
+        ExpectedStartDate
     }
 }

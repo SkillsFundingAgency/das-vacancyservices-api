@@ -27,13 +27,21 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             request.SortBy.Should().Be(SortBy.Age);
         }
-
+        
         [Test]
         public void WhenDistance_ThenSetToDistance()
         {
             var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.Distance };
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
             request.SortBy.Should().Be(SortBy.Distance);
+        }
+
+        [Test]
+        public void WhenExpectedStartDate_ThenSetToExpectedStartDate()
+        {
+            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.ExpectedStartDate };
+            var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
+            request.SortBy.Should().Be(SortBy.ExpectedStartDate);
         }
 
         [Test]
