@@ -65,6 +65,21 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
+                    SortBy = SortBy.ExpectedStartDate
+                }, new ValidationResult())
+                .SetName("And searching without location then sort by start date is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    Latitude = 23,
+                    Longitude = 54,
+                    DistanceInMiles = 200,
+                    SortBy = SortBy.ExpectedStartDate
+                }, new ValidationResult())
+                .SetName("And searching with location then sort by start date is valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
+                    PostedInLastNumberOfDays = 2,
+                    NationwideOnly = true,
                     SortBy = SortBy.Distance
                 }, new ValidationResult
                 {
