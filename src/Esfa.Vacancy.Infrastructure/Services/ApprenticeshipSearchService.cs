@@ -85,6 +85,11 @@ namespace Esfa.Vacancy.Infrastructure.Services
                             search.SortByAge();
                             break;
 
+                        case SortBy.ExpectedStartDate:
+                            search.SortByExpectedStartDate();
+                            search.TrySortByDistance(parameters);
+                            break;
+
                         default:
                             search.SortByAge();
                             search.TrySortByDistance(parameters);

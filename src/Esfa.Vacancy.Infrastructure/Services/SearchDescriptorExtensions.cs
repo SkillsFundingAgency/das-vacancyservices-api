@@ -11,6 +11,12 @@ namespace Esfa.Vacancy.Infrastructure.Services
             search.SortDescending(summary => summary.VacancyReference);
         }
 
+        public static void SortByExpectedStartDate(this SearchDescriptor<ApprenticeshipSummary> search)
+        {
+            search.SortDescending(summary => summary.StartDate);
+            search.SortDescending(summary => summary.VacancyReference);
+        }
+
         public static void TrySortByDistance(this SearchDescriptor<ApprenticeshipSummary> search, VacancySearchParameters parameters)
         {
             if (!parameters.HasGeoSearchFields)
