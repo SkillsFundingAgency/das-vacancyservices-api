@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
+using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
 using FluentAssertions;
@@ -83,6 +84,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
 
             _mockMinimumWageService
                 .Verify(service => service.GetAllWagesAsync(), Times.Once);
+        }
+
+        [Test]
+        public void AndNoWageFound_ThenThrowsMissingWageRangeException()
+        {
+            _mockMinimumWageService
+                .Setup(service => service.GetAllWagesAsync())
+                .ReturnsAsync(new List<WageRange>());
+
+            Func<Task> action = async () =>
+            {
+                await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Today);
+            };
+
+            action.ShouldThrow<MissingWageRangeException>()
+                .WithMessage($"No WageRange found for date: [{DateTime.Today:yyyy-MM-dd}]");
         }
     }
 }

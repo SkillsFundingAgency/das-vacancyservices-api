@@ -218,7 +218,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             try
             {
-                var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate).ConfigureAwait(false);
+                var allowedMinimumWage = await _minimumWageSelector
+                    .SelectHourlyRateAsync(request.ExpectedStartDate)
+                    .ConfigureAwait(false);
+
                 decimal attemptedMinimumWage;
                 switch (request.WageType)
                 {
@@ -244,6 +247,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 _logger.Debug(outOfRangeException.Message);
                 return false;
             }
+            // InvalidOperationException
         }
     }
 }

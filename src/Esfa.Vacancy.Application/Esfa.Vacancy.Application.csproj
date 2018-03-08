@@ -89,6 +89,7 @@
     <Compile Include="Commands\CreateApprenticeship\Validators\LocationTypeValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LocationValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\LongDescriptionValidator.cs" />
+    <Compile Include="Commands\CreateApprenticeship\Validators\MissingWageRangeException.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\NumberOfPositionsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ShortDescriptionValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\TitleValidator.cs" />
