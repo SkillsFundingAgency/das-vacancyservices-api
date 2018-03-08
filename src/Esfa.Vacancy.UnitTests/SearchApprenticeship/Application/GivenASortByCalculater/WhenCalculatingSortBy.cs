@@ -38,6 +38,15 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASortByCa
         }
 
         [Test]
+        public void AndIsExpectedStartDate_ThenMapsToExpectedStartDate()
+        {
+            var request = new SearchApprenticeshipVacanciesRequest
+                { SortBy = SortBy.ExpectedStartDate };
+
+            _calculator.CalculateSortBy(request).Should().Be(SortBy.ExpectedStartDate);
+        }
+
+        [Test]
         public void AndIsNullAndLatitudeHasValue_ThenMapsToDistance()
         {
             var request = new SearchApprenticeshipVacanciesRequest
