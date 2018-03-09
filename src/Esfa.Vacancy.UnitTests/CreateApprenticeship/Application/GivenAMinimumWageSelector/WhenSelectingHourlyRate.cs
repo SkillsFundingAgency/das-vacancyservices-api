@@ -98,7 +98,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
                 await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Today);
             };
 
-            action.ShouldThrow<MissingWageRangeException>()
+            action.ShouldThrow<WageRangeNotFoundException>()
                 .WithMessage($"No WageRange found for date: [{DateTime.Today:yyyy-MM-dd}]");
         }
     }

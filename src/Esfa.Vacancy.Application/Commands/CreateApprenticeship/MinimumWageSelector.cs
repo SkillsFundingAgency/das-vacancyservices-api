@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 range.ValidTo >= expectedStartDate);
 
             if (wage == null)
-                throw new MissingWageRangeException(string.Format(MissingWageRangeErrorMessage, expectedStartDate));
+                throw new WageRangeNotFoundException(string.Format(MissingWageRangeErrorMessage, expectedStartDate));
             
             return wage.ApprenticeMinimumWage;
         }
