@@ -9,17 +9,18 @@ using StackExchange.Redis;
 
 namespace Esfa.Vacancy.Infrastructure.Caching
 {
-
     public class AzureRedisCacheService : ICacheService
     {
+        private const int DefaultCachDurationInHours = 4;
         private readonly Func<ConnectionMultiplexer> _connectionFactory;
         private readonly ILog _logger;
         private ConnectionMultiplexer _connection;
-
+        private readonly string _cacheDuration;
 
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
             _logger = logger;
+            _cacheDuration = settings.GetSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
 
             _connectionFactory = () =>
             {
@@ -29,11 +30,12 @@ namespace Esfa.Vacancy.Infrastructure.Caching
                     _logger.Error(new InfrastructureException(),
                         "Redis cache connection not found in settings.");
                 }
+
                 return ConnectionMultiplexer.Connect(cacheConnectionString);
             };
         }
 
-        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan timeSpan)
+        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan? timeSpan)
         {
             if (_connection == null) _connection = _connectionFactory();
 
@@ -58,11 +60,19 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             {
                 result = await actionAsync();
                 var jsonToCache = JsonConvert.SerializeObject(result);
-                await cache.StringSetAsync(key, jsonToCache, timeSpan);
-                _logger.Info($"Redis cached key={key}");
+                var cacheDuration = timeSpan ?? GetCacheDuration();
+                await cache.StringSetAsync(key, jsonToCache, cacheDuration);
+                _logger.Info($"Redis cached key={key} for duration={cacheDuration:g}");
             }
 
             return result;
+        }
+
+        private TimeSpan GetCacheDuration()
+        {
+            return TimeSpan.TryParse(_cacheDuration, out TimeSpan duration)
+                ? duration
+                : TimeSpan.FromHours(DefaultCachDurationInHours);
         }
     }
 }

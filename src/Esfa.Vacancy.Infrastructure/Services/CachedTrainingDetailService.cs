@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
@@ -11,7 +10,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
     {
         private readonly ICacheService _cacheService;
         private readonly ITrainingDetailService _trainingDetailService;
-        private readonly TimeSpan _cacheDuration = TimeSpan.FromHours(12);
         private const string CacheKeyAllFrameworks = "VacancyApi.GetAllFrameworkDetails";
         private const string CacheKeyAllStandards = "VacancyApi.GetAllStandardDetails";
 
@@ -26,32 +24,28 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             return await _cacheService.CacheAsideAsync<Framework>(
                 $"V1-Framework-{code}",
-                async () => await _trainingDetailService.GetFrameworkDetailsAsync(code),
-                _cacheDuration);
+                async () => await _trainingDetailService.GetFrameworkDetailsAsync(code));
         }
 
         public async Task<Standard> GetStandardDetailsAsync(int code)
         {
             return await _cacheService.CacheAsideAsync<Standard>(
                 $"V1-Standard-{code}",
-                async () => await _trainingDetailService.GetStandardDetailsAsync(code),
-                _cacheDuration);
+                async () => await _trainingDetailService.GetStandardDetailsAsync(code));
         }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
                 CacheKeyAllFrameworks,
-                async () => await _trainingDetailService.GetAllFrameworkDetailsAsync(),
-                _cacheDuration);
+                async () => await _trainingDetailService.GetAllFrameworkDetailsAsync());
         }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
                 CacheKeyAllStandards,
-                async () => await _trainingDetailService.GetAllStandardDetailsAsync(),
-                _cacheDuration);
+                async () => await _trainingDetailService.GetAllStandardDetailsAsync());
         }
     }
 }

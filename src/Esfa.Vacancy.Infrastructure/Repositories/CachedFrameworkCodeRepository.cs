@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Domain.Repositories;
@@ -14,7 +13,6 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
         private readonly ICacheService _cache;
 
         private const string FrameworkCodesCacheKey = "VacancyApi.FrameworkCodes";
-        private const double CacheExpirationHours = 1;
         
         public CachedFrameworkCodeRepository(IFrameworkCodeRepository frameworkCodeRepository, ILog logger, ICacheService cache)
         {
@@ -25,10 +23,7 @@ namespace Esfa.Vacancy.Infrastructure.Repositories
 
         public async Task<IEnumerable<string>> GetAsync()
         {
-            return await _cache.CacheAsideAsync(
-                FrameworkCodesCacheKey,
-                _frameworkCodeRepository.GetAsync,
-                TimeSpan.FromHours(CacheExpirationHours));
+            return await _cache.CacheAsideAsync(FrameworkCodesCacheKey, _frameworkCodeRepository.GetAsync);
         }
         
     }

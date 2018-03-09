@@ -10,5 +10,6 @@
         public const string ApprenticeshipIndexAliasKey = "ApprenticeshipIndexAlias";
         public const string CacheConnectionString = "CacheConnectionString";
         public const string UseSandboxServices = "UseSandboxServices";
+        public const string CacheReferenceDataDuration = "CacheReferenceDataDuration";
     }
 }

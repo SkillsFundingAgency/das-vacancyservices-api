@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
@@ -15,7 +14,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly ICacheService _cacheService;
 
         private const string CacheKey = "VacancyApi.GetAllApprenticeMinimumWages";
-        private const double CacheExpirationHours = 1;
 
         public CachedGetAllApprenticeMinimumWagesService(IGetAllApprenticeMinimumWagesService minimumWagesService, ILog logger, ICacheService cacheService)
         {
@@ -28,10 +26,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             _logger.Debug("Cache hit for GetAllApprenticeMinimumWagesService");
 
-            return await _cacheService.CacheAsideAsync(
-                CacheKey,
-                _minimumWagesService.GetAllWagesAsync,
-                TimeSpan.FromHours(CacheExpirationHours));
+            return await _cacheService.CacheAsideAsync(CacheKey, _minimumWagesService.GetAllWagesAsync);
         }
     }
 }
