@@ -121,6 +121,29 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public async Task AndSelectorThrowsMissingWageRangeException_ThenReturnsValidationResult()
+        {
+            var expectedStartDate = _fixture.Create<DateTime>();
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.CustomWageFixed,
+                WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
+                ExpectedStartDate = expectedStartDate
+            };
+            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+
+            _mockSelector
+                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
+                .Throws<MissingWageRangeException>();
+
+            var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
+        }
+
+        [Test]
         public async Task AndCalculatorThrowsException_ThenReturnsValidationResult()
         {
             var expectedStartDate = _fixture.Create<DateTime>();

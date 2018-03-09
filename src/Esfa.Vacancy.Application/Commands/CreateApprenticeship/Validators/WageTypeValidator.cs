@@ -227,13 +227,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 {
                     case WageType.CustomWageFixed:
                         attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.FixedWage.GetValueOrDefault(),
-                                                                               request.WageUnit,
-                                                                               (decimal)request.HoursPerWeek);
+                            request.WageUnit,
+                            (decimal) request.HoursPerWeek);
                         break;
                     case WageType.CustomWageRange:
                         attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.MinWage.GetValueOrDefault(),
-                                                                               request.WageUnit,
-                                                                               (decimal)request.HoursPerWeek);
+                            request.WageUnit,
+                            (decimal) request.HoursPerWeek);
                         break;
                     default:
                         attemptedMinimumWage = 0m;
@@ -247,7 +247,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 _logger.Debug(outOfRangeException.Message);
                 return false;
             }
-            // InvalidOperationException
+            catch (MissingWageRangeException wageRangeException)
+            {
+                _logger.Error(wageRangeException, wageRangeException.Message);
+                return false;
+            }
         }
     }
 }
