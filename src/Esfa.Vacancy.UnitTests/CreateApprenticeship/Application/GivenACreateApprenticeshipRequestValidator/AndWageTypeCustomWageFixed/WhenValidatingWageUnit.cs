@@ -121,7 +121,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndSelectorThrowsWageRangeNotFoundException_ThenReturnsValidationResult()
+        public void AndSelectorThrowsWageRangeNotFoundException_ThenLetsExceptionBubble()
         {
             var expectedStartDate = _fixture.Create<DateTime>();
             var request = new CreateApprenticeshipRequest
@@ -136,11 +136,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
                 .Throws<WageRangeNotFoundException>();
 
-            var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
+            var action = new Func<Task<ValidationResult>>(() => _validator.ValidateAsync(context));
 
-            result.IsValid.Should().Be(false);
-            result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
+            action.ShouldThrow<WageRangeNotFoundException>();
         }
 
         [Test]

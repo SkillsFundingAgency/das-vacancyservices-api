@@ -252,11 +252,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 _logger.Debug(outOfRangeException.Message);
                 return false;
             }
-            catch (WageRangeNotFoundException wageRangeException)
-            {
-                _logger.Error(wageRangeException, wageRangeException.Message);
-                return false;
-            }
         }
     }
 }
