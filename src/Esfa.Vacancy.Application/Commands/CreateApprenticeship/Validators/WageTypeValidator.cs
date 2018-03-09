@@ -218,6 +218,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             try
             {
+                if (request.ExpectedStartDate == DateTime.MinValue)
+                {
+                    return false;
+                }
+
                 var allowedMinimumWage = await _minimumWageSelector
                     .SelectHourlyRateAsync(request.ExpectedStartDate)
                     .ConfigureAwait(false);

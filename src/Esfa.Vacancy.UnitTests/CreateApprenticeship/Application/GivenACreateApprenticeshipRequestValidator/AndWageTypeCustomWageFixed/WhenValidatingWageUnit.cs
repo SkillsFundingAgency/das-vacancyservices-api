@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndIsNotApplicableThenIsInvalid()
+        public async Task AndWageUnitIsNotApplicableThenIsInvalid()
         {
             var request = new CreateApprenticeshipRequest
             {
@@ -135,6 +135,24 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mockSelector
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
                 .Throws<MissingWageRangeException>();
+
+            var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
+
+            result.IsValid.Should().Be(false);
+            result.Errors.First().ErrorCode
+                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
+        }
+
+        [Test]
+        public async Task AndExpectedStartDateIsMinValue_ThenReturnsValidationResult()
+        {
+            var request = new CreateApprenticeshipRequest
+            {
+                WageType = WageType.CustomWageFixed,
+                WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
+                ExpectedStartDate = DateTime.MinValue
+            };
+            var context = GetValidationContextForProperty(request, req => req.WageUnit);
 
             var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
 
