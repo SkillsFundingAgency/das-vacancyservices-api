@@ -15,6 +15,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         private CreateApprenticeshipParameters _apiParameters;
         private CreateApprenticeshipRequest _mappedRequest;
         private int _ukprn = 12345678;
+        private string _userEmail = "test@test.com";
 
         [SetUp]
         public void SetUp()
@@ -34,13 +35,19 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
 
             var mapper = new CreateApprenticeshipRequestMapper();
 
-            _mappedRequest = mapper.MapFromApiParameters(_apiParameters, _ukprn);
+            _mappedRequest = mapper.MapFromApiParameters(_apiParameters, _ukprn, _userEmail);
         }
 
         [Test]
         public void ThenMapsTitle()
         {
             _mappedRequest.Title.Should().Be(_apiParameters.Title);
+        }
+
+        [Test]
+        public void ThenMapsUserEmail()
+        {
+            _mappedRequest.UserEmail.Should().Be(_userEmail);
         }
 
         [Test]

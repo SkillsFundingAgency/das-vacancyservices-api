@@ -41,8 +41,9 @@ namespace Esfa.Vacancy.Manage.Api.Orchestrators
             }
 
             var ukprn = int.Parse(requestHeaders[Constants.RequestHeaderNames.ProviderUkprn]);
+            var userEmail = requestHeaders[Constants.RequestHeaderNames.UserEmail];
 
-            var request = _createApprenticeshipRequestMapper.MapFromApiParameters(parameters, ukprn);
+            var request = _createApprenticeshipRequestMapper.MapFromApiParameters(parameters, ukprn, userEmail);
 
             var response = await _mediator.Send(request);
             return _apprenticeshipResponseMapper.MapToApiResponse(response);

@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
     {
         CreateApprenticeshipRequest MapFromApiParameters(
             CreateApprenticeshipParameters parameters,
-            int providerUkprn);
+            int providerUkprn,
+            string userEmail);
     }
 }

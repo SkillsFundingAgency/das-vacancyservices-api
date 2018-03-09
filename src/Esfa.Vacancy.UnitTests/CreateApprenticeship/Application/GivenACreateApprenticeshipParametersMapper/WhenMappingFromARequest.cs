@@ -63,6 +63,12 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
+        public void ThenMapsUserEmail()
+        {
+            _mappedParameters.HistoryUserName.Should().Be(_request.UserEmail);
+        }
+
+        [Test]
         public void ThenMapsShortDescription()
         {
             _mappedParameters.ShortDescription.Should().Be(_request.ShortDescription);

@@ -25,6 +25,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
     public class WhenCreatingAnApprenticeshipVacancy
     {
         private const int providerUkprn = 12345678;
+        private const string userEmail = "test@test.com";
         private Mock<IMediator> _mockMediator;
         private ApiTypes.CreateApprenticeshipResponse _actualResponse;
         private CreateApprenticeshipResponse _expectedMediatorResponse;
@@ -37,7 +38,11 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private string _expectedErrorMessage;
         private readonly Dictionary<string, string> _validHeader
-            = new Dictionary<string, string> { { Constants.RequestHeaderNames.ProviderUkprn, providerUkprn.ToString() } };
+            = new Dictionary<string, string>
+            {
+                { Constants.RequestHeaderNames.ProviderUkprn, providerUkprn.ToString() },
+                { Constants.RequestHeaderNames.UserEmail, userEmail }
+            };
 
         [SetUp]
         public async Task SetUp()
@@ -52,7 +57,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
             _expectedErrorMessage = fixture.Create<string>();
 
             _mockRequestMapper = fixture.Freeze<Mock<ICreateApprenticeshipRequestMapper>>(composer => composer.Do(mock => mock
-                .Setup(mapper => mapper.MapFromApiParameters(_actualParameters, It.IsAny<int>()))
+                .Setup(mapper => mapper.MapFromApiParameters(_actualParameters, It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(_expectedRequest)));
 
             _mockMediator = fixture.Freeze<Mock<IMediator>>(composer => composer.Do(mock => mock
@@ -115,7 +120,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Orchestrators.GivenACr
         [Test]
         public void ThenInvokeRequestMapperWithInputParameters()
         {
-            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, providerUkprn));
+            _mockRequestMapper.Verify(mapper => mapper.MapFromApiParameters(_actualParameters, providerUkprn, userEmail));
         }
     }
 }

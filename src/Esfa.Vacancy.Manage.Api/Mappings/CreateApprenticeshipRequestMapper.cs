@@ -8,7 +8,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
     {
         public ApplicationTypes.CreateApprenticeshipRequest MapFromApiParameters(
             CreateApprenticeshipParameters parameters,
-            int providerUkprn)
+            int providerUkprn, 
+            string userEmail)
         {
             return new ApplicationTypes.CreateApprenticeshipRequest
             {
@@ -56,7 +57,8 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 TrainingType = (TrainingType)parameters.TrainingType,
                 TrainingCode = parameters.TrainingCode,
                 IsEmployerDisabilityConfident = parameters.IsEmployerDisabilityConfident,
-                AdditionalLocationInformation = parameters.Location.AdditionalInformation
+                AdditionalLocationInformation = parameters.Location.AdditionalInformation,
+                UserEmail = userEmail
             };
         }
     }
