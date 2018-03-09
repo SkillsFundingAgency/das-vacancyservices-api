@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
+namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     [Serializable]
     public class MissingWageRangeException : Exception

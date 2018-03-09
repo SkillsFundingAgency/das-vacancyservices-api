@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
 using Esfa.Vacancy.Application.Interfaces;
 
 namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
