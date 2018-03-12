@@ -20,8 +20,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             var wages = await _minimumWagesService.GetAllWagesAsync();
 
             var wage = wages.FirstOrDefault(range => 
-                range.ValidFrom <= expectedStartDate && 
-                range.ValidTo >= expectedStartDate);
+                range.ValidFrom.Date <= expectedStartDate.Date && 
+                range.ValidTo.Date >= expectedStartDate.Date);
 
             if (wage == null)
                 throw new WageRangeNotFoundException(string.Format(MissingWageRangeErrorMessage, expectedStartDate));
