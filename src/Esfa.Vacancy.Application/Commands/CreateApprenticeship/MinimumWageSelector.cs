@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 {
     public class MinimumWageSelector : IMinimumWageSelector
     {
+        private const string MissingWageRangeErrorMessage = "No WageRange found for date: [{0:yyyy-MM-dd}]";
         private readonly IGetAllApprenticeMinimumWagesService _minimumWagesService;
 
         public MinimumWageSelector(IGetAllApprenticeMinimumWagesService minimumWagesService)
@@ -18,10 +19,13 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         {
             var wages = await _minimumWagesService.GetAllWagesAsync();
 
-            var wage = wages.First(range => 
-                range.ValidFrom <= expectedStartDate && 
-                range.ValidTo >= expectedStartDate);
+            var wage = wages.FirstOrDefault(range => 
+                range.ValidFrom.Date <= expectedStartDate.Date && 
+                range.ValidTo.Date >= expectedStartDate.Date);
 
+            if (wage == null)
+                throw new WageRangeNotFoundException(string.Format(MissingWageRangeErrorMessage, expectedStartDate));
+            
             return wage.ApprenticeMinimumWage;
         }
     }

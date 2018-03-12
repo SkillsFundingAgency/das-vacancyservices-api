@@ -218,19 +218,29 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             try
             {
-                var allowedMinimumWage = await _minimumWageSelector.SelectHourlyRateAsync(request.ExpectedStartDate).ConfigureAwait(false);
+                if (request.ExpectedStartDate == DateTime.MinValue)
+                {
+                    return false;
+                }
+
+                var allowedMinimumWage = await _minimumWageSelector
+                    .SelectHourlyRateAsync(request.ExpectedStartDate)
+                    .ConfigureAwait(false);
+
                 decimal attemptedMinimumWage;
                 switch (request.WageType)
                 {
                     case WageType.CustomWageFixed:
-                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.FixedWage.GetValueOrDefault(),
-                                                                               request.WageUnit,
-                                                                               (decimal)request.HoursPerWeek);
+                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(
+                            request.FixedWage.GetValueOrDefault(),
+                            request.WageUnit,
+                            (decimal) request.HoursPerWeek);
                         break;
                     case WageType.CustomWageRange:
-                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(request.MinWage.GetValueOrDefault(),
-                                                                               request.WageUnit,
-                                                                               (decimal)request.HoursPerWeek);
+                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(
+                            request.MinWage.GetValueOrDefault(),
+                            request.WageUnit,
+                            (decimal) request.HoursPerWeek);
                         break;
                     default:
                         attemptedMinimumWage = 0m;

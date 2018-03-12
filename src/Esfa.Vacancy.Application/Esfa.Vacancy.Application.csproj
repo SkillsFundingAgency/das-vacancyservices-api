@@ -72,6 +72,7 @@
     <Compile Include="Commands\CreateApprenticeship\IWageTypeMapper.cs" />
     <Compile Include="Commands\CreateApprenticeship\HourlyWageCalculator.cs" />
     <Compile Include="Commands\CreateApprenticeship\MinimumWageSelector.cs" />
+    <Compile Include="Commands\CreateApprenticeship\WageRangeNotFoundException.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ApplicationMethodValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\ContactDetailsValidator.cs" />
     <Compile Include="Commands\CreateApprenticeship\Validators\CandidateCriteriaValidator.cs" />

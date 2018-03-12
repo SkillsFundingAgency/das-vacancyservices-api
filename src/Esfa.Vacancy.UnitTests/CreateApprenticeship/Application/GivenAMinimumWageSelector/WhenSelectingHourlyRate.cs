@@ -25,8 +25,8 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         private static readonly WageRange SecondWageRange = new WageRange
         {
             ApprenticeMinimumWage = 3.5m,
-            ValidFrom = DateTime.Today.AddMonths(-2).AddDays(1),
-            ValidTo = DateTime.Today.AddMonths(2)
+            ValidFrom = DateTime.Today.AddMonths(-2).AddDays(1).AddHours(12),
+            ValidTo = DateTime.Today.AddMonths(2).AddHours(12)
         };
 
         private static readonly WageRange ThirdWageRange = new WageRange
@@ -47,7 +47,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
             new TestCaseData(DateTime.Today, SecondWageRange.ApprenticeMinimumWage)
                 .SetName("And matches middle rate Then returns middle rate"),
             new TestCaseData(DateTime.Today.AddMonths(3), ThirdWageRange.ApprenticeMinimumWage)
-                .SetName("And matches newest rate Then returns newest rate")
+                .SetName("And matches newest rate Then returns newest rate"),
+            new TestCaseData(DateTime.Today.AddMonths(2).AddHours(2), SecondWageRange.ApprenticeMinimumWage)
+                .SetName("And expectedStartDate has time Then strips time to get correct wage range"),
+            new TestCaseData(DateTime.Today.AddMonths(-2).AddDays(1), SecondWageRange.ApprenticeMinimumWage)
+                .SetName("And range.ValidFrom has time Then strips time to get correct wage range"),
+            new TestCaseData(DateTime.Today.AddMonths(2), SecondWageRange.ApprenticeMinimumWage)
+                .SetName("And range.ValidTo has time Then strips time to get correct wage range")
         };
 
         [SetUp]
@@ -83,6 +89,22 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
 
             _mockMinimumWageService
                 .Verify(service => service.GetAllWagesAsync(), Times.Once);
+        }
+
+        [Test]
+        public void AndNoWageFound_ThenThrowsMissingWageRangeException()
+        {
+            _mockMinimumWageService
+                .Setup(service => service.GetAllWagesAsync())
+                .ReturnsAsync(new List<WageRange>());
+
+            Func<Task> action = async () =>
+            {
+                await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Today);
+            };
+
+            action.ShouldThrow<WageRangeNotFoundException>()
+                .WithMessage($"No WageRange found for date: [{DateTime.Today:yyyy-MM-dd}]");
         }
     }
 }
