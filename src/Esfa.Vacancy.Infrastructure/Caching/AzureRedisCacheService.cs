@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 {
     public class AzureRedisCacheService : ICacheService
     {
-        private const int DefaultCachDurationInHours = 4;
+        private const int DefaultCacheDurationHours = 4;
         private readonly Func<ConnectionMultiplexer> _connectionFactory;
         private readonly ILog _logger;
         private ConnectionMultiplexer _connection;
@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             };
         }
 
-        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan? timeSpan)
+        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan? timeSpan = null)
         {
             if (_connection == null) _connection = _connectionFactory();
 
@@ -72,7 +72,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
         {
             return TimeSpan.TryParse(_cacheDuration, out TimeSpan duration)
                 ? duration
-                : TimeSpan.FromHours(DefaultCachDurationInHours);
+                : TimeSpan.FromHours(DefaultCacheDurationHours);
         }
     }
 }
