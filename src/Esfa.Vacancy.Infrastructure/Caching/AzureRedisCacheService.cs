@@ -11,7 +11,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 {
     public class AzureRedisCacheService : ICacheService
     {
-        private const int DefaultCacheDurationHours = 4;
+        private readonly TimeSpan DefaultCacheDuration = TimeSpan.FromHours(4);
         private readonly Func<ConnectionMultiplexer> _connectionFactory;
         private readonly ILog _logger;
         private ConnectionMultiplexer _connection;
@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
             _logger = logger;
-            _cacheDuration = settings.GetSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
+            _cacheDuration = settings.GetNullableSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
 
             _connectionFactory = () =>
             {
@@ -73,7 +73,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             TimeSpan duration;
             return TimeSpan.TryParse(_cacheDuration, out duration)
                 ? duration
-                : TimeSpan.FromHours(DefaultCacheDurationHours);
+                : DefaultCacheDuration;
         }
     }
 }
