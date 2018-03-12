@@ -83,13 +83,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [Test]
         public void ThenMapsApplicationClosingDate()
         {
-            _mappedParameters.ApplicationClosingDate.Should().Be(_request.ApplicationClosingDate);
+            _mappedParameters.ApplicationClosingDate.Should().Be(_request.ApplicationClosingDate.Date);
         }
 
         [Test]
         public void ThenMapsExpectedStartDate()
         {
-            _mappedParameters.ExpectedStartDate.Should().Be(_request.ExpectedStartDate);
+            _mappedParameters.ExpectedStartDate.Should().Be(_request.ExpectedStartDate.Date);
         }
 
         [Test]
