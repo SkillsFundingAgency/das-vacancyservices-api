@@ -70,7 +70,8 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 
         private TimeSpan GetCacheDuration()
         {
-            return TimeSpan.TryParse(_cacheDuration, out TimeSpan duration)
+            TimeSpan duration;
+            return TimeSpan.TryParse(_cacheDuration, out duration)
                 ? duration
                 : TimeSpan.FromHours(DefaultCacheDurationHours);
         }
