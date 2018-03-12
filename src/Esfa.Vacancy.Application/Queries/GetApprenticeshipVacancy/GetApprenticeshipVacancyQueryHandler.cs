@@ -65,7 +65,7 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync().ConfigureAwait(false);
             try
             {
-                TrainingDetail framework = frameworks.Single(td => td.TrainingCode.Equals(code.ToString()));
+                TrainingDetail framework = frameworks.Single(td => td.FrameworkCode.Equals(code));
                 _logger.Info($"Training API returned Framework details for code {code}");
                 return new Framework { Title = framework.Title, Code = code, Uri = framework.Uri };
             }

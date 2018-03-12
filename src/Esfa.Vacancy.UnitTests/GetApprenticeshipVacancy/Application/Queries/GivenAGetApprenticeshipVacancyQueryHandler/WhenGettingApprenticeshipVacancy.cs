@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
                 .Setup(s => s.GetAllFrameworkDetailsAsync())
-                .ReturnsAsync(new List<TrainingDetail>{ new TrainingDetail { Title = "framework", TrainingCode = vacancy.FrameworkCode.ToString()}});
+                .ReturnsAsync(new List<TrainingDetail>{ new TrainingDetail { Title = "framework", FrameworkCode = vacancy.FrameworkCode.Value}});
 
             _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 

@@ -15,5 +15,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public string Title { get; set; }
 
         public string Uri { get; set; }
+
+        public int FrameworkCode { get; set; }
     }
 }

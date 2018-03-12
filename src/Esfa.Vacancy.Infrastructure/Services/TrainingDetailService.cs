@@ -53,6 +53,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         new TrainingDetail()
                         {
                             TrainingCode = framework.Id,
+                            FrameworkCode = framework.FrameworkCode,
                             EffectiveTo = framework.EffectiveTo,
                             Level = framework.Level,
                             Title = framework.Title,
