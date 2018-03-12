@@ -6,8 +6,6 @@ namespace Esfa.Vacancy.Application.Interfaces
 {
     public interface ITrainingDetailService
     {
-        Task<Framework> GetFrameworkDetailsAsync(int code);
-        Task<Standard> GetStandardDetailsAsync(int code);
         Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync();
         Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync();
     }

@@ -9,10 +9,7 @@ using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using SFA.DAS.Apprenticeships.Api.Client;
 using SFA.DAS.Apprenticeships.Api.Types;
-using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
-using Framework = Esfa.Vacancy.Domain.Entities.Framework;
-using Standard = Esfa.Vacancy.Domain.Entities.Standard;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
@@ -31,64 +28,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private string DasApiBaseUrl => _dasApiBaseUrl ??
                                         (_dasApiBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey));
 
-
-        public async Task<Framework> GetFrameworkDetailsAsync(int code)
-        {
-            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
-            {
-                _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying... attempt {retryCount}");
-            });
-
-            return await retry.ExecuteAsync(() => InternalGetFrameworkDetailsAsync(code));
-        }
-
-        private async Task<Framework> InternalGetFrameworkDetailsAsync(int code)
-        {
-            using (var client = new FrameworkCodeClient(DasApiBaseUrl))
-            {
-                try
-                {
-                    _logger.Info($"Querying Training API for Framework code {code}");
-                    var framework = await client.GetAsync(code);
-                    _logger.Info($"Training API returned Framework details for code {code}");
-                    return new Framework() { Title = framework.Title, Code = code, Uri = framework.Uri };
-                }
-                catch (EntityNotFoundException ex)
-                {
-                    _logger.Warn(ex, $"Framework details not found for {code}");
-                    return null;
-                }
-            }
-        }
-
-        public async Task<Standard> GetStandardDetailsAsync(int code)
-        {
-            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
-            {
-                _logger.Warn($"Error retrieving standard details from TrainingDetailService: ({exception.Message}). Retrying...attempt {retryCount})");
-            });
-
-            return await retry.ExecuteAsync(() => InternalGetStandardDetailsAsync(code));
-        }
-
-        private async Task<Standard> InternalGetStandardDetailsAsync(int code)
-        {
-            using (var client = new StandardApiClient(DasApiBaseUrl))
-            {
-                try
-                {
-                    _logger.Info($"Querying Training API for Standard code {code}");
-                    var standard = await client.GetAsync(code);
-                    _logger.Info($"Training API returned Standard details for code {code}");
-                    return new Standard() { Title = standard.Title, Code = code, Uri = standard.Uri };
-                }
-                catch (EntityNotFoundException ex)
-                {
-                    _logger.Warn(ex, $"Standard details not found for {code}");
-                    return null;
-                }
-            }
-        }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
@@ -115,7 +54,9 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         {
                             TrainingCode = framework.Id,
                             EffectiveTo = framework.EffectiveTo,
-                            Level = framework.Level
+                            Level = framework.Level,
+                            Title = framework.Title,
+                            Uri = framework.Uri
                         });
                 }
                 catch (Exception ex)
@@ -150,7 +91,9 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         {
                             TrainingCode = standard.Id,
                             EffectiveTo = standard.EffectiveTo,
-                            Level = standard.Level
+                            Level = standard.Level,
+                            Title = standard.Title,
+                            Uri = standard.Uri
                         });
                 }
                 catch (Exception ex)

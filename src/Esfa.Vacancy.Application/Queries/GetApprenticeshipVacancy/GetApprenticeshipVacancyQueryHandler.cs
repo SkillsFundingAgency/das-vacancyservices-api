@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -43,16 +47,50 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
 
             if (vacancy.FrameworkCode.HasValue)
             {
-                var framework = await _trainingDetailService.GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value);
+                var framework = await GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value).ConfigureAwait(false);
                 vacancy.Framework = framework;
             }
             else if (vacancy.StandardCode.HasValue)
             {
-                var standard = await _trainingDetailService.GetStandardDetailsAsync(vacancy.StandardCode.Value);
+                var standard = await GetStandardDetailsAsync(vacancy.StandardCode.Value).ConfigureAwait(false);
                 vacancy.Standard = standard;
             }
 
             return new GetApprenticeshipVacancyResponse { ApprenticeshipVacancy = vacancy };
+        }
+
+        private async Task<Framework> GetFrameworkDetailsAsync(int code)
+        {
+            _logger.Info($"Querying Training API for Framework code {code}");
+            IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync().ConfigureAwait(false);
+            try
+            {
+                TrainingDetail framework = frameworks.Single(td => td.TrainingCode.Equals(code.ToString()));
+                _logger.Info($"Training API returned Framework details for code {code}");
+                return new Framework { Title = framework.Title, Code = code, Uri = framework.Uri };
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.Warn(ex, $"Framework details not found for {code}");
+                return null;
+            }
+        }
+
+        private async Task<Standard> GetStandardDetailsAsync(int code)
+        {
+            _logger.Info($"Querying Training API for Standard code {code}");
+            IEnumerable<TrainingDetail> standards = await _trainingDetailService.GetAllStandardDetailsAsync().ConfigureAwait(false);
+            try
+            {
+                TrainingDetail standard = standards.Single(td => td.TrainingCode.Equals(code.ToString()));
+                _logger.Info($"Training API returned Standard details for code {code}");
+                return new Standard { Code = code, Title = standard.Title, Uri = standard.Uri };
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.Warn(ex, $"Standard details not found for {code}");
+                return null;
+            }
         }
     }
 }

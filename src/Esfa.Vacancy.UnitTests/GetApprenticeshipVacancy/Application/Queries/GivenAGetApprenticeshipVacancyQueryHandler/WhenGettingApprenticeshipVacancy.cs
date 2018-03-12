@@ -55,19 +55,20 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
         [Test]
         public async Task ThenIfVacancyHasFrameworkIdGetFrameworkTitle()
         {
-            _mockValidator
+            var vacancy = new Domain.Entities.ApprenticeshipVacancy() { FrameworkCode = 123 };
+           _mockValidator
                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
-                .Setup(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Framework() { Title = "framework" });
+                .Setup(s => s.GetAllFrameworkDetailsAsync())
+                .ReturnsAsync(new List<TrainingDetail>{ new TrainingDetail { Title = "framework", TrainingCode = vacancy.FrameworkCode.ToString()}});
 
-            var vacancy = new Domain.Entities.ApprenticeshipVacancy() { FrameworkCode = 123 };
             _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
-            _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()), Times.Never);
-            _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()));
+
+            _mockTrainingDetailService.Verify(s => s.GetAllStandardDetailsAsync(), Times.Never);
+            _mockTrainingDetailService.Verify(s => s.GetAllFrameworkDetailsAsync());
             Assert.AreEqual(vacancy, response.ApprenticeshipVacancy);
             Assert.IsNotNull(vacancy.Framework);
         }
@@ -75,20 +76,20 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
         [Test]
         public async Task ThenIfVacancyHasStandardCodeGetStandardTitle()
         {
+            var vacancy = new Domain.Entities.ApprenticeshipVacancy() { StandardCode = 123 };
             _mockValidator
                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
-                .Setup(s => s.GetStandardDetailsAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Standard() { Title = "standard" });
+                .Setup(s => s.GetAllStandardDetailsAsync())
+                .ReturnsAsync(new List<TrainingDetail> { new TrainingDetail { Title = "standard", TrainingCode = vacancy.StandardCode.ToString()}});
 
-            var vacancy = new Domain.Entities.ApprenticeshipVacancy() { StandardCode = 123 };
             _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
 
-            _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()), Times.Never);
-            _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()));
+            _mockTrainingDetailService.Verify(s => s.GetAllFrameworkDetailsAsync(), Times.Never);
+            _mockTrainingDetailService.Verify(s => s.GetAllStandardDetailsAsync());
 
             Assert.AreEqual(vacancy, response.ApprenticeshipVacancy);
             Assert.IsNotNull(vacancy.Standard);

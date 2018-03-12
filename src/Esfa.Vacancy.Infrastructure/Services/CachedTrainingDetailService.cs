@@ -27,13 +27,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 async () => await _trainingDetailService.GetFrameworkDetailsAsync(code));
         }
 
-        public async Task<Standard> GetStandardDetailsAsync(int code)
-        {
-            return await _cacheService.CacheAsideAsync<Standard>(
-                $"V1-Standard-{code}",
-                async () => await _trainingDetailService.GetStandardDetailsAsync(code));
-        }
-
         public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
