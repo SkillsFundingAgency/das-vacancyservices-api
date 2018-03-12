@@ -13,14 +13,14 @@ namespace Esfa.Vacancy.Infrastructure.Caching
     {
         private readonly TimeSpan DefaultCacheDuration = TimeSpan.FromHours(4);
         private readonly Func<ConnectionMultiplexer> _connectionFactory;
+        private readonly IProvideSettings _settings;
         private readonly ILog _logger;
         private ConnectionMultiplexer _connection;
-        private readonly string _cacheDuration;
 
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
+            _settings = settings;
             _logger = logger;
-            _cacheDuration = settings.GetNullableSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
 
             _connectionFactory = () =>
             {
@@ -70,8 +70,9 @@ namespace Esfa.Vacancy.Infrastructure.Caching
 
         private TimeSpan GetCacheDuration()
         {
+            string settingsDuration = _settings.GetNullableSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
             TimeSpan duration;
-            return TimeSpan.TryParse(_cacheDuration, out duration)
+            return TimeSpan.TryParse(settingsDuration, out duration)
                 ? duration
                 : DefaultCacheDuration;
         }
