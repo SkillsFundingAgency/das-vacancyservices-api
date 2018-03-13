@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Validation;
 using FluentAssertions;
@@ -40,18 +41,18 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkLarsCodes = ValidFrameworkCodes
+                    FrameworkLarsCodes = ValidFrameworkCodes.Select(c => c.TrainingCode).ToList()
                 }, new ValidationResult())
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidFrameworkCodes
+                    StandardLarsCodes = ValidStandardCodes.Select(c => c.TrainingCode).ToList()
                 }, new ValidationResult())
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    FrameworkLarsCodes = ValidFrameworkCodes,
-                    StandardLarsCodes = ValidStandardCodes
+                    FrameworkLarsCodes = ValidFrameworkCodes.Select(c => c.TrainingCode).ToList(),
+                    StandardLarsCodes = ValidStandardCodes.Select(c => c.TrainingCode).ToList()
                 }, new ValidationResult())
                 .SetName("Frameworks and Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -85,7 +86,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PageNumber = 3
-                }, 
+                },
                 new ValidationResult
                 {
                     Errors =

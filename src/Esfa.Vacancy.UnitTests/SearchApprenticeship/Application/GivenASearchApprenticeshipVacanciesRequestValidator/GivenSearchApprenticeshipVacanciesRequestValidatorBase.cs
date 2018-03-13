@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Repositories;
 using Moq;
 using NUnit.Framework;
@@ -9,28 +11,25 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
 {
     public abstract class GivenSearchApprenticeshipVacanciesRequestValidatorBase
     {
-        private Mock<IFrameworkCodeRepository> _mockFrameworkCodeRepository;
-        private Mock<IStandardRepository> _mockStandardRepository;
+        private Mock<ITrainingDetailService> _mockTrainingRepository;
 
-        internal static List<string> ValidFrameworkCodes => new List<string> { "1" };
-        internal static List<string> ValidStandardCodes => new List<string> { "1" };
+        internal static List<TrainingDetail> ValidFrameworkCodes => new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1" } };
+        internal static List<TrainingDetail> ValidStandardCodes => new List<TrainingDetail> { new TrainingDetail {TrainingCode = "1"} };
         internal SearchApprenticeshipVacanciesRequestValidator Validator { get; private set; }
 
         [SetUp]
         public void Setup()
         {
-            _mockStandardRepository = new Mock<IStandardRepository>();
-            _mockStandardRepository
-                .Setup(r => r.GetStandardIdsAsync())
-                .ReturnsAsync(ValidStandardCodes.Select(int.Parse));
+            _mockTrainingRepository = new Mock<ITrainingDetailService>();
+            _mockTrainingRepository
+                .Setup(r => r.GetAllStandardDetailsAsync())
+                .ReturnsAsync(ValidStandardCodes);
 
-            _mockFrameworkCodeRepository = new Mock<IFrameworkCodeRepository>();
-            _mockFrameworkCodeRepository
-                .Setup(r => r.GetAsync())
+            _mockTrainingRepository
+                .Setup(r => r.GetAllFrameworkDetailsAsync())
                 .ReturnsAsync(ValidFrameworkCodes);
 
-            Validator = new SearchApprenticeshipVacanciesRequestValidator(
-                _mockFrameworkCodeRepository.Object, _mockStandardRepository.Object);
+            Validator = new SearchApprenticeshipVacanciesRequestValidator(_mockTrainingRepository.Object);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Domain.Validation;
@@ -11,8 +13,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 {
     public class SearchApprenticeshipVacanciesRequestValidator : AbstractValidator<SearchApprenticeshipVacanciesRequest>
     {
-        private readonly IFrameworkCodeRepository _frameworkCodeRepository;
-        private readonly IStandardRepository _standardRepository;
+        private readonly ITrainingDetailService _trainingDetailService;
         private const int MinimumPageSize = 1;
         private const int MinimumPageNumber = 1;
         private const int MaximumPageSize = 250;
@@ -23,12 +24,9 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         private const int MinimumDistanceInMiles = 1;
         private const int MaximumDistanceInMiles = 1000;
 
-        public SearchApprenticeshipVacanciesRequestValidator(
-            IFrameworkCodeRepository frameworkCodeRepository,
-            IStandardRepository standardRepository)
+        public SearchApprenticeshipVacanciesRequestValidator(ITrainingDetailService trainingDetailService)
         {
-            _frameworkCodeRepository = frameworkCodeRepository;
-            _standardRepository = standardRepository;
+            _trainingDetailService = trainingDetailService;
 
             RuleFor(request => request.StandardLarsCodes)
                 .NotEmpty()
@@ -124,18 +122,16 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 
         private async Task<bool> BeAValidFrameworkCode(string frameworkCode, CancellationToken token)
         {
-            var validFrameworks = await _frameworkCodeRepository.GetAsync();
-
-            return validFrameworks.Any(larsCode =>
-                larsCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync()
+                                                                                 .ConfigureAwait(false);
+            return frameworks.Any(framework => framework.TrainingCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
         }
 
         private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
         {
-            var validStandards = await _standardRepository.GetStandardIdsAsync();
-
-            return validStandards.Any(larsCode =>
-                larsCode.Equals(int.Parse(standardCode)));
+            IEnumerable<TrainingDetail> standards = await _trainingDetailService.GetAllStandardDetailsAsync()
+                                                                                .ConfigureAwait(false);
+           return standards.Any(standard => standard.TrainingCode.Equals(standardCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
