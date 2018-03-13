@@ -3,7 +3,6 @@ using System.Linq;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Repositories;
 using Moq;
 using NUnit.Framework;
 
@@ -13,11 +12,18 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
     {
         private Mock<ITrainingDetailService> _mockTrainingRepository;
 
-        internal static List<TrainingDetail> ValidFrameworkCodes =>
+        private static List<TrainingDetail> _validFrameworkCodes =>
             new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1", FrameworkCode = 1, IsActive = true } };
 
-        internal static List<TrainingDetail> ValidStandardCodes =>
+        internal static List<TrainingDetail> _validStandardCodes =>
             new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1", IsActive = true } };
+
+        internal static List<string> ValidFrameworkCodes =>
+            _validFrameworkCodes.Select(fwk => fwk.TrainingCode).ToList();
+
+        internal static List<string> ValidStandardCodes =>
+            _validStandardCodes.Select(std => std.TrainingCode).ToList();
+
         internal SearchApprenticeshipVacanciesRequestValidator Validator { get; private set; }
 
         [SetUp]
@@ -26,11 +32,11 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             _mockTrainingRepository = new Mock<ITrainingDetailService>();
             _mockTrainingRepository
                 .Setup(r => r.GetAllStandardDetailsAsync())
-                .ReturnsAsync(ValidStandardCodes);
+                .ReturnsAsync(_validStandardCodes);
 
             _mockTrainingRepository
                 .Setup(r => r.GetAllFrameworkDetailsAsync())
-                .ReturnsAsync(ValidFrameworkCodes);
+                .ReturnsAsync(_validFrameworkCodes);
 
             Validator = new SearchApprenticeshipVacanciesRequestValidator(_mockTrainingRepository.Object);
         }

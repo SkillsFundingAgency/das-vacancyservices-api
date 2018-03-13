@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
     {
         private static List<TestCaseData> SuccessTestCases => new List<TestCaseData>
         {
-            new TestCaseData(ValidStandardCodes.Select(td => td.TrainingCode).ToList())
+            new TestCaseData(ValidStandardCodes)
                 .SetName("Then any number is valid"),
             new TestCaseData(" 1 ".Split(',').ToList())
                 .SetName("Then outer spaces are allowed"),
