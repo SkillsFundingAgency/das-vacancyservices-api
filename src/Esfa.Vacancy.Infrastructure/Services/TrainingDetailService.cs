@@ -29,14 +29,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                         (_dasApiBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey));
 
 
-        public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
+        public Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
             var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving framework details from FrameworkApi: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(InternalGetFrameworkDetailsAsync);
+            return retry.ExecuteAsync(InternalGetFrameworkDetailsAsync);
         }
 
         private async Task<IEnumerable<TrainingDetail>> InternalGetFrameworkDetailsAsync()
@@ -46,19 +46,20 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 try
                 {
                     _logger.Info("Querying Apprenticeship API for Frameworks");
-                    var frameworks = await client.GetAllAsync();
+                    var frameworks = await client.GetAllAsync().ConfigureAwait(false);
                     var frameworkSummaries = frameworks as IList<FrameworkSummary> ?? frameworks.ToList();
                     _logger.Info($"Apprenticeship API returned {frameworkSummaries.Count} Frameworks");
                     return frameworkSummaries.Select(framework =>
-                        new TrainingDetail()
-                        {
-                            TrainingCode = framework.Id,
-                            FrameworkCode = framework.FrameworkCode,
-                            EffectiveTo = framework.EffectiveTo,
-                            Level = framework.Level,
-                            Title = framework.Title,
-                            Uri = framework.Uri
-                        });
+                                                 new TrainingDetail()
+                                                 {
+                                                     TrainingCode = framework.Id,
+                                                     FrameworkCode = framework.FrameworkCode,
+                                                     EffectiveTo = framework.EffectiveTo,
+                                                     Level = framework.Level,
+                                                     Title = framework.Title,
+                                                     Uri = framework.Uri,
+                                                     IsActive = framework.IsActiveFramework
+                                                 });
                 }
                 catch (Exception ex)
                 {
@@ -67,14 +68,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
             }
         }
 
-        public async Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync()
+        public Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync()
         {
             var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
                 _logger.Warn($"Error retrieving standard details from StandardApi: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(InternalGetAllStandardDetailsAsync);
+            return retry.ExecuteAsync(InternalGetAllStandardDetailsAsync);
         }
 
         private async Task<IEnumerable<TrainingDetail>> InternalGetAllStandardDetailsAsync()
@@ -84,7 +85,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 try
                 {
                     _logger.Info("Querying Apprenticeship API for Standards");
-                    var standards = await client.GetAllAsync();
+                    var standards = await client.GetAllAsync().ConfigureAwait(false);
                     var standardSummaries = standards as IList<StandardSummary> ?? standards.ToList();
                     _logger.Info($"Apprenticeship API returned {standardSummaries.Count} Standards");
                     return standardSummaries.Select(standard =>
@@ -94,7 +95,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
                             EffectiveTo = standard.EffectiveTo,
                             Level = standard.Level,
                             Title = standard.Title,
-                            Uri = standard.Uri
+                            Uri = standard.Uri,
+                            IsActive = standard.IsActiveStandard
                         });
                 }
                 catch (Exception ex)

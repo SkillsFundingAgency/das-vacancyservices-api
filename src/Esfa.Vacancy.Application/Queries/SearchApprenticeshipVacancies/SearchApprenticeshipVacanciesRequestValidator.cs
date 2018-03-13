@@ -123,14 +123,16 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         {
             IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync()
                                                                                  .ConfigureAwait(false);
-            return frameworks.Any(framework => framework.FrameworkCode.Equals(int.Parse(frameworkCode)));
+            return frameworks.Any(framework => framework.FrameworkCode.Equals(int.Parse(frameworkCode)) && framework.IsActive);
         }
 
         private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
         {
             IEnumerable<TrainingDetail> standards = await _trainingDetailService.GetAllStandardDetailsAsync()
                                                                                 .ConfigureAwait(false);
-           return standards.Any(standard => standard.TrainingCode.Equals(standardCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            return standards.Any(standard =>
+                standard.TrainingCode.Equals(standardCode.Trim(), StringComparison.InvariantCultureIgnoreCase) &&
+                standard.IsActive);
         }
     }
 }
