@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Domain.Validation;
 using FluentValidation;
 
@@ -124,7 +123,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         {
             IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync()
                                                                                  .ConfigureAwait(false);
-            return frameworks.Any(framework => framework.TrainingCode.Equals(frameworkCode.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            return frameworks.Any(framework => framework.FrameworkCode.Equals(int.Parse(frameworkCode)));
         }
 
         private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)

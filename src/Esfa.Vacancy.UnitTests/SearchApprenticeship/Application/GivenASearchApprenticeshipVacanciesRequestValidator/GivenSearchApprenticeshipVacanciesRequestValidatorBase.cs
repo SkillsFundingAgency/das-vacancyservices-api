@@ -13,7 +13,8 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
     {
         private Mock<ITrainingDetailService> _mockTrainingRepository;
 
-        internal static List<TrainingDetail> ValidFrameworkCodes => new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1" } };
+        internal static List<TrainingDetail> ValidFrameworkCodes =>
+            new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1", FrameworkCode = 1 } };
         internal static List<TrainingDetail> ValidStandardCodes => new List<TrainingDetail> { new TrainingDetail {TrainingCode = "1"} };
         internal SearchApprenticeshipVacanciesRequestValidator Validator { get; private set; }
 
