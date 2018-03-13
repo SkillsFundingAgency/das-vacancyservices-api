@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             _distanceSetter = distanceSetter;
         }
 
-        public async Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
+        public Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
             VacancySearchParameters parameters)
         {
             var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 _logger.Warn($"Error searching for apprenticeships in search index: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return await retry.ExecuteAsync(() => InternalSearchApprenticeshipVacanciesAsync(parameters));
+            return retry.ExecuteAsync(() => InternalSearchApprenticeshipVacanciesAsync(parameters));
         }
 
         private async Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
@@ -97,7 +97,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                     }
 
                     return search;
-                });
+                }).ConfigureAwait(false);
 
                 _logger.Info($"Retrieved {esReponse.Total} apprenticeships from Elastic search with parameters {parameters}");
             }
