@@ -9,16 +9,17 @@ using StackExchange.Redis;
 
 namespace Esfa.Vacancy.Infrastructure.Caching
 {
-
     public class AzureRedisCacheService : ICacheService
     {
+        private readonly TimeSpan DefaultCacheDuration = TimeSpan.FromHours(4);
         private readonly Func<ConnectionMultiplexer> _connectionFactory;
+        private readonly IProvideSettings _settings;
         private readonly ILog _logger;
         private ConnectionMultiplexer _connection;
 
-
         public AzureRedisCacheService(IProvideSettings settings, ILog logger)
         {
+            _settings = settings;
             _logger = logger;
 
             _connectionFactory = () =>
@@ -29,11 +30,12 @@ namespace Esfa.Vacancy.Infrastructure.Caching
                     _logger.Error(new InfrastructureException(),
                         "Redis cache connection not found in settings.");
                 }
+
                 return ConnectionMultiplexer.Connect(cacheConnectionString);
             };
         }
 
-        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan timeSpan)
+        public async Task<T> CacheAsideAsync<T>(string key, Func<Task<T>> actionAsync, TimeSpan? timeSpan = null)
         {
             if (_connection == null) _connection = _connectionFactory();
 
@@ -58,11 +60,21 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             {
                 result = await actionAsync();
                 var jsonToCache = JsonConvert.SerializeObject(result);
-                await cache.StringSetAsync(key, jsonToCache, timeSpan);
-                _logger.Info($"Redis cached key={key}");
+                var cacheDuration = timeSpan ?? GetCacheDuration();
+                await cache.StringSetAsync(key, jsonToCache, cacheDuration);
+                _logger.Info($"Redis cached key={key} for duration={cacheDuration:g}");
             }
 
             return result;
+        }
+
+        private TimeSpan GetCacheDuration()
+        {
+            string settingsDuration = _settings.GetNullableSetting(ApplicationSettingKeys.CacheReferenceDataDuration);
+            TimeSpan duration;
+            return TimeSpan.TryParse(settingsDuration, out duration)
+                ? duration
+                : DefaultCacheDuration;
         }
     }
 }

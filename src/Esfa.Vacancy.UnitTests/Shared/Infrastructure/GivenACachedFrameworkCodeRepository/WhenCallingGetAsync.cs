@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure.GivenACachedFrameworkCode
             var logger = new Mock<ILog>();
             var cache = new Mock<ICacheService>();
 
-            cache.Setup(c => c.CacheAsideAsync(It.IsAny<string>(), It.IsAny<Func<Task<IEnumerable<string>>>>(), It.IsAny<TimeSpan>()))
+            cache.Setup(c => c.CacheAsideAsync(It.IsAny<string>(), It.IsAny<Func<Task<IEnumerable<string>>>>(), It.IsAny<TimeSpan?>()))
                 .Returns((string key, Func<Task<IEnumerable<string>>> action, TimeSpan timeSpan) => action());
 
             var respository = new Mock<IFrameworkCodeRepository>();
@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure.GivenACachedFrameworkCode
 
             await cachedRepository.GetAsync();
 
-            cache.Verify(c => c.CacheAsideAsync(It.IsAny<string>(), It.IsAny<Func<Task<IEnumerable<string>>>>(), It.IsAny<TimeSpan>()), Times.Once);
+            cache.Verify(c => c.CacheAsideAsync(It.IsAny<string>(), It.IsAny<Func<Task<IEnumerable<string>>>>(), It.IsAny<TimeSpan?>()), Times.Once);
         }
     }
 }
