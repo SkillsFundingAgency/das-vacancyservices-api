@@ -43,12 +43,12 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             {
                 _logger.Error(new InfrastructureException(),
                     "Redis connection has not been established. Bypassing cache.");
-                return await actionAsync();
+                return await actionAsync().ConfigureAwait(false);
             }
 
             var cache = _connection.GetDatabase();
 
-            var cachedValue = await cache.StringGetAsync(key);
+            var cachedValue = await cache.StringGetAsync(key).ConfigureAwait(false);
             T result;
 
             if (cachedValue.HasValue)
@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
             }
             else
             {
-                result = await actionAsync();
+                result = await actionAsync().ConfigureAwait(false);
                 var jsonToCache = JsonConvert.SerializeObject(result);
                 var cacheDuration = timeSpan ?? GetCacheDuration();
                 await cache.StringSetAsync(key, jsonToCache, cacheDuration);

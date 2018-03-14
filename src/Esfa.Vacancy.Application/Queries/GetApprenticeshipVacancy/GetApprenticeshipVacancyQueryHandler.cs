@@ -41,39 +41,25 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var vacancy = await _getApprenticeshipService.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference);
+            var vacancy = await _getApprenticeshipService.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference)
+                                                         .ConfigureAwait(false);
 
             if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
 
             if (vacancy.FrameworkCode.HasValue)
             {
-                var framework = await GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value).ConfigureAwait(false);
+                var framework = await _trainingDetailService.GetFrameworkDetailsAsync(vacancy.FrameworkCode.Value)
+                                                            .ConfigureAwait(false);
                 vacancy.Framework = framework;
             }
             else if (vacancy.StandardCode.HasValue)
             {
-                var standard = await GetStandardDetailsAsync(vacancy.StandardCode.Value).ConfigureAwait(false);
+                var standard = await GetStandardDetailsAsync(vacancy.StandardCode.Value)
+                                                           .ConfigureAwait(false);
                 vacancy.Standard = standard;
             }
 
             return new GetApprenticeshipVacancyResponse { ApprenticeshipVacancy = vacancy };
-        }
-
-        private async Task<Framework> GetFrameworkDetailsAsync(int code)
-        {
-            _logger.Info($"Querying Training API for Framework code {code}");
-            IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync().ConfigureAwait(false);
-            try
-            {
-                TrainingDetail framework = frameworks.Single(td => td.FrameworkCode.Equals(code));
-                _logger.Info($"Training API returned Framework details for code {code}");
-                return new Framework { Title = framework.Title, Code = code, Uri = framework.Uri };
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.Warn(ex, $"Framework details not found for {code}");
-                return null;
-            }
         }
 
         private async Task<Standard> GetStandardDetailsAsync(int code)

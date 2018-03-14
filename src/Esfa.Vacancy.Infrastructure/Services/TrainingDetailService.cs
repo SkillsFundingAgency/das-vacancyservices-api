@@ -9,7 +9,9 @@ using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using SFA.DAS.Apprenticeships.Api.Client;
 using SFA.DAS.Apprenticeships.Api.Types;
+using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
+using Framework = Esfa.Vacancy.Domain.Entities.Framework;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
@@ -28,6 +30,34 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private string DasApiBaseUrl => _dasApiBaseUrl ??
                                         (_dasApiBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.DasApprenticeshipInfoApiBaseUrlKey));
 
+        public Task<Framework> GetFrameworkDetailsAsync(int code)
+        {
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving framework details from TrainingDetailService: ({exception.Message}). Retrying... attempt {retryCount}");
+            });
+
+            return retry.ExecuteAsync(() => InternalGetFrameworkDetailsAsync(code));
+        }
+
+        private async Task<Framework> InternalGetFrameworkDetailsAsync(int code)
+        {
+            using (var client = new FrameworkCodeClient(DasApiBaseUrl))
+            {
+                try
+                {
+                    _logger.Info($"Querying Training API for Framework code {code}");
+                    var framework = await client.GetAsync(code).ConfigureAwait(false);
+                    _logger.Info($"Training API returned Framework details for code {code}");
+                    return new Framework() { Title = framework.Title, Code = code, Uri = framework.Uri };
+                }
+                catch (EntityNotFoundException ex)
+                {
+                    _logger.Warn(ex, $"Framework details not found for {code}");
+                    return null;
+                }
+            }
+        }
 
         public Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
@@ -56,8 +86,6 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                                      FrameworkCode = framework.FrameworkCode,
                                                      EffectiveTo = framework.EffectiveTo,
                                                      Level = framework.Level,
-                                                     Title = framework.Title,
-                                                     Uri = framework.Uri,
                                                      IsActive = framework.IsActiveFramework
                                                  });
                 }
