@@ -91,12 +91,19 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
 
                 RuleFor(request => request.WageUnit)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
+
+                When(request => request.WageUnit != WageUnit.NotApplicable
+                                && request.ExpectedStartDate != DateTime.MinValue
+                                && request.MinWage.HasValue,
+                    () =>
+                    {
+                        RuleFor(request => request.WageUnit)
+                            .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                            .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
+                            .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
+                    });
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
