@@ -72,6 +72,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
@@ -89,6 +90,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
@@ -106,6 +108,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
@@ -127,6 +130,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
@@ -147,6 +151,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = DateTime.MinValue
             };
@@ -154,9 +159,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
 
-            result.IsValid.Should().Be(false);
-            result.Errors.First().ErrorCode
-                .Should().Be(ErrorCodes.CreateApprenticeship.FixedWage);
+            result.IsValid.Should().Be(true);
         }
 
         [Test]
@@ -166,6 +169,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageFixed,
+                FixedWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
