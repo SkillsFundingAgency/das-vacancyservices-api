@@ -53,7 +53,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 When(request => request.WageUnit != WageUnit.NotApplicable 
                     && request.ExpectedStartDate != DateTime.MinValue
-                    && request.FixedWage.HasValue, 
+                    && request.FixedWage.HasValue
+                    && request.HoursPerWeek > double.MinValue, 
                 () =>
                 {
                     RuleFor(request => request.FixedWage)
@@ -96,7 +97,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
                 When(request => request.WageUnit != WageUnit.NotApplicable
                                 && request.ExpectedStartDate != DateTime.MinValue
-                                && request.MinWage.HasValue,
+                                && request.MinWage.HasValue
+                                && request.HoursPerWeek > double.MinValue,
                     () =>
                     {
                         RuleFor(request => request.MinWage)
@@ -239,7 +241,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 var attemptedMinimumWage = _hourlyWageCalculator.Calculate(
                     wage.GetValueOrDefault(),
                     request.WageUnit,
-                    (decimal)request.HoursPerWeek); ;
+                    (decimal)request.HoursPerWeek);
 
                 return attemptedMinimumWage >= allowedMinimumWage;
             }
