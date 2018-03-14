@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             await _validator.ValidateAsync(context).ConfigureAwait(false);
 
@@ -94,7 +94,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             await _validator.ValidateAsync(context).ConfigureAwait(false);
 
@@ -112,7 +112,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _mockSelector
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
@@ -134,7 +134,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _mockSelector
                 .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
@@ -155,7 +155,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = DateTime.MinValue
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             var result = await _validator.ValidateAsync(context).ConfigureAwait(false);
 
@@ -173,7 +173,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable),
                 ExpectedStartDate = expectedStartDate
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _mockCalculator
                 .Setup(calculator => calculator.Calculate(It.IsAny<decimal>(), It.IsAny<WageUnit>(), It.IsAny<decimal>()))
@@ -210,7 +210,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 HoursPerWeek = 36,
                 ExpectedStartDate = _fixture.Create<DateTime>()
             };
-            var context = GetValidationContextForProperty(request, req => req.WageUnit);
+            var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
             _mockSelector = _fixture.Freeze<Mock<IMinimumWageSelector>>();
