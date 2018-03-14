@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Infrastructure.Caching
                 result = await actionAsync().ConfigureAwait(false);
                 var jsonToCache = JsonConvert.SerializeObject(result);
                 var cacheDuration = timeSpan ?? GetCacheDuration();
-                await cache.StringSetAsync(key, jsonToCache, cacheDuration);
+                await cache.StringSetAsync(key, jsonToCache, cacheDuration).ConfigureAwait(false);
                 _logger.Info($"Redis cached key={key} for duration={cacheDuration:g}");
             }
 
