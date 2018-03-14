@@ -10,10 +10,11 @@ using Ploeh.AutoFixture.AutoMoq;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateApprenticeshipRequestValidator.AndWageTypeCustomWageFixed
 {
+    [TestFixture]
     public class WhenValidatingWageUnit : CreateApprenticeshipRequestValidatorBase
     {
         [Test]
-        public async Task AndWageUnitIsNotApplicableThenIsInvalid()
+        public async Task AndIsNotApplicableThenIsInvalid()
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var request = new CreateApprenticeshipRequest
