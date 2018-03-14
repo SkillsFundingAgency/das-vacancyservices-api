@@ -200,7 +200,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         };
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task AndCheckingAllowedVersusAttemtpedWeeklyWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedFixedWage, bool expectedIsValid)
+        public async Task AndCheckingAllowedVersusAttemtpedMinWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedFixedWage, bool expectedIsValid)
         {
             var request = new CreateApprenticeshipRequest
             {
