@@ -98,7 +98,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 When(request => request.WageUnit != WageUnit.NotApplicable
                                 && request.ExpectedStartDate != DateTime.MinValue
                                 && request.MinWage.HasValue
-                                && request.HoursPerWeek > double.MinValue,
+                                && request.HoursPerWeek >= HoursPerWeekMinimumLength
+                                && request.HoursPerWeek <= HoursPerWeekMaximumLength,
                     () =>
                     {
                         RuleFor(request => request.MinWage)
