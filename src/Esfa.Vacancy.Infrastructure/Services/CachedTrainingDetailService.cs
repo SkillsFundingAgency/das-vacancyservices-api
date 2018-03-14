@@ -26,8 +26,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(
                                           string.Format(CacheKeyFramework, code),
                                           async () => await _trainingDetailService.GetFrameworkDetailsAsync(code)
-                                                                                  .ConfigureAwait(false),
-                                          _cacheDuration)
+                                                                                  .ConfigureAwait(false))
                                       .ConfigureAwait(false);
         }
 
@@ -36,8 +35,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(
                                           CacheKeyAllFrameworks,
                                           async () => await _trainingDetailService.GetAllFrameworkDetailsAsync()
-                                                                                  .ConfigureAwait(false),
-                                          _cacheDuration)
+                                                                                  .ConfigureAwait(false))
                                       .ConfigureAwait(false);
         }
 
@@ -46,8 +44,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(
                                           CacheKeyAllStandards,
                                           async () => await _trainingDetailService.GetAllStandardDetailsAsync()
-                                                                                  .ConfigureAwait(false),
-                                          _cacheDuration)
+                                                                                  .ConfigureAwait(false))
                                       .ConfigureAwait(false);
         }
     }
