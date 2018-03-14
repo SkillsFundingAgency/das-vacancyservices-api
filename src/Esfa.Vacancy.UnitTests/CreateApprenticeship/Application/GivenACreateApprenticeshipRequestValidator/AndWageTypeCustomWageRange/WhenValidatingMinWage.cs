@@ -112,7 +112,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 MinWage = _fixture.Create<decimal>(),
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = DateTime.MinValue,
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
             };
@@ -148,7 +148,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 MinWage = _fixture.Create<decimal>(),
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 HoursPerWeek = _fixture.CreateInValidHoursPerWeek()
             };
@@ -166,7 +166,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageRange,
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = expectedStartDate,
                 MinWage = _fixture.Create<decimal>(),
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
@@ -184,7 +184,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var request = new CreateApprenticeshipRequest
             {
                 WageType = WageType.CustomWageRange,
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 MinWage = _fixture.Create<decimal>(),
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
@@ -203,7 +203,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 MinWage = _fixture.Create<decimal>(),
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
             };
@@ -225,7 +225,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 MinWage = _fixture.Create<decimal>(),
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
             };
@@ -247,7 +247,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             {
                 WageType = WageType.CustomWageRange,
                 MinWage = _fixture.Create<decimal>(),
-                WageUnit = _fixture.CreateValidWageUnit(),
+                WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 HoursPerWeek = _fixture.CreateValidHoursPerWeek()
             };

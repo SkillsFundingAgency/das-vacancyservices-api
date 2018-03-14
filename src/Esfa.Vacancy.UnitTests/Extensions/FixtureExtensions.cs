@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.UnitTests.Extensions
         private const double HoursPerWeekMinimumLength = 16;
         private const double HoursPerWeekMaximumLength = 48;
 
-        public static WageUnit CreateValidWageUnit(this IFixture fixture)
+        public static WageUnit CreateAnyWageUnitOtherThanNotApplicable(this IFixture fixture)
         {
             return fixture.Create<Generator<WageUnit>>().First(unit => unit != WageUnit.NotApplicable);
         }
