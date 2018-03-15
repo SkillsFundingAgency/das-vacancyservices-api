@@ -48,12 +48,21 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
 
                 RuleFor(request => request.WageUnit)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.FixedWageIsBelowApprenticeMinimumWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
+
+                When(request => request.WageUnit != WageUnit.NotApplicable
+                                && request.ExpectedStartDate != DateTime.MinValue
+                                && request.FixedWage.HasValue
+                                && request.HoursPerWeek >= HoursPerWeekMinimumLength
+                                && request.HoursPerWeek <= HoursPerWeekMaximumLength,
+                () =>
+                {
+                    RuleFor(request => request.FixedWage)
+                        .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                        .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage)
+                        .WithMessage(ErrorMessages.CreateApprenticeship.FixedWageIsBelowApprenticeMinimumWage);
+                });
             });
 
             When(request => request.WageType == WageType.CustomWageRange, () =>
@@ -84,12 +93,21 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
 
                 RuleFor(request => request.WageUnit)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEqual(WageUnit.NotApplicable)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit)
-                    .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
-                    .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
-                    .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
+                    .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
+
+                When(request => request.WageUnit != WageUnit.NotApplicable
+                                && request.ExpectedStartDate != DateTime.MinValue
+                                && request.MinWage.HasValue
+                                && request.HoursPerWeek >= HoursPerWeekMinimumLength
+                                && request.HoursPerWeek <= HoursPerWeekMaximumLength,
+                    () =>
+                    {
+                        RuleFor(request => request.MinWage)
+                            .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                            .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
+                            .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
+                    });
             });
 
             When(request => request.WageType == WageType.NationalMinimumWage, () =>
@@ -214,38 +232,18 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
 
-        private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, WageUnit wageUnit, CancellationToken cancellationToken)
+        private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, decimal? wage, CancellationToken cancellationToken)
         {
             try
             {
-                if (request.ExpectedStartDate == DateTime.MinValue)
-                {
-                    return false;
-                }
-
                 var allowedMinimumWage = await _minimumWageSelector
                     .SelectHourlyRateAsync(request.ExpectedStartDate)
                     .ConfigureAwait(false);
 
-                decimal attemptedMinimumWage;
-                switch (request.WageType)
-                {
-                    case WageType.CustomWageFixed:
-                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(
-                            request.FixedWage.GetValueOrDefault(),
-                            request.WageUnit,
-                            (decimal) request.HoursPerWeek);
-                        break;
-                    case WageType.CustomWageRange:
-                        attemptedMinimumWage = _hourlyWageCalculator.Calculate(
-                            request.MinWage.GetValueOrDefault(),
-                            request.WageUnit,
-                            (decimal) request.HoursPerWeek);
-                        break;
-                    default:
-                        attemptedMinimumWage = 0m;
-                        break;
-                }
+                var attemptedMinimumWage = _hourlyWageCalculator.Calculate(
+                    wage.GetValueOrDefault(),
+                    request.WageUnit,
+                    (decimal)request.HoursPerWeek);
 
                 return attemptedMinimumWage >= allowedMinimumWage;
             }
