@@ -12,18 +12,24 @@ namespace Esfa.Vacancy.UnitTests.Shared.Domain
         public void AndDateIsBeforeToday_ThenExpiredShouldBeFalse()
         {
             var detail = new TrainingDetail { EffectiveTo = DateTime.Today.AddDays(-1) };
-            detail.HasExpired.Should().BeFalse();
+            detail.HasExpired.Should().BeTrue();
         }
         [Test]
         public void AndDateIsAfterToday_ThenExpiredShouldBeTrue()
         {
             var detail = new TrainingDetail { EffectiveTo = DateTime.Today.AddDays(1) };
-            detail.HasExpired.Should().BeTrue();
+            detail.HasExpired.Should().BeFalse();
         }
         [Test]
         public void AndDateIsToday_ThenExpiredShouldBeTrue()
         {
             var detail = new TrainingDetail { EffectiveTo = DateTime.Today };
+            detail.HasExpired.Should().BeFalse();
+        }
+        [Test]
+        public void AndDateIsNull_ThenExpiredShouldBeFalse()
+        {
+            var detail = new TrainingDetail { EffectiveTo = null };
             detail.HasExpired.Should().BeFalse();
         }
     }

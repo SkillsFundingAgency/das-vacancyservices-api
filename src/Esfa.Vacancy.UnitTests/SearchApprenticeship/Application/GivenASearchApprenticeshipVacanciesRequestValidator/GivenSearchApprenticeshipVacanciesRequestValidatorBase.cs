@@ -13,10 +13,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         private Mock<ITrainingDetailService> _mockTrainingRepository;
 
         private static List<TrainingDetail> _validFrameworkCodes =>
-            new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1", FrameworkCode = 1, IsActive = true } };
+            new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1"} };
 
         internal static List<TrainingDetail> _validStandardCodes =>
-            new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1", IsActive = true } };
+            new List<TrainingDetail> { new TrainingDetail { TrainingCode = "1" } };
 
         internal static List<string> ValidFrameworkCodes =>
             _validFrameworkCodes.Select(fwk => fwk.TrainingCode).ToList();

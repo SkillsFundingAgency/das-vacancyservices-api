@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using AutoMapper;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Register.Api.Mappings;
@@ -19,12 +20,12 @@ namespace Esfa.Vacancy.Register.Api
                    .ForMember(target => target.StandardLarsCodes, config =>
                    {
                        config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardLarsCodes));
-                       config.MapFrom(source => source.StandardLarsCodes.Split(','));
+                       config.MapFrom(source => source.StandardLarsCodes.Split(',').Select(code => code.Trim()));
                    })
                    .ForMember(target => target.FrameworkLarsCodes, config =>
                    {
                        config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkLarsCodes));
-                       config.MapFrom(source => source.FrameworkLarsCodes.Split(','));
+                       config.MapFrom(source => source.FrameworkLarsCodes.Split(',').Select(code => code.Trim()));
                    });
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.SearchResponse<ApiTypes.ApprenticeshipSummary>>()
                    .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));

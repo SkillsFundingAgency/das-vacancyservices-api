@@ -83,10 +83,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                                  new TrainingDetail()
                                                  {
                                                      TrainingCode = framework.Id,
-                                                     FrameworkCode = framework.FrameworkCode,
                                                      EffectiveTo = framework.EffectiveTo,
-                                                     Level = framework.Level,
-                                                     IsActive = framework.IsActiveFramework
+                                                     Level = framework.Level
                                                  });
                 }
                 catch (Exception ex)
@@ -123,8 +121,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                             EffectiveTo = standard.EffectiveTo,
                             Level = standard.Level,
                             Title = standard.Title,
-                            Uri = standard.Uri,
-                            IsActive = standard.IsActiveStandard
+                            Uri = standard.Uri
                         });
                 }
                 catch (Exception ex)

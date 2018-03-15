@@ -123,7 +123,13 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         {
             IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync()
                                                                                  .ConfigureAwait(false);
-            return frameworks.Any(framework => framework.FrameworkCode.Equals(int.Parse(frameworkCode)) && framework.IsActive);
+            return frameworks.Any(detail => IsValidFrameworkCode(detail, frameworkCode));
+        }
+
+        private static bool IsValidFrameworkCode(TrainingDetail framework, string frameworkCode)
+        {
+            var code = framework.TrainingCode.Split('-').FirstOrDefault();
+            return !String.IsNullOrEmpty(code) && code.Equals(frameworkCode) && !framework.HasExpired;
         }
 
         private async Task<bool> BeAValidStandardCode(string standardCode, CancellationToken token)
@@ -132,7 +138,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                                                                                 .ConfigureAwait(false);
             return standards.Any(standard =>
                 standard.TrainingCode.Equals(standardCode.Trim(), StringComparison.InvariantCultureIgnoreCase) &&
-                standard.IsActive);
+                !standard.HasExpired);
         }
     }
 }
