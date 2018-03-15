@@ -64,7 +64,6 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
 
         private async Task<Standard> GetStandardDetailsAsync(int code)
         {
-            _logger.Info($"Querying Training API for Standard code {code}");
             IEnumerable<TrainingDetail> standards = await _trainingDetailService.GetAllStandardDetailsAsync().ConfigureAwait(false);
             try
             {
