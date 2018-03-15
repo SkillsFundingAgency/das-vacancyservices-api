@@ -41,6 +41,9 @@
     },
     "UseSandboxServices": {
       "type": "string"
+    },
+    "CacheReferenceDataDuration": {
+      "type": "string"
     }
   },
   "variables": {
@@ -115,7 +118,8 @@
             "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
             "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
             "CacheConnectionString": "[parameters('CacheConnectionString')]",
-            "UseSandboxServices": "[parameters('UseSandboxServices')]"
+            "UseSandboxServices": "[parameters('UseSandboxServices')]",
+            "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
           }
         },
         {
@@ -163,7 +167,8 @@
                 "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
                 "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
                 "CacheConnectionString": "[parameters('CacheConnectionString')]",
-                "UseSandboxServices": "[parameters('UseSandboxServices')]"
+                "UseSandboxServices": "[parameters('UseSandboxServices')]",
+                "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
               }
             }
           ]

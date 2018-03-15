@@ -52,6 +52,9 @@
     },
     "UseSandboxServices": {
       "value": "__appSettingUseSandboxServices__"
+    },
+    "CacheReferenceDataDuration": {
+      "value": "__appSettingCacheReferenceDataDuration__"
     }
   }
 }

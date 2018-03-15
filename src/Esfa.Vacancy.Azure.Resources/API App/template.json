@@ -53,6 +53,9 @@
     },
     "UseSandboxServices": {
       "type": "string"
+    },
+    "CacheReferenceDataDuration": {
+      "type":  "string"
     }
   },
   "variables": {
@@ -131,7 +134,8 @@
               "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
               "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
               "CacheConnectionString": "[parameters('CacheConnectionString')]",
-              "UseSandboxServices": "[parameters('UseSandboxServices')]"
+              "UseSandboxServices": "[parameters('UseSandboxServices')]",
+              "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
             }
             },
           {
@@ -183,7 +187,8 @@
                   "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
                   "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
                   "CacheConnectionString": "[parameters('CacheConnectionString')]",
-                  "UseSandboxServices": "[parameters('UseSandboxServices')]"
+                  "UseSandboxServices": "[parameters('UseSandboxServices')]",
+                  "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
                 }
               }
             ]
