@@ -38,11 +38,14 @@
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
+    <None Include="deployments\web-app-resources.json" />
     <None Include="Manage API App\parameters.json" />
     <None Include="Manage API App\template.json" />
     <None Include="NSG\parameters.json" />
     <None Include="NSG\template.json" />
+    <None Include="parameters.json" />
     <None Include="README.md" />
+    <None Include="template.json" />
     <None Include="Traffic Manager\parameters.json" />
     <None Include="Traffic Manager\template.json" />
   </ItemGroup>
