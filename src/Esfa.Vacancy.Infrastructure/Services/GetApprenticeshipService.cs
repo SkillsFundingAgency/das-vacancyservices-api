@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                 return v;
                             },
                             splitOn: "AddressLine1",
-                            commandType: CommandType.StoredProcedure);
+                            commandType: CommandType.StoredProcedure).ConfigureAwait(false);
 
                     var apprenticeshipVacancy = results.FirstOrDefault();
 
@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
 
                     return apprenticeshipVacancy;
-                });
+                }).ConfigureAwait(false);
         }
     }
 }

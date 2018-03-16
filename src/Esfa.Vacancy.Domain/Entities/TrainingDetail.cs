@@ -10,6 +10,10 @@ namespace Esfa.Vacancy.Domain.Entities
 
         public DateTime? EffectiveTo { get; set; }
 
-        public bool HasExpired => EffectiveTo > DateTime.Today;
+        public bool HasExpired => EffectiveTo?.Date < DateTime.Today;
+
+        public string Title { get; set; }
+
+        public string Uri { get; set; }
     }
 }

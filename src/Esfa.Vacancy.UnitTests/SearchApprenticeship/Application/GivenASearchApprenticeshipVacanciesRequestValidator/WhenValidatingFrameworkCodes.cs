@@ -15,8 +15,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData(ValidFrameworkCodes)
                 .SetName("Then any number is valid"),
-            new TestCaseData(" 1 ".Split(',').ToList())
-                .SetName("hen outer spaces are allowed"),
         };
 
         [TestCaseSource(nameof(SuccessTestCases))]

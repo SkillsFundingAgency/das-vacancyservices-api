@@ -34,9 +34,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
             new TestCaseData("1")
                 .Returns(new[]{"1"})
                 .SetName("Then a single value is acceptable"),
-            new TestCaseData("1,2, 23lkk")
-                .Returns(new[]{"1","2", " 23lkk"})
+            new TestCaseData("1,2,23lkk")
+                .Returns(new[]{"1","2", "23lkk"})
                 .SetName("Then a comma delimited array is split on comma"),
+            new TestCaseData("1,2, 23lkk")
+                .Returns(new[]{"1","2", "23lkk"})
+                .SetName("Then a comma delimited array is split on comma and trims"),
             new TestCaseData(" ")
                 .Returns(new List<string>())
                 .SetName("Then an empty string returns empty list"),

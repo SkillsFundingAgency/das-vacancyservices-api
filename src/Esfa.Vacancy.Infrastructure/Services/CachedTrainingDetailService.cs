@@ -12,6 +12,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly ITrainingDetailService _trainingDetailService;
         private const string CacheKeyAllFrameworks = "VacancyApi.GetAllFrameworkDetails";
         private const string CacheKeyAllStandards = "VacancyApi.GetAllStandardDetails";
+        private const string CacheKeyFramework = "V1-Framework-{0}";
 
         public CachedTrainingDetailService(
             ICacheService cacheService, ITrainingDetailService trainingDetailService)
@@ -22,30 +23,29 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)
         {
-            return await _cacheService.CacheAsideAsync<Framework>(
-                $"V1-Framework-{code}",
-                async () => await _trainingDetailService.GetFrameworkDetailsAsync(code));
-        }
-
-        public async Task<Standard> GetStandardDetailsAsync(int code)
-        {
-            return await _cacheService.CacheAsideAsync<Standard>(
-                $"V1-Standard-{code}",
-                async () => await _trainingDetailService.GetStandardDetailsAsync(code));
+            return await _cacheService.CacheAsideAsync(
+                                          string.Format(CacheKeyFramework, code),
+                                          async () => await _trainingDetailService.GetFrameworkDetailsAsync(code)
+                                                                                  .ConfigureAwait(false))
+                                      .ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
-                CacheKeyAllFrameworks,
-                async () => await _trainingDetailService.GetAllFrameworkDetailsAsync());
+                                          CacheKeyAllFrameworks,
+                                          async () => await _trainingDetailService.GetAllFrameworkDetailsAsync()
+                                                                                  .ConfigureAwait(false))
+                                      .ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllStandardDetailsAsync()
         {
             return await _cacheService.CacheAsideAsync(
-                CacheKeyAllStandards,
-                async () => await _trainingDetailService.GetAllStandardDetailsAsync());
+                                          CacheKeyAllStandards,
+                                          async () => await _trainingDetailService.GetAllStandardDetailsAsync()
+                                                                                  .ConfigureAwait(false))
+                                      .ConfigureAwait(false);
         }
     }
 }

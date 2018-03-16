@@ -53,7 +53,8 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound, "Vacancy not found or vacancy status is not Live")]
         public async Task<IHttpActionResult> Get(string vacancyReference)
         {
-            var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference);
+            var vacancy = await _apprenticeshipVacancyOrchestrator.GetApprenticeshipVacancyDetailsAsync(vacancyReference)
+                                                                  .ConfigureAwait(false);
             return Ok(vacancy);
         }
     }

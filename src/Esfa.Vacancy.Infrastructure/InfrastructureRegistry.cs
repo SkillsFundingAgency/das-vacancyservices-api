@@ -5,10 +5,8 @@ using System.Reflection;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Domain.Repositories;
 using Esfa.Vacancy.Infrastructure.Caching;
 using Esfa.Vacancy.Infrastructure.Factories;
-using Esfa.Vacancy.Infrastructure.Repositories;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
 using Nest;
@@ -35,12 +33,6 @@ namespace Esfa.Vacancy.Infrastructure
             For<IProvideSettings>().Use(c => _provideSettings);
             For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
-
-            For<IFrameworkCodeRepository>().Use<CachedFrameworkCodeRepository>()
-                .Ctor<IFrameworkCodeRepository>().Is<FrameworkCodeRepository>();
-
-            For<IStandardRepository>().Use<CachedStandardRepository>()
-                .Ctor<IStandardRepository>().Is<StandardRepository>();
 
             For<IGetAllApprenticeMinimumWagesService>().Use<CachedGetAllApprenticeMinimumWagesService>()
                 .Ctor<IGetAllApprenticeMinimumWagesService>().Is<GetAllApprenticeMinimumWagesService>();

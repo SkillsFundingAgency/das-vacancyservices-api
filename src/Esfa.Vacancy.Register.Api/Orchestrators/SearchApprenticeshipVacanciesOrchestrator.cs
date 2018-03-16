@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             }
 
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
-            var response = await _mediator.Send(request);
+            var response = await _mediator.Send(request).ConfigureAwait(false);
             var results = _mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
 
 

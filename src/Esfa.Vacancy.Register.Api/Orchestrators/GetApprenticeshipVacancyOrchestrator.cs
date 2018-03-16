@@ -30,7 +30,8 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
                     ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric);
             }
 
-            var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId });
+            var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId })
+                                          .ConfigureAwait(false);
             var vacancy = _mapper.MapToApprenticeshipVacancy(response.ApprenticeshipVacancy);
 
             return vacancy;

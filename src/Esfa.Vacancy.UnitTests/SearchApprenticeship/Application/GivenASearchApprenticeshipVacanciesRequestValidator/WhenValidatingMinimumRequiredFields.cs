@@ -45,7 +45,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("Frameworks present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
-                    StandardLarsCodes = ValidFrameworkCodes
+                    StandardLarsCodes = ValidStandardCodes
                 }, new ValidationResult())
                 .SetName("Standards present is allowed"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PageNumber = 3
-                }, 
+                },
                 new ValidationResult
                 {
                     Errors =

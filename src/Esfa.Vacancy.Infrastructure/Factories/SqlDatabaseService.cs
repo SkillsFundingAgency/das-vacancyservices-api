@@ -37,11 +37,11 @@ namespace Esfa.Vacancy.Infrastructure.Factories
             {
                 using (var conn = GetConnection())
                 {
-                    await conn.OpenAsync();
+                    await conn.OpenAsync().ConfigureAwait(false);
 
-                    return await asyncFunc(conn);
+                    return await asyncFunc(conn).ConfigureAwait(false);
                 }
-            });
+            }).ConfigureAwait(false);
 
             return result;
         }
