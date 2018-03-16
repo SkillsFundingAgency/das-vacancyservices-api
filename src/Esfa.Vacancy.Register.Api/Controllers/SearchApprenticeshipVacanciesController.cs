@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// 
         /// The default sorting rules can be overriden by using the `SortBy` query parameter. 
         /// SortBy can be set to "Age", "Distance" or "ExpectedStartDate".
-        /// Whereas sorting by "Age" will return newest vacancies first, sorting by "ExpectedStartDate" will return vacancies that have soonest start date first.
+        /// Whereas sorting by "Age" will return newest vacancies first, sorting by "ExpectedStartDate" will return vacancies that have earliest start date first.
         /// Beware that it is invalid to sort by distance if you have not searched by geo-location.
         /// 
         /// #### Error codes ####
