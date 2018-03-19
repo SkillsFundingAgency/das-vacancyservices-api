@@ -96,7 +96,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.WageUnit);
 
                 When(request => request.WageUnit != WageUnit.NotApplicable
-                                && request.ExpectedStartDate != DateTime.MinValue
+                                && request.ExpectedStartDate > DateTime.Today
                                 && request.MinWage.HasValue
                                 && request.HoursPerWeek > 0,
                     () =>
