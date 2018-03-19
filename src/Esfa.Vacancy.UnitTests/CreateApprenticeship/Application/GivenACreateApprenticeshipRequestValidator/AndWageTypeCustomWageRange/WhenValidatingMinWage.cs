@@ -114,7 +114,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = DateTime.MinValue,
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -132,7 +132,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = WageUnit.NotApplicable,
                 ExpectedStartDate = _fixture.Create<DateTime>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -142,7 +142,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         }
 
         [Test]
-        public async Task AndHoursPerWeekIsMinValue_ThenIsValid()
+        public async Task AndHoursPerWeekIsLessThanZero_ThenIsValid()
         {
             var request = new CreateApprenticeshipRequest
             {
@@ -150,7 +150,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
-                HoursPerWeek = _fixture.CreateInValidHoursPerWeek()
+                HoursPerWeek = -9
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -169,7 +169,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = expectedStartDate,
                 MinWage = _fixture.Create<decimal>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -187,7 +187,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
                 MinWage = _fixture.Create<decimal>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -205,7 +205,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -227,7 +227,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
@@ -249,7 +249,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 MinWage = _fixture.Create<decimal>(),
                 WageUnit = _fixture.CreateAnyWageUnitOtherThanNotApplicable(),
                 ExpectedStartDate = _fixture.Create<DateTime>(),
-                HoursPerWeek = _fixture.CreateValidHoursPerWeek()
+                HoursPerWeek = _fixture.Create<double>()
             };
             var context = GetValidationContextForProperty(request, req => req.MinWage);
 
