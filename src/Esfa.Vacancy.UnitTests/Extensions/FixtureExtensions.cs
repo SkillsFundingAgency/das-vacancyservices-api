@@ -16,8 +16,7 @@ namespace Esfa.Vacancy.UnitTests.Extensions
 
         public static DateTime CreateFutureDateTime(this ISpecimenBuilder fixture)
         {
-            return fixture.Create<Generator<DateTime>>()
-                .First(date => date.Date > DateTime.Today);
+            return DateTime.Now.AddDays(1) + fixture.Create<TimeSpan>();
         }
     }
 }
