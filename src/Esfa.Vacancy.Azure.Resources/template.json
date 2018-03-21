@@ -4,67 +4,69 @@
   "parameters": {
     "templateBaseUrl": {
       "type": "string",
-          "metadata": {
-            "description": "The base url for templates"
-          }
-      },
-      "appName": {
-        "type": "string"
-      },
-      "slotName": {
-        "type": "string",
-        "defaultValue": "staging"
-      },
-      "appHostingPlanName": {
-        "type": "string"
-      },
-      "appHostingEnvironment": {
-        "type": "string"
-      },
-      "appServerFarmResourceGroup": {
-        "type": "string"
-      },
-      "appSubscriptionId": {
-        "type": "string"
-      },
-      "LoggingRedisConnectionString": {
-        "type": "string"
-      },
-      "AvmsPlusDatabaseConnectionString": {
-        "type": "string"
-      },
-      "EnvironmentName": {
-        "type": "string"
-      },
-      "LoggingRedisKey": {
-        "type": "string"
-      },
-      "ApprenticeshipInfoApiBaseUrl": {
-        "type": "string"
-      },
-      "LiveApprenticeshipVacancyBaseUrl": {
-        "type": "string"
-      },
-      "VacancySearchUrl": {
-        "type": "string"
-      },
-      "ApprenticeshipIndexAlias": {
-        "type": "string"
-      },
-      "LiveTraineeshipVacancyBaseUrl": {
-        "type": "string"
-      },
-      "CacheConnectionString": {
-        "type": "string"
-      },
-      "UseSandboxServices": {
-        "type": "string"
+      "metadata": {
+        "description": "The base url for templates"
       }
     },
+    "registerAppName": {
+      "type": "string"
+    },
+    "manageAppName": {
+      "type": "string"
+    },
+    "slotName": {
+      "type": "string",
+      "defaultValue": "staging"
+    },
+    "appHostingPlanName": {
+      "type": "string"
+    },
+    "appHostingEnvironment": {
+      "type": "string"
+    },
+    "appServerFarmResourceGroup": {
+      "type": "string"
+    },
+    "appSubscriptionId": {
+      "type": "string"
+    },
+    "LoggingRedisConnectionString": {
+      "type": "string"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "LoggingRedisKey": {
+      "type": "string"
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "type": "string"
+    },
+    "LiveApprenticeshipVacancyBaseUrl": {
+      "type": "string"
+    },
+    "VacancySearchUrl": {
+      "type": "string"
+    },
+    "ApprenticeshipIndexAlias": {
+      "type": "string"
+    },
+    "LiveTraineeshipVacancyBaseUrl": {
+      "type": "string"
+    },
+    "CacheConnectionString": {
+      "type": "string"
+    },
+    "UseSandboxServices": {
+      "type": "string"
+    }
+  },
   "variables": {
     "webappResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/web-app-resources.json')]",
     "baseParameters": {
-      "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', parameters('appName')), '2015-05-01').InstrumentationKey]",
       "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
       "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
       "EnvironmentName": "[parameters('EnvironmentName')]",
@@ -73,7 +75,7 @@
       "CacheConnectionString": "[parameters('CacheConnectionString')]",
       "UseSandboxServices": "[parameters('UseSandboxServices')]"
     },
-    "vacancyParameters": {
+    "appParameters": {
       "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
       "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
       "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
@@ -92,8 +94,11 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "appName": {
-            "value": "[parameters('appName')]"
+          "registerAppName": {
+            "value": "[parameters('registerAppName')]"
+          },
+          "manageAppName": {
+            "value": "[parameters('manageAppName')]"
           },
           "slotName": {
             "value": "[parameters('slotName')]"
@@ -111,7 +116,7 @@
             "value": "[variables('baseParameters')]"
           },
           "appParameters": {
-            "value": "[variables('vacancyParameters')]"
+            "value": "[variables('appParameters')]"
           }
         }
       }

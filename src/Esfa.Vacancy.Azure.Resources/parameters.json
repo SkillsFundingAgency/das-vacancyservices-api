@@ -5,7 +5,10 @@
     "templateBaseUrl": {
       "value": "__templateBaseUrl__"
     },
-    "appName": {
+    "registerAppName": {
+      "value": "__appName__"
+    },
+    "manageAppName": {
       "value": "__appName__"
     },
     "slotName": {
