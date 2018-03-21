@@ -3,61 +3,61 @@
     "contentVersion": "1.0.0.0",
   "parameters": {
     "templateBaseUrl": {
-      "value": "__templateBaseUrl__"
+      "value": ""
     },
     "registerAppName": {
-      "value": "__appName__"
+      "value": ""
     },
     "manageAppName": {
-      "value": "__appName__"
+      "value": ""
     },
     "slotName": {
-      "value": "__appSlotName__"
+      "value": ""
     },
     "appHostingPlanName": {
-      "value": "__appHostingPlanName__"
+      "value": ""
     },
     "appHostingEnvironment": {
-      "value": "__appHostingEnvironment__"
+      "value": ""
     },
     "appServerFarmResourceGroup": {
-      "value": "__appServerFarmResourceGroup__"
+      "value": ""
     },
     "appSubscriptionId": {
-      "value": "__appSubscriptionId__"
+      "value": ""
     },
     "LoggingRedisConnectionString": {
-      "value": "__appSettingLoggingRedisConnectionString__"
+      "value": ""
     },
     "AvmsPlusDatabaseConnectionString": {
-      "value": "__appSettingAvmsPlusDatabaseConnectionString__"
+      "value": ""
     },
     "EnvironmentName": {
-      "value": "__appSettingEnvironmentName__"
+      "value": ""
     },
     "LoggingRedisKey": {
-      "value": "__appSettingLoggingRedisKey__"
+      "value": ""
     },
     "ApprenticeshipInfoApiBaseUrl": {
-      "value": "__appSettingApprenticeshipInfoApiBaseUrl__"
+      "value": ""
     },
     "LiveApprenticeshipVacancyBaseUrl": {
-      "value": "__appSettingLiveApprenticeshipVacancyBaseUrl__"
+      "value": ""
     },
     "VacancySearchUrl": {
-      "value": "__appSettingVacancySearchUrl__"
+      "value": ""
     },
     "ApprenticeshipIndexAlias": {
-      "value": "__appSettingApprenticeshipIndexAlias__"
+      "value": ""
     },
     "LiveTraineeshipVacancyBaseUrl": {
-      "value": "__appSettingLiveTraineeshipVacancyBaseUrl__"
+      "value": ""
     },
     "CacheConnectionString": {
-      "value": "__appSettingCacheConnectionString__"
+      "value": ""
     },
     "UseSandboxServices": {
-      "value": "__appSettingUseSandboxServices__"
+      "value": ""
     }
   }
 }
