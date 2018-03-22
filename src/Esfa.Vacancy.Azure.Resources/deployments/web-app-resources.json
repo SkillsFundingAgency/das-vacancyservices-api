@@ -117,7 +117,7 @@
             "[resourceId('Microsoft.Web/Sites', parameters('registerAppName'))]"
           ],
           "properties": {
-            "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName" ]
+            "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName", "UseSandboxServices" ]
           }
         },
         {
@@ -240,7 +240,7 @@
             "[resourceId('Microsoft.Web/Sites', parameters('manageAppName'))]"
           ],
           "properties": {
-            "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName" ]
+            "appSettingNames": [ "APPINSIGHTS_INSTRUMENTATIONKEY", "EnvironmentName", "UseSandboxServices" ]
           }
         },
         {
