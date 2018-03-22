@@ -1,0 +1,127 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "templateBaseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "The base url for templates"
+      }
+    },
+    "registerAppName": {
+      "type": "string"
+    },
+    "manageAppName": {
+      "type": "string"
+    },
+    "slotName": {
+      "type": "string",
+      "defaultValue": "staging"
+    },
+    "appHostingPlanName": {
+      "type": "string"
+    },
+    "appHostingEnvironment": {
+      "type": "string"
+    },
+    "appServerFarmResourceGroup": {
+      "type": "string"
+    },
+    "appSubscriptionId": {
+      "type": "string"
+    },
+    "LoggingRedisConnectionString": {
+      "type": "string"
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "LoggingRedisKey": {
+      "type": "string"
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "type": "string"
+    },
+    "LiveApprenticeshipVacancyBaseUrl": {
+      "type": "string"
+    },
+    "VacancySearchUrl": {
+      "type": "string"
+    },
+    "ApprenticeshipIndexAlias": {
+      "type": "string"
+    },
+    "LiveTraineeshipVacancyBaseUrl": {
+      "type": "string"
+    },
+    "CacheConnectionString": {
+      "type": "string"
+    },
+    "UseSandboxServices": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "webappResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/web-app-resources.json')]",
+    "baseParameters": {
+      "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+      "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+      "EnvironmentName": "[parameters('EnvironmentName')]",
+      "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+      "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+      "CacheConnectionString": "[parameters('CacheConnectionString')]",
+      "UseSandboxServices": "[parameters('UseSandboxServices')]"
+    },
+    "appParameters": {
+      "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
+      "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
+      "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
+      "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-08-01",
+      "name": "register-web-app-resources-deployment",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('webappResourcesTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "registerAppName": {
+            "value": "[parameters('registerAppName')]"
+          },
+          "manageAppName": {
+            "value": "[parameters('manageAppName')]"
+          },
+          "slotName": {
+            "value": "[parameters('slotName')]"
+          },
+          "appHostingPlanName": {
+            "value": "[parameters('appHostingPlanName')]"
+          },
+          "appServerFarmResourceGroup": {
+            "value": "[parameters('appServerFarmResourceGroup')]"
+          },
+          "appSubscriptionId": {
+            "value": "[parameters('appSubscriptionId')]"
+          },
+          "baseParameters": {
+            "value": "[variables('baseParameters')]"
+          },
+          "appParameters": {
+            "value": "[variables('appParameters')]"
+          }
+        }
+      }
+    }
+  ],
+    "outputs": {
+    }
+}

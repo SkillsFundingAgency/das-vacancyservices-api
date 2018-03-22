@@ -1,0 +1,63 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "templateBaseUrl": {
+      "value": ""
+    },
+    "registerAppName": {
+      "value": ""
+    },
+    "manageAppName": {
+      "value": ""
+    },
+    "slotName": {
+      "value": ""
+    },
+    "appHostingPlanName": {
+      "value": ""
+    },
+    "appHostingEnvironment": {
+      "value": ""
+    },
+    "appServerFarmResourceGroup": {
+      "value": ""
+    },
+    "appSubscriptionId": {
+      "value": ""
+    },
+    "LoggingRedisConnectionString": {
+      "value": ""
+    },
+    "AvmsPlusDatabaseConnectionString": {
+      "value": ""
+    },
+    "EnvironmentName": {
+      "value": ""
+    },
+    "LoggingRedisKey": {
+      "value": ""
+    },
+    "ApprenticeshipInfoApiBaseUrl": {
+      "value": ""
+    },
+    "LiveApprenticeshipVacancyBaseUrl": {
+      "value": ""
+    },
+    "VacancySearchUrl": {
+      "value": ""
+    },
+    "ApprenticeshipIndexAlias": {
+      "value": ""
+    },
+    "LiveTraineeshipVacancyBaseUrl": {
+      "value": ""
+    },
+    "CacheConnectionString": {
+      "value": ""
+    },
+    "UseSandboxServices": {
+      "value": ""
+    }
+  }
+}
