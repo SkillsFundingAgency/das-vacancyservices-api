@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Esfa.Vacancy.Manage.Api
 {
@@ -7,13 +8,13 @@ namespace Esfa.Vacancy.Manage.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
+            // Web API configuration and services            
             config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
 
             ApiFilterConfig.RegisterFilters(config.Filters);
