@@ -37,9 +37,9 @@
       "alwaysOn": true
     },
     "registerSlotFriendlyName": "[concat(parameters('registerAppName'),'-',parameters('slotName'))]",
-    "registerAppSettings": "[parameters('baseParameters')]",
+    "manageAppSettings": "[parameters('baseParameters')]",
     "manageSlotFriendlyName": "[concat(parameters('manageAppName'),'-',parameters('slotName'))]",
-    "manageAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]"
+    "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]"
   },
   "resources": [
     {
@@ -106,7 +106,12 @@
             "LoggingRedisKey": "[variables('registerAppSettings').LoggingRedisKey]",
             "ApprenticeshipInfoApiBaseUrl": "[variables('registerAppSettings').ApprenticeshipInfoApiBaseUrl]",
             "CacheConnectionString": "[variables('registerAppSettings').CacheConnectionString]",
-            "UseSandboxServices": "[variables('registerAppSettings').UseSandboxServices]"
+            "UseSandboxServices": "[variables('registerAppSettings').UseSandboxServices.ProductionSlot]",
+            "CacheReferenceDataDuration": "[variables('registerAppSettings').CacheReferenceDataDuration]",
+            "LiveApprenticeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveApprenticeshipVacancyBaseUrl]",
+            "VacancySearchUrl": "[variables('registerAppSettings').VacancySearchUrl]",
+            "ApprenticeshipIndexAlias": "[variables('registerAppSettings').ApprenticeshipIndexAlias]",
+            "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]"
           }
         },
         {
@@ -150,11 +155,16 @@
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', parameters('registerAppName')), '2015-05-01').InstrumentationKey]",
                 "LoggingRedisConnectionString": "[variables('registerAppSettings').LoggingRedisConnectionString]",
                 "AvmsPlusDatabaseConnectionString": "[variables('registerAppSettings').AvmsPlusDatabaseConnectionString]",
-                "EnvironmentName": "[variables('registerAppSettings').EnvironmentName]",
+                "EnvironmentName": "[concat(variables('registerAppSettings').EnvironmentName,'-',toUpper(parameters('slotName')))]",
                 "LoggingRedisKey": "[variables('registerAppSettings').LoggingRedisKey]",
                 "ApprenticeshipInfoApiBaseUrl": "[variables('registerAppSettings').ApprenticeshipInfoApiBaseUrl]",
                 "CacheConnectionString": "[variables('registerAppSettings').CacheConnectionString]",
-                "UseSandboxServices": "[variables('registerAppSettings').UseSandboxServices]"
+                "UseSandboxServices": "[variables('registerAppSettings').UseSandboxServices.StagingSlot]",
+                "CacheReferenceDataDuration": "[variables('registerAppSettings').CacheReferenceDataDuration]",
+                "LiveApprenticeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveApprenticeshipVacancyBaseUrl]",
+                "VacancySearchUrl": "[variables('registerAppSettings').VacancySearchUrl]",
+                "ApprenticeshipIndexAlias": "[variables('registerAppSettings').ApprenticeshipIndexAlias]",
+                "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]"
               }
             }
           ]
@@ -225,11 +235,8 @@
             "LoggingRedisKey": "[variables('manageAppSettings').LoggingRedisKey]",
             "ApprenticeshipInfoApiBaseUrl": "[variables('manageAppSettings').ApprenticeshipInfoApiBaseUrl]",
             "CacheConnectionString": "[variables('manageAppSettings').CacheConnectionString]",
-            "UseSandboxServices": "[variables('manageAppSettings').UseSandboxServices]",
-            "LiveApprenticeshipVacancyBaseUrl": "[variables('manageAppSettings').LiveApprenticeshipVacancyBaseUrl]",
-            "VacancySearchUrl": "[variables('manageAppSettings').VacancySearchUrl]",
-            "ApprenticeshipIndexAlias": "[variables('manageAppSettings').ApprenticeshipIndexAlias]",
-            "LiveTraineeshipVacancyBaseUrl": "[variables('manageAppSettings').LiveTraineeshipVacancyBaseUrl]"
+            "UseSandboxServices": "[variables('manageAppSettings').UseSandboxServices.ProductionSlot]",
+            "CacheReferenceDataDuration": "[variables('manageAppSettings').CacheReferenceDataDuration]"
           }
         },
         {
@@ -271,17 +278,14 @@
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', parameters('manageAppName')), '2015-05-01').InstrumentationKey]",
-                "LoggingRedisConnectionString": "[variables('registerAppSettings').LoggingRedisConnectionString]",
-                "AvmsPlusDatabaseConnectionString": "[variables('registerAppSettings').AvmsPlusDatabaseConnectionString]",
-                "EnvironmentName": "[variables('registerAppSettings').EnvironmentName]",
-                "LoggingRedisKey": "[variables('registerAppSettings').LoggingRedisKey]",
-                "ApprenticeshipInfoApiBaseUrl": "[variables('registerAppSettings').ApprenticeshipInfoApiBaseUrl]",
-                "CacheConnectionString": "[variables('registerAppSettings').CacheConnectionString]",
-                "UseSandboxServices": "[variables('registerAppSettings').UseSandboxServices]",
-                "LiveApprenticeshipVacancyBaseUrl": "[parameters('appParameters').LiveApprenticeshipVacancyBaseUrl]",
-                "VacancySearchUrl": "[parameters('appParameters').VacancySearchUrl]",
-                "ApprenticeshipIndexAlias": "[parameters('appParameters').ApprenticeshipIndexAlias]",
-                "LiveTraineeshipVacancyBaseUrl": "[parameters('appParameters').LiveTraineeshipVacancyBaseUrl]"
+                "LoggingRedisConnectionString": "[variables('manageAppSettings').LoggingRedisConnectionString]",
+                "AvmsPlusDatabaseConnectionString": "[variables('manageAppSettings').AvmsPlusDatabaseConnectionString]",
+                "EnvironmentName": "[concat(variables('manageAppSettings').EnvironmentName,'-',toUpper(parameters('slotName')))]",
+                "LoggingRedisKey": "[variables('manageAppSettings').LoggingRedisKey]",
+                "ApprenticeshipInfoApiBaseUrl": "[variables('manageAppSettings').ApprenticeshipInfoApiBaseUrl]",
+                "CacheConnectionString": "[variables('manageAppSettings').CacheConnectionString]",
+                "UseSandboxServices": "[variables('manageAppSettings').UseSandboxServices.StagingSlot]",
+                "CacheReferenceDataDuration": "[variables('manageAppSettings').CacheReferenceDataDuration]"
               }
             }
           ]

@@ -60,7 +60,13 @@
     "CacheConnectionString": {
       "type": "string"
     },
-    "UseSandboxServices": {
+    "UseSandboxServicesProdSlot": {
+      "type": "string"
+    },
+    "UseSandboxServicesStagingSlot": {
+      "type": "string"
+    },
+    "CacheReferenceDataDuration": {
       "type": "string"
     }
   },
@@ -73,7 +79,11 @@
       "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
       "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
       "CacheConnectionString": "[parameters('CacheConnectionString')]",
-      "UseSandboxServices": "[parameters('UseSandboxServices')]"
+      "UseSandboxServices": {
+        "ProductionSlot": "[parameters('UseSandboxServicesProdSlot')]",
+        "StagingSlot": "[parameters('UseSandboxServicesStagingSlot')]"
+      },
+      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
     },
     "appParameters": {
       "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",

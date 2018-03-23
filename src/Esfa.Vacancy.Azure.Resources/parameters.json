@@ -56,7 +56,13 @@
     "CacheConnectionString": {
       "value": ""
     },
-    "UseSandboxServices": {
+    "UseSandboxServicesProdSlot": {
+      "value": ""
+    },
+    "UseSandboxServicesStagingSlot": {
+      "value": ""
+    },
+    "CacheReferenceDataDuration": {
       "value": ""
     }
   }
