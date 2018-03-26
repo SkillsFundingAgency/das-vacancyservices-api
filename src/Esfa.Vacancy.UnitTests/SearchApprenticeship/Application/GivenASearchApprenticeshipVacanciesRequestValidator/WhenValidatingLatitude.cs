@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Latitude' must be between -90 and 90. You entered -90.1.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     }}
                 })
                 .SetName("And less than -90 then invalid"),
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Latitude' must be between -90 and 90. You entered 90.1.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     }}
                 })
                 .SetName("And greater than 90 then invalid")

@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("PostedInLastNumberOfDays", "'Posted In Last Number Of Days' must be greater than or equal to '0'.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDaysLessThan0
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDays
                     }}
                 })
                 .SetName("Then less than 0 is invalid"),

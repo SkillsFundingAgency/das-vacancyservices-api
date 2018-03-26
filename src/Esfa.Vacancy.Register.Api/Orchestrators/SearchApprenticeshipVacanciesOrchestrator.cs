@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             if (apprenticeSearchParameters == null)
             {
                 throw _validationExceptionBuilder.Build(
-                    ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
+                    ErrorCodes.SearchApprenticeships.InvalidRequest,
                     ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
                     ApprenticeSearchPropertyName);
             }

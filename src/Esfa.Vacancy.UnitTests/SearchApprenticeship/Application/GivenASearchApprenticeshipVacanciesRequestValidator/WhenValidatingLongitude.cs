@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Longitude' must be between -180 and 180. You entered -180.1.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }}
                 })
                 .SetName("And less than -180 then invalid"),
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Longitude' must be between -180 and 180. You entered 180.1.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }}
                 })
                 .SetName("And greater than 180 then invalid")

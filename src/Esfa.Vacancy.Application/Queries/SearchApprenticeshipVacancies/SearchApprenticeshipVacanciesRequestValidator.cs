@@ -34,82 +34,82 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 .When(request => !request.PostedInLastNumberOfDays.HasValue)
                 .When(request => !request.IsGeoSearch)
                 .WithMessage(ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.InvalidRequest);
 
             RuleFor(request => request.NationwideOnly)
                 .NotEqual(true)
                 .When(request => request.IsGeoSearch)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.NationwideOnly);
 
             RuleForEach(request => request.StandardLarsCodes)
                 .Must(BeValidNumber)
                 .WithMessage((request, value) =>
                     ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, value))
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCode)
                 .DependentRules(d => d.RuleForEach(request => request.StandardLarsCodes)
                     .MustAsync(BeAValidStandardCode)
                     .WithMessage((c, value) =>
                         ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Standard, value))
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCodeNotFound));
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.StandardCode));
 
             RuleForEach(request => request.FrameworkLarsCodes)
                 .Must(BeValidNumber)
                 .WithMessage((request, value) => ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Framework, value))
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotInt32)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCode)
                 .DependentRules(d => d.RuleForEach(request => request.FrameworkLarsCodes)
                     .MustAsync(BeAValidFrameworkCode)
                     .WithMessage((c, value) =>
                         ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Framework, value))
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCodeNotFound));
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.FrameworkCode));
 
             RuleFor(r => r.PageSize)
                 .InclusiveBetween(MinimumPageSize, MaximumPageSize)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageSizeOutsideRange);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageSize);
 
             RuleFor(r => r.PageNumber)
                 .GreaterThanOrEqualTo(MinimumPageNumber)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageNumberLessThan1);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PageNumber);
 
             RuleFor(r => r.PostedInLastNumberOfDays)
                 .GreaterThanOrEqualTo(0)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDaysLessThan0);
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.PostedInLastNumberOfDays);
 
             RuleFor(request => request.Latitude)
                 .NotNull()
                 .When(request => request.IsGeoSearch)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.Latitude)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                 .DependentRules(rules => rules.RuleFor(request => request.Latitude)
                     .InclusiveBetween(MinimumLatitude, MaximumLatitude)
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.LatitudeOutsideRange));
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.Latitude));
 
             RuleFor(request => request.Longitude)
                 .NotNull()
                 .When(request => request.IsGeoSearch)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.Longitude)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                 .DependentRules(rules => rules.RuleFor(request => request.Longitude)
                     .InclusiveBetween(MinimumLongitude, MaximumLongitude)
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.LongitudeOutsideRange));
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.Longitude));
 
             RuleFor(request => request.DistanceInMiles)
                 .NotNull()
                 .When(request => request.IsGeoSearch)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceInMiles)
                 .WithMessage(ErrorMessages.SearchApprenticeships.GetGeoLocationFieldNotProvidedErrorMessage(nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                 .DependentRules(rules => rules.RuleFor(request => request.DistanceInMiles)
                     .InclusiveBetween(MinimumDistanceInMiles, MaximumDistanceInMiles)
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceOutsideRange));
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceInMiles));
 
             RuleFor(request => request.SortBy)
                 .IsInEnum()
                 .When(request => request.SortBy.HasValue)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.InvalidSortBy)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
                 .DependentRules(rules => rules.RuleFor(request => request.SortBy)
                     .NotEqual(SortBy.Distance)
                     .When(request => !request.IsGeoSearch)
-                    .WithErrorCode(ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
+                    .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
                     .WithMessage(ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch));
         }
 

@@ -52,7 +52,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("PageSize", "'Page Size' must be between 1 and 250. You entered 0.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSize
                     }}
                 })
                 .SetName("Then less than 1 is invalid"),
@@ -82,7 +82,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("PageSize", "'Page Size' must be between 1 and 250. You entered 251.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSizeOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageSize
                     }}
                 })
                 .SetName("Then greater than 250 is invalid")

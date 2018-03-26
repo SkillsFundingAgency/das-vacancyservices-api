@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And no distance then invalid"),
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     }}
                 })
                 .SetName("And no latitude then invalid"),
@@ -54,7 +54,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }}
                 })
                 .SetName("And no longitude then invalid"),
@@ -65,10 +65,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And only latitude then invalid"),
@@ -79,10 +79,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And only longitude then invalid"),
@@ -93,10 +93,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     },new ValidationFailure("", string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }}
                 })
                 .SetName("And only distance then invalid")

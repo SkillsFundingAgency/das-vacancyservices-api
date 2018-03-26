@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
                 })
                 .SetName("And searching without location then sort by distance is invalid"),
@@ -106,7 +106,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{_dodgyEnum}'.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.InvalidSortBy
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
                 })
                 .SetName("And search by non-location and sorting by non-enum value then is invalid"),
@@ -120,7 +120,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{_dodgyEnum}'.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.InvalidSortBy
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
                 })
                 .SetName("And search by location sorting by non-enum value then is invalid")

@@ -86,7 +86,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
 
             _mockValidationExceptionBuilder.Verify(builder =>
                 builder.Build(
-                    ErrorCodes.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
+                    ErrorCodes.SearchApprenticeships.InvalidRequest,
                     ErrorMessages.SearchApprenticeships.SearchApprenticeshipParametersIsNull,
                     It.IsAny<string>()), Times.Once);
         }
