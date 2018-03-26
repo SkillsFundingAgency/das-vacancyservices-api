@@ -95,24 +95,17 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// 
         /// | Error code  | Explanation                                                                      |
         /// | ----------- | -------------------------------------------------------------------------------- |
-        /// | 30100       | Search parameters were not specified                                             |
-        /// | 30101       | At least 1 valid search criteria must be provided                                |
-        /// | 30102       | Standard code must be a number                                                   |
-        /// | 30103       | Framework code must be a number                                                  |
-        /// | 30104       | Page size must be between 1 and 250 (inclusive)                                  |
-        /// | 30105       | Page number must be greater than 0                                               |
-        /// | 30106       | Number of days since posted must be greater than or equal to 0                   |
-        /// | 30107       | Framework code not recognised                                                    |
-        /// | 30108       | Standard code not recognised                                                     |
-        /// | 30109       | Latitude is required when performing geo-search                                  |
-        /// | 30110       | Latitude must be between -90 and 90 (inclusive)                                  |
-        /// | 30111       | Longitude is required when performing geo-search                                 |
-        /// | 30112       | Longitude must be between -180 and 180 (inclusive)                               |
-        /// | 30113       | Distance in miles is required when performing geo-search                         |
-        /// | 30114       | Distance in miles must be between 1 and 1000 (inclusive)                         |
-        /// | 30115       | Searching by geo-location and national vacancies is not a valid combination      |
-        /// | 30116       | Invalid search and sort combination (e.g. sort by distance but not a geo-search) |
-        /// | 30117       | SortBy value outside of accepted values                                          |
+        /// | 30100       | Search parameters not specified or insufficient                                  |
+        /// | 30101       | Invalid Standard Code                                                            |
+        /// | 30102       | Invalid Framework code                                                           |
+        /// | 30103       | Invalid Page size                                                                |
+        /// | 30104       | Invalid Page number                                                              |
+        /// | 30105       | Invalid Posted in last number of days                                            |
+        /// | 30106       | Invalid Latitude                                                                 |
+        /// | 30107       | Invalid Longitude                                                                |
+        /// | 30108       | Invalid Distance in miles                                                        |
+        /// | 30109       | Invalid NationwideOnly                                                           |
+        /// | 30110       | Invalid SortBy                                                                   |
         /// 
         /// </summary>
         [HttpGet]
@@ -123,7 +116,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
-            string ApiLinkUrlFunction(int reference) => 
+            string ApiLinkUrlFunction(int reference) =>
                 Url.Link(RouteName.GetApprenticeshipVacancyByReference, new { vacancyReference = reference });
             SearchResponse<ApprenticeshipSummary> results =
                 await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters, ApiLinkUrlFunction)

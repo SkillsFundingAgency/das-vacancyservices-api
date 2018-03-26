@@ -77,7 +77,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     {
                         new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
+                            ErrorCode = ErrorCodes.SearchApprenticeships.InvalidRequest
                         }
                     }
                 })
@@ -92,7 +92,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     {
                         new ValidationFailure("", ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
                         {
-                            ErrorCode = ErrorCodes.SearchApprenticeships.MinimumRequiredFieldsNotProvided
+                            ErrorCode = ErrorCodes.SearchApprenticeships.InvalidRequest
                         }
                     }
                 })

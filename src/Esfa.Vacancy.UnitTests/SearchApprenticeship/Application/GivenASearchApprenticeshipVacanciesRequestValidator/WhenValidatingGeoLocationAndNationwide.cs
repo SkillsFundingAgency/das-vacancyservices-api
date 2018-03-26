@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed
+                        ErrorCode = ErrorCodes.SearchApprenticeships.NationwideOnly
                     }}
                 })
                 .SetName("And combining geo-location with nationwide only then invalid"),
@@ -37,13 +37,13 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed
+                        ErrorCode = ErrorCodes.SearchApprenticeships.NationwideOnly
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And combining latitude with nationwide only then invalid"),
@@ -55,13 +55,13 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed
+                        ErrorCode = ErrorCodes.SearchApprenticeships.NationwideOnly
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.DistanceInMiles)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And combining longitude with nationwide only then invalid"),
@@ -73,13 +73,13 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", ErrorMessages.SearchApprenticeships.GeoSearchAndNationwideNotAllowed)
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.GeoSearchAndNationwideNotAllowed
+                        ErrorCode = ErrorCodes.SearchApprenticeships.NationwideOnly
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Latitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LatitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Latitude
                     }, new ValidationFailure("",  string.Format(ErrorText, nameof(SearchApprenticeshipVacanciesRequest.Longitude)))
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.LongitudeMissingFromGeoSearch
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Longitude
                     }}
                 })
                 .SetName("And combining distance with nationwide only then invalid")

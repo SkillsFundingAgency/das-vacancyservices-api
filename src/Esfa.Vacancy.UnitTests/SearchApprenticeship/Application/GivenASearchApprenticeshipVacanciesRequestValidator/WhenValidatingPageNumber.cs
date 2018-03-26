@@ -51,7 +51,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("PageNumber", "'Page Number' must be greater than or equal to '1'.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.PageNumberLessThan1
+                        ErrorCode = ErrorCodes.SearchApprenticeships.PageNumber
                     }}
                 })
                 .SetName("Then less than 1 is invalid"),

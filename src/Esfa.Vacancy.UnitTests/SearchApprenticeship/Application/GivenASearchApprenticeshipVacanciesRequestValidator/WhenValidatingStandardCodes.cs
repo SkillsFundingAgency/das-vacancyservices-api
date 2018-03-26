@@ -37,20 +37,20 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
         {
             new TestCaseData("e",
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "e"),
-                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
-                .SetName("Then characters are not allowed"),
+                ErrorCodes.SearchApprenticeships.StandardCode)
+                .SetName("And if non-number character Then is invalid"),
             new TestCaseData("1.1",
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "1.1"),
-                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
-                .SetName("Then decimals are not allowed"),
+                ErrorCodes.SearchApprenticeships.StandardCode)
+                .SetName("And if number has decimal Then is invalid"),
             new TestCaseData("2 0",
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeShouldBeNumberErrorMessage(TrainingType.Standard, "2 0"),
-                ErrorCodes.SearchApprenticeships.StandardCodeNotInt32)
-                .SetName("Then inner spaces are not allowed"),
+                ErrorCodes.SearchApprenticeships.StandardCode)
+                .SetName("And the value has spaces Then is invalid"),
             new TestCaseData("2",
                 ErrorMessages.SearchApprenticeships.GetTrainingCodeNotFoundErrorMessage(TrainingType.Standard,"2"),
-                ErrorCodes.SearchApprenticeships.StandardCodeNotFound)
-                .SetName("Then it should be a valid standard code")
+                ErrorCodes.SearchApprenticeships.StandardCode)
+                .SetName("And if number is not found Then is invalid")
         };
 
         [TestCaseSource(nameof(FailingTestCases))]

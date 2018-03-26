@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Distance In Miles' must be between 1 and 1000. You entered 0.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And less than 1 then invalid"),
@@ -56,7 +56,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     Errors = { new ValidationFailure("", "'Distance In Miles' must be between 1 and 1000. You entered 1001.")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceOutsideRange
+                        ErrorCode = ErrorCodes.SearchApprenticeships.DistanceInMiles
                     }}
                 })
                 .SetName("And greater than 1000 then invalid")
