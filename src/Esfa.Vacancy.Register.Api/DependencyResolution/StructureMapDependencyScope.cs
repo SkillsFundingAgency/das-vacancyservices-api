@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
+    using Microsoft.Owin;
 
     using Microsoft.Practices.ServiceLocation;
 
@@ -41,11 +41,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
 
         public StructureMapDependencyScope(IContainer container)
         {
-            if (container == null)
-            {
-                throw new ArgumentNullException("container");
-            }
-            Container = container;
+            Container = container ?? throw new ArgumentNullException("container");
         }
 
         #endregion
@@ -56,26 +52,20 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
 
         public IContainer CurrentNestedContainer
         {
-            get
-            {
-                return (IContainer)HttpContext.Items[NestedContainerKey];
-            }
-            set
-            {
-                HttpContext.Items[NestedContainerKey] = value;
-            }
+            get { return Context.Get<IContainer>(NestedContainerKey); }
+            set { Context.Set(NestedContainerKey, value); }
         }
 
         #endregion
 
         #region Properties
 
-        private HttpContextBase HttpContext
+        private IOwinContext Context
         {
             get
             {
-                var ctx = Container.TryGetInstance<HttpContextBase>();
-                return ctx ?? new HttpContextWrapper(System.Web.HttpContext.Current);
+                var ctx = Container.TryGetInstance<IOwinContext>();
+                return ctx ?? new OwinContext();
             }
         }
 

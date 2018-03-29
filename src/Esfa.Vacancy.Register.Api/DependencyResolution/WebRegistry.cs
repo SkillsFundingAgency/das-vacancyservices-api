@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Esfa.Vacancy.Api.Core;
 using MediatR;
+using Microsoft.Owin;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
@@ -9,6 +10,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
     {
         public WebRegistry()
         {
+            For<IOwinContext>().Use(x => new OwinContext());
             For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
 
             // mediatr
