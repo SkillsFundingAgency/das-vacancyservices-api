@@ -68,7 +68,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     await _trainingDetailService.GetAllFrameworkDetailsAsync() :
                     await _trainingDetailService.GetAllStandardDetailsAsync();
 
-            var trainingDetail = trainingDetails.FirstOrDefault(fwk => fwk.TrainingCode == request.TrainingCode);
+            var trainingDetail = trainingDetails.FirstOrDefault(fwk => fwk.TrainingCode == request.TrainingCode && !fwk.HasExpired);
 
             if (trainingDetail != null) return trainingDetail.Level;
 
