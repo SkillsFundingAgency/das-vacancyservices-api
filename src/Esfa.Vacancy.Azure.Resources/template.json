@@ -116,6 +116,9 @@
           "appHostingPlanName": {
             "value": "[parameters('appHostingPlanName')]"
           },
+          "appHostingEnvironment": {
+            "value": "[parameters('appHostingEnvironment')]"
+          },
           "appServerFarmResourceGroup": {
             "value": "[parameters('appServerFarmResourceGroup')]"
           },
