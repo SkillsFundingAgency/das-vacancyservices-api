@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                 v.Location = a;
                                 return v;
                             },
-                            splitOn: "AddressLine1",
+                            splitOn: "PostCode",
                             commandType: CommandType.StoredProcedure).ConfigureAwait(false);
 
                     var apprenticeshipVacancy = results.FirstOrDefault();
