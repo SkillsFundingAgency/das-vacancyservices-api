@@ -201,5 +201,10 @@ namespace Esfa.Vacancy.Api.Types
         /// Is employer disability confident.
         /// </summary>
         public bool IsEmployerDisabilityConfident { get; set; }
+
+        /// <summary>
+        /// Vacancy education level.
+        /// </summary>
+        public string EducationLevel { get; set; }
     }
 }

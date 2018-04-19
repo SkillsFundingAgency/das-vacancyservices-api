@@ -204,6 +204,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="Extensions\FixtureExtensions.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipEducationLevel.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
