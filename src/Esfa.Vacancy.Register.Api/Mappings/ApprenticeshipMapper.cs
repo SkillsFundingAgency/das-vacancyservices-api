@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using Esfa.Vacancy.Api.Types.Extensions;
 using Esfa.Vacancy.Domain.Constants;
@@ -72,19 +73,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         private string MapEducationLevel(int apprenticeshipTypeId)
         {
-            switch (apprenticeshipTypeId)
-            {
-                case 1:
-                case 2:
-                case 3:
-                case 5:
-                case 6:
-                case 7:
-                    var educationLevel = (ApiTypes.EducationLevel)apprenticeshipTypeId;
-                   return educationLevel.GetDescription();
-                default:
-                    return UnknownText;
-            }
+            var educationLevel = (ApiTypes.EducationLevel)apprenticeshipTypeId;
+            return educationLevel.ToString();
         }
 
         private ApiTypes.WageUnit MapWageUnit(int? wageUnitId)
@@ -191,5 +181,5 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 dest.TrainingType = ApiTypes.TrainingType.Unavailable;
             }
         }
-}
+    }
 }

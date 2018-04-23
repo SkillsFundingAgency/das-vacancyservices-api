@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Esfa.Vacancy.Domain.Entities;
+﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
@@ -20,14 +19,12 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             _sut = new ApprenticeshipMapper(provideSettings.Object);
         }
 
-        [TestCase(0, "Unknown", TestName = "And ApprenticeshipTypeId is 0 Then EducationLevel is Unknown")]
         [TestCase(1, "Intermediate", TestName = "And ApprenticeshipTypeId is 1 Then EducationLevel is Intermediate")]
         [TestCase(2, "Advanced", TestName = "And ApprenticeshipTypeId is 2 Then EducationLevel is Advanced")]
         [TestCase(3, "Higher", TestName = "And ApprenticeshipTypeId is 3 Then EducationLevel is Higher")]
-        [TestCase(4, "Unknown", TestName = "And ApprenticeshipTypeId is 4 Then Education level is Unknown")]
-        [TestCase(5, "Foundation degree", TestName = "And ApprenticeshipTypeId is 5 Then EducationLevel is Foundation degree")]
+        [TestCase(5, "Foundation", TestName = "And ApprenticeshipTypeId is 5 Then EducationLevel is Foundation")]
         [TestCase(6, "Degree", TestName = "And ApprenticeshipTypeId is 6 Then EducationLevel is Degree")]
-        [TestCase(7, "Master's degree", TestName = "And ApprenticeshipTypeId is 7 Then EducationLevel is Master's degree")]
+        [TestCase(7, "Masters", TestName = "And ApprenticeshipTypeId is 7 Then EducationLevel is Master")]
         public void MapApprenticeshipTypeValid(int apprenticeshipTypeId, string educationLevel)
         {
             var vacancy = new ApprenticeshipVacancy
