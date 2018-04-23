@@ -104,7 +104,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 
             RuleFor(request => request.SortBy)
                 .Must(BeValidSortBy)
-                .When(request => !string.IsNullOrWhiteSpace(request.SortBy))
+                .When(request => !string.IsNullOrEmpty(request.SortBy))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
                 .WithMessage(request => ErrorMessages.SearchApprenticeships.SortByValueNotAllowed(request.SortBy))
                 .DependentRules(rules => rules.RuleFor(request => request.SortBy)

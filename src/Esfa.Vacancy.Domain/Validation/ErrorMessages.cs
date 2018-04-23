@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.Domain.Validation
 
             public const string SortByDistanceOnlyWhenGeoSearch = "You can only sort by distance if you have searched by geo-location.";
 
-            public static string SortByValueNotAllowed(string value) => $"'{value}' is not a valid value for 'Sort By', expected 'Age', 'Distance' or 'ExpectedStartDate'.";
+            public static string SortByValueNotAllowed(string value) => $"'{value}' is not a valid value for 'Sort By'.";
         }
 
         public static class GetApprenticeship

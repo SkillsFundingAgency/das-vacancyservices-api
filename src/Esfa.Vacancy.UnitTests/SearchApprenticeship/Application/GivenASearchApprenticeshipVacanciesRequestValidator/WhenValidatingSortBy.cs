@@ -104,7 +104,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     SortBy = _dodgyEnum
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By', expected 'Age', 'Distance' or 'ExpectedStartDate'.")
+                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By'.")
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
@@ -118,7 +118,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     SortBy = _dodgyEnum
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By', expected 'Age', 'Distance' or 'ExpectedStartDate'.")
+                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By'.")
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
