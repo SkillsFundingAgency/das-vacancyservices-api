@@ -8,7 +8,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public SortBy CalculateSortBy(SearchApprenticeshipVacanciesRequest request)
         {
             if (!string.IsNullOrWhiteSpace(request.SortBy))
-                return (SortBy)Enum.Parse(typeof(SortBy), request.SortBy);
+                return (SortBy)Enum.Parse(typeof(SortBy), request.SortBy, ignoreCase: true);
 
             return request.IsGeoSearch ? SortBy.Distance : SortBy.Age;
         }
