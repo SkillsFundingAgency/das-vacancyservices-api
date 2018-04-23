@@ -22,6 +22,8 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string GeoSearchAndNationwideNotAllowed = "Searching by geo-location and national vacancies is not a valid combination.";
 
             public const string SortByDistanceOnlyWhenGeoSearch = "You can only sort by distance if you have searched by geo-location.";
+
+            public static string SortByValueNotAllowed(string value) => $"'{value}' is not a valid value for 'Sort By', expected 'Age', 'Distance' or 'ExpectedStartDate'.";
         }
 
         public static class GetApprenticeship

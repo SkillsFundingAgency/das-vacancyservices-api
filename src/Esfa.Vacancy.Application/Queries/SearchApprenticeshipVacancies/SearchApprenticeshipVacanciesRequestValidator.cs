@@ -103,11 +103,12 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                     .WithErrorCode(ErrorCodes.SearchApprenticeships.DistanceInMiles));
 
             RuleFor(request => request.SortBy)
-                .IsInEnum()
-                .When(request => request.SortBy.HasValue)
+                .Must(sortBy => Enum.IsDefined(typeof(SortBy), sortBy))
+                .When(request => !string.IsNullOrWhiteSpace(request.SortBy))
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
+                .WithMessage(request => ErrorMessages.SearchApprenticeships.SortByValueNotAllowed(request.SortBy))
                 .DependentRules(rules => rules.RuleFor(request => request.SortBy)
-                    .NotEqual(SortBy.Distance)
+                    .NotEqual(SortBy.Distance.ToString())
                     .When(request => !request.IsGeoSearch)
                     .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
                     .WithMessage(ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch));
