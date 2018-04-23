@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using Esfa.Vacancy.Api.Types.Extensions;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
