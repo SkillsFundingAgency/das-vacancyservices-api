@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
 
             var result = _sut.MapToApprenticeshipVacancy(vacancy);
 
-            result.EducationLevel.Should().Be(educationLevel);
+            result.ApprenticeshipLevel.Should().Be(educationLevel);
         }
     }
 }

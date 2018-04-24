@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 TrainingProviderUkprn = apprenticeshipVacancy.TrainingProviderUkprn,
                 TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite,
                 IsEmployerDisabilityConfident = apprenticeshipVacancy.IsDisabilityConfident,
-                EducationLevel = MapEducationLevel(apprenticeshipVacancy.ApprenticeshipTypeId)
+                ApprenticeshipLevel = MapEducationLevel(apprenticeshipVacancy.ApprenticeshipTypeId)
             };
 
             MapTrainingDetails(apprenticeshipVacancy, apprenticeship);

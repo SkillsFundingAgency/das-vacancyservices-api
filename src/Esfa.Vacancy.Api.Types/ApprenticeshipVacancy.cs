@@ -203,8 +203,8 @@ namespace Esfa.Vacancy.Api.Types
         public bool IsEmployerDisabilityConfident { get; set; }
 
         /// <summary>
-        /// Vacancy education level.
+        /// Vacancy apprenticeship level.
         /// </summary>
-        public string EducationLevel { get; set; }
+        public string ApprenticeshipLevel { get; set; }
     }
 }
