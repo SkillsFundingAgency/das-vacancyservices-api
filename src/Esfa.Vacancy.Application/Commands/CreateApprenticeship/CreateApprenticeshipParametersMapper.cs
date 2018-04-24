@@ -85,8 +85,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 case 6:
                     return ApprenticeshipType.Degree;
                 case 7:
-                    return
-                        trainingType == TrainingType.Framework ? ApprenticeshipType.Degree : ApprenticeshipType.Masters;
+                    return ApprenticeshipType.Masters;
                 default:
                     return (ApprenticeshipType)0;
             }
