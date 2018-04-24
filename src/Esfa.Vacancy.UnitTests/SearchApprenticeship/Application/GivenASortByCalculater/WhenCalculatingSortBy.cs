@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASortByCa
         public void AndIsAge_ThenMapsToAge()
         {
             var request = new SearchApprenticeshipVacanciesRequest
-                { SortBy = SortBy.Age };
+                { SortBy = SortBy.Age.ToString() };
 
             _calculator.CalculateSortBy(request).Should().Be(SortBy.Age);
         }
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASortByCa
         public void AndIsDistance_ThenMapsToDistance()
         {
             var request = new SearchApprenticeshipVacanciesRequest
-                { SortBy = SortBy.Distance };
+                { SortBy = SortBy.Distance.ToString() };
 
             _calculator.CalculateSortBy(request).Should().Be(SortBy.Distance);
         }
@@ -41,7 +41,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASortByCa
         public void AndIsExpectedStartDate_ThenMapsToExpectedStartDate()
         {
             var request = new SearchApprenticeshipVacanciesRequest
-                { SortBy = SortBy.ExpectedStartDate };
+                { SortBy = SortBy.ExpectedStartDate.ToString() };
 
             _calculator.CalculateSortBy(request).Should().Be(SortBy.ExpectedStartDate);
         }

@@ -23,25 +23,25 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
         [Test]
         public void WhenAge_ThenSetToAge()
         {
-            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.Age };
+            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.Age.ToString() };
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            request.SortBy.Should().Be(SortBy.Age);
+            request.SortBy.Should().Be(SortBy.Age.ToString());
         }
         
         [Test]
         public void WhenDistance_ThenSetToDistance()
         {
-            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.Distance };
+            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.Distance.ToString() };
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            request.SortBy.Should().Be(SortBy.Distance);
+            request.SortBy.Should().Be(SortBy.Distance.ToString());
         }
 
         [Test]
         public void WhenExpectedStartDate_ThenSetToExpectedStartDate()
         {
-            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.ExpectedStartDate };
+            var parameters = new ApiTypes.SearchApprenticeshipParameters() { SortBy = ApiTypes.SortBy.ExpectedStartDate.ToString() };
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            request.SortBy.Should().Be(SortBy.ExpectedStartDate);
+            request.SortBy.Should().Be(SortBy.ExpectedStartDate.ToString());
         }
 
         [Test]

@@ -58,6 +58,6 @@
         /// The order that the results are to be sorted by.
         /// Defaults to distance for geo-location search and age for any other search.
         /// </summary>
-        public SortBy? SortBy { get; set; }
+        public string SortBy { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 options => options.Including(failure => failure.ErrorCode));
         }
 
-        private static int _dodgyEnum = 224;
+        private static string _dodgyEnum = "Dodgy";
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
         {
@@ -50,7 +50,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortBy = SortBy.Age
+                    SortBy = SortBy.Age.ToString()
                 }, new ValidationResult())
                 .SetName("And searching without location then sort by age is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -58,14 +58,14 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortBy = SortBy.Age
+                    SortBy = SortBy.Age.ToString()
                 }, new ValidationResult())
                 .SetName("And searching with location then sort by age is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortBy = SortBy.ExpectedStartDate
+                    SortBy = SortBy.ExpectedStartDate.ToString()
                 }, new ValidationResult())
                 .SetName("And searching without location then sort by start date is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
@@ -73,14 +73,14 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortBy = SortBy.ExpectedStartDate
+                    SortBy = SortBy.ExpectedStartDate.ToString()
                 }, new ValidationResult())
                 .SetName("And searching with location then sort by start date is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortBy = SortBy.Distance
+                    SortBy = SortBy.Distance.ToString()
                 }, new ValidationResult
                 {
                     Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
@@ -94,17 +94,17 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortBy = SortBy.Distance
+                    SortBy = SortBy.Distance.ToString()
                 }, new ValidationResult())
                 .SetName("And searching with location then sort by distance is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     PostedInLastNumberOfDays = 2,
                     NationwideOnly = true,
-                    SortBy = (SortBy)_dodgyEnum
+                    SortBy = _dodgyEnum
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{_dodgyEnum}'.")
+                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By'.")
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
@@ -115,10 +115,10 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,
-                    SortBy = (SortBy)_dodgyEnum
+                    SortBy = _dodgyEnum
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", $"'Sort By' has a range of values which does not include '{_dodgyEnum}'.")
+                    Errors = { new ValidationFailure("SortBy", $"'{_dodgyEnum}' is not a valid value for 'Sort By'.")
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Esfa.Vacancy.Domain.Entities;
 using MediatR;
 
 namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
@@ -15,7 +14,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public int? DistanceInMiles { get; set; }
-        public SortBy? SortBy { get; set; }
+        public string SortBy { get; set; }
         public bool IsGeoSearch => Latitude.HasValue || Longitude.HasValue || DistanceInMiles.HasValue;
     }
 }
