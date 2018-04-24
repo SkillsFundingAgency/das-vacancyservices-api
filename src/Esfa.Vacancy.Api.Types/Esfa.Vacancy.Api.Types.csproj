@@ -44,6 +44,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EducationLevel.cs" />
     <Compile Include="Request\Location.cs" />
     <Compile Include="ApplicationMethod.cs" />
     <Compile Include="Request\TrainingType.cs" />
