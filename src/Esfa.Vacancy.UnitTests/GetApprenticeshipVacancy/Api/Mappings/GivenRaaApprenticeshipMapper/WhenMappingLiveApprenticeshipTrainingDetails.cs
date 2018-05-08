@@ -1,13 +1,13 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using ApiTypes = Esfa.Vacancy.Api.Types;
+using ApprenticeshipVacancy = Esfa.Vacancy.Domain.Entities.ApprenticeshipVacancy;
 
-namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
+namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
     [TestFixture]
     public class WhenMappingLiveApprenticeshipTrainingDetails

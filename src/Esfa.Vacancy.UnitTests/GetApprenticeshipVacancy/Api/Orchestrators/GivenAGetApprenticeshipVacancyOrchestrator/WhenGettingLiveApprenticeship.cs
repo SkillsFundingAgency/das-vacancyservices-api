@@ -17,6 +17,7 @@ using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
+using SFA.DAS.Recruit.Vacancies.Client;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.GivenAGetApprenticeshipVacancyOrchestrator
 {
@@ -31,6 +32,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         private IFixture _fixture;
         private string _expectedErrorMessage;
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
+        private Mock<IClient> _mockClient;
 
         [SetUp]
         public void SetUp()
@@ -50,6 +52,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                     new ValidationFailure("", _expectedErrorMessage)
                 }))
             ));
+
+            _mockClient = _fixture.Freeze<Mock<IClient>>();
 
             _sut = _fixture.Create<GetApprenticeshipVacancyOrchestrator>();
         }
@@ -85,7 +89,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                                             .Create()
                 });
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(), _fixture.Create<IValidationExceptionBuilder>());
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(),
+                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
             var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
@@ -123,7 +128,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                                             .Create()
                 });
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(), _fixture.Create<IValidationExceptionBuilder>());
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(),
+                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
             var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
 
             result.VacancyReference.Should().Be(VacancyReference);
@@ -136,7 +142,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             result.Location.AddressLine4.Should().BeNull();
             result.Location.AddressLine5.Should().BeNull();
             result.Location.PostCode.Should().BeNull();
-            result.Location.GeoPoint.Should().BeNull();
+            result.Location.GeoPoint.Latitude.Should().BeNull();
+            result.Location.GeoPoint.Longitude.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
         }
 
@@ -163,7 +170,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                 .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(provideSettings.Object), _fixture.Create<IValidationExceptionBuilder>());
+            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(provideSettings.Object),
+                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
 
             //Act
             var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");

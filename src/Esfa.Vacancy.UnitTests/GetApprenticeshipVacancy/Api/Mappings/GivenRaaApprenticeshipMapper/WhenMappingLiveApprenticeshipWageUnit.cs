@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
-using ApiTypes = Esfa.Vacancy.Api.Types;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using ApiTypes = Esfa.Vacancy.Api.Types;
+using ApprenticeshipVacancy = Esfa.Vacancy.Domain.Entities.ApprenticeshipVacancy;
 
-namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
+namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Fixtures)]
@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
                 .With(v => v.WageType, (int)LegacyWageType.Custom)
                 .With(v => v.WageUnitId, 99)
                 .Create();
-            
+
             Assert.Throws<InvalidEnumArgumentException>(() => _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy));
         }
 
@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
                 .With(v => v.WageType, (int)LegacyWageType.Custom)
                 .With(v => v.WageUnitId, wageUnitId)
                 .Create();
-            
+
             //Act
             var vacancy = _sut.MapToApprenticeshipVacancy(apprenticeshipVacancy);
             //Assert
