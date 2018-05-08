@@ -55,6 +55,12 @@
     <Reference Include="MediatR, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.3.0.1\lib\net45\MediatR.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.10.0.62, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.10.0.62, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.63.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.63\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -81,6 +87,9 @@
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.2\lib\net45\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.5.0\lib\net45\StructureMap.dll</HintPath>
@@ -204,8 +213,9 @@
     <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="Extensions\FixtureExtensions.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipEducationLevel.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingIsNationwide.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipEducationLevel.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingIsNationwide.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenRecruitVacancyRequested.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
@@ -245,16 +255,16 @@
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageNumber.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingPageSize.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingStandardCodes.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipTrainingDetails.cs" />
     <Compile Include="Shared\Api\AutoMapperConfigTest.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWageUnit.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithAmbiguousWage.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithLegacyTextWageType.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithLegacyWeeklyWageType.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithCustomWageType.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithCustomRangeWageType.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithApprenticeshipMinimumWageType.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenAnApprenticeshipMapper\WhenMappingLiveApprenticeshipWithNationalMinimumWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWageUnit.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithAmbiguousWage.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithLegacyTextWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithLegacyWeeklyWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithCustomWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithCustomRangeWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithApprenticeshipMinimumWageType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipWithNationalMinimumWageType.cs" />
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyQueryHandler\WhenGettingApprenticeshipVacancy.cs" />
     <Compile Include="GetApprenticeshipVacancy\Application\Queries\GivenAGetApprenticeshipVacancyValidator\WhenValidatingRequest.cs" />
     <Compile Include="SearchApprenticeship\Api\Orchestrators\GivenASearchApprenticeshipVacanciesOrchestrator.cs" />

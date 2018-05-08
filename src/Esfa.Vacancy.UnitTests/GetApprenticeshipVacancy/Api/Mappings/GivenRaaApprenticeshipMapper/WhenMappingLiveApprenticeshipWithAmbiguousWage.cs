@@ -1,13 +1,13 @@
-﻿using ApiTypes = Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Domain.Entities;
+﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using ApiTypes = Esfa.Vacancy.Api.Types;
+using ApprenticeshipVacancy = Esfa.Vacancy.Domain.Entities.ApprenticeshipVacancy;
 
-namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnApprenticeshipMapper
+namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
     [TestFixture]
     public class WhenMappingLiveApprenticeshipWithAmbiguousWage
@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenAnAp
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, vacancyReference)
                 .With(v => v.VacancyStatusId, liveVacancyStatusId)
-                .With(v => v.WageType, (int) legacyWageType)
+                .With(v => v.WageType, (int)legacyWageType)
                 .Without(v => v.WeeklyWage)
                 .Without(v => v.WageUnitId)
                 .Create();

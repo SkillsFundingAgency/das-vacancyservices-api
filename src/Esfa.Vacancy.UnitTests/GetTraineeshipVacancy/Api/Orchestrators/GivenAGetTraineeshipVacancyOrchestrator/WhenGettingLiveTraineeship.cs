@@ -134,7 +134,8 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Orchestrators.GivenAG
             result.Location.AddressLine4.Should().BeNull();
             result.Location.AddressLine5.Should().BeNull();
             result.Location.PostCode.Should().BeNull();
-            result.Location.GeoPoint.Should().BeNull();
+            result.Location.GeoPoint.Latitude.Should().BeNull();
+            result.Location.GeoPoint.Longitude.Should().BeNull();
             result.Location.Town.Should().NotBeNullOrWhiteSpace();
         }
 
