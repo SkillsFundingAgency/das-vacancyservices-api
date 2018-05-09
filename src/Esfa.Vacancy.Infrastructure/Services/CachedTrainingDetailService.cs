@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
@@ -46,6 +47,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
                                           async () => await _trainingDetailService.GetAllStandardDetailsAsync()
                                                                                   .ConfigureAwait(false))
                                       .ConfigureAwait(false);
+        }
+
+        public async Task<Standard> GetStandardDetailsAsync(int code)
+        {
+            //Since the whole list is cached, try to get it from the cache
+            var standards = await GetAllStandardDetailsAsync().ConfigureAwait(false);
+            var standard = standards.SingleOrDefault(td => td.TrainingCode.Equals(code.ToString()));
+            return standard == null ? null : new Standard { Code = code, Title = standard.Title, Uri = standard.Uri };
         }
     }
 }

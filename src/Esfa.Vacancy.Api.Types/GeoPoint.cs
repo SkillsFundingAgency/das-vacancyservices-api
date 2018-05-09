@@ -1,7 +1,13 @@
 ﻿namespace Esfa.Vacancy.Api.Types
 {
-    public class GeoPoint
+    public struct GeoPoint
     {
+        public GeoPoint(double latitude, double longitude)
+        {
+            Longitude = (decimal)longitude;
+            Latitude = (decimal)latitude;
+        }
+
         /// <summary>
         /// The longitude.
         /// </summary>

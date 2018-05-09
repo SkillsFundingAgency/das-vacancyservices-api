@@ -12,6 +12,7 @@ using SFA.DAS.Apprenticeships.Api.Types;
 using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
 using Framework = Esfa.Vacancy.Domain.Entities.Framework;
+using Standard = Esfa.Vacancy.Domain.Entities.Standard;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
@@ -98,7 +99,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
             {
-                _logger.Warn($"Error retrieving standard details from StandardApi: ({exception.Message}). Retrying... attempt {retryCount}");
+                _logger.Warn($"Error retrieving list of standards from Apprenticeship Api: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
             return retry.ExecuteAsync(InternalGetAllStandardDetailsAsync);
@@ -126,6 +127,34 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 }
                 catch (Exception ex)
                 {
+                    throw new InfrastructureException(ex);
+                }
+            }
+        }
+
+        public Task<Standard> GetStandardDetailsAsync(int code)
+        {
+            var retry = PollyRetryPolicies.GetFixedIntervalPolicy((exception, time, retryCount, context) =>
+            {
+                _logger.Warn($"Error retrieving standard details from Apprenticeship Api: ({exception.Message}). Retrying... attempt {retryCount}");
+            });
+
+            return retry.ExecuteAsync(() => InternalGetStandardDetailsAsync(code));
+        }
+
+        private async Task<Standard> InternalGetStandardDetailsAsync(int code)
+        {
+            using (var client = new StandardApiClient(DasApiBaseUrl))
+            {
+                try
+                {
+                    var standard = await client.GetAsync(code);
+                    return new Standard { Code = code, Title = standard.Title, Uri = standard.Uri };
+
+                }
+                catch (Exception ex)
+                {
+
                     throw new InfrastructureException(ex);
                 }
             }

@@ -4,8 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
-using Esfa.Vacancy.Domain.Constants;
-using Esfa.Vacancy.Domain.Interfaces;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Esfa.Vacancy.Register.Api.Orchestrators;
@@ -18,6 +17,7 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 using SFA.DAS.Recruit.Vacancies.Client;
+using SFA.DAS.Recruit.Vacancies.Client.Entities;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.GivenAGetApprenticeshipVacancyOrchestrator
 {
@@ -25,14 +25,14 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
     [Parallelizable(ParallelScope.Fixtures)]
     public class WhenGettingLiveApprenticeship
     {
-        private const int VacancyReference = 1234;
-        private const int LiveVacancyStatusId = 2;
         private Mock<IMediator> _mockMediator;
         private GetApprenticeshipVacancyOrchestrator _sut;
         private IFixture _fixture;
         private string _expectedErrorMessage;
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private Mock<IClient> _mockClient;
+        private Mock<IApprenticeshipMapper> _mockMapper;
+        private Mock<IRecruitVacancyMapper> _recuitMapperMock;
 
         [SetUp]
         public void SetUp()
@@ -54,6 +54,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             ));
 
             _mockClient = _fixture.Freeze<Mock<IClient>>();
+            _mockMapper = _fixture.Freeze<Mock<IApprenticeshipMapper>>();
+            _recuitMapperMock = _fixture.Freeze<Mock<IRecruitVacancyMapper>>();
 
             _sut = _fixture.Create<GetApprenticeshipVacancyOrchestrator>();
         }
@@ -68,116 +70,11 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
                 mediator.Send(
                     It.Is<GetApprenticeshipVacancyRequest>(request => request.Reference == uniqueVacancyRef),
                     CancellationToken.None));
-        }
 
-        [Test]
-        public async Task GetLiveNonAnonymousEmployerVacancy_ShouldNotReplaceEmployerNameAndDescription()
-        {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetApprenticeshipVacancyResponse
-                {
-                    ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                            .With(v => v.WageUnitId, null)
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                                            .With(v => v.EmployerName, "ABC Ltd")
-                                            .With(v => v.EmployerDescription, "A plain company")
-                                            .With(v => v.EmployerWebsite, "http://www.google.co.uk")
-                                            .Without(v => v.AnonymousEmployerName)
-                                            .Without(v => v.AnonymousEmployerDescription)
-                                            .Without(v => v.AnonymousEmployerReason)
-                                            .Create()
-                });
+            _mockMapper.Verify(m => m.MapToApprenticeshipVacancy(It.IsAny<ApprenticeshipVacancy>()));
 
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(),
-                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
-            var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
-
-            result.VacancyReference.Should().Be(VacancyReference);
-            result.EmployerName.Should().Be("ABC Ltd");
-            result.EmployerDescription.Should().Be("A plain company");
-            result.EmployerWebsite.Should().Be("http://www.google.co.uk");
-            result.Location.Should().NotBeNull();
-            result.Location.AddressLine1.Should().NotBeNull();
-            result.Location.AddressLine2.Should().NotBeNull();
-            result.Location.AddressLine3.Should().NotBeNull();
-            result.Location.AddressLine4.Should().NotBeNull();
-            result.Location.AddressLine5.Should().NotBeNull();
-            result.Location.Town.Should().NotBeNull();
-            result.Location.PostCode.Should().NotBeNull();
-            result.Location.GeoPoint.Should().NotBeNull();
-            result.Location.GeoPoint.Longitude.Should().NotBeNull();
-            result.Location.GeoPoint.Latitude.Should().NotBeNull();
-        }
-
-        [Test]
-        public async Task GetLiveAnonymousEmployerVacancy_ShouldReplaceEmployerNameAndDescription()
-        {
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), CancellationToken.None))
-                .ReturnsAsync(new GetApprenticeshipVacancyResponse
-                {
-                    ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                            .With(v => v.WageUnitId, null)
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .With(v => v.VacancyStatusId, LiveVacancyStatusId)
-                                            .With(v => v.EmployerName, "Her Majesties Secret Service")
-                                            .With(v => v.EmployerDescription, "A private description")
-                                            .With(v => v.AnonymousEmployerName, "ABC Ltd")
-                                            .With(v => v.AnonymousEmployerDescription, "A plain company")
-                                            .With(v => v.AnonymousEmployerReason, "Because I want to test")
-                                            .Create()
-                });
-
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, _fixture.Create<ApprenticeshipMapper>(),
-                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
-            var result = await sut.GetApprenticeshipVacancyDetailsAsync(VacancyReference.ToString());
-
-            result.VacancyReference.Should().Be(VacancyReference);
-            result.EmployerName.Should().Be("ABC Ltd");
-            result.EmployerDescription.Should().Be("A plain company");
-            result.EmployerWebsite.Should().BeNullOrEmpty();
-            result.Location.AddressLine1.Should().BeNull();
-            result.Location.AddressLine2.Should().BeNull();
-            result.Location.AddressLine3.Should().BeNull();
-            result.Location.AddressLine4.Should().BeNull();
-            result.Location.AddressLine5.Should().BeNull();
-            result.Location.PostCode.Should().BeNull();
-            result.Location.GeoPoint.Latitude.Should().BeNull();
-            result.Location.GeoPoint.Longitude.Should().BeNull();
-            result.Location.Town.Should().NotBeNullOrWhiteSpace();
-        }
-
-        [Test]
-        public async Task ShouldPopulateVacancyUrl()
-        {
-            //Arrange
-            var baseUrl = "https://findapprentice.com/apprenticeship/reference";
-
-            var provideSettings = new Mock<IProvideSettings>();
-            provideSettings
-                .Setup(p => p.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey))
-                .Returns(baseUrl);
-
-            var response = new GetApprenticeshipVacancyResponse()
-            {
-                ApprenticeshipVacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
-                                            .With(v => v.WageUnitId, null)
-                                            .With(v => v.VacancyReferenceNumber, VacancyReference)
-                                            .Create()
-            };
-
-            _mockMediator
-                .Setup(m => m.Send(It.IsAny<GetApprenticeshipVacancyRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(response);
-
-            var sut = new GetApprenticeshipVacancyOrchestrator(_mockMediator.Object, new ApprenticeshipMapper(provideSettings.Object),
-                _fixture.Create<IValidationExceptionBuilder>(), _mockClient.Object);
-
-            //Act
-            var vacancy = await sut.GetApprenticeshipVacancyDetailsAsync("12345");
-
-            //Assert
-            Assert.AreEqual($"{baseUrl}/{VacancyReference}", vacancy.VacancyUrl);
+            _mockClient.Verify(m => m.GetVacancy(It.IsAny<long>()), Times.Never);
+            _recuitMapperMock.Verify(m => m.MapFromRecruitVacancy(It.IsAny<LiveVacancy>()), Times.Never);
         }
 
         [Test]
