@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
-using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -54,7 +50,7 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             }
             else if (vacancy.StandardCode.HasValue)
             {
-                var standard = await GetStandardDetailsAsync(vacancy.StandardCode.Value)
+                var standard = await _trainingDetailService.GetStandardDetailsAsync(vacancy.StandardCode.Value)
                                                            .ConfigureAwait(false);
                 vacancy.Standard = standard;
             }
@@ -62,20 +58,6 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             return new GetApprenticeshipVacancyResponse { ApprenticeshipVacancy = vacancy };
         }
 
-        private async Task<Standard> GetStandardDetailsAsync(int code)
-        {
-            IEnumerable<TrainingDetail> standards = await _trainingDetailService.GetAllStandardDetailsAsync().ConfigureAwait(false);
-            try
-            {
-                TrainingDetail standard = standards.Single(td => td.TrainingCode.Equals(code.ToString()));
-                _logger.Info($"Training API returned Standard details for code {code}");
-                return new Standard { Code = code, Title = standard.Title, Uri = standard.Uri };
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.Warn(ex, $"Standard details not found for {code}");
-                return null;
-            }
-        }
+
     }
 }

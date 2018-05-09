@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Reference number.
         /// </summary>
-        public int VacancyReference { get; set; }
+        public long VacancyReference { get; set; }
 
         /// <summary>
         /// Vacancy Title.
@@ -206,5 +206,20 @@ namespace Esfa.Vacancy.Api.Types
         /// Vacancy apprenticeship level.
         /// </summary>
         public string ApprenticeshipLevel { get; set; }
+
+        /// <summary>
+        /// Additional information with regards to wages
+        /// </summary>
+        public string WageAdditionalInformation { get; set; }
+
+        /// <summary>
+        /// Instructions on how to apply for the vacancy
+        /// </summary>
+        public string ApplicationInstructions { get; set; }
+
+        /// <summary>
+        /// The web URL for applying for the vacancy
+        /// </summary>
+        public string ApplicationUrl { get; set; }
     }
 }

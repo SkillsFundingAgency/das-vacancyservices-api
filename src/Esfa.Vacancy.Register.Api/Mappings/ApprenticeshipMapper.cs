@@ -32,12 +32,13 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 WageUnit = MapWageUnit(apprenticeshipVacancy.WageUnitId),
                 WorkingWeek = apprenticeshipVacancy.WorkingWeek,
                 WageText = MapWage(apprenticeshipVacancy),
+                WageAdditionalInformation = null,
                 HoursPerWeek = apprenticeshipVacancy.HoursPerWeek,
                 ExpectedDuration = apprenticeshipVacancy.ExpectedDuration,
                 ExpectedStartDate = apprenticeshipVacancy.ExpectedStartDate,
                 PostedDate = apprenticeshipVacancy.PostedDate,
                 ApplicationClosingDate = apprenticeshipVacancy.ApplicationClosingDate,
-                InterviewFromDate = apprenticeshipVacancy.InterviewFromDate,
+                InterviewFromDate = apprenticeshipVacancy.InterviewFromDate, //TODO remove
                 NumberOfPositions = apprenticeshipVacancy.NumberOfPositions,
                 EmployerName = apprenticeshipVacancy.IsAnonymousEmployer ? apprenticeshipVacancy.AnonymousEmployerName : apprenticeshipVacancy.EmployerName,
                 EmployerDescription = apprenticeshipVacancy.IsAnonymousEmployer ? apprenticeshipVacancy.AnonymousEmployerDescription : apprenticeshipVacancy.EmployerDescription,
@@ -46,7 +47,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 QualificationsRequired = apprenticeshipVacancy.QualificationsRequired,
                 SkillsRequired = apprenticeshipVacancy.SkillsRequired,
                 PersonalQualities = apprenticeshipVacancy.PersonalQualities,
-                ImportantInformation = apprenticeshipVacancy.ImportantInformation,
+                ImportantInformation = apprenticeshipVacancy.ImportantInformation, //TODO check if can be removed
                 FutureProspects = apprenticeshipVacancy.FutureProspects,
                 ThingsToConsider = apprenticeshipVacancy.ThingsToConsider,
                 IsNationwide = apprenticeshipVacancy.VacancyLocationTypeId == Nationwide,
@@ -59,7 +60,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ContactNumber = apprenticeshipVacancy.ContactNumber,
                 TrainingProviderName = apprenticeshipVacancy.TrainingProvider,
                 TrainingProviderUkprn = apprenticeshipVacancy.TrainingProviderUkprn,
-                TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite,
+                TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite, //This is mapped to provider's trading name
                 IsEmployerDisabilityConfident = apprenticeshipVacancy.IsDisabilityConfident,
                 ApprenticeshipLevel = MapEducationLevel(apprenticeshipVacancy.ApprenticeshipTypeId)
             };

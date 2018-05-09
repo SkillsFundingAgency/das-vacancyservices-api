@@ -21,6 +21,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         private Mock<IMediator> _mockMediator;
         private Mock<IClient> _mockClient;
         private Mock<IApprenticeshipMapper> _mockMapper;
+        private Mock<IRecruitVacancyMapper> _recuitMapperMock;
 
         [SetUp]
         public void Initialise()
@@ -30,6 +31,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             _mockMediator = fixture.Freeze<Mock<IMediator>>();
             _mockClient = fixture.Freeze<Mock<IClient>>();
             _mockMapper = fixture.Freeze<Mock<IApprenticeshipMapper>>();
+            _recuitMapperMock = fixture.Freeze<Mock<IRecruitVacancyMapper>>();
 
             var sut = fixture.Create<GetApprenticeshipVacancyOrchestrator>();
 
@@ -50,7 +52,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         public void ThenRecruitClientIsInvoked()
         {
             _mockClient.Verify(m => m.GetVacancy(It.IsAny<long>()));
-            _mockMapper.Verify(m => m.MapFromRecruitVacancy(It.IsAny<LiveVacancy>()));
+            _recuitMapperMock.Verify(m => m.MapFromRecruitVacancy(It.IsAny<LiveVacancy>()));
         }
 
     }

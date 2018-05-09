@@ -56,9 +56,9 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
         public async Task ThenIfVacancyHasFrameworkIdGetFrameworkTitle()
         {
             var vacancy = new ApprenticeshipVacancy() { FrameworkCode = 123 };
-           _mockValidator
-                .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
-                .Returns(new ValidationResult());
+            _mockValidator
+                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
+                 .Returns(new ValidationResult());
             _mockTrainingDetailService
                 .Setup(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Framework() { Title = "framework" });
@@ -81,15 +81,15 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Application.Queries.Gi
                 .Setup(v => v.Validate(It.IsAny<ValidationContext<GetApprenticeshipVacancyRequest>>()))
                 .Returns(new ValidationResult());
             _mockTrainingDetailService
-                .Setup(s => s.GetAllStandardDetailsAsync())
-                .ReturnsAsync(new List<TrainingDetail> { new TrainingDetail { Title = "standard", TrainingCode = vacancy.StandardCode.ToString() } });
+                .Setup(s => s.GetStandardDetailsAsync(It.IsAny<int>()))
+                .ReturnsAsync(new Standard { Title = "standard", Code = vacancy.StandardCode.GetValueOrDefault() });
 
             _mockGetApprenticeshipService.Setup(r => r.GetApprenticeshipVacancyByReferenceNumberAsync(It.IsAny<int>())).ReturnsAsync(vacancy);
 
             var response = await _queryHandler.Handle(new GetApprenticeshipVacancyRequest());
 
             _mockTrainingDetailService.Verify(s => s.GetFrameworkDetailsAsync(It.IsAny<int>()), Times.Never);
-            _mockTrainingDetailService.Verify(s => s.GetAllStandardDetailsAsync());
+            _mockTrainingDetailService.Verify(s => s.GetStandardDetailsAsync(It.IsAny<int>()));
 
             Assert.AreEqual(vacancy, response.ApprenticeshipVacancy);
             Assert.IsNotNull(vacancy.Standard);
