@@ -36,6 +36,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
             var skills = string.Join(",", liveVacancy.Skills);
 
+            var duration = GetDurationAsText(liveVacancy.Wage);
+
             var apprenticeship = new ApiTypes.ApprenticeshipVacancy
             {
                 VacancyReference = liveVacancy.VacancyReference,
@@ -47,7 +49,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 //WageText = liveVacancy.Wage.FixedWageYearlyAmount, //TODO write function to work out wage text depending on wage type
                 WageAdditionalInformation = liveVacancy.Wage.WageAdditionalInformation,
                 HoursPerWeek = liveVacancy.Wage.WeeklyHours,
-                //ExpectedDuration = liveVacancy.Wage.Duration, //TODO use extension
+                ExpectedDuration = duration,
                 ExpectedStartDate = liveVacancy.StartDate,
                 PostedDate = liveVacancy.LiveDate,
                 ApplicationClosingDate = liveVacancy.ClosingDate,
@@ -84,6 +86,13 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
 
             return apprenticeship;
+        }
+
+        private string GetDurationAsText(recruitEntities.Wage wage)
+        {
+            var unit = wage.Duration == 1 ? wage.DurationUnit : $"{wage.DurationUnit}s";
+
+            return $"{wage.Duration} {unit}";
         }
 
         private string GetTrainingTitle(ApiTypes.TrainingType trainingType, string trainingCode)
