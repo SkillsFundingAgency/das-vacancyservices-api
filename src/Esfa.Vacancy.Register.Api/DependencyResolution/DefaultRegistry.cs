@@ -16,9 +16,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using AutoMapper;
-using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
-using Esfa.Vacancy.Application.Queries.GetTraineeshipVacancy;
-using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using FluentValidation;
 using MediatR;
 
@@ -44,9 +41,6 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
 
             For<IConfigurationProvider>().Singleton().Use(AutoMapperConfig.Configure());
             For<IMapper>().Use(ctx => new Mapper(ctx.GetInstance<IConfigurationProvider>()));
-            For<IValidator<SearchApprenticeshipVacanciesRequest>>().Singleton().Use<SearchApprenticeshipVacanciesRequestValidator>();
-            For<IValidator<GetApprenticeshipVacancyRequest>>().Singleton().Use<GetApprenticeshipVacancyValidator>();
-            For<IValidator<GetTraineeshipVacancyRequest>>().Singleton().Use<GetTraineeshipVacancyValidator>();
         }
     }
 }

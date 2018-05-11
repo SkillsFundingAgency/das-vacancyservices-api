@@ -28,8 +28,8 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
             return new Container(c =>
             {
                 c.AddRegistry<DefaultRegistry>();
-                c.AddRegistry<WebRegistry>();
                 c.AddRegistry<InfrastructureRegistry>();
+                c.AddRegistry<WebRegistry>();
             });
         }
     }
