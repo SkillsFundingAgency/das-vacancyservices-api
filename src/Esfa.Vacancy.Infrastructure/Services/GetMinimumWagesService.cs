@@ -10,12 +10,12 @@ using Esfa.Vacancy.Infrastructure.Factories;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
-    public class GetAllApprenticeMinimumWagesService : IGetAllApprenticeMinimumWagesService
+    public class GetMinimumWagesService : IGetMinimumWagesService
     {
         private readonly SqlDatabaseService _sqlDatabaseService;
-        private const string GetAllApprenticeMinimumWagesStoredProc = "[VACANCY_API].[GetAllApprenticeMinimumWages]";
+        private const string GetAllApprenticeMinimumWagesStoredProc = "[VACANCY_API].[GetWageRanges]";
 
-        public GetAllApprenticeMinimumWagesService(SqlDatabaseService sqlDatabaseService)
+        public GetMinimumWagesService(SqlDatabaseService sqlDatabaseService)
         {
             _sqlDatabaseService = sqlDatabaseService;
         }
