@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
             ValidTo = DateTime.MaxValue
         };
 
-        private Mock<IGetAllApprenticeMinimumWagesService> _mockMinimumWageService;
+        private Mock<IGetMinimumWagesService> _mockMinimumWageService;
         private MinimumWageSelector _minimumWageSelector;
         private IFixture _fixture;
 
@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            _mockMinimumWageService = _fixture.Freeze<Mock<IGetAllApprenticeMinimumWagesService>>();
+            _mockMinimumWageService = _fixture.Freeze<Mock<IGetMinimumWagesService>>();
             _mockMinimumWageService
                 .Setup(service => service.GetAllWagesAsync())
                 .ReturnsAsync(new List<WageRange>
