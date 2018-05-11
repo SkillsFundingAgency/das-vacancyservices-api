@@ -4,7 +4,7 @@ using Esfa.Vacancy.Domain.Entities;
 
 namespace Esfa.Vacancy.Application.Interfaces
 {
-    public interface IGetAllApprenticeMinimumWagesService
+    public interface IGetMinimumWagesService
     {
         Task<IEnumerable<WageRange>> GetAllWagesAsync();
     }

@@ -7,15 +7,15 @@ using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
-    public class CachedGetAllApprenticeMinimumWagesService : IGetAllApprenticeMinimumWagesService
+    public class CachedGetMinimumWagesService : IGetMinimumWagesService
     {
-        private readonly IGetAllApprenticeMinimumWagesService _minimumWagesService;
+        private readonly IGetMinimumWagesService _minimumWagesService;
         private readonly ILog _logger;
         private readonly ICacheService _cacheService;
 
         private const string CacheKey = "VacancyApi.GetAllApprenticeMinimumWages";
 
-        public CachedGetAllApprenticeMinimumWagesService(IGetAllApprenticeMinimumWagesService minimumWagesService, ILog logger, ICacheService cacheService)
+        public CachedGetMinimumWagesService(IGetMinimumWagesService minimumWagesService, ILog logger, ICacheService cacheService)
         {
             _minimumWagesService = minimumWagesService;
             _logger = logger;
@@ -24,7 +24,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public async Task<IEnumerable<WageRange>> GetAllWagesAsync()
         {
-            _logger.Debug("Cache hit for GetAllApprenticeMinimumWagesService");
+            _logger.Debug("Cache hit for GetMinimumWagesService");
 
             return await _cacheService.CacheAsideAsync(CacheKey, _minimumWagesService.GetAllWagesAsync);
         }

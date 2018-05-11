@@ -8,9 +8,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
     public class MinimumWageSelector : IMinimumWageSelector
     {
         private const string MissingWageRangeErrorMessage = "No WageRange found for date: [{0:yyyy-MM-dd}]";
-        private readonly IGetAllApprenticeMinimumWagesService _minimumWagesService;
+        private readonly IGetMinimumWagesService _minimumWagesService;
 
-        public MinimumWageSelector(IGetAllApprenticeMinimumWagesService minimumWagesService)
+        public MinimumWageSelector(IGetMinimumWagesService minimumWagesService)
         {
             _minimumWagesService = minimumWagesService;
         }
