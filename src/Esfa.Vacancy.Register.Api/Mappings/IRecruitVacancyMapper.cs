@@ -1,10 +1,11 @@
-﻿using Esfa.Vacancy.Api.Types;
+﻿using System.Threading.Tasks;
+using Esfa.Vacancy.Api.Types;
 using SFA.DAS.Recruit.Vacancies.Client.Entities;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
     public interface IRecruitVacancyMapper
     {
-        ApprenticeshipVacancy MapFromRecruitVacancy(LiveVacancy liveVacancy);
+        Task<ApprenticeshipVacancy> MapFromRecruitVacancy(LiveVacancy liveVacancy);
     }
 }

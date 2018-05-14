@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
+using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using recruitEntities = SFA.DAS.Recruit.Vacancies.Client.Entities;
@@ -12,14 +15,17 @@ namespace Esfa.Vacancy.Register.Api.Mappings
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ITrainingDetailService _trainingDetailService;
+        private readonly IGetMinimumWagesService _minimumWagesService;
 
-        public RecruitVacancyMapper(IProvideSettings provideSettings, ITrainingDetailService trainingDetailService)
+        public RecruitVacancyMapper(IProvideSettings provideSettings,
+            ITrainingDetailService trainingDetailService, IGetMinimumWagesService minimumWagesService)
         {
             _provideSettings = provideSettings;
             _trainingDetailService = trainingDetailService;
+            _minimumWagesService = minimumWagesService;
         }
 
-        public ApiTypes.ApprenticeshipVacancy MapFromRecruitVacancy(recruitEntities.LiveVacancy liveVacancy)
+        public async Task<ApiTypes.ApprenticeshipVacancy> MapFromRecruitVacancy(recruitEntities.LiveVacancy liveVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
 
@@ -36,6 +42,8 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
             var skills = string.Join(",", liveVacancy.Skills);
 
+            var wageText = await GetWageText(liveVacancy.Wage, liveVacancy.StartDate);
+
             var duration = GetDurationAsText(liveVacancy.Wage);
 
             var apprenticeship = new ApiTypes.ApprenticeshipVacancy
@@ -44,9 +52,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 Title = liveVacancy.Title,
                 ShortDescription = liveVacancy.ShortDescription,
                 Description = description,
-                WageUnit = ApiTypes.WageUnit.Annually,
+                WageUnit = liveVacancy.Wage.WageType == "Custom" ? ApiTypes.WageUnit.Annually : ApiTypes.WageUnit.Weekly,
                 WorkingWeek = liveVacancy.Wage.WorkingWeekDescription,
-                //WageText = liveVacancy.Wage.FixedWageYearlyAmount, //TODO write function to work out wage text depending on wage type
+                WageText = wageText,
                 WageAdditionalInformation = liveVacancy.Wage.WageAdditionalInformation,
                 HoursPerWeek = liveVacancy.Wage.WeeklyHours,
                 ExpectedDuration = duration,
@@ -86,6 +94,49 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
 
             return apprenticeship;
+        }
+
+        private const string UnknownText = "Unknown";
+
+        private async Task<string> GetWageText(recruitEntities.Wage wage, DateTime expectedStartDate)
+        {
+            var wageRange = await _minimumWagesService.GetWageRange(expectedStartDate);
+            switch (wage.WageType)
+            {
+                case "NationalMinimumWageForApprentices":
+                    return GetApprenticeshipMinimumWage(wageRange, wage.WeeklyHours);
+                case "NationalMinimumWage":
+                    return GetNationalMinimumWage(wageRange, wage.WeeklyHours);
+                case "Unspecified":
+                    return UnknownText;
+                default: //including FixedWage
+                    return GetFormattedCurrencyString(wage.FixedWageYearlyAmount.GetValueOrDefault());
+            }
+        }
+
+        private string GetNationalMinimumWage(WageRange wageRange, decimal hoursPerWeek)
+        {
+
+            var lowerMinimumLimit = wageRange.NationalMinimumWage * hoursPerWeek;
+            var upperMinimumLimit = wageRange.NationalMaximumWage * hoursPerWeek;
+
+            var minLowerBoundSection = GetFormattedCurrencyString(lowerMinimumLimit);
+            var minUpperBoundSection = GetFormattedCurrencyString(upperMinimumLimit);
+
+            return $"{minLowerBoundSection} - {minUpperBoundSection}";
+        }
+
+        private string GetApprenticeshipMinimumWage(WageRange wageRange, decimal hoursPerWeek)
+        {
+            var wages = wageRange.ApprenticeMinimumWage * hoursPerWeek;
+
+            return GetFormattedCurrencyString(wages);
+        }
+
+        private static string GetFormattedCurrencyString(decimal src)
+        {
+            const string currencyStringFormat = "C";
+            return src.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
         }
 
         private string GetDurationAsText(recruitEntities.Wage wage)
