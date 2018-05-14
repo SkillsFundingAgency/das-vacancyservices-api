@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Esfa.Vacancy.Application.Interfaces;
@@ -40,6 +41,15 @@ namespace Esfa.Vacancy.Infrastructure.Services
             {
                 throw new InfrastructureException(e);
             }
+        }
+
+        public async Task<WageRange> GetWageRange(DateTime expectedStartDate)
+        {
+            var ranges = await GetAllWagesAsync();
+
+            return ranges?.FirstOrDefault(range =>
+                range.ValidFrom.Date <= expectedStartDate.Date &&
+                range.ValidTo.Date >= expectedStartDate.Date);
         }
     }
 }

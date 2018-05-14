@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
@@ -27,6 +29,15 @@ namespace Esfa.Vacancy.Infrastructure.Services
             _logger.Debug("Cache hit for GetMinimumWagesService");
 
             return await _cacheService.CacheAsideAsync(CacheKey, _minimumWagesService.GetAllWagesAsync);
+        }
+
+        public async Task<WageRange> GetWageRange(DateTime expectedStartDate)
+        {
+            var ranges = await GetAllWagesAsync();
+
+            return ranges?.FirstOrDefault(range =>
+                range.ValidFrom.Date <= expectedStartDate.Date &&
+                range.ValidTo.Date >= expectedStartDate.Date);
         }
     }
 }

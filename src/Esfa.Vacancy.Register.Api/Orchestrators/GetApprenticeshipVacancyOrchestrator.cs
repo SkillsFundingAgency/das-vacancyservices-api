@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             else
             {
                 var liveVacancy = _recruitClient.GetVacancy(parsedId);
-                vacancy = _recruitMapper.MapFromRecruitVacancy(liveVacancy);
+                vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy);
             }
 
             return vacancy;
