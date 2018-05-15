@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         {
             var ranges = await GetAllWagesAsync();
 
-            return ranges?.FirstOrDefault(range =>
+            return ranges?.Single(range =>
                 range.ValidFrom.Date <= expectedStartDate.Date &&
                 range.ValidTo.Date >= expectedStartDate.Date);
         }
