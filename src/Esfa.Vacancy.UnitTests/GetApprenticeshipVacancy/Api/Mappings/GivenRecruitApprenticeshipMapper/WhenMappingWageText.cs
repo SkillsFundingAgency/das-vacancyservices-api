@@ -28,7 +28,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
 
             var mappedVacancy = sut.MapFromRecruitVacancy(LiveVacancy).Result;
 
-            mappedVacancy.WageText.Should().Be(LiveVacancy.Wage.FixedWageYearlyAmount.Value.ToString("C"));
+            mappedVacancy.WageText.Should()
+                .Be(GetFormattedCurrencyString(LiveVacancy.Wage.FixedWageYearlyAmount.GetValueOrDefault()));
         }
 
         [Test]
@@ -67,7 +68,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
 
             var mappedVacancy = sut.MapFromRecruitVacancy(LiveVacancy).Result;
 
-            var expectedOutput = (minWage * weeklyHours).ToString("C") + " - " + (maxWage * weeklyHours).ToString("C");
+            var expectedOutput = GetFormattedCurrencyString(minWage * weeklyHours) + " - " + GetFormattedCurrencyString(maxWage * weeklyHours);
 
             mappedVacancy.WageText.Should().Be(expectedOutput);
         }
@@ -93,7 +94,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
 
             var mappedVacancy = sut.MapFromRecruitVacancy(LiveVacancy).Result;
 
-            var expectedOutput = (minWage * weeklyHours).ToString("C");
+            var expectedOutput = GetFormattedCurrencyString(minWage * weeklyHours);
 
             mappedVacancy.WageText.Should().Be(expectedOutput);
         }

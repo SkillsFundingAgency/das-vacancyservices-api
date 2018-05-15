@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
@@ -48,5 +49,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
             return FixtureInstance.Create<RecruitApprenticeshipMapper>();
         }
 
+        protected string GetFormattedCurrencyString(decimal src)
+        {
+            const string currencyStringFormat = "C";
+            return src.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
+        }
     }
 }
