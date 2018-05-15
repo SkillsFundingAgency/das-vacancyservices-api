@@ -15,7 +15,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private readonly ILog _logger;
         private readonly ICacheService _cacheService;
 
-        private const string CacheKey = "VacancyApi.GetAllApprenticeMinimumWages";
+        private const string CacheKey = "VacancyApi.WageRanges";
 
         public CachedGetMinimumWagesService(IGetMinimumWagesService minimumWagesService, ILog logger, ICacheService cacheService)
         {
