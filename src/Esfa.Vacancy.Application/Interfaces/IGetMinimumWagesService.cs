@@ -9,6 +9,6 @@ namespace Esfa.Vacancy.Application.Interfaces
     {
         Task<IEnumerable<WageRange>> GetAllWagesAsync();
 
-        Task<WageRange> GetWageRange(DateTime expectedStartDate);
+        Task<WageRange> GetWageRangeAsync(DateTime expectedStartDate);
     }
 }

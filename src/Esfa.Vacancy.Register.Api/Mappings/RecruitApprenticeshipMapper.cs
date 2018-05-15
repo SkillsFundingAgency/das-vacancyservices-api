@@ -11,13 +11,19 @@ using recruitEntities = SFA.DAS.Recruit.Vacancies.Client.Entities;
 
 namespace Esfa.Vacancy.Register.Api.Mappings
 {
-    public class RecruitVacancyMapper : IRecruitVacancyMapper
+    public class RecruitApprenticeshipMapper : IRecruitVacancyMapper
     {
+        public const string FixedWageType = "FixedWage";
+        public const string NationalMinimumWageForApprenticesWageType = "NationalMinimumWageForApprentices";
+        public const string NationalMinimumWageWageType = "NationalMinimumWage";
+        public const string UnspecifiedWageType = "Unspecified";
+        public const string UnknownText = "Unknown";
+
         private readonly IProvideSettings _provideSettings;
         private readonly ITrainingDetailService _trainingDetailService;
         private readonly IGetMinimumWagesService _minimumWagesService;
 
-        public RecruitVacancyMapper(IProvideSettings provideSettings,
+        public RecruitApprenticeshipMapper(IProvideSettings provideSettings,
             ITrainingDetailService trainingDetailService, IGetMinimumWagesService minimumWagesService)
         {
             _provideSettings = provideSettings;
@@ -46,13 +52,15 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
             var duration = GetDurationAsText(liveVacancy.Wage);
 
+            var wageUnit = GetWageUnit(liveVacancy.Wage.WageType);
+
             var apprenticeship = new ApiTypes.ApprenticeshipVacancy
             {
                 VacancyReference = liveVacancy.VacancyReference,
                 Title = liveVacancy.Title,
                 ShortDescription = liveVacancy.ShortDescription,
                 Description = description,
-                WageUnit = liveVacancy.Wage.WageType == "Custom" ? ApiTypes.WageUnit.Annually : ApiTypes.WageUnit.Weekly,
+                WageUnit = wageUnit,
                 WorkingWeek = liveVacancy.Wage.WorkingWeekDescription,
                 WageText = wageText,
                 WageAdditionalInformation = liveVacancy.Wage.WageAdditionalInformation,
@@ -62,7 +70,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 PostedDate = liveVacancy.LiveDate,
                 ApplicationClosingDate = liveVacancy.ClosingDate,
                 NumberOfPositions = liveVacancy.NumberOfPositions,
-                EmployerName = liveVacancy.EmployerContactName,
+                EmployerName = liveVacancy.EmployerName,
                 EmployerDescription = liveVacancy.EmployerDescription,
                 EmployerWebsite = liveVacancy.EmployerWebsiteUrl,
                 ContactName = liveVacancy.EmployerContactName,
@@ -96,18 +104,30 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return apprenticeship;
         }
 
-        private const string UnknownText = "Unknown";
+        private ApiTypes.WageUnit GetWageUnit(string wageType)
+        {
+            switch (wageType)
+            {
+                case FixedWageType:
+                    return ApiTypes.WageUnit.Annually;
+                case NationalMinimumWageWageType:
+                case NationalMinimumWageForApprenticesWageType:
+                    return ApiTypes.WageUnit.Weekly;
+                default: //including "Unspecified"
+                    return ApiTypes.WageUnit.Unspecified;
+            }
+        }
 
         private async Task<string> GetWageText(recruitEntities.Wage wage, DateTime expectedStartDate)
         {
-            var wageRange = await _minimumWagesService.GetWageRange(expectedStartDate);
+            var wageRange = await _minimumWagesService.GetWageRangeAsync(expectedStartDate);
             switch (wage.WageType)
             {
-                case "NationalMinimumWageForApprentices":
+                case NationalMinimumWageForApprenticesWageType:
                     return GetApprenticeshipMinimumWage(wageRange, wage.WeeklyHours);
-                case "NationalMinimumWage":
+                case NationalMinimumWageWageType:
                     return GetNationalMinimumWage(wageRange, wage.WeeklyHours);
-                case "Unspecified":
+                case UnspecifiedWageType:
                     return UnknownText;
                 default: //including FixedWage
                     return GetFormattedCurrencyString(wage.FixedWageYearlyAmount.GetValueOrDefault());

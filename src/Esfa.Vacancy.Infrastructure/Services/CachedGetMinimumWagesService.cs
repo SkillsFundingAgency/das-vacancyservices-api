@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return await _cacheService.CacheAsideAsync(CacheKey, _minimumWagesService.GetAllWagesAsync);
         }
 
-        public async Task<WageRange> GetWageRange(DateTime expectedStartDate)
+        public async Task<WageRange> GetWageRangeAsync(DateTime expectedStartDate)
         {
             var ranges = await GetAllWagesAsync();
 
