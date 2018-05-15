@@ -17,7 +17,6 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
     [TestFixture]
     public class WhenRecruitVacancyRequested
     {
-        private GetApprenticeshipVacancyOrchestrator _sut;
         private Mock<IMediator> _mockMediator;
         private Mock<IClient> _mockClient;
         private Mock<IApprenticeshipMapper> _mockMapper;
