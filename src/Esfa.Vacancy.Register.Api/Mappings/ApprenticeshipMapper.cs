@@ -38,7 +38,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 ExpectedStartDate = apprenticeshipVacancy.ExpectedStartDate,
                 PostedDate = apprenticeshipVacancy.PostedDate,
                 ApplicationClosingDate = apprenticeshipVacancy.ApplicationClosingDate,
-                InterviewFromDate = apprenticeshipVacancy.InterviewFromDate, //TODO remove
+                InterviewFromDate = apprenticeshipVacancy.InterviewFromDate,
                 NumberOfPositions = apprenticeshipVacancy.NumberOfPositions,
                 EmployerName = apprenticeshipVacancy.IsAnonymousEmployer ? apprenticeshipVacancy.AnonymousEmployerName : apprenticeshipVacancy.EmployerName,
                 EmployerDescription = apprenticeshipVacancy.IsAnonymousEmployer ? apprenticeshipVacancy.AnonymousEmployerDescription : apprenticeshipVacancy.EmployerDescription,
@@ -47,7 +47,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 QualificationsRequired = apprenticeshipVacancy.QualificationsRequired,
                 SkillsRequired = apprenticeshipVacancy.SkillsRequired,
                 PersonalQualities = apprenticeshipVacancy.PersonalQualities,
-                ImportantInformation = apprenticeshipVacancy.ImportantInformation, //TODO check if can be removed
+                ImportantInformation = apprenticeshipVacancy.ImportantInformation,
                 FutureProspects = apprenticeshipVacancy.FutureProspects,
                 ThingsToConsider = apprenticeshipVacancy.ThingsToConsider,
                 IsNationwide = apprenticeshipVacancy.VacancyLocationTypeId == Nationwide,
