@@ -43,6 +43,11 @@ namespace Esfa.Vacancy.Api.Types
         public string WageText { get; set; }
 
         /// <summary>
+        /// Additional information with regards to wages
+        /// </summary>
+        public string WageAdditionalInformation { get; set; }
+
+        /// <summary>
         /// Hours per week.
         /// </summary>
         public decimal? HoursPerWeek { get; set; }
@@ -206,11 +211,6 @@ namespace Esfa.Vacancy.Api.Types
         /// Vacancy apprenticeship level.
         /// </summary>
         public string ApprenticeshipLevel { get; set; }
-
-        /// <summary>
-        /// Additional information with regards to wages
-        /// </summary>
-        public string WageAdditionalInformation { get; set; }
 
         /// <summary>
         /// Instructions on how to apply for the vacancy

@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             }
         }
 
-        public async Task<WageRange> GetWageRange(DateTime expectedStartDate)
+        public async Task<WageRange> GetWageRangeAsync(DateTime expectedStartDate)
         {
             var ranges = await GetAllWagesAsync();
 

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Esfa.Vacancy.Domain.Constants;
+﻿using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Register.Api.Mappings;
 using Moq;
@@ -8,10 +7,11 @@ using Ploeh.AutoFixture;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
+    [TestFixture]
     public class WhenMappingVacancyUrl
     {
         [Test]
-        public async Task ShouldPopulateVacancyUrl()
+        public void ShouldPopulateVacancyUrl()
         {
             //Arrange
             var provideSettings = new Mock<IProvideSettings>();

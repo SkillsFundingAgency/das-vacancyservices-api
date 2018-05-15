@@ -217,6 +217,15 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipEducationLevel.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingIsNationwide.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingVacancyUrl.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\RecruitApprenticeshipMapperBase.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingDuration.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingFromLiveVacancy.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingTrainingCode.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingTrainingTitle.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingTrainingType.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingVacancyUrl.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageText.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenRecruitVacancyRequested.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
