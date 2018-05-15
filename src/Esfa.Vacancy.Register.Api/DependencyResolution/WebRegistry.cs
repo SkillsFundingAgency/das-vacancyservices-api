@@ -28,9 +28,9 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
             For<IValidator<GetTraineeshipVacancyRequest>>().Singleton().Use<GetTraineeshipVacancyValidator>();
 
             For<IClient>().Use<Client>()
-                .Ctor<string>("connectionString").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.ErMongoConnectionString))
-                .Ctor<string>("databaseName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.ErMongoDatabaseName))
-                .Ctor<string>("collectionName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.ErMongoCollectionName));
+                .Ctor<string>("connectionString").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoConnectionString))
+                .Ctor<string>("databaseName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoDatabaseName))
+                .Ctor<string>("collectionName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoCollectionName));
         }
     }
 }

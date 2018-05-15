@@ -11,8 +11,8 @@
         public const string CacheConnectionString = "CacheConnectionString";
         public const string UseSandboxServices = "UseSandboxServices";
         public const string CacheReferenceDataDuration = "CacheReferenceDataDuration";
-        public const string ErMongoConnectionString = "ErMongoConnectionString";
-        public const string ErMongoDatabaseName = "ErMongoDatabaseName";
-        public const string ErMongoCollectionName = "ErMongoCollectionName";
+        public const string RecruitMongoConnectionString = "RecruitMongoConnectionString";
+        public const string RecruitMongoDatabaseName = "RecruitMongoDatabaseName";
+        public const string RecruitMongoCollectionName = "RecruitMongoCollectionName";
     }
 }
