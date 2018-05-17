@@ -64,6 +64,15 @@
     },
     "CacheReferenceDataDuration": {
       "value": ""
+    },
+    "RecruitMongoConnectionString": {
+      "value": ""
+    },
+    "RecruitMongoDatabaseName": {
+      "value": ""
+    },
+    "RecruitMongoCollectionName": {
+      "value": ""
     }
   }
 }

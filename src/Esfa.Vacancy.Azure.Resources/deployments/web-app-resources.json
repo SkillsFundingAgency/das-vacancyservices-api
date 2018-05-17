@@ -111,7 +111,10 @@
             "LiveApprenticeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveApprenticeshipVacancyBaseUrl]",
             "VacancySearchUrl": "[variables('registerAppSettings').VacancySearchUrl]",
             "ApprenticeshipIndexAlias": "[variables('registerAppSettings').ApprenticeshipIndexAlias]",
-            "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]"
+            "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]",
+            "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
+            "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
+            "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]"
           }
         },
         {
@@ -164,7 +167,10 @@
                 "LiveApprenticeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveApprenticeshipVacancyBaseUrl]",
                 "VacancySearchUrl": "[variables('registerAppSettings').VacancySearchUrl]",
                 "ApprenticeshipIndexAlias": "[variables('registerAppSettings').ApprenticeshipIndexAlias]",
-                "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]"
+                "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]",
+                "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
+                "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
+                "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]"
               }
             }
           ]

@@ -68,6 +68,15 @@
     },
     "CacheReferenceDataDuration": {
       "type": "string"
+    },
+    "RecruitMongoConnectionString": {
+      "type": "string"
+    },
+    "RecruitMongoDatabaseName": {
+      "type": "string"
+    },
+    "RecruitMongoCollectionName": {
+      "type": "string"
     }
   },
   "variables": {
@@ -89,7 +98,10 @@
       "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
       "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
       "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
-      "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]"
+      "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
+      "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
+      "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
+      "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]"
     }
   },
   "resources": [
