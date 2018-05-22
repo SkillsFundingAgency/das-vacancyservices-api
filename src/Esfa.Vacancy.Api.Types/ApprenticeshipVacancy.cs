@@ -212,14 +212,14 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public string ApprenticeshipLevel { get; set; }
 
-        /// <summary>
-        /// Instructions on how to apply for the vacancy
-        /// </summary>
-        public string ApplicationInstructions { get; set; }
+		  /// <summary>
+		  /// Instructions on how to apply for the vacancy
+		  /// </summary>
+		  public string ApplicationInstructions { get; set; }
 
-        /// <summary>
-        /// The web URL for applying for the vacancy
-        /// </summary>
-        public string ApplicationUrl { get; set; }
-    }
+		  /// <summary>
+		  /// The web URL for applying for the vacancy
+		  /// </summary>
+		  public string ApplicationUrl { get; set; }
+	 }
 }

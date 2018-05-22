@@ -81,5 +81,11 @@ namespace Esfa.Vacancy.Domain.Entities
         public string TrainingProviderSite { get; set; }
 
         public bool IsDisabilityConfident { get; set; }
-    }
+
+		  public string EmployersRecruitmentWebsite { get; set; }
+
+		  public string EmployersApplicationInstructions { get; set; }
+
+		  public bool ApplyOutsideNAVMS { get; set; }
+	 }
 }

@@ -54,7 +54,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 TrainingProviderName = traineeshipVacancy.TrainingProvider,
                 TrainingProviderUkprn = traineeshipVacancy.TrainingProviderUkprn,
                 TrainingProviderSite = traineeshipVacancy.TrainingProviderSite,
-                IsEmployerDisabilityConfident = traineeshipVacancy.IsDisabilityConfident
+                IsEmployerDisabilityConfident = traineeshipVacancy.IsDisabilityConfident,
+					 ApplicationUrl = traineeshipVacancy.ApplyOutsideNAVMS && !string.IsNullOrWhiteSpace(traineeshipVacancy.EmployersRecruitmentWebsite) ? traineeshipVacancy.EmployersRecruitmentWebsite : null,
+					 ApplicationInstructions = traineeshipVacancy.ApplyOutsideNAVMS && !string.IsNullOrWhiteSpace(traineeshipVacancy.EmployersApplicationInstructions) ? traineeshipVacancy.EmployersApplicationInstructions : null
             };
         }
     }
