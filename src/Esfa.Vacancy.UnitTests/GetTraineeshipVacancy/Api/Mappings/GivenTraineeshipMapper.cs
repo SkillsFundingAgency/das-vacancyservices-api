@@ -4,6 +4,7 @@ using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using System;
 using TraineeshipVacancyDto = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
@@ -94,49 +95,34 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
             result.EmployerWebsite.Should().Be(expectedEmployerWebsite);
         }
 
-		  [TestCase(false, null, null, TestName = "And online vacancy EmployersRecruitmentWebsite is null")]
-		  [TestCase(false, "", null, TestName = "And online vacancy EmployersRecruitmentWebsite is empty")]
-		  [TestCase(false, "   ", null, TestName = "And online vacancy EmployersRecruitmentWebsite is whitespace")]
-		  [TestCase(false, "Test", null, TestName = "And online vacancy EmployersRecruitmentWebsite is set")]
-		  [TestCase(true, null, null, TestName = "And offline vacancy EmployersRecruitmentWebsite is null")]
-		  [TestCase(true, "", null, TestName = "And offline vacancy EmployersRecruitmentWebsite is empty")]
-		  [TestCase(true, "   ", null, TestName = "And offline vacancy EmployersRecruitmentWebsite is whitespace")]
-		  [TestCase(true, "https://ibm.com", "https://ibm.com", TestName = "And offline vacancy EmployersRecruitmentWebsite is set")]
-		  public void WhenMappingApplicationUrl(bool isOffline, string urlFromDb, string expectedMappedUrl)
+		  [TestCase]
+		  public void WhenMappingEmployersRecruitmentWebsite_ShouldSetApplicationUrl()
 		  {
+				string expectedUrl = "https://" + Guid.NewGuid();
 				var vacancy = new TraineeshipVacancy
 				{
-					 EmployersRecruitmentWebsite = urlFromDb,
-					 ApplyOutsideNAVMS = isOffline,
+					 EmployersRecruitmentWebsite = expectedUrl,
 					 Location = new Address()
 				};
 
 				TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
 
-				result.ApplicationUrl.Should().Be(expectedMappedUrl);
+				result.ApplicationUrl.Should().Be(expectedUrl);
 		  }
 
-		  [TestCase(false, null, null, TestName = "And online vacancy EmployersApplicationInstructions is null")]
-		  [TestCase(false, "", null, TestName = "And online vacancy EmployersApplicationInstructions is empty")]
-		  [TestCase(false, "   ", null, TestName = "And online vacancy EmployersApplicationInstructions is whitespace")]
-		  [TestCase(false, "Test", null, TestName = "And online vacancy EmployersRecruitmentWebsite is set")]
-		  [TestCase(true, null, null, TestName = "And offline vacancy EmployersApplicationInstructions is null")]
-		  [TestCase(true, "", null, TestName = "And offline vacancy EmployersApplicationInstructions is empty")]
-		  [TestCase(true, "   ", null, TestName = "And offline vacancy EmployersApplicationInstructions is whitespace")]
-		  [TestCase(true, "Test", "Test", TestName = "And offline vacancy EmployersApplicationInstructions is set")]
-		  public void WhenMappingApplicationInstructions(bool isOffline, string instructionsFromDb, string expectedMappedValue)
+		  [TestCase]
+		  public void WhenMappingEmployersApplicationInstructions_ShouldSetApplicationInstructions()
 		  {
+				string expectedInstructions = Guid.NewGuid().ToString();
 				var vacancy = new TraineeshipVacancy
 				{
-					 EmployersApplicationInstructions = instructionsFromDb,
-					 ApplyOutsideNAVMS = isOffline,
+					 EmployersApplicationInstructions = expectedInstructions,
 					 Location = new Address()
 				};
 
 				TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
 
-				result.ApplicationInstructions.Should().Be(expectedMappedValue);
+				result.ApplicationInstructions.Should().Be(expectedInstructions);
 		  }
-
 	 }
 }

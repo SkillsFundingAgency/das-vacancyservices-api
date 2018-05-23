@@ -186,5 +186,9 @@ namespace Esfa.Vacancy.Api.Types
 		  /// The web URL for applying for the vacancy
 		  /// </summary>
 		  public string ApplicationUrl { get; set; }
+
+		  /// <summary>
+		  /// True if the applicant must apply via ApplicationUrl
+		  /// </summary>
 	 }
 }
