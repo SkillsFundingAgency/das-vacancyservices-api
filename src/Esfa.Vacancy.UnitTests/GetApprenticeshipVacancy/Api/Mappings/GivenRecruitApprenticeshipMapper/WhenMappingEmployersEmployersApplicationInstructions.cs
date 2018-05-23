@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
+using System.Threading.Tasks;
 using ApprenticeshipVacancyDto = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecruitApprenticeshipMapper
@@ -18,7 +19,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
 		  }
 
 		  [Test]
-		  public async void ShouldSetApplicationInstructions()
+		  public async Task ShouldSetApplicationInstructions()
 		  {
 				RecruitApprenticeshipMapper sut = GetRecruitApprecticeshipMapper();
 				string expectedInstructions = Guid.NewGuid().ToString();
