@@ -110,10 +110,8 @@ namespace Esfa.Vacancy.Domain.Entities
 
         public int ApprenticeshipTypeId { get; set; }
 
-		  public string EmployersRecruitmentWebsite { get; set; }
+        public string EmployersRecruitmentWebsite { get; set; }
 
-		  public string EmployersApplicationInstructions { get; set; }
-
-		  public bool ApplyOutsideNAVMS { get; set; }
-	 }
+        public string EmployersApplicationInstructions { get; set; }
+    }
 }

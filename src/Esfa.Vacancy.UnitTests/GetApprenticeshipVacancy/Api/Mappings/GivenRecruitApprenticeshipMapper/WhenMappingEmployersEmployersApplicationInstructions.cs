@@ -9,27 +9,27 @@ using ApprenticeshipVacancyDto = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecruitApprenticeshipMapper
 {
-	 [TestFixture]
-	 public class WhenMappingEmployersApplicationInstructions: RecruitApprenticeshipMapperBase
-	 {
-		  [SetUp]
-		  public void Setup()
-		  {
-				Initialize();
-		  }
+    [TestFixture]
+    public class WhenMappingEmployersApplicationInstructions : RecruitApprenticeshipMapperBase
+    {
+        [SetUp]
+        public void Setup()
+        {
+            Initialize();
+        }
 
-		  [Test]
-		  public async Task ShouldSetApplicationInstructions()
-		  {
-				RecruitApprenticeshipMapper sut = GetRecruitApprecticeshipMapper();
-				string expectedInstructions = Guid.NewGuid().ToString();
+        [Test]
+        public async Task ShouldSetApplicationInstructions()
+        {
+            RecruitApprenticeshipMapper sut = GetRecruitApprecticeshipMapper();
+            string expectedInstructions = Guid.NewGuid().ToString();
 
-				LiveVacancy.ApplicationInstructions = expectedInstructions;
+            LiveVacancy.ApplicationInstructions = expectedInstructions;
 
-				ApprenticeshipVacancyDto result = await sut.MapFromRecruitVacancy(LiveVacancy);
+            ApprenticeshipVacancyDto result = await sut.MapFromRecruitVacancy(LiveVacancy);
 
-				result.ApplicationInstructions.Should().Be(expectedInstructions);
-		  }
+            result.ApplicationInstructions.Should().Be(expectedInstructions);
+        }
 
-	 }
+    }
 }

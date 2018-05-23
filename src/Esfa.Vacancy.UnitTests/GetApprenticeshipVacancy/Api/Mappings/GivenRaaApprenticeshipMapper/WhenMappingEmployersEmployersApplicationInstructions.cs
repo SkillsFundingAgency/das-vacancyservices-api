@@ -10,32 +10,32 @@ using ApprenticeshipVacancyDto = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
-	 [TestFixture]
-	 public class WhenMappingEmployersApplicationInstructions
-	 {
-		  private ApprenticeshipMapper _sut;
+    [TestFixture]
+    public class WhenMappingEmployersApplicationInstructions
+    {
+        private ApprenticeshipMapper _sut;
 
-		  [OneTimeSetUp]
-		  public void FixtureSetup()
-		  {
-				var provideSettings = new Mock<IProvideSettings>();
-				_sut = new ApprenticeshipMapper(provideSettings.Object);
-		  }
+        [OneTimeSetUp]
+        public void FixtureSetup()
+        {
+            var provideSettings = new Mock<IProvideSettings>();
+            _sut = new ApprenticeshipMapper(provideSettings.Object);
+        }
 
-		  [Test]
-		  public void ShouldSetApplicationInstructions()
-		  {
-				string expectedInstructions = Guid.NewGuid().ToString();
-				var vacancy = new ApprenticeshipVacancy
-				{
-					 EmployersApplicationInstructions = expectedInstructions,
-					 Location = new Address()
-				};
+        [Test]
+        public void ShouldSetApplicationInstructions()
+        {
+            string expectedInstructions = Guid.NewGuid().ToString();
+            var vacancy = new ApprenticeshipVacancy
+            {
+                EmployersApplicationInstructions = expectedInstructions,
+                Location = new Address()
+            };
 
-				ApprenticeshipVacancyDto result = _sut.MapToApprenticeshipVacancy(vacancy);
+            ApprenticeshipVacancyDto result = _sut.MapToApprenticeshipVacancy(vacancy);
 
-				result.ApplicationInstructions.Should().Be(expectedInstructions);
-		  }
+            result.ApplicationInstructions.Should().Be(expectedInstructions);
+        }
 
-	 }
+    }
 }

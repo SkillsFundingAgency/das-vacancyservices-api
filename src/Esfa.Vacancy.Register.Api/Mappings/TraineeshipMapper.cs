@@ -55,9 +55,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 TrainingProviderUkprn = traineeshipVacancy.TrainingProviderUkprn,
                 TrainingProviderSite = traineeshipVacancy.TrainingProviderSite,
                 IsEmployerDisabilityConfident = traineeshipVacancy.IsDisabilityConfident,
-					 ApplicationUrl = traineeshipVacancy.EmployersRecruitmentWebsite,
-					 ApplicationInstructions = traineeshipVacancy.EmployersApplicationInstructions
-				};
+                ApplicationUrl = traineeshipVacancy.EmployersRecruitmentWebsite,
+                ApplicationInstructions = traineeshipVacancy.EmployersApplicationInstructions
+            };
         }
     }
 }

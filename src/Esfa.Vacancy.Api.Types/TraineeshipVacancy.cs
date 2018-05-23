@@ -177,18 +177,14 @@ namespace Esfa.Vacancy.Api.Types
         /// </summary>
         public bool IsEmployerDisabilityConfident { get; set; }
 
-		  /// <summary>
-		  /// Instructions on how to apply for the vacancy
-		  /// </summary>
-		  public string ApplicationInstructions { get; set; }
+        /// <summary>
+        /// Instructions on how to apply for the vacancy
+        /// </summary>
+        public string ApplicationInstructions { get; set; }
 
-		  /// <summary>
-		  /// The web URL for applying for the vacancy
-		  /// </summary>
-		  public string ApplicationUrl { get; set; }
-
-		  /// <summary>
-		  /// True if the applicant must apply via ApplicationUrl
-		  /// </summary>
-	 }
+        /// <summary>
+        /// The web URL for applying for the vacancy
+        /// </summary>
+        public string ApplicationUrl { get; set; }
+    }
 }

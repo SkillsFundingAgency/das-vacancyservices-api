@@ -95,34 +95,34 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
             result.EmployerWebsite.Should().Be(expectedEmployerWebsite);
         }
 
-		  [TestCase]
-		  public void WhenMappingEmployersRecruitmentWebsite_ShouldSetApplicationUrl()
-		  {
-				string expectedUrl = "https://" + Guid.NewGuid();
-				var vacancy = new TraineeshipVacancy
-				{
-					 EmployersRecruitmentWebsite = expectedUrl,
-					 Location = new Address()
-				};
+        [TestCase]
+        public void WhenMappingEmployersRecruitmentWebsite_ShouldSetApplicationUrl()
+        {
+            string expectedUrl = "https://" + Guid.NewGuid();
+            var vacancy = new TraineeshipVacancy
+            {
+                EmployersRecruitmentWebsite = expectedUrl,
+                Location = new Address()
+            };
 
-				TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
+            TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
 
-				result.ApplicationUrl.Should().Be(expectedUrl);
-		  }
+            result.ApplicationUrl.Should().Be(expectedUrl);
+        }
 
-		  [TestCase]
-		  public void WhenMappingEmployersApplicationInstructions_ShouldSetApplicationInstructions()
-		  {
-				string expectedInstructions = Guid.NewGuid().ToString();
-				var vacancy = new TraineeshipVacancy
-				{
-					 EmployersApplicationInstructions = expectedInstructions,
-					 Location = new Address()
-				};
+        [TestCase]
+        public void WhenMappingEmployersApplicationInstructions_ShouldSetApplicationInstructions()
+        {
+            string expectedInstructions = Guid.NewGuid().ToString();
+            var vacancy = new TraineeshipVacancy
+            {
+                EmployersApplicationInstructions = expectedInstructions,
+                Location = new Address()
+            };
 
-				TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
+            TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
 
-				result.ApplicationInstructions.Should().Be(expectedInstructions);
-		  }
-	 }
+            result.ApplicationInstructions.Should().Be(expectedInstructions);
+        }
+    }
 }

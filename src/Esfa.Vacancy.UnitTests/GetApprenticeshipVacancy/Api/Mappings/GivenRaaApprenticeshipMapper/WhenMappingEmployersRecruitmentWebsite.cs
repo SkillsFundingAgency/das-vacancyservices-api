@@ -10,32 +10,32 @@ using ApprenticeshipVacancyDto = Esfa.Vacancy.Api.Types.ApprenticeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaApprenticeshipMapper
 {
-	 [TestFixture]
-	 public class WhenMappingEmployersRecruitmentWebsite
-	 {
-		  private ApprenticeshipMapper _sut;
+    [TestFixture]
+    public class WhenMappingEmployersRecruitmentWebsite
+    {
+        private ApprenticeshipMapper _sut;
 
-		  [OneTimeSetUp]
-		  public void FixtureSetup()
-		  {
-				var provideSettings = new Mock<IProvideSettings>();
-				_sut = new ApprenticeshipMapper(provideSettings.Object);
-		  }
+        [OneTimeSetUp]
+        public void FixtureSetup()
+        {
+            var provideSettings = new Mock<IProvideSettings>();
+            _sut = new ApprenticeshipMapper(provideSettings.Object);
+        }
 
-		  [Test]
-		  public void ShouldSetApplicationUrl()
-		  {
-				string expectedUrl = "https://" + Guid.NewGuid();
-				var vacancy = new ApprenticeshipVacancy
-				{
-					 EmployersRecruitmentWebsite = expectedUrl,
-					 Location = new Address()
-				};
+        [Test]
+        public void ShouldSetApplicationUrl()
+        {
+            string expectedUrl = "https://" + Guid.NewGuid();
+            var vacancy = new ApprenticeshipVacancy
+            {
+                EmployersRecruitmentWebsite = expectedUrl,
+                Location = new Address()
+            };
 
-				ApprenticeshipVacancyDto result = _sut.MapToApprenticeshipVacancy(vacancy);
+            ApprenticeshipVacancyDto result = _sut.MapToApprenticeshipVacancy(vacancy);
 
-				result.ApplicationUrl.Should().Be(expectedUrl);
-		  }
+            result.ApplicationUrl.Should().Be(expectedUrl);
+        }
 
-	 }
+    }
 }
