@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         }
 
         [Test]
-        public void ShouldSetApplicationInstructions()
+        public void ThenSetApplicationInstructions()
         {
             string expectedInstructions = Guid.NewGuid().ToString();
             var vacancy = new ApprenticeshipVacancy

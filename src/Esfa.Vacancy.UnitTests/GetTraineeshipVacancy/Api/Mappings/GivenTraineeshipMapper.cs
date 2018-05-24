@@ -96,7 +96,7 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
         }
 
         [TestCase]
-        public void WhenMappingEmployersRecruitmentWebsite_ShouldSetApplicationUrl()
+        public void WhenMappingApplicationUrl_ThenMapFromEmployersRecruitmentWebsite()
         {
             string expectedUrl = "https://" + Guid.NewGuid();
             var vacancy = new TraineeshipVacancy
@@ -111,7 +111,7 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
         }
 
         [TestCase]
-        public void WhenMappingEmployersApplicationInstructions_ShouldSetApplicationInstructions()
+        public void WhenMappingApplicationInstructions_ThenMapFromEmployersApplicationInstructions()
         {
             string expectedInstructions = Guid.NewGuid().ToString();
             var vacancy = new TraineeshipVacancy

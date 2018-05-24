@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         }
 
         [Test]
-        public void ShouldSetApplicationUrl()
+        public void ThenSetApplicationUrl()
         {
             string expectedUrl = "https://" + Guid.NewGuid();
             var vacancy = new ApprenticeshipVacancy
