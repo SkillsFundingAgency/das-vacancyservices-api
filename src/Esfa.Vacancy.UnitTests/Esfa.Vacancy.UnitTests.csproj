@@ -213,6 +213,8 @@
     <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="Extensions\FixtureExtensions.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingEmployersEmployersApplicationInstructions.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingEmployersRecruitmentWebsite.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingEmployerInformation.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingLiveApprenticeshipEducationLevel.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingIsNationwide.cs" />

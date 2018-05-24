@@ -109,5 +109,9 @@ namespace Esfa.Vacancy.Domain.Entities
         public bool IsDisabilityConfident { get; set; }
 
         public int ApprenticeshipTypeId { get; set; }
+
+        public string EmployersRecruitmentWebsite { get; set; }
+
+        public string EmployersApplicationInstructions { get; set; }
     }
 }

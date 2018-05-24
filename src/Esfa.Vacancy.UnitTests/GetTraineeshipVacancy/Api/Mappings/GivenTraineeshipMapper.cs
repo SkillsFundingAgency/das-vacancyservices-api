@@ -1,10 +1,11 @@
 ﻿using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure.Settings;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using System;
+using TraineeshipVacancyDto = Esfa.Vacancy.Api.Types.TraineeshipVacancy;
 
 namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
 {
@@ -92,6 +93,36 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Mappings
             var result = _sut.MapToTraineeshipVacancy(vacancy);
 
             result.EmployerWebsite.Should().Be(expectedEmployerWebsite);
+        }
+
+        [TestCase]
+        public void WhenMappingApplicationUrl_ThenMapFromEmployersRecruitmentWebsite()
+        {
+            string expectedUrl = "https://" + Guid.NewGuid();
+            var vacancy = new TraineeshipVacancy
+            {
+                EmployersRecruitmentWebsite = expectedUrl,
+                Location = new Address()
+            };
+
+            TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
+
+            result.ApplicationUrl.Should().Be(expectedUrl);
+        }
+
+        [TestCase]
+        public void WhenMappingApplicationInstructions_ThenMapFromEmployersApplicationInstructions()
+        {
+            string expectedInstructions = Guid.NewGuid().ToString();
+            var vacancy = new TraineeshipVacancy
+            {
+                EmployersApplicationInstructions = expectedInstructions,
+                Location = new Address()
+            };
+
+            TraineeshipVacancyDto result = _sut.MapToTraineeshipVacancy(vacancy);
+
+            result.ApplicationInstructions.Should().Be(expectedInstructions);
         }
     }
 }
