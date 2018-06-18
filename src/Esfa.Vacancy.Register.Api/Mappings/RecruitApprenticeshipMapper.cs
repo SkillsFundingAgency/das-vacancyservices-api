@@ -34,9 +34,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         public async Task<ApiTypes.ApprenticeshipVacancy> MapFromRecruitVacancy(recruitEntities.LiveVacancy liveVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
-
-            var description = GetVacancyDescription(liveVacancy);
-
+            
             var trainingType =
                 (ApiTypes.TrainingType)Enum.Parse(typeof(ApiTypes.TrainingType), liveVacancy.ProgrammeType);
 
@@ -59,7 +57,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 VacancyReference = liveVacancy.VacancyReference,
                 Title = liveVacancy.Title,
                 ShortDescription = liveVacancy.ShortDescription,
-                Description = description,
+                Description = liveVacancy.Description,
                 WageUnit = wageUnit,
                 WorkingWeek = liveVacancy.Wage.WorkingWeekDescription,
                 WageText = wageText,
@@ -180,11 +178,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 var standard = _trainingDetailService.GetStandardDetailsAsync(code).Result;
                 return standard.Title;
             }
-        }
-
-        private string GetVacancyDescription(recruitEntities.LiveVacancy liveVacancy)
-        {
-            return string.Concat(liveVacancy.Description, Environment.NewLine, liveVacancy.TrainingDescription);
         }
 
         private string GetVacancyQualification(recruitEntities.LiveVacancy liveVacancy)

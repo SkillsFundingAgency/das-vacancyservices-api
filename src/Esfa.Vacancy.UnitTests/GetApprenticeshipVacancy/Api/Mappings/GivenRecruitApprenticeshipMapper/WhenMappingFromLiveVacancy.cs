@@ -43,9 +43,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
         [Test]
         public void ThenMapDescription()
         {
-            var expectedValue = string.Concat(LiveVacancy.Description, Environment.NewLine,
-                LiveVacancy.TrainingDescription);
-            _mappedVacancy.Description.Should().Be(expectedValue);
+            _mappedVacancy.Description.Should().Be(LiveVacancy.Description);
         }
 
         [Test]
