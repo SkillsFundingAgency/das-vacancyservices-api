@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure
 
         private static SearchResponse<ApprenticeshipSummary> BuildResponseFromJson(string json)
         {
-            var serializer = new NestSerializer(new ConnectionSettings());
+            var serializer = new JsonNetSerializer(new ConnectionSettings());
 
             var bytes = Encoding.ASCII.GetBytes(json);
             var memoryStream = new MemoryStream(bytes);
