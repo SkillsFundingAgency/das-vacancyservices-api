@@ -7,14 +7,16 @@ namespace Esfa.Vacancy.Infrastructure.Services
     {
         public static void SortByAge(this SearchDescriptor<ApprenticeshipSummary> search)
         {
-            search.SortDescending(summary => summary.PostedDate);
-            search.SortDescending(summary => summary.VacancyReference);
+            search.Sort(s => s
+                .Descending(summary => summary.PostedDate)
+                .Descending(summary => summary.VacancyReference));
         }
 
         public static void SortByExpectedStartDate(this SearchDescriptor<ApprenticeshipSummary> search)
         {
-            search.SortAscending(summary => summary.StartDate);
-            search.SortAscending(summary => summary.VacancyReference);
+            search.Sort(s => s
+                .Ascending(summary => summary.StartDate)
+                .Ascending(summary => summary.VacancyReference));
         }
 
         public static void TrySortByDistance(this SearchDescriptor<ApprenticeshipSummary> search, VacancySearchParameters parameters)
@@ -22,10 +24,11 @@ namespace Esfa.Vacancy.Infrastructure.Services
             if (!parameters.HasGeoSearchFields)
                 return;
 
-            search.SortGeoDistance(geoSort =>
-                geoSort.PinTo(parameters.Latitude.Value, parameters.Longitude.Value)
-                    .Unit(GeoUnit.Miles)
-                    .OnField(summary => summary.Location));
+            search.Sort(s => s.GeoDistance(geoSort => geoSort
+                .Field(summary => summary.Location)
+                .PinTo(new GeoLocation(parameters.Latitude.GetValueOrDefault(), parameters.Longitude.GetValueOrDefault()))
+                .Unit(DistanceUnit.Miles)
+                ));
         }
     }
 }

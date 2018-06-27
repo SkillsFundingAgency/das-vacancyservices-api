@@ -21,8 +21,13 @@ namespace Esfa.Vacancy.Infrastructure.Factories
             var node = new Uri(baseUri);
             var settings = new ConnectionSettings(node);
 
-            settings.SetTimeout(ElasticClientTimeoutMilliseconds);
-
+            settings
+                .RequestTimeout(TimeSpan.FromSeconds(ElasticClientTimeoutMilliseconds))
+                .DisableDirectStreaming()
+                .BasicAuthentication("elastic", "changeme");
+#if DEBUG
+            settings.EnableDebugMode();
+#endif
             return new ElasticClient(settings);
         }
     }

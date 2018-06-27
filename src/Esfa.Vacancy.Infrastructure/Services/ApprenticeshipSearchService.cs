@@ -10,6 +10,7 @@ using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using Nest;
 using SFA.DAS.NLog.Logger;
+using StackExchange.Redis;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
@@ -59,20 +60,28 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         .Query(query =>
                         {
                             var container =
-                                (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
-                                 || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
-                                    && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
-                                    && query.Range(range =>
-                                        range.OnField(apprenticeship => apprenticeship.PostedDate)
-                                            .GreaterOrEquals(parameters.FromDate));
+                                (
+                                    query.Terms(qt => qt
+                                        .Field(apprenticeship => apprenticeship.FrameworkLarsCode)
+                                        .Terms(parameters.FrameworkLarsCodes))
+                                    || query.Terms(qt => qt
+                                        .Field(apprenticeship => apprenticeship.StandardLarsCode)
+                                        .Terms(parameters.StandardLarsCodes))
+                                )
+                                && query.Match(m => m
+                                    .Field(apprenticeship => apprenticeship.VacancyLocationType)
+                                    .Query(parameters.LocationType))
+                                && query.DateRange(range => range
+                                    .Field(apprenticeship => apprenticeship.PostedDate)
+                                    .GreaterThanOrEquals(DateMath.Anchored(parameters.FromDate.GetValueOrDefault())));
 
                             if (parameters.HasGeoSearchFields)
                             {
-                                container = container && query.Filtered(filteredQuery =>
-                                    filteredQuery.Filter(filter =>
-                                        filter.GeoDistance(summary => summary.Location, geoDistanceFilter =>
-                                            geoDistanceFilter.Location(parameters.Latitude.Value, parameters.Longitude.Value)
-                                                .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
+                                container &= 
+                                    query.GeoDistance(gd=> gd
+                                        .Field(summary => summary.Location)
+                                        .Location(parameters.Latitude.GetValueOrDefault(), parameters.Longitude.GetValueOrDefault())
+                                        .Distance(parameters.DistanceInMiles.GetValueOrDefault(), DistanceUnit.Miles));
                             }
 
                             return container;
@@ -106,9 +115,9 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 throw new InfrastructureException(e);
             }
 
-            if (!esReponse.ConnectionStatus.Success)
-            {
-                var ex = new Exception("Unexpected response received from Elastic Search");
+            if (!esReponse.IsValid)
+            {                
+                var ex = new Exception($"Unexpected response received from Elastic Search: { esReponse.DebugInformation}");
                 throw new InfrastructureException(ex);
             }
 
