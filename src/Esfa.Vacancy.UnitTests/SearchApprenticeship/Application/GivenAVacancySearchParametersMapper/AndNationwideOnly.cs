@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
         public void AndIsTrue_ThenMapsToNationwide()
         {
             var result = _mapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { NationwideOnly = true });
+            { NationwideOnly = true });
 
             result.LocationType.Should().Be(VacancySearchParametersMapper.NationwideLocationType);
         }
@@ -31,7 +31,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
         public void AndIsTrue_ThenGeoCodeFieldsAreSetToNull()
         {
             var result = _mapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { NationwideOnly = true, Latitude = 1, Longitude = 1, DistanceInMiles = 1});
+            { NationwideOnly = true, Latitude = 1, Longitude = 1, DistanceInMiles = 1 });
 
             result.Latitude.Should().BeNull();
             result.Longitude.Should().BeNull();
@@ -39,12 +39,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
         }
 
         [Test]
-        public void AndIsFalse_ThenMapsToNonNationwide()
+        public void AndIsFalse_ThenDoesNotMap()
         {
             var result = _mapper.Convert(new SearchApprenticeshipVacanciesRequest
-                { NationwideOnly = false });
+            { NationwideOnly = false });
 
-            result.LocationType.Should().Be(VacancySearchParametersMapper.NonNationwideLocationType);
+            result.LocationType.Should().BeNullOrEmpty();
         }
     }
 }
