@@ -29,7 +29,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 StandardLarsCodes = request.StandardLarsCodes.Select(x => x.Trim()).ToList(),
                 LocationType = request.NationwideOnly
                     ? NationwideLocationType
-                    : NonNationwideLocationType,
+                    : string.Empty,
                 Longitude = request.NationwideOnly ? null : request.Longitude,
                 Latitude = request.NationwideOnly ? null : request.Latitude,
                 DistanceInMiles = request.NationwideOnly ? null : request.DistanceInMiles
