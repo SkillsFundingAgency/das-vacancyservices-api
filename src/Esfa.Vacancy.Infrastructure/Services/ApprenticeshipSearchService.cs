@@ -10,7 +10,6 @@ using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using Nest;
 using SFA.DAS.NLog.Logger;
-using StackExchange.Redis;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
@@ -59,26 +58,35 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         .Take(parameters.PageSize)
                         .Query(query =>
                         {
-                            var container =
-                                (
-                                    query.Terms(qt => qt
-                                        .Field(apprenticeship => apprenticeship.FrameworkLarsCode)
-                                        .Terms(parameters.FrameworkLarsCodes))
-                                    || query.Terms(qt => qt
-                                        .Field(apprenticeship => apprenticeship.StandardLarsCode)
-                                        .Terms(parameters.StandardLarsCodes))
-                                )
-                                && query.Match(m => m
-                                    .Field(apprenticeship => apprenticeship.VacancyLocationType)
-                                    .Query(parameters.LocationType))
-                                && query.DateRange(range => range
+                            var container = new QueryContainer();
+                            if (parameters.FrameworkLarsCodes.Any() || parameters.StandardLarsCodes.Any())
+                            {
+                                container &= query.Terms(qt => qt
+                                                 .Field(apprenticeship => apprenticeship.FrameworkLarsCode)
+                                                 .Terms(parameters.FrameworkLarsCodes))
+                                             || query.Terms(qt => qt
+                                                 .Field(apprenticeship => apprenticeship.StandardLarsCode)
+                                                 .Terms(parameters.StandardLarsCodes));
+                            }
+
+                            if (parameters.FromDate.HasValue)
+                            {
+                                container &= query.DateRange(range => range
                                     .Field(apprenticeship => apprenticeship.PostedDate)
                                     .GreaterThanOrEquals(DateMath.Anchored(parameters.FromDate.GetValueOrDefault())));
+                            }
+
+                            if (parameters.LocationType == VacancySearchParametersMapper.NationwideLocationType)
+                            {
+                                container &= query.Match(m => m
+                                    .Field(apprenticeship => apprenticeship.VacancyLocationType)
+                                    .Query(parameters.LocationType));
+                            }
 
                             if (parameters.HasGeoSearchFields)
                             {
-                                container &= 
-                                    query.GeoDistance(gd=> gd
+                                container &=
+                                    query.GeoDistance(gd => gd
                                         .Field(summary => summary.Location)
                                         .Location(parameters.Latitude.GetValueOrDefault(), parameters.Longitude.GetValueOrDefault())
                                         .Distance(parameters.DistanceInMiles.GetValueOrDefault(), DistanceUnit.Miles));
@@ -116,7 +124,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             }
 
             if (!esReponse.IsValid)
-            {                
+            {
                 var ex = new Exception($"Unexpected response received from Elastic Search: { esReponse.DebugInformation}");
                 throw new InfrastructureException(ex);
             }
