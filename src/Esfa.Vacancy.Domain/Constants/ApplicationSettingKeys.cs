@@ -14,5 +14,7 @@
         public const string RecruitMongoConnectionString = "RecruitMongoConnectionString";
         public const string RecruitMongoDatabaseName = "RecruitMongoDatabaseName";
         public const string RecruitMongoCollectionName = "RecruitMongoCollectionName";
+        public const string ElasticsearchUserName = "ElasticsearchUserName";
+        public const string ElasticsearchPassword = "ElasticsearchPassword";
     }
 }
