@@ -188,5 +188,15 @@ namespace Esfa.Vacancy.Api.Types.Request
         /// Is the employer disability confident
         /// </summary>
         public bool? IsEmployerDisabilityConfident { get; set; }
+
+        /// <summary>
+        /// Employer's website
+        /// </summary>
+        public string EmployerWebsiteUrl { get; set; }
+
+        /// <summary>
+        /// About the employer
+        /// </summary>
+        public string EmployerDescription { get; set; }
     }
 }
