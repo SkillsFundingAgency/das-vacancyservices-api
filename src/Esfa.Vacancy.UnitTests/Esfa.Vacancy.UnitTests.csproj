@@ -122,6 +122,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApplicationMethod\AndApplicationMethodIsOnline.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApplicationMethod\WhenApplicationMethodIsOffline.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingApprenticeshipType.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingEmployerInformation.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingFromARequest.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsNationwide.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipParametersMapper\WhenMappingLocation\AndLocationTypeIsEmployerLocation.cs" />

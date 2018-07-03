@@ -45,8 +45,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId,
-                EmployerDescription = employerInformation.EmployerDescription,
-                EmployersWebsite = employerInformation.EmployerWebsite,
+                EmployerDescription =
+                    string.IsNullOrWhiteSpace(request.EmployerDescription)
+                    ? employerInformation.EmployerDescription
+                    : request.EmployerDescription,
+                EmployerWebsite =
+                    string.IsNullOrWhiteSpace(request.EmployersWebsiteUrl)
+                    ? employerInformation.EmployerWebsite
+                    : request.EmployersWebsiteUrl,
                 ProviderId = employerInformation.ProviderId,
                 ProviderSiteId = employerInformation.ProviderSiteId,
                 ApplyOutsideNAVMS = request.ApplicationMethod == ApplicationMethod.Offline,
