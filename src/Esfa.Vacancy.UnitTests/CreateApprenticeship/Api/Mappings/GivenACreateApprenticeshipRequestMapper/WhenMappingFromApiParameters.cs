@@ -313,5 +313,17 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Api.Mappings.GivenACreateA
         {
             _mappedRequest.AdditionalLocationInformation.Should().Be(_apiParameters.Location.AdditionalInformation);
         }
+
+        [Test]
+        public void ThenMapsEmployerDescription()
+        {
+            _mappedRequest.EmployerDescription.Should().Be(_apiParameters.EmployerDescription);
+        }
+
+        [Test]
+        public void ThenMapsEmployerWebsite()
+        {
+            _mappedRequest.EmployersWebsiteUrl.Should().Be(_apiParameters.EmployerWebsiteUrl);
+        }
     }
 }

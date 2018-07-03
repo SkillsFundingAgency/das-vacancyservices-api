@@ -53,5 +53,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
         public bool? IsEmployerDisabilityConfident { get; set; }
         public string AdditionalLocationInformation { get; set; }
         public string UserEmail { get; set; }
+        public string EmployersWebsiteUrl { get; set; }
+        public string EmployerDescription { get; set; }
     }
 }
