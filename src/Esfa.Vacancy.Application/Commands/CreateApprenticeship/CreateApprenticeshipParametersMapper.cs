@@ -64,7 +64,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber,
                 TrainingTypeId = (int)request.TrainingType,
-                ApprenticeshipType = GetApprenticeshipType(request.TrainingType, request.EducationLevel),
+                ApprenticeshipType = GetApprenticeshipType(request.EducationLevel),
                 IsDisabilityConfident = request.IsEmployerDisabilityConfident.GetValueOrDefault(),
                 AdditionalLocationInformation = request.AdditionalLocationInformation,
                 HistoryUserName = request.UserEmail
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             return parameters;
         }
 
-        private static ApprenticeshipType GetApprenticeshipType(TrainingType trainingType, int educationLevel)
+        private static ApprenticeshipType GetApprenticeshipType(int educationLevel)
         {
             switch (educationLevel)
             {
