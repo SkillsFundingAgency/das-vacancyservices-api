@@ -14,6 +14,9 @@
     "manageAppName": {
       "type": "string"
     },
+    "sandboxAppName": {
+      "type": "string"
+    },
     "slotName": {
       "type": "string",
       "defaultValue": "staging"
@@ -121,6 +124,9 @@
           },
           "manageAppName": {
             "value": "[parameters('manageAppName')]"
+          },
+          "sandboxAppName": {
+            "value": "[parameters('sandboxAppName')]"
           },
           "slotName": {
             "value": "[parameters('slotName')]"

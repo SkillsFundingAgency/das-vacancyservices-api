@@ -11,6 +11,9 @@
     "manageAppName": {
       "value": ""
     },
+    "sandboxAppName": {
+      "value": ""
+    },
     "slotName": {
       "value": ""
     },
