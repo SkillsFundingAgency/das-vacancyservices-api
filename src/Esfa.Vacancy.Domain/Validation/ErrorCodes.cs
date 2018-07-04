@@ -88,6 +88,8 @@
             public const string ExternalApplicationInstructions = "31043";
             public const string IsEmployerDisabilityConfident = "31044";
             public const string AdditionalLocationInformation = "31045";
+            public const string EmployerDescription = "31046";
+            public const string EmployerWebsite = "31047";
         }
     }
 }

@@ -45,8 +45,14 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 LocationTypeId = request.LocationType == LocationType.Nationwide ? NationwideLocationType : StandardLocationType,
                 NumberOfPositions = request.NumberOfPositions,
                 VacancyOwnerRelationshipId = employerInformation.VacancyOwnerRelationshipId,
-                EmployerDescription = employerInformation.EmployerDescription,
-                EmployersWebsite = employerInformation.EmployerWebsite,
+                EmployerDescription =
+                    string.IsNullOrWhiteSpace(request.EmployerDescription)
+                    ? employerInformation.EmployerDescription
+                    : request.EmployerDescription,
+                EmployerWebsite =
+                    string.IsNullOrWhiteSpace(request.EmployerWebsiteUrl)
+                    ? employerInformation.EmployerWebsite
+                    : request.EmployerWebsiteUrl,
                 ProviderId = employerInformation.ProviderId,
                 ProviderSiteId = employerInformation.ProviderSiteId,
                 ApplyOutsideNAVMS = request.ApplicationMethod == ApplicationMethod.Offline,
@@ -58,7 +64,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 ContactEmail = request.ContactEmail,
                 ContactNumber = request.ContactNumber,
                 TrainingTypeId = (int)request.TrainingType,
-                ApprenticeshipType = GetApprenticeshipType(request.TrainingType, request.EducationLevel),
+                ApprenticeshipType = GetApprenticeshipType(request.EducationLevel),
                 IsDisabilityConfident = request.IsEmployerDisabilityConfident.GetValueOrDefault(),
                 AdditionalLocationInformation = request.AdditionalLocationInformation,
                 HistoryUserName = request.UserEmail
@@ -70,7 +76,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             return parameters;
         }
 
-        private static ApprenticeshipType GetApprenticeshipType(TrainingType trainingType, int educationLevel)
+        private static ApprenticeshipType GetApprenticeshipType(int educationLevel)
         {
             switch (educationLevel)
             {
