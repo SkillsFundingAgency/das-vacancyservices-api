@@ -61,7 +61,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .Create();
             var parameters = mapper.MapFromRequest(request, empInfo);
 
-            parameters.EmployerWebsite.Should().Be(request.EmployersWebsiteUrl);
+            parameters.EmployerWebsite.Should().Be(request.EmployerWebsiteUrl);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var mapper = _fixture.Create<CreateApprenticeshipParametersMapper>();
             var request = _fixture
                 .Build<CreateApprenticeshipRequest>()
-                .Without(r => r.EmployersWebsiteUrl)
+                .Without(r => r.EmployerWebsiteUrl)
                 .Create();
             var empInfo = _fixture
                 .Build<EmployerInformation>()

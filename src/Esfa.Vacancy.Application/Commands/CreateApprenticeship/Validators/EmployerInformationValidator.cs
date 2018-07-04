@@ -17,10 +17,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .MatchesAllowedFreeTextCharacters()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.EmployerDescription);
 
-            RuleFor(request => request.EmployersWebsiteUrl)
+            RuleFor(request => request.EmployerWebsiteUrl)
                 .MustBeAValidWebUrl()
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.EmployerWebsite)
-                .When(r => !string.IsNullOrEmpty(r.EmployersWebsiteUrl));
+                .When(r => !string.IsNullOrEmpty(r.EmployerWebsiteUrl));
         }
     }
 }

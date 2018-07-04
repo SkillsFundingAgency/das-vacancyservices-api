@@ -60,7 +60,7 @@ namespace Esfa.Vacancy.Manage.Api.Mappings
                 AdditionalLocationInformation = parameters.Location.AdditionalInformation,
                 UserEmail = userEmail,
                 EmployerDescription = parameters.EmployerDescription,
-                EmployersWebsiteUrl = parameters.EmployerWebsiteUrl
+                EmployerWebsiteUrl = parameters.EmployerWebsiteUrl
             };
         }
     }

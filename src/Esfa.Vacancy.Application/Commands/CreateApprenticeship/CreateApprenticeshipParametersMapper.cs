@@ -50,9 +50,9 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                     ? employerInformation.EmployerDescription
                     : request.EmployerDescription,
                 EmployerWebsite =
-                    string.IsNullOrWhiteSpace(request.EmployersWebsiteUrl)
+                    string.IsNullOrWhiteSpace(request.EmployerWebsiteUrl)
                     ? employerInformation.EmployerWebsite
-                    : request.EmployersWebsiteUrl,
+                    : request.EmployerWebsiteUrl,
                 ProviderId = employerInformation.ProviderId,
                 ProviderSiteId = employerInformation.ProviderSiteId,
                 ApplyOutsideNAVMS = request.ApplicationMethod == ApplicationMethod.Offline,
