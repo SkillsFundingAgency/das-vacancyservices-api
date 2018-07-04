@@ -13,7 +13,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCase("", true, null)]
         [TestCase(null, true, null)]
         [TestCase("http://www.google.com", true, null)]
-        [TestCase("invalid url", false, "'Employers Website Url' must be a valid Url")]
+        [TestCase("invalid url", false, "'Employers Website Url' must be a valid Url.")]
         public void ThenValidateEmployerWebsite(string url, bool isValid, string errorMessage)
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());

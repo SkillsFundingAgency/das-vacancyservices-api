@@ -19,9 +19,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 .SetName("Then a null ExternalApplicationUrl is invalid"),
             new TestCaseData("", "'External Application Url' should not be empty.", true)
                 .SetName("Then an empty ExternalApplicationUrl is invalid"),
-            new TestCaseData("testdomain", "'External Application Url' must be a valid Url", true)
+            new TestCaseData("testdomain", "'External Application Url' must be a valid Url.", true)
                 .SetName("Then an incomplete Url should be invalid"),
-            new TestCaseData("ftp://testdomain", "'External Application Url' must be a valid Url", true)
+            new TestCaseData("ftp://testdomain", "'External Application Url' must be a valid Url.", true)
                 .SetName("Then a non http(s) Url should be invalid"),
             new TestCaseData("http://testdomain.com", null, false)
                 .SetName("Then a complete Url should be valid")
@@ -76,7 +76,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var sut = new Fixture().Customize(new AutoMoqCustomization())
                                    .Create<CreateApprenticeshipRequestValidator>();
 
-            sut.Validate(request);
+            var result = sut.Validate(request);
 
             if (shouldError)
             {
