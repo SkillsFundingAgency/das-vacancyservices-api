@@ -34,7 +34,6 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
             ConfigureContactDetails();
             ConfigureTrainingDetailsValidator();
             ConfigureEmployerInformationValidator();
-            ConfigureEmployerDescriptionValidator();
         }
     }
 }

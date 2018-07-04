@@ -46,7 +46,7 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string ExternalApplicationValuesNotToBeSpecified =
                 "'{PropertyName}' must not be specified based on the ApplicationMethod chosen";
 
-            public const string ExternalApplicationUrlInvalid = "Please specify a valid Url";
+            public const string InvalidUrl = "'{PropertyName}' must be a valid Url.";
 
             public const string SupplementaryQuestionNotToBeSpecified =
                 "You cannot specify Supplementary Questions for this Application Method";

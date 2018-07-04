@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         public static IRuleBuilderOptions<T, string> MustBeAValidWebUrl<T>(this IRuleBuilder<T, string> rule)
         {
             return rule.Must(BeValidWebUrl)
-                       .WithMessage(ErrorMessages.CreateApprenticeship.ExternalApplicationUrlInvalid);
+                       .WithMessage(ErrorMessages.CreateApprenticeship.InvalidUrl);
         }
 
         public static IRuleBuilderOptions<T, string> MatchesAllowedFreeTextCharacters<T>(
