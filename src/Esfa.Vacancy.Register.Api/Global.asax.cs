@@ -37,7 +37,7 @@ namespace Esfa.Vacancy.Register.Api
 
                 if (ex is HttpException)
                 {
-                    ApiRedirect("~/api/error");
+                    ApiRedirect("~/error");
                 }
             }
             catch

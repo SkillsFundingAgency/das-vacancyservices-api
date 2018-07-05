@@ -16,7 +16,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         }
 
         [AllowAnonymous]
-        [Route("api/error")]
+        [Route("error")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public HttpResponseMessage Get()
         {

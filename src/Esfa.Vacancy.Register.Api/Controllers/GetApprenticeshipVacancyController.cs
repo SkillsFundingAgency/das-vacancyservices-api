@@ -8,7 +8,7 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace Esfa.Vacancy.Register.Api.Controllers
 {
-    [RoutePrefix("api/v1/apprenticeships")]
+    [RoutePrefix("v1/apprenticeships")]
     public class GetApprenticeshipVacancyController : ApiController
     {
         private readonly GetApprenticeshipVacancyOrchestrator _apprenticeshipVacancyOrchestrator;
