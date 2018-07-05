@@ -183,7 +183,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ProviderAuthorisationFilter]
-        [Route("api/v1/apprenticeships")]
+        [Route("v1/apprenticeships")]
         [SwaggerOperation("CreateApprenticeshipVacancy", Tags = new[] { "Apprenticeships" })]
         [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(CreateApprenticeshipResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
