@@ -1,5 +1,6 @@
 using System.Web.Http;
 using Esfa.Vacancy.Manage.Api;
+using Microsoft.Azure;
 using Swashbuckle.Application;
 using WebActivatorEx;
 
@@ -12,6 +13,8 @@ namespace Esfa.Vacancy.Manage.Api
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
+
+            var environmentName = CloudConfigurationManager.GetSetting("InstanceName");
 
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
@@ -32,7 +35,7 @@ namespace Esfa.Vacancy.Manage.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "Manage vacancies API");
+                        c.SingleApiVersion("v1", $"Manage vacancies API {environmentName}");
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
