@@ -77,6 +77,9 @@
     },
     "RecruitMongoCollectionName": {
       "type": "string"
+    },
+    "InstanceName": {
+      "type": "string"
     }
   },
   "variables": {
@@ -101,7 +104,8 @@
       "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
       "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
       "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
-      "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]"
+      "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
+      "InstanceName":  "[parameters('InstanceName')]" 
     }
   },
   "resources": [

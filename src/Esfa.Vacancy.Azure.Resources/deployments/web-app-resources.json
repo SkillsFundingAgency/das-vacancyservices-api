@@ -114,7 +114,8 @@
             "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]",
             "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
             "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
-            "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]"
+            "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
+            "InstanceName": "[variables('registerAppSettings').InstanceName]"
           }
         },
         {
@@ -170,7 +171,8 @@
                 "LiveTraineeshipVacancyBaseUrl": "[variables('registerAppSettings').LiveTraineeshipVacancyBaseUrl]",
                 "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
                 "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
-                "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]"
+                "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
+                "InstanceName": "[variables('registerAppSettings').InstanceName]"
               }
             }
           ]
