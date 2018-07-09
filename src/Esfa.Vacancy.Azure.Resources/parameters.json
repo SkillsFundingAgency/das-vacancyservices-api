@@ -73,6 +73,9 @@
     },
     "RecruitMongoCollectionName": {
       "value": ""
+    },
+    "InstanceName": {
+      "value": ""
     }
   }
 }
