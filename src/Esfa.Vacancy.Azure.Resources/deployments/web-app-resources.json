@@ -40,11 +40,11 @@
       "alwaysOn": true
     },
     "registerSlotFriendlyName": "[concat(parameters('registerAppName'),'-',parameters('slotName'))]",
-    "manageAppSettings": "[parameters('baseParameters')]",
+    "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]",
     "manageSlotFriendlyName": "[concat(parameters('manageAppName'),'-',parameters('slotName'))]",
-    "sandboxAppSettings": "[parameters('baseParameters')]",
-    "sandboxSlotFriendlyName": "[concat(parameters('manageAppName'),'-',parameters('slotName'))]",
-    "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]"
+    "manageAppSettings": "[parameters('baseParameters')]",
+    "sandboxSlotFriendlyName": "[concat(parameters('sandboxAppName'),'-',parameters('slotName'))]",
+    "sandboxAppSettings": "[parameters('baseParameters')]"
   },
   "resources": [
     {
