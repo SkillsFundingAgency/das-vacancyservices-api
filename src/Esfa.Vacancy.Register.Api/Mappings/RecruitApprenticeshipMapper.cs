@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
             var trainingCode = GetTrainingCode(trainingType, liveVacancy.ProgrammeId);
 
-            var trainingTitle = GetTrainingTitle(trainingType, trainingCode);
+            var trainingTitle = await GetTrainingTitle(trainingType, trainingCode);
 
             var qualifications = GetVacancyQualification(liveVacancy);
 
@@ -98,7 +98,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 TrainingTitle = trainingTitle
             };
 
-
             return apprenticeship;
         }
 
@@ -134,7 +133,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
         private string GetNationalMinimumWage(WageRange wageRange, decimal hoursPerWeek)
         {
-
             var lowerMinimumLimit = wageRange.NationalMinimumWage * hoursPerWeek;
             var upperMinimumLimit = wageRange.NationalMaximumWage * hoursPerWeek;
 
@@ -164,18 +162,18 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return $"{wage.Duration} {unit}";
         }
 
-        private string GetTrainingTitle(ApiTypes.TrainingType trainingType, string trainingCode)
+        private async Task<string> GetTrainingTitle(ApiTypes.TrainingType trainingType, string trainingCode)
         {
             var code = int.Parse(trainingCode);
             if (trainingType == ApiTypes.TrainingType.Framework)
             {
 
-                var framework = _trainingDetailService.GetFrameworkDetailsAsync(code).Result;
+                var framework = await _trainingDetailService.GetFrameworkDetailsAsync(code);
                 return framework.Title;
             }
             else
             {
-                var standard = _trainingDetailService.GetStandardDetailsAsync(code).Result;
+                var standard = await _trainingDetailService.GetStandardDetailsAsync(code);
                 return standard.Title;
             }
         }
