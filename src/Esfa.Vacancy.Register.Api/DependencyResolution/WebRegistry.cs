@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
         {
             For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
 
-            // mediatr
+            // Mediatr
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
             For<IMediator>().Use<Mediator>();
@@ -27,10 +27,15 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
             For<IValidator<GetApprenticeshipVacancyRequest>>().Singleton().Use<GetApprenticeshipVacancyValidator>();
             For<IValidator<GetTraineeshipVacancyRequest>>().Singleton().Use<GetTraineeshipVacancyValidator>();
 
-            For<IClient>().Use<Client>()
-                .Ctor<string>("connectionString").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoConnectionString))
-                .Ctor<string>("databaseName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoDatabaseName))
-                .Ctor<string>("collectionName").Is(context => context.GetInstance<IProvideSettings>().GetSetting(ApplicationSettingKeys.RecruitMongoCollectionName));
+            For<IClient>().Use("Create recruit client without storage connection string.", ctx =>
+            {
+                var settingsProvider = ctx.GetInstance<IProvideSettings>();
+                var recruitClient = new Client(settingsProvider.GetSetting(ApplicationSettingKeys.RecruitMongoConnectionString),
+                                                settingsProvider.GetSetting(ApplicationSettingKeys.RecruitMongoDatabaseName),
+                                                settingsProvider.GetSetting(ApplicationSettingKeys.RecruitMongoCollectionName),
+                                                storageConnection: string.Empty);
+                return recruitClient;
+            });
         }
     }
 }
