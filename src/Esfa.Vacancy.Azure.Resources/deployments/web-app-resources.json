@@ -44,7 +44,9 @@
     "manageSlotFriendlyName": "[concat(parameters('manageAppName'),'-',parameters('slotName'))]",
     "manageAppSettings": "[parameters('baseParameters')]",
     "sandboxSlotFriendlyName": "[concat(parameters('sandboxAppName'),'-',parameters('slotName'))]",
-    "sandboxAppSettings": "[parameters('baseParameters')]"
+    "sandboxAppSettings": "[parameters('baseParameters')]",
+    "instancePrefix": "[if(equals(toUpper(parameters('baseParameters').EnvironmentName),'PROD'),'',concat(toUpper(substring(parameters('baseParameters').EnvironmentName,0,1)),toLower(substring(parameters('baseParameters').EnvironmentName,1,sub(length(parameters('baseParameters').EnvironmentName),1)))))]",
+    "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]"
   },
   "resources": [
     {
@@ -249,6 +251,7 @@
             "ApprenticeshipInfoApiBaseUrl": "[variables('manageAppSettings').ApprenticeshipInfoApiBaseUrl]",
             "CacheConnectionString": "[variables('manageAppSettings').CacheConnectionString]",
             "UseSandboxServices": "[variables('manageAppSettings').UseSandboxServices.ProductionSlot]",
+            "InstanceName": "[variables('instancePrefix')]",
             "CacheReferenceDataDuration": "[variables('manageAppSettings').CacheReferenceDataDuration]"
           }
         },
@@ -298,6 +301,7 @@
                 "ApprenticeshipInfoApiBaseUrl": "[variables('manageAppSettings').ApprenticeshipInfoApiBaseUrl]",
                 "CacheConnectionString": "[variables('manageAppSettings').CacheConnectionString]",
                 "UseSandboxServices": "[variables('manageAppSettings').UseSandboxServices.StagingSlot]",
+                "InstanceName": "[variables('instancePrefix')]",
                 "CacheReferenceDataDuration": "[variables('manageAppSettings').CacheReferenceDataDuration]"
               }
             }
@@ -370,6 +374,7 @@
             "ApprenticeshipInfoApiBaseUrl": "[variables('sandboxAppSettings').ApprenticeshipInfoApiBaseUrl]",
             "CacheConnectionString": "[variables('sandboxAppSettings').CacheConnectionString]",
             "UseSandboxServices": "[variables('sandboxAppSettings').UseSandboxServices.ProductionSlot]",
+            "InstanceName": "[variables('sandboxName')]",
             "CacheReferenceDataDuration": "[variables('sandboxAppSettings').CacheReferenceDataDuration]"
           }
         },
@@ -419,6 +424,7 @@
                 "ApprenticeshipInfoApiBaseUrl": "[variables('sandboxAppSettings').ApprenticeshipInfoApiBaseUrl]",
                 "CacheConnectionString": "[variables('sandboxAppSettings').CacheConnectionString]",
                 "UseSandboxServices": "[variables('sandboxAppSettings').UseSandboxServices.StagingSlot]",
+                "InstanceName": "[variables('sandboxName')]",
                 "CacheReferenceDataDuration": "[variables('sandboxAppSettings').CacheReferenceDataDuration]"
               }
             }
