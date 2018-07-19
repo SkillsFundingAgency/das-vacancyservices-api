@@ -45,7 +45,7 @@
     "manageAppSettings": "[parameters('baseParameters')]",
     "sandboxSlotFriendlyName": "[concat(parameters('sandboxAppName'),'-',parameters('slotName'))]",
     "sandboxAppSettings": "[parameters('baseParameters')]",
-    "instancePrefix": "[if(equals(toUpper(parameters('baseParameters').EnvironmentName),'PROD'),'',concat(toUpper(substring(parameters('baseParameters').EnvironmentName,0,1)),toLower(substring(parameters('baseParameters').EnvironmentName,1,sub(length(parameters('baseParameters').EnvironmentName),1)))))]",
+    "instancePrefix": "[if(equals(toUpper(parameters('baseParameters').EnvironmentName),'PROD'),'',parameters('baseParameters').EnvironmentName)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]"
   },
   "resources": [
