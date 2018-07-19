@@ -88,8 +88,8 @@
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.2\lib\net45\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.20.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.20\lib\net45\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.5.0\lib\net45\StructureMap.dll</HintPath>
