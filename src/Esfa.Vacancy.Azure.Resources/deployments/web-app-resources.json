@@ -373,7 +373,7 @@
             "LoggingRedisKey": "[variables('sandboxAppSettings').LoggingRedisKey]",
             "ApprenticeshipInfoApiBaseUrl": "[variables('sandboxAppSettings').ApprenticeshipInfoApiBaseUrl]",
             "CacheConnectionString": "[variables('sandboxAppSettings').CacheConnectionString]",
-            "UseSandboxServices": "[variables('sandboxAppSettings').UseSandboxServices.ProductionSlot]",
+            "UseSandboxServices": "yes",
             "InstanceName": "[variables('sandboxName')]",
             "CacheReferenceDataDuration": "[variables('sandboxAppSettings').CacheReferenceDataDuration]"
           }
@@ -423,7 +423,7 @@
                 "LoggingRedisKey": "[variables('sandboxAppSettings').LoggingRedisKey]",
                 "ApprenticeshipInfoApiBaseUrl": "[variables('sandboxAppSettings').ApprenticeshipInfoApiBaseUrl]",
                 "CacheConnectionString": "[variables('sandboxAppSettings').CacheConnectionString]",
-                "UseSandboxServices": "[variables('sandboxAppSettings').UseSandboxServices.StagingSlot]",
+                "UseSandboxServices": "yes",
                 "InstanceName": "[variables('sandboxName')]",
                 "CacheReferenceDataDuration": "[variables('sandboxAppSettings').CacheReferenceDataDuration]"
               }
