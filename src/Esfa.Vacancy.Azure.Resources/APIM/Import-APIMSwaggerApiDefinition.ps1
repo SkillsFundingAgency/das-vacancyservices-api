@@ -17,6 +17,11 @@ The full path to the swagger defintion
 For example:
 https://sit-manage-vacancy.apprenticeships.sfa.bis.gov.uk/swagger/docs/v1
 
+.PARAMETER ApiUrlSuffix
+Suffix to apply to APIs, comes after the name of the APIM and before the path of the API
+
+Will default to the ApiName if not provided
+
 #>
 [CmdletBinding()]
 Param(
@@ -27,7 +32,9 @@ Param(
     [Parameter(Mandatory=$true)]
     [String]$ApiName,
     [Parameter(Mandatory=$true)]
-    [String]$SwaggerSpecificationUrl
+    [String]$SwaggerSpecificationUrl,
+    [Parameter(Mandatory=$false)]
+    [String]$ApiUrlSuffix
 )
 
 try {
@@ -37,9 +44,19 @@ try {
     Write-Host "Retrieving ApiId for API $ApiName"
     $ApiId = (Get-AzureRmApiManagementApi -Context $Context -Name $ApiName).ApiId
 
-    # --- Throw if ApiId is null
     if (!$ApiId) {
-        throw "Could not retrieve ApiId for API $ApiName"
+        # create API if it doesn't exist
+        Write-Host "Could not retrieve ApiId for API $ApiName - creating API"
+
+        $apimuri = [System.Uri] $SwaggerSpecificationUrl
+        if ($PSBoundParameters.ContainsKey("")) {`
+            $apisuf = $ApiUrlSuffix.ToLower()
+        } else {
+            $apisuf = $ApiName.Replace(' ','-').ToLower()
+        }
+
+        $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf
+        $ApiId = $newapi.ApiId
     }
 
     # --- Import swagger definition
