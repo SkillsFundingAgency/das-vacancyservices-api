@@ -50,13 +50,13 @@ try {
 
         $apimuri = [System.Uri] $SwaggerSpecificationUrl
         if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
-            Write-Host "Creating API $ApiName with suffix $ApiUrlSuffix"
-            $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $ApiUrlSuffix.ToLower()
+            $apisuf = $ApiUrlSuffix.ToLower()
         } else {
             $apisuf = $ApiName.Replace(' ','-').ToLower()
-            Write-Host "Creating API $ApiName with suffix $apisuf"
-            $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf
         }
+
+        Write-Host "Creating API $ApiName with suffix $apisuf"
+        $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -Description $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf -ErrorAction Stop -Verbose:$VerbosePreference
         $ApiId = $newapi.ApiId
     }
 
