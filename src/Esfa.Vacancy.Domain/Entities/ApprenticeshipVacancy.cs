@@ -44,8 +44,6 @@ namespace Esfa.Vacancy.Domain.Entities
 
         public DateTime? ApplicationClosingDate { get; set; }
 
-        public DateTime? InterviewFromDate { get; set; }
-
         public int NumberOfPositions { get; set; }
 
         public int? StandardCode { get; set; }
@@ -75,8 +73,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public string SkillsRequired { get; set; }
 
         public string PersonalQualities { get; set; }
-
-        public string ImportantInformation { get; set; }
 
         public string FutureProspects { get; set; }
 

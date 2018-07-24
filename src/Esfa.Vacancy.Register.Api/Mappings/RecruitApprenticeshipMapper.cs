@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
         public async Task<ApiTypes.ApprenticeshipVacancy> MapFromRecruitVacancy(recruitEntities.LiveVacancy liveVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
-            
+
             var trainingType =
                 (ApiTypes.TrainingType)Enum.Parse(typeof(ApiTypes.TrainingType), liveVacancy.ProgrammeType);
 
@@ -78,7 +78,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 QualificationsRequired = qualifications,
                 SkillsRequired = skills,
                 PersonalQualities = null,
-                ImportantInformation = null,
                 ApplicationInstructions = liveVacancy.ApplicationInstructions,
                 ApplicationUrl = liveVacancy.ApplicationUrl,
                 FutureProspects = liveVacancy.OutcomeDescription,
