@@ -49,13 +49,14 @@ try {
         Write-Host "Could not retrieve ApiId for API $ApiName - creating API"
 
         $apimuri = [System.Uri] $SwaggerSpecificationUrl
-        if ($PSBoundParameters.ContainsKey("")) {`
-            $apisuf = $ApiUrlSuffix.ToLower()
+        if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
+            Write-Host "Creating API $ApiName with suffix $ApiUrlSuffix"
+            $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $ApiUrlSuffix.ToLower()
         } else {
             $apisuf = $ApiName.Replace(' ','-').ToLower()
+            Write-Host "Creating API $ApiName with suffix $apisuf"
+            $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf
         }
-
-        $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf
         $ApiId = $newapi.ApiId
     }
 
