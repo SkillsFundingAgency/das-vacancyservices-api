@@ -73,11 +73,6 @@ namespace Esfa.Vacancy.Api.Types
         public DateTime? ApplicationClosingDate { get; set; }
 
         /// <summary>
-        /// Interview from date.
-        /// </summary>
-        public DateTime? InterviewFromDate { get; set; }
-
-        /// <summary>
         /// Number of positions.
         /// </summary>
         public int NumberOfPositions { get; set; }
@@ -131,11 +126,6 @@ namespace Esfa.Vacancy.Api.Types
         /// Personal qualities.
         /// </summary>
         public string PersonalQualities { get; set; }
-
-        /// <summary>
-        /// Important information.
-        /// </summary>
-        public string ImportantInformation { get; set; }
 
         /// <summary>
         /// Future prospects.

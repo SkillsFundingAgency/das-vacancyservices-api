@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -134,12 +133,6 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
         public void ThenMapPersonalQualities()
         {
             _mappedVacancy.PersonalQualities.Should().BeNull();
-        }
-
-        [Test]
-        public void ThenMapImportantInformation()
-        {
-            _mappedVacancy.ImportantInformation.Should().BeNull();
         }
 
         [Test]
