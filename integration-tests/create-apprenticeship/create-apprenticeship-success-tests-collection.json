@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "fbb29a81-5d67-4977-98a6-2bb50b6e3851",
+		"name": "Create Apprenticeship - Success Tests Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "V1",
+			"description": "",
+			"item": [
+				{
+					"name": "Default Success Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de820f61-813f-4968-8518-71353dbb4318",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// example using pm.response.to.be*",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37a6bfc0-3a00-4a25-b903-da14440d1b9a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Title\": \"Test Vacancy for  Text box Verification apprentice S3\",\r\n  \"ShortDescription\": \"UK shares fell on Friday morning, but the declines were not as big as those seen in Asia and the US.\",\r\n  \"LongDescription\": \"Asian markets saw hefty falls overnight, while in the US on Thursday the Dow Jones fell by more than 1,000 points for the second time this week. The big sell-offs around the world this week have been pinned partly on concerns over the prospect of higher interest rates. In Asia on Friday, Japan's Nikkei 225 shares index closed down 2.3% while China's Shanghai Composite slumped 4.1%. How could the stock market fall affect you? Bank deputy governor urges calm on markets Kamal Ahmed: Will the fall turn into a rout? In the US, the Dow Jones ended Thursday's trading session 4.2% lower at 23,860, and the wider S&P 500 index closed down 3.8%.\",\r\n  \"DesiredSkills\": \"However, the falls seen  in Europe on Friday were not as steep. Germany's Dax share index and France's Cac 40 index were both down 0.4%. Bank of England deputy governor Ben Broadbent told the BBC that markets might have underestimated the prospect of a pick-up in inflation.\",\r\n  \"DesiredPersonalQualities\": \"If you look at what happened last year, particularly in the United States but also other equity markets, there was extremely strong growth - big rises in prices - as people gradually realised how strong the global economy was, he said.\",\r\n  \"DesiredQualifications\": \"Sue  Noffke, UK equities fund manager at Schroders, told the BBC that given how well stock markets have been doing for the past few years, the sell-off this week was not that unusual.\",\r\n  \"FutureProspects\": \"The global sell-off began last week after a solid US jobs report fuelled expectations that the Federal Reserve would need to raise interest rates faster than expected, because of the strength of the economy.\",\r\n  \"ThingsToConsider\": \"Also  worrying investors was a government budget proposal announced by US lawmakers, which raises spending caps and could fan inflation.\",\r\n\"TrainingToBeProvided\":\"What is Lorem Ipsum?   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.\", \r\n \"ApplicationMethod\": \"Offline\",\r\n  \"SupplementaryQuestion1\": \"\",\r\n  \"SupplementaryQuestion2\": \"\",\r\n  \"ExternalApplicationUrl\": \"https://www.google.co.uk/\",\r\n  \"ExternalApplicationInstructions\": \"string\",\r\n  \"ExpectedDuration\": 123,\r\n  \"DurationType\": \"Weeks\",\r\n  \"TrainingType\":1,\r\n  \"TrainingCode\":\"584-21-1\",\r\n  \"ApplicationClosingDate\": \"2018-11-22T10:01:20Z\",\r\n  \"ExpectedStartDate\": \"2018-12-22T00:00:00Z\",\r\n  \"WorkingWeek\": \"9am to 5pm But the devil is in the detail.\",\r\n  \"HoursPerWeek\": 36.0,\r\n  \"WageType\": \"CustomWageRange\",\r\n  \"WageUnit\": \"Weekly\",\r\n  \"MinWage\": 200.0,\r\n  \"MaxWage\": 250.0,\r\n  \"LocationType\": \"OtherLocation\",\r\n  \"Location\": {\r\n    \"AddressLine1\": \"21 Greenway Street\",\r\n    \"AddressLine2\": \"string\",\r\n    \"AddressLine3\": \"string\",\r\n    \"AddressLine4\": \"string\",\r\n    \"AddressLine5\": \"string\",\r\n    \"Postcode\": \"CV6 4dr\",\r\n    \"Town\": \"Coventry\"\r\n  },\r\n  \"NumberOfPositions\": 3,\r\n  \"EmployerEdsUrn\": 224506390,\r\n  \"ProviderSiteEdsUrn\":\t227226194,\r\n  \"ContactName\": \"Sultan\",\r\n  \"ContactEmail\":\"sammyP@xmail.com\",\r\n  \"ContactNumber\": \"0247688887766\",\r\n \"isEmployerDisabilityConfident\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{manage-vacancies-url}}",
+							"host": [
+								"{{manage-vacancies-url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

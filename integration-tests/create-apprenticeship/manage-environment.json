@@ -1,0 +1,33 @@
+{
+  "id": "1c4ce504-dd7f-45e2-bcf1-3f2b7c3edf72",
+  "name": "Manage",
+  "values": [
+    {
+      "key": "manage-vacancies-url",
+      "value": "__manageurl__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "apim-key",
+      "value": "__apimkey__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "employee-edsurn",
+      "value": "__employeeedsurn__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "site-edsurn",
+      "value": "__siteedsurn__",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-07-27T08:30:38.831Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}
