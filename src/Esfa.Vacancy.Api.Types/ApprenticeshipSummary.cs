@@ -88,11 +88,6 @@ namespace Esfa.Vacancy.Api.Types
         public string VacancyUrl { get; set; }
 
         /// <summary>
-        /// The API detail URL.
-        /// </summary>
-        public string ApiDetailUrl { get; set; }
-
-        /// <summary>
         /// Is employer disability confident.
         /// </summary>
         public bool IsEmployerDisabilityConfident { get; set; }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Esfa.Vacancy.Api.Types;
-using Esfa.Vacancy.Register.Api.Constants;
 using Esfa.Vacancy.Register.Api.Orchestrators;
 using Swashbuckle.Swagger.Annotations;
 
@@ -116,10 +115,8 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
-            string ApiLinkUrlFunction(int reference) =>
-                Url.Link(RouteName.GetApprenticeshipVacancyByReference, new { vacancyReference = reference });
             SearchResponse<ApprenticeshipSummary> results =
-                await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters, ApiLinkUrlFunction)
+                await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters)
                                          .ConfigureAwait(false);
             return Ok(results);
         }

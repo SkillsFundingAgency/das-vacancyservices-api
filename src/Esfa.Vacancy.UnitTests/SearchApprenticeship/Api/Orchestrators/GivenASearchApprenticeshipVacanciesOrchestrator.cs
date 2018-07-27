@@ -78,7 +78,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
         {
             Func<Task> action = async () =>
             {
-                await _orchestrator.SearchApprenticeship(null, null);
+                await _orchestrator.SearchApprenticeship(null);
             };
 
             action.ShouldThrow<ValidationException>()
@@ -94,26 +94,16 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
         [Test]
         public async Task ThenMappedResponseFromMediatorIsReturned()
         {
-            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters, x => String.Empty);
+            var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
 
             response.Should().BeSameAs(_searchResponse);
-        }
-
-        [Test]
-        public async Task ThenApiDetailsUrlShouldBePopulated()
-        {
-            SearchResponse<ApprenticeshipSummary> response = await _orchestrator
-                .SearchApprenticeship(_searchApprenticeshipParameters, reference => $"{ApiBaseUrl}/{reference}")
-                .ConfigureAwait(false);
-
-            response.Results.First().ApiDetailUrl.Should().Be($"{ApiBaseUrl}/{_searchResponse.Results.First().VacancyReference}");
         }
 
         [Test]
         public async Task ThenVacancyUrlShouldBePopulated()
         {
             SearchResponse<ApprenticeshipSummary> response = await _orchestrator
-                .SearchApprenticeship(_searchApprenticeshipParameters, reference => string.Empty)
+                .SearchApprenticeship(_searchApprenticeshipParameters)
                 .ConfigureAwait(false);
 
             response.Results.First().VacancyUrl.Should().Be($"{FAABaseUrl}/{_searchResponse.Results.First().VacancyReference}");
