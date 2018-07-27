@@ -1,0 +1,33 @@
+{
+  "id": "0d0c728c-58f6-4463-aad4-740b808cbc0a",
+  "name": "Manage Sandbox",
+  "values": [
+    {
+      "key": "manage-vacancies-url",
+      "value": "__managesandboxurl__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "apim-key",
+      "value": "__apimkey__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "employee-edsurn",
+      "value": "__employeeedsurn__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "site-edsurn",
+      "value": "__siteedsurn__",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-07-27T08:31:45.091Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}
