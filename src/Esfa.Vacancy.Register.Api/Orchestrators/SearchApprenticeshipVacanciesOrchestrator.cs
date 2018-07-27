@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
@@ -32,7 +31,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         }
 
         public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
-            SearchApprenticeshipParameters apprenticeSearchParameters, Func<int, string> linkFunc)
+            SearchApprenticeshipParameters apprenticeSearchParameters)
         {
             if (apprenticeSearchParameters == null)
             {
@@ -50,7 +49,6 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             foreach (ApprenticeshipSummary summary in results.Results)
             {
                 summary.VacancyUrl = GetVacancyUrl(summary.VacancyReference);
-                summary.ApiDetailUrl = linkFunc(summary.VacancyReference);
             }
 
             return results;
