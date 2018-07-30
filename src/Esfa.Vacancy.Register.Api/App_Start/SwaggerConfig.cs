@@ -1,8 +1,8 @@
-using System.Runtime.CompilerServices;
 using System.Web.Http;
-using WebActivatorEx;
 using Esfa.Vacancy.Register.Api;
+using Microsoft.Azure;
 using Swashbuckle.Application;
+using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -14,7 +14,7 @@ namespace Esfa.Vacancy.Register.Api
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
 
-            GlobalConfiguration.Configuration 
+            GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
                         // By default, the service root url is inferred from the request used to access the docs.
@@ -33,7 +33,10 @@ namespace Esfa.Vacancy.Register.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "Live vacancies API");
+                        var instanceName = CloudConfigurationManager.GetSetting("InstanceName");
+                        var title = "Live vacancies API";
+                        if (!string.IsNullOrWhiteSpace(instanceName)) title = $"{title} {instanceName}";
+                        c.SingleApiVersion("v1", title);
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
@@ -58,7 +61,7 @@ namespace Esfa.Vacancy.Register.Api
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
