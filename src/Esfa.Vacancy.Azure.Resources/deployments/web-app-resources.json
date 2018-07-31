@@ -122,8 +122,9 @@
             "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
             "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
             "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-            "InstanceName": "tbc"
-          }
+            "InstanceName": "[variables('instancePrefix')]",
+            "Test": "test1"
+      }
         },
         {
           "apiVersion": "2015-08-01",
@@ -179,7 +180,8 @@
                 "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
                 "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
                 "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-                "InstanceName": "tbc"
+                "InstanceName": "[variables('instancePrefix')]",
+                "Test": "test1"
               }
             }
           ]
