@@ -122,8 +122,7 @@
             "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
             "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
             "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-            "InstanceName": "[variables('instancePrefix')]",
-            "Test": "test1"
+            "InstanceName": "[variables('instancePrefix')]"
       }
         },
         {
@@ -180,8 +179,7 @@
                 "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
                 "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
                 "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-                "InstanceName": "[variables('instancePrefix')]",
-                "Test": "test1"
+                "InstanceName": "[variables('instancePrefix')]"
               }
             }
           ]
