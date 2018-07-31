@@ -3,8 +3,14 @@
   "name": "Manage Sandbox",
   "values": [
     {
-      "key": "manage-vacancies-url",
-      "value": "__managesandboxurl__",
+      "key": "apim-gateway-url",
+      "value": "__apimgatewayurl__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "manage-vacancies-path",
+      "value": "__managevacanciessandboxpath__",
       "enabled": true,
       "type": "text"
     },
