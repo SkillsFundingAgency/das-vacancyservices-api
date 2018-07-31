@@ -3,8 +3,14 @@
   "name": "Manage",
   "values": [
     {
-      "key": "manage-vacancies-url",
-      "value": "__manageurl__",
+      "key": "apim-gateway-url",
+      "value": "__apimgatewayurl__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "manage-vacancies-path",
+      "value": "__managevacanciespath__",
       "enabled": true,
       "type": "text"
     },
