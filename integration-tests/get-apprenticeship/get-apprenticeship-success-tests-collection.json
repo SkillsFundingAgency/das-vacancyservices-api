@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "2e9d00cd-ab0d-428f-b651-6c47267b0451",
+		"name": "Get Apprenticeship",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Apprenticeship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(0);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"if(jsonData.totalMatched > 0) {",
+							"    var vacancyRef = jsonData.results[0].vacancyReference;",
+							"    var vacancyTitle = jsonData.results[0].title;",
+							"    pm.environment.set(\"vacancy-ref\", vacancyRef);",
+							"    pm.environment.set(\"vacancy-title\", vacancyTitle);",
+							"}",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{apim-gateway-url}}/vacancies/v1/apprenticeships/search?nationwideOnly=true",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"vacancies",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apprenticeship Detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "723702a1-7b08-4ef2-8884-2cd73a6d25e4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.eql(pm.environment.get('vacancy-title'));",
+							"});",
+							"",
+							"",
+							"pm.environment.unset(\"vacancy-ref\");",
+							"pm.environment.unset(\"vacancy-title\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{apim-gateway-url}}/vacancies/v1/apprenticeships/{{vacancy-ref}}",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"vacancies",
+						"v1",
+						"apprenticeships",
+						"{{vacancy-ref}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

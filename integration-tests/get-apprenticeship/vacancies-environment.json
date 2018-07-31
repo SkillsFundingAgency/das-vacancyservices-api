@@ -1,0 +1,21 @@
+{
+  "id": "8f7a6d63-4d96-4d1c-a24f-6ab4172e987d",
+  "name": "Prod",
+  "values": [
+    {
+      "key": "apim-key",
+      "value": "__apimkey__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "apim-gateway-url",
+      "value": "__apimgatewayurl__",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-07-31T07:52:25.519Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}
