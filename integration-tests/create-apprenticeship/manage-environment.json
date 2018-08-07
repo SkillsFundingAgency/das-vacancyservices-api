@@ -16,7 +16,7 @@
     },
     {
       "key": "apim-key",
-      "value": "__apimkey__",
+      "value": "__manageapimkey__",
       "enabled": true,
       "type": "text"
     },

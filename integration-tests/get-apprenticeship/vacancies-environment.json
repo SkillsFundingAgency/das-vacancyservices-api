@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "apim-key",
-      "value": "__apimkey__",
+      "value": "__vacancyapimkey__",
       "enabled": true,
       "type": "text"
     },
