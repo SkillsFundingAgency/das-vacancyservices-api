@@ -83,6 +83,12 @@
     },
     "InstanceName": {
       "type": "string"
+    },
+    "ElasticsearchUserName": {
+      "type": "string"
+    },
+    "ElasticsearchPassword": {
+      "type": "string"
     }
   },
   "variables": {
@@ -98,7 +104,9 @@
         "ProductionSlot": "[parameters('UseSandboxServicesProdSlot')]",
         "StagingSlot": "[parameters('UseSandboxServicesStagingSlot')]"
       },
-      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
+      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]",
+      "ElasticsearchUserName": "[parameters('ElasticsearchUserName')]",
+      "ElasticsearchPassword": "[parameters('ElasticsearchPassword')]"
     },
     "appParameters": {
       "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
