@@ -51,7 +51,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
             var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(request.ProviderUkprn,
                 request.ProviderSiteEdsUrn, request.EmployerEdsUrn);
             if (employerInformation == null)
+            {
+                _logger.Warn($"Vacancy owner relationship couldn't be established for Ukprn: {request.ProviderUkprn}, SiteUrn: {request.ProviderSiteEdsUrn} and EmployerUrn: {request.EmployerEdsUrn}");
                 throw new UnauthorisedException(ErrorMessages.CreateApprenticeship.MissingProviderSiteEmployerLink);
+            }
 
             var parameters = _parametersMapper.MapFromRequest(request, employerInformation);
 
@@ -72,6 +75,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
             if (trainingDetail != null) return trainingDetail.Level;
 
+            _logger.Warn($"Training code {request.TrainingCode} for {request.TrainingType} was not found.");
             var error = new ValidationFailure("TrainingCode", ErrorMessages.CreateApprenticeship.InvalidTrainingCode)
             {
                 ErrorCode = ErrorCodes.CreateApprenticeship.TrainingCode
