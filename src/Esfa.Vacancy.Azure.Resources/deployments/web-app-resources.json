@@ -122,7 +122,9 @@
             "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
             "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
             "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-            "InstanceName": "[variables('registerAppSettings').InstanceName]"
+            "InstanceName": "[variables('registerAppSettings').InstanceName]",
+            "ElasticsearchUserName": "[variables('registerAppSettings').ElasticsearchUserName]",
+            "ElasticsearchPassword": "[variables('registerAppSettings').ElasticsearchPassword]"
           }
         },
         {
@@ -179,7 +181,9 @@
                 "RecruitMongoConnectionString": "[variables('registerAppSettings').RecruitMongoConnectionString]",
                 "RecruitMongoDatabaseName": "[variables('registerAppSettings').RecruitMongoDatabaseName]",
                 "RecruitMongoCollectionName": "[variables('registerAppSettings').RecruitMongoCollectionName]",
-                "InstanceName": "[variables('registerAppSettings').InstanceName]"
+                "InstanceName": "[variables('registerAppSettings').InstanceName]",
+                "ElasticsearchUserName": "[variables('registerAppSettings').ElasticsearchUserName]",
+                "ElasticsearchPassword": "[variables('registerAppSettings').ElasticsearchPassword]"
               }
             }
           ]
