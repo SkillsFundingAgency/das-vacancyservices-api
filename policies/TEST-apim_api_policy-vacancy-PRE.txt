@@ -1,0 +1,82 @@
+<policies>
+    <inbound>
+        <log-to-eventhub logger-id="{{LoggerName}}">@{
+            // Push JSON string to Event Hub
+            return new JObject(
+                        new JProperty("@timestamp", DateTime.UtcNow.ToString("o")),
+                        new JProperty("@version", 1),
+                        new JProperty("app_Name", "das-apim-vacancy-api".ToLower()),
+                        new JProperty("level", "INFO"),
+                        new JProperty("LoggerType", "Api.Management.Logger"),
+                        new JProperty("Environment", "PRE"),
+                        new JProperty("message", string.Join(", ", context.Product.Name, context.Api.Name, context.Operation.Name, context.Operation.Method)),
+                        new JProperty("requestBody", context.Request.Body?.As<string>(preserveContent: true)),
+                        new JProperty("requestId", context.RequestId),
+                        new JProperty("direction", "INBOUND"),
+                        new JProperty("User", new JObject(
+                            new JProperty("Subscription", context.Subscription.Key),
+                            new JProperty("Note", context.User.Note),
+                            new JProperty("Email", context.User.Email)
+                            )
+                        ),
+                        new JProperty("RequestCtx", new JObject(
+                                new JProperty("IpAddress", context.Request.IpAddress),
+                                new JProperty("Url", context.Request.Url.ToString()),
+                                new JProperty("Method", context.Operation.Method)
+                            )
+                        )
+                    ).ToString();
+            }</log-to-eventhub>
+        <base />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <send-one-way-request mode="new">
+            <set-url>{{SlackWebhookUrl}}</set-url>
+            <set-method>POST</set-method>
+            <set-body>@{  
+                return new JObject(  
+                        new JProperty("username", String.Format("{0} (PRE)", context.Api.Name)),
+                        new JProperty("icon_emoji", ":ghost:"),  
+                        new JProperty("text", String.Format("{2} {3} {0} {4} {1} {5}",  
+                                                context.Request.Method,  
+                                                context.Request.Url.Path + context.Request.Url.QueryString,  
+                                                context.Request.Url.Host,  
+                                                context.Response.StatusCode,  
+                                                context.Response.StatusReason,  
+                                                context.User.Email  
+                                                ))  
+                        ).ToString();  
+            }</set-body>
+        </send-one-way-request>
+        <log-to-eventhub logger-id="{{LoggerName}}">@{
+            // Set the level variable based on the context status code value
+            var level = context.Response.StatusCode >= 400 ? "ERROR" : "INFO";
+                
+            // Push JSON string to Event Hub
+            return new JObject(
+                        new JProperty("@timestamp", DateTime.UtcNow.ToString("o")),
+                        new JProperty("@version", 1),
+                        new JProperty("app_Name", "das-apim-vacancy-api".ToLower()),
+                        new JProperty("level", level),
+                        new JProperty("LoggerType", "Api.Management.Logger"),
+                        new JProperty("Environment", "PRE"),
+                        new JProperty("message", context.Response.StatusReason + " (" + context.Response.StatusCode + ")"),
+                        new JProperty("requestId", context.RequestId),
+                        new JProperty("direction", "OUTBOUND"),
+                        new JProperty("RequestCtx", new JObject(
+                                new JProperty("IpAddress", context.Request.IpAddress),
+                                new JProperty("Url", context.Request.Url.ToString()),
+                                new JProperty("Method", context.Operation.Method)
+                            )
+                        )
+                    ).ToString();
+            }</log-to-eventhub>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
