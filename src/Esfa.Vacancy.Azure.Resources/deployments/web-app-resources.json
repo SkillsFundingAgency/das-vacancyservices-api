@@ -126,7 +126,7 @@
             "RecruitMongoConnectionString": "[parameters('appSettings').RecruitMongoConnectionString]",
             "RecruitMongoDatabaseName": "[parameters('appSettings').RecruitMongoDatabaseName]",
             "RecruitMongoCollectionName": "[parameters('appSettings').RecruitMongoCollectionName]",
-            "InstanceName": "[parameters('appSettings').InstanceName]",
+            "InstanceName": "[variables('instancePrefix')]",
             "ElasticsearchUserName": "[parameters('appSettings').ElasticsearchUserName]",
             "ElasticsearchPassword": "[parameters('appSettings').ElasticsearchPassword]"
           }
@@ -185,7 +185,7 @@
                 "RecruitMongoConnectionString": "[parameters('appSettings').RecruitMongoConnectionString]",
                 "RecruitMongoDatabaseName": "[parameters('appSettings').RecruitMongoDatabaseName]",
                 "RecruitMongoCollectionName": "[parameters('appSettings').RecruitMongoCollectionName]",
-                "InstanceName": "[parameters('appSettings').InstanceName]",
+                "InstanceName": "[variables('instancePrefix')]",
                 "ElasticsearchUserName": "[parameters('appSettings').ElasticsearchUserName]",
                 "ElasticsearchPassword": "[parameters('appSettings').ElasticsearchPassword]"
               }
