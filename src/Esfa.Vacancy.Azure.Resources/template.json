@@ -94,7 +94,7 @@
       "type": "string"
     },
     "aspInstances": {
-      "type": "string"
+      "type": "int"
     },
     "keyVaultCertificateName": {
       "type": "string"
