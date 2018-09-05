@@ -89,6 +89,21 @@
     },
     "ElasticsearchPassword": {
       "type": "string"
+    },
+    "aspSize": {
+      "type": "string"
+    },
+    "aspInstances": {
+      "type": "string"
+    },
+    "keyVaultCertificateName": {
+      "type": "string"
+    },
+    "keyVaultName": {
+      "type": "string"
+    },
+    "keyVaultResourceGroup": {
+      "type": "string"
     }
   },
   "variables": {
@@ -116,10 +131,63 @@
       "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
       "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
       "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
-      "InstanceName":  "[parameters('InstanceName')]" 
-    }
+      "InstanceName": "[parameters('InstanceName')]"
+    },
+    "appSettings": {
+      "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
+      "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+      "EnvironmentName": "[parameters('EnvironmentName')]",
+      "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
+      "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
+      "CacheConnectionString": "[parameters('CacheConnectionString')]",
+      "UseSandboxServices": {
+        "ProductionSlot": "[parameters('UseSandboxServicesProdSlot')]",
+        "StagingSlot": "[parameters('UseSandboxServicesStagingSlot')]"
+      },
+      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]",
+      "ElasticsearchUserName": "[parameters('ElasticsearchUserName')]",
+      "ElasticsearchPassword": "[parameters('ElasticsearchPassword')]",
+      "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
+      "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
+      "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
+      "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
+      "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
+      "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
+      "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
+      "InstanceName": "[parameters('InstanceName')]"
+    },
+    "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]"
   },
   "resources": [
+    {
+      "apiVersion": "2017-08-01",
+      "name": "[parameters('keyVaultCertificateName')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service-certificate.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultCertificateName": {
+            "value": "[parameters('keyVaultCertificateName')]"
+          },
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          },
+          "keyVaultResourceGroup": {
+            "value": "[parameters('keyVaultResourceGroup')]"
+          },
+          "serverFarmId": {
+            "value": "[if(variables('deployToASE'), reference(parameters('appHostingPlanName')).outputs.appServicePlanId.value, '')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[parameters('appHostingPlanName')]"
+      ]
+    },
     {
       "apiVersion": "2017-08-01",
       "name": "register-web-app-resources-deployment",
@@ -160,9 +228,45 @@
           },
           "appParameters": {
             "value": "[variables('appParameters')]"
+          },
+          "appSettings": {
+            "value": "[variables('appSettings')]"
           }
         }
-      }
+      },
+      "dependsOn": [
+        "[parameters('appHostingPlanName')]"
+      ]
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "name": "[parameters('appHostingPlanName')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service-plan.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServicePlanName": {
+            "value": "[parameters('appHostingPlanName')]"
+          },
+          "aseHostingEnvironmentName": {
+            "value": "[parameters('appHostingEnvironment')]"
+          },
+          "aseResourceGroup": {
+            "value": "[parameters('appServerFarmResourceGroup')]"
+          },
+          "aspSize": {
+            "value": "[parameters('aspSize')]"
+          },
+          "aspInstances": {
+            "value": "[parameters('aspInstances')]"
+          }
+        }
+      },
+      "dependsOn": []
     }
   ],
     "outputs": {
