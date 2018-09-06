@@ -204,7 +204,9 @@
           "dependsOn": [
             "[resourceId('Microsoft.Web/Sites', parameters('registerAppName'))]"
           ],
-          "properties": {},
+          "properties": {
+            "httpsOnly": true
+          },
           "resources": [
             {
               "apiVersion": "2015-08-01",
@@ -337,7 +339,9 @@
           "dependsOn": [
             "[resourceId('Microsoft.Web/Sites', parameters('manageAppName'))]"
           ],
-          "properties": {},
+          "properties": {
+            "httpsOnly": true
+          },
           "resources": [
             {
               "apiVersion": "2015-08-01",
@@ -461,7 +465,9 @@
           "dependsOn": [
             "[resourceId('Microsoft.Web/Sites', parameters('sandboxAppName'))]"
           ],
-          "properties": {},
+          "properties": {
+            "httpsOnly": true
+          },
           "resources": [
             {
               "apiVersion": "2015-08-01",
