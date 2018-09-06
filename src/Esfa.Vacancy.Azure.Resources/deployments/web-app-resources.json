@@ -50,7 +50,8 @@
   "variables": {
     "siteProperties": {
       "phpVersion": "",
-      "alwaysOn": true
+      "alwaysOn": true,
+      "httpsOnly": true
     },
     "registerSlotFriendlyName": "[concat(parameters('registerAppName'),'-',parameters('slotName'))]",
     "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]",
