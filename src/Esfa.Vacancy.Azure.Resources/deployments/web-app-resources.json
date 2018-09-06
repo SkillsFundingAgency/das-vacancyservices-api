@@ -35,6 +35,16 @@
     },
     "appSettings": {
       "type": "object"
+    },
+    "customHostNames": {
+      "type": "object"
+    },
+    "certificateThumbprint": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "This can be passed into the template via the reference function: [reference(resourceId(parameters('certificateResourceGroup'), 'Microsoft.Web/certificates', parameters('certificateName')), '2016-03-01').Thumbprint]"
+      }
     }
   },
   "variables": {
@@ -50,9 +60,52 @@
     "sandboxAppSettings": "[parameters('baseParameters')]",
     "instancePrefix": "[if(equals(toUpper(parameters('appSettings').EnvironmentName),'PROD'),'',parameters('appSettings').EnvironmentName)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
-    "serverFarmId": "[resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appHostingPlanName'))]"
+    "serverFarmId": "[resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appHostingPlanName'))]",
+    "useCustomHostname": "[greater(length(parameters('customHostNames')), 0)]"
   },
   "resources": [
+    {
+      "type": "Microsoft.Web/sites/hostnameBindings",
+      "condition": "[variables('UseCustomHostname')]",
+      "name": "[concat(parameters('registerAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').registerAppDomainName, 'placeholder'))]",
+      "apiVersion": "2016-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "sslState": "SniEnabled",
+        "thumbprint": "[parameters('certificateThumbprint')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('registerAppName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites/hostnameBindings",
+      "condition": "[variables('UseCustomHostname')]",
+      "name": "[concat(parameters('manageAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').manageAppDomainName, 'placeholder'))]",
+      "apiVersion": "2016-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "sslState": "SniEnabled",
+        "thumbprint": "[parameters('certificateThumbprint')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('manageAppName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites/hostnameBindings",
+      "condition": "[variables('UseCustomHostname')]",
+      "name": "[concat(parameters('sandboxAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').sandboxAppDomainName, 'placeholder'))]",
+      "apiVersion": "2016-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "sslState": "SniEnabled",
+        "thumbprint": "[parameters('certificateThumbprint')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sandboxAppName'))]"
+      ]
+    },
     {
       "type": "Microsoft.Insights/components",
       "name": "[parameters('registerAppName')]",
