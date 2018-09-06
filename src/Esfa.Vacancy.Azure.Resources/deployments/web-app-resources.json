@@ -50,8 +50,7 @@
   "variables": {
     "siteProperties": {
       "phpVersion": "",
-      "alwaysOn": true,
-      "httpsOnly": true
+      "alwaysOn": true
     },
     "registerSlotFriendlyName": "[concat(parameters('registerAppName'),'-',parameters('slotName'))]",
     "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]",
@@ -141,7 +140,8 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "serverFarmId": "[variables('serverFarmId')]",
-        "hostingEnvironment": "[parameters('appHostingEnvironment')]"
+        "hostingEnvironment": "[parameters('appHostingEnvironment')]",
+        "httpsOnly": true
       },
       "dependsOn": [
         "[resourceId('Microsoft.Insights/components/', parameters('registerAppName'))]"
@@ -282,7 +282,8 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "serverFarmId": "[variables('serverFarmId')]",
-        "hostingEnvironment": "[parameters('appHostingEnvironment')]"
+        "hostingEnvironment": "[parameters('appHostingEnvironment')]",
+        "httpsOnly": true
       },
       "dependsOn": [
         "[resourceId('Microsoft.Insights/components/', parameters('manageAppName'))]"
@@ -405,7 +406,8 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "serverFarmId": "[variables('serverFarmId')]",
-        "hostingEnvironment": "[parameters('appHostingEnvironment')]"
+        "hostingEnvironment": "[parameters('appHostingEnvironment')]",
+        "httpsOnly": true
       },
       "dependsOn": [
         "[resourceId('Microsoft.Insights/components/', parameters('sandboxAppName'))]"
