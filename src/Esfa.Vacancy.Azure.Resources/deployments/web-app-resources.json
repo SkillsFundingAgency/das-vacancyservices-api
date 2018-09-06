@@ -61,7 +61,7 @@
     "instancePrefix": "[if(equals(toUpper(parameters('appSettings').EnvironmentName),'PROD'),'',parameters('appSettings').EnvironmentName)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
     "serverFarmId": "[resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appHostingPlanName'))]",
-    "useCustomHostname": "[greater(length(union(parameters('customHostNames').registerAppDomainName,parameters('customHostNames').manageAppDomainName,parameters('customHostNames').sandboxAppDomainName)), 0)]"
+    "useCustomHostname": "[greater(length(createArray(parameters('customHostNames').registerAppDomainName,parameters('customHostNames').manageAppDomainName,parameters('customHostNames').sandboxAppDomainName)), 0)]"
   },
   "resources": [
     {
