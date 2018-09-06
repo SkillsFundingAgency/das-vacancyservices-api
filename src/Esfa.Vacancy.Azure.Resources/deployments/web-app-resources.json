@@ -37,7 +37,7 @@
       "type": "object"
     },
     "customHostNames": {
-      "type": "object"
+      "type": "array"
     },
     "certificateThumbprint": {
       "type": "string",
