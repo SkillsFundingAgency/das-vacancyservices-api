@@ -20,6 +20,14 @@
     "appHostingPlanName": {
       "type": "string"
     },
+    "aseHostingEnvironmentName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "aseResourceGroup": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "LoggingRedisConnectionString": {
       "type": "string"
     },
@@ -128,7 +136,7 @@
       "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
       "InstanceName": "[parameters('InstanceName')]"
     },
-    "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]",
+    "deployToASE": "[greater(length(parameters('aseHostingEnvironmentName')), 0)]",
     "customHostNames": {
       "registerAppDomainName": "[parameters('registerAppDomainName')]",
       "manageAppDomainName": "[parameters('manageAppDomainName')]",
@@ -221,10 +229,10 @@
             "value": "[parameters('appHostingPlanName')]"
           },
           "aseHostingEnvironmentName": {
-            "value": "[parameters('appHostingEnvironment')]"
+            "value": "[parameters('aseHostingEnvironmentName')]"
           },
           "aseResourceGroup": {
-            "value": "[parameters('appServerFarmResourceGroup')]"
+            "value": "[parameters('aseResourceGroup')]"
           },
           "aspSize": {
             "value": "[parameters('aspSize')]"
