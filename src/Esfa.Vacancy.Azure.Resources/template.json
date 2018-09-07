@@ -20,6 +20,14 @@
     "appHostingPlanName": {
       "type": "string"
     },
+    "aspLocation": {
+      "type": "string",
+      "allowedValues": [
+        "North Europe",
+        "West Europe"
+      ],
+      "defaultValue": "West Europe"
+    },
     "aseHostingEnvironmentName": {
       "type": "string",
       "defaultValue": ""
@@ -214,7 +222,7 @@
             "value": "[variables('customHostNames')]"
           },
           "certificateThumbprint": {
-            "value": "[reference(parameters('keyVaultCertificateName')).outputs.CertificateThumbprint.value]"
+            "value": "[if(variables('installCertificate'), reference(parameters('keyVaultCertificateName')).outputs.CertificateThumbprint.value,'')]"
           }
         }
       },
@@ -235,6 +243,9 @@
         "parameters": {
           "appServicePlanName": {
             "value": "[parameters('appHostingPlanName')]"
+          },
+          "aspLocation": {
+            "value": "[parameters('aspLocation')]"
           },
           "aseHostingEnvironmentName": {
             "value": "[parameters('aseHostingEnvironmentName')]"
