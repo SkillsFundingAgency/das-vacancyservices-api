@@ -93,13 +93,16 @@
       "type": "int"
     },
     "keyVaultCertificateName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "keyVaultName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "keyVaultResourceGroup": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "registerAppDomainName": {
       "type": "string",
@@ -144,12 +147,14 @@
       "registerAppDomainName": "[parameters('registerAppDomainName')]",
       "manageAppDomainName": "[parameters('manageAppDomainName')]",
       "sandboxAppDomainName": "[parameters('sandboxAppDomainName')]"
-    }
+    },
+    "installCertificate": "[greater(length(parameters('keyVaultCertificateName')), 0)]"
   },
   "resources": [
     {
       "apiVersion": "2017-08-01",
-      "name": "[parameters('keyVaultCertificateName')]",
+      "condition": "[variables('installCertificate')]",
+      "name": "[if(variables('installCertificate'), parameters('keyVaultCertificateName'), 'placeholder')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
