@@ -102,13 +102,16 @@
       "type": "string"
     },
     "registerAppDomainName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "manageAppDomainName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "sandboxAppDomainName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     }
   },
   "variables": {

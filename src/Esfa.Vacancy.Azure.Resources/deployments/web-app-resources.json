@@ -178,7 +178,7 @@
     },
     {
       "type": "Microsoft.Web/sites/hostnameBindings",
-      "condition": "[variables('UseCustomHostname')]",
+      "condition": "[greater(length(parameters('customHostnames').registerAppDomainName),0)]",
       "name": "[concat(parameters('registerAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').registerAppDomainName, 'placeholder'))]",
       "apiVersion": "2016-08-01",
       "location": "[resourceGroup().location]",
@@ -304,7 +304,7 @@
     },
     {
       "type": "Microsoft.Web/sites/hostnameBindings",
-      "condition": "[variables('UseCustomHostname')]",
+      "condition": "[greater(length(parameters('customHostnames').manageAppDomainName),0)]",
       "name": "[concat(parameters('manageAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').manageAppDomainName, 'placeholder'))]",
       "apiVersion": "2016-08-01",
       "location": "[resourceGroup().location]",
@@ -430,7 +430,7 @@
     },
     {
       "type": "Microsoft.Web/sites/hostnameBindings",
-      "condition": "[variables('UseCustomHostname')]",
+      "condition": "[greater(length(parameters('customHostnames').sandboxAppDomainName),0)]",
       "name": "[concat(parameters('sandboxAppName'), '/', if(variables('useCustomHostname'), parameters('customHostnames').sandboxAppDomainName, 'placeholder'))]",
       "apiVersion": "2016-08-01",
       "location": "[resourceGroup().location]",
