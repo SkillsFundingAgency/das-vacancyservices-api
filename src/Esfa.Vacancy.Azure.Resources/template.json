@@ -17,18 +17,7 @@
     "sandboxAppName": {
       "type": "string"
     },
-    "slotName": {
-      "type": "string",
-      "defaultValue": "staging"
-    },
     "appHostingPlanName": {
-      "type": "string"
-    },
-    "appHostingEnvironment": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "appServerFarmResourceGroup": {
       "type": "string"
     },
     "LoggingRedisConnectionString": {
@@ -196,17 +185,11 @@
           "sandboxAppName": {
             "value": "[parameters('sandboxAppName')]"
           },
-          "slotName": {
-            "value": "[parameters('slotName')]"
-          },
           "appHostingPlanName": {
             "value": "[parameters('appHostingPlanName')]"
           },
-          "appHostingEnvironment": {
-            "value": "[parameters('appHostingEnvironment')]"
-          },
-          "appServerFarmResourceGroup": {
-            "value": "[parameters('appServerFarmResourceGroup')]"
+          "appHostingPlanResourceGroup": {
+            "value": "[resourceGroup().name]"
           },
           "appSettings": {
             "value": "[variables('appSettings')]"
