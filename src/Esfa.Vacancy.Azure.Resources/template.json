@@ -31,9 +31,6 @@
     "appServerFarmResourceGroup": {
       "type": "string"
     },
-    "appSubscriptionId": {
-      "type": "string"
-    },
     "LoggingRedisConnectionString": {
       "type": "string"
     },
@@ -119,31 +116,6 @@
   },
   "variables": {
     "webappResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/web-app-resources.json')]",
-    "baseParameters": {
-      "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
-      "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
-      "EnvironmentName": "[parameters('EnvironmentName')]",
-      "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
-      "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",
-      "CacheConnectionString": "[parameters('CacheConnectionString')]",
-      "UseSandboxServices": {
-        "ProductionSlot": "[parameters('UseSandboxServicesProdSlot')]",
-        "StagingSlot": "[parameters('UseSandboxServicesStagingSlot')]"
-      },
-      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]",
-      "ElasticsearchUserName": "[parameters('ElasticsearchUserName')]",
-      "ElasticsearchPassword": "[parameters('ElasticsearchPassword')]"
-    },
-    "appParameters": {
-      "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
-      "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
-      "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
-      "LiveTraineeshipVacancyBaseUrl": "[parameters('LiveTraineeshipVacancyBaseUrl')]",
-      "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
-      "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
-      "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
-      "InstanceName": "[parameters('InstanceName')]"
-    },
     "appSettings": {
       "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
       "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
@@ -235,15 +207,6 @@
           },
           "appServerFarmResourceGroup": {
             "value": "[parameters('appServerFarmResourceGroup')]"
-          },
-          "appSubscriptionId": {
-            "value": "[parameters('appSubscriptionId')]"
-          },
-          "baseParameters": {
-            "value": "[variables('baseParameters')]"
-          },
-          "appParameters": {
-            "value": "[variables('appParameters')]"
           },
           "appSettings": {
             "value": "[variables('appSettings')]"

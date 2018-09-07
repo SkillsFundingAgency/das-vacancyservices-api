@@ -24,15 +24,6 @@
     "appServerFarmResourceGroup": {
       "type": "string"
     },
-    "appSubscriptionId": {
-      "type": "string"
-    },
-    "baseParameters": {
-      "type": "object"
-    },
-    "appParameters": {
-      "type": "object"
-    },
     "appSettings": {
       "type": "object"
     },
@@ -53,11 +44,8 @@
       "alwaysOn": true
     },
     "registerSlotFriendlyName": "[concat(parameters('registerAppName'),'-',parameters('slotName'))]",
-    "registerAppSettings": "[union(parameters('baseParameters'),parameters('appParameters'))]",
     "manageSlotFriendlyName": "[concat(parameters('manageAppName'),'-',parameters('slotName'))]",
-    "manageAppSettings": "[parameters('baseParameters')]",
     "sandboxSlotFriendlyName": "[concat(parameters('sandboxAppName'),'-',parameters('slotName'))]",
-    "sandboxAppSettings": "[parameters('baseParameters')]",
     "instancePrefix": "[if(equals(toUpper(parameters('appSettings').EnvironmentName),'PROD'),'',parameters('appSettings').EnvironmentName)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
     "serverFarmId": "[resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appHostingPlanName'))]",
