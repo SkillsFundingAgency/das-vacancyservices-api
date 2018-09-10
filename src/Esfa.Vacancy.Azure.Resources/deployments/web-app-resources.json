@@ -51,7 +51,8 @@
   "variables": {
     "siteProperties": {
       "phpVersion": "",
-      "alwaysOn": true
+      "alwaysOn": true,
+      "ipSecurityRestrictions": "[parameters('ipWhitelist')]"
     },
     "instancePrefix": "[if(equals(toUpper(parameters('appSettings').EnvironmentName),'PROD'),'',parameters('appSettings').EnvironmentName)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
