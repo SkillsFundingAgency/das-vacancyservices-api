@@ -238,7 +238,7 @@
             "value": "[if(variables('installCertificate'), reference(parameters('keyVaultCertificateName')).outputs.CertificateThumbprint.value,'')]"
           },
           "ipWhiteList": {
-            "value": "[parameters('ipWhitelist']"
+            "value": "[parameters('ipWhitelist')]"
           }
         }
       },
