@@ -123,6 +123,19 @@
     "sandboxAppDomainName": {
       "type": "string",
       "defaultValue": ""
+    },
+    "ipWhitelist": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "Name": "Guest Network",
+          "ipAddress": "217.33.132.234/32"
+        },
+        {
+          "Name": "DfE Network",
+          "ipAddress": "86.188.174.157/32"
+        }
+      ]
     }
   },
   "variables": {
@@ -223,6 +236,9 @@
           },
           "certificateThumbprint": {
             "value": "[if(variables('installCertificate'), reference(parameters('keyVaultCertificateName')).outputs.CertificateThumbprint.value,'')]"
+          },
+          "ipWhiteList": {
+            "value": "[parameters('ipWhitelist']"
           }
         }
       },
