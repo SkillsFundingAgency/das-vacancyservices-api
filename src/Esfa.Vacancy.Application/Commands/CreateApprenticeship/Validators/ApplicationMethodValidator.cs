@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
     {
         private const int SupplementaryQuestionMaximumLength = 4000;
         private const int ExternalApplicationInstructionMaximumLength = 4000;
+        private const int ExternalApplicationUrlMaximumLength = 1000;
 
         private void ConfigureApplicationMethodValidator()
         {
@@ -48,6 +49,8 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     .NotEmpty()
                     .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl)
                     .DependentRules(rules => rules.RuleFor(request => request.ExternalApplicationUrl)
+                                                  .MaximumLength(ExternalApplicationUrlMaximumLength)
+                                                  .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl)
                                                   .MustBeAValidWebUrl()
                                                   .WithErrorCode(ErrorCodes.CreateApprenticeship.ExternalApplicationUrl));
 
