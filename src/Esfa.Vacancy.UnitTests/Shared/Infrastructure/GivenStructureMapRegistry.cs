@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
         [TestCase(null, false, TestName = "And is null then use normal service.")]
         public void AndUseSandboxServiceIsEnabled(string value, bool useSandboxService)
         {
-            var mockRequestContext = new Mock<IRequestContext>();
+            var mockRequestContext = new Mock<IWebLoggingContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
             mockProvideSettings
                 .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.UseSandboxServices))
@@ -27,7 +27,7 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
 
             container.Configure(c =>
             {
-                c.For<IRequestContext>().Use(mockRequestContext.Object);
+                c.For<IWebLoggingContext>().Use(mockRequestContext.Object);
             });
 
             Assert.That(container.GetInstance<ICreateApprenticeshipService>(),

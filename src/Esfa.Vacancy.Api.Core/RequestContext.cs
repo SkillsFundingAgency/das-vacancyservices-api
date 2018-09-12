@@ -3,7 +3,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Api.Core
 {
-    public sealed class RequestContext : IRequestContext
+    public sealed class RequestContext : IWebLoggingContext
     {
         public RequestContext(HttpContextBase context)
         {
