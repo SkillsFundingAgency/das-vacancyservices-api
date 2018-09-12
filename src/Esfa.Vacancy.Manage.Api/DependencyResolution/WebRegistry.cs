@@ -9,7 +9,7 @@ namespace Esfa.Vacancy.Manage.Api.DependencyResolution
     {
         public WebRegistry()
         {
-            For<IRequestContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
+            For<IWebLoggingContext>().Use(x => new RequestContext(new HttpContextWrapper(HttpContext.Current)));
 
             // mediatr
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => ctx.GetInstance);

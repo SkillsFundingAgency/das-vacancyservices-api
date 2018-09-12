@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Infrastructure
 
             For<ILog>().Use(x => new NLogLogger(
                 x.ParentType,
-                x.GetInstance<IRequestContext>(),
+                x.GetInstance<IWebLoggingContext>(),
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => _provideSettings);
             For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
