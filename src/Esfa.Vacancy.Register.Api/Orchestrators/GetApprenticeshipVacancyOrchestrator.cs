@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Esfa.Vacancy.Api.Core.Validation;
 using Esfa.Vacancy.Api.Types;
+using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Register.Api.Mappings;
@@ -49,7 +50,9 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             else
             {
                 var liveVacancy = _recruitClient.GetVacancy(parsedId);
-                vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy);
+                if (liveVacancy == null) throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
+
+                vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy).ConfigureAwait(false);
             }
 
             return vacancy;

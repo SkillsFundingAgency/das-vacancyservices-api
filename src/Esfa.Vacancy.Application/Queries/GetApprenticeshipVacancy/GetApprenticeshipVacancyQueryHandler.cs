@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Exceptions;
 using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -10,7 +11,6 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
 {
     public class GetApprenticeshipVacancyQueryHandler : IAsyncRequestHandler<GetApprenticeshipVacancyRequest, GetApprenticeshipVacancyResponse>
     {
-        private const string VacancyNotFoundErrorMessage = "The apprenticeship vacancy you are looking for could not be found.";
         private readonly IValidator<GetApprenticeshipVacancyRequest> _validator;
         private readonly IGetApprenticeshipService _getApprenticeshipService;
         private readonly ILog _logger;
@@ -40,7 +40,7 @@ namespace Esfa.Vacancy.Application.Queries.GetApprenticeshipVacancy
             var vacancy = await _getApprenticeshipService.GetApprenticeshipVacancyByReferenceNumberAsync(message.Reference)
                                                          .ConfigureAwait(false);
 
-            if (vacancy == null) throw new ResourceNotFoundException(VacancyNotFoundErrorMessage);
+            if (vacancy == null) throw new ResourceNotFoundException(ErrorMessages.VacancyNotFoundErrorMessage);
 
             if (vacancy.FrameworkCode.HasValue)
             {
