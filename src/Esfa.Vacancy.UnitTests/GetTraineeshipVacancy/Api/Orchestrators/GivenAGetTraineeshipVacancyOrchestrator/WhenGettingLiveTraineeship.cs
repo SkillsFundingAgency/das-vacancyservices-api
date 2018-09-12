@@ -183,7 +183,7 @@ namespace Esfa.Vacancy.UnitTests.GetTraineeshipVacancy.Api.Orchestrators.GivenAG
             _mockValidationExceptionBuilder.Verify(builder =>
                 builder.Build(
                     ErrorCodes.GetTraineeship.VacancyReferenceNumberNotInt32,
-                    ErrorMessages.GetTraineeship.VacancyReferenceNumberNotNumeric,
+                    Domain.Validation.ErrorMessages.GetTraineeship.VacancyReferenceNumberNotNumeric,
                     It.IsAny<string>()), Times.Once);
         }
     }
