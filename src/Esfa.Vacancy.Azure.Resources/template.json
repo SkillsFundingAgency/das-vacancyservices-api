@@ -128,12 +128,12 @@
       "type": "array",
       "defaultValue": [
         {
-          "Name": "Guest Network",
-          "ipAddress": "217.33.132.234/32"
+          "Name": "IP A",
+          "ipAddress": "123.123.123.123/32"
         },
         {
-          "Name": "DfE Network",
-          "ipAddress": "86.188.174.157/32"
+          "Name": "IP B",
+          "ipAddress": "234.234.234.234/32"
         }
       ]
     }
