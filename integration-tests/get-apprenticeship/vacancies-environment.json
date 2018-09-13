@@ -1,6 +1,6 @@
 {
   "id": "8f7a6d63-4d96-4d1c-a24f-6ab4172e987d",
-  "name": "Prod",
+  "name": "Live Vacancies",
   "values": [
     {
       "key": "apim-key",
@@ -11,6 +11,12 @@
     {
       "key": "apim-gateway-url",
       "value": "__apimgatewayurl__",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "live-vacancies-path",
+      "value": "__livevacanciespath__",
       "enabled": true,
       "type": "text"
     }

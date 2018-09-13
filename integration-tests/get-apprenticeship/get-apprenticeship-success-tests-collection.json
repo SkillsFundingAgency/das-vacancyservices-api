@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2e9d00cd-ab0d-428f-b651-6c47267b0451",
+		"_postman_id": "248ab508-b351-488e-863a-0a93876b8b82",
 		"name": "Get Apprenticeship",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -48,14 +48,17 @@
 						"value": "{{apim-key}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{apim-gateway-url}}/vacancies/v1/apprenticeships/search?nationwideOnly=true",
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true",
 					"host": [
 						"{{apim-gateway-url}}"
 					],
 					"path": [
-						"vacancies",
+						"{{live-vacancies-path}}",
 						"v1",
 						"apprenticeships",
 						"search"
@@ -103,14 +106,17 @@
 						"value": "{{apim-key}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{apim-gateway-url}}/vacancies/v1/apprenticeships/{{vacancy-ref}}",
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/{{vacancy-ref}}",
 					"host": [
 						"{{apim-gateway-url}}"
 					],
 					"path": [
-						"vacancies",
+						"{{live-vacancies-path}}",
 						"v1",
 						"apprenticeships",
 						"{{vacancy-ref}}"

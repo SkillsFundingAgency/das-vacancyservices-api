@@ -21,8 +21,8 @@
       "type": "text"
     },
     {
-      "key": "employee-edsurn",
-      "value": "__employeeedsurn__",
+      "key": "employer-edsurn",
+      "value": "__employeredsurn__",
       "enabled": true,
       "type": "text"
     },
