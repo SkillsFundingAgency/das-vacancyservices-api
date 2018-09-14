@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Manage.Api
                         var instanceName = CloudConfigurationManager.GetSetting("InstanceName");
                         var title = "Manage vacancies API";
                         if (!string.IsNullOrWhiteSpace(instanceName)) title = $"{title} {instanceName}";
-                        c.SingleApiVersion("v1", title).Description("Vacancy Management Service");
+                        c.SingleApiVersion("v1", title).Description(title);
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
