@@ -253,3 +253,6 @@ paket-files/
 .DS_Store
 *.ncrunchsolution
 *.ncrunchproject
+
+#Postman local environment settings
+.__*environment.json
