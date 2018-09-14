@@ -17,21 +17,24 @@
     "sandboxAppName": {
       "type": "string"
     },
-    "slotName": {
-      "type": "string",
-      "defaultValue": "staging"
-    },
     "appHostingPlanName": {
       "type": "string"
     },
-    "appHostingEnvironment": {
-      "type": "string"
+    "aspLocation": {
+      "type": "string",
+      "allowedValues": [
+        "North Europe",
+        "West Europe"
+      ],
+      "defaultValue": "West Europe"
     },
-    "appServerFarmResourceGroup": {
-      "type": "string"
+    "aseHostingEnvironmentName": {
+      "type": "string",
+      "defaultValue": ""
     },
-    "appSubscriptionId": {
-      "type": "string"
+    "aseResourceGroup": {
+      "type": "string",
+      "defaultValue": ""
     },
     "LoggingRedisConnectionString": {
       "type": "string"
@@ -82,12 +85,62 @@
       "type": "string"
     },
     "InstanceName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "ElasticsearchUserName": {
       "type": "string"
+    },
+    "ElasticsearchPassword": {
+      "type": "string"
+    },
+    "aspSize": {
+      "type": "string"
+    },
+    "aspInstances": {
+      "type": "int"
+    },
+    "keyVaultCertificateName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "keyVaultName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "keyVaultResourceGroup": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "registerAppDomainName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "manageAppDomainName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "sandboxAppDomainName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "ipWhitelist": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "Name": "IP A",
+          "ipAddress": "123.123.123.123/32"
+        },
+        {
+          "Name": "IP B",
+          "ipAddress": "234.234.234.234/32"
+        }
+      ]
     }
   },
   "variables": {
     "webappResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/web-app-resources.json')]",
-    "baseParameters": {
+    "appSettings": {
       "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
       "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
       "EnvironmentName": "[parameters('EnvironmentName')]",
@@ -98,9 +151,9 @@
         "ProductionSlot": "[parameters('UseSandboxServicesProdSlot')]",
         "StagingSlot": "[parameters('UseSandboxServicesStagingSlot')]"
       },
-      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]"
-    },
-    "appParameters": {
+      "CacheReferenceDataDuration": "[parameters('CacheReferenceDataDuration')]",
+      "ElasticsearchUserName": "[parameters('ElasticsearchUserName')]",
+      "ElasticsearchPassword": "[parameters('ElasticsearchPassword')]",
       "LiveApprenticeshipVacancyBaseUrl": "[parameters('LiveApprenticeshipVacancyBaseUrl')]",
       "VacancySearchUrl": "[parameters('VacancySearchUrl')]",
       "ApprenticeshipIndexAlias": "[parameters('ApprenticeshipIndexAlias')]",
@@ -108,10 +161,47 @@
       "RecruitMongoConnectionString": "[parameters('RecruitMongoConnectionString')]",
       "RecruitMongoDatabaseName": "[parameters('RecruitMongoDatabaseName')]",
       "RecruitMongoCollectionName": "[parameters('RecruitMongoCollectionName')]",
-      "InstanceName":  "[parameters('InstanceName')]" 
-    }
+      "InstanceName": "[parameters('InstanceName')]"
+    },
+    "deployToASE": "[greater(length(parameters('aseHostingEnvironmentName')), 0)]",
+    "customHostNames": {
+      "registerAppDomainName": "[parameters('registerAppDomainName')]",
+      "manageAppDomainName": "[parameters('manageAppDomainName')]",
+      "sandboxAppDomainName": "[parameters('sandboxAppDomainName')]"
+    },
+    "installCertificate": "[greater(length(parameters('keyVaultCertificateName')), 0)]"
   },
   "resources": [
+    {
+      "apiVersion": "2017-08-01",
+      "condition": "[variables('installCertificate')]",
+      "name": "[if(variables('installCertificate'), parameters('keyVaultCertificateName'), 'placeholder')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service-certificate.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultCertificateName": {
+            "value": "[parameters('keyVaultCertificateName')]"
+          },
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          },
+          "keyVaultResourceGroup": {
+            "value": "[parameters('keyVaultResourceGroup')]"
+          },
+          "serverFarmId": {
+            "value": "[if(variables('deployToASE'), reference(parameters('appHostingPlanName')).outputs.appServicePlanId.value, '')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[parameters('appHostingPlanName')]"
+      ]
+    },
     {
       "apiVersion": "2017-08-01",
       "name": "register-web-app-resources-deployment",
@@ -132,29 +222,62 @@
           "sandboxAppName": {
             "value": "[parameters('sandboxAppName')]"
           },
-          "slotName": {
-            "value": "[parameters('slotName')]"
-          },
           "appHostingPlanName": {
             "value": "[parameters('appHostingPlanName')]"
           },
-          "appHostingEnvironment": {
-            "value": "[parameters('appHostingEnvironment')]"
+          "appHostingPlanResourceGroup": {
+            "value": "[resourceGroup().name]"
           },
-          "appServerFarmResourceGroup": {
-            "value": "[parameters('appServerFarmResourceGroup')]"
+          "appSettings": {
+            "value": "[variables('appSettings')]"
           },
-          "appSubscriptionId": {
-            "value": "[parameters('appSubscriptionId')]"
+          "customHostNames": {
+            "value": "[variables('customHostNames')]"
           },
-          "baseParameters": {
-            "value": "[variables('baseParameters')]"
+          "certificateThumbprint": {
+            "value": "[if(variables('installCertificate'), reference(parameters('keyVaultCertificateName')).outputs.CertificateThumbprint.value,'')]"
           },
-          "appParameters": {
-            "value": "[variables('appParameters')]"
+          "ipWhiteList": {
+            "value": "[parameters('ipWhitelist')]"
           }
         }
-      }
+      },
+      "dependsOn": [
+        "[parameters('appHostingPlanName')]"
+      ]
+    },
+    {
+      "apiVersion": "2017-08-01",
+      "name": "[parameters('appHostingPlanName')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service-plan.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServicePlanName": {
+            "value": "[parameters('appHostingPlanName')]"
+          },
+          "aspLocation": {
+            "value": "[parameters('aspLocation')]"
+          },
+          "aseHostingEnvironmentName": {
+            "value": "[parameters('aseHostingEnvironmentName')]"
+          },
+          "aseResourceGroup": {
+            "value": "[parameters('aseResourceGroup')]"
+          },
+          "aspSize": {
+            "value": "[parameters('aspSize')]"
+          },
+          "aspInstances": {
+            "value": "[parameters('aspInstances')]"
+          }
+        }
+      },
+      "dependsOn": []
     }
   ],
     "outputs": {
