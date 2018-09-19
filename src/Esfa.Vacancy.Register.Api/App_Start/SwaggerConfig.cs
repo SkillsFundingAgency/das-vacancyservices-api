@@ -36,7 +36,7 @@ namespace Esfa.Vacancy.Register.Api
                         var instanceName = CloudConfigurationManager.GetSetting("InstanceName");
                         var title = "Live vacancies API";
                         if (!string.IsNullOrWhiteSpace(instanceName)) title = $"{title} {instanceName}";
-                        c.SingleApiVersion("v1", title);
+                        c.SingleApiVersion("v1", title).Description(title);
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
