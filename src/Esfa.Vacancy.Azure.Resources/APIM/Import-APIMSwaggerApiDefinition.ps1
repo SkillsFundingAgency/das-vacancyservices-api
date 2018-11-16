@@ -42,7 +42,13 @@ try {
     Write-Host "Building APIM context for $ResourceGroupName\$InstanceName"
     $Context = New-AzureRmApiManagementContext -ResourceGroupName $ResourceGroupName -ServiceName $InstanceName
     Write-Host "Retrieving ApiId for API $ApiName"
-    $ApiId = (Get-AzureRmApiManagementApi -Context $Context -Name $ApiName).ApiId
+    # Below commandlet has a bug where it sometimes brings back more than one result. ApiMatches fixes this.
+    # $ApiId = (Get-AzureRmApiManagementApi -Context $Context -Name $ApiName).ApiId
+
+    $ApiMatches = Get-AzureRmApiManagementApi -Context $Context -Name $ApiName
+    if ($ApiMatches.Count -gt 1) {
+        $ApiId = ($ApiMatches | Where-Object {$_.Name -eq $ApiName}).ApiId
+    }
 
     if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
         $ApiSuf = $ApiUrlSuffix.ToLower()
