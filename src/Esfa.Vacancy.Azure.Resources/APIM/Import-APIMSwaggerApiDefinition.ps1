@@ -48,21 +48,21 @@ try {
         # create API if it doesn't exist
         Write-Host "Could not retrieve ApiId for API $ApiName - creating API"
 
-        $apimuri = [System.Uri] $SwaggerSpecificationUrl
+        $ApimUri = [System.Uri] $SwaggerSpecificationUrl
         if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
-            $apisuf = $ApiUrlSuffix.ToLower()
+            $ApiSuf = $ApiUrlSuffix.ToLower()
         } else {
-            $apisuf = $ApiName.Replace(' ','-').ToLower()
+            $ApiSuf = $ApiName.Replace(' ','-').ToLower()
         }
 
-        Write-Host "Creating API $ApiName with suffix $apisuf"
-        $newapi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -Description $ApiName -ServiceUrl "https://$($apimuri.Host)" -Protocols @("https") -Path $apisuf -ErrorAction Stop -Verbose:$VerbosePreference
-        $ApiId = $newapi.ApiId
+        Write-Host "Creating API $ApiName with suffix $ApiSuf"
+        $NewApi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -Description $($ApiName) -ServiceUrl "https://$($ApimUri.Host)" -Protocols @("https") -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
+        $ApiId = $NewApi.ApiId
     }
 
     # --- Import swagger definition
     Write-Host "Updating API $ApiId\$InstanceName from definition $SwaggerSpecficiationUrl"
-    Import-AzureRmApiManagementApi -Context $Context -SpecificationFormat "Swagger" -SpecificationUrl $SwaggerSpecificationUrl -ApiId $ApiId -ErrorAction Stop -Verbose:$VerbosePreference
+    Import-AzureRmApiManagementApi -Context $Context -SpecificationFormat "Swagger" -SpecificationUrl $($SwaggerSpecificationUrl) -ApiId $($ApiId) -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
 } catch {
    throw $_
 }
