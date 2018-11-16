@@ -23,7 +23,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
         public void ThenMapsAgeCorrectly()
         {
             var searchResponse = new SearchApprenticeshipVacanciesResponse { SortBy = SortBy.Age };
-            var mapResult = _mapper.Map<Vacancy.Api.Types.SearchResponse<Vacancy.Api.Types.ApprenticeshipSummary>>(searchResponse);
+            var mapResult = _mapper.Map<Vacancy.Api.Types.ApprenticeshipSearchResponse>(searchResponse);
 
             mapResult.SortBy.Should().Be(Vacancy.Api.Types.SortBy.Age);
         }
@@ -32,7 +32,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
         public void ThenMapsDistanceCorrectly()
         {
             var searchResponse = new SearchApprenticeshipVacanciesResponse { SortBy = SortBy.Distance };
-            var mapResult = _mapper.Map<Vacancy.Api.Types.SearchResponse<Vacancy.Api.Types.ApprenticeshipSummary>>(searchResponse);
+            var mapResult = _mapper.Map<Vacancy.Api.Types.ApprenticeshipSearchResponse>(searchResponse);
 
             mapResult.SortBy.Should().Be(Vacancy.Api.Types.SortBy.Distance);
         }
