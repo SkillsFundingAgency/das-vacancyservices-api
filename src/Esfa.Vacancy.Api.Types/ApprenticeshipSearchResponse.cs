@@ -2,7 +2,7 @@
 
 namespace Esfa.Vacancy.Api.Types
 {
-    public class SearchResponse<T>
+    public class ApprenticeshipSearchResponse
     {
         /// <summary>
         /// Total number of records that matched search criteria
@@ -32,6 +32,6 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// Search results
         /// </summary>
-        public IEnumerable<T> Results { get; set; }
+        public IEnumerable<ApprenticeshipSummary> Results { get; set; }
     }
 }

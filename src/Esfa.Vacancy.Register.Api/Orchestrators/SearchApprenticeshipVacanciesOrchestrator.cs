@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             _validationExceptionBuilder = validationExceptionBuilder;
         }
 
-        public async Task<SearchResponse<ApprenticeshipSummary>> SearchApprenticeship(
+        public async Task<ApprenticeshipSearchResponse> SearchApprenticeship(
             SearchApprenticeshipParameters apprenticeSearchParameters)
         {
             if (apprenticeSearchParameters == null)
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
             var request = _mapper.Map<SearchApprenticeshipVacanciesRequest>(apprenticeSearchParameters);
             var response = await _mediator.Send(request).ConfigureAwait(false);
-            var results = _mapper.Map<SearchResponse<ApprenticeshipSummary>>(response);
+            var results = _mapper.Map<ApprenticeshipSearchResponse>(response);
 
 
             foreach (ApprenticeshipSummary summary in results.Results)

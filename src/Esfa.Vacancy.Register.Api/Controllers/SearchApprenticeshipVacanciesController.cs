@@ -111,11 +111,11 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         [AllowAnonymous]
         [Route("search")]
         [SwaggerOperation("SearchApprenticeshipVacancies", Tags = new[] { "Apprenticeships" })]
-        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSummary))]
+        [SwaggerResponse(HttpStatusCode.OK, "OK", typeof(ApprenticeshipSearchResponse))]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Failed request validation", typeof(BadRequestContent))]
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
-            SearchResponse<ApprenticeshipSummary> results =
+            var results =
                 await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters)
                                          .ConfigureAwait(false);
             return Ok(results);

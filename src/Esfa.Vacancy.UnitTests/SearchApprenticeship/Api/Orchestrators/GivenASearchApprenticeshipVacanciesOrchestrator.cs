@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
         private const string ApiBaseUrl = "http://localhost/api/v1/apprenticeships";
         private SearchApprenticeshipVacanciesOrchestrator _orchestrator;
         private SearchApprenticeshipParameters _searchApprenticeshipParameters;
-        private SearchResponse<ApprenticeshipSummary> _searchResponse;
+        private ApprenticeshipSearchResponse _apprenticeshipSearchResponse;
         private Fixture _fixture;
         private Mock<IValidationExceptionBuilder> _mockValidationExceptionBuilder;
         private string _expectedErrorMessage;
@@ -39,7 +39,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
             _fixture = new Fixture();
 
             _searchApprenticeshipParameters = _fixture.Create<SearchApprenticeshipParameters>();
-            _searchResponse = _fixture.Create<SearchResponse<ApprenticeshipSummary>>();
+            _apprenticeshipSearchResponse = _fixture.Create<ApprenticeshipSearchResponse>();
             var searchApprenticeshipVacanciesRequest = _fixture.Create<SearchApprenticeshipVacanciesRequest>();
             var searchApprenticeshipVacanciesResponse = _fixture.Create<SearchApprenticeshipVacanciesResponse>();
             _expectedErrorMessage = _fixture.Create<string>();
@@ -49,8 +49,8 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
                 .Setup(mapper => mapper.Map<SearchApprenticeshipVacanciesRequest>(_searchApprenticeshipParameters))
                 .Returns(searchApprenticeshipVacanciesRequest);
             mockMapper
-                .Setup(mapper => mapper.Map<SearchResponse<ApprenticeshipSummary>>(searchApprenticeshipVacanciesResponse))
-                .Returns(_searchResponse);
+                .Setup(mapper => mapper.Map<ApprenticeshipSearchResponse>(searchApprenticeshipVacanciesResponse))
+                .Returns(_apprenticeshipSearchResponse);
 
             var mockMediator = new Mock<IMediator>();
             mockMediator
@@ -96,17 +96,17 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Orchestrators
         {
             var response = await _orchestrator.SearchApprenticeship(_searchApprenticeshipParameters);
 
-            response.Should().BeSameAs(_searchResponse);
+            response.Should().BeSameAs(_apprenticeshipSearchResponse);
         }
 
         [Test]
         public async Task ThenVacancyUrlShouldBePopulated()
         {
-            SearchResponse<ApprenticeshipSummary> response = await _orchestrator
+            var response = await _orchestrator
                 .SearchApprenticeship(_searchApprenticeshipParameters)
                 .ConfigureAwait(false);
 
-            response.Results.First().VacancyUrl.Should().Be($"{FAABaseUrl}/{_searchResponse.Results.First().VacancyReference}");
+            response.Results.First().VacancyUrl.Should().Be($"{FAABaseUrl}/{_apprenticeshipSearchResponse.Results.First().VacancyReference}");
         }
     }
 }

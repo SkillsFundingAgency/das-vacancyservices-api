@@ -62,7 +62,7 @@
     <Compile Include="SearchApprenticeshipParameters.cs" />
     <Compile Include="ApprenticeshipSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchResponse.cs" />
+    <Compile Include="ApprenticeshipSearchResponse.cs" />
     <Compile Include="TrainingType.cs" />
     <Compile Include="ApprenticeshipVacancy.cs" />
     <Compile Include="WageType.cs" />
