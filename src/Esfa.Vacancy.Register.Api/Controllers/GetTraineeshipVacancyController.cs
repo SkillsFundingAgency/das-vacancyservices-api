@@ -20,28 +20,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <summary>
         /// The traineeship operation retrieves a single live traineeship vacancy using the vacancy reference number.
         /// 
-        /// Note that:
-        /// 
-        /// - the vacancy reference number should be specified as a number (ie. excluding any prefix)
-        /// - only live vacancies can be retrieved using this operation
-        /// 
-        /// #### Example ####
-        /// 
-        /// To retrieve VAC001234567:
-        /// 
-        /// ```
-        /// /traineeships/1234567
-        /// ```
-        /// 
-        /// #### Error codes ####
-        /// 
-        /// The following error codes may be returned when calling this operation:
-        /// 
-        /// | Error code  | Explanation                                                    |
-        /// | ----------- | -------------------------------------------------------------- |
-        /// | 30401       | Vacancy reference number must be greater than 0                |
-        /// | 30402       | Vacancy reference number must be a whole number                |
-        /// 
         /// </summary>
         [HttpGet]
         [AllowAnonymous]

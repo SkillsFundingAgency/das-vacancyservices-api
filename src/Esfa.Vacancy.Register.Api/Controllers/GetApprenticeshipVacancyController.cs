@@ -21,28 +21,6 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// <summary>
         /// The apprenticeship operation retrieves a single live apprenticeship vacancy using the vacancy reference number.
         /// 
-        /// Note that:
-        /// 
-        /// - the vacancy reference number should be specified as a number (ie. excluding any prefix)
-        /// - only live vacancies can be retrieved using this operation
-        /// 
-        /// #### Example ####
-        /// 
-        /// To retrieve VAC001234567:
-        /// 
-        /// ```
-        /// /apprenticeships/1234567
-        /// ```
-        /// 
-        /// #### Error codes ####
-        /// 
-        /// The following error codes may be returned when calling this operation:
-        /// 
-        /// | Error code  | Explanation                                                    |
-        /// | ----------- | -------------------------------------------------------------- |
-        /// | 30201       | Vacancy reference number must be greater than 0                |
-        /// | 30202       | Vacancy reference number must be a whole number                |
-        /// 
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
