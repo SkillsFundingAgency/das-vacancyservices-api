@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
             _vacancyOrchestrator = vacancyOrchestrator;
         }
 
-        /// <summary>
+        /// <remarks>
         /// The traineeship operation retrieves a single live traineeship vacancy using the vacancy reference number.
         /// 
         /// Note that:
@@ -42,7 +42,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30401       | Vacancy reference number must be greater than 0                |
         /// | 30402       | Vacancy reference number must be a whole number                |
         /// 
-        /// </summary>
+        /// </remarks>
         [HttpGet]
         [AllowAnonymous]
         [Route("{vacancyReference}")]
