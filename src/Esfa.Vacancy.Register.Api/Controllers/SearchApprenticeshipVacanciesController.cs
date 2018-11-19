@@ -17,7 +17,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
             _searchOrchestrator = searchOrchestrator;
         }
 
-        /// <summary>
+        /// <remarks>
         /// The apprenticeship search operation retrieves live apprenticeship vacancies based on search criteria specified 
         /// in the request parameters. 
         /// 
@@ -106,7 +106,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30109       | Invalid NationwideOnly                                                           |
         /// | 30110       | Invalid SortBy                                                                   |
         /// 
-        /// </summary>
+        /// </remarks>
         [HttpGet]
         [AllowAnonymous]
         [Route("search")]
