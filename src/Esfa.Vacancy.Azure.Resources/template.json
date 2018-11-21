@@ -126,7 +126,7 @@
     },
     "ipWhitelist": {
       "type": "array",
-      "defaultValue": null,
+      "defaultValue": [],
       "metadata": {
         "description": "Format removing backlashes: {\"Name\": \"IP A\",\"ipAddress\": \"123.123.123.123/32\"},{\"Name\": \"IP B\",\"ipAddress\": \"234.234.234.234/32\"}"
       }      
