@@ -134,9 +134,11 @@
   },
   "variables": {
     "webappResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/web-app-resources.json')]",
+    "Environment": "[if(equals(toUpper(parameters('EnvironmentName')),'PREPROD'),'',parameters('EnvironmentName').EnvironmentName)]",
     "appSettings": {
       "LoggingRedisConnectionString": "[parameters('LoggingRedisConnectionString')]",
       "AvmsPlusDatabaseConnectionString": "[parameters('AvmsPlusDatabaseConnectionString')]",
+      "Environment": "[variables('Environment')]",
       "EnvironmentName": "[parameters('EnvironmentName')]",
       "LoggingRedisKey": "[parameters('LoggingRedisKey')]",
       "ApprenticeshipInfoApiBaseUrl": "[parameters('ApprenticeshipInfoApiBaseUrl')]",

@@ -36,16 +36,10 @@
     },
     "ipWhitelist": {
       "type": "array",
-      "defaultValue": [
-        {
-          "Name": "IP A",
-          "ipAddress": "123.123.123.123/32"
-        },
-        {
-          "Name": "IP B",
-          "ipAddress": "234.234.234.234/32"
-        }
-      ]
+      "defaultValue": [],
+      "metadata": {
+        "description": "Format removing backlashes: {\"Name\": \"IP A\",\"ipAddress\": \"123.123.123.123/32\"},{\"Name\": \"IP B\",\"ipAddress\": \"234.234.234.234/32\"}"
+      }            
     }
   },
   "variables": {
@@ -54,7 +48,7 @@
       "alwaysOn": true,
       "ipSecurityRestrictions": "[parameters('ipWhitelist')]"
     },
-    "instancePrefix": "[if(equals(toUpper(parameters('appSettings').EnvironmentName),'PROD'),'',parameters('appSettings').EnvironmentName)]",
+    "instancePrefix": "[if(equals(toUpper(parameters('appSettings').Environment),'PROD'),'',parameters('appSettings').Environment)]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
     "serverFarmId": "[resourceId(parameters('appHostingPlanResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appHostingPlanName'))]",
     "useCustomHostname": "[greater(length(createArray(parameters('customHostNames').registerAppDomainName,parameters('customHostNames').manageAppDomainName,parameters('customHostNames').sandboxAppDomainName)), 0)]",
