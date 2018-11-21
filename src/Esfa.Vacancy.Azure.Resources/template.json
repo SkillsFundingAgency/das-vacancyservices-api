@@ -126,16 +126,10 @@
     },
     "ipWhitelist": {
       "type": "array",
-      "defaultValue": [
-        {
-          "Name": "IP A",
-          "ipAddress": "123.123.123.123/32"
-        },
-        {
-          "Name": "IP B",
-          "ipAddress": "234.234.234.234/32"
-        }
-      ]
+      "defaultValue": null,
+      "metadata": {
+        "description": "Format removing backlashes: {\"Name\": \"IP A\",\"ipAddress\": \"123.123.123.123/32\"},{\"Name\": \"IP B\",\"ipAddress\": \"234.234.234.234/32\"}"
+      }      
     }
   },
   "variables": {
