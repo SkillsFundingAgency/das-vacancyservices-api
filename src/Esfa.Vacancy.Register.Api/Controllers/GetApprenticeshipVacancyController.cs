@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
             _apprenticeshipVacancyOrchestrator = apprenticeshipVacancyOrchestrator;
         }
 
-        /// <summary>
+        /// <remarks>
         /// The apprenticeship operation retrieves a single live apprenticeship vacancy using the vacancy reference number.
         /// 
         /// Note that:
@@ -43,7 +43,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30201       | Vacancy reference number must be greater than 0                |
         /// | 30202       | Vacancy reference number must be a whole number                |
         /// 
-        /// </summary>
+        /// </remarks>
         [HttpGet]
         [AllowAnonymous]
         [Route("{vacancyReference:regex(^(?i)(?!search).*$)}", Name = RouteName.GetApprenticeshipVacancyByReference)]

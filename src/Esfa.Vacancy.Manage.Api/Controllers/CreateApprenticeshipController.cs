@@ -20,7 +20,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
             _orchestrator = orchestrator;
         }
 
-        /// <summary>
+        /// <remarks>
         /// The apprenticeship operation creates an apprenticeship vacancy using the specified values.
         /// 
         /// #### Restricted values ####
@@ -179,7 +179,7 @@ namespace Esfa.Vacancy.Manage.Api.Controllers
         /// | 31046       | Invalid Employer Description                |
         /// | 31047       | Invalid Employer Website Url                |
         ///                                                                                                  
-        /// </summary>
+        /// </remarks>
         [HttpPost]
         [AllowAnonymous]
         [ProviderAuthorisationFilter]
