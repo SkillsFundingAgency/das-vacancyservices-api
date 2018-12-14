@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
-using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
+using SFA.DAS.VacancyServices.Wage;
 using ApiTypes = Esfa.Vacancy.Api.Types;
 using recruitEntities = SFA.DAS.Recruit.Vacancies.Client.Entities;
 
@@ -46,7 +45,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
 
             var skills = string.Join(",", liveVacancy.Skills);
 
-            var wageText = await GetWageText(liveVacancy.Wage, liveVacancy.StartDate);
+            var wageText = GetWageText(liveVacancy.Wage, liveVacancy.StartDate);
 
             var duration = GetDurationAsText(liveVacancy.Wage);
 
@@ -114,44 +113,20 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             }
         }
 
-        private async Task<string> GetWageText(recruitEntities.Wage wage, DateTime expectedStartDate)
+        private string GetWageText(recruitEntities.Wage wage, DateTime expectedStartDate)
         {
-            var wageRange = await _minimumWagesService.GetWageRangeAsync(expectedStartDate);
+            var wageDetail = new WageDetails { HoursPerWeek = wage.WeeklyHours, StartDate = expectedStartDate, Amount = wage.FixedWageYearlyAmount};
             switch (wage.WageType)
             {
                 case NationalMinimumWageForApprenticesWageType:
-                    return GetApprenticeshipMinimumWage(wageRange, wage.WeeklyHours);
+                    return WagePresenter.GetDisplayText(WageType.ApprenticeshipMinimum, WageUnit.Weekly, wageDetail);
                 case NationalMinimumWageWageType:
-                    return GetNationalMinimumWage(wageRange, wage.WeeklyHours);
+                    return WagePresenter.GetDisplayText(WageType.NationalMinimum, WageUnit.Weekly, wageDetail);
                 case UnspecifiedWageType:
                     return UnknownText;
                 default: //including FixedWage
-                    return GetFormattedCurrencyString(wage.FixedWageYearlyAmount.GetValueOrDefault());
+                    return WagePresenter.GetDisplayText(WageType.Custom, WageUnit.Weekly, wageDetail);
             }
-        }
-
-        private string GetNationalMinimumWage(WageRange wageRange, decimal hoursPerWeek)
-        {
-            var lowerMinimumLimit = wageRange.NationalMinimumWage * hoursPerWeek;
-            var upperMinimumLimit = wageRange.NationalMaximumWage * hoursPerWeek;
-
-            var minLowerBoundSection = GetFormattedCurrencyString(lowerMinimumLimit);
-            var minUpperBoundSection = GetFormattedCurrencyString(upperMinimumLimit);
-
-            return $"{minLowerBoundSection} - {minUpperBoundSection}";
-        }
-
-        private string GetApprenticeshipMinimumWage(WageRange wageRange, decimal hoursPerWeek)
-        {
-            var wages = wageRange.ApprenticeMinimumWage * hoursPerWeek;
-
-            return GetFormattedCurrencyString(wages);
-        }
-
-        private static string GetFormattedCurrencyString(decimal src)
-        {
-            const string currencyStringFormat = "C";
-            return src.ToString(currencyStringFormat, CultureInfo.GetCultureInfo("en-GB"));
         }
 
         private string GetDurationAsText(recruitEntities.Wage wage)

@@ -9,6 +9,7 @@ using Moq;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 using SFA.DAS.Recruit.Vacancies.Client.Entities;
+using SFA.DAS.VacancyServices.Wage;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecruitApprenticeshipMapper
 {
@@ -31,14 +32,15 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
                 .ReturnsAsync(FixtureInstance.Create<Standard>());
 
             MinimumWageServiceMock = FixtureInstance.Freeze<Mock<IGetMinimumWagesService>>();
-            MinimumWageServiceMock.Setup(s => s.GetWageRangeAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(FixtureInstance.Create<WageRange>());
+            MinimumWageServiceMock.Setup(s => s.GetWageRange(It.IsAny<DateTime>()))
+                .Returns<DateTime>(NationalMinimumWageService.GetHourlyRates);
 
             var wage = FixtureInstance.Build<Wage>()
                 .With(w => w.WageType, RecruitApprenticeshipMapper.FixedWageType)
                 .Create();
             LiveVacancy = FixtureInstance.Build<LiveVacancy>()
                 .With(v => v.Wage, wage)
+                .With(v => v.StartDate, new DateTime(2018, 5, 1))
                 .With(v => v.ProgrammeType, "Standard")
                 .With(v => v.ProgrammeId, "123")
                 .Create();

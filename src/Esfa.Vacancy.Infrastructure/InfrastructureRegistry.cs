@@ -34,8 +34,7 @@ namespace Esfa.Vacancy.Infrastructure
             For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
 
-            For<IGetMinimumWagesService>().Use<CachedGetMinimumWagesService>()
-                .Ctor<IGetMinimumWagesService>().Is<GetMinimumWagesService>();
+            For<IGetMinimumWagesService>().Use<GetMinimumWagesService>();
 
             For<ITrainingDetailService>().Use<CachedTrainingDetailService>()
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();

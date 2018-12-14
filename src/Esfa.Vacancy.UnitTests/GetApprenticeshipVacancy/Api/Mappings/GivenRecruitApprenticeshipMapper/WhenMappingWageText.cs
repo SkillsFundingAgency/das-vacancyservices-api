@@ -1,11 +1,11 @@
 ﻿using System;
-using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Register.Api.Mappings;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using SFA.DAS.Recruit.Vacancies.Client.Entities;
+using SFA.DAS.VacancyServices.Wage;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecruitApprenticeshipMapper
 {
@@ -48,17 +48,13 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
         [Test]
         public void AndWageTypeIsNationalMinimumWage()
         {
-            var minWage = 8m;
-            var maxWage = 10m;
+            var minWage = 4.2m;
+            var maxWage = 7.83m;
             var weeklyHours = 40;
-            var wageRange = FixtureInstance.Build<WageRange>()
-                .With(w => w.NationalMinimumWage, minWage)
-                .With(w => w.NationalMaximumWage, maxWage)
-                .Create();
 
             MinimumWageServiceMock
-                .Setup(s => s.GetWageRangeAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(wageRange);
+                .Setup(s => s.GetWageRange(It.IsAny<DateTime>()))
+                .Returns<DateTime>(NationalMinimumWageService.GetHourlyRates);
 
             var sut = GetRecruitApprecticeshipMapper();
             LiveVacancy.Wage = FixtureInstance.Build<Wage>()
@@ -76,15 +72,12 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
         [Test]
         public void AndWageTypeIsNationalMinimumWageForApprentices()
         {
-            var minWage = 8m;
+            var minWage = 3.7m;
             var weeklyHours = 40;
-            var wageRange = FixtureInstance.Build<WageRange>()
-                .With(w => w.ApprenticeMinimumWage, minWage)
-                .Create();
 
             MinimumWageServiceMock
-                .Setup(s => s.GetWageRangeAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(wageRange);
+                .Setup(s => s.GetWageRange(It.IsAny<DateTime>()))
+                .Returns<DateTime>(NationalMinimumWageService.GetHourlyRates);
 
             var sut = GetRecruitApprecticeshipMapper();
             LiveVacancy.Wage = FixtureInstance.Build<Wage>()
