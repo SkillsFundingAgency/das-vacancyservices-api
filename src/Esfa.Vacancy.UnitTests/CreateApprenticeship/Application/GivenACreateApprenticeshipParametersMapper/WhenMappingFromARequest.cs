@@ -22,6 +22,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         private DomainDurationType _randomDomainDurationType;
         private Mock<IWageTypeMapper> _mockWageTypeMapper;
         private int _randomWageUnit;
+        private Mock<IWageTextFormatter> _mockWageTextFormatter;
 
         [SetUp]
         public void SetUp()
@@ -46,6 +47,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _mockWageTypeMapper
                 .Setup(typeMapper => typeMapper.MapToLegacy(It.IsAny<CreateApprenticeshipRequest>()))
                 .Returns((LegacyWageType)_randomLegacyWageType);
+
+            _mockWageTextFormatter = fixture.Freeze<Mock<IWageTextFormatter>>();
+
 
             fixture.Inject<IDurationMapper>(durationTypeMapper);
 
@@ -189,6 +193,13 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         public void ThenMapsWeeklyWage()
         {
             _mappedParameters.WeeklyWage.Should().Be(_request.FixedWage);
+        }
+
+        [Test]
+        public void ThenMapsWageText()
+        {
+            _mockWageTextFormatter.Verify(mapper => mapper.GetWageText(It.IsAny<CreateApprenticeshipRequest>()),
+                                          Times.Once);
         }
 
         [Test]

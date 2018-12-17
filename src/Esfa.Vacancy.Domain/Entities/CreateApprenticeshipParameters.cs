@@ -53,5 +53,6 @@ namespace Esfa.Vacancy.Domain.Entities
         public bool IsDisabilityConfident { get; set; }
         public string AdditionalLocationInformation { get; set; }
         public string HistoryUserName { get; set; }
+        public string WageText { get; set; }
     }
 }

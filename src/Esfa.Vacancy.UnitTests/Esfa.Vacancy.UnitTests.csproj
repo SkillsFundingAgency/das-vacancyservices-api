@@ -245,6 +245,7 @@
     <Compile Include="CreateApprenticeship\Application\GivenACreateApprenticeshipRequestValidator\WhenValidatingWithMatchesAllowedFreeTextCharacters.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAHourlyWageCalculator\WhenCallingCalculate.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAMinimumWageSelector\WhenSelectingHourlyRate.cs" />
+    <Compile Include="CreateApprenticeship\Application\GivenAWageTextFormatter\WhenGettingWageText.cs" />
     <Compile Include="CreateApprenticeship\Application\GivenAWageTypeMapper\WhenMappingWageType.cs" />
     <Compile Include="Extensions\FixtureExtensions.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRaaApprenticeshipMapper\WhenMappingEmployersEmployersApplicationInstructions.cs" />
