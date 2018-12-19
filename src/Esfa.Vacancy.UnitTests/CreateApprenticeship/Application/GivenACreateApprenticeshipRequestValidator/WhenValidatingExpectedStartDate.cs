@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         {
             new TestCaseData(null, DateTime.Today.AddDays(1), false,
                     new List<string> { ErrorCodes.CreateApprenticeship.ExpectedStartDate },
-                    new List<string> { "'Expected Start Date' should not be empty." })
+                    new List<string> { ErrorMessages.CreateApprenticeship.ExpectedStartDateEmpty })
                 .SetName("And is null Then is invalid"),
             new TestCaseData(DateTime.Today.AddDays(3), DateTime.Today.AddDays(4), false,
                     new List<string> { ErrorCodes.CreateApprenticeship.ExpectedStartDate },

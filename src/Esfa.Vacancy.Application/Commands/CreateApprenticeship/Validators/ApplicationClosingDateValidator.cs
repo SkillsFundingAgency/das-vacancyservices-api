@@ -12,6 +12,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
 
             RuleFor(request => request.ApplicationClosingDate)
                 .NotEmpty()
+                .WithMessage(ErrorMessages.CreateApprenticeship.ApplicationClosingDateEmpty)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ApplicationClosingDate)
                 .DependentRules(rules => rules.RuleFor(request => request.ApplicationClosingDate)
                     .GreaterThanOrEqualTo(tomorrow)
