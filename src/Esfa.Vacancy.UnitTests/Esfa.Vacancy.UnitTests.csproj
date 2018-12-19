@@ -107,7 +107,7 @@
       <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.28\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.3\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.5.0\lib\net45\StructureMap.dll</HintPath>

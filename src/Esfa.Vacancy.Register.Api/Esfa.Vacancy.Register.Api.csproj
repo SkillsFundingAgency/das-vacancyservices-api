@@ -146,7 +146,7 @@
       <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.28\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.3\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
