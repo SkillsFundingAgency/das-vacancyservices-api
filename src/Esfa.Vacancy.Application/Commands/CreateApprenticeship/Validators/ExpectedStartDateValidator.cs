@@ -9,6 +9,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
         {
             RuleFor(request => request.ExpectedStartDate)
                 .NotEmpty()
+                .WithMessage(ErrorMessages.CreateApprenticeship.ExpectedStartDateEmpty)
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.ExpectedStartDate)
                 .DependentRules(rules => rules.RuleFor(request => request.ExpectedStartDate)
                     .GreaterThanOrEqualTo(request => request.ApplicationClosingDate.Date.AddDays(1))

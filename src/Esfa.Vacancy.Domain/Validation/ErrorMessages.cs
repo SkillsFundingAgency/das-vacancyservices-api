@@ -52,7 +52,10 @@ namespace Esfa.Vacancy.Domain.Validation
                 "You cannot specify Supplementary Questions for this Application Method";
 
             public const string ApplicationClosingDateBeforeTomorrow = "'Application Closing Date' must be after today's date.";
+
+            public const string ApplicationClosingDateEmpty = "'Application Closing Date' should not be empty or the format is incorrect.";
             public const string ExpectedStartDateBeforeClosingDate = "'Expected Start Date' must be after the specified application closing date.";
+            public const string ExpectedStartDateEmpty = "'Expected Start Date' should not be empty or the format is incorrect.";
             public const string CreateApprenticeshipParametersIsNull = "Either no request was provided or the request could not be recognised.";
             public const string MissingProviderSiteEmployerLink = "User entry is invalid or no existing link between the provider site and employer.";
 
@@ -71,6 +74,7 @@ namespace Esfa.Vacancy.Domain.Validation
                 "'{PropertyName}' should be in the format '###-##-##' when Training Type is Framework.";
 
             public const string InvalidTrainingCode = "'Training Code' is invalid.";
+
         }
     }
 }
