@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators;
+using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Validation;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using Esfa.Vacancy.UnitTests.Extensions;
@@ -21,7 +22,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
     {
         private IFixture _fixture;
         private CreateApprenticeshipRequestValidator _validator;
-        private Mock<IMinimumWageSelector> _mockSelector;
+        private Mock<IGetMinimumWagesService> _mockSelector;
         private Mock<IHourlyWageCalculator> _mockCalculator;
         private decimal _expectedAllowedFixedWage;
         private decimal _expectedAttemptedFixedWage;
@@ -34,10 +35,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             _expectedAllowedFixedWage = _fixture.Create<decimal>();
             _expectedAttemptedFixedWage = _fixture.Create<decimal>();
 
-            _mockSelector = _fixture.Freeze<Mock<IMinimumWageSelector>>();
+            _mockSelector = _fixture.Freeze<Mock<IGetMinimumWagesService>>();
             _mockSelector
-                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(_expectedAllowedFixedWage);
+                .Setup(selector => selector.GetApprenticeMinimumWageRate(It.IsAny<DateTime>()))
+                .Returns(_expectedAllowedFixedWage);
 
             _mockCalculator = _fixture.Freeze<Mock<IHourlyWageCalculator>>();
             _mockCalculator
@@ -174,7 +175,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
 
             await _validator.ValidateAsync(context).ConfigureAwait(false);
 
-            _mockSelector.Verify(selector => selector.SelectHourlyRateAsync(expectedStartDate));
+            _mockSelector.Verify(selector => selector.GetApprenticeMinimumWageRate(expectedStartDate));
         }
 
         [Test]
@@ -209,7 +210,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _mockSelector
-                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
+                .Setup(selector => selector.GetApprenticeMinimumWageRate(It.IsAny<DateTime>()))
                 .Throws<InfrastructureException>();
 
             var action = new Func<Task<ValidationResult>>(() => _validator.ValidateAsync(context));
@@ -231,7 +232,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _mockSelector
-                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
+                .Setup(selector => selector.GetApprenticeMinimumWageRate(It.IsAny<DateTime>()))
                 .Throws<WageRangeNotFoundException>();
 
             var action = new Func<Task<ValidationResult>>(() => _validator.ValidateAsync(context));
@@ -290,10 +291,10 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             var context = GetValidationContextForProperty(request, req => req.FixedWage);
 
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
-            _mockSelector = _fixture.Freeze<Mock<IMinimumWageSelector>>();
+            _mockSelector = _fixture.Freeze<Mock<IGetMinimumWagesService>>();
             _mockSelector
-                .Setup(selector => selector.SelectHourlyRateAsync(It.IsAny<DateTime>()))
-                .ReturnsAsync(allowedMinimumHourlyWage);
+                .Setup(selector => selector.GetApprenticeMinimumWageRate(It.IsAny<DateTime>()))
+                .Returns(allowedMinimumHourlyWage);
 
             _fixture.Inject<IHourlyWageCalculator>(new HourlyWageCalculator());
 

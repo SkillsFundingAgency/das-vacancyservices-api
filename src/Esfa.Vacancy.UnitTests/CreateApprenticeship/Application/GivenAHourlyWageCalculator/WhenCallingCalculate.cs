@@ -26,7 +26,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAHourlyWa
 
             var result = minimumWageCalculator.Calculate(minWage, wageUnit, (decimal)hoursPerWeek);
 
-            result.Should().BeApproximately(expectedResult, 0.005m);
+            result.Should().BeApproximately(expectedResult, 0.01m);
         }
 
         [Test]

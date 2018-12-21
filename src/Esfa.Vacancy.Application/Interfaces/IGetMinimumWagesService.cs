@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Esfa.Vacancy.Domain.Entities;
+using SFA.DAS.VacancyServices.Wage;
 
 namespace Esfa.Vacancy.Application.Interfaces
 {
     public interface IGetMinimumWagesService
     {
-        Task<IEnumerable<WageRange>> GetAllWagesAsync();
+        NationalMinimumWageRates GetWageRange(DateTime expectedStartDate);
 
-        Task<WageRange> GetWageRangeAsync(DateTime expectedStartDate);
+        decimal GetApprenticeMinimumWageRate(DateTime expectedStartDate);
     }
 }

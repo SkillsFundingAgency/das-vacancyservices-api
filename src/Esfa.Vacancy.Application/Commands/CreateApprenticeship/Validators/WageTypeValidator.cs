@@ -58,7 +58,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 () =>
                 {
                     RuleFor(request => request.FixedWage)
-                        .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                        .Must(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
                         .WithErrorCode(ErrorCodes.CreateApprenticeship.FixedWage)
                         .WithMessage(ErrorMessages.CreateApprenticeship.FixedWageIsBelowApprenticeMinimumWage);
                 });
@@ -102,7 +102,7 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                     () =>
                     {
                         RuleFor(request => request.MinWage)
-                            .MustAsync(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
+                            .Must(BeGreaterThanOrEqualToApprenticeshipMinimumWage)
                             .WithErrorCode(ErrorCodes.CreateApprenticeship.MinWage)
                             .WithMessage(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
                     });
@@ -230,13 +230,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship.Validators
                 .WithErrorCode(ErrorCodes.CreateApprenticeship.WageTypeReason);
         }
 
-        private async Task<bool> BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, decimal? wage, CancellationToken cancellationToken)
+        private bool BeGreaterThanOrEqualToApprenticeshipMinimumWage(CreateApprenticeshipRequest request, decimal? wage)
         {
             try
             {
-                var allowedMinimumWage = await _minimumWageSelector
-                    .SelectHourlyRateAsync(request.ExpectedStartDate)
-                    .ConfigureAwait(false);
+                var allowedMinimumWage = _getMinimumWagesService
+                    .GetApprenticeMinimumWageRate(request.ExpectedStartDate);
 
                 var attemptedMinimumWage = _hourlyWageCalculator.Calculate(
                     wage.GetValueOrDefault(),

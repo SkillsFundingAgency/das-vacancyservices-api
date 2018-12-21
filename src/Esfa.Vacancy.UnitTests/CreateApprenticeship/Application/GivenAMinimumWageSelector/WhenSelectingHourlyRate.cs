@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Commands.CreateApprenticeship;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Entities;
+using Esfa.Vacancy.Infrastructure.Services;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
+using SFA.DAS.VacancyServices.Wage;
 
 namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumWageSelector
 {
@@ -17,27 +18,27 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
     {
         private static readonly WageRange FirstWageRange = new WageRange
         {
-            ApprenticeMinimumWage = 3.4m,
+            ApprenticeMinimumWage = 3.5m,
             ValidFrom = DateTime.MinValue,
             ValidTo = DateTime.Today.AddMonths(-2)
         };
 
         private static readonly WageRange SecondWageRange = new WageRange
         {
-            ApprenticeMinimumWage = 3.5m,
+            ApprenticeMinimumWage = 3.7m,
             ValidFrom = DateTime.Today.AddMonths(-2).AddDays(1).AddHours(12),
             ValidTo = DateTime.Today.AddMonths(2).AddHours(12)
         };
 
         private static readonly WageRange ThirdWageRange = new WageRange
         {
-            ApprenticeMinimumWage = 3.6m,
+            ApprenticeMinimumWage = 3.7m,
             ValidFrom = DateTime.Today.AddMonths(2).AddDays(1),
             ValidTo = DateTime.MaxValue
         };
 
         private Mock<IGetMinimumWagesService> _mockMinimumWageService;
-        private MinimumWageSelector _minimumWageSelector;
+        private IGetMinimumWagesService _getMinimumWagesService;
         private IFixture _fixture;
 
         private static List<TestCaseData> TestCases => new List<TestCaseData>
@@ -63,48 +64,18 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenAMinimumW
 
             _mockMinimumWageService = _fixture.Freeze<Mock<IGetMinimumWagesService>>();
             _mockMinimumWageService
-                .Setup(service => service.GetAllWagesAsync())
-                .ReturnsAsync(new List<WageRange>
-                {
-                    FirstWageRange,
-                    SecondWageRange,
-                    ThirdWageRange
-                });
+                .Setup(service => service.GetWageRange(It.IsAny<DateTime>()))
+                .Returns<DateTime>(NationalMinimumWageService.GetHourlyRates);
 
-            _minimumWageSelector = _fixture.Create<MinimumWageSelector>();
+            _getMinimumWagesService = _fixture.Create<GetMinimumWagesService>();
         }
 
         [TestCaseSource(nameof(TestCases))]
-        public async Task WhenCallingSelectHourlyRate(DateTime expectedStartDate, decimal expectedHourlyRate)
+        public void WhenCallingSelectHourlyRate(DateTime expectedStartDate, decimal expectedHourlyRate)
         {
-            var hourlyRate = await _minimumWageSelector.SelectHourlyRateAsync(expectedStartDate);
+            var hourlyRate = _getMinimumWagesService.GetApprenticeMinimumWageRate(expectedStartDate);
 
             hourlyRate.Should().Be(expectedHourlyRate);
-        }
-
-        [Test]
-        public async Task ThenCallsMinimumWageService()
-        {
-            await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Now);
-
-            _mockMinimumWageService
-                .Verify(service => service.GetAllWagesAsync(), Times.Once);
-        }
-
-        [Test]
-        public void AndNoWageFound_ThenThrowsMissingWageRangeException()
-        {
-            _mockMinimumWageService
-                .Setup(service => service.GetAllWagesAsync())
-                .ReturnsAsync(new List<WageRange>());
-
-            Func<Task> action = async () =>
-            {
-                await _minimumWageSelector.SelectHourlyRateAsync(DateTime.Today);
-            };
-
-            action.ShouldThrow<WageRangeNotFoundException>()
-                .WithMessage($"No WageRange found for date: [{DateTime.Today:yyyy-MM-dd}]");
         }
     }
 }
