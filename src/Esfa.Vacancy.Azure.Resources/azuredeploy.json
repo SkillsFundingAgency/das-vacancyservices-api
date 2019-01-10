@@ -36,10 +36,10 @@
       "defaultValue": "West Europe"
     },
     "LoggingRedisConnectionString": {
-      "type": "string"
+      "type": "securestring"
     },
     "AvmsPlusDatabaseConnectionString": {
-      "type": "string"
+      "type": "securestring"
     },
     "EnvironmentName": {
       "type": "string"
@@ -63,13 +63,13 @@
       "type": "string"
     },
     "CacheConnectionString": {
-      "type": "string"
+      "type": "securestring"
     },
     "CacheReferenceDataDuration": {
       "type": "string"
     },
     "RecruitMongoConnectionString": {
-      "type": "string"
+      "type": "securestring"
     },
     "RecruitMongoDatabaseName": {
       "type": "string"
@@ -106,12 +106,12 @@
       "defaultValue": ""
     },
     "ElasticsearchPassword": {
-      "type": "string",
+      "type": "securestring",
       "defaultValue": ""
     },
     "aspSize": {
       "type": "string",
-      "defaultValue": ""
+      "defaultValue": "1"
     },
     "aspInstances": {
       "type": "int",
