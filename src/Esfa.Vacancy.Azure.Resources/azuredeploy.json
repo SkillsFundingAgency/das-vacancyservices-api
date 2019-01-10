@@ -133,7 +133,7 @@
     "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]",
     "installCertificate": "[greater(length(parameters('keyVaultCertificateName')), 0)]"
   },
-  "resources": [    
+  "resources": [
     {
       "apiVersion": "2017-05-10",
       "name": "[parameters('registerAppName')]",
@@ -194,27 +194,26 @@
       ]
     },
     {
-        "apiVersion": "2017-08-01",
-        "name": "[concat(parameters('registerAppName'),'-ai')]",
-        "type": "Microsoft.Resources/deployments",
-        "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-            "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
-            "contentVersion": "1.0.0.0"
-          },
-          "parameters": {
-            "appInsightsName": {
-              "value": "[parameters('registerAppName')]"
-            },
-            "attachedService": {
-              "value": "[parameters('registerAppName')]"
-            }
-          }
+      "apiVersion": "2017-08-01",
+      "name": "[concat(parameters('registerAppName'),'-ai')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
         },
-        "dependsOn": [
-        ]
-    },    
+        "parameters": {
+          "appInsightsName": {
+            "value": "[parameters('registerAppName')]"
+          },
+          "attachedService": {
+            "value": "[parameters('registerAppName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
     {
       "apiVersion": "2017-05-10",
       "name": "[parameters('manageAppName')]",
@@ -265,26 +264,25 @@
       ]
     },
     {
-        "apiVersion": "2017-08-01",
-        "name": "[concat(parameters('manageAppName'),'-ai')]",
-        "type": "Microsoft.Resources/deployments",
-        "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-            "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
-            "contentVersion": "1.0.0.0"
-          },
-          "parameters": {
-            "appInsightsName": {
-              "value": "[parameters('manageAppName')]"
-            },
-            "attachedService": {
-              "value": "[parameters('manageAppName')]"
-            }
-          }
+      "apiVersion": "2017-08-01",
+      "name": "[concat(parameters('manageAppName'),'-ai')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
         },
-        "dependsOn": [
-        ]
+        "parameters": {
+          "appInsightsName": {
+            "value": "[parameters('manageAppName')]"
+          },
+          "attachedService": {
+            "value": "[parameters('manageAppName')]"
+          }
+        }
+      },
+      "dependsOn": []
     },
     {
       "apiVersion": "2017-05-10",
@@ -336,26 +334,25 @@
       ]
     },
     {
-        "apiVersion": "2017-08-01",
-        "name": "[concat(parameters('sandboxAppName'),'-ai')]",
-        "type": "Microsoft.Resources/deployments",
-        "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-            "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
-            "contentVersion": "1.0.0.0"
-          },
-          "parameters": {
-            "appInsightsName": {
-              "value": "[parameters('sandboxAppName')]"
-            },
-            "attachedService": {
-              "value": "[parameters('sandboxAppName')]"
-            }
-          }
+      "apiVersion": "2017-08-01",
+      "name": "[concat(parameters('sandboxAppName'),'-ai')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('deploymentUrlBase'),'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
         },
-        "dependsOn": [
-        ]
+        "parameters": {
+          "appInsightsName": {
+            "value": "[parameters('sandboxAppName')]"
+          },
+          "attachedService": {
+            "value": "[parameters('sandboxAppName')]"
+          }
+        }
+      },
+      "dependsOn": []
     },
     {
       "apiVersion": "2017-08-01",
@@ -374,8 +371,7 @@
         }
       },
       "dependsOn": []
-    }    
-  ],
-    "outputs": {
     }
+  ],
+  "outputs": {}
 }
