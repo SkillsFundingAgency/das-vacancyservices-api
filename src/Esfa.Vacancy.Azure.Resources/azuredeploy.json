@@ -361,7 +361,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('deploymentUrlBase'),'storage-account-classic.json')]",
+          "uri": "[concat(parameters('deploymentUrlBase'),'storage-account-arm.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
