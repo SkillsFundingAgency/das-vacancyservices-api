@@ -139,7 +139,9 @@
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
     "Environment": "[if(equals(toUpper(parameters('EnvironmentName')),'PREPROD'),'PP',parameters('EnvironmentName'))]",
     "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]",
-    "installCertificate": "[greater(length(parameters('registerKeyVaultCertificateName')), 0)]"
+    "installRegisterCertificate": "[greater(length(parameters('registerKeyVaultCertificateName')), 0)]",
+    "installManageCertificate": "[greater(length(parameters('manageKeyVaultCertificateName')), 0)]",
+    "installSandboxCertificate": "[greater(length(parameters('sandboxKeyVaultCertificateName')), 0)]"
   },
   "resources": [
     {
