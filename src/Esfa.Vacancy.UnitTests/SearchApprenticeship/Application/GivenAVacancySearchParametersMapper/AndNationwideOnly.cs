@@ -39,12 +39,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
         }
 
         [Test]
-        public void AndIsFalse_ThenMapsToNonNationwide()
+        public void AndIsFalse_ThenDoesNotMap()
         {
             var result = _mapper.Convert(new SearchApprenticeshipVacanciesRequest
                 { NationwideOnly = false });
 
-            result.LocationType.Should().Be(VacancySearchParametersMapper.NonNationwideLocationType);
+            result.LocationType.Should().BeNullOrEmpty();
         }
     }
 }

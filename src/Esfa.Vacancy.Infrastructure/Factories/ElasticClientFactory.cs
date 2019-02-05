@@ -18,11 +18,18 @@ namespace Esfa.Vacancy.Infrastructure.Factories
         public IElasticClient GetClient()
         {
             var baseUri = _provideSettings.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey);
+            var userName = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticsearchUserName);
+            var password = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticsearchPassword);
             var node = new Uri(baseUri);
+
             var settings = new ConnectionSettings(node);
-
-            settings.SetTimeout(ElasticClientTimeoutMilliseconds);
-
+            settings
+                .RequestTimeout(TimeSpan.FromSeconds(ElasticClientTimeoutMilliseconds))
+                .DisableDirectStreaming()
+                .BasicAuthentication(userName, password);
+#if DEBUG
+            settings.EnableDebugMode();
+#endif
             return new ElasticClient(settings);
         }
     }

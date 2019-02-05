@@ -58,21 +58,39 @@ namespace Esfa.Vacancy.Infrastructure.Services
                         .Take(parameters.PageSize)
                         .Query(query =>
                         {
-                            var container =
-                                (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
-                                 || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
-                                    && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
-                                    && query.Range(range =>
-                                        range.OnField(apprenticeship => apprenticeship.PostedDate)
-                                            .GreaterOrEquals(parameters.FromDate));
+                            var container = new QueryContainer();
+                            if (parameters.FrameworkLarsCodes.Any() || parameters.StandardLarsCodes.Any())
+                            {
+                                container &=
+                                    query.Terms(qt => qt
+                                        .Field(apprenticeship => apprenticeship.FrameworkLarsCode)
+                                        .Terms(parameters.FrameworkLarsCodes))
+                                    || query.Terms(qt => qt
+                                        .Field(apprenticeship => apprenticeship.StandardLarsCode)
+                                        .Terms(parameters.StandardLarsCodes));
+                            }
+
+                            if (parameters.FromDate.HasValue)
+                            {
+                                container &= query.DateRange(range => range
+                                    .Field(apprenticeship => apprenticeship.PostedDate)
+                                    .GreaterThanOrEquals(DateMath.Anchored(parameters.FromDate.GetValueOrDefault())));
+                            }
+
+                            if (parameters.LocationType == VacancySearchParametersMapper.NationwideLocationType)
+                            {
+                                container &= query.Match(m => m
+                                    .Field(apprenticeship => apprenticeship.VacancyLocationType)
+                                    .Query(parameters.LocationType));
+                            }
 
                             if (parameters.HasGeoSearchFields)
                             {
-                                container = container && query.Filtered(filteredQuery =>
-                                    filteredQuery.Filter(filter =>
-                                        filter.GeoDistance(summary => summary.Location, geoDistanceFilter =>
-                                            geoDistanceFilter.Location(parameters.Latitude.Value, parameters.Longitude.Value)
-                                                .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
+                                container &=
+                                    query.GeoDistance(gd => gd
+                                        .Field(summary => summary.Location)
+                                        .Location(parameters.Latitude.GetValueOrDefault(), parameters.Longitude.GetValueOrDefault())
+                                        .Distance(parameters.DistanceInMiles.GetValueOrDefault(), DistanceUnit.Miles));
                             }
 
                             return container;
@@ -106,10 +124,9 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 throw new InfrastructureException(e);
             }
 
-            if (!esReponse.ConnectionStatus.Success)
+            if (!esReponse.IsValid)
             {
-                var ex = new Exception("Unexpected response received from Elastic Search");
-                throw new InfrastructureException(ex);
+                throw new Exception($"Unexpected response received from Elastic Search: { esReponse.DebugInformation}");
             }
 
             if (parameters.HasGeoSearchFields)
