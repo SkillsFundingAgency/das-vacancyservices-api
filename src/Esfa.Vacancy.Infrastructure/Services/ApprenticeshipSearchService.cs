@@ -126,7 +126,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
             if (!esReponse.IsValid)
             {
-                throw new Exception($"Unexpected response received from Elastic Search: { esReponse.DebugInformation}");
+                var ex = new Exception($"Unexpected response received from Elastic Search: { esReponse.DebugInformation}");
+                throw new InfrastructureException(ex);
             }
 
             if (parameters.HasGeoSearchFields)
