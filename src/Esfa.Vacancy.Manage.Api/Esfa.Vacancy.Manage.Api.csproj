@@ -302,7 +302,6 @@
     <Content Include="Content\src\styles\govuk_template\views\layouts\govuk_template.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="parameters.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
