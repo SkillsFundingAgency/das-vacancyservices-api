@@ -43,13 +43,8 @@ try {
     $Context = New-AzureRmApiManagementContext -ResourceGroupName $ResourceGroupName -ServiceName $InstanceName
     Write-Host "Retrieving ApiId for API $ApiName"
     
-    $ApiId = (Get-AzureRmApiManagementApi -Context $Context -Name $ApiName).ApiId
-
-    # Get-AzureRmApiManagementApi has a bug where it sometimes brings back more than one result. If statement works around this.
-    if ($ApiId.Count -gt 1) {
-        $ApiMatches = Get-AzureRmApiManagementApi -Context $Context -Name $ApiName
-        $ApiId = ($ApiMatches | Where-Object {$_.Name -eq $ApiName}).ApiId
-    }
+    # Get-AzureRmApiManagementApi has a bug where it sometimes brings back more than one result when using -Name parameter. Using Where-Object instead.
+    $ApiId = (Get-AzureRmApiManagementApi -Context $Context | Where-Object {$_.Name -eq $ApiName}).ApiId
 
     if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
         $ApiSuf = $ApiUrlSuffix.ToLower()
