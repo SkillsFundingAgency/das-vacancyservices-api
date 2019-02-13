@@ -182,7 +182,9 @@
               {"name": "RecruitMongoConnectionString", "value": "[parameters('RecruitMongoConnectionString')]"},
               {"name": "RecruitMongoDatabaseName", "value": "[parameters('RecruitMongoDatabaseName')]"},
               {"name": "RecruitMongoCollectionName", "value": "[parameters('RecruitMongoCollectionName')]"},
-              {"name": "InstanceName", "value": "[variables('instancePrefix')]"}
+              {"name": "InstanceName", "value": "[variables('instancePrefix')]"},
+              {"name": "ElasticsearchUserName", "value": "[parameters('ElasticsearchUserName')]"},
+              {"name": "ElasticsearchPassword", "value": "[parameters('ElasticsearchPassword')]"}
             ]
           },
           "customHostName": {
@@ -255,7 +257,9 @@
               {"name": "CacheConnectionString", "value": "[parameters('CacheConnectionString')]"},
               {"name": "UseSandboxServices", "value": "no"},
               {"name": "InstanceName", "value": "[variables('instancePrefix')]"},
-              {"name": "CacheReferenceDataDuration", "value": "[parameters('CacheReferenceDataDuration')]"}
+              {"name": "CacheReferenceDataDuration", "value": "[parameters('CacheReferenceDataDuration')]"},
+              {"name": "ElasticsearchUserName", "value": "[parameters('ElasticsearchUserName')]"},
+              {"name": "ElasticsearchPassword", "value": "[parameters('ElasticsearchPassword')]"}
             ]
           },
           "customHostName": {
@@ -325,7 +329,9 @@
               {"name": "CacheConnectionString", "value": "[parameters('CacheConnectionString')]"},
               {"name": "UseSandboxServices", "value": "yes"},
               {"name": "InstanceName", "value": "[variables('sandboxName')]"},
-              {"name": "CacheReferenceDataDuration", "value": "[parameters('CacheReferenceDataDuration')]"}
+              {"name": "CacheReferenceDataDuration", "value": "[parameters('CacheReferenceDataDuration')]"},
+              {"name": "ElasticsearchUserName", "value": "[parameters('ElasticsearchUserName')]"},
+              {"name": "ElasticsearchPassword", "value": "[parameters('ElasticsearchPassword')]"}
             ]
           },
           "customHostName": {
