@@ -77,7 +77,15 @@
     "RecruitMongoCollectionName": {
       "type": "string"
     },
-    "keyVaultCertificateName": {
+    "registerKeyVaultCertificateName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "manageKeyVaultCertificateName": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "sandboxKeyVaultCertificateName": {
       "type": "string",
       "defaultValue": ""
     },
@@ -131,7 +139,9 @@
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
     "Environment": "[if(equals(toUpper(parameters('EnvironmentName')),'PREPROD'),'PP',parameters('EnvironmentName'))]",
     "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]",
-    "installCertificate": "[greater(length(parameters('keyVaultCertificateName')), 0)]"
+    "installRegisterCertificate": "[greater(length(parameters('registerKeyVaultCertificateName')), 0)]",
+    "installManageCertificate": "[greater(length(parameters('manageKeyVaultCertificateName')), 0)]",
+    "installSandboxCertificate": "[greater(length(parameters('sandboxKeyVaultCertificateName')), 0)]"
   },
   "resources": [
     {
@@ -172,14 +182,16 @@
               {"name": "RecruitMongoConnectionString", "value": "[parameters('RecruitMongoConnectionString')]"},
               {"name": "RecruitMongoDatabaseName", "value": "[parameters('RecruitMongoDatabaseName')]"},
               {"name": "RecruitMongoCollectionName", "value": "[parameters('RecruitMongoCollectionName')]"},
-              {"name": "InstanceName", "value": "[variables('instancePrefix')]"}
+              {"name": "InstanceName", "value": "[variables('instancePrefix')]"},
+              {"name": "ElasticsearchUserName", "value": "[parameters('ElasticsearchUserName')]"},
+              {"name": "ElasticsearchPassword", "value": "[parameters('ElasticsearchPassword')]"}
             ]
           },
           "customHostName": {
             "value": "[parameters('registerAppDomainName')]"
           },
           "certificateThumbprint": {
-            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('keyVaultCertificateName')), '2016-03-01').Thumbprint]"
+            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('registerKeyVaultCertificateName')), '2016-03-01').Thumbprint]"
           },
           "appKind": {
             "value": "api"
@@ -252,7 +264,7 @@
             "value": "[parameters('manageAppDomainName')]"
           },
           "certificateThumbprint": {
-            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('keyVaultCertificateName')), '2016-03-01').Thumbprint]"
+            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('manageKeyVaultCertificateName')), '2016-03-01').Thumbprint]"
           },
           "appKind": {
             "value": "api"
@@ -322,7 +334,7 @@
             "value": "[parameters('sandboxAppDomainName')]"
           },
           "certificateThumbprint": {
-            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('keyVaultCertificateName')), '2016-03-01').Thumbprint]"
+            "value": "[reference(resourceId(parameters('appServerFarmResourceGroup'), 'Microsoft.Web/certificates', parameters('sandboxKeyVaultCertificateName')), '2016-03-01').Thumbprint]"
           },
           "appKind": {
             "value": "api"
