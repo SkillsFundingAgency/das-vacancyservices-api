@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Caching\AzureRedisCacheService.cs" />
     <Compile Include="Exceptions\InfrastructureException.cs" />
+    <Compile Include="Factories\ApprenticeshipSearchClientFactory.cs" />
     <Compile Include="Factories\SqlDatabaseService.cs" />
     <Compile Include="InfrastructureRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

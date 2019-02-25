@@ -6,6 +6,7 @@ using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Caching;
+using Esfa.Vacancy.Infrastructure.Factories;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
@@ -30,23 +31,15 @@ namespace Esfa.Vacancy.Infrastructure
                 x.GetInstance<IWebLoggingContext>(),
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => _provideSettings);
-            
+
+            For<IApprenticeshipSearchClient>().Use(context => context.GetInstance<ApprenticeshipSearchClientFactory>().GetClient());
+
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
 
             For<IGetMinimumWagesService>().Use<GetMinimumWagesService>();
 
             For<ITrainingDetailService>().Use<CachedTrainingDetailService>()
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();
-
-            For<ApprenticeshipSearchClientConfiguration>()
-                .Singleton()
-                .Use(new ApprenticeshipSearchClientConfiguration
-                {
-                    HostName = _provideSettings.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey),
-                    Index = _provideSettings.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey),
-                });
-
-            For<IApprenticeshipSearchClient>().Use<ApprenticeshipSearchClient>();
 
             RegisterCreateApprenticeshipService();
         }
