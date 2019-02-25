@@ -11,20 +11,8 @@
     "sandboxAppName": {
       "type": "string"
     },
-    "appHostingEnvironment": {
-      "type": "string",
-      "defaultValue": ""
-    },
     "appServerFarmResourceGroup": {
       "type": "string"
-    },
-    "aspLocation": {
-      "type": "string",
-      "allowedValues": [
-        "North Europe",
-        "West Europe"
-      ],
-      "defaultValue": "West Europe"
     },
     "LoggingRedisConnectionString": {
       "type": "securestring"
@@ -146,9 +134,7 @@
     "instancePrefix": "[if(equals(toUpper(parameters('EnvironmentName')),'PROD'),'',parameters('EnvironmentName'))]",
     "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "apiAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'api-asp')]",
-    "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]",
-    "Environment": "[if(equals(toUpper(parameters('EnvironmentName')),'PREPROD'),'PP',parameters('EnvironmentName'))]",
-    "deployToASE": "[greater(length(parameters('appHostingEnvironment')), 0)]"
+    "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]"
   },
   "resources": [{
       "apiVersion": "2017-05-10",
@@ -165,10 +151,10 @@
             "value": "[variables('apiAppServicePlanName')]"
           },
           "aspSize": {
-            "value": "1"
+            "value": "[parameters('aspSize')]"
           },
           "aspInstances": {
-            "value": 1
+            "value": "[parameters('aspInstances')]"
           },
           "aseHostingEnvironmentName": {
             "value": "[parameters('aseHostingEnvironmentName')]"
