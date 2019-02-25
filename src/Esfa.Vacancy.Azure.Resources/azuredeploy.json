@@ -11,9 +11,6 @@
     "sandboxAppName": {
       "type": "string"
     },
-    "appHostingPlanName": {
-      "type": "string"
-    },
     "appHostingEnvironment": {
       "type": "string",
       "defaultValue": ""
@@ -222,7 +219,7 @@
             "value": "[parameters('registerAppName')]"
           },
           "appServicePlanName": {
-            "value": "[parameters('appHostingPlanName')]"
+            "value": "[variables('apiAppServicePlanName')]"
           },
           "appServicePlanResourceGroup": {
             "value": "[parameters('appServerFarmResourceGroup')]"
@@ -386,7 +383,7 @@
             "value": "[parameters('manageAppName')]"
           },
           "appServicePlanName": {
-            "value": "[parameters('appHostingPlanName')]"
+            "value": "[variables('apiAppServicePlanName')]"
           },
           "appServicePlanResourceGroup": {
             "value": "[parameters('appServerFarmResourceGroup')]"
@@ -511,7 +508,7 @@
             "value": "[parameters('sandboxAppName')]"
           },
           "appServicePlanName": {
-            "value": "[parameters('appHostingPlanName')]"
+            "value": "[variables('apiAppServicePlanName')]"
           },
           "appServicePlanResourceGroup": {
             "value": "[parameters('appServerFarmResourceGroup')]"
