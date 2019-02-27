@@ -16,5 +16,6 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         public int? DistanceInMiles { get; set; }
         public string SortBy { get; set; }
         public bool IsGeoSearch => Latitude.HasValue || Longitude.HasValue || DistanceInMiles.HasValue;
+        public int? ProviderUkprn { get; set; }
     }
 }

@@ -73,5 +73,16 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Domain.GivenAVacancySearch
 
             formattedParams.Should().Contain($"{nameof(parameters.DistanceInMiles)}: {distanceInMiles}{Environment.NewLine}");
         }
+
+        [Test]
+        public void AndProviderUkprnIsNotNull_ThenProviderUkprnWritten()
+        {
+            var providerUkprn = 88888888;
+            var parameters = new VacancySearchParameters { ProviderUkprn = providerUkprn };
+
+            var formattedParams = parameters.ToString();
+
+            formattedParams.Should().Contain($"{nameof(parameters.ProviderUkprn)}: {providerUkprn}{Environment.NewLine}");
+        }
     }
 }

@@ -155,6 +155,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
                 actual.WageType.Should().Be(expected.WageType);
                 actual.WageUnit.Should().Be(expected.WageUnit);
                 actual.WorkingWeek.Should().Be(expected.WorkingWeek);
+                actual.ProviderUkprn.Should().Be(expected.ProviderUkprn);
             }
         }
 

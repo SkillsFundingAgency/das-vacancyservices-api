@@ -13,6 +13,12 @@
         public string FrameworkLarsCodes { get; set; }
 
         /// <summary>
+        /// The training provider's UKPRN.
+        /// Training provider UKPRN is optional and if specified it must be 8 digits in length.
+        /// </summary>
+        public int? TrainingProviderUkprn { get; set; }
+
+        /// <summary>
         /// Number of records you want to retrieve in a page. 
         /// Page size must be between 1 and 250 (inclusive).
         /// Page size is optional and defaults to 100 if not specified.

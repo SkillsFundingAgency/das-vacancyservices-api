@@ -27,6 +27,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// - Search by standard LARS code(s)
         /// - Search by framework or standard LARS code(s)
         /// - Search by location (geopoint) and radius
+        /// - Search by training provider's UKPRN
         /// - Search for recently posted vacancies
         /// - Search for nationwide vacancies
         /// 
@@ -105,6 +106,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30108       | Invalid Distance in miles                                                        |
         /// | 30109       | Invalid NationwideOnly                                                           |
         /// | 30110       | Invalid SortBy                                                                   |
+        /// | 30111       | Invalid Training Provider UKPRN                                                  |       |
         /// 
         /// </remarks>
         [HttpGet]

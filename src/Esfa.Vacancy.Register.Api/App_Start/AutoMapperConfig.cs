@@ -17,16 +17,18 @@ namespace Esfa.Vacancy.Register.Api
                 cfg.CreateMap<int?, ApiTypes.WageUnit>().ConvertUsing(new IntToEnumConverter<ApiTypes.WageUnit>());
                 cfg.CreateMap<int?, ApiTypes.TrainingType>().ConvertUsing(new IntToEnumConverter<ApiTypes.TrainingType>());
                 cfg.CreateMap<ApiTypes.SearchApprenticeshipParameters, SearchApprenticeshipVacanciesRequest>()
-                   .ForMember(target => target.StandardLarsCodes, config =>
-                   {
-                       config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardLarsCodes));
-                       config.MapFrom(source => source.StandardLarsCodes.Split(',').Select(code => code.Trim()));
-                   })
-                   .ForMember(target => target.FrameworkLarsCodes, config =>
-                   {
-                       config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkLarsCodes));
-                       config.MapFrom(source => source.FrameworkLarsCodes.Split(',').Select(code => code.Trim()));
-                   });
+                    .ForMember(target => target.StandardLarsCodes, config =>
+                    {
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.StandardLarsCodes));
+                        config.MapFrom(source => source.StandardLarsCodes.Split(',').Select(code => code.Trim()));
+                    })
+                    .ForMember(target => target.FrameworkLarsCodes, config =>
+                    {
+                        config.Condition(source => !string.IsNullOrWhiteSpace(source.FrameworkLarsCodes));
+                        config.MapFrom(source => source.FrameworkLarsCodes.Split(',').Select(code => code.Trim()));
+                    })
+                    .ForMember(target => target.ProviderUkprn, config => 
+                        config.MapFrom(source => source.TrainingProviderUkprn));
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.ApprenticeshipSearchResponse>()
                    .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
                 cfg.CreateMap<DomainTypes.GeoPoint, ApiTypes.GeoPoint>()
