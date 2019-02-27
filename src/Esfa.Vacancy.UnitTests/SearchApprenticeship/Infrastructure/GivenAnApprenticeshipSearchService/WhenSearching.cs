@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Elasticsearch.Net;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using Esfa.Vacancy.Infrastructure.Services;
 using FluentAssertions;
 using Moq;
-using Nest;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
+using SFA.DAS.VacancyServices.Search;
+using SFA.DAS.VacancyServices.Search.Entities;
+using SFA.DAS.VacancyServices.Search.Requests;
+using SFA.DAS.VacancyServices.Search.Responses;
 
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnApprenticeshipSearchService
 {
@@ -20,17 +23,15 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
     public class WhenSearching
     {
         private VacancySearchParameters _vacancySearchParameters;
-        private List<ApprenticeshipSummary> _apprenticeshipSummaries;
+        private List<ApprenticeshipSearchResult> _apprenticeshipResults;
         private SearchApprenticeshipVacanciesResponse _actualResponse;
         private ApprenticeshipSearchService _apprenticeshipSearchService;
         private int _expectedTotal;
         private int _expectedCurrentPage;
         private double _expectedTotalPages;
         private SortBy _expectedSortBy;
-        private Mock<IElasticsearchResponse> _mockElasticsearchResponse;
-        private Mock<IElasticClient> _mockElasticClient;
-        private Mock<IGeoSearchResultDistanceSetter> _mockDistanceSetter;
-        private Mock<ISearchResponse<ApprenticeshipSummary>> _mockSearchResponse;
+        private Mock<IApprenticeshipSearchClient> _mockSearchClient;
+        private ApprenticeshipSearchResponse _apprenticeshipSearchClientResponse;
 
         [SetUp]
         public async Task Setup()
@@ -52,30 +53,16 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
             };
             _expectedTotalPages = Math.Ceiling((double) _expectedTotal / pageSize);
 
-            _apprenticeshipSummaries = fixture.Create<List<ApprenticeshipSummary>>();
+            _apprenticeshipResults = fixture.Create<List<ApprenticeshipSearchResult>>();
 
-            _mockElasticsearchResponse = fixture.Freeze<Mock<IElasticsearchResponse>>();
-            _mockElasticsearchResponse
-                .Setup(response => response.Success)
-                .Returns(true);
+            _mockSearchClient = fixture.Freeze<Mock<IApprenticeshipSearchClient>>();
 
-            _mockSearchResponse = fixture.Freeze<Mock<ISearchResponse<ApprenticeshipSummary>>>();
-            _mockSearchResponse
-                .Setup(response => response.Total)
-                .Returns(_expectedTotal);
-            _mockSearchResponse
-                .Setup(response => response.Documents)
-                .Returns(_apprenticeshipSummaries);
-            _mockSearchResponse
-                .Setup(response => response.ConnectionStatus)
-                .Returns(_mockElasticsearchResponse.Object);
-
-            _mockElasticClient = fixture.Freeze<Mock<IElasticClient>>();
-            _mockElasticClient
-                .Setup(client => client.SearchAsync(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
-                .ReturnsAsync(_mockSearchResponse.Object);
-
-            _mockDistanceSetter = fixture.Freeze<Mock<IGeoSearchResultDistanceSetter>>();
+            _mockSearchClient.Setup(c => c.Search(It.IsAny<ApprenticeshipSearchRequestParameters>()))
+                .Returns((ApprenticeshipSearchRequestParameters r) => new ApprenticeshipSearchResponse(
+                    _expectedTotal,
+                    _apprenticeshipResults,
+                    Enumerable.Empty<AggregationResult>(),
+                    r));
 
             _apprenticeshipSearchService = fixture.Create<ApprenticeshipSearchService>();
 
@@ -85,42 +72,18 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         [Test]
         public void AndNoExceptionThrownByElasticClient_ThenReturnsResult()
         {
-            _actualResponse.ApprenticeshipSummaries.ShouldAllBeEquivalentTo(_apprenticeshipSummaries);
+            _actualResponse.ApprenticeshipSummaries.Count().Should().Be(_apprenticeshipResults.Count);
         }
 
         [Test]
-        public void AndWebExceptionThrownByElasticClient_ThenThrowsInfrastructureException()
+        public void AndExceptionThrownBySearchClient_ThenThrowsInfrastructureException()
         {
-            _mockElasticClient
-                .Setup(client => client.SearchAsync(It.IsAny<Func<SearchDescriptor<ApprenticeshipSummary>, SearchDescriptor<ApprenticeshipSummary>>>()))
-                .Throws<WebException>();
+            _mockSearchClient
+                .Setup(client => client.Search(It.IsAny<ApprenticeshipSearchRequestParameters>()))
+                .Throws<Exception>();
 
             var ex = Assert.ThrowsAsync<InfrastructureException>(() => _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters()));
-            Assert.That(ex.InnerException, Is.TypeOf<WebException>());
-        }
-
-        [Test]
-        public void AndConnectionStatusNotSuccess_ThenThrowsInfrastructureException()
-        {
-            _mockElasticsearchResponse
-                .Setup(response => response.Success)
-                .Returns(false);
-
-            Assert.ThrowsAsync<InfrastructureException>(() => _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters()));
-        }
-
-        [Test]
-        public void AndIsGeoSearch_ThenDistanceSetterIsCalled()
-        {
-            _mockDistanceSetter.Verify(setter => setter.SetDistance(_vacancySearchParameters, _mockSearchResponse.Object), Times.Once);
-        }
-
-        [Test]
-        public async Task AndIsNotGeoSearch_ThenDistanceSetterIsNotCalled()
-        {
-            _mockDistanceSetter.ResetCalls();
-            await _apprenticeshipSearchService.SearchApprenticeshipVacanciesAsync(new VacancySearchParameters());
-            _mockDistanceSetter.Verify(setter => setter.SetDistance(It.IsAny<VacancySearchParameters>(), It.IsAny<ISearchResponse<ApprenticeshipSummary>>()), Times.Never);
+            Assert.That(ex.InnerException, Is.TypeOf<Exception>());
         }
 
         [Test]
@@ -132,7 +95,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         [Test]
         public void ThenTotalReturnedIsCorrect()
         {
-            _actualResponse.TotalReturned.Should().Be(_apprenticeshipSummaries.Count);
+            _actualResponse.TotalReturned.Should().Be(_apprenticeshipResults.Count);
         }
 
         [Test]
@@ -150,7 +113,49 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         [Test]
         public void ThenApprenticeshipSummariesIsCorrect()
         {
-            _actualResponse.ApprenticeshipSummaries.ShouldAllBeEquivalentTo(_apprenticeshipSummaries);
+            var actualApprenticeshipSummaries = _actualResponse.ApprenticeshipSummaries.ToList();
+
+            actualApprenticeshipSummaries.Count.Should().Be(_apprenticeshipResults.Count);
+
+            for (var i = 0; i < actualApprenticeshipSummaries.Count; i++)
+            {
+                var actual = actualApprenticeshipSummaries[i];
+                var expected = _apprenticeshipResults[i];
+
+                actual.DistanceInMiles.Should().Be(expected.Distance);
+                actual.AnonymousEmployerName.Should().Be(expected.AnonymousEmployerName);
+                actual.ApprenticeshipLevel.Should().Be(expected.ApprenticeshipLevel.ToString());
+                actual.Category.Should().Be(expected.Category);
+                actual.CategoryCode.Should().Be(expected.CategoryCode);
+                actual.ClosingDate.Should().Be(expected.ClosingDate);
+                actual.Description.Should().Be(expected.Description);
+                actual.EmployerName.Should().Be(expected.EmployerName);
+                actual.FrameworkLarsCode.Should().Be(expected.FrameworkLarsCode);
+                actual.HoursPerWeek.Should().Be(expected.HoursPerWeek);
+                actual.Id.Should().Be(expected.Id);
+                actual.IsDisabilityConfident.Should().Be(expected.IsDisabilityConfident);
+                actual.IsEmployerAnonymous.Should().Be(expected.IsEmployerAnonymous);
+                actual.IsPositiveAboutDisability.Should().Be(expected.IsPositiveAboutDisability);
+                actual.Location.Lat.Should().Be(expected.Location.lat);
+                actual.Location.Lon.Should().Be(expected.Location.lon);
+                actual.NumberOfPositions.Should().Be(expected.NumberOfPositions);
+                actual.PostedDate.Should().Be(expected.PostedDate);
+                actual.ProviderName.Should().Be(expected.ProviderName);
+                actual.StandardLarsCode.Should().Be(expected.StandardLarsCode);
+                actual.StartDate.Should().Be(expected.StartDate);
+                actual.SubCategory.Should().Be(expected.SubCategory);
+                actual.SubCategoryCode.Should().Be(expected.SubCategoryCode);
+                actual.Title.Should().Be(expected.Title);
+                actual.VacancyLocationType.Should().Be(expected.VacancyLocationType.ToString());
+                actual.VacancyReference.Should().Be(expected.VacancyReference);
+                actual.WageAmount.Should().Be(expected.WageAmount);
+                actual.WageAmountLowerBound.Should().Be(expected.WageAmountLowerBound);
+                actual.WageAmountUpperBound.Should().Be(expected.WageAmountUpperBound);
+                actual.WageText.Should().Be(expected.WageText);
+                actual.WageType.Should().Be(expected.WageType);
+                actual.WageUnit.Should().Be(expected.WageUnit);
+                actual.WorkingWeek.Should().Be(expected.WorkingWeek);
+            }
         }
 
         [Test]

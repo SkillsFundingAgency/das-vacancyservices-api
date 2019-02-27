@@ -1,31 +1,28 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
-using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
-using Nest;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.VacancyServices.Search;
+using SFA.DAS.VacancyServices.Search.Entities;
+using SFA.DAS.VacancyServices.Search.Requests;
+using SFA.DAS.VacancyServices.Search.Responses;
 
 namespace Esfa.Vacancy.Infrastructure.Services
 {
     public class ApprenticeshipSearchService : IApprenticeshipSearchService
     {
-        private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
-        private readonly IElasticClient _elasticClient;
-        private readonly IGeoSearchResultDistanceSetter _distanceSetter;
+        private readonly IApprenticeshipSearchClient _apprenticeshipSearchClient;
 
-        public ApprenticeshipSearchService(IProvideSettings provideSettings, ILog logger, IElasticClient elasticClient, IGeoSearchResultDistanceSetter distanceSetter)
+        public ApprenticeshipSearchService(ILog logger, IApprenticeshipSearchClient apprenticeshipSearchClient)
         {
-            _provideSettings = provideSettings;
             _logger = logger;
-            _elasticClient = elasticClient;
-            _distanceSetter = distanceSetter;
+            _apprenticeshipSearchClient = apprenticeshipSearchClient;
         }
 
         public Task<SearchApprenticeshipVacanciesResponse> SearchApprenticeshipVacanciesAsync(
@@ -42,92 +39,106 @@ namespace Esfa.Vacancy.Infrastructure.Services
         private async Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
             VacancySearchParameters parameters)
         {
-            var indexName = _provideSettings.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey);
 
-            ISearchResponse<ApprenticeshipSummary> esReponse;
+            _logger.Info($"Searching apprenticeships with following parameters: {parameters}");
 
-            _logger.Info($"Querying Apprenticeship Elastic index with following parameters: {parameters}");
+            var searchClientParameters = GetSearchClientParameters(parameters);
 
+            ApprenticeshipSearchResponse searchClientResponse;
             try
             {
-                esReponse = await _elasticClient.SearchAsync<ApprenticeshipSummary>(search =>
-                {
-                    search.Index(indexName)
-                        .Type("apprenticeship")
-                        .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-                        .Take(parameters.PageSize)
-                        .Query(query =>
-                        {
-                            var container =
-                                (query.Terms(apprenticeship => apprenticeship.FrameworkLarsCode, parameters.FrameworkLarsCodes)
-                                 || query.Terms(apprenticeship => apprenticeship.StandardLarsCode, parameters.StandardLarsCodes))
-                                    && query.Match(m => m.OnField(apprenticeship => apprenticeship.VacancyLocationType).Query(parameters.LocationType))
-                                    && query.Range(range =>
-                                        range.OnField(apprenticeship => apprenticeship.PostedDate)
-                                            .GreaterOrEquals(parameters.FromDate));
-
-                            if (parameters.HasGeoSearchFields)
-                            {
-                                container = container && query.Filtered(filteredQuery =>
-                                    filteredQuery.Filter(filter =>
-                                        filter.GeoDistance(summary => summary.Location, geoDistanceFilter =>
-                                            geoDistanceFilter.Location(parameters.Latitude.Value, parameters.Longitude.Value)
-                                                .Distance(parameters.DistanceInMiles.Value, GeoUnit.Miles))));
-                            }
-
-                            return container;
-                        });
-
-                    switch (parameters.SortBy)
-                    {
-                        case SortBy.Distance:
-                            search.TrySortByDistance(parameters);
-                            search.SortByAge();
-                            break;
-
-                        case SortBy.ExpectedStartDate:
-                            search.SortByExpectedStartDate();
-                            search.TrySortByDistance(parameters);
-                            break;
-
-                        default:
-                            search.SortByAge();
-                            search.TrySortByDistance(parameters);
-                            break;
-                    }
-
-                    return search;
-                }).ConfigureAwait(false);
-
-                _logger.Info($"Retrieved {esReponse.Total} apprenticeships from Elastic search with parameters {parameters}");
+                searchClientResponse = _apprenticeshipSearchClient.Search(searchClientParameters);
             }
-            catch (WebException e)
+            catch (Exception e)
             {
                 throw new InfrastructureException(e);
             }
-
-            if (!esReponse.ConnectionStatus.Success)
-            {
-                var ex = new Exception("Unexpected response received from Elastic Search");
-                throw new InfrastructureException(ex);
-            }
-
-            if (parameters.HasGeoSearchFields)
-            {
-                _distanceSetter.SetDistance(parameters, esReponse);
-            }
-
+            
             var searchResponse = new SearchApprenticeshipVacanciesResponse()
             {
-                TotalMatched = esReponse.Total,
-                TotalReturned = esReponse.Documents.Count(),
+                TotalMatched = searchClientResponse.Total,
+                TotalReturned = searchClientResponse.Results.Count(),
+                TotalPages = searchClientResponse.TotalPages,
                 CurrentPage = parameters.PageNumber,
-                TotalPages = Math.Ceiling((double)esReponse.Total / parameters.PageSize),
                 SortBy = parameters.SortBy,
-                ApprenticeshipSummaries = esReponse.Documents
+                ApprenticeshipSummaries = searchClientResponse.Results.Select(GetApprenticeshipSummary)
             };
 
             return searchResponse;
+        }
+
+        private ApprenticeshipSearchRequestParameters GetSearchClientParameters(VacancySearchParameters parameters)
+        {
+            var searchClientParameters = new ApprenticeshipSearchRequestParameters
+            {
+                FrameworkLarsCodes = parameters.FrameworkLarsCodes,
+                StandardLarsCodes = parameters.StandardLarsCodes,
+                PageSize = parameters.PageSize,
+                PageNumber = parameters.PageNumber,
+                FromDate = parameters.FromDate,
+                VacancyLocationType = string.IsNullOrEmpty(parameters.LocationType) ? VacancyLocationType.Unknown : (VacancyLocationType)Enum.Parse(typeof(VacancyLocationType), parameters.LocationType),
+                Longitude = parameters.Longitude,
+                Latitude = parameters.Latitude,
+                SearchRadius = parameters.DistanceInMiles,
+                CalculateSubCategoryAggregations = false
+            };
+
+            switch (parameters.SortBy)
+            {
+                case SortBy.Age:
+                    searchClientParameters.SortType = VacancySearchSortType.RecentlyAdded;
+                    break;
+                case SortBy.ExpectedStartDate:
+                    searchClientParameters.SortType = VacancySearchSortType.ExpectedStartDate;
+                    break;
+                case SortBy.Distance:
+                    searchClientParameters.SortType = VacancySearchSortType.Distance;
+                    break;
+                default:
+                    searchClientParameters.SortType = VacancySearchSortType.Relevancy;
+                    break;
+            }
+
+            return searchClientParameters;
+        }
+
+        private ApprenticeshipSummary GetApprenticeshipSummary(ApprenticeshipSearchResult result)
+        {
+            return new ApprenticeshipSummary
+            {
+                DistanceInMiles = result.Distance,
+                AnonymousEmployerName = result.AnonymousEmployerName,
+                ApprenticeshipLevel = result.ApprenticeshipLevel.ToString(),
+                Category = result.Category,
+                CategoryCode = result.CategoryCode,
+                ClosingDate = result.ClosingDate,
+                Description = result.Description,
+                EmployerName = result.EmployerName,
+                FrameworkLarsCode = result.FrameworkLarsCode,
+                HoursPerWeek = result.HoursPerWeek,
+                Id = result.Id,
+                IsDisabilityConfident = result.IsDisabilityConfident,
+                IsEmployerAnonymous = result.IsEmployerAnonymous,
+                IsPositiveAboutDisability = result.IsPositiveAboutDisability,
+                Location = new Domain.Entities.GeoPoint {Lat = result.Location.lat, Lon = result.Location.lon},
+                NumberOfPositions = result.NumberOfPositions,
+                PostedDate = result.PostedDate,
+                ProviderName = result.ProviderName,
+                StandardLarsCode = result.StandardLarsCode,
+                StartDate = result.StartDate,
+                SubCategory = result.SubCategory,
+                SubCategoryCode = result.SubCategoryCode,
+                Title = result.Title,
+                VacancyLocationType = result.VacancyLocationType.ToString(),
+                VacancyReference = result.VacancyReference,
+                WageAmount = result.WageAmount,
+                WageAmountLowerBound = result.WageAmountLowerBound,
+                WageAmountUpperBound = result.WageAmountUpperBound,
+                WageText = result.WageText,
+                WageType = result.WageType,
+                WageUnit = result.WageUnit,
+                WorkingWeek = result.WorkingWeek
+            };
         }
     }
 }

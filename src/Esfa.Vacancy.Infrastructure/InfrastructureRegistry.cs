@@ -9,8 +9,8 @@ using Esfa.Vacancy.Infrastructure.Caching;
 using Esfa.Vacancy.Infrastructure.Factories;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
-using Nest;
 using SFA.DAS.NLog.Logger;
+using SFA.DAS.VacancyServices.Search;
 
 namespace Esfa.Vacancy.Infrastructure
 {
@@ -31,7 +31,9 @@ namespace Esfa.Vacancy.Infrastructure
                 x.GetInstance<IWebLoggingContext>(),
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => _provideSettings);
-            For<IElasticClient>().Use(context => context.GetInstance<ElasticClientFactory>().GetClient());
+
+            For<IApprenticeshipSearchClient>().Use(context => context.GetInstance<ApprenticeshipSearchClientFactory>().GetClient());
+
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
 
             For<IGetMinimumWagesService>().Use<GetMinimumWagesService>();
