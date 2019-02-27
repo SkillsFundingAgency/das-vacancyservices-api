@@ -425,6 +425,9 @@
           },
           "appKind": {
             "value": "api"
+          },
+          "ipSecurityRestrictions": {
+            "value": "[parameters('ipSecurityRestrictions')]"
           }
         }
       },
@@ -550,6 +553,9 @@
           },
           "appKind": {
             "value": "api"
+          },
+          "ipSecurityRestrictions": {
+            "value": "[parameters('ipSecurityRestrictions')]"
           }
         }
       },
