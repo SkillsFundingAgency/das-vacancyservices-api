@@ -28,7 +28,7 @@ namespace Esfa.Vacancy.Register.Api
                         config.MapFrom(source => source.FrameworkLarsCodes.Split(',').Select(code => code.Trim()));
                     })
                     .ForMember(target => target.ProviderUkprn, config => 
-                        config.MapFrom(source => source.TrainingProviderUkprn));
+                        config.MapFrom(source => source.Ukprn));
                 cfg.CreateMap<SearchApprenticeshipVacanciesResponse, ApiTypes.ApprenticeshipSearchResponse>()
                    .ForMember(target => target.Results, c => c.MapFrom(source => source.ApprenticeshipSummaries));
                 cfg.CreateMap<DomainTypes.GeoPoint, ApiTypes.GeoPoint>()

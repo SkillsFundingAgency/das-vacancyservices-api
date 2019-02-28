@@ -65,9 +65,9 @@ namespace Esfa.Vacancy.Api.Types
         public string TrainingProviderName { get; set; }
 
         /// <summary>
-        /// The UKPRN of the provider.
+        /// The training provider's unique provider reference number.
         /// </summary>
-        public int TrainingProviderUkprn { get; set; }
+        public int Ukprn { get; set; }
 
         /// <summary>
         /// Is this vacancy available nationwide.

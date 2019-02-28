@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchApprenticeshipParametersMapper
 {
     [TestFixture]
-    public class WhenMappingTrainingProviderUkprn
+    public class WhenMappingUkprn
     {
         private IMapper _mapper;
 
@@ -20,12 +20,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
         }
 
         [Test]
-        public void AndValueIsSet_ThenMapsToProviderUkprn()
+        public void AndValueIsSet_ThenMapsToUkprn()
         {
-            var trainingProviderUkprn = 88888888;
-            var parameters = new SearchApprenticeshipParameters { TrainingProviderUkprn = trainingProviderUkprn };
+            var ukprn = 88888888;
+            var parameters = new SearchApprenticeshipParameters { Ukprn = ukprn };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.ProviderUkprn.Should().Be(trainingProviderUkprn);
+            result.ProviderUkprn.Should().Be(ukprn);
         }
 
         [Test]

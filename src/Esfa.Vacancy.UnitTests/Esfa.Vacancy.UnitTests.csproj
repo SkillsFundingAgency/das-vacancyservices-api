@@ -267,7 +267,7 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageText.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenRecruitVacancyRequested.cs" />
-    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingTrainingProviderUkprn.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingUkprn.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
