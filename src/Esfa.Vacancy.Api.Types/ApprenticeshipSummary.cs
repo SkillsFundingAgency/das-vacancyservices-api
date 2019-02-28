@@ -62,17 +62,11 @@ namespace Esfa.Vacancy.Api.Types
         /// <summary>
         /// The name of the provider.
         /// </summary>
-        /// <value>
-        /// The name of the provider.
-        /// </value>
         public string TrainingProviderName { get; set; }
 
         /// <summary>
         /// The UKPRN of the provider.
         /// </summary>
-        /// <value>
-        /// The UKPRN of the provider.
-        /// </value>
         public int TrainingProviderUkprn { get; set; }
 
         /// <summary>
