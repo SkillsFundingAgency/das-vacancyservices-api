@@ -134,7 +134,7 @@
     "instancePrefix": "[if(equals(toUpper(parameters('EnvironmentName')),'PROD'),'',parameters('EnvironmentName'))]",
     "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "apiAppServicePlanName": "[concat(variables('resourceNamePrefix'), 'api-asp')]",
-    "serverFarmId": "[if(equals(length(parameters('aseHostingEnvironmentName')),0),'',resourceId(parameters('aseResourceGroup'), 'Microsoft.Web/hostingEnvironments', parameters('aseHostingEnvironmentName'))]",
+    "serverFarmId": "[if(equals(length(parameters('aseHostingEnvironmentName')),0),'',resourceId(parameters('aseResourceGroup'), 'Microsoft.Web/hostingEnvironments', parameters('aseHostingEnvironmentName')))]",
     "sandboxName": "[if(equals(length(variables('instancePrefix')),0),'(Sandbox)',concat(variables('instancePrefix'),' (Sandbox)'))]"
   },
   "resources": [{
