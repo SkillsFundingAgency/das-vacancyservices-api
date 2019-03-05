@@ -77,12 +77,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Domain.GivenAVacancySearch
         [Test]
         public void AndProviderUkprnIsNotNull_ThenProviderUkprnWritten()
         {
-            var providerUkprn = 88888888;
-            var parameters = new VacancySearchParameters { ProviderUkprn = providerUkprn };
+            var ukprn = 88888888;
+            var parameters = new VacancySearchParameters { Ukprn = ukprn };
 
             var formattedParams = parameters.ToString();
 
-            formattedParams.Should().Contain($"{nameof(parameters.ProviderUkprn)}: {providerUkprn}{Environment.NewLine}");
+            formattedParams.Should().Contain($"{nameof(parameters.Ukprn)}: {ukprn}{Environment.NewLine}");
         }
     }
 }

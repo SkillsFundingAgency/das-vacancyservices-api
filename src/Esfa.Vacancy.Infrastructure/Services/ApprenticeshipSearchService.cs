@@ -80,7 +80,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 Latitude = parameters.Latitude,
                 SearchRadius = parameters.DistanceInMiles,
                 CalculateSubCategoryAggregations = false,
-                ProviderUkprn = parameters.ProviderUkprn
+                Ukprn = parameters.Ukprn
             };
 
             switch (parameters.SortBy)
@@ -124,7 +124,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 NumberOfPositions = result.NumberOfPositions,
                 PostedDate = result.PostedDate,
                 ProviderName = result.ProviderName,
-                ProviderUkprn = result.ProviderUkprn,
+                Ukprn = result.Ukprn,
                 StandardLarsCode = result.StandardLarsCode,
                 StartDate = result.StartDate,
                 SubCategory = result.SubCategory,

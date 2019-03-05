@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.Domain.Validation
 
             public static string SortByValueNotAllowed(string value) => $"'{value}' is not a valid value for 'Sort By'.";
 
-            public static string ProviderUkprnIsInvalid = "Provider UKPRN must be 8 digits in length";
+            public static string UkprnIsInvalid = "UKPRN must be 8 digits in length";
         }
 
         public static class GetApprenticeship

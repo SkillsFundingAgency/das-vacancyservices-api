@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 Longitude = request.NationwideOnly ? null : request.Longitude,
                 Latitude = request.NationwideOnly ? null : request.Latitude,
                 DistanceInMiles = request.NationwideOnly ? null : request.DistanceInMiles,
-                ProviderUkprn = request.ProviderUkprn
+                Ukprn = request.Ukprn
             };
         }
     }

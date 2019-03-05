@@ -25,7 +25,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
             var ukprn = 88888888;
             var parameters = new SearchApprenticeshipParameters { Ukprn = ukprn };
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.ProviderUkprn.Should().Be(ukprn);
+            result.Ukprn.Should().Be(ukprn);
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchA
         {
             var parameters = new SearchApprenticeshipParameters();
             var result = _mapper.Map<SearchApprenticeshipVacanciesRequest>(parameters);
-            result.ProviderUkprn.Should().BeNull();
+            result.Ukprn.Should().BeNull();
         }
     }
 }

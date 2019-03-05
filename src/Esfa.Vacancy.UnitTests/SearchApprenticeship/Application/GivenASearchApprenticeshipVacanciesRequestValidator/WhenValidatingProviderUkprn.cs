@@ -46,30 +46,30 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     NationwideOnly = true,
-                    ProviderUkprn = 88888888
+                    Ukprn = 88888888
                 }, new ValidationResult())
                 .SetName("Then 8 digits is valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     NationwideOnly = true,
-                    ProviderUkprn = 8888888
+                    Ukprn = 8888888
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("ProviderUkprn", "Provider UKPRN must be 8 digits in length")
+                    Errors = { new ValidationFailure("Ukprn", "UKPRN must be 8 digits in length")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.ProviderUkprn
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Ukprn
                     }}
                 })
                 .SetName("Then less than 8 is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     NationwideOnly = true,
-                    ProviderUkprn = 888888888
+                    Ukprn = 888888888
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("ProviderUkprn", "Provider UKPRN must be 8 digits in length")
+                    Errors = { new ValidationFailure("Ukprn", "UKPRN must be 8 digits in length")
                     {
-                        ErrorCode = ErrorCodes.SearchApprenticeships.ProviderUkprn
+                        ErrorCode = ErrorCodes.SearchApprenticeships.Ukprn
                     }}
                 })
                 .SetName("Then greater than 8 is invalid"),

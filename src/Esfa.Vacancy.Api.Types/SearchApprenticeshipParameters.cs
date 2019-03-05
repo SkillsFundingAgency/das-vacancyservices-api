@@ -16,7 +16,7 @@
         /// The training provider's unique provider reference number.
         /// The unique provider reference number is optional and if specified it must be 8 digits in length.
         /// </summary>
-        public int? Ukprn { get; set; }
+        public long? Ukprn { get; set; }
 
         /// <summary>
         /// Number of records you want to retrieve in a page. 

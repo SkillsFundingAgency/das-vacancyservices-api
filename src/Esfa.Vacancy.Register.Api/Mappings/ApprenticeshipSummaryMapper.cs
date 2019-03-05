@@ -21,7 +21,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                     source.StandardLarsCode.HasValue ? source.StandardLarsCode.ToString() : source.FrameworkLarsCode))
                 .ForMember(target => target.ShortDescription, c => c.MapFrom(source => source.Description))
                 .ForMember(target => target.TrainingProviderName, c => c.MapFrom(source => source.ProviderName))
-                .ForMember(target => target.Ukprn, c => c.MapFrom(source => source.ProviderUkprn))
+                .ForMember(target => target.Ukprn, c => c.MapFrom(source => source.Ukprn))
                 .ForMember(target => target.IsNationwide, c => c.MapFrom(source => source.VacancyLocationType.Equals(National)))
                 .ForMember(target => target.VacancyUrl, c => c.Ignore())
                 .ForMember(target => target.IsEmployerDisabilityConfident, c => c.MapFrom(source => source.IsDisabilityConfident));

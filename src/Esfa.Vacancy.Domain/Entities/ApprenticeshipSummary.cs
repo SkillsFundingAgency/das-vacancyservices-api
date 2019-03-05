@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Domain.Entities
 
         public string ProviderName { get; set; }
 
-        public int ProviderUkprn { get; set; }
+        public long Ukprn { get; set; }
 
         public string Description { get; set; }
 

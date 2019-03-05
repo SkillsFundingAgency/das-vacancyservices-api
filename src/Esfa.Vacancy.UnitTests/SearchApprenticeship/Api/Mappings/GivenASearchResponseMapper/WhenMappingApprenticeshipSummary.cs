@@ -114,7 +114,7 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
             var ukprn = 88888888;
             var domainType = new ApprenticeshipSummary
             {
-                ProviderUkprn = ukprn
+                Ukprn = ukprn
             };
 
             var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);

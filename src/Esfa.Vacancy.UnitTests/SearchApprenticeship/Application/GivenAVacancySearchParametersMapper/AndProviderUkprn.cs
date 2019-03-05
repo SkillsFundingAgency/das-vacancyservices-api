@@ -21,15 +21,15 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenAVacancyS
         [Test]
         public void WhenMappingProviderUkprn_ThenMappedToSearchParams()
         {
-            var providerUkprn = 88888888;
+            var ukprn = 88888888;
             var request = new SearchApprenticeshipVacanciesRequest
             {
-                ProviderUkprn = providerUkprn
+                Ukprn = ukprn
             };
 
             var result = _mapper.Convert(request);
 
-            result.ProviderUkprn.Should().Be(providerUkprn);
+            result.Ukprn.Should().Be(ukprn);
         }
 
        

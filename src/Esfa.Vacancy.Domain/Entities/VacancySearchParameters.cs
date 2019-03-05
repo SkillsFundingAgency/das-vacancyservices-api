@@ -18,7 +18,7 @@ namespace Esfa.Vacancy.Domain.Entities
         public int? DistanceInMiles { get; set; }
         public bool HasGeoSearchFields => Latitude.HasValue && Longitude.HasValue && DistanceInMiles.HasValue;
         public SortBy SortBy { get; set; }
-        public int? ProviderUkprn { get; set; }
+        public long? Ukprn { get; set; }
 
         public override string ToString()
         {
@@ -45,8 +45,8 @@ namespace Esfa.Vacancy.Domain.Entities
                 result.AppendLine($"{nameof(Longitude)}: {Longitude}");
             if (DistanceInMiles.HasValue)
                 result.AppendLine($"{nameof(DistanceInMiles)}: {DistanceInMiles}");
-            if(ProviderUkprn.HasValue)
-                result.AppendLine($"{nameof(ProviderUkprn)}: {ProviderUkprn}");
+            if(Ukprn.HasValue)
+                result.AppendLine($"{nameof(Ukprn)}: {Ukprn}");
 
             return result.ToString();
         }

@@ -22,7 +22,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
         private const double MaximumLongitude = 180;
         private const int MinimumDistanceInMiles = 1;
         private const int MaximumDistanceInMiles = 1000;
-        private const int ProviderUkprnLength = 8;
+        private const int UkprnLength = 8;
 
         public SearchApprenticeshipVacanciesRequestValidator(ITrainingDetailService trainingDetailService)
         {
@@ -34,7 +34,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                 .When(request => !request.NationwideOnly)
                 .When(request => !request.PostedInLastNumberOfDays.HasValue)
                 .When(request => !request.IsGeoSearch)
-                .When(request => !request.ProviderUkprn.HasValue)
+                .When(request => !request.Ukprn.HasValue)
                 .WithMessage(ErrorMessages.SearchApprenticeships.MinimumRequiredFieldsNotProvided)
                 .WithErrorCode(ErrorCodes.SearchApprenticeships.InvalidRequest);
 
@@ -115,11 +115,11 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
                     .WithErrorCode(ErrorCodes.SearchApprenticeships.SortBy)
                     .WithMessage(ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch));
 
-            RuleFor(request => request.ProviderUkprn)
-                .Must(ukprn => ukprn.ToString().Length == ProviderUkprnLength)
-                .When(request => request.ProviderUkprn.HasValue)
-                .WithErrorCode(ErrorCodes.SearchApprenticeships.ProviderUkprn)
-                .WithMessage(ErrorMessages.SearchApprenticeships.ProviderUkprnIsInvalid);
+            RuleFor(request => request.Ukprn)
+                .Must(ukprn => ukprn.ToString().Length == UkprnLength)
+                .When(request => request.Ukprn.HasValue)
+                .WithErrorCode(ErrorCodes.SearchApprenticeships.Ukprn)
+                .WithMessage(ErrorMessages.SearchApprenticeships.UkprnIsInvalid);
         }
 
         private static bool BeValidSortBy(string value)
