@@ -185,6 +185,9 @@
           },
           "keyVaultResourceGroup": {
             "value": "[parameters('keyVaultResourceGroup')]"
+          },
+          "serverFarmId": {
+            "value": "[reference('app-service-plan').outputs.appServicePlanId.value]"
           }
         }
       },
@@ -349,6 +352,9 @@
           },
           "keyVaultResourceGroup": {
             "value": "[parameters('keyVaultResourceGroup')]"
+          },
+          "serverFarmId": {
+            "value": "[reference('app-service-plan').outputs.appServicePlanId.value]"
           }
         }
       },
@@ -477,6 +483,9 @@
           },
           "keyVaultResourceGroup": {
             "value": "[parameters('keyVaultResourceGroup')]"
+          },
+          "serverFarmId": {
+            "value": "[reference('app-service-plan').outputs.appServicePlanId.value]"
           }
         }
       },
