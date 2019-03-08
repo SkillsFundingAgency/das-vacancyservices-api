@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies;
 using Esfa.Vacancy.Domain.Entities;
-using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.VacancyServices.Search;
@@ -80,7 +79,8 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 Longitude = parameters.Longitude,
                 Latitude = parameters.Latitude,
                 SearchRadius = parameters.DistanceInMiles,
-                CalculateSubCategoryAggregations = false
+                CalculateSubCategoryAggregations = false,
+                Ukprn = parameters.Ukprn
             };
 
             switch (parameters.SortBy)
@@ -124,6 +124,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 NumberOfPositions = result.NumberOfPositions,
                 PostedDate = result.PostedDate,
                 ProviderName = result.ProviderName,
+                Ukprn = result.Ukprn,
                 StandardLarsCode = result.StandardLarsCode,
                 StartDate = result.StartDate,
                 SubCategory = result.SubCategory,

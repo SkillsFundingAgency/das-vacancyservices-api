@@ -8,7 +8,7 @@ namespace Esfa.Vacancy.Domain.Validation
         {
             public const string SearchApprenticeshipParametersIsNull = "At least one search parameter is required.";
 
-            public const string MinimumRequiredFieldsNotProvided = "At least one valid Standard code, Framework code, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.";
+            public const string MinimumRequiredFieldsNotProvided = "At least one valid Standard code, Framework code, Provider UKPRN, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.";
 
             public static string GetTrainingCodeNotFoundErrorMessage(TrainingType trainingType, string code) =>
                 $"{trainingType} code {code} not found.";
@@ -24,6 +24,8 @@ namespace Esfa.Vacancy.Domain.Validation
             public const string SortByDistanceOnlyWhenGeoSearch = "You can only sort by distance if you have searched by geo-location.";
 
             public static string SortByValueNotAllowed(string value) => $"'{value}' is not a valid value for 'Sort By'.";
+
+            public static string UkprnIsInvalid = "UKPRN must be 8 digits in length";
         }
 
         public static class GetApprenticeship

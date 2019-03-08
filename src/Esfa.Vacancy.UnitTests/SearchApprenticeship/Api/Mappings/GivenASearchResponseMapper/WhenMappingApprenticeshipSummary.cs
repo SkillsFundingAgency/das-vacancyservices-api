@@ -107,5 +107,19 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Api.Mappings.GivenASearchR
 
             result.DistanceInMiles.Should().Be(expectedDistance);
         }
+
+        [Test]
+        public void ThenProviderUkprnMapsCorrectly()
+        {
+            var ukprn = 88888888;
+            var domainType = new ApprenticeshipSummary
+            {
+                Ukprn = ukprn
+            };
+
+            var result = _mapper.Map<ApiTypes.ApprenticeshipSummary>(domainType);
+
+            result.Ukprn.Should().Be(ukprn);
+        }
     }
 }

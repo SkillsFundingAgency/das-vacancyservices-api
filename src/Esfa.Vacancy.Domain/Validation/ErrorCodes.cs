@@ -16,6 +16,7 @@
             public const string DistanceInMiles = "30108";
             public const string NationwideOnly = "30109";
             public const string SortBy = "30110";
+            public const string Ukprn = "30111";
         }
 
         public static class GetApprenticeship

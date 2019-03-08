@@ -107,7 +107,7 @@
       <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.28\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.68\lib\net452\SFA.DAS.VacancyServices.Search.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.84\lib\net452\SFA.DAS.VacancyServices.Search.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
@@ -267,6 +267,7 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageText.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Mappings\GivenRecruitApprenticeshipMapper\WhenMappingWageUnit.cs" />
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenRecruitVacancyRequested.cs" />
+    <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingUkprn.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingDistanceInMiles.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Api\Mappings\GivenASearchApprenticeshipParametersMapper\WhenMappingLatitude.cs" />
@@ -279,9 +280,11 @@
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingLongitude.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingLatitude.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingGeoSearchFields.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingProviderUkprn.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequestValidator\WhenValidatingSortBy.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASearchApprenticeshipVacanciesRequest\WhenGettingIsGeoSearch.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenASortByCalculater\WhenCalculatingSortBy.cs" />
+    <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndProviderUkprn.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndLocationFields.cs" />
     <Compile Include="SearchApprenticeship\Application\GivenAVacancySearchParametersMapper\AndSortBy.cs" />
     <Compile Include="SearchApprenticeship\Domain\GivenAVacancySearchParameters\WhenCallingHasGeoSearchFields.cs" />
