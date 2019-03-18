@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Esfa.Vacancy.Application.Interfaces;
-using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Register.Api.Mappings;
@@ -19,13 +18,13 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
         protected Mock<ITrainingDetailService> TrainingDetailServiceMock;
         protected Mock<IGetMinimumWagesService> MinimumWageServiceMock;
         protected IFixture FixtureInstance;
-        protected LiveVacancy LiveVacancy;
+        protected SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy LiveVacancy;
 
         protected void Initialize()
         {
             FixtureInstance = new Fixture().Customize(new AutoMoqCustomization());
 
-            ProvideSettingsMock = FixtureInstance.Freeze<Mock<IProvideSettings>>();            
+            ProvideSettingsMock = FixtureInstance.Freeze<Mock<IProvideSettings>>();
 
             TrainingDetailServiceMock = FixtureInstance.Freeze<Mock<ITrainingDetailService>>();
             TrainingDetailServiceMock.Setup(t => t.GetStandardDetailsAsync(It.IsAny<int>()))
@@ -38,7 +37,13 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
             var wage = FixtureInstance.Build<Wage>()
                 .With(w => w.WageType, RecruitApprenticeshipMapper.FixedWageType)
                 .Create();
-            LiveVacancy = FixtureInstance.Build<LiveVacancy>()
+            LiveVacancy = FixtureInstance.Build<SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy>()
+                .Without(v => v.EmployerContactName)
+                .Without(v => v.EmployerContactEmail)
+                .Without(v => v.EmployerContactPhone)
+                .Without(v => v.ProviderContactName)
+                .Without(v => v.ProviderContactEmail)
+                .Without(v => v.ProviderContactPhone)
                 .With(v => v.Wage, wage)
                 .With(v => v.StartDate, new DateTime(2018, 5, 1))
                 .With(v => v.ProgrammeType, "Standard")
