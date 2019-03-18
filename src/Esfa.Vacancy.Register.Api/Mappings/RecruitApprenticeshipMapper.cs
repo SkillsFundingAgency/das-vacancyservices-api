@@ -30,7 +30,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             _minimumWagesService = minimumWagesService;
         }
 
-        public async Task<ApiTypes.ApprenticeshipVacancy> MapFromRecruitVacancy(recruitEntities.LiveVacancy liveVacancy)
+        public async Task<ApiTypes.ApprenticeshipVacancy> MapFromRecruitVacancy(recruitEntities.Vacancy liveVacancy)
         {
             var liveVacancyBaseUrl = _provideSettings.GetSetting(ApplicationSettingKeys.LiveApprenticeshipVacancyBaseUrlKey);
 
@@ -70,9 +70,9 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 EmployerName = liveVacancy.EmployerName,
                 EmployerDescription = liveVacancy.EmployerDescription,
                 EmployerWebsite = liveVacancy.EmployerWebsiteUrl,
-                ContactName = liveVacancy.EmployerContactName,
-                ContactEmail = liveVacancy.EmployerContactEmail,
-                ContactNumber = liveVacancy.EmployerContactPhone,
+                ContactName = liveVacancy.EmployerContactName ?? liveVacancy.ProviderContactName,
+                ContactEmail = liveVacancy.EmployerContactEmail ?? liveVacancy.ProviderContactEmail,
+                ContactNumber = liveVacancy.EmployerContactPhone ?? liveVacancy.ProviderContactPhone,
                 TrainingToBeProvided = liveVacancy.TrainingDescription,
                 QualificationsRequired = qualifications,
                 SkillsRequired = skills,
@@ -152,7 +152,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             }
         }
 
-        private string GetVacancyQualification(recruitEntities.LiveVacancy liveVacancy)
+        private string GetVacancyQualification(recruitEntities.Vacancy liveVacancy)
         {
             var formattedDescriptions = liveVacancy.Qualifications.Select(q => $"{q.QualificationType} {q.Subject} (Grade {q.Grade}) {q.Weighting}");
             return string.Join(",", formattedDescriptions);
