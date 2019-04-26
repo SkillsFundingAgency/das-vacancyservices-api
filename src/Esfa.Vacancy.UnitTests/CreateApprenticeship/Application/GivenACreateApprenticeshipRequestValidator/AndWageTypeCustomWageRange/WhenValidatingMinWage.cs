@@ -269,46 +269,5 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
             result.Errors.First().ErrorCode
                 .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
         }
-
-        private static List<TestCaseData> TestCases => new List<TestCaseData>
-        {
-            new TestCaseData(WageUnit.Weekly, 3.7m, 133.19m, false).SetName("And attempted weekly is less than allowed Then is invalid"),
-            new TestCaseData(WageUnit.Weekly, 3.7m, 133.20m, true).SetName("And attempted weekly is same as allowed Then is valid"),
-            new TestCaseData(WageUnit.Weekly, 3.7m, 133.21m, true).SetName("And attempted weekly is greater than allowed Then is valid"),
-            new TestCaseData(WageUnit.Monthly, 3.7m, 577.19m, false).SetName("And attempted monthly is less than allowed Then is invalid"),
-            new TestCaseData(WageUnit.Monthly, 3.7m, 577.20m, true).SetName("And attempted monthly is same as allowed Then is valid"),
-            new TestCaseData(WageUnit.Monthly, 3.7m, 577.21m, true).SetName("And attempted monthly is greater than allowed Then is valid"),
-            new TestCaseData(WageUnit.Annually, 3.7m, 6926.39m, false).SetName("And attempted annually is less than allowed Then is invalid"),
-            new TestCaseData(WageUnit.Annually, 3.7m, 6926.40m, true).SetName("And attempted annually is same as allowed Then is valid"),
-            new TestCaseData(WageUnit.Annually, 3.7m, 6926.41m, true).SetName("And attempted annually is greater than allowed Then is valid")
-        };
-
-        [TestCaseSource(nameof(TestCases))]
-        public  void AndCheckingAllowedVersusAttemtpedMinWage(WageUnit wageUnit, decimal allowedMinimumHourlyWage, decimal attemptedMinWage, bool expectedIsValid)
-        {
-            var request = new CreateApprenticeshipRequest
-            {
-                WageType = WageType.CustomWageRange,
-                WageUnit = wageUnit,
-                HoursPerWeek = 36,
-                MinWage = attemptedMinWage,
-                ExpectedStartDate = DateTime.Today.AddDays(1)
-            };
-            var context = GetValidationContextForProperty(request, req => req.MinWage);
-
-            var sut = new CreateApprenticeshipRequestValidator(new GetMinimumWagesService(),
-                                                               new HourlyWageCalculator(), new Mock<ILog>().Object);
-
-            var result = sut.Validate(context);
-
-            result.IsValid.Should().Be(expectedIsValid);
-            if (!result.IsValid)
-            {
-                result.Errors.First().ErrorCode
-                    .Should().Be(ErrorCodes.CreateApprenticeship.MinWage);
-                result.Errors.First().ErrorMessage
-                    .Should().Be(ErrorMessages.CreateApprenticeship.MinWageIsBelowApprenticeMinimumWage);
-            }
-        }
     }
 }
