@@ -142,8 +142,8 @@
     <Reference Include="SFA.DAS.NLog.Targets.Redis, Version=1.0.0.47445, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Targets.Redis.1.0.0.47445\lib\net45\SFA.DAS.NLog.Targets.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.157.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.157\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.172.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.172\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>

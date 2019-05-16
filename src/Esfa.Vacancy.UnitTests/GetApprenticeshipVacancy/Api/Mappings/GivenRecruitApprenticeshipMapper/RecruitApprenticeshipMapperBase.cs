@@ -48,6 +48,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRecr
                 .With(v => v.StartDate, new DateTime(2018, 5, 1))
                 .With(v => v.ProgrammeType, "Standard")
                 .With(v => v.ProgrammeId, "123")
+                .With(v => v.IsAnonymous, false)
                 .Create();
         }
 
