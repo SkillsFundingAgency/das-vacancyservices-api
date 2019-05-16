@@ -69,7 +69,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 NumberOfPositions = liveVacancy.NumberOfPositions,
                 EmployerName = liveVacancy.EmployerName,
                 EmployerDescription = liveVacancy.EmployerDescription,
-                EmployerWebsite = liveVacancy.EmployerWebsiteUrl,
+                EmployerWebsite = liveVacancy.IsAnonymous ? null : liveVacancy.EmployerWebsiteUrl,
                 ContactName = liveVacancy.EmployerContactName ?? liveVacancy.ProviderContactName,
                 ContactEmail = liveVacancy.EmployerContactEmail ?? liveVacancy.ProviderContactEmail,
                 ContactNumber = liveVacancy.EmployerContactPhone ?? liveVacancy.ProviderContactPhone,
@@ -85,7 +85,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 SupplementaryQuestion1 = null,
                 SupplementaryQuestion2 = null,
                 VacancyUrl = $"{liveVacancyBaseUrl}/{liveVacancy.VacancyReference}",
-                Location = MapFromRecruitAddress(liveVacancy.EmployerLocation),
+                Location = MapFromRecruitAddress(liveVacancy.EmployerLocation, liveVacancy.IsAnonymous),
                 TrainingProviderName = liveVacancy.TrainingProvider.Name,
                 TrainingProviderUkprn = liveVacancy.TrainingProvider.Ukprn.ToString(),
                 TrainingProviderSite = null,
@@ -168,9 +168,17 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             return result;
         }
 
-        private ApiTypes.GeoCodedAddress MapFromRecruitAddress(recruitEntities.Address address)
+        private ApiTypes.GeoCodedAddress MapFromRecruitAddress(recruitEntities.Address address, bool isAnonymous)
         {
-            return new ApiTypes.GeoCodedAddress()
+            if (isAnonymous)
+            {
+                return new ApiTypes.GeoCodedAddress
+                {
+                    PostCode = address.Postcode
+                };
+            }
+            
+            return new ApiTypes.GeoCodedAddress
             {
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
@@ -180,7 +188,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 GeoPoint = new ApiTypes.GeoPoint(address.Latitude, address.Longitude)
             };
         }
-
     }
 
 }
