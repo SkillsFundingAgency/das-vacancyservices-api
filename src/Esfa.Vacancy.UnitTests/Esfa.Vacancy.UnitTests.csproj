@@ -104,11 +104,11 @@
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.1.5\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.172.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.172\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
+    <Reference Include="SFA.DAS.Recruit.Vacancies.Client, Version=1.0.211.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.211\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.84\lib\net452\SFA.DAS.VacancyServices.Search.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.126\lib\net462\SFA.DAS.VacancyServices.Search.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
