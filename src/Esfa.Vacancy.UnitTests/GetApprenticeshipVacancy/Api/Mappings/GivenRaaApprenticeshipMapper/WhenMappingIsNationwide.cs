@@ -27,7 +27,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
             var vacancy = new ApprenticeshipVacancy()
             {
                 VacancyLocationTypeId = vacancyLocationTypeid,
-                Location = new Address()
+                Location = new Address(),
+                ApprenticeshipTypeId = 1
             };
 
             var result = _sut.MapToApprenticeshipVacancy(vacancy);

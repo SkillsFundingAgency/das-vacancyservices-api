@@ -12,9 +12,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCase(2, ApprenticeshipType.Intermediate)]
         [TestCase(3, ApprenticeshipType.Advanced)]
         [TestCase(4, ApprenticeshipType.Higher)]
-        [TestCase(5, ApprenticeshipType.Foundation)]
+        [TestCase(5, ApprenticeshipType.Higher)]
         [TestCase(6, ApprenticeshipType.Degree)]
-        [TestCase(7, ApprenticeshipType.Masters)]
+        [TestCase(7, ApprenticeshipType.Degree)]
         public void AndTrainingTypeIsStandard_ThenShouldBeNull(int apiLevel, ApprenticeshipType expectedLevel)
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
@@ -34,8 +34,9 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
         [TestCase(2, ApprenticeshipType.Intermediate)]
         [TestCase(3, ApprenticeshipType.Advanced)]
         [TestCase(4, ApprenticeshipType.Higher)]
-        [TestCase(5, ApprenticeshipType.Foundation)]
+        [TestCase(5, ApprenticeshipType.Higher)]
         [TestCase(6, ApprenticeshipType.Degree)]
+        [TestCase(7, ApprenticeshipType.Degree)]
         public void AndTrainingTypeIsFramework(int apiLevel, ApprenticeshipType expectedLevel)
         {
             var fixture = new Fixture().Customize(new AutoMoqCustomization());

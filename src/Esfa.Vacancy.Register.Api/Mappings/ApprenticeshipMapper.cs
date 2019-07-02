@@ -60,7 +60,7 @@ namespace Esfa.Vacancy.Register.Api.Mappings
                 TrainingProviderUkprn = apprenticeshipVacancy.TrainingProviderUkprn,
                 TrainingProviderSite = apprenticeshipVacancy.TrainingProviderSite, //This is mapped to provider's trading name
                 IsEmployerDisabilityConfident = apprenticeshipVacancy.IsDisabilityConfident,
-                ApprenticeshipLevel = MapEducationLevel(apprenticeshipVacancy.ApprenticeshipTypeId),
+                ApprenticeshipLevel = ApiTypes.EducationLevelExtensions.RemapFromInt(apprenticeshipVacancy.ApprenticeshipTypeId).ToString(),
                 ApplicationUrl = apprenticeshipVacancy.EmployersRecruitmentWebsite,
                 ApplicationInstructions = apprenticeshipVacancy.EmployersApplicationInstructions
             };
@@ -68,12 +68,6 @@ namespace Esfa.Vacancy.Register.Api.Mappings
             MapTrainingDetails(apprenticeshipVacancy, apprenticeship);
 
             return apprenticeship;
-        }
-
-        private string MapEducationLevel(int apprenticeshipTypeId)
-        {
-            var educationLevel = (ApiTypes.EducationLevel)apprenticeshipTypeId;
-            return educationLevel.ToString();
         }
 
         private ApiTypes.WageUnit MapWageUnit(int? wageUnitId)
