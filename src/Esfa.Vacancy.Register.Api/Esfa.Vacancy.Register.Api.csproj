@@ -325,6 +325,7 @@
     <Compile Include="Controllers\SearchApprenticeshipVacanciesController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
+    <Compile Include="Extensions\EducationLevelHelper.cs" />
     <Compile Include="Mappings\GeoCodedAddressMapper.cs" />
     <Compile Include="Mappings\ApprenticeshipMapper.cs" />
     <Compile Include="Mappings\IApprenticeshipMapper.cs" />
