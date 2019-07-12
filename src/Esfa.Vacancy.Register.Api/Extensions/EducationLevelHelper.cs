@@ -9,11 +9,11 @@ namespace Esfa.Vacancy.Register.Api.Extensions
         {
             switch (value)
             {
-                case 5:
+                case 5: // Foundation degree
                     value = (int)EducationLevel.Higher;
                     break;
 
-                case 7:
+                case 7: // Masters
                     value = (int)EducationLevel.Degree;
                     break;
             }
