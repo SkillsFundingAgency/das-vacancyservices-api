@@ -24,6 +24,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
 
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
                 .With(v => v.WageUnitId, null)
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .Create();
 
             //Act

@@ -24,6 +24,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         public void AndEmployerIsNotAnonymous_ThenDoNotReplaceEmployerNameAndDescription()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.WageUnitId, null)
                 .With(v => v.VacancyReferenceNumber, 1234)
                 .With(v => v.VacancyStatusId, 2)
@@ -58,6 +59,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         public void AndEmployerIsAnonymous_ThenReplaceEmployerNameAndDescription()
         {
             var vacancy = new Fixture().Build<Domain.Entities.ApprenticeshipVacancy>()
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.WageUnitId, null)
                 .With(v => v.VacancyReferenceNumber, 1234)
                 .With(v => v.VacancyStatusId, 2)

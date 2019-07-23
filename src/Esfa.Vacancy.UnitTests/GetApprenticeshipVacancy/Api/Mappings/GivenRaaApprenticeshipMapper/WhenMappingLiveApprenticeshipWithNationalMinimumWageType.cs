@@ -37,6 +37,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
 
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                 .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
@@ -63,6 +64,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
 
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                 .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)
@@ -89,6 +91,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
 
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.VacancyReferenceNumber, VacancyReference)
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.VacancyStatusId, LiveVacancyStatusId)
                 .With(v => v.WageType, (int)LegacyWageType.NationalMinimum)
                 .With(v => v.MinimumWageLowerBound, minNationalWageLowerBound)

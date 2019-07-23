@@ -35,7 +35,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
             return retry.ExecuteAsync(() => InternalSearchApprenticeshipVacanciesAsync(parameters));
         }
 
-        private async Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
+        private Task<SearchApprenticeshipVacanciesResponse> InternalSearchApprenticeshipVacanciesAsync(
             VacancySearchParameters parameters)
         {
 
@@ -63,7 +63,7 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 ApprenticeshipSummaries = searchClientResponse.Results.Select(GetApprenticeshipSummary)
             };
 
-            return searchResponse;
+            return Task.FromResult(searchResponse);
         }
 
         private ApprenticeshipSearchRequestParameters GetSearchClientParameters(VacancySearchParameters parameters)
