@@ -31,7 +31,6 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Infrastructure.GivenAnAppr
         private double _expectedTotalPages;
         private SortBy _expectedSortBy;
         private Mock<IApprenticeshipSearchClient> _mockSearchClient;
-        private ApprenticeshipSearchResponse _apprenticeshipSearchClientResponse;
 
         [SetUp]
         public async Task Setup()

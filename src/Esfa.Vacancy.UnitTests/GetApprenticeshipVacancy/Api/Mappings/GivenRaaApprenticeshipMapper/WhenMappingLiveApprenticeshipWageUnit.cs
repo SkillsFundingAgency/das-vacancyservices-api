@@ -44,6 +44,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
             //Arrange
             var apprenticeshipVacancy = new Fixture().Build<ApprenticeshipVacancy>()
                 .With(v => v.WageType, (int)LegacyWageType.Custom)
+                .With(v => v.ApprenticeshipTypeId, 1)
                 .With(v => v.WageUnitId, wageUnitId)
                 .Create();
 

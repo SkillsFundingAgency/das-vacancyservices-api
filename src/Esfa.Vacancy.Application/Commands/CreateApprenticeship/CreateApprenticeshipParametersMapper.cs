@@ -88,13 +88,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 case 3:
                     return ApprenticeshipType.Advanced;
                 case 4:
-                    return ApprenticeshipType.Higher;
                 case 5:
-                    return ApprenticeshipType.Foundation;
+                    return ApprenticeshipType.Higher;
                 case 6:
-                    return ApprenticeshipType.Degree;
                 case 7:
-                    return ApprenticeshipType.Masters;
+                    return ApprenticeshipType.Degree;
                 default:
                     return (ApprenticeshipType)0;
             }

@@ -22,9 +22,9 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         [TestCase(1, "Intermediate", TestName = "And ApprenticeshipTypeId is 1 Then EducationLevel is Intermediate")]
         [TestCase(2, "Advanced", TestName = "And ApprenticeshipTypeId is 2 Then EducationLevel is Advanced")]
         [TestCase(3, "Higher", TestName = "And ApprenticeshipTypeId is 3 Then EducationLevel is Higher")]
-        [TestCase(5, "Foundation", TestName = "And ApprenticeshipTypeId is 5 Then EducationLevel is Foundation")]
+        [TestCase(5, "Higher", TestName = "And ApprenticeshipTypeId is 5 Then EducationLevel is Higher")]
         [TestCase(6, "Degree", TestName = "And ApprenticeshipTypeId is 6 Then EducationLevel is Degree")]
-        [TestCase(7, "Masters", TestName = "And ApprenticeshipTypeId is 7 Then EducationLevel is Masters")]
+        [TestCase(7, "Degree", TestName = "And ApprenticeshipTypeId is 7 Then EducationLevel is Degree")]
         public void MapApprenticeshipTypeValid(int apprenticeshipTypeId, string educationLevel)
         {
             var vacancy = new ApprenticeshipVacancy

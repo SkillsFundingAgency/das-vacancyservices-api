@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         {
             var vacancy = new Fixture().Build<ApprenticeshipVacancy>()
                                         .With(v => v.WageUnitId, null)
+                                        .With(v => v.ApprenticeshipTypeId, 1)
                                         .Without(v => v.Standard)
                                         .With(v => v.Framework, new Framework
                                         {
@@ -38,6 +39,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         {
             var vacancy = new Fixture().Build<ApprenticeshipVacancy>()
                                         .With(v => v.WageUnitId, null)
+                                        .With(v => v.ApprenticeshipTypeId, 1)
                                         .Without(v => v.Framework)
                                         .With(v => v.Standard, new Standard
                                         {
@@ -59,6 +61,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Mappings.GivenRaaA
         public void WithFrameworkOrStandardIsMissingThenReturnUnavailable()
         {
             var vacancy = new Fixture().Build<ApprenticeshipVacancy>()
+                                        .With(v => v.ApprenticeshipTypeId, 1)
                                         .With(v => v.WageUnitId, null)
                                         .Without(v => v.Framework)
                                         .Without(v => v.Standard)
