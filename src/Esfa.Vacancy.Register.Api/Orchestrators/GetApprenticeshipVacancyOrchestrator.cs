@@ -17,6 +17,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         private readonly IValidationExceptionBuilder _validationExceptionBuilder;
         private readonly IClient _recruitClient;
         private readonly IRecruitVacancyMapper _recruitMapper;
+        private const string ClosedVacancyDocumentType = "ClosedVacancy";
 
         public GetApprenticeshipVacancyOrchestrator(
             IMediator mediator, IApprenticeshipMapper apprenticeshipMapper,
@@ -32,30 +33,27 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         public async Task<ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(string id)
         {
-            ApprenticeshipVacancy vacancy = null;
-            int parsedId;
-            if (!int.TryParse(id, out parsedId))
+            ApprenticeshipVacancy apprenticeshipVacancy;
+            if (!int.TryParse(id, out var parsedId))
             {
                 throw _validationExceptionBuilder.Build(
                     ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32,
                     ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric);
             }
-
             if (VacancyVersionHelper.IsRaaVacancy(parsedId))
             {
                 var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId })
                     .ConfigureAwait(false);
-                vacancy = _mapper.MapToApprenticeshipVacancy(response.ApprenticeshipVacancy);
+                apprenticeshipVacancy = _mapper.MapToApprenticeshipVacancy(response.ApprenticeshipVacancy);
             }
             else
             {
-                var liveVacancy = _recruitClient.GetVacancy(parsedId);
-                if (liveVacancy == null) throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
-
-                vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy).ConfigureAwait(false);
+                var vacancy = _recruitClient.GetVacancy(parsedId);
+                if (vacancy == null || vacancy.ViewType.Equals(ClosedVacancyDocumentType))
+                    throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
+                apprenticeshipVacancy = await _recruitMapper.MapFromRecruitVacancy(vacancy).ConfigureAwait(false);
             }
-
-            return vacancy;
+            return apprenticeshipVacancy;
         }
     }
 }
