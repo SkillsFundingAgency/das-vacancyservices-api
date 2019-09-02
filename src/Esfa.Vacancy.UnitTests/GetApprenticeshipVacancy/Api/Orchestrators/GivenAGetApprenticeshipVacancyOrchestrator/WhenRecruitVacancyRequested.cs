@@ -19,8 +19,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         private Mock<IClient> _mockClient;
         private Mock<IApprenticeshipMapper> _mockMapper;
         private Mock<IRecruitVacancyMapper> _recuitMapperMock;
-        private const string LiveVacancyDocumentType = "LiveVacancy";
-
+        
         [SetUp]
         public void Initialise()
         {

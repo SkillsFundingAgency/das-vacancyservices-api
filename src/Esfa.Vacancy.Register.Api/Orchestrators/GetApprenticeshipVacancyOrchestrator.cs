@@ -48,8 +48,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             else
             {
                 var liveVacancy = _recruitClient.GetLiveVacancy(parsedId);
-                if (liveVacancy == null)
-                    throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
+                if (liveVacancy == null) throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
                 vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy).ConfigureAwait(false);
             }
             return vacancy;
