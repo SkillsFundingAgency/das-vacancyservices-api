@@ -33,12 +33,6 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
 
             var sut = fixture.Create<GetApprenticeshipVacancyOrchestrator>();
 
-            var vacancy = new Fixture().Build<SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy>()
-                .With(v => v.ViewType, LiveVacancyDocumentType)
-                .Create();
-
-            _mockClient.Setup(c => c.GetVacancy(It.IsAny<long>())).Returns(vacancy);
-
             sut.GetApprenticeshipVacancyDetailsAsync("1234567890").Wait();
             
         }
@@ -55,7 +49,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         [Test]
         public void ThenRecruitClientIsInvoked()
         {
-            _mockClient.Verify(m => m.GetVacancy(It.IsAny<long>()));
+            _mockClient.Verify(m => m.GetLiveVacancy(It.IsAny<long>()));
             _recuitMapperMock.Verify(m => m.MapFromRecruitVacancy(It.IsAny<SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy>()));
         }
     }

@@ -17,7 +17,6 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
         private readonly IValidationExceptionBuilder _validationExceptionBuilder;
         private readonly IClient _recruitClient;
         private readonly IRecruitVacancyMapper _recruitMapper;
-        private const string ClosedVacancyDocumentType = "ClosedVacancy";
 
         public GetApprenticeshipVacancyOrchestrator(
             IMediator mediator, IApprenticeshipMapper apprenticeshipMapper,
@@ -33,7 +32,7 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         public async Task<ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(string id)
         {
-            ApprenticeshipVacancy apprenticeshipVacancy;
+            ApprenticeshipVacancy vacancy;
             if (!int.TryParse(id, out var parsedId))
             {
                 throw _validationExceptionBuilder.Build(
@@ -44,16 +43,16 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             {
                 var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId })
                     .ConfigureAwait(false);
-                apprenticeshipVacancy = _mapper.MapToApprenticeshipVacancy(response.ApprenticeshipVacancy);
+                vacancy = _mapper.MapToApprenticeshipVacancy(response.ApprenticeshipVacancy);
             }
             else
             {
-                var vacancy = _recruitClient.GetVacancy(parsedId);
-                if (vacancy == null || vacancy.ViewType.Equals(ClosedVacancyDocumentType))
+                var liveVacancy = _recruitClient.GetLiveVacancy(parsedId);
+                if (liveVacancy == null)
                     throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
-                apprenticeshipVacancy = await _recruitMapper.MapFromRecruitVacancy(vacancy).ConfigureAwait(false);
+                vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy).ConfigureAwait(false);
             }
-            return apprenticeshipVacancy;
+            return vacancy;
         }
     }
 }
