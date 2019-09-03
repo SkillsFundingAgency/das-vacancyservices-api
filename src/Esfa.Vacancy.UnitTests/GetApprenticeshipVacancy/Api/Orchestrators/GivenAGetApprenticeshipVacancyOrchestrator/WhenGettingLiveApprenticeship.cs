@@ -72,7 +72,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
 
             _mockMapper.Verify(m => m.MapToApprenticeshipVacancy(It.IsAny<ApprenticeshipVacancy>()));
 
-            _mockClient.Verify(m => m.GetVacancy(It.IsAny<long>()), Times.Never);
+            _mockClient.Verify(m => m.GetLiveVacancy(It.IsAny<long>()), Times.Never);
             _recuitMapperMock.Verify(m => m.MapFromRecruitVacancy(It.IsAny<SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy>()), Times.Never);
         }
 

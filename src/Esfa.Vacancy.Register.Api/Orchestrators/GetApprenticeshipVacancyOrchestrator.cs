@@ -32,15 +32,13 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
 
         public async Task<ApprenticeshipVacancy> GetApprenticeshipVacancyDetailsAsync(string id)
         {
-            ApprenticeshipVacancy vacancy = null;
-            int parsedId;
-            if (!int.TryParse(id, out parsedId))
+            ApprenticeshipVacancy vacancy;
+            if (!int.TryParse(id, out var parsedId))
             {
                 throw _validationExceptionBuilder.Build(
                     ErrorCodes.GetApprenticeship.VacancyReferenceNumberNotInt32,
                     ErrorMessages.GetApprenticeship.VacancyReferenceNumberNotNumeric);
             }
-
             if (VacancyVersionHelper.IsRaaVacancy(parsedId))
             {
                 var response = await _mediator.Send(new GetApprenticeshipVacancyRequest() { Reference = parsedId })
@@ -49,12 +47,10 @@ namespace Esfa.Vacancy.Register.Api.Orchestrators
             }
             else
             {
-                var liveVacancy = _recruitClient.GetVacancy(parsedId);
+                var liveVacancy = _recruitClient.GetLiveVacancy(parsedId);
                 if (liveVacancy == null) throw new ResourceNotFoundException(Domain.Constants.ErrorMessages.VacancyNotFoundErrorMessage);
-
                 vacancy = await _recruitMapper.MapFromRecruitVacancy(liveVacancy).ConfigureAwait(false);
             }
-
             return vacancy;
         }
     }

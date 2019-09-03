@@ -6,11 +6,9 @@ using Esfa.Vacancy.Register.Api.Orchestrators;
 using MediatR;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
 using SFA.DAS.Recruit.Vacancies.Client;
-using SFA.DAS.Recruit.Vacancies.Client.Entities;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.GivenAGetApprenticeshipVacancyOrchestrator
 {
@@ -21,7 +19,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         private Mock<IClient> _mockClient;
         private Mock<IApprenticeshipMapper> _mockMapper;
         private Mock<IRecruitVacancyMapper> _recuitMapperMock;
-
+        
         [SetUp]
         public void Initialise()
         {
@@ -35,6 +33,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
             var sut = fixture.Create<GetApprenticeshipVacancyOrchestrator>();
 
             sut.GetApprenticeshipVacancyDetailsAsync("1234567890").Wait();
+            
         }
 
         [Test]
@@ -49,7 +48,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Api.Orchestrators.Give
         [Test]
         public void ThenRecruitClientIsInvoked()
         {
-            _mockClient.Verify(m => m.GetVacancy(It.IsAny<long>()));
+            _mockClient.Verify(m => m.GetLiveVacancy(It.IsAny<long>()));
             _recuitMapperMock.Verify(m => m.MapFromRecruitVacancy(It.IsAny<SFA.DAS.Recruit.Vacancies.Client.Entities.Vacancy>()));
         }
     }
