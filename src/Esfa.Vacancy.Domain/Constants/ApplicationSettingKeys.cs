@@ -8,6 +8,9 @@
         public const string LiveTraineeshipVacancyBaseUrlKey = "LiveTraineeshipVacancyBaseUrl";
         public const string VacancySearchUrlKey = "VacancySearchUrl";
         public const string ApprenticeshipIndexAliasKey = "ApprenticeshipIndexAlias";
+        public const string ElasticUsernameKey = "ElasticUsername";
+        public const string ElasticPasswordKey = "ElasticPassword";
+        public const string ElasticCloudIdKey = "ElasticCloudId";
         public const string CacheConnectionString = "CacheConnectionString";
         public const string UseSandboxServices = "UseSandboxServices";
         public const string CacheReferenceDataDuration = "CacheReferenceDataDuration";

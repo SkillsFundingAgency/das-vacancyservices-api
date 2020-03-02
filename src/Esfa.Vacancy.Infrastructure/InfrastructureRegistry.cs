@@ -6,9 +6,9 @@ using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Caching;
-using Esfa.Vacancy.Infrastructure.Factories;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
+using SFA.DAS.Elastic;
 using SFA.DAS.NLog.Logger;
 using SFA.DAS.VacancyServices.Search;
 
@@ -32,8 +32,6 @@ namespace Esfa.Vacancy.Infrastructure
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => _provideSettings);
 
-            For<IApprenticeshipSearchClient>().Use(context => context.GetInstance<ApprenticeshipSearchClientFactory>().GetClient());
-
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
 
             For<IGetMinimumWagesService>().Use<GetMinimumWagesService>();
@@ -42,6 +40,30 @@ namespace Esfa.Vacancy.Infrastructure
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();
 
             RegisterCreateApprenticeshipService();
+
+            RegisterElasticsearchClient();
+        }
+
+        private void RegisterElasticsearchClient()
+        {
+            var username = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticUsernameKey);
+            var password = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticPasswordKey);
+            var indexName = _provideSettings.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey);
+
+            ElasticClientConfiguration elasticConfig;
+#if DEBUG
+            var hostUrl = _provideSettings.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey);
+
+            elasticConfig = string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) 
+                ? new ElasticClientConfiguration(new Uri(hostUrl))
+                : new ElasticClientConfiguration(new Uri(hostUrl), username, password);
+#else
+            var cloudId = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticCloudIdKey);
+            elasticConfig = new ElasticClientConfiguration(cloudId, username, password);
+#endif
+            For<ElasticClientConfiguration>().Use(elasticConfig);
+            For<IElasticClientFactory>().Use<ElasticClientFactory>();
+            For<IApprenticeshipSearchClient>().Use<ApprenticeshipSearchClient>().Ctor<string>("indexName").Is(indexName);
         }
 
         private IDictionary<string, object> GetProperties()
