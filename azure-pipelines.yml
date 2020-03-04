@@ -71,9 +71,9 @@ steps:
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
     Contents: 'azure/**'
-    TargetFolder: '$(build.artifactstagingdirectory)/publish'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)/publish'
+    PathtoPublish: '$(build.artifactstagingdirectory)'
