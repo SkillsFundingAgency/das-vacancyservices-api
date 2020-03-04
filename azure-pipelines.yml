@@ -7,7 +7,7 @@ trigger:
 pr: none
 
 workspace:
-    clean: all
+  clean: all
 
 variables:
   buildConfiguration: 'release'
@@ -36,7 +36,7 @@ steps:
   inputs:
     solution: '$(solution)'
     vsVersion: 15.0
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
     clean: true
@@ -49,10 +49,10 @@ steps:
     configuration: '$(BuildConfiguration)'
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/publish'
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
-    SourceFolder: src/Esfa.Vacancy.Azure.Resources
-    TargetFolder: '$(build.artifactstagingdirectory)/publish'
+    Contents: 'azure/**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
