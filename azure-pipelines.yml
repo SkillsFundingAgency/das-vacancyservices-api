@@ -36,6 +36,25 @@ steps:
   inputs:
     solution: '$(solution)'
     vsVersion: 15.0
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+    clean: true
+
+- task: VSBuild@1
+  displayName: 'Package Register API'
+  inputs:
+    solution: 'src/Esfa.Vacancy.Manage.Api/Esfa.Vacancy.Manage.Api.csproj'
+    vsVersion: 15.0
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+    clean: true
+
+- task: VSBuild@1
+  displayName: 'Package Manage API'
+  inputs:
+    solution: 'src/Esfa.Vacancy.Register.Api/Esfa.Vacancy.Register.Api.csproj'
+    vsVersion: 15.0
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
