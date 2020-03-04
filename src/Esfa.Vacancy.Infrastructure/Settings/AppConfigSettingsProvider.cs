@@ -19,7 +19,7 @@ namespace Esfa.Vacancy.Infrastructure.Settings
 
             if (string.IsNullOrWhiteSpace(setting))
             {
-                setting = TryBaseSettingsProvider(settingKey);
+                setting = _baseSettings.GetSetting(settingKey);
             }
 
             if (string.IsNullOrEmpty(setting))
@@ -40,11 +40,6 @@ namespace Esfa.Vacancy.Infrastructure.Settings
             }
 
             return setting;
-        }
-
-        private string TryBaseSettingsProvider(string settingKey)
-        {
-            return _baseSettings.GetSetting(settingKey);
         }
     }
 }

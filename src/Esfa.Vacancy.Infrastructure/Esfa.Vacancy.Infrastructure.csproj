@@ -134,7 +134,6 @@
     <Compile Include="Services\TrainingDetailService.cs" />
     <Compile Include="Services\VacancyOwnerService.cs" />
     <Compile Include="Settings\AppConfigSettingsProvider.cs" />
-    <Compile Include="Settings\ApplicationSettings.cs" />
     <Compile Include="Settings\MachineSettings.cs" />
     <Compile Include="PollyRetryPolicies.cs" />
   </ItemGroup>

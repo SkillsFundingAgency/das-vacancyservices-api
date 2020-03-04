@@ -49,7 +49,7 @@ namespace Esfa.Vacancy.UnitTests.CreateApprenticeship.Application.GivenACreateAp
                 new TestCaseData("")
                     .SetName("And it is empty string Then should be allowed"),
                 new TestCaseData(new string('a', 4000))
-                    .SetName("And it is <= 4000 characters in length Then should be allowed"),
+                    .SetName("And it is less than equal to 4000 characters in length Then should be allowed"),
                 new TestCaseData(null)
                     .SetName("And it is null Then should be allowed")
             };

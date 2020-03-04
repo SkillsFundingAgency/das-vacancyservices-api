@@ -46,8 +46,8 @@ namespace Esfa.Vacancy.Infrastructure
 
         private void RegisterElasticsearchClient()
         {
-            var username = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticUsernameKey);
-            var password = _provideSettings.GetSetting(ApplicationSettingKeys.ElasticPasswordKey);
+            var username = _provideSettings.GetNullableSetting(ApplicationSettingKeys.ElasticUsernameKey);
+            var password = _provideSettings.GetNullableSetting(ApplicationSettingKeys.ElasticPasswordKey);
             var indexName = _provideSettings.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey);
 
             ElasticClientConfiguration elasticConfig;

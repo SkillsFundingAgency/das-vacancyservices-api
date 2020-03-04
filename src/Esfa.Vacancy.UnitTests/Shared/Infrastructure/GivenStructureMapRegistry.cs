@@ -21,6 +21,12 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
             var mockRequestContext = new Mock<IWebLoggingContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
             mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey))
+                .Returns("http://www.google.com");
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey))
+                .Returns("apprenticeships");
+            mockProvideSettings
                 .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.UseSandboxServices))
                 .Returns(value);
             var container = new Container(new InfrastructureRegistry(mockProvideSettings.Object));
