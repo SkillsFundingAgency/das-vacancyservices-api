@@ -27,10 +27,10 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
                 .Setup(ps => ps.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey))
                 .Returns("http://www.google.com");
             mockProvideSettings
-                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticUsernameKey))
+                .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.ElasticUsernameKey))
                 .Returns("username");
             mockProvideSettings
-                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticPasswordKey))
+                .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.ElasticPasswordKey))
                 .Returns("password");
             mockProvideSettings
                 .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey))
