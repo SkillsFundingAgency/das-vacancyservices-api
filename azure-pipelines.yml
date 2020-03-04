@@ -11,7 +11,7 @@ workspace:
 
 variables:
   buildConfiguration: 'release'
-  buildPlatform: 'anycpu'
+  buildPlatform: 'any cpu'
   solution: 'src/Esfa.Vacancy.Api.sln'
 
 pool:
