@@ -21,8 +21,17 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
             var mockRequestContext = new Mock<IWebLoggingContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
             mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticCloudIdKey))
+                .Returns("CloudKey:SomeKeyInformation");
+            mockProvideSettings
                 .Setup(ps => ps.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey))
                 .Returns("http://www.google.com");
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticUsernameKey))
+                .Returns("username");
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticPasswordKey))
+                .Returns("password");
             mockProvideSettings
                 .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey))
                 .Returns("apprenticeships");
