@@ -502,5 +502,18 @@
             }
         }        
     ],
-    "outputs": {}
+    "outputs": {
+        "registerApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('registerApiAppServiceName')]"
+        },
+        "ManageApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('manageApiAppServiceName')]"
+        },
+        "ManageSandboxApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('manageSandboxApiAppServiceName')]"
+        }
+    }
 }
