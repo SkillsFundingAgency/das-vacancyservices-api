@@ -44,11 +44,11 @@
         "loggingRedisConnectionString": {
             "type": "securestring"
         },
-        "avmsPlusDatabaseConnectionString": {
-            "type": "securestring"
-        },        
         "loggingRedisKey": {
             "type": "string"
+        },
+        "avmsPlusDatabaseConnectionString": {
+            "type": "securestring"
         },
         "apprenticeshipInfoApiBaseUrl": {
             "type": "string"
@@ -79,18 +79,6 @@
         },
         "recruitMongoCollectionName": {
             "type": "string"
-        },
-        "registerAppDomainName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "manageAppDomainName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "sandboxAppDomainName": {
-            "type": "string",
-            "defaultValue": ""
         },
         "ipSecurityRestrictions": {
             "type": "array",
@@ -335,7 +323,7 @@
                         ]
                     },
                     "customHostName": {
-                        "value": "[parameters('registerAppDomainName')]"
+                        "value": "[parameters('registerCustomHostname')]"
                     },
                     "certificateThumbprint": {
                         "value": "[reference('register-app-service-certificate').outputs.certificateThumbprint.value]"
@@ -414,7 +402,7 @@
                         ]
                     },
                     "customHostName": {
-                        "value": "[parameters('manageAppDomainName')]"
+                        "value": "[parameters('manageCustomHostname')]"
                     },
                     "certificateThumbprint": {
                         "value": "[reference('manage-app-service-certificate').outputs.certificateThumbprint.value]"
@@ -490,7 +478,7 @@
                         ]
                     },
                     "customHostName": {
-                        "value": "[parameters('sandboxAppDomainName')]"
+                        "value": "[parameters('manageSandboxCustomHostname')]"
                     },
                     "certificateThumbprint": {
                         "value": "[reference('manage-sandbox-app-service-certificate').outputs.certificateThumbprint.value]"
