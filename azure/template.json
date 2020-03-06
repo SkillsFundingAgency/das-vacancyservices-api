@@ -100,9 +100,9 @@
     "variables": {
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[concat('das-',toLower(parameters('resourceEnvironmentName')),'-' , parameters('serviceName'))]",
-        "registerApiAppServiceName": "[concat(variables('resourceNamePrefix'),'api-as')]",
-        "manageApiAppServiceName": "[concat(variables('resourceNamePrefix'),'manapi-as')]",
-        "manageSandboxApiAppServiceName": "[concat(variables('resourceNamePrefix'),'manapi-sbox-as')]",
+        "registerApiAppServiceName": "[concat(variables('resourceNamePrefix'),'regapi-as')]",
+        "manageApiAppServiceName": "[concat(variables('resourceNamePrefix'),'mngapi-as')]",
+        "manageSandboxApiAppServiceName": "[concat(variables('resourceNamePrefix'),'mngapi-sbox-as')]",
         "instanceName": "[if(equals(toUpper(parameters('environmentName')),'PROD'),'',parameters('environmentName'))]",
         "sandboxInstanceName": "[if(equals(length(variables('instanceName')),0),'(Sandbox)',concat(variables('instanceName'),' (Sandbox)'))]"
     },
