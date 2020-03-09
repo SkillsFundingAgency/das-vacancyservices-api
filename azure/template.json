@@ -491,7 +491,7 @@
         }
     ],
     "outputs": {
-        "registerApiAppServiceName": {
+        "RegisterApiAppServiceName": {
             "type": "string",
             "value": "[variables('registerApiAppServiceName')]"
         },
