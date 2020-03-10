@@ -56,8 +56,14 @@
         "liveApprenticeshipVacancyBaseUrl": {
             "type": "string"
         },
-        "vacancySearchUrl": {
+        "elasticCloudId": {
             "type": "string"
+        },
+        "elasticUsername": {
+            "type": "string"
+        },
+        "elasticPassword": {
+            "type": "securestring"
         },
         "apprenticeshipIndexAlias": {
             "type": "string"
@@ -293,8 +299,16 @@
                                 "value": "[parameters('liveApprenticeshipVacancyBaseUrl')]"
                             },
                             {
-                                "name": "VacancySearchUrl",
-                                "value": "[parameters('vacancySearchUrl')]"
+                                "name": "ElasticCloudId",
+                                "value": "[parameters('ElasticCloudId')]"
+                            },
+                            {
+                                "name": "ElasticUsername",
+                                "value": "[parameters('elasticUsername')]"
+                            },
+                            {
+                                "name": "ElasticPassword",
+                                "value": "[parameters('elasticPassword')]"
                             },
                             {
                                 "name": "ApprenticeshipIndexAlias",
