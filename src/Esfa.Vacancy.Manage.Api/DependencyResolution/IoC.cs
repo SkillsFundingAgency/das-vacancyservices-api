@@ -15,7 +15,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Esfa.Vacancy.Infrastructure;
+using Esfa.Vacancy.Infrastructure.Ioc;
 using StructureMap;
 
 namespace Esfa.Vacancy.Manage.Api.DependencyResolution {
