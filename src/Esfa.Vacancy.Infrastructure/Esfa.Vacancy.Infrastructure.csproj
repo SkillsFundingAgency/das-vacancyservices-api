@@ -122,7 +122,8 @@
     <Compile Include="Caching\AzureRedisCacheService.cs" />
     <Compile Include="Exceptions\InfrastructureException.cs" />
     <Compile Include="Factories\SqlDatabaseService.cs" />
-    <Compile Include="InfrastructureRegistry.cs" />
+    <Compile Include="Ioc\ElasticClientRegistry.cs" />
+    <Compile Include="Ioc\InfrastructureRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CachedTrainingDetailService.cs" />
     <Compile Include="Services\CreateApprenticeshipService.cs" />
