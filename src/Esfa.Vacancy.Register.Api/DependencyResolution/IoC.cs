@@ -16,7 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-using Esfa.Vacancy.Infrastructure;
+using Esfa.Vacancy.Infrastructure.Ioc;
 using StructureMap;
 
 namespace Esfa.Vacancy.Register.Api.DependencyResolution
@@ -30,6 +30,8 @@ namespace Esfa.Vacancy.Register.Api.DependencyResolution
                 c.AddRegistry<DefaultRegistry>();
                 c.AddRegistry<InfrastructureRegistry>();
                 c.AddRegistry<WebRegistry>();
+                c.AddRegistry<ElasticClientRegistry>();
+
             });
         }
     }

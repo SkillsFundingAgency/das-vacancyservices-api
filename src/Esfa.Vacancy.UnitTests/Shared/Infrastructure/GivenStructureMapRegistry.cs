@@ -1,6 +1,7 @@
 ﻿using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure;
+using Esfa.Vacancy.Infrastructure.Ioc;
 using Esfa.Vacancy.Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
