@@ -7,3 +7,4 @@
 | Web  | https://developers.apprenticeships.sfa.bis.gov.uk/ |
 | Source  | https://github.com/SkillsFundingAgency/vacancy-register-api  |
 | Api Client | TBC |
+| Developer Setup | https://skillsfundingagency.atlassian.net/wiki/spaces/RAA/pages/108221221/Developer+Setup |
