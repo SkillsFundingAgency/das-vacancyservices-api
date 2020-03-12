@@ -70,7 +70,9 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
-    Contents: 'azure/**'
+    Contents: |
+      azure/**
+      integration-tests/**
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
