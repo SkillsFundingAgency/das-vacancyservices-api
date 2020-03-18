@@ -97,7 +97,7 @@
         "registerApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-reg-as')]",
         "manageApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-as')]",
         "manageSandboxApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-sbox-as')]",
-        "instanceName": "[if(equals(toUpper(parameters('resourceEnvironmentName')),'PRD'),'',parameters('environmentName'))]",
+        "instanceName": "[if(equals(toUpper(parameters('resourceEnvironmentName')),'PRD'),'',parameters('resourceEnvironmentName'))]",
         "sandboxInstanceName": "[if(equals(length(variables('instanceName')),0),'(Sandbox)',concat(variables('instanceName'),' (Sandbox)'))]"
     },
     "resources": [
