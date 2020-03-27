@@ -102,7 +102,7 @@
       <HintPath>..\packages\Polly.5.3.1\lib\net45\Polly.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Elastic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Elastic.2.0.12\lib\netstandard2.0\SFA.DAS.Elastic.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.Elastic.2.0.14\lib\netstandard2.0\SFA.DAS.Elastic.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.1.5\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -111,7 +111,7 @@
       <HintPath>..\packages\SFA.DAS.Recruit.Vacancies.Client.1.0.213\lib\net451\SFA.DAS.Recruit.Vacancies.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.151\lib\net462\SFA.DAS.VacancyServices.Search.dll</HintPath>
+      <HintPath>..\packages\SFA.DAS.VacancyServices.Search.1.0.163\lib\net462\SFA.DAS.VacancyServices.Search.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.VacancyServices.Wage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.VacancyServices.Wage.1.0.5\lib\net45\SFA.DAS.VacancyServices.Wage.dll</HintPath>
