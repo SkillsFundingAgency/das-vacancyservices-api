@@ -106,7 +106,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         /// | 30108       | Invalid Distance in miles                                                        |
         /// | 30109       | Invalid NationwideOnly                                                           |
         /// | 30110       | Invalid SortBy                                                                   |
-        /// | 30111       | Invalid Training Provider UKPRN                                                  |       |
+        /// | 30111       | Invalid Training Provider UKPRN                                                  |
         /// 
         /// </remarks>
         [HttpGet]
@@ -118,8 +118,7 @@ namespace Esfa.Vacancy.Register.Api.Controllers
         public async Task<IHttpActionResult> Search([FromUri(Name = "")]SearchApprenticeshipParameters searchApprenticeshipParameters)
         {
             var results =
-                await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters)
-                                         .ConfigureAwait(false);
+                await _searchOrchestrator.SearchApprenticeship(searchApprenticeshipParameters).ConfigureAwait(false);
             return Ok(results);
         }
     }
