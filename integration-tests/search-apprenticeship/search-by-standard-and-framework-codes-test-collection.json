@@ -1,0 +1,639 @@
+{
+	"info": {
+		"_postman_id": "d46ef261-03db-4899-99b4-d741222f99fb",
+		"name": "Search by Standard / Framework Codes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Frameworks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pp-findapprenticeshiptraining-api.apprenticeships.education.gov.uk/frameworks",
+					"protocol": "https",
+					"host": [
+						"pp-findapprenticeshiptraining-api",
+						"apprenticeships",
+						"education",
+						"gov",
+						"uk"
+					],
+					"path": [
+						"frameworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Standards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pp-findapprenticeshiptraining-api.apprenticeships.education.gov.uk/standards",
+					"protocol": "https",
+					"host": [
+						"pp-findapprenticeshiptraining-api",
+						"apprenticeships",
+						"education",
+						"gov",
+						"uk"
+					],
+					"path": [
+						"standards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Valid Framework Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Results >= 40\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(40);",
+							"});",
+							"",
+							"pm.test(\"Responses are correct framework\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"",
+							"    for(var i = 0; i < totalMatched; i++)",
+							"    {",
+							"        var trainingType = jsonData.results[i].trainingType;",
+							"        pm.expect(trainingType).to.eql(\"Framework\");",
+							"",
+							"        var trainingTitle = jsonData.results[i].trainingTitle;",
+							"        pm.expect(trainingTitle).to.eql(\"Farriery\");",
+							"",
+							"        var trainingCode = jsonData.results[i].trainingCode;",
+							"        pm.expect(trainingCode).to.eql(\"526\");",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=526",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "526"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Multiple Valid Framework Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Results >= 10\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(10);",
+							"});",
+							"",
+							"pm.test(\"Responses are correct framework\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    ",
+							"    for(var i = 0; i < totalMatched; i++)",
+							"    {",
+							"        var trainingType = jsonData.results[i].trainingType;",
+							"        pm.expect(trainingType).to.eql(\"Framework\");",
+							"",
+							"        var trainingTitle = jsonData.results[i].trainingTitle;",
+							"        pm.expect(trainingTitle).to.be.oneOf([\"Nursing Assistants in a Veterinary Environment\",\"Trees and Timber\"]);",
+							"",
+							"        var trainingCode = jsonData.results[i].trainingCode;",
+							"        pm.expect(trainingCode).to.be.oneOf([\"531\",\"569\"]);",
+							"    }",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=531,569",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "531,569"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Invalid Framework Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 400 Bad Request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains correct Error Code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+							"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+							"    ",
+							"    pm.expect(errorCode).to.eql(\"30102\");",
+							"    pm.expect(errorMessage).to.eql(\"Framework code 999 not found.\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=999",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Multiple Valid Framework With Invalid Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 400 Bad Request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains correct Error Code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+							"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+							"    ",
+							"    pm.expect(errorCode).to.eql(\"30102\");",
+							"    pm.expect(errorMessage).to.eql(\"Framework code 999 not found.\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=531,569,999",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "531,569,999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Valid Standard Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Results >= 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(2);",
+							"});",
+							"",
+							"pm.test(\"Responses are correct standard\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"",
+							"    for(var i = 0; i < totalMatched; i++)",
+							"    {",
+							"        var trainingType = jsonData.results[i].trainingType;",
+							"        pm.expect(trainingType).to.eql(\"Standard\");",
+							"",
+							"        var trainingTitle = jsonData.results[i].trainingTitle;",
+							"        pm.expect(trainingTitle).to.eql(\"Nuclear welding inspection technician\");",
+							"",
+							"        var trainingCode = jsonData.results[i].trainingCode;",
+							"        pm.expect(trainingCode).to.eql(\"35\");",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=35",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "35"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Multiple Valid Standard Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Results >= 4\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(2);",
+							"});",
+							"",
+							"pm.test(\"Responses are correct standard\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"",
+							"    for(var i = 0; i < totalMatched; i++)",
+							"    {",
+							"        var trainingType = jsonData.results[i].trainingType;",
+							"        pm.expect(trainingType).to.eql(\"Standard\");",
+							"",
+							"        var trainingTitle = jsonData.results[i].trainingTitle;",
+							"        pm.expect(trainingTitle).to.be.oneOf([\"Nuclear welding inspection technician\",\"Licensed conveyancer\"]);",
+							"",
+							"        var trainingCode = jsonData.results[i].trainingCode;",
+							"        pm.expect(trainingCode).to.be.oneOf([\"35\",\"40\"]);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=35,40",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "35,40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Invalid Standard Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 400 Bad Request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains correct Error Code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+							"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+							"    ",
+							"    pm.expect(errorCode).to.eql(\"30101\");",
+							"    pm.expect(errorMessage).to.eql(\"Standard code 999 not found.\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=999",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Multiple Valid Standard Code With Invalid Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 400 Bad Request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response contains correct Error Code\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+							"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+							"    ",
+							"    pm.expect(errorCode).to.eql(\"30101\");",
+							"    pm.expect(errorMessage).to.eql(\"Standard code 999 not found.\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=35,40,999",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "35,40,999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship By Valid Standard Code And Valid Framework",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Results >= 4\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.totalMatched).to.gte(2);",
+							"});",
+							"",
+							"pm.test(\"Responses are correct standard or framework\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"",
+							"    for(var i = 0; i < totalMatched; i++)",
+							"    {",
+							"        var trainingType = jsonData.results[i].trainingType;",
+							"        pm.expect(trainingType).to.be.oneOf([\"Standard\",\"Framework\"]);",
+							"",
+							"        var trainingTitle = jsonData.results[i].trainingTitle;",
+							"        pm.expect(trainingTitle).to.be.oneOf([\"Nuclear welding inspection technician\",\"Trees and Timber\"]);",
+							"",
+							"        var trainingCode = jsonData.results[i].trainingCode;",
+							"        pm.expect(trainingCode).to.be.oneOf([\"35\",\"531\"]);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=35&frameworkLarsCodes=531",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "35"
+						},
+						{
+							"key": "frameworkLarsCodes",
+							"value": "531"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
