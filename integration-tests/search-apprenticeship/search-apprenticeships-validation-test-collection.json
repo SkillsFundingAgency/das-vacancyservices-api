@@ -1,0 +1,1550 @@
+{
+	"info": {
+		"_postman_id": "559a5840-e50a-4b76-9377-14f486de4d40",
+		"name": "Search Apprenticeships",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "No parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one search parameter is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one valid Standard code, Framework code, Provider UKPRN, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes&ukprn=dsfsdfvdsf&nationwideOnly=yes&postedInLastNumberOfDays=fsvfsv",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": null
+						},
+						{
+							"key": "ukprn",
+							"value": "dsfsdfvdsf"
+						},
+						{
+							"key": "nationwideOnly",
+							"value": "yes"
+						},
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "fsvfsv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Standard LARS code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"Standard code non-numeric-value is invalid, expected a number.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30101\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes=non-numeric-value",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": "non-numeric-value"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Standard LARS code in list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"Standard code 999 not found.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30101\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCodes= 1,999",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCodes",
+							"value": " 1,999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Framework LARS code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"Framework code 1 not found.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30102\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Page size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"Framework code 1 not found.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30102\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?frameworkLarsCodes=1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "frameworkLarsCodes",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Page number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Page Number' must be greater than or equal to '1'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30104\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?pageNumber=0&nationwideOnly=true",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid posted in last number of days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Posted In Last Number Of Days' must be greater than or equal to '0'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30105\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=-1&nationwideOnly=true",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "-1"
+						},
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid latitude lower bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Latitude' must be between -90 and 90. You entered -91.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30106\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=-91&longitude=100&distanceInMiles=4",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "-91"
+						},
+						{
+							"key": "longitude",
+							"value": "100"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid latitude upper bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Latitude' must be between -90 and 90. You entered 91.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30106\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=91&longitude=100&distanceInMiles=4",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "91"
+						},
+						{
+							"key": "longitude",
+							"value": "100"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid longitude upper bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Longitude' must be between -180 and 180. You entered 181.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30107\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=90&longitude=181&distanceInMiles=4",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "90"
+						},
+						{
+							"key": "longitude",
+							"value": "181"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid longitude lower bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Longitude' must be between -180 and 180. You entered -181.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30107\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=90&longitude=-181&distanceInMiles=4",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "90"
+						},
+						{
+							"key": "longitude",
+							"value": "-181"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid distance in miles lower bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Distance In Miles' must be between 1 and 1000. You entered 0.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30108\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=90&longitude=100&distanceInMiles=0",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "90"
+						},
+						{
+							"key": "longitude",
+							"value": "100"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid distance in miles upper bound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Distance In Miles' must be between 1 and 1000. You entered 1001.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30108\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=90&longitude=100&distanceInMiles=1001",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "90"
+						},
+						{
+							"key": "longitude",
+							"value": "100"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "1001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Geo search missing latitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'Latitude'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30106\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&longitude=100&distanceInMiles=1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "longitude",
+							"value": "100"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Geo search missing longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'Longitude'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30107\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=10&distanceInMiles=1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "10"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Geo search missing distance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'DistanceInMiles'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30108\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?standardLarsCode=1&latitude=10&longitude=10",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "standardLarsCode",
+							"value": "1"
+						},
+						{
+							"key": "latitude",
+							"value": "10"
+						},
+						{
+							"key": "longitude",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid sort by distance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"You can only sort by distance if you have searched by geo-location.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30110\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=10&sortBy=Distance",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "Distance"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid sort by option",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'invalid-option' is not a valid value for 'Sort By'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30110\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=10&sortBy=invalid-option",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "invalid-option"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Ukprn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"UKPRN must be 8 digits in length\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30111\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=10&ukprn=1234567",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "10"
+						},
+						{
+							"key": "ukprn",
+							"value": "1234567"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

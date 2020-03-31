@@ -91,6 +91,19 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                 .SetName("And searching without location then sort by distance is invalid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
+                    PostedInLastNumberOfDays = 2,
+                    NationwideOnly = true,
+                    SortBy = "0"
+                }, new ValidationResult
+                {
+                    Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByValueNotAllowed("0"))
+                    {
+                        ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
+                    }}
+                })
+                .SetName("And sorting by a number is not valid"),
+            new TestCaseData(new SearchApprenticeshipVacanciesRequest
+                {
                     Latitude = 23,
                     Longitude = 54,
                     DistanceInMiles = 200,

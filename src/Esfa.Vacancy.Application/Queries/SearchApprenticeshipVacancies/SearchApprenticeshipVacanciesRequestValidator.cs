@@ -124,6 +124,7 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 
         private static bool BeValidSortBy(string value)
         {
+            if (int.TryParse(value, out _)) return false;
             SortBy sortBy;
             return Enum.TryParse(value, true, out sortBy);
         }
@@ -136,8 +137,8 @@ namespace Esfa.Vacancy.Application.Queries.SearchApprenticeshipVacancies
 
         private async Task<bool> BeAValidFrameworkCode(string frameworkCode, CancellationToken token)
         {
-            IEnumerable<TrainingDetail> frameworks = await _trainingDetailService.GetAllFrameworkDetailsAsync()
-                                                                                 .ConfigureAwait(false);
+            IEnumerable<TrainingDetail> frameworks = 
+                await _trainingDetailService.GetAllFrameworkDetailsAsync().ConfigureAwait(false);
             return frameworks.Any(detail => IsValidFrameworkCode(detail, frameworkCode));
         }
 
