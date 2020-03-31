@@ -96,12 +96,12 @@ namespace Esfa.Vacancy.UnitTests.SearchApprenticeship.Application.GivenASearchAp
                     SortBy = "0"
                 }, new ValidationResult
                 {
-                    Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByDistanceOnlyWhenGeoSearch)
+                    Errors = { new ValidationFailure("SortBy", ErrorMessages.SearchApprenticeships.SortByValueNotAllowed("0"))
                     {
                         ErrorCode = ErrorCodes.SearchApprenticeships.SortBy
                     }}
                 })
-                .SetName("'0' is not a valid value for 'Sort By'."),
+                .SetName("And sorting by a number is not valid"),
             new TestCaseData(new SearchApprenticeshipVacanciesRequest
                 {
                     Latitude = 23,
