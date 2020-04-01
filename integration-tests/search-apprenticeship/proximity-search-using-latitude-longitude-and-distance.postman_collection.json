@@ -275,7 +275,7 @@
 			"name": "Test",
 			"item": [
 				{
-					"name": "Search Apprenticeships by distnace should have 0 results",
+					"name": "Search Apprenticeships by distance should have 0 results",
 					"event": [
 						{
 							"listen": "test",
@@ -340,7 +340,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace should have some results",
+					"name": "Search Apprenticeships by distance should have some results",
 					"event": [
 						{
 							"listen": "test",
@@ -405,7 +405,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace without distance bad request",
+					"name": "Search Apprenticeships by distancewithout distance bad request",
 					"event": [
 						{
 							"listen": "test",
@@ -477,7 +477,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace without latitude bad request",
+					"name": "Search Apprenticeships by distance without latitude bad request",
 					"event": [
 						{
 							"listen": "test",
@@ -549,7 +549,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace without longitude bad request",
+					"name": "Search Apprenticeships by distance without longitude bad request",
 					"event": [
 						{
 							"listen": "test",
@@ -621,14 +621,14 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace incorret latitude",
+					"name": "Search Apprenticeships by distance incorret latitude",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
+									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
@@ -692,7 +692,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace incorret longitude",
+					"name": "Search Apprenticeships by distance incorret longitude",
 					"event": [
 						{
 							"listen": "test",
@@ -763,7 +763,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distnace incorret distance",
+					"name": "Search Apprenticeships by distance incorret distance",
 					"event": [
 						{
 							"listen": "test",
