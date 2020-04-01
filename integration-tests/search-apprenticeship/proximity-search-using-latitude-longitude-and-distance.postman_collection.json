@@ -405,7 +405,7 @@
 					"response": []
 				},
 				{
-					"name": "Search Apprenticeships by distancewithout distance bad request",
+					"name": "Search Apprenticeships by distance without distance bad request",
 					"event": [
 						{
 							"listen": "test",
