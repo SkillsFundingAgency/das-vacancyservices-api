@@ -7,11 +7,55 @@
 	"item": [
 		{
 			"name": "Invalid No Parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9a16b00-c644-4a9a-946e-165094434451",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one search parameter is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": ""
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					]
 				}
 			},
 			"response": []
@@ -150,22 +194,26 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Responses within 24 hours of last number of days\", function() {",
+							"pm.test(\"Responses posted in last number of days\", function() {",
 							"    var jsonData = pm.response.json();",
 							"    ",
 							"    var totalReturned = jsonData.totalReturned;",
-							"    var postedDate = jsonData.postedDate;",
+							"    var currentDate = new Date();",
+							"    currentDate.setHours(0,0,0,0);",
 							"    ",
-							"    var oneDay = new Date();",
-							"    var time = oneDay.getTime() - (24 * 60 * 60 * 1000);",
+							"    tests[\"This is the currentDate \" + currentDate] = currentDate > 0;",
+							"    tests[\"totalReturned \" + totalReturned] = totalReturned > 0;",
 							"    ",
 							"    for(var i = 0; i < totalReturned; i++)",
 							"    {",
-							"        var isWithinLastNDays = jsonData.results[i].postedDate;",
-							"        var date = new Date(postedDate);",
-							"        var newTime = date.getTime();",
-							"",
-							"        pm.expect(newTime) <= time;",
+							"        var postedDataField = jsonData.results[i].postedDate;",
+							"        var postedDate = new Date(postedDataField);",
+							"        postedDate.setHours(0,0,0,0);",
+							"        tests[\"This is the postedDate \" + postedDate] = postedDate > 0;",
+							"        ",
+							"        // Add 3 days",
+							"        postedDate.setDate(postedDate.getDate() + 3);",
+							"        pm.expect(postedDate).to.gte(currentDate);",
 							"    }",
 							"});"
 						],
