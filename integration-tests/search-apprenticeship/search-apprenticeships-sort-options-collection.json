@@ -1,0 +1,529 @@
+{
+	"info": {
+		"_postman_id": "067e4789-981b-4ca9-bb6a-e3166844af0a",
+		"name": "Search Apprenticeships Sorting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Searching by PostedInLastNumberOfDays defaults sort order to Age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"var moment = require('moment');",
+							"",
+							"pm.test(\"Has success response code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Has default sort by Age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sortBy).to.eql(\"Age\");",
+							"    pm.expect(jsonData.totalReturned).to.eql(100);",
+							"});",
+							"",
+							"pm.test(\"Has descending order on postedDate \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var previousPostedDate;",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var currentPostedDate = jsonData.results[i].postedDate;",
+							"        if(previousPostedDate)",
+							"        {",
+							"            var diff = moment(previousPostedDate).diff(moment(currentPostedDate));",
+							"            if(diff > 0)",
+							"            {",
+							"                console.info(i + \": previousPostedDate = \" + previousPostedDate + \", currentPostedDate = \" + currentPostedDate + \", diff = \" + diff);",
+							"            }",
+							"            pm.expect(diff).to.gte(0);",
+							"        } else { ",
+							"            console.info(\"Begin with date: \" + currentPostedDate);",
+							"        }",
+							"        previousPostedDate = currentPostedDate;",
+							"    }",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"if(jsonData.totalReturned > 1000) {",
+							"    var vacancyRef = jsonData.results[0].location.longitude;",
+							"    var vacancyTitle = jsonData.results[0].location.latitude;",
+							"    pm.environment.set(\"longitude\", vacancyRef);",
+							"    pm.environment.set(\"latitude\", vacancyTitle);",
+							"} else {",
+							"    pm.environment.set(\"longitude\", -1.5);",
+							"    pm.environment.set(\"latitude\", 52);",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?PostedInLastNumberOfDays=100&pageSize=100&pageNumber=10",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "PostedInLastNumberOfDays",
+							"value": "100"
+						},
+						{
+							"key": "pageSize",
+							"value": "100"
+						},
+						{
+							"key": "pageNumber",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Searching by geo-location defaults sort order to Distance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"var maximumDistance = pm.variables.get(\"maximumDistance\");",
+							"",
+							"pm.test(\"Has success response code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Has default sort by Distance\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sortBy).to.eql(\"Distance\");",
+							"    pm.expect(jsonData.totalReturned).to.eql(50);",
+							"});",
+							"",
+							"pm.test(\"Has ascending order on distanceInMiles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var previousDistance;",
+							"    for(var i = 0; i < totalReturned; i++) {",
+							"        ",
+							"        pm.expect(jsonData.results[i].distanceInMiles).to.lte(maximumDistance);",
+							"",
+							"        var currentDistance = jsonData.results[i].distanceInMiles;",
+							"        ",
+							"        if(previousDistance) {",
+							"            var diff = currentDistance - previousDistance;",
+							"            if(diff > 0) {",
+							"                console.info(i + \": previousDistance = \" + previousDistance + \", currentDistance = \" + currentDistance + \", diff = \" + diff);",
+							"            }",
+							"",
+							"            pm.expect(diff).to.gte(0);",
+							"",
+							"        } else {",
+							"            console.info(\"Begin with distance: \" + currentDistance);",
+							"        }",
+							"        ",
+							"        previousDistance = currentDistance;",
+							"    }",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							"pm.variables.set(\"maximumDistance\", 50)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude={{latitude}}&longitude={{longitude}}&distanceInMiles={{maximumDistance}}&pageSize=50",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "{{latitude}}"
+						},
+						{
+							"key": "longitude",
+							"value": "{{longitude}}"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "{{maximumDistance}}"
+						},
+						{
+							"key": "pageSize",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search results sorted by ExpectedStartDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"var moment = require('moment');",
+							"",
+							"pm.test(\"Has success response code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Has default sort by Age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sortBy).to.eql(\"ExpectedStartDate\");",
+							"    pm.expect(jsonData.totalReturned).to.eql(10);",
+							"});",
+							"",
+							"pm.test(\"Has ascending order on expectedStartDate \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var previousDate;",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var currentDate = jsonData.results[i].expectedStartDate;",
+							"        if(previousDate)",
+							"        {",
+							"            var diff = moment(currentDate).diff(moment(previousDate));",
+							"            if(diff > 0)",
+							"            {",
+							"                console.info(i + \": previousDate = \" + previousDate + \", currentDate = \" + currentDate + \", diff = \" + diff);",
+							"            }",
+							"            pm.expect(diff).to.gte(0);",
+							"        } else { ",
+							"            console.info(\"Begin with date: \" + currentDate);",
+							"        }",
+							"        previousDate = currentDate;",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a14a43b6-46d2-4e11-87bd-0d567fe201bf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?PostedInLastNumberOfDays=100&pageSize=10&sortBy=ExpectedStartDate",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "PostedInLastNumberOfDays",
+							"value": "100"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "sortBy",
+							"value": "ExpectedStartDate"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Searching by geo-location and sorted by Age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cec31e71-9f8a-4617-853f-48fe4cf0c247",
+						"exec": [
+							"var moment = require('moment');",
+							"",
+							"var maximumDistance = pm.variables.get(\"maximumDistance\");",
+							"",
+							"pm.test(\"Has success response code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Has default sort by Age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sortBy).to.eql(\"Age\");",
+							"    pm.expect(jsonData.totalReturned).to.eql(50);",
+							"});",
+							"",
+							"pm.test(\"Has descending order on postedDate \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var previousPostedDate;",
+							"    for(var i = 0; i < totalReturned; i++) {",
+							"        ",
+							"        pm.expect(jsonData.results[i].distanceInMiles).to.lte(maximumDistance);",
+							"        ",
+							"        var currentPostedDate = jsonData.results[i].postedDate;",
+							"        ",
+							"        if(previousPostedDate) {",
+							"",
+							"            var diff = moment(previousPostedDate).diff(moment(currentPostedDate));",
+							"            if(diff > 0) {",
+							"                console.info(i + \": previousPostedDate = \" + previousPostedDate + \", currentPostedDate = \" + currentPostedDate + \", diff = \" + diff);",
+							"            }",
+							"            ",
+							"            pm.expect(diff).to.gte(0);",
+							"            ",
+							"        } else { ",
+							"            console.info(\"Begin with date: \" + currentPostedDate);",
+							"        }",
+							"        ",
+							"        previousPostedDate = currentPostedDate;",
+							"    }",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "17750161-56f7-4fd2-b8f2-6fa88423c36e",
+						"exec": [
+							"pm.variables.set(\"maximumDistance\", 30)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude={{latitude}}&longitude={{longitude}}&distanceInMiles={{maximumDistance}}&pageSize=50&sortBy=Age",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "{{latitude}}"
+						},
+						{
+							"key": "longitude",
+							"value": "{{longitude}}"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "{{maximumDistance}}"
+						},
+						{
+							"key": "pageSize",
+							"value": "50"
+						},
+						{
+							"key": "sortBy",
+							"value": "Age"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Searching by geo-location and sorted by ExpectedStartDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cec31e71-9f8a-4617-853f-48fe4cf0c247",
+						"exec": [
+							"var moment = require('moment');",
+							"",
+							"var maximumDistance = pm.variables.get(\"maximumDistance\");",
+							"",
+							"pm.test(\"Has success response code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Has default sort by Age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.sortBy).to.eql(\"ExpectedStartDate\");",
+							"    pm.expect(jsonData.totalReturned).to.eql(50);",
+							"});",
+							"",
+							"pm.test(\"Has ascending order on expectedStartDate \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var previousDate;",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var currentDate = jsonData.results[i].expectedStartDate;",
+							"        if(previousDate)",
+							"        {",
+							"            var diff = moment(currentDate).diff(moment(previousDate));",
+							"            if(diff > 0)",
+							"            {",
+							"                console.info(i + \": previousDate = \" + previousDate + \", currentDate = \" + currentDate + \", diff = \" + diff);",
+							"            }",
+							"            pm.expect(diff).to.gte(0);",
+							"        } else { ",
+							"            console.info(\"Begin with date: \" + currentDate);",
+							"        }",
+							"        previousDate = currentDate;",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "17750161-56f7-4fd2-b8f2-6fa88423c36e",
+						"exec": [
+							"pm.variables.set(\"maximumDistance\", 30)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude={{latitude}}&longitude={{longitude}}&distanceInMiles={{maximumDistance}}&pageSize=50&sortBy=ExpectedStartDate",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "{{latitude}}"
+						},
+						{
+							"key": "longitude",
+							"value": "{{longitude}}"
+						},
+						{
+							"key": "distanceInMiles",
+							"value": "{{maximumDistance}}"
+						},
+						{
+							"key": "pageSize",
+							"value": "50"
+						},
+						{
+							"key": "sortBy",
+							"value": "ExpectedStartDate"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
