@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "02ec8384-ff93-45f0-b3e9-cc562c23a8e3",
+		"_postman_id": "aa295566-d5b4-496a-ad19-819c1dc0da8e",
 		"name": "Search by Posted In Last N Days",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -198,11 +198,12 @@
 							"    var jsonData = pm.response.json();",
 							"    ",
 							"    var totalReturned = jsonData.totalReturned;",
-							"    var currentDate = new Date();",
-							"    currentDate.setHours(0,0,0,0);",
 							"    ",
-							"    tests[\"This is the currentDate \" + currentDate] = currentDate > 0;",
-							"    tests[\"totalReturned \" + totalReturned] = totalReturned > 0;",
+							"    var minimumPostedDate = new Date();",
+							"    minimumPostedDate.setHours(0,0,0,0);",
+							"    ",
+							"    var postedInLastNumberOfDays = pm.variables.get(\"postedInLastNumberOfDays\");",
+							"    minimumPostedDate.setDate(minimumPostedDate.getDate() - postedInLastNumberOfDays);",
 							"    ",
 							"    for(var i = 0; i < totalReturned; i++)",
 							"    {",
@@ -211,11 +212,19 @@
 							"        postedDate.setHours(0,0,0,0);",
 							"        tests[\"This is the postedDate \" + postedDate] = postedDate > 0;",
 							"        ",
-							"        // Add 3 days",
-							"        postedDate.setDate(postedDate.getDate() + 3);",
-							"        pm.expect(postedDate).to.gte(currentDate);",
+							"        pm.expect(postedDate).to.gte(minimumPostedDate);",
 							"    }",
 							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eb6a789c-f345-4620-b219-9095c4daa237",
+						"exec": [
+							"pm.variables.set(\"postedInLastNumberOfDays\", 1);"
 						],
 						"type": "text/javascript"
 					}
@@ -231,7 +240,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=3",
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays={{postedInLastNumberOfDays}}",
 					"host": [
 						"{{apim-gateway-url}}"
 					],
@@ -244,7 +253,7 @@
 					"query": [
 						{
 							"key": "postedInLastNumberOfDays",
-							"value": "3"
+							"value": "{{postedInLastNumberOfDays}}"
 						}
 					]
 				}
