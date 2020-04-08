@@ -25,15 +25,15 @@ Will default to the ApiName if not provided
 #>
 [CmdletBinding()]
 Param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [String]$ResourceGroupName,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [String]$InstanceName,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [String]$ApiName,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [String]$SwaggerSpecificationUrl,
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [String]$ApiUrlSuffix
 )
 
@@ -48,13 +48,14 @@ try {
     # Get-AzureRmApiManagementApi has a bug where it sometimes brings back more than one result. If statement works around this.
     if ($ApiId.Count -gt 1) {
         $ApiMatches = Get-AzureRmApiManagementApi -Context $Context -Name $ApiName
-        $ApiId = ($ApiMatches | Where-Object {$_.Name -eq $ApiName}).ApiId
+        $ApiId = ($ApiMatches | Where-Object { $_.Name -eq $ApiName }).ApiId
     }
 
     if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
         $ApiSuf = $ApiUrlSuffix.ToLower()
-    } else {
-        $ApiSuf = $ApiName.Replace(' ','-').ToLower()
+    }
+    else {
+        $ApiSuf = $ApiName.Replace(' ', '-').ToLower()
     }    
 
     if (!$ApiId) {
@@ -71,6 +72,7 @@ try {
     # --- Import swagger definition
     Write-Host "Updating API $ApiId\$InstanceName from definition $SwaggerSpecficiationUrl"
     Import-AzureRmApiManagementApi -Context $Context -SpecificationFormat "Swagger" -SpecificationUrl $($SwaggerSpecificationUrl) -ApiId $($ApiId) -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
-} catch {
-   throw $_
+}
+catch {
+    throw $_
 }

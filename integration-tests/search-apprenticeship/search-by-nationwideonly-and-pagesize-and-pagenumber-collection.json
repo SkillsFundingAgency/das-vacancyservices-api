@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "dac11f27-9776-4c64-a5d3-5e00777fe016",
+		"name": "Search Using Nationwide Only with PageNumber and PageSize",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Apprenticeship using Nationwide Only = True",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and correct page\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var currentPage = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.gt(0);",
+							"    pm.expect(currentPage).to.eql(1);",
+							"    ",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Invalid Nationwide Only",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one valid Standard code, Framework code, Provider UKPRN, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=false",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Page Number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and correct page\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var pageNumber = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.gt(0);",
+							"    pm.expect(pageNumber).to.eq(7);",
+							"",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageNumber=7",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageNumber",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Invalid Page Number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and page 1 as invalid pagenumber passed\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var pageNumber = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.gt(0);",
+							"    pm.expect(pageNumber).to.eq(1);",
+							"",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageNumber=what",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageNumber",
+							"value": "what"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Invalid Integer Page Number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Page Number' must be greater than or equal to '1'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30104\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageNumber=-1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageNumber",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Page Size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and correct page and page size\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var pageNumber = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.eql(10);",
+							"    pm.expect(pageNumber).to.eq(1);",
+							"",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageSize=10",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Invalid Page Size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and correct page and pagesize defaulted\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var pageNumber = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.eql(100);",
+							"    pm.expect(pageNumber).to.eq(1);",
+							"",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageSize=unknown",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageSize",
+							"value": "unknown"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Invalid Integer Page Size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Page Size' must be between 1 and 250. You entered -1.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30103\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageSize=-1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageSize",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Page Number and Page Size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses are nationwide and correct page and page size\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalMatched = jsonData.totalMatched;",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    var pageNumber = jsonData.currentPage;",
+							"    ",
+							"    pm.expect(totalMatched).to.gt(0);",
+							"    pm.expect(totalReturned).to.eql(10);",
+							"    pm.expect(pageNumber).to.eq(12);",
+							"",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var isNationwide = jsonData.results[i].isNationwide;",
+							"        pm.expect(isNationwide).to.eql(true);",
+							"    }",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageSize=10&pageNumber=12",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "pageNumber",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Apprenticeship using Nationwide Only and Invalid Integer Page Number and Invalid Integer Page Size Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 2);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    ",
+							"    var jsonData = pm.response.json();",
+							"    var errors = jsonData.requestErrors.length;",
+							"    ",
+							"    for(var i = 0; i < errors; i++)",
+							"    {",
+							"        var errorMessage = jsonData.requestErrors[i].errorMessage;",
+							"        var errorCode = jsonData.requestErrors[i].errorCode;",
+							"        ",
+							"        pm.expect(errorMessage).to.be.oneOf([\"'Page Size' must be between 1 and 250. You entered -1.\",\"'Page Number' must be greater than or equal to '1'.\"]);",
+							"        pm.expect(errorCode).to.be.oneOf([\"30104\",\"30103\"]);",
+							"    }    ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?nationwideOnly=true&pageSize=-1&pageNumber=-1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "nationwideOnly",
+							"value": "true"
+						},
+						{
+							"key": "pageSize",
+							"value": "-1"
+						},
+						{
+							"key": "pageNumber",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a380a72d-5e88-4f9f-bc83-d921ee001a81",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4e88bf13-d922-40e7-a8eb-0d7278fe9e6a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

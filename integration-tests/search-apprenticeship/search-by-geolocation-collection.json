@@ -1,0 +1,841 @@
+{
+	"info": {
+		"_postman_id": "4193bf80-2772-490e-bf8c-4a8de4a3c612",
+		"name": "Proximity search using latitude, longitude and distance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create data ",
+			"item": [
+				{
+					"name": "Create Vacancy 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de820f61-813f-4968-8518-71353dbb4318",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// example using pm.response.to.be*",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37a6bfc0-3a00-4a25-b903-da14440d1b9a",
+								"exec": [
+									"var date = new Date();",
+									"date.setFullYear(date.getFullYear()+1);",
+									"pm.environment.set('application-closing-date-in-future', date);",
+									"var date1 = new Date();",
+									"date1.setFullYear(date.getFullYear()+1);",
+									"date1.setMonth(date.getMonth()+1);",
+									"pm.environment.set('expected-start-date-in-future', date1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Title\": \"Proximity Search Test Vacancy 1 apprenticeship\",\r\n  \"ShortDescription\": \"UK shares fell on Friday morning, but the declines were not as big as those seen in Asia and the US.\",\r\n  \"LongDescription\": \"Asian markets saw hefty falls overnight, while in the US on Thursday the Dow Jones fell by more than 1,000 points for the second time this week. The big sell-offs around the world this week have been pinned partly on concerns over the prospect of higher interest rates. In Asia on Friday, Japan's Nikkei 225 shares index closed down 2.3% while China's Shanghai Composite slumped 4.1%. How could the stock market fall affect you? Bank deputy governor urges calm on markets Kamal Ahmed: Will the fall turn into a rout? In the US, the Dow Jones ended Thursday's trading session 4.2% lower at 23,860, and the wider S&P 500 index closed down 3.8%.\",\r\n  \"DesiredSkills\": \"However, the falls seen  in Europe on Friday were not as steep. Germany's Dax share index and France's Cac 40 index were both down 0.4%. Bank of England deputy governor Ben Broadbent told the BBC that markets might have underestimated the prospect of a pick-up in inflation.\",\r\n  \"DesiredPersonalQualities\": \"If you look at what happened last year, particularly in the United States but also other equity markets, there was extremely strong growth - big rises in prices - as people gradually realised how strong the global economy was, he said.\",\r\n  \"DesiredQualifications\": \"Sue  Noffke, UK equities fund manager at Schroders, told the BBC that given how well stock markets have been doing for the past few years, the sell-off this week was not that unusual.\",\r\n  \"FutureProspects\": \"The global sell-off began last week after a solid US jobs report fuelled expectations that the Federal Reserve would need to raise interest rates faster than expected, because of the strength of the economy.\",\r\n  \"ThingsToConsider\": \"Also  worrying investors was a government budget proposal announced by US lawmakers, which raises spending caps and could fan inflation.\",\r\n\"TrainingToBeProvided\":\"What is Lorem Ipsum?   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.\", \r\n \"ApplicationMethod\": \"Offline\",\r\n  \"SupplementaryQuestion1\": \"\",\r\n  \"SupplementaryQuestion2\": \"\",\r\n  \"ExternalApplicationUrl\": \"https://www.google.co.uk/\",\r\n  \"ExternalApplicationInstructions\": \"string\",\r\n  \"ExpectedDuration\": 123,\r\n  \"DurationType\": \"Weeks\",\r\n  \"TrainingType\":1,\r\n  \"TrainingCode\":\"584-21-1\",\r\n  \"ApplicationClosingDate\": \"{{application-closing-date-in-future}}\",\r\n  \"ExpectedStartDate\": \"{{expected-start-date-in-future}}\",\r\n  \"WorkingWeek\": \"9am to 5pm But the devil is in the detail.\",\r\n  \"HoursPerWeek\": 36.0,\r\n  \"WageType\": \"CustomWageRange\",\r\n  \"WageUnit\": \"Weekly\",\r\n  \"MinWage\": 200.0,\r\n  \"MaxWage\": 250.0,\r\n  \"LocationType\": \"OtherLocation\",\r\n  \"Location\": {\r\n    \"AddressLine1\": \"21 Greenway Street\",\r\n    \"AddressLine2\": \"string\",\r\n    \"AddressLine3\": \"string\",\r\n    \"AddressLine4\": \"string\",\r\n    \"AddressLine5\": \"string\",\r\n    \"Postcode\": \"SK17 0EX\",\r\n    \"Town\": \"Buxton\"\r\n  },\r\n  \"NumberOfPositions\": 3,\r\n  \"EmployerEdsUrn\": {{employer-edsurn}},\r\n  \"ProviderSiteEdsUrn\": {{site-edsurn}},\r\n  \"ContactName\": \"Sultan\",\r\n  \"ContactEmail\":\"sammyP@xmail.com\",\r\n  \"ContactNumber\": \"0247688887766\",\r\n \"isEmployerDisabilityConfident\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{apim-gateway-url}}{{manage-vacancies-path}}",
+							"host": [
+								"{{apim-gateway-url}}{{manage-vacancies-path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vacancy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de820f61-813f-4968-8518-71353dbb4318",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// example using pm.response.to.be*",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37a6bfc0-3a00-4a25-b903-da14440d1b9a",
+								"exec": [
+									"var date = new Date();",
+									"date.setFullYear(date.getFullYear()+1);",
+									"pm.environment.set('application-closing-date-in-future', date);",
+									"var date1 = new Date();",
+									"date1.setFullYear(date.getFullYear()+1);",
+									"date1.setMonth(date.getMonth()+1);",
+									"pm.environment.set('expected-start-date-in-future', date1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Title\": \"Proximity Search Test Vacancy 2 apprenticeship\",\r\n  \"ShortDescription\": \"UK shares fell on Friday morning, but the declines were not as big as those seen in Asia and the US.\",\r\n  \"LongDescription\": \"Asian markets saw hefty falls overnight, while in the US on Thursday the Dow Jones fell by more than 1,000 points for the second time this week. The big sell-offs around the world this week have been pinned partly on concerns over the prospect of higher interest rates. In Asia on Friday, Japan's Nikkei 225 shares index closed down 2.3% while China's Shanghai Composite slumped 4.1%. How could the stock market fall affect you? Bank deputy governor urges calm on markets Kamal Ahmed: Will the fall turn into a rout? In the US, the Dow Jones ended Thursday's trading session 4.2% lower at 23,860, and the wider S&P 500 index closed down 3.8%.\",\r\n  \"DesiredSkills\": \"However, the falls seen  in Europe on Friday were not as steep. Germany's Dax share index and France's Cac 40 index were both down 0.4%. Bank of England deputy governor Ben Broadbent told the BBC that markets might have underestimated the prospect of a pick-up in inflation.\",\r\n  \"DesiredPersonalQualities\": \"If you look at what happened last year, particularly in the United States but also other equity markets, there was extremely strong growth - big rises in prices - as people gradually realised how strong the global economy was, he said.\",\r\n  \"DesiredQualifications\": \"Sue  Noffke, UK equities fund manager at Schroders, told the BBC that given how well stock markets have been doing for the past few years, the sell-off this week was not that unusual.\",\r\n  \"FutureProspects\": \"The global sell-off began last week after a solid US jobs report fuelled expectations that the Federal Reserve would need to raise interest rates faster than expected, because of the strength of the economy.\",\r\n  \"ThingsToConsider\": \"Also  worrying investors was a government budget proposal announced by US lawmakers, which raises spending caps and could fan inflation.\",\r\n\"TrainingToBeProvided\":\"What is Lorem Ipsum?   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.\", \r\n \"ApplicationMethod\": \"Offline\",\r\n  \"SupplementaryQuestion1\": \"\",\r\n  \"SupplementaryQuestion2\": \"\",\r\n  \"ExternalApplicationUrl\": \"https://www.google.co.uk/\",\r\n  \"ExternalApplicationInstructions\": \"string\",\r\n  \"ExpectedDuration\": 123,\r\n  \"DurationType\": \"Weeks\",\r\n  \"TrainingType\":1,\r\n  \"TrainingCode\":\"584-21-1\",\r\n  \"ApplicationClosingDate\": \"{{application-closing-date-in-future}}\",\r\n  \"ExpectedStartDate\": \"{{expected-start-date-in-future}}\",\r\n  \"WorkingWeek\": \"9am to 5pm But the devil is in the detail.\",\r\n  \"HoursPerWeek\": 36.0,\r\n  \"WageType\": \"CustomWageRange\",\r\n  \"WageUnit\": \"Weekly\",\r\n  \"MinWage\": 200.0,\r\n  \"MaxWage\": 250.0,\r\n  \"LocationType\": \"OtherLocation\",\r\n  \"Location\": {\r\n    \"AddressLine1\": \"21 Greenway Street\",\r\n    \"AddressLine2\": \"string\",\r\n    \"AddressLine3\": \"string\",\r\n    \"AddressLine4\": \"string\",\r\n    \"AddressLine5\": \"string\",\r\n    \"Postcode\": \"SK17 0AL\",\r\n    \"Town\": \"Buxton\"\r\n  },\r\n  \"NumberOfPositions\": 3,\r\n  \"EmployerEdsUrn\": {{employer-edsurn}},\r\n  \"ProviderSiteEdsUrn\": {{site-edsurn}},\r\n  \"ContactName\": \"Sultan\",\r\n  \"ContactEmail\":\"sammyP@xmail.com\",\r\n  \"ContactNumber\": \"0247688887766\",\r\n \"isEmployerDisabilityConfident\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{apim-gateway-url}}{{manage-vacancies-path}}",
+							"host": [
+								"{{apim-gateway-url}}{{manage-vacancies-path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vacancy 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de820f61-813f-4968-8518-71353dbb4318",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// example using pm.response.to.be*",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37a6bfc0-3a00-4a25-b903-da14440d1b9a",
+								"exec": [
+									"var date = new Date();",
+									"date.setFullYear(date.getFullYear()+1);",
+									"pm.environment.set('application-closing-date-in-future', date);",
+									"var date1 = new Date();",
+									"date1.setFullYear(date.getFullYear()+1);",
+									"date1.setMonth(date.getMonth()+1);",
+									"pm.environment.set('expected-start-date-in-future', date1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Title\": \"Proximity Search Test Vacancy 3 apprenticeship\",\r\n  \"ShortDescription\": \"UK shares fell on Friday morning, but the declines were not as big as those seen in Asia and the US.\",\r\n  \"LongDescription\": \"Asian markets saw hefty falls overnight, while in the US on Thursday the Dow Jones fell by more than 1,000 points for the second time this week. The big sell-offs around the world this week have been pinned partly on concerns over the prospect of higher interest rates. In Asia on Friday, Japan's Nikkei 225 shares index closed down 2.3% while China's Shanghai Composite slumped 4.1%. How could the stock market fall affect you? Bank deputy governor urges calm on markets Kamal Ahmed: Will the fall turn into a rout? In the US, the Dow Jones ended Thursday's trading session 4.2% lower at 23,860, and the wider S&P 500 index closed down 3.8%.\",\r\n  \"DesiredSkills\": \"However, the falls seen  in Europe on Friday were not as steep. Germany's Dax share index and France's Cac 40 index were both down 0.4%. Bank of England deputy governor Ben Broadbent told the BBC that markets might have underestimated the prospect of a pick-up in inflation.\",\r\n  \"DesiredPersonalQualities\": \"If you look at what happened last year, particularly in the United States but also other equity markets, there was extremely strong growth - big rises in prices - as people gradually realised how strong the global economy was, he said.\",\r\n  \"DesiredQualifications\": \"Sue  Noffke, UK equities fund manager at Schroders, told the BBC that given how well stock markets have been doing for the past few years, the sell-off this week was not that unusual.\",\r\n  \"FutureProspects\": \"The global sell-off began last week after a solid US jobs report fuelled expectations that the Federal Reserve would need to raise interest rates faster than expected, because of the strength of the economy.\",\r\n  \"ThingsToConsider\": \"Also  worrying investors was a government budget proposal announced by US lawmakers, which raises spending caps and could fan inflation.\",\r\n\"TrainingToBeProvided\":\"What is Lorem Ipsum?   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.\", \r\n \"ApplicationMethod\": \"Offline\",\r\n  \"SupplementaryQuestion1\": \"\",\r\n  \"SupplementaryQuestion2\": \"\",\r\n  \"ExternalApplicationUrl\": \"https://www.google.co.uk/\",\r\n  \"ExternalApplicationInstructions\": \"string\",\r\n  \"ExpectedDuration\": 123,\r\n  \"DurationType\": \"Weeks\",\r\n  \"TrainingType\":1,\r\n  \"TrainingCode\":\"584-21-1\",\r\n  \"ApplicationClosingDate\": \"{{application-closing-date-in-future}}\",\r\n  \"ExpectedStartDate\": \"{{expected-start-date-in-future}}\",\r\n  \"WorkingWeek\": \"9am to 5pm But the devil is in the detail.\",\r\n  \"HoursPerWeek\": 36.0,\r\n  \"WageType\": \"CustomWageRange\",\r\n  \"WageUnit\": \"Weekly\",\r\n  \"MinWage\": 200.0,\r\n  \"MaxWage\": 250.0,\r\n  \"LocationType\": \"OtherLocation\",\r\n  \"Location\": {\r\n    \"AddressLine1\": \"21 Greenway Street\",\r\n    \"AddressLine2\": \"string\",\r\n    \"AddressLine3\": \"string\",\r\n    \"AddressLine4\": \"string\",\r\n    \"AddressLine5\": \"string\",\r\n    \"Postcode\": \"SK17 0NT\",\r\n    \"Town\": \"Buxton\"\r\n  },\r\n  \"NumberOfPositions\": 3,\r\n  \"EmployerEdsUrn\": {{employer-edsurn}},\r\n  \"ProviderSiteEdsUrn\": {{site-edsurn}},\r\n  \"ContactName\": \"Sultan\",\r\n  \"ContactEmail\":\"sammyP@xmail.com\",\r\n  \"ContactNumber\": \"0247688887766\",\r\n \"isEmployerDisabilityConfident\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{apim-gateway-url}}{{manage-vacancies-path}}",
+							"host": [
+								"{{apim-gateway-url}}{{manage-vacancies-path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Search Apprenticeships in 5miles radius to  SK17 0EX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53.131333&longitude=-1.841818&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53.131333"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.841818"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Search Apprenticeships by distance should have 0 results",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Search Apprenticeships should have 0 results\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.totalMatched).to.eq(0);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53.201914&longitude=-1.963372&distanceInMiles=4",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53.201914"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.963372"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance should have some results",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Search Apprenticeships should have some results\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.totalMatched).not.to.eq(0);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53.131333&longitude=-1.841818&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53.131333"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.841818"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance without distance bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30108\");",
+									"    pm.expect(errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'DistanceInMiles'.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53.131333&longitude=-1.841818&distanceInMiles=",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53.131333"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.841818"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance without latitude bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30106\");",
+									"    pm.expect(errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'Latitude'.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=&longitude=-1.841818&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": "-1.841818"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance without longitude bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30107\");",
+									"    pm.expect(errorMessage).to.eql(\"When searching by geo-location 'Latitude', 'Longitude' and 'DistanceInMiles' are required. You have not provided 'Longitude'.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53.131333&longitude=&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53.131333"
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance incorret latitude",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30106\");",
+									"    pm.expect(errorMessage).to.eql(\"'Latitude' must be between -90 and 90. You entered 111.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=111&longitude=-1.841818&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "111"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.841818"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance incorret longitude",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30107\");",
+									"    pm.expect(errorMessage).to.eql(\"'Longitude' must be between -180 and 180. You entered 200.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=90&longitude=200&distanceInMiles=5",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "90"
+								},
+								{
+									"key": "longitude",
+									"value": "200"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Apprenticeships by distance incorret distance",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64ad56f2-f04e-4108-961b-5052e1829fcb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains correct Error Code\", function() {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var errorsLength = jsonData.requestErrors.length;",
+									"    var errorCode  = jsonData.requestErrors[0].errorCode;",
+									"    var errorMessage  = jsonData.requestErrors[0].errorMessage;",
+									"    ",
+									"    pm.expect(errorsLength).to.eql(1);",
+									"    pm.expect(errorCode).to.eql(\"30108\");",
+									"    pm.expect(errorMessage).to.eql(\"'Distance In Miles' must be between 1 and 1000. You entered 1001.\");",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "{{apim-key}}"
+							}
+						],
+						"url": {
+							"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?latitude=53&longitude=-1&distanceInMiles=1001",
+							"host": [
+								"{{apim-gateway-url}}"
+							],
+							"path": [
+								"{{live-vacancies-path}}",
+								"v1",
+								"apprenticeships",
+								"search"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "53"
+								},
+								{
+									"key": "longitude",
+									"value": "-1"
+								},
+								{
+									"key": "distanceInMiles",
+									"value": "1001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

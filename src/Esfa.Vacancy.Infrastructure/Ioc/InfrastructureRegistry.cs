@@ -6,13 +6,11 @@ using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Caching;
-using Esfa.Vacancy.Infrastructure.Factories;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
-using SFA.DAS.VacancyServices.Search;
 
-namespace Esfa.Vacancy.Infrastructure
+namespace Esfa.Vacancy.Infrastructure.Ioc
 {
     public sealed class InfrastructureRegistry : StructureMap.Registry
     {
@@ -32,8 +30,6 @@ namespace Esfa.Vacancy.Infrastructure
                 GetProperties())).AlwaysUnique();
             For<IProvideSettings>().Use(c => _provideSettings);
 
-            For<IApprenticeshipSearchClient>().Use(context => context.GetInstance<ApprenticeshipSearchClientFactory>().GetClient());
-
             For<ICacheService>().Singleton().Use<AzureRedisCacheService>();
 
             For<IGetMinimumWagesService>().Use<GetMinimumWagesService>();
@@ -43,6 +39,7 @@ namespace Esfa.Vacancy.Infrastructure
 
             RegisterCreateApprenticeshipService();
         }
+
 
         private IDictionary<string, object> GetProperties()
         {

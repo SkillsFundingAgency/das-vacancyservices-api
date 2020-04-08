@@ -2,17 +2,20 @@
 {
     public static class ApplicationSettingKeys
     {
-        public const string AvmsPlusDatabaseConnectionStringKey = "AvmsPlusDatabaseConnectionString";
-        public const string DasApprenticeshipInfoApiBaseUrlKey = "ApprenticeshipInfoApiBaseUrl";
-        public const string LiveApprenticeshipVacancyBaseUrlKey = "LiveApprenticeshipVacancyBaseUrl";
-        public const string LiveTraineeshipVacancyBaseUrlKey = "LiveTraineeshipVacancyBaseUrl";
-        public const string VacancySearchUrlKey = "VacancySearchUrl";
-        public const string ApprenticeshipIndexAliasKey = "ApprenticeshipIndexAlias";
-        public const string CacheConnectionString = "CacheConnectionString";
-        public const string UseSandboxServices = "UseSandboxServices";
-        public const string CacheReferenceDataDuration = "CacheReferenceDataDuration";
-        public const string RecruitMongoConnectionString = "RecruitMongoConnectionString";
-        public const string RecruitMongoDatabaseName = "RecruitMongoDatabaseName";
-        public const string RecruitMongoCollectionName = "RecruitMongoCollectionName";
+        public const string AvmsPlusDatabaseConnectionStringKey = "avmsplusdatabaseconnectionstring";
+        public const string DasApprenticeshipInfoApiBaseUrlKey = "apprenticeshipinfoapibaseurl";
+        public const string LiveApprenticeshipVacancyBaseUrlKey = "liveapprenticeshipvacancybaseurl";
+        public const string LiveTraineeshipVacancyBaseUrlKey = "livetraineeshipvacancybaseurl";
+        public const string VacancySearchUrlKey = "vacancysearchurl";
+        public const string ApprenticeshipIndexAliasKey = "apprenticeshipindexalias";
+        public const string ElasticUsernameKey = "elasticusername";
+        public const string ElasticPasswordKey = "elasticpassword";
+        public const string ElasticCloudIdKey = "elasticcloudid";
+        public const string CacheConnectionString = "cacheconnectionstring";
+        public const string UseSandboxServices = "usesandboxservices";
+        public const string CacheReferenceDataDuration = "cachereferencedataduration";
+        public const string RecruitMongoConnectionString = "recruitmongoconnectionstring";
+        public const string RecruitMongoDatabaseName = "recruitmongodatabasename";
+        public const string RecruitMongoCollectionName = "recruitmongocollectionname";
     }
 }

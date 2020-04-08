@@ -6,16 +6,17 @@ namespace Esfa.Vacancy.Infrastructure.Settings
 {
     public sealed class MachineSettings : IProvideSettings
     {
+        const string _prefix = "raa_";
         public string GetSetting(string settingKey)
         {
             var userEnvironmentVariable = Environment.GetEnvironmentVariable(
-                $"DAS_{settingKey.ToUpper(CultureInfo.InvariantCulture)}",
+                $"{_prefix}{settingKey.ToLower(CultureInfo.InvariantCulture)}",
                 EnvironmentVariableTarget.User);
             if (userEnvironmentVariable != null)
                 return userEnvironmentVariable;
 
             return Environment.GetEnvironmentVariable(
-                $"DAS_{settingKey.ToUpper(CultureInfo.InvariantCulture)}",
+                $"{_prefix}{settingKey.ToLower(CultureInfo.InvariantCulture)}",
                 EnvironmentVariableTarget.Machine);
         }
 

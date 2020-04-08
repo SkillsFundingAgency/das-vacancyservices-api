@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "aa295566-d5b4-496a-ad19-819c1dc0da8e",
+		"name": "Search by Posted In Last N Days",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Invalid No Parameters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9a16b00-c644-4a9a-946e-165094434451",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one search parameter is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Entry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82e04824-e4c4-4d03-aea6-c91fedf102d5",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"At least one valid Standard code, Framework code, Provider UKPRN, NationwideOnly, PostedInLastNumberOfDays or Geo-location fields is required.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30100\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=non-numerical",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "non-numerical"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Posted in Last Number of Days Less than 0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd0ce585-4aa2-4b18-8d0e-0b1086b0d3ac",
+						"exec": [
+							"pm.test(\"Has response code of bad request\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Has got exact number of errors\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors.length === 1);",
+							"});",
+							"",
+							"pm.test(\"Has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorMessage).to.eql(\"'Posted In Last Number Of Days' must be greater than or equal to '0'.\");",
+							"});",
+							"",
+							"pm.test(\"Has correct error code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.requestErrors[0].errorCode).to.eql(\"30105\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays=-1",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Posted in Last Number of Days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "70c56274-ffa6-4bf8-90e1-5a7b3789acb9",
+						"exec": [
+							"pm.test(\"Has response code of good request\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Responses posted in last number of days\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    var totalReturned = jsonData.totalReturned;",
+							"    ",
+							"    var minimumPostedDate = new Date();",
+							"    minimumPostedDate.setHours(0,0,0,0);",
+							"    ",
+							"    var postedInLastNumberOfDays = pm.variables.get(\"postedInLastNumberOfDays\");",
+							"    minimumPostedDate.setDate(minimumPostedDate.getDate() - postedInLastNumberOfDays);",
+							"    ",
+							"    for(var i = 0; i < totalReturned; i++)",
+							"    {",
+							"        var postedDataField = jsonData.results[i].postedDate;",
+							"        var postedDate = new Date(postedDataField);",
+							"        postedDate.setHours(0,0,0,0);",
+							"        tests[\"This is the postedDate \" + postedDate] = postedDate > 0;",
+							"        ",
+							"        pm.expect(postedDate).to.gte(minimumPostedDate);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eb6a789c-f345-4620-b219-9095c4daa237",
+						"exec": [
+							"pm.variables.set(\"postedInLastNumberOfDays\", 1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/apprenticeships/search?postedInLastNumberOfDays={{postedInLastNumberOfDays}}",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"apprenticeships",
+						"search"
+					],
+					"query": [
+						{
+							"key": "postedInLastNumberOfDays",
+							"value": "{{postedInLastNumberOfDays}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

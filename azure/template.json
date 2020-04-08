@@ -1,0 +1,521 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serviceName": {
+            "type": "string"
+        },
+        "resourceEnvironmentName": {
+            "type": "string"
+        },
+        "environmentName": {
+            "type": "string"
+        },
+        "sharedBackEndAppServicePlan": {
+            "type": "string"
+        },
+        "sharedAppServicePlanResourceGroup": {
+            "type": "string"
+        },
+        "registerCustomHostname": {
+            "type": "string"
+        },
+        "manageCustomHostname": {
+            "type": "string"
+        },
+        "manageSandboxCustomHostname": {
+            "type": "string"
+        },
+        "registerCertificateName": {
+            "type": "string"
+        },
+        "manageCertificateName": {
+            "type": "string"
+        },
+        "manageSandboxCertificateName": {
+            "type": "string"
+        },
+        "keyVaultName": {
+            "type": "string"
+        },
+        "keyVaultResourceGroup": {
+            "type": "string"
+        },
+        "loggingRedisConnectionString": {
+            "type": "securestring"
+        },
+        "loggingRedisKey": {
+            "type": "string"
+        },
+        "avmsPlusDatabaseConnectionString": {
+            "type": "securestring"
+        },
+        "apprenticeshipInfoApiBaseUrl": {
+            "type": "string"
+        },
+        "liveApprenticeshipVacancyBaseUrl": {
+            "type": "string"
+        },
+        "elasticCloudId": {
+            "type": "string"
+        },
+        "elasticUsername": {
+            "type": "string"
+        },
+        "elasticPassword": {
+            "type": "securestring"
+        },
+        "apprenticeshipIndexAlias": {
+            "type": "string"
+        },
+        "liveTraineeshipVacancyBaseUrl": {
+            "type": "string"
+        },
+        "cacheConnectionString": {
+            "type": "securestring"
+        },
+        "cacheReferenceDataDuration": {
+            "type": "string"
+        },
+        "recruitMongoConnectionString": {
+            "type": "securestring"
+        },
+        "recruitMongoDatabaseName": {
+            "type": "string"
+        },
+        "recruitMongoCollectionName": {
+            "type": "string"
+        },
+        "ipSecurityRestrictions": {
+            "type": "array",
+            "defaultValue": []
+        }
+    },
+    "variables": {
+        "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
+        "resourceNamePrefix": "[concat('das-',toLower(parameters('resourceEnvironmentName')),'-' , parameters('serviceName'))]",
+        "registerApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-reg-as')]",
+        "manageApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-as')]",
+        "manageSandboxApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-sbox-as')]",
+        "instanceName": "[if(equals(toUpper(parameters('resourceEnvironmentName')),'PRD'),'',parameters('resourceEnvironmentName'))]",
+        "sandboxInstanceName": "[if(equals(length(variables('instanceName')),0),'(Sandbox)',concat(variables('instanceName'),' (Sandbox)'))]"
+    },
+    "resources": [
+        {
+            "condition": "[greater(length(parameters('registerCustomHostName')), 0)]",
+            "apiVersion": "2017-05-10",
+            "name": "register-app-service-certificate",
+            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-certificate.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "keyVaultCertificateName": {
+                        "value": "[parameters('registerCertificateName')]"
+                    },
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "keyVaultResourceGroup": {
+                        "value": "[parameters('keyVaultResourceGroup')]"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "[greater(length(parameters('manageCustomHostname')), 0)]",
+            "apiVersion": "2017-05-10",
+            "name": "manage-app-service-certificate",
+            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-certificate.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "keyVaultCertificateName": {
+                        "value": "[parameters('manageCertificateName')]"
+                    },
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "keyVaultResourceGroup": {
+                        "value": "[parameters('keyVaultResourceGroup')]"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "[greater(length(parameters('manageSandboxCustomHostname')), 0)]",
+            "apiVersion": "2017-05-10",
+            "name": "manage-sandbox-app-service-certificate",
+            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-certificate.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "keyVaultCertificateName": {
+                        "value": "[parameters('manageSandboxCertificateName')]"
+                    },
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "keyVaultResourceGroup": {
+                        "value": "[parameters('keyVaultResourceGroup')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "register-api-app-insights",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('registerApiAppServiceName')]"
+                    },
+                    "attachedService": {
+                        "value": "[variables('registerApiAppServiceName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "manage-api-app-insights",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('manageApiAppServiceName')]"
+                    },
+                    "attachedService": {
+                        "value": "[variables('manageApiAppServiceName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "manage-sandbox-app-insights",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('manageSandboxApiAppServiceName')]"
+                    },
+                    "attachedService": {
+                        "value": "[variables('manageSandboxApiAppServiceName')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('registerApiAppServiceName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServiceName": {
+                        "value": "[variables('registerApiAppServiceName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                    },
+                    "appServiceAppSettings": {
+                        "value": [
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference('register-api-app-insights').outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "AvmsPlusDatabaseConnectionString",
+                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[parameters('environmentName')]"
+                            },
+                            {
+                                "name": "LoggingRedisKey",
+                                "value": "[parameters('loggingRedisKey')]"
+                            },
+                            {
+                                "name": "ApprenticeshipInfoApiBaseUrl",
+                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                            },
+                            {
+                                "name": "CacheConnectionString",
+                                "value": "[parameters('cacheConnectionString')]"
+                            },
+                            {
+                                "name": "UseSandboxServices",
+                                "value": "no"
+                            },
+                            {
+                                "name": "CacheReferenceDataDuration",
+                                "value": "[parameters('cacheReferenceDataDuration')]"
+                            },
+                            {
+                                "name": "LiveApprenticeshipVacancyBaseUrl",
+                                "value": "[parameters('liveApprenticeshipVacancyBaseUrl')]"
+                            },
+                            {
+                                "name": "ElasticCloudId",
+                                "value": "[parameters('ElasticCloudId')]"
+                            },
+                            {
+                                "name": "ElasticUsername",
+                                "value": "[parameters('elasticUsername')]"
+                            },
+                            {
+                                "name": "ElasticPassword",
+                                "value": "[parameters('elasticPassword')]"
+                            },
+                            {
+                                "name": "ApprenticeshipIndexAlias",
+                                "value": "[parameters('apprenticeshipIndexAlias')]"
+                            },
+                            {
+                                "name": "LiveTraineeshipVacancyBaseUrl",
+                                "value": "[parameters('liveTraineeshipVacancyBaseUrl')]"
+                            },
+                            {
+                                "name": "RecruitMongoConnectionString",
+                                "value": "[parameters('recruitMongoConnectionString')]"
+                            },
+                            {
+                                "name": "RecruitMongoDatabaseName",
+                                "value": "[parameters('recruitMongoDatabaseName')]"
+                            },
+                            {
+                                "name": "RecruitMongoCollectionName",
+                                "value": "[parameters('recruitMongoCollectionName')]"
+                            },
+                            {
+                                "name": "InstanceName",
+                                "value": "[variables('instanceName')]"
+                            }
+                        ]
+                    },
+                    "customHostName": {
+                        "value": "[parameters('registerCustomHostname')]"
+                    },
+                    "certificateThumbprint": {
+                        "value": "[reference('register-app-service-certificate').outputs.certificateThumbprint.value]"
+                    },
+                    "appKind": {
+                        "value": "api"
+                    },
+                    "ipSecurityRestrictions": {
+                        "value": "[parameters('ipSecurityRestrictions')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('manageApiAppServiceName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServiceName": {
+                        "value": "[variables('manageApiAppServiceName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                    },
+                    "appServiceAppSettings": {
+                        "value": [
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference('manage-api-app-insights').outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "AvmsPlusDatabaseConnectionString",
+                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[parameters('environmentName')]"
+                            },
+                            {
+                                "name": "LoggingRedisKey",
+                                "value": "[parameters('loggingRedisKey')]"
+                            },
+                            {
+                                "name": "ApprenticeshipInfoApiBaseUrl",
+                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                            },
+                            {
+                                "name": "CacheConnectionString",
+                                "value": "[parameters('cacheConnectionString')]"
+                            },
+                            {
+                                "name": "UseSandboxServices",
+                                "value": "no"
+                            },
+                            {
+                                "name": "InstanceName",
+                                "value": "[variables('instanceName')]"
+                            },
+                            {
+                                "name": "CacheReferenceDataDuration",
+                                "value": "[parameters('cacheReferenceDataDuration')]"
+                            }
+                        ]
+                    },
+                    "customHostName": {
+                        "value": "[parameters('manageCustomHostname')]"
+                    },
+                    "certificateThumbprint": {
+                        "value": "[reference('manage-app-service-certificate').outputs.certificateThumbprint.value]"
+                    },
+                    "appKind": {
+                        "value": "api"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('manageSandboxApiAppServiceName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServiceName": {
+                        "value": "[variables('manageSandboxApiAppServiceName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                    },
+                    "appServiceAppSettings": {
+                        "value": [
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference('manage-sandbox-app-insights').outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "AvmsPlusDatabaseConnectionString",
+                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[parameters('environmentName')]"
+                            },
+                            {
+                                "name": "LoggingRedisKey",
+                                "value": "[parameters('loggingRedisKey')]"
+                            },
+                            {
+                                "name": "ApprenticeshipInfoApiBaseUrl",
+                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                            },
+                            {
+                                "name": "CacheConnectionString",
+                                "value": "[parameters('cacheConnectionString')]"
+                            },
+                            {
+                                "name": "UseSandboxServices",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "InstanceName",
+                                "value": "[variables('sandboxInstanceName')]"
+                            },
+                            {
+                                "name": "CacheReferenceDataDuration",
+                                "value": "[parameters('cacheReferenceDataDuration')]"
+                            }
+                        ]
+                    },
+                    "customHostName": {
+                        "value": "[parameters('manageSandboxCustomHostname')]"
+                    },
+                    "certificateThumbprint": {
+                        "value": "[reference('manage-sandbox-app-service-certificate').outputs.certificateThumbprint.value]"
+                    },
+                    "appKind": {
+                        "value": "api"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "RegisterApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('registerApiAppServiceName')]"
+        },
+        "ManageApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('manageApiAppServiceName')]"
+        },
+        "ManageSandboxApiAppServiceName": {
+            "type": "string",
+            "value": "[variables('manageSandboxApiAppServiceName')]"
+        }
+    }
+}

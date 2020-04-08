@@ -1,6 +1,7 @@
 ﻿using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure;
+using Esfa.Vacancy.Infrastructure.Ioc;
 using Esfa.Vacancy.Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
@@ -20,6 +21,21 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
         {
             var mockRequestContext = new Mock<IWebLoggingContext>();
             var mockProvideSettings = new Mock<IProvideSettings>();
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ElasticCloudIdKey))
+                .Returns("CloudKey:SomeKeyInformation");
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.VacancySearchUrlKey))
+                .Returns("http://www.google.com");
+            mockProvideSettings
+                .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.ElasticUsernameKey))
+                .Returns("username");
+            mockProvideSettings
+                .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.ElasticPasswordKey))
+                .Returns("password");
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.ApprenticeshipIndexAliasKey))
+                .Returns("apprenticeships");
             mockProvideSettings
                 .Setup(ps => ps.GetNullableSetting(ApplicationSettingKeys.UseSandboxServices))
                 .Returns(value);
