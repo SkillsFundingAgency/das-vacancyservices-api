@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "375bb3b3-e42b-42fb-b9de-f324fb589da8",
+		"name": "Get traineeship",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Traineeship Detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "723702a1-7b08-4ef2-8884-2cd73a6d25e4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Traineeship title\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData);",
+							"    pm.expect(jsonData.title).to.eql('WPbfjPNIRI_11Mar2020_13163445373');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{apim-key}}"
+					}
+				],
+				"url": {
+					"raw": "{{apim-gateway-url}}/{{live-vacancies-path}}/v1/traineeships/1117847",
+					"host": [
+						"{{apim-gateway-url}}"
+					],
+					"path": [
+						"{{live-vacancies-path}}",
+						"v1",
+						"traineeships",
+						"1117847"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "70e5143d-1c60-4deb-b11c-99a36c8fd6db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f924c85f-2bd5-49a0-9efe-08e290fd5c41",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
