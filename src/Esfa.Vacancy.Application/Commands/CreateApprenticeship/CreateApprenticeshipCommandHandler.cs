@@ -47,9 +47,11 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 throw new ValidationException(validationResult.Errors);
 
             request.EducationLevel = await GetTrainingLevelAsync(request);
+            _logger.Info($"EducationLevel : {request.EducationLevel}");
 
             var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(request.ProviderUkprn,
                 request.ProviderSiteEdsUrn, request.EmployerEdsUrn);
+            _logger.Info($"employer information : {employerInformation} ProviderId :: {employerInformation.ProviderId} ProviderSiteId  :: {employerInformation.ProviderSiteId} VacancyOwnerRelationshipId :: {employerInformation.VacancyOwnerRelationshipId}");
             if (employerInformation == null)
             {
                 _logger.Warn($"Vacancy owner relationship couldn't be established for Ukprn: {request.ProviderUkprn}, SiteUrn: {request.ProviderSiteEdsUrn} and EmployerUrn: {request.EmployerEdsUrn}");
