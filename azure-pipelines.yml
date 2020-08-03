@@ -17,8 +17,7 @@ variables:
 pool:
   name: 'DAS - Continuous Integration'
   demands: 
-  - msbuild
-  - visualstudio
+  - Agent.OS -equals Windows_NT
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
