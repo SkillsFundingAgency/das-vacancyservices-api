@@ -51,7 +51,12 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
 
             var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(request.ProviderUkprn,
                 request.ProviderSiteEdsUrn, request.EmployerEdsUrn);
-            _logger.Info($"employer information : {employerInformation} ProviderId :: {employerInformation.ProviderId} ProviderSiteId  :: {employerInformation.ProviderSiteId} VacancyOwnerRelationshipId :: {employerInformation.VacancyOwnerRelationshipId}");
+            
+            if (employerInformation != null)
+            {
+                _logger.Info($"employer information : {employerInformation} ProviderId :: {employerInformation.ProviderId} ProviderSiteId  :: {employerInformation.ProviderSiteId} VacancyOwnerRelationshipId :: {employerInformation.VacancyOwnerRelationshipId}");
+            }
+            
             if (employerInformation == null)
             {
                 _logger.Warn($"Vacancy owner relationship couldn't be established for Ukprn: {request.ProviderUkprn}, SiteUrn: {request.ProviderSiteEdsUrn} and EmployerUrn: {request.EmployerEdsUrn}");
