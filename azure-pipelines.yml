@@ -15,7 +15,7 @@ variables:
   solution: 'src/Esfa.Vacancy.Api.sln'
 
 pool:
-  name: 'Continuous Integration 02 - SSD - 160ACU'
+  name: 'DAS - Continuous Integration'
   demands: 
   - msbuild
   - visualstudio
