@@ -47,7 +47,10 @@ namespace Esfa.Vacancy.Application.Commands.CreateApprenticeship
                 throw new ValidationException(validationResult.Errors);
 
             request.EducationLevel = await GetTrainingLevelAsync(request);
-            _logger.Info($"EducationLevel : {request.EducationLevel}");
+            _logger.Info($"EducationLevel : {request.EducationLevel}"+
+            $"ProviderId:{ request.ProviderUkprn}" +
+            $"ProviderSiteId:: { request.ProviderSiteEdsUrn}"+
+            $"VacancyOwnerRelationshipId:: { request.EmployerEdsUrn}");
 
             var employerInformation = await _vacancyOwnerService.GetEmployersInformationAsync(request.ProviderUkprn,
                 request.ProviderSiteEdsUrn, request.EmployerEdsUrn);
