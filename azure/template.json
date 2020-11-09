@@ -1,8 +1,14 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceName": {
+            "type": "string"
+        },
+        "tags": {
+            "type": "object"
+        },
+        "resourceGroupLocation": {
             "type": "string"
         },
         "resourceEnvironmentName": {
@@ -11,10 +17,13 @@
         "environmentName": {
             "type": "string"
         },
-        "sharedBackEndAppServicePlan": {
+        "sharedBackEndAppServicePlanName": {
             "type": "string"
         },
-        "sharedAppServicePlanResourceGroup": {
+        "sharedBackEndSubnetResourceId": {
+            "type": "string"
+        },
+        "SharedEnvResourceGroup": {
             "type": "string"
         },
         "registerCustomHostname": {
@@ -94,6 +103,7 @@
     "variables": {
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[concat('das-',toLower(parameters('resourceEnvironmentName')),'-' , parameters('serviceName'))]",
+        "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
         "registerApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-reg-as')]",
         "manageApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-as')]",
         "manageSandboxApiAppServiceName": "[concat(variables('resourceNamePrefix'),'-mng-sbox-as')]",
@@ -102,10 +112,19 @@
     },
     "resources": [
         {
+            "apiVersion": "2020-06-01",
+            "name": "[variables('resourceGroupName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "location": "[parameters('resourceGroupLocation')]",
+            "tags": "[parameters('tags')]",
+            "properties": {
+            }
+        },
+        {
             "condition": "[greater(length(parameters('registerCustomHostName')), 0)]",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "register-app-service-certificate",
-            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -128,9 +147,9 @@
         },
         {
             "condition": "[greater(length(parameters('manageCustomHostname')), 0)]",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "manage-app-service-certificate",
-            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -153,9 +172,9 @@
         },
         {
             "condition": "[greater(length(parameters('manageSandboxCustomHostname')), 0)]",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "manage-sandbox-app-service-certificate",
-            "resourceGroup": "[parameters('sharedAppServicePlanResourceGroup')]",
+            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -177,8 +196,9 @@
             }
         },
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2020-06-01",
             "name": "register-api-app-insights",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -197,8 +217,9 @@
             }
         },
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2020-06-01",
             "name": "manage-api-app-insights",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -217,8 +238,9 @@
             }
         },
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2020-06-01",
             "name": "manage-sandbox-app-insights",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -237,8 +259,9 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "[variables('registerApiAppServiceName')]",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -251,10 +274,13 @@
                         "value": "[variables('registerApiAppServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                        "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                        "value": "[parameters('SharedEnvResourceGroup')]"
+                    },
+                    "subnetResourceId": {
+                        "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -352,8 +378,9 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "[variables('manageApiAppServiceName')]",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -366,10 +393,13 @@
                         "value": "[variables('manageApiAppServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                        "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                        "value": "[parameters('SharedEnvResourceGroup')]"
+                    },
+                    "subnetResourceId": {
+                        "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -428,8 +458,9 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2020-06-01",
             "name": "[variables('manageSandboxApiAppServiceName')]",
+            "resourceGroup": "[variables('resourceGroupName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -442,10 +473,13 @@
                         "value": "[variables('manageSandboxApiAppServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[parameters('sharedBackEndAppServicePlan')]"
+                        "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedAppServicePlanResourceGroup')]"
+                        "value": "[parameters('SharedEnvResourceGroup')]"
+                    },
+                    "subnetResourceId": {
+                        "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -505,6 +539,10 @@
         }
     ],
     "outputs": {
+        "ResourceGroupName": {
+            "type": "string",
+            "value": "[variables('resourceGroupName')]"
+        },
         "RegisterApiAppServiceName": {
             "type": "string",
             "value": "[variables('registerApiAppServiceName')]"
