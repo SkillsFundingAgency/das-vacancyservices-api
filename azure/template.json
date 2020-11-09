@@ -23,7 +23,7 @@
         "sharedBackEndSubnetResourceId": {
             "type": "string"
         },
-        "SharedEnvResourceGroup": {
+        "sharedEnvResourceGroup": {
             "type": "string"
         },
         "registerCustomHostname": {
@@ -124,7 +124,7 @@
             "condition": "[greater(length(parameters('registerCustomHostName')), 0)]",
             "apiVersion": "2020-06-01",
             "name": "register-app-service-certificate",
-            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -149,7 +149,7 @@
             "condition": "[greater(length(parameters('manageCustomHostname')), 0)]",
             "apiVersion": "2020-06-01",
             "name": "manage-app-service-certificate",
-            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -174,7 +174,7 @@
             "condition": "[greater(length(parameters('manageSandboxCustomHostname')), 0)]",
             "apiVersion": "2020-06-01",
             "name": "manage-sandbox-app-service-certificate",
-            "resourceGroup": "[parameters('SharedEnvResourceGroup')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -277,7 +277,7 @@
                         "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('SharedEnvResourceGroup')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "subnetResourceId": {
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
@@ -396,7 +396,7 @@
                         "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('SharedEnvResourceGroup')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "subnetResourceId": {
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
@@ -476,7 +476,7 @@
                         "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('SharedEnvResourceGroup')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "subnetResourceId": {
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
