@@ -266,7 +266,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-v2.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -283,84 +283,86 @@
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
-                        "value": [
-                            {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference('register-api-app-insights').outputs.InstrumentationKey.value]"
-                            },
-                            {
-                                "name": "LoggingRedisConnectionString",
-                                "value": "[parameters('loggingRedisConnectionString')]"
-                            },
-                            {
-                                "name": "AvmsPlusDatabaseConnectionString",
-                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
-                            },
-                            {
-                                "name": "EnvironmentName",
-                                "value": "[parameters('environmentName')]"
-                            },
-                            {
-                                "name": "LoggingRedisKey",
-                                "value": "[parameters('loggingRedisKey')]"
-                            },
-                            {
-                                "name": "ApprenticeshipInfoApiBaseUrl",
-                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
-                            },
-                            {
-                                "name": "CacheConnectionString",
-                                "value": "[parameters('cacheConnectionString')]"
-                            },
-                            {
-                                "name": "UseSandboxServices",
-                                "value": "no"
-                            },
-                            {
-                                "name": "CacheReferenceDataDuration",
-                                "value": "[parameters('cacheReferenceDataDuration')]"
-                            },
-                            {
-                                "name": "LiveApprenticeshipVacancyBaseUrl",
-                                "value": "[parameters('liveApprenticeshipVacancyBaseUrl')]"
-                            },
-                            {
-                                "name": "ElasticCloudId",
-                                "value": "[parameters('ElasticCloudId')]"
-                            },
-                            {
-                                "name": "ElasticUsername",
-                                "value": "[parameters('elasticUsername')]"
-                            },
-                            {
-                                "name": "ElasticPassword",
-                                "value": "[parameters('elasticPassword')]"
-                            },
-                            {
-                                "name": "ApprenticeshipIndexAlias",
-                                "value": "[parameters('apprenticeshipIndexAlias')]"
-                            },
-                            {
-                                "name": "LiveTraineeshipVacancyBaseUrl",
-                                "value": "[parameters('liveTraineeshipVacancyBaseUrl')]"
-                            },
-                            {
-                                "name": "RecruitMongoConnectionString",
-                                "value": "[parameters('recruitMongoConnectionString')]"
-                            },
-                            {
-                                "name": "RecruitMongoDatabaseName",
-                                "value": "[parameters('recruitMongoDatabaseName')]"
-                            },
-                            {
-                                "name": "RecruitMongoCollectionName",
-                                "value": "[parameters('recruitMongoCollectionName')]"
-                            },
-                            {
-                                "name": "InstanceName",
-                                "value": "[variables('instanceName')]"
-                            }
-                        ]
+                        "value": {
+                            "array": [
+                                {
+                                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                    "value": "[reference('register-api-app-insights').outputs.InstrumentationKey.value]"
+                                },
+                                {
+                                    "name": "LoggingRedisConnectionString",
+                                    "value": "[parameters('loggingRedisConnectionString')]"
+                                },
+                                {
+                                    "name": "AvmsPlusDatabaseConnectionString",
+                                    "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                                },
+                                {
+                                    "name": "EnvironmentName",
+                                    "value": "[parameters('environmentName')]"
+                                },
+                                {
+                                    "name": "LoggingRedisKey",
+                                    "value": "[parameters('loggingRedisKey')]"
+                                },
+                                {
+                                    "name": "ApprenticeshipInfoApiBaseUrl",
+                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "CacheConnectionString",
+                                    "value": "[parameters('cacheConnectionString')]"
+                                },
+                                {
+                                    "name": "UseSandboxServices",
+                                    "value": "no"
+                                },
+                                {
+                                    "name": "CacheReferenceDataDuration",
+                                    "value": "[parameters('cacheReferenceDataDuration')]"
+                                },
+                                {
+                                    "name": "LiveApprenticeshipVacancyBaseUrl",
+                                    "value": "[parameters('liveApprenticeshipVacancyBaseUrl')]"
+                                },
+                                {
+                                    "name": "ElasticCloudId",
+                                    "value": "[parameters('ElasticCloudId')]"
+                                },
+                                {
+                                    "name": "ElasticUsername",
+                                    "value": "[parameters('elasticUsername')]"
+                                },
+                                {
+                                    "name": "ElasticPassword",
+                                    "value": "[parameters('elasticPassword')]"
+                                },
+                                {
+                                    "name": "ApprenticeshipIndexAlias",
+                                    "value": "[parameters('apprenticeshipIndexAlias')]"
+                                },
+                                {
+                                    "name": "LiveTraineeshipVacancyBaseUrl",
+                                    "value": "[parameters('liveTraineeshipVacancyBaseUrl')]"
+                                },
+                                {
+                                    "name": "RecruitMongoConnectionString",
+                                    "value": "[parameters('recruitMongoConnectionString')]"
+                                },
+                                {
+                                    "name": "RecruitMongoDatabaseName",
+                                    "value": "[parameters('recruitMongoDatabaseName')]"
+                                },
+                                {
+                                    "name": "RecruitMongoCollectionName",
+                                    "value": "[parameters('recruitMongoCollectionName')]"
+                                },
+                                {
+                                    "name": "InstanceName",
+                                    "value": "[variables('instanceName')]"
+                                }
+                            ]
+                        }
                     },
                     "customHostName": {
                         "value": "[parameters('registerCustomHostname')]"
@@ -385,7 +387,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-v2.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -402,48 +404,50 @@
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
-                        "value": [
-                            {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference('manage-api-app-insights').outputs.InstrumentationKey.value]"
-                            },
-                            {
-                                "name": "LoggingRedisConnectionString",
-                                "value": "[parameters('loggingRedisConnectionString')]"
-                            },
-                            {
-                                "name": "AvmsPlusDatabaseConnectionString",
-                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
-                            },
-                            {
-                                "name": "EnvironmentName",
-                                "value": "[parameters('environmentName')]"
-                            },
-                            {
-                                "name": "LoggingRedisKey",
-                                "value": "[parameters('loggingRedisKey')]"
-                            },
-                            {
-                                "name": "ApprenticeshipInfoApiBaseUrl",
-                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
-                            },
-                            {
-                                "name": "CacheConnectionString",
-                                "value": "[parameters('cacheConnectionString')]"
-                            },
-                            {
-                                "name": "UseSandboxServices",
-                                "value": "no"
-                            },
-                            {
-                                "name": "InstanceName",
-                                "value": "[variables('instanceName')]"
-                            },
-                            {
-                                "name": "CacheReferenceDataDuration",
-                                "value": "[parameters('cacheReferenceDataDuration')]"
-                            }
-                        ]
+                        "value": {
+                            "array": [
+                                {
+                                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                    "value": "[reference('manage-api-app-insights').outputs.InstrumentationKey.value]"
+                                },
+                                {
+                                    "name": "LoggingRedisConnectionString",
+                                    "value": "[parameters('loggingRedisConnectionString')]"
+                                },
+                                {
+                                    "name": "AvmsPlusDatabaseConnectionString",
+                                    "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                                },
+                                {
+                                    "name": "EnvironmentName",
+                                    "value": "[parameters('environmentName')]"
+                                },
+                                {
+                                    "name": "LoggingRedisKey",
+                                    "value": "[parameters('loggingRedisKey')]"
+                                },
+                                {
+                                    "name": "ApprenticeshipInfoApiBaseUrl",
+                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "CacheConnectionString",
+                                    "value": "[parameters('cacheConnectionString')]"
+                                },
+                                {
+                                    "name": "UseSandboxServices",
+                                    "value": "no"
+                                },
+                                {
+                                    "name": "InstanceName",
+                                    "value": "[variables('instanceName')]"
+                                },
+                                {
+                                    "name": "CacheReferenceDataDuration",
+                                    "value": "[parameters('cacheReferenceDataDuration')]"
+                                }
+                            ]
+                        }
                     },
                     "customHostName": {
                         "value": "[parameters('manageCustomHostname')]"
@@ -465,7 +469,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-v2.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -482,48 +486,50 @@
                         "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
-                        "value": [
-                            {
-                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                "value": "[reference('manage-sandbox-app-insights').outputs.InstrumentationKey.value]"
-                            },
-                            {
-                                "name": "LoggingRedisConnectionString",
-                                "value": "[parameters('loggingRedisConnectionString')]"
-                            },
-                            {
-                                "name": "AvmsPlusDatabaseConnectionString",
-                                "value": "[parameters('avmsPlusDatabaseConnectionString')]"
-                            },
-                            {
-                                "name": "EnvironmentName",
-                                "value": "[parameters('environmentName')]"
-                            },
-                            {
-                                "name": "LoggingRedisKey",
-                                "value": "[parameters('loggingRedisKey')]"
-                            },
-                            {
-                                "name": "ApprenticeshipInfoApiBaseUrl",
-                                "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
-                            },
-                            {
-                                "name": "CacheConnectionString",
-                                "value": "[parameters('cacheConnectionString')]"
-                            },
-                            {
-                                "name": "UseSandboxServices",
-                                "value": "yes"
-                            },
-                            {
-                                "name": "InstanceName",
-                                "value": "[variables('sandboxInstanceName')]"
-                            },
-                            {
-                                "name": "CacheReferenceDataDuration",
-                                "value": "[parameters('cacheReferenceDataDuration')]"
-                            }
-                        ]
+                        "value": {
+                            "array": [
+                                {
+                                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                    "value": "[reference('manage-sandbox-app-insights').outputs.InstrumentationKey.value]"
+                                },
+                                {
+                                    "name": "LoggingRedisConnectionString",
+                                    "value": "[parameters('loggingRedisConnectionString')]"
+                                },
+                                {
+                                    "name": "AvmsPlusDatabaseConnectionString",
+                                    "value": "[parameters('avmsPlusDatabaseConnectionString')]"
+                                },
+                                {
+                                    "name": "EnvironmentName",
+                                    "value": "[parameters('environmentName')]"
+                                },
+                                {
+                                    "name": "LoggingRedisKey",
+                                    "value": "[parameters('loggingRedisKey')]"
+                                },
+                                {
+                                    "name": "ApprenticeshipInfoApiBaseUrl",
+                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "CacheConnectionString",
+                                    "value": "[parameters('cacheConnectionString')]"
+                                },
+                                {
+                                    "name": "UseSandboxServices",
+                                    "value": "yes"
+                                },
+                                {
+                                    "name": "InstanceName",
+                                    "value": "[variables('sandboxInstanceName')]"
+                                },
+                                {
+                                    "name": "CacheReferenceDataDuration",
+                                    "value": "[parameters('cacheReferenceDataDuration')]"
+                                }
+                            ]
+                        }
                     },
                     "customHostName": {
                         "value": "[parameters('manageSandboxCustomHostname')]"
