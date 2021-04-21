@@ -8,7 +8,6 @@ using Esfa.Vacancy.Domain.Entities;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Exceptions;
 using SFA.DAS.Apprenticeships.Api.Client;
-using SFA.DAS.Apprenticeships.Api.Types;
 using SFA.DAS.Apprenticeships.Api.Types.Exceptions;
 using SFA.DAS.NLog.Logger;
 using Framework = Esfa.Vacancy.Domain.Entities.Framework;
@@ -20,12 +19,14 @@ namespace Esfa.Vacancy.Infrastructure.Services
     {
         private readonly IProvideSettings _provideSettings;
         private readonly ILog _logger;
+        private readonly ITrainingCourseService _trainingCourseService;
         private string _dasApiBaseUrl;
 
-        public TrainingDetailService(IProvideSettings provideSettings, ILog logger)
+        public TrainingDetailService(IProvideSettings provideSettings, ILog logger, ITrainingCourseService trainingCourseService)
         {
             _provideSettings = provideSettings;
             _logger = logger;
+            _trainingCourseService = trainingCourseService;
         }
 
         private string DasApiBaseUrl => _dasApiBaseUrl ??
@@ -67,31 +68,22 @@ namespace Esfa.Vacancy.Infrastructure.Services
                 _logger.Warn($"Error retrieving framework details from FrameworkApi: ({exception.Message}). Retrying... attempt {retryCount}");
             });
 
-            return retry.ExecuteAsync(InternalGetFrameworkDetailsAsync);
+            return retry.ExecuteAsync(InternalGetAllFrameworkDetailsAsync);
         }
 
-        private async Task<IEnumerable<TrainingDetail>> InternalGetFrameworkDetailsAsync()
+        private async Task<IEnumerable<TrainingDetail>> InternalGetAllFrameworkDetailsAsync()
         {
-            using (var client = new FrameworkApiClient(DasApiBaseUrl))
+            try
             {
-                try
-                {
-                    _logger.Info("Querying Apprenticeship API for Frameworks");
-                    var frameworks = await client.GetAllAsync().ConfigureAwait(false);
-                    var frameworkSummaries = frameworks as IList<FrameworkSummary> ?? frameworks.ToList();
-                    _logger.Info($"Apprenticeship API returned {frameworkSummaries.Count} Frameworks");
-                    return frameworkSummaries.Select(framework =>
-                                                 new TrainingDetail()
-                                                 {
-                                                     TrainingCode = framework.Id,
-                                                     EffectiveTo = framework.EffectiveTo,
-                                                     Level = framework.Level
-                                                 });
-                }
-                catch (Exception ex)
-                {
-                    throw new InfrastructureException(ex);
-                }
+                _logger.Info("Querying Apprenticeship API for Frameworks");
+                var frameworks = await _trainingCourseService.GetFrameworks();
+                var frameworksList = frameworks as IList<TrainingDetail> ?? frameworks.ToList();
+                _logger.Info($"Apprenticeship API returned {frameworksList.Count} Frameworks");
+                return frameworksList;
+            }
+            catch (Exception ex)
+            {
+                throw new InfrastructureException(ex);
             }
         }
 
@@ -107,28 +99,17 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         private async Task<IEnumerable<TrainingDetail>> InternalGetAllStandardDetailsAsync()
         {
-            using (var client = new StandardApiClient(DasApiBaseUrl))
+            try
             {
-                try
-                {
-                    _logger.Info("Querying Apprenticeship API for Standards");
-                    var standards = await client.GetAllAsync().ConfigureAwait(false);
-                    var standardSummaries = standards as IList<StandardSummary> ?? standards.ToList();
-                    _logger.Info($"Apprenticeship API returned {standardSummaries.Count} Standards");
-                    return standardSummaries.Select(standard =>
-                        new TrainingDetail()
-                        {
-                            TrainingCode = standard.Id,
-                            EffectiveTo = standard.EffectiveTo,
-                            Level = standard.Level,
-                            Title = standard.Title,
-                            Uri = standard.Uri
-                        });
-                }
-                catch (Exception ex)
-                {
-                    throw new InfrastructureException(ex);
-                }
+                _logger.Info("Querying Apprenticeship API for Standards");
+                var standards = await _trainingCourseService.GetStandards();
+                var standardsList = standards as IList<TrainingDetail> ?? standards.ToList();
+                _logger.Info($"Apprenticeship API returned {standardsList.Count} Standards");
+                return standardsList;
+            }
+            catch (Exception ex)
+            {
+                throw new InfrastructureException(ex);
             }
         }
 
