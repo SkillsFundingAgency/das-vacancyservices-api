@@ -26,7 +26,9 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi
 
         public async Task<IEnumerable<TrainingDetail>> GetFrameworks()
         {
-            throw new System.NotImplementedException();//"api/courses/frameworks"
+            var apiResponse = await _coursesApiClient.Get<GetFrameworksApiResponse>("api/courses/frameworks");
+
+            return apiResponse.Frameworks.Select(item => (TrainingDetail)item);
         }
     }
 }
