@@ -6,6 +6,7 @@ using Esfa.Vacancy.Application.Interfaces;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Caching;
+using Esfa.Vacancy.Infrastructure.InnerApi;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
 using SFA.DAS.NLog.Logger;
@@ -36,6 +37,9 @@ namespace Esfa.Vacancy.Infrastructure.Ioc
 
             For<ITrainingDetailService>().Use<CachedTrainingDetailService>()
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();
+
+            For<ICoursesApiClientFactory>().Use<CoursesApiClientFactory>();
+            For<ITrainingCourseService>().Use<TrainingCourseService>();
 
             RegisterCreateApprenticeshipService();
         }

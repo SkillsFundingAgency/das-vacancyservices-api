@@ -17,5 +17,7 @@
         public const string RecruitMongoConnectionString = "recruitmongoconnectionstring";
         public const string RecruitMongoDatabaseName = "recruitmongodatabasename";
         public const string RecruitMongoCollectionName = "recruitmongocollectionname";
+        public const string CoursesApiUrl = "coursesApiUrl";
+        public const string CoursesApiIdentifier = "coursesApiIdentifier";
     }
 }
