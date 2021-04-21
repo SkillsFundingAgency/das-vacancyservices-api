@@ -219,7 +219,10 @@
     <Compile Include="Exceptions\InfrastructureException.cs" />
     <Compile Include="Factories\SqlDatabaseService.cs" />
     <Compile Include="InnerApi\CoursesApiClientFactory.cs" />
+    <Compile Include="InnerApi\Responses\GetFrameworksApiResponse.cs" />
+    <Compile Include="InnerApi\Responses\GetFrameworksListItem.cs" />
     <Compile Include="InnerApi\Responses\GetStandardsApiResponse.cs" />
+    <Compile Include="InnerApi\Responses\GetStandardsListItem.cs" />
     <Compile Include="InnerApi\TrainingCourseService.cs" />
     <Compile Include="Ioc\ElasticClientRegistry.cs" />
     <Compile Include="Ioc\InfrastructureRegistry.cs" />
