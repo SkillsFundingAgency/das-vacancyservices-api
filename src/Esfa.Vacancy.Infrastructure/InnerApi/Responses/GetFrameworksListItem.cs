@@ -7,6 +7,7 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string FrameworkName { get; set; }
         public int FrameworkCode { get; set; }
         public int Level { get; set; }
         public DateTime? EffectiveTo { get; set; }
@@ -18,7 +19,9 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
                 Title = source.Title,
                 Level = source.Level,
                 EffectiveTo = source.EffectiveTo,
-                TrainingCode = source.Id
+                TrainingCode = source.Id,
+                FrameworkCode = source.FrameworkCode,
+                FrameworkName = source.FrameworkName
             };
         }
 
@@ -26,7 +29,7 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
         {
             return new Framework
             {
-                Title = source.Title,
+                Title = source.FrameworkName,
                 Code = source.FrameworkCode
             };
         }

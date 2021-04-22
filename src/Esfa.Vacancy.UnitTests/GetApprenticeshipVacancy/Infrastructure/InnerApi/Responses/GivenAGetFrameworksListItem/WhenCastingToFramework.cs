@@ -17,12 +17,13 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
                 FrameworkCode = 403,
                 Level = 3,
                 EffectiveTo = DateTime.Today,
-                Title = "Framework title"
+                Title = "Framework title",
+                FrameworkName = "Framework name"
             };
 
             var result = (Framework)source;
 
-            result.Title.Should().Be(source.Title);
+            result.Title.Should().Be(source.FrameworkName);
             result.Code.Should().Be(source.FrameworkCode);
             result.Uri.Should().BeNull();
         }

@@ -17,7 +17,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
                 FrameworkCode = 430,
                 Level = 3,
                 EffectiveTo = DateTime.Today,
-                Title = "Framework title"
+                Title = "Framework title",
+                FrameworkName = "Framework name"
             };
 
             var result = (TrainingDetail)source;
@@ -26,6 +27,8 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
             result.Level.Should().Be(source.Level);
             result.EffectiveTo.Should().Be(source.EffectiveTo);
             result.TrainingCode.Should().Be(source.Id);
+            result.FrameworkCode.Should().Be(source.FrameworkCode);
+            result.FrameworkName.Should().Be(source.FrameworkName);
             result.Uri.Should().BeNull();
         }
     }

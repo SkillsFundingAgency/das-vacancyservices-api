@@ -24,11 +24,10 @@ namespace Esfa.Vacancy.Infrastructure.Services
 
         public async Task<Framework> GetFrameworkDetailsAsync(int code)
         {
-            return await _cacheService.CacheAsideAsync(
-                                          string.Format(CacheKeyFramework, code),
-                                          async () => await _trainingDetailService.GetFrameworkDetailsAsync(code)
-                                                                                  .ConfigureAwait(false))
-                                      .ConfigureAwait(false);
+            //Since the whole list is cached, try to get it from the cache
+            var frameworks = await GetAllFrameworkDetailsAsync().ConfigureAwait(false);
+            var framework = frameworks.FirstOrDefault(detail => detail.FrameworkCode.HasValue && detail.FrameworkCode == code);
+            return framework == null ? null : new Framework { Code = code, Title = framework.FrameworkName };
         }
 
         public async Task<IEnumerable<TrainingDetail>> GetAllFrameworkDetailsAsync()
