@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,24 +14,16 @@ using SFA.DAS.Http;
 
 namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerApi.GivenATrainingCourseService
 {
-    public class WhenGettingFrameworks
+    public class WhenGettingStandard
     {
         [Test]
-        public async Task Then_Returns_Frameworks_From_Api()
+        public async Task Then_Returns_Standard_From_Api()
         {
             //arrange
+            var larsCode = 2;
             var baseAddress = "https://testing.somewhere/";
             
-            var apiResponse = new GetFrameworksApiResponse
-            {
-                Frameworks = new List<GetFrameworksListItem>
-                {
-                    new GetFrameworksListItem{Id = "403-3-10", Title = "Best skills ever", Level = 23, EffectiveTo = DateTime.Today},
-                    new GetFrameworksListItem{Id = "403-3-5", Title = "Best skills everest", Level = 2, EffectiveTo = DateTime.Today},
-                    new GetFrameworksListItem{Id = "429-3-1", Title = "Best skills everer", Level = 1, EffectiveTo = DateTime.Today},
-                    new GetFrameworksListItem{Id = "431-2-4", Title = "Best skills everestest", Level = 3},
-                }
-            };
+            var apiResponse = new GetStandardsListItem{LarsCode = larsCode, Title = "Best skills ever", Level = 23, StandardDates = new StandardDate{EffectiveTo = DateTime.Today}};
             var content = new StringContent(JsonConvert.SerializeObject(apiResponse));
             content.Headers.Remove("Content-Type");
             content.Headers.Add("Content-Type", "application/json");
@@ -43,7 +33,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
                 StatusCode = HttpStatusCode.Accepted
             };
             
-            var httpMessageHandler = MockMessageHandlerFactory.CreateMockMessageHandler(response, new Uri($"{baseAddress}api/courses/frameworks"), HttpMethod.Get);
+            var httpMessageHandler = MockMessageHandlerFactory.CreateMockMessageHandler(response, new Uri($"{baseAddress}api/courses/standards/{larsCode}"), HttpMethod.Get);
             
             var mockClientFactory = new Mock<ICoursesApiClientFactory>();
             mockClientFactory
@@ -53,10 +43,10 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
             var service = new TrainingCourseService(mockClientFactory.Object);
 
             //act
-            var actual = await service.GetFrameworks();
+            var actual = await service.GetStandard(larsCode);
 
             //assert
-            actual.ShouldBeEquivalentTo(apiResponse.Frameworks.Select(item => (TrainingDetail)item));
+            actual.ShouldBeEquivalentTo((Standard)apiResponse);
         }
     }
 }

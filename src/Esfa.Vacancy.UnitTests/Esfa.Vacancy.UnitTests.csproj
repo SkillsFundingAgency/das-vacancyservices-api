@@ -377,10 +377,14 @@
     <Compile Include="GetApprenticeshipVacancy\Api\Orchestrators\GivenAGetApprenticeshipVacancyOrchestrator\WhenRecruitVacancyRequested.cs" />
     <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenACoursesApiClientFactory\WhenCreatingRestHttpClient.cs" />
     <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenATrainingCourseService\MockMessageHandlerFactory.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenATrainingCourseService\WhenGettingFramework.cs" />
     <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenATrainingCourseService\WhenGettingFrameworks.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenATrainingCourseService\WhenGettingStandard.cs" />
     <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\GivenATrainingCourseService\WhenGettingStandards.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\WhenCastingFrameworksListItemToTrainingDetail.cs" />
-    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\WhenCastingStandardsListItemToTrainingDetail.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\GivenAGetFrameworksListItem\WhenCastingToFramework.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\GivenAGetFrameworksListItem\WhenCastingToTrainingDetail.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\GivenAGetStandardsListItem\WhenCastingToStandard.cs" />
+    <Compile Include="GetApprenticeshipVacancy\Infrastructure\InnerApi\Responses\GivenAGetStandardsListItem\WhenCastingToTrainingDetail.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

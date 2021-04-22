@@ -4,9 +4,9 @@ using Esfa.Vacancy.Infrastructure.InnerApi.Responses;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerApi.Responses
+namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerApi.Responses.GivenAGetStandardsListItem
 {
-    public class WhenCastingStandardsListItemToTrainingDetail
+    public class WhenCastingToTrainingDetail
     {
         [Test]
         public void Then_Maps_Values()
@@ -28,6 +28,7 @@ namespace Esfa.Vacancy.UnitTests.GetApprenticeshipVacancy.Infrastructure.InnerAp
             result.Level.Should().Be(source.Level);
             result.EffectiveTo.Should().Be(source.StandardDates.EffectiveTo);
             result.TrainingCode.Should().Be(source.LarsCode.ToString());
+            result.Uri.Should().BeNull();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
         public int Level { get; set; }
         public StandardDate StandardDates { get; set; }
 
-        public static explicit operator TrainingDetail(GetStandardsListItem source)
+        public static implicit operator TrainingDetail(GetStandardsListItem source)
         {
             return new TrainingDetail
             {
@@ -20,14 +20,19 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
                 TrainingCode = source.LarsCode.ToString()
             };
         }
+
+        public static implicit operator Standard(GetStandardsListItem source)
+        {
+            return new Standard
+            {
+                Title = source.Title,
+                Code = source.LarsCode
+            };
+        }
     }
 
     public class StandardDate
     {
-        public DateTime? LastDateStarts { get; set; }
-
         public DateTime? EffectiveTo { get; set; }
-
-        public DateTime EffectiveFrom { get; set; }
     }
 }

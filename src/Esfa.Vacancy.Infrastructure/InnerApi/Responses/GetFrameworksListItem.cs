@@ -5,19 +5,29 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
 {
     public class GetFrameworksListItem
     {
+        public string Id { get; set; }
         public string Title { get; set; }
         public int FrameworkCode { get; set; }
         public int Level { get; set; }
         public DateTime? EffectiveTo { get; set; }
 
-        public static explicit operator TrainingDetail(GetFrameworksListItem source)
+        public static implicit operator TrainingDetail(GetFrameworksListItem source)
         {
             return new TrainingDetail
             {
                 Title = source.Title,
                 Level = source.Level,
                 EffectiveTo = source.EffectiveTo,
-                TrainingCode = source.FrameworkCode.ToString()
+                TrainingCode = source.Id
+            };
+        }
+
+        public static implicit operator Framework(GetFrameworksListItem source)
+        {
+            return new Framework
+            {
+                Title = source.Title,
+                Code = source.FrameworkCode
             };
         }
     }

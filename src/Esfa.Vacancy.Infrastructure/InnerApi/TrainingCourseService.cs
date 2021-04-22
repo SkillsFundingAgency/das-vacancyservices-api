@@ -24,6 +24,13 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi
             return apiResponse.Standards.Select(item => (TrainingDetail)item);
         }
 
+        public async Task<Standard> GetStandard(int larsCode)
+        {
+            var apiResponse = await _coursesApiClient.Get<GetStandardsListItem>($"api/courses/standards/{larsCode}");
+
+            return apiResponse;
+        }
+
         public async Task<IEnumerable<TrainingDetail>> GetFrameworks()
         {
             var apiResponse = await _coursesApiClient.Get<GetFrameworksApiResponse>("api/courses/frameworks");
