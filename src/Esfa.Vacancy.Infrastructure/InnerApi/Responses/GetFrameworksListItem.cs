@@ -24,14 +24,5 @@ namespace Esfa.Vacancy.Infrastructure.InnerApi.Responses
                 FrameworkName = source.FrameworkName
             };
         }
-
-        public static implicit operator Framework(GetFrameworksListItem source)
-        {
-            return new Framework
-            {
-                Title = source.FrameworkName,
-                Code = source.FrameworkCode
-            };
-        }
     }
 }
