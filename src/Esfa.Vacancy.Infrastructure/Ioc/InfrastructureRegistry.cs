@@ -41,8 +41,8 @@ namespace Esfa.Vacancy.Infrastructure.Ioc
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();
 
             For<IManagedIdentityClientConfiguration>().Use("Create courses api config.", ctx => new CoursesApiConfiguration(
-                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiUrl),
-                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiIdentifier)
+                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiBaseUrl),
+                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiIdentifierUri)
             ));
 
             For<ICoursesApiClientFactory>().Use<CoursesApiClientFactory>();

@@ -92,10 +92,10 @@
         "recruitMongoCollectionName": {
             "type": "string"
         },
-        "coursesApiUrl": {
+        "coursesApiBaseUrl": {
             "type": "string"
         },
-        "coursesApiIdentifier": {
+        "coursesApiIdentifierUri": {
             "type": "string"
         },
         "ipSecurityRestrictions": {
@@ -357,12 +357,12 @@
                                     "value": "[parameters('recruitMongoCollectionName')]"
                                 },
                                 {
-                                    "name": "CoursesApiUrl",
-                                    "value": "[parameters('coursesApiUrl')]"
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
                                 },
                                 {
-                                    "name": "CoursesApiIdentifier",
-                                    "value": "[parameters('coursesApiIdentifier')]"
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "InstanceName",
@@ -434,12 +434,12 @@
                                     "value": "[parameters('loggingRedisKey')]"
                                 },
                                 {
-                                    "name": "CoursesApiUrl",
-                                    "value": "[parameters('coursesApiUrl')]"
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
                                 },
                                 {
-                                    "name": "CoursesApiIdentifier",
-                                    "value": "[parameters('coursesApiIdentifier')]"
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "CacheConnectionString",
@@ -523,12 +523,12 @@
                                     "value": "[parameters('loggingRedisKey')]"
                                 },
                                 {
-                                    "name": "CoursesApiUrl",
-                                    "value": "[parameters('coursesApiUrl')]"
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
                                 },
                                 {
-                                    "name": "CoursesApiIdentifier",
-                                    "value": "[parameters('coursesApiIdentifier')]"
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "CacheConnectionString",
