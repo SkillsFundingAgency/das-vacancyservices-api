@@ -3,7 +3,6 @@
     public static class ApplicationSettingKeys
     {
         public const string AvmsPlusDatabaseConnectionStringKey = "avmsplusdatabaseconnectionstring";
-        public const string DasApprenticeshipInfoApiBaseUrlKey = "apprenticeshipinfoapibaseurl";
         public const string LiveApprenticeshipVacancyBaseUrlKey = "liveapprenticeshipvacancybaseurl";
         public const string LiveTraineeshipVacancyBaseUrlKey = "livetraineeshipvacancybaseurl";
         public const string VacancySearchUrlKey = "vacancysearchurl";
