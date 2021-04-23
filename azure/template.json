@@ -95,6 +95,12 @@
         "recruitMongoCollectionName": {
             "type": "string"
         },
+        "coursesApiUrl": {
+            "type": "string"
+        },
+        "coursesApiIdentifier": {
+            "type": "string"
+        },
         "ipSecurityRestrictions": {
             "type": "array",
             "defaultValue": []
@@ -356,6 +362,14 @@
                                 {
                                     "name": "RecruitMongoCollectionName",
                                     "value": "[parameters('recruitMongoCollectionName')]"
+                                },
+                                {
+                                    "name": "CoursesApiUrl",
+                                    "value": "[parameters('coursesApiUrl')]"
+                                },
+                                {
+                                    "name": "CoursesApiIdentifier",
+                                    "value": "[parameters('coursesApiIdentifier')]"
                                 },
                                 {
                                     "name": "InstanceName",
