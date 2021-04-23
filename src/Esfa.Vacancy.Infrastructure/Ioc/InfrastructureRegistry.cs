@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Domain.Configuration;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
 using Esfa.Vacancy.Infrastructure.Caching;
 using Esfa.Vacancy.Infrastructure.InnerApi;
 using Esfa.Vacancy.Infrastructure.Services;
 using Esfa.Vacancy.Infrastructure.Settings;
+using SFA.DAS.Http.Configuration;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Infrastructure.Ioc
@@ -37,6 +39,11 @@ namespace Esfa.Vacancy.Infrastructure.Ioc
 
             For<ITrainingDetailService>().Use<CachedTrainingDetailService>()
                 .Ctor<ITrainingDetailService>().Is<TrainingDetailService>();
+
+            For<IManagedIdentityClientConfiguration>().Use("Create courses api config.", ctx => new CoursesApiConfiguration(
+                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiUrl),
+                provideSettings.GetSetting(ApplicationSettingKeys.CoursesApiIdentifier)
+            ));
 
             For<ICoursesApiClientFactory>().Use<CoursesApiClientFactory>();
             For<ITrainingCourseService>().Use<TrainingCourseService>();
