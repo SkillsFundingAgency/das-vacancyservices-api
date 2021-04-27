@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.Http.Configuration;
 
-namespace Esfa.Vacancy.Domain.Configuration
+namespace Esfa.Vacancy.Infrastructure.Configuration
 {
     public class CoursesApiConfiguration : IManagedIdentityClientConfiguration
     {
