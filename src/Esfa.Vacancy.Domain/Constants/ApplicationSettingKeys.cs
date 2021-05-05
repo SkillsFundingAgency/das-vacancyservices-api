@@ -3,7 +3,6 @@
     public static class ApplicationSettingKeys
     {
         public const string AvmsPlusDatabaseConnectionStringKey = "avmsplusdatabaseconnectionstring";
-        public const string DasApprenticeshipInfoApiBaseUrlKey = "apprenticeshipinfoapibaseurl";
         public const string LiveApprenticeshipVacancyBaseUrlKey = "liveapprenticeshipvacancybaseurl";
         public const string LiveTraineeshipVacancyBaseUrlKey = "livetraineeshipvacancybaseurl";
         public const string VacancySearchUrlKey = "vacancysearchurl";
@@ -17,5 +16,7 @@
         public const string RecruitMongoConnectionString = "recruitmongoconnectionstring";
         public const string RecruitMongoDatabaseName = "recruitmongodatabasename";
         public const string RecruitMongoCollectionName = "recruitmongocollectionname";
+        public const string CoursesApiBaseUrl = "coursesApiBaseUrl";
+        public const string CoursesApiIdentifierUri = "coursesApiIdentifierUri";
     }
 }

@@ -59,9 +59,6 @@
         "avmsPlusDatabaseConnectionString": {
             "type": "securestring"
         },
-        "apprenticeshipInfoApiBaseUrl": {
-            "type": "string"
-        },
         "liveApprenticeshipVacancyBaseUrl": {
             "type": "string"
         },
@@ -93,6 +90,12 @@
             "type": "string"
         },
         "recruitMongoCollectionName": {
+            "type": "string"
+        },
+        "coursesApiBaseUrl": {
+            "type": "string"
+        },
+        "coursesApiIdentifierUri": {
             "type": "string"
         },
         "ipSecurityRestrictions": {
@@ -306,10 +309,6 @@
                                     "value": "[parameters('loggingRedisKey')]"
                                 },
                                 {
-                                    "name": "ApprenticeshipInfoApiBaseUrl",
-                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
-                                },
-                                {
                                     "name": "CacheConnectionString",
                                     "value": "[parameters('cacheConnectionString')]"
                                 },
@@ -356,6 +355,14 @@
                                 {
                                     "name": "RecruitMongoCollectionName",
                                     "value": "[parameters('recruitMongoCollectionName')]"
+                                },
+                                {
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "InstanceName",
@@ -427,8 +434,12 @@
                                     "value": "[parameters('loggingRedisKey')]"
                                 },
                                 {
-                                    "name": "ApprenticeshipInfoApiBaseUrl",
-                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "CacheConnectionString",
@@ -512,8 +523,12 @@
                                     "value": "[parameters('loggingRedisKey')]"
                                 },
                                 {
-                                    "name": "ApprenticeshipInfoApiBaseUrl",
-                                    "value": "[parameters('apprenticeshipInfoApiBaseUrl')]"
+                                    "name": "coursesApiBaseUrl",
+                                    "value": "[parameters('coursesApiBaseUrl')]"
+                                },
+                                {
+                                    "name": "coursesApiIdentifierUri",
+                                    "value": "[parameters('coursesApiIdentifierUri')]"
                                 },
                                 {
                                     "name": "CacheConnectionString",

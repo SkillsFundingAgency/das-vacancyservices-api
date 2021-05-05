@@ -1,10 +1,18 @@
-﻿using Esfa.Vacancy.Domain.Constants;
+﻿using System.IO;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using Esfa.Vacancy.Application.Interfaces;
+using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
-using Esfa.Vacancy.Infrastructure;
+using Esfa.Vacancy.Infrastructure.InnerApi;
 using Esfa.Vacancy.Infrastructure.Ioc;
 using Esfa.Vacancy.Infrastructure.Services;
+using Esfa.Vacancy.Register.Api.DependencyResolution;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using SFA.DAS.Http.Configuration;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
@@ -50,6 +58,45 @@ namespace Esfa.Vacancy.UnitTests.Shared.Infrastructure
                 useSandboxService
                     ? Is.InstanceOf<CreateApprenticeshipSandboxService>()
                     : Is.InstanceOf<CreateApprenticeshipService>());
+        }
+
+        [Test]
+        public void WhenGetInstanceOfManagedIdentityClientConfigThenGetsCorrectSettings()
+        {
+            var coursesApiBaseUrl = $"https://{nameof(ApplicationSettingKeys.CoursesApiBaseUrl)}";
+            var coursesApiIdentifierUri = $"https://{nameof(ApplicationSettingKeys.CoursesApiIdentifierUri)}";
+            var mockProvideSettings = new Mock<IProvideSettings>();
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.CoursesApiBaseUrl))
+                .Returns(coursesApiBaseUrl);
+            mockProvideSettings
+                .Setup(ps => ps.GetSetting(ApplicationSettingKeys.CoursesApiIdentifierUri))
+                .Returns(coursesApiIdentifierUri);
+            var container = new Container(new InfrastructureRegistry(mockProvideSettings.Object));
+
+            var x = container.GetInstance<IManagedIdentityClientConfiguration>();
+
+            x.Should().NotBeNull();
+            x.ApiBaseUrl.Should().Be(coursesApiBaseUrl);
+            x.IdentifierUri.Should().Be(coursesApiIdentifierUri);
+        }
+
+        [Test]
+        public void WhenGetInstanceOfITrainingCourseService_ThenGetsCorrectService()
+        {
+            var coursesApiBaseUrl = $"https://{nameof(ApplicationSettingKeys.CoursesApiBaseUrl)}";
+            var coursesApiIdentifierUri = $"https://{nameof(ApplicationSettingKeys.CoursesApiIdentifierUri)}";
+            var mockProvideSettings = new Mock<IProvideSettings>();
+            mockProvideSettings
+                .Setup(settings => settings.GetSetting(ApplicationSettingKeys.CoursesApiBaseUrl))
+                .Returns(coursesApiBaseUrl);
+            mockProvideSettings
+                .Setup(settings => settings.GetSetting(ApplicationSettingKeys.CoursesApiIdentifierUri))
+                .Returns(coursesApiIdentifierUri);
+
+            var container = new Container(new InfrastructureRegistry(mockProvideSettings.Object));
+
+            container.GetInstance<ITrainingCourseService>().Should().BeOfType<TrainingCourseService>();
         }
     }
 }
