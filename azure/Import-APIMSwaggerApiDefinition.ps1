@@ -40,16 +40,10 @@ Param(
 try {
     # --- Build context and retrieve apiid
     Write-Host "Building APIM context for $ResourceGroupName\$InstanceName"
-    $Context = New-AzureRmApiManagementContext -ResourceGroupName $ResourceGroupName -ServiceName $InstanceName
+    $Context = New-AzApiManagementContext -ResourceGroupName $ResourceGroupName -ServiceName $InstanceName
     Write-Host "Retrieving ApiId for API $ApiName"
     
-    $ApiId = (Get-AzureRmApiManagementApi -Context $Context -Name $ApiName).ApiId
-
-    # Get-AzureRmApiManagementApi has a bug where it sometimes brings back more than one result. If statement works around this.
-    if ($ApiId.Count -gt 1) {
-        $ApiMatches = Get-AzureRmApiManagementApi -Context $Context -Name $ApiName
-        $ApiId = ($ApiMatches | Where-Object { $_.Name -eq $ApiName }).ApiId
-    }
+    $ApiId = (Get-AzApiManagementApi -Context $Context -Name $ApiName).ApiId
 
     if ($PSBoundParameters.ContainsKey("ApiUrlSuffix")) {
         $ApiSuf = $ApiUrlSuffix.ToLower()
@@ -61,17 +55,15 @@ try {
     if (!$ApiId) {
         # create API if it doesn't exist
         Write-Host "Could not retrieve ApiId for API $ApiName - creating API"
-
         $ApimUri = [System.Uri] $SwaggerSpecificationUrl
-
         Write-Host "Creating API $ApiName with suffix $ApiSuf"
-        $NewApi = New-AzureRmApiManagementApi -Context $Context -Name $ApiName -Description $($ApiName) -ServiceUrl "https://$($ApimUri.Host)" -Protocols @("https") -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
+        $NewApi = New-AzApiManagementApi -Context $Context -Name $ApiName -Description $($ApiName) -ServiceUrl "https://$($ApimUri.Host)" -Protocols @("https") -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
         $ApiId = $NewApi.ApiId
     }
 
     # --- Import swagger definition
     Write-Host "Updating API $ApiId\$InstanceName from definition $SwaggerSpecficiationUrl"
-    Import-AzureRmApiManagementApi -Context $Context -SpecificationFormat "Swagger" -SpecificationUrl $($SwaggerSpecificationUrl) -ApiId $($ApiId) -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
+    Import-AzApiManagementApi -Context $Context -SpecificationFormat "Swagger" -SpecificationUrl $($SwaggerSpecificationUrl) -ApiId $($ApiId) -Path $($ApiSuf) -ErrorAction Stop -Verbose:$VerbosePreference
 }
 catch {
     throw $_
