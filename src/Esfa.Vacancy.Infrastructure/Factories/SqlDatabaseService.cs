@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Esfa.Vacancy.Domain.Constants;
 using Esfa.Vacancy.Domain.Interfaces;
+using Microsoft.Azure.Services.AppAuthentication;
 using SFA.DAS.NLog.Logger;
 
 namespace Esfa.Vacancy.Infrastructure.Factories
@@ -20,10 +21,22 @@ namespace Esfa.Vacancy.Infrastructure.Factories
 
         public SqlConnection GetConnection()
         {
-            var connectionString =
-                _settings.GetSetting(ApplicationSettingKeys.AvmsPlusDatabaseConnectionStringKey);
+            var connectionString = _settings.GetSetting(ApplicationSettingKeys.AvmsPlusDatabaseConnectionStringKey);
+            var environmentName = _settings.GetSetting(ApplicationSettingKeys.EnvironmentName);
 
-            return new SqlConnection(connectionString);
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+
+            const string azureResource = "https://database.windows.net/";
+
+            return (environmentName.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase) ||
+                   environmentName.Equals("DEV", StringComparison.CurrentCultureIgnoreCase))
+                ? new SqlConnection(connectionString)
+                : new SqlConnection
+                {
+                    ConnectionString = connectionString,
+                    AccessToken = azureServiceTokenProvider.GetAccessTokenAsync(azureResource).Result
+                };
+            
         }
 
         public async Task<T> ExecuteWithRetryAsync<T>(string operationName, Func<SqlConnection, Task<T>> asyncFunc)
