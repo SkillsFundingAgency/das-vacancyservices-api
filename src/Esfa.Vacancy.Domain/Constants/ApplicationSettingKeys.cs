@@ -18,5 +18,6 @@
         public const string RecruitMongoCollectionName = "recruitmongocollectionname";
         public const string CoursesApiBaseUrl = "coursesApiBaseUrl";
         public const string CoursesApiIdentifierUri = "coursesApiIdentifierUri";
+        public const string EnvironmentName = "environmentName";
     }
 }
