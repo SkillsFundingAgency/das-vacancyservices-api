@@ -23,14 +23,14 @@ jobs:
       updateAssemblyInfo: true
 
   - task: SonarCloudPrepare@1
-      displayName: Prepare SonarCloud analysis configuration
-      condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/master', 'refs/heads/main'), eq(variables['Build.Reason'], 'PullRequest')))
-      inputs:
-        SonarCloud: ESFA - SonarCloud
-        organization: $(SonarCloudOrganisationKey)
-        scannerMode: MSBuild
-        projectName: "$(Build.DefinitionName)"
-        projectKey: SkillsFundingAgency_das-vacancyservices-api
+    displayName: Prepare SonarCloud analysis configuration
+    condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/master', 'refs/heads/main'), eq(variables['Build.Reason'], 'PullRequest')))
+    inputs:
+      SonarCloud: ESFA - SonarCloud
+      organization: $(SonarCloudOrganisationKey)
+      scannerMode: MSBuild
+      projectName: "$(Build.DefinitionName)"
+      projectKey: SkillsFundingAgency_das-vacancyservices-api
 
   - task: NuGetInstaller@2
     displayName: 'NuGet restore' 
