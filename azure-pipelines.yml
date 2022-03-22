@@ -2,79 +2,17 @@ trigger:
   batch: true
   branches:
     include:
-      - "*"
+      - "master"
 
-pr: none
+resources:
+  repositories:
+  - repository: das-platform-building-blocks
+    type: github
+    name: SkillsFundingAgency/das-platform-building-blocks
+    ref: refs/tags/0.4.37
+    endpoint: SkillsFundingAgency
 
-workspace:
-  clean: all
-
-variables:
-  buildConfiguration: 'release'
-  buildPlatform: 'any cpu'
-  solution: 'src/Esfa.Vacancy.Api.sln'
-
-pool:
-  name: 'DAS - Continuous Integration'
-  demands: 
-  - Agent.OS -equals Windows_NT
-
-steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: GitVersion
-  inputs:
-    updateAssemblyInfo: true
-
-- task: NuGetInstaller@2
-  displayName: 'NuGet restore' 
-  inputs:
-    solution: '$(solution)'
-
-- task: VSBuild@1
-  displayName: 'Build solution'
-  inputs:
-    solution: '$(solution)'
-    vsVersion: 15.0
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-    clean: true
-
-- task: VSBuild@1
-  displayName: 'Package Register API'
-  inputs:
-    solution: 'src/Esfa.Vacancy.Manage.Api/Esfa.Vacancy.Manage.Api.csproj'
-    vsVersion: 15.0
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
-    platform: 'anycpu'
-    configuration: '$(BuildConfiguration)'
-    clean: true
-
-- task: VSBuild@1
-  displayName: 'Package Manage API'
-  inputs:
-    solution: 'src/Esfa.Vacancy.Register.Api/Esfa.Vacancy.Register.Api.csproj'
-    vsVersion: 15.0
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
-    platform: 'anycpu'
-    configuration: '$(BuildConfiguration)'
-    clean: true
-
-- task: VSTest@2
-  displayName: 'Test Assemblies'
-  inputs:
-    testAssemblyVer2: '**/bin/**/*UnitTests.dll'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  inputs:
-    Contents: |
-      azure/**
-      integration-tests/**
-    TargetFolder: '$(build.artifactstagingdirectory)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+stages:
+- stage: Build
+  jobs:
+  - template: pipeline-templates/job/code-build.yml
